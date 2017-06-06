@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace SummerProject
 {
@@ -11,6 +13,7 @@ namespace SummerProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D tex; 
         
         public Game1()
         {
@@ -39,7 +42,9 @@ namespace SummerProject
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            tex = Content.Load<Texture2D>("neb");
+            Song snd = Content.Load<Song>("starfox");
+            MediaPlayer.Play(snd);
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,7 +81,14 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.OrangeRed);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            Color c = Color.Black;
+            if ((int)gameTime.TotalGameTime.TotalMilliseconds % 706 < 353)
+                c = Color.LightGray;
+            spriteBatch.Draw(tex, new Rectangle(0, 0, 1920, 1080), Color.White);
+            spriteBatch.DrawString(Content.Load<SpriteFont>("testFont"), "THIS IS IT, BOYS!", new Vector2(130, 200), c);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
