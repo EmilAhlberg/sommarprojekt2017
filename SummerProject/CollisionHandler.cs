@@ -30,7 +30,7 @@ namespace SummerProject
         {
             if (c1.IsStatic)
                 MoveObject(c2, c1);
-            else
+            else if (c1.IsStatic)
                 MoveObject(c1, c2);
         }
 

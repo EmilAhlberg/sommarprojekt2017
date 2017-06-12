@@ -16,7 +16,7 @@ namespace SummerProject
         private Player player;
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
-            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+            : base(sprite.spriteRect.Width, sprite.spriteRect.Width) //CHANGE TO HEIGHT LATER :)
         {
             Position = position;
             this.player = player;

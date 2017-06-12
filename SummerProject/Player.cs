@@ -16,7 +16,7 @@ namespace SummerProject
         private int reloadTime = 1000;
         private const float speed = 5f;
         public Player(Vector2 position, Sprite sprite )
-            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+            : base(sprite.spriteRect.Width, sprite.spriteRect.Width) //CHANGE TO HEIGHT LATER :)
         {
             Position = position;
             this.sprite = sprite;
