@@ -15,7 +15,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
-        ColissionHandler colhandl;
+        CollisionHandler colhandl;
 
         public TestGame()
         {
