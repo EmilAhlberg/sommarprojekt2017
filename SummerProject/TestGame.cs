@@ -15,7 +15,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
-        ColissionHandler colhandl;
+        CollisionHandler colhandl;
 
         public TestGame()
         {
@@ -47,7 +47,7 @@ namespace SummerProject
             Texture2D text = Content.Load<Texture2D>("Player");
             player = new Player(new Vector2(100, 100), new Sprite(text));
             wall = new Wall(new Vector2(300, 300), new Sprite(text));
-            colhandl = new ColissionHandler();
+            colhandl = new CollisionHandler();
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,7 +71,7 @@ namespace SummerProject
                 Exit();
             player.Update();
             // TODO: Add your update logic here
-            colhandl.CheckColissions(player, wall);
+            colhandl.CheckCollisions(player, wall);
 
             base.Update(gameTime);
         }

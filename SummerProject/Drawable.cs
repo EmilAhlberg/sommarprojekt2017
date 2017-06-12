@@ -8,18 +8,25 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    class Wall : Drawable
+    class Drawable : Collidable
     {
+        protected float angle = 0;
         private Sprite sprite;
-
-        public Wall(Vector2 position, Sprite sprite)
-             : base(position, sprite)
+        public Drawable(Vector2 position, Sprite sprite) : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
-            Position = position;
             this.sprite = sprite;
-            IsStatic = true;
         }
+        protected void CalculateAngle(float dX, float dY)
+        {
+            if (dX != 0)
+            {
+                angle = (float)Math.Atan(dY / dX);
+            }
+            if (dX > 0)
+                angle += (float)Math.PI;
 
+            angle = angle % (2 * (float)Math.PI);
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             sprite.position = Position;

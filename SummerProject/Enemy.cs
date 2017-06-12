@@ -9,14 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Enemy : Collidable
+    class Enemy : Drawable
     {
-        private float angle = 0;
         private Sprite sprite;
         private Player player;
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
-            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+            : base(position, sprite)
         {
             Position = position;
             this.player = player;
@@ -35,14 +34,7 @@ namespace SummerProject
         {
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
-            if (dX != 0)
-            {
-                angle = (float)Math.Atan(dY / dX);
-            }
-            if (dX > 0)
-                angle += (float)Math.PI;
-
-            angle = angle % (2 * (float)Math.PI);
+            base.CalculateAngle(dX, dY);
         }
 
         private void Move()
