@@ -16,11 +16,11 @@ namespace SummerProject
         private int reloadTime = 1000;
         private const float speed = 5f;
         public Player(Vector2 position, Sprite sprite )
+            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             Position = position;
             this.sprite = sprite;
             sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
 
         public void Update()
@@ -62,7 +62,6 @@ namespace SummerProject
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), BoundBox.Width, BoundBox.Height);
         }
        
 
