@@ -17,6 +17,7 @@ namespace SummerProject
         {
             Position = position;
             this.sprite = sprite;
+            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
             IsStatic = true;
         }
 
