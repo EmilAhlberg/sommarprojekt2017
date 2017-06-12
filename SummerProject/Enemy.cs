@@ -9,18 +9,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Enemy : Collidable
+    class Enemy : Drawable
     {
-        private float angle = 0;
         private Sprite sprite;
         private Player player;
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
+            : base(position, sprite)
         {
             Position = position;
             this.player = player;
             this.sprite = sprite;
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
+            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
+     
         }
 
         public void Update()
@@ -33,20 +34,12 @@ namespace SummerProject
         {
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
-            if (dX != 0)
-            {
-                angle = (float)Math.Atan(dY / dX);
-            }
-            if (dX > 0)
-                angle += (float)Math.PI;
-
-            angle = angle % (2 * (float)Math.PI);
+            base.CalculateAngle(dX, dY);
         }
 
         private void Move()
         {
             Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), BoundBox.Width, BoundBox.Height);
         }
 
 
@@ -56,6 +49,6 @@ namespace SummerProject
             sprite.rotation = angle;
             sprite.Draw(spriteBatch);
         }
-
+ 
     }
 }

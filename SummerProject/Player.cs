@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Player : Collidable
+    class Player : Drawable
     {
-        private float angle = 0;
         private Sprite sprite;
         private int reloadTime = 1000;
+        private const float speed = 5f;
         public Player(Vector2 position, Sprite sprite )
-            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+            : base(position, sprite)
         {
             Position = position;
             this.sprite = sprite;
@@ -31,35 +31,28 @@ namespace SummerProject
         private void CalculateAngle()
         {            
             float dX = Position.X - Mouse.GetState().X;
-            float dY = Position.Y - Mouse.GetState().Y;   
-            if (dX != 0)
-            {
-                angle = (float)Math.Atan(dY / dX);
-            }               
-            if (dX > 0)
-                angle += (float)Math.PI;
-            
-            angle = angle % (2*(float)Math.PI);
+            float dY = Position.Y - Mouse.GetState().Y;
+            base.CalculateAngle(dX, dY);
         }
 
         private void Move()
         {            
             KeyboardState ks = Keyboard.GetState();
-            if (ks.IsKeyDown(Keys.Down))
+            if (ks.IsKeyDown(Keys.S))
             {
-                Position = new Vector2(Position.X - (float)Math.Cos(angle), Position.Y - (float)Math.Sin(angle));
+                Position = new Vector2(Position.X - (float)Math.Cos(angle) * speed, Position.Y - (float)Math.Sin(angle) * speed);
             }
-            if (ks.IsKeyDown(Keys.Up))
+            if (ks.IsKeyDown(Keys.W))
             {
-                Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
+                Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
             }
-            if (ks.IsKeyDown(Keys.Left))
+            if (ks.IsKeyDown(Keys.A))
             {
-                Position = new Vector2(Position.X + (float)Math.Cos(angle - Math.PI / 2), Position.Y + (float)Math.Sin(angle - Math.PI / 2));
+                Position = new Vector2(Position.X + (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y + (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
-            if (ks.IsKeyDown(Keys.Right))
+            if (ks.IsKeyDown(Keys.D))
             {
-                Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2), Position.Y - (float)Math.Sin(angle - Math.PI / 2));
+                Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
         }
        

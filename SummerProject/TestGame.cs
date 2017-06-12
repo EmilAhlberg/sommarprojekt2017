@@ -15,6 +15,8 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
+        Enemy enemy;
+
         CollisionHandler colhandl;
 
         public TestGame()
@@ -44,10 +46,13 @@ namespace SummerProject
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D text = Content.Load<Texture2D>("Player");
-            player = new Player(new Vector2(100, 100), new Sprite(text));
-            wall = new Wall(new Vector2(300, 300), new Sprite(text));
-            colhandl = new ColissionHandler();
+            Texture2D enemyTex = Content.Load<Texture2D>("enemy");
+            Texture2D shipTex = Content.Load<Texture2D>("ship");
+            Texture2D wallTex = Content.Load<Texture2D>("wall");
+            player = new Player(new Vector2(100, 100), new Sprite(shipTex));
+            enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
+            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
+            colhandl = new CollisionHandler();
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,8 +75,8 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update();
-            // TODO: Add your update logic here
-            colhandl.CheckColissions(player, wall);
+            enemy.Update();
+            colhandl.CheckCollisions(player, wall, enemy);
 
             base.Update(gameTime);
         }
@@ -86,6 +91,7 @@ namespace SummerProject
             spriteBatch.Begin();
             player.Draw(spriteBatch);
             wall.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
