@@ -9,6 +9,9 @@ namespace SummerProject
 {
     public abstract class Collidable
     {
-        public Rectangle BoundBox {protected set; get;}
+        public Vector2 PrevPos { get; set; }
+        public Rectangle BoundBox { get; set; }
+        public Vector2 Position { get; set; }
+        public bool IsStatic { get; set; }
     }
 }
