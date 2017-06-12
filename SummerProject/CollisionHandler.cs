@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    class ColissionHandler
+    class CollisionHandler
     {
-        public void CheckColissions(params Collidable[] list)
+        public void CheckCollisions(params Collidable[] list)
         {
             foreach (Collidable c1 in list)
             {

@@ -13,11 +13,13 @@ namespace SummerProject
     {
         private float angle = 0;
         private Sprite sprite;
-        public Player(Vector2 position, Sprite sprite)
+        private int reloadTime = 1000;
+        public Player(Vector2 position, Sprite sprite )
             : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
-     
+            Position = position;
             this.sprite = sprite;
+            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
         }
 
         public void Update()
@@ -43,9 +45,6 @@ namespace SummerProject
         private void Move()
         {            
             KeyboardState ks = Keyboard.GetState();
-            float dX = 0;
-            float dY = 0;
-
             if (ks.IsKeyDown(Keys.Down))
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle), Position.Y - (float)Math.Sin(angle));
