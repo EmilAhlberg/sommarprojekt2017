@@ -14,11 +14,12 @@ namespace SummerProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        Projectiles projectiles;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -44,7 +45,9 @@ namespace SummerProject
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D text = Content.Load<Texture2D>("Player");
+            Texture2D bullet = Content.Load<Texture2D>("Player");
             player = new Player(new Vector2(100, 100), new Sprite(text));
+            projectiles = new Projectiles(new Sprite(bullet));
             // TODO: use this.Content to load your game content here
         }
 
@@ -65,9 +68,11 @@ namespace SummerProject
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+                Exit(); 
             player.Update();
-            // TODO: Add your update logic here
+            projectiles.Update();            
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                projectiles.Fire(player.Position, new Vector2 (Mouse.GetState().X, Mouse.GetState().Y));
 
             base.Update(gameTime);
         }
@@ -81,6 +86,7 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.OrangeRed);
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            projectiles.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 

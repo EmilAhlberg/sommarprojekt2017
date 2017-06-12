@@ -12,8 +12,7 @@ namespace SummerProject
     class Player : Collidable
     {
         private float angle = 0;
-        private Sprite sprite;
-        private int reloadTime = 1000;
+        private Sprite sprite;     
         public Player(Vector2 position, Sprite sprite )
         {
             Position = position;
