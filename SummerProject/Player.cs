@@ -45,21 +45,22 @@ namespace SummerProject
             KeyboardState ks = Keyboard.GetState();
             float dX = 0;
             float dY = 0;
+
             if (ks.IsKeyDown(Keys.Down))
             {
-                Position = new Vector2(Position.X, Position.Y + 5);
+                Position = new Vector2(Position.X - (float)Math.Sin(angle), Position.Y - (float)Math.Cos(angle));
             }
             if (ks.IsKeyDown(Keys.Up))
             {
-                Position = new Vector2(Position.X, Position.Y - 5);
+                Position = new Vector2(Position.X + (float)Math.Sin(angle), Position.Y + (float)Math.Cos(angle));
             }
             if (ks.IsKeyDown(Keys.Left))
             {
-                Position = new Vector2(Position.X - 5, Position.Y);
+                Position = new Vector2(Position.X + (float)Math.Sin(angle-Math.PI/2), Position.Y + (float)Math.Sin(angle - Math.PI / 2));
             }
             if (ks.IsKeyDown(Keys.Right))
             {
-                Position = new Vector2(Position.X + 5, Position.Y);
+                Position = new Vector2(Position.X - (float)Math.Sin(angle - Math.PI / 2), Position.Y - (float)Math.Sin(angle - Math.PI / 2));
             }
             BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), BoundBox.Width, BoundBox.Height);
         }
