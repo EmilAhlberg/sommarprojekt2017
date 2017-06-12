@@ -11,7 +11,6 @@ namespace SummerProject
 {
     class Enemy : Drawable
     {
-        private Sprite sprite;
         private Player player;
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
@@ -19,8 +18,6 @@ namespace SummerProject
         {
             Position = position;
             this.player = player;
-            this.sprite = sprite;
-            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
      
         }
 
@@ -43,12 +40,5 @@ namespace SummerProject
         }
 
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            sprite.position = Position;
-            sprite.rotation = angle;
-            sprite.Draw(spriteBatch);
-        }
- 
     }
 }

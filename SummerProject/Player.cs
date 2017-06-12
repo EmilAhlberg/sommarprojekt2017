@@ -11,15 +11,13 @@ namespace SummerProject
 {
     class Player : Drawable
     {
-        private Sprite sprite;
         private int reloadTime = 1000;
         private const float speed = 5f;
         public Player(Vector2 position, Sprite sprite )
             : base(position, sprite)
         {
             Position = position;
-            this.sprite = sprite;
-            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
+            
         }
 
         public void Update()
@@ -55,14 +53,7 @@ namespace SummerProject
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
         }
-       
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            sprite.position = Position;
-            sprite.rotation = angle;
-            sprite.Draw(spriteBatch);
-        }
+      
             
     }
 }

@@ -8,50 +8,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class Bullet : Collidable
+    class Bullet : Drawable
     {        
         private Sprite sprite;
-        private float angle;
-        public Boolean isActive {get; set;}
-        public Bullet( Sprite sprite)
+        public bool isActive {get; set;}
+        public Bullet( Sprite sprite) : base(Vector2.Zero, sprite)
         {
-            this.sprite = sprite;           
+            this.sprite = sprite;        
         }
 
         public void Update()
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y +(float) Math.Sin(angle));            
+            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float) Math.Sin(angle));            
         }
 
         public void Activate(Vector2 source, Vector2 target)
         {
             Position = source;
-            calculateAngle(target);
-            isActive = true;
-        }
-        //
-        // CalculateAngle duplicated in Player.
-        //
-        private void calculateAngle(Vector2 target)
-        {
             float dX = Position.X - target.X;
             float dY = Position.Y - target.Y;
-            if (dX != 0)
-            {
-                angle = (float)Math.Atan(dY / dX);
-            }
-            if (dX > 0)
-                angle += (float)Math.PI;
-
-            angle = angle % (2 * (float)Math.PI);
+            CalculateAngle(dX, dY);
+            isActive = true;
         }
-        
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            sprite.position = Position;            
-            sprite.Draw(spriteBatch);
-        }
-
     }
 }

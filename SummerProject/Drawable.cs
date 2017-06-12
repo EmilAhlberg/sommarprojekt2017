@@ -15,6 +15,7 @@ namespace SummerProject
         public Drawable(Vector2 position, Sprite sprite) : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             this.sprite = sprite;
+            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
         }
         protected void CalculateAngle(float dX, float dY)
         {
