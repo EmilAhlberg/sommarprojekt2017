@@ -57,7 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-
+    <Compile Include="Collidable.cs" />
     <Compile Include="Sprite.cs" />
 
     <Compile Include="Player.cs" />
