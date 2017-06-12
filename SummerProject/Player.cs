@@ -9,27 +9,27 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Player
+    class Player : Collidable
     {
-        private Vector2 position;
         private float angle = 0;
         private Sprite sprite;
         public Player(Vector2 position, Sprite sprite )
         {
-            this.position = position;
+            Position = position;
             this.sprite = sprite;
+            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
 
         public void Update()
         {
-            CalculateAngle();
+            //CalculateAngle();
             Move();           
         }
 
         private void CalculateAngle()
         {            
-            float dX = position.X - Mouse.GetState().X;
-            float dY = position.Y - Mouse.GetState().Y;   
+            float dX = Position.X - Mouse.GetState().X;
+            float dY = Position.Y - Mouse.GetState().Y;   
             if (dX != 0)
             {
                 angle = (float)Math.Atan(dY / dX);
@@ -47,26 +47,27 @@ namespace SummerProject
             float dY = 0;
             if (ks.IsKeyDown(Keys.Down))
             {
-                position.Y += 1.0f;
+                Position = new Vector2(Position.X, Position.Y + 5);
             }
             if (ks.IsKeyDown(Keys.Up))
             {
-                position.Y -= 1.0f;
+                Position = new Vector2(Position.X, Position.Y - 5);
             }
             if (ks.IsKeyDown(Keys.Left))
             {
-                position.X -= 1.0f;
+                Position = new Vector2(Position.X - 5, Position.Y);
             }
             if (ks.IsKeyDown(Keys.Right))
             {
-                position.X += 1.0f;
+                Position = new Vector2(Position.X + 5, Position.Y);
             }
+            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), BoundBox.Width, BoundBox.Height);
         }
        
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.position = position;
+            sprite.position = Position;
             sprite.rotation = angle;
             sprite.Draw(spriteBatch);
         }
