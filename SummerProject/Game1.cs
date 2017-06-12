@@ -14,6 +14,7 @@ namespace SummerProject
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        Enemy enemy;
 
         public Game1()
         {
@@ -45,6 +46,7 @@ namespace SummerProject
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D text = Content.Load<Texture2D>("Player");
             player = new Player(new Vector2(100, 100), new Sprite(text));
+            enemy = new Enemy(new Vector2(500, 500), new Sprite(text), player);
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,6 +69,7 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update();
+            enemy.Update();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -81,6 +84,7 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.OrangeRed);
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
