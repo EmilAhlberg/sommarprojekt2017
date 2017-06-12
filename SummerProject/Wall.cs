@@ -14,10 +14,10 @@ namespace SummerProject
         private Sprite sprite;
 
         public Wall(Vector2 position, Sprite sprite)
+             : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             Position = position;
             this.sprite = sprite;
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
             IsStatic = true;
         }
 

@@ -13,11 +13,11 @@ namespace SummerProject
     {
         private float angle = 0;
         private Sprite sprite;
-        public Player(Vector2 position, Sprite sprite )
+        public Player(Vector2 position, Sprite sprite)
+            : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
-            Position = position;
+     
             this.sprite = sprite;
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
 
         public void Update()
@@ -62,7 +62,6 @@ namespace SummerProject
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2), Position.Y - (float)Math.Sin(angle - Math.PI / 2));
             }
-            BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), BoundBox.Width, BoundBox.Height);
         }
        
 

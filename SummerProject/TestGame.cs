@@ -13,6 +13,9 @@ namespace SummerProject
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
+        Wall wall;
+        ColissionHandler colhandl;
 
         public TestGame()
         {
@@ -29,7 +32,7 @@ namespace SummerProject
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -41,7 +44,10 @@ namespace SummerProject
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Texture2D text = Content.Load<Texture2D>("Player");
+            player = new Player(new Vector2(100, 100), new Sprite(text));
+            wall = new Wall(new Vector2(300, 300), new Sprite(text));
+            colhandl = new ColissionHandler();
             // TODO: use this.Content to load your game content here
         }
 
@@ -63,8 +69,9 @@ namespace SummerProject
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            player.Update();
             // TODO: Add your update logic here
+            colhandl.CheckColissions(player, wall);
 
             base.Update(gameTime);
         }
@@ -76,7 +83,10 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.OrangeRed);
-
+            spriteBatch.Begin();
+            player.Draw(spriteBatch);
+            wall.Draw(spriteBatch);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
