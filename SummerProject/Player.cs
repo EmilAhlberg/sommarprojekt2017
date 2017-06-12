@@ -22,7 +22,7 @@ namespace SummerProject
 
         public void Update()
         {
-            //CalculateAngle();
+            CalculateAngle();
             Move();           
         }
 
