@@ -45,21 +45,26 @@ namespace SummerProject
             KeyboardState ks = Keyboard.GetState();
             float dX = 0;
             float dY = 0;
+
             if (ks.IsKeyDown(Keys.Down))
             {
-                position.Y += 1.0f;
+                position.Y -= 1.0f * (float)Math.Sin(angle);
+                position.X -= 1.0f * (float)Math.Cos(angle);
             }
             if (ks.IsKeyDown(Keys.Up))
             {
-                position.Y -= 1.0f;
+                position.Y += 1.0f * (float)Math.Sin(angle);
+                position.X += 1.0f * (float)Math.Cos(angle);
             }
             if (ks.IsKeyDown(Keys.Left))
             {
-                position.X -= 1.0f;
+                position.Y += 1.0f * (float)Math.Sin(angle-Math.PI/2);
+                position.X += 1.0f * (float)Math.Cos(angle-Math.PI/2);
             }
             if (ks.IsKeyDown(Keys.Right))
             {
-                position.X += 1.0f;
+                position.Y -= 1.0f * (float)Math.Sin(angle - Math.PI/2);
+                position.X -= 1.0f * (float)Math.Cos(angle - Math.PI/2);
             }
         }
        
