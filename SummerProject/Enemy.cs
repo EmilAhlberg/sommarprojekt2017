@@ -20,6 +20,7 @@ namespace SummerProject
             Position = position;
             this.player = player;
             this.sprite = sprite;
+            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
             BoundBox = new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
 

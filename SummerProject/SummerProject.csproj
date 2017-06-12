@@ -57,8 +57,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ColissionHandler.cs" />
     <Compile Include="Collidable.cs" />
+    <Compile Include="CollisionHandler.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="TestGame.cs" />
