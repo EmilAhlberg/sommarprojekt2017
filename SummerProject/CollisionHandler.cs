@@ -30,9 +30,10 @@ namespace SummerProject
         {
             if (c1.IsStatic)
                 MoveObject(c2, c1);
-            else
+            else if (c1.IsStatic)
                 MoveObject(c1, c2);
         }
+
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
         {
             Vector2 backVect = c1.PrevPos - c1.Position;
@@ -40,10 +41,8 @@ namespace SummerProject
             backVect *= 0.2f;
             while (c1.BoundBox.Intersects(c2.BoundBox))
             {
-                c1.Position += backVect;
-                c1.BoundBox = new Rectangle((int)Math.Round(c1.Position.X), (int)Math.Round(c1.Position.Y), c1.BoundBox.Width, c1.BoundBox.Height);
+                c1.Position += backVect;           
             }
-            
         }
     }
 }

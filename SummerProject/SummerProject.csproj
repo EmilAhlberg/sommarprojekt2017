@@ -61,6 +61,8 @@
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="Projectiles.cs" />
+    <Compile Include="Drawable.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="TestGame.cs" />

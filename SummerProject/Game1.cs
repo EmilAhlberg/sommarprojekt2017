@@ -15,6 +15,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Projectiles projectiles;
+        Enemy enemy;
 
         public Game1()
         {
@@ -47,6 +48,7 @@ namespace SummerProject
             Texture2D text = Content.Load<Texture2D>("Player");
             Texture2D bullet = Content.Load<Texture2D>("Player");
             player = new Player(new Vector2(100, 100), new Sprite(text));
+            enemy = new Enemy(new Vector2(500, 500), new Sprite(text), player);
             projectiles = new Projectiles(new Sprite(bullet));
             // TODO: use this.Content to load your game content here
         }
@@ -70,6 +72,8 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit(); 
             player.Update();
+            enemy.Update();
+            // TODO: Add your update logic here
             projectiles.Update();            
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 projectiles.Fire(player.Position, new Vector2 (Mouse.GetState().X, Mouse.GetState().Y));
@@ -87,6 +91,7 @@ namespace SummerProject
             spriteBatch.Begin();
             player.Draw(spriteBatch);
             projectiles.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
