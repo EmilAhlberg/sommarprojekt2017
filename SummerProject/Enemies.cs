@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
@@ -25,7 +26,7 @@ namespace SummerProject
         {
             for (int i = 0; i < num; i++)
             {
-                AddEnemy(new Enemy(new Vector2(0, 0), sprite, player));
+                AddEnemy(new Enemy(new Vector2(-5000, -5000), sprite, player));
             }
         }
         public void AddEnemy(Enemy enemy)
@@ -50,8 +51,10 @@ namespace SummerProject
             }
             spawnDelay -= (float)gt.ElapsedGameTime.TotalSeconds;
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                Spawn(new Vector2(250, 250), gameTime);
             foreach (Enemy e in enemyList)
             {
                 if (e.isActive)

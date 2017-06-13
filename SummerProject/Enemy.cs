@@ -23,15 +23,26 @@ namespace SummerProject
         {
             Position = position;
             this.player = player;
-            speed = startSpeed;
+            Speed = startSpeed;
             health = 10; //!
             Damage = 2; //!
         }
 
         public void Update()
         {
-            CalculateAngle();
-            Move();
+            if (health < 1)
+                Death();
+            else
+            {
+                CalculateAngle();
+                Move();
+            }
+        }
+        public void Death()
+        {
+            isActive = false;
+            Position = new Vector2(-5000, -5000); //!
+            health = 10; //!
         }
 
         private void CalculateAngle()
@@ -39,11 +50,6 @@ namespace SummerProject
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
             base.CalculateAngle(dX, dY);
-        }
-
-        protected override void Move()
-        {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }
 
         public override void collision(Collidable c2)

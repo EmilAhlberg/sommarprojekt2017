@@ -21,7 +21,7 @@ namespace SummerProject
             Position = position;
             this.projectiles = projectiles;
             
-            speed = startSpeed;
+            Speed = startSpeed;
         }
 
         public void Update(GameTime gameTime)
@@ -55,20 +55,38 @@ namespace SummerProject
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.S))
             {
-                Position = new Vector2(Position.X - (float)Math.Cos(angle) * speed, Position.Y - (float)Math.Sin(angle) * speed);
+                Position = new Vector2(Position.X - (float)Math.Cos(angle) * Speed, Position.Y - (float)Math.Sin(angle) * Speed);
             }
             if (ks.IsKeyDown(Keys.W))
             {
-                Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
+                Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed);
             }
             if (ks.IsKeyDown(Keys.A))
             {
-                Position = new Vector2(Position.X + (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y + (float)Math.Sin(angle - Math.PI / 2) * speed);
+                Position = new Vector2(Position.X + (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y + (float)Math.Sin(angle - Math.PI / 2) * Speed);
             }
             if (ks.IsKeyDown(Keys.D))
             {
-                Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
+                Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * Speed);
             }
+            //if (ks.IsKeyDown(Keys.A))
+            //{
+            //    angle = angle - 0.1f;
+            //}
+            //if (ks.IsKeyDown(Keys.D))
+            //{
+            //    angle = angle + 0.1f;
+            //}
+            //if (ks.IsKeyDown(Keys.S))
+            //{
+            //    Speed = -Speed;
+            //    base.Move();
+            //    Speed = -Speed;
+            //}
+            //if (ks.IsKeyDown(Keys.W))
+            //{
+            //    base.Move();
+            //}
         }
 
         public override void collision(Collidable c2)
