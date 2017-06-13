@@ -28,9 +28,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            Fire();
-            projectiles.Update(gameTime);          
-
+            Fire();                     
         }
 
         private void Fire()
@@ -87,6 +85,7 @@ namespace SummerProject
 
         public override void collision(Collidable c2)
         {
+
         }
     }
 }
