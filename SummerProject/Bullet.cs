@@ -39,6 +39,10 @@ namespace SummerProject
 
         public override void collision(Collidable c2)
         {
+            if(c2 is Enemy || c2 is Wall)
+            {
+                isActive = false;
+            }
         }
     }
 }

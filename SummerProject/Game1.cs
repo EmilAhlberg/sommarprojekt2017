@@ -82,8 +82,7 @@ namespace SummerProject
             projectiles.Update();
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-            colhandl.CheckCollisions(player, wall, enemy);
-
+            colhandl.CheckCollisions(projectiles.projectiles.ToArray(), player, wall, enemy);
 
             base.Update(gameTime);
         }
