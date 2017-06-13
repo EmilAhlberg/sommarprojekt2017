@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Player : Collidable
+    class Player : Collidable, IKillable
     {
         private const float startSpeed = 5f; //-!
-        private int health = 10; //!
+        public int health { get; set; } = 10; //!
+
         private Projectiles projectiles;
 
         public Player(Vector2 position, Sprite sprite, Projectiles projectiles)
@@ -34,7 +35,6 @@ namespace SummerProject
             {
                 Death();
             }     
-
         }
 
         private void Fire()

@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Enemy : Collidable
+    class Enemy : Collidable, IKillable
     {
         private const float startSpeed = 0.5f; //-!
         private Player player;
+
 
         public int health { get; set; }
         public bool isActive { get; set; }
