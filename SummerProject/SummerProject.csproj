@@ -57,6 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="collidables\BulletTest.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="CollisionHandler.cs" />
