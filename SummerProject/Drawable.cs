@@ -10,7 +10,7 @@ namespace SummerProject
 {
     public class Drawable
     {
-        protected Vector2 position;
+        public virtual Vector2 Position { set; get; }
         protected Sprite sprite;
         protected float angle = 0;
 
@@ -33,7 +33,7 @@ namespace SummerProject
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.position = position;
+            sprite.position = Position;
             sprite.rotation = angle;
             sprite.Draw(spriteBatch);
         }

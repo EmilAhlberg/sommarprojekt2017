@@ -51,10 +51,14 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
-            player = new Player(new Vector2(100, 100), new Sprite(shipTex), new Sprite(shipTex));
-            Texture2D shotTex = Content.Load<Texture2D>("lazor");            
-            player = new Player(new Vector2(100, 100), new Sprite(shipTex));
+ 
+                 
             enemies = new Enemies(new Sprite(enemyTex), player, 100);
+            
+            Texture2D shotTex = Content.Load<Texture2D>("lazor");
+            projectiles = new Projectiles(new Sprite(shotTex));
+            player = new Player(new Vector2(100, 100), new Sprite(shipTex), projectiles);
+           
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
