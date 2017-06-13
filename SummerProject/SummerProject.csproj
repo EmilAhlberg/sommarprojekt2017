@@ -57,24 +57,23 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Projectile.cs" />
-    <Compile Include="Bullet.cs" />
+    <Compile Include="collidables\Projectile.cs" />
+    <Compile Include="collidables\Bullet.cs" />
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
-    <Compile Include="Enemies.cs" />
-    <Compile Include="ICollidable.cs" />
+    <Compile Include="factories\Enemies.cs" />
     <Compile Include="IKillable.cs" />
     <Compile Include="Movable.cs" />
-    <Compile Include="Projectiles.cs" />
+    <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="collidables\Enemy.cs" />
     <Compile Include="RotRectangle.cs" />
     <Compile Include="Sprite.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="collidables\Player.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="collidables\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
