@@ -10,7 +10,7 @@ namespace SummerProject
 {
     class Projectiles
     {
-        public List<Projectile> projectiles { get; private set; }
+        public List<Entity> projectiles { get; private set; }
         private int bulletCap;
         private Sprite sprite;
         private float reloadTimer = 1f;
@@ -20,7 +20,7 @@ namespace SummerProject
         public Projectiles(Sprite sprite)
         {
             this.sprite = sprite;
-            projectiles = new List<Projectile>();
+            projectiles = new List<Entity>();
             bulletCap = 10;
             initializeBullets();
         }
@@ -43,7 +43,7 @@ namespace SummerProject
 
         private void TryToShoot(Vector2 source, Vector2 target)
         {
-            foreach (Projectile p in projectiles)
+            foreach (Entity p in projectiles)
             {
                 if (!p.isActive)
                 {
@@ -57,7 +57,7 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             reloadTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            foreach (Projectile p in projectiles)
+            foreach (Entity p in projectiles)
             {
                 if (p.isActive)                
                     p.Update(gameTime);
@@ -66,7 +66,7 @@ namespace SummerProject
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (Projectile p in projectiles)
+            foreach (Entity p in projectiles)
             {
                 if(p.isActive)
                     p.Draw(spriteBatch, gameTime);

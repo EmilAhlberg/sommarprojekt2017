@@ -40,8 +40,7 @@ namespace SummerProject
             {
                 if (spawnDelay < 0 && !e.isActive)
                 {
-                    e.isActive = true;
-                    e.Position = pos;
+                    e.Activate(pos, player.Position);
                     spawnDelay = 0.5f;
                     break;
                 }
@@ -52,10 +51,11 @@ namespace SummerProject
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 Spawn(new Vector2(250, 250), gameTime);
+
             foreach (Enemy e in EnemyList)
             {
                 if (e.isActive)
-                    e.Update();
+                    e.Update(gameTime);
 
             }
         }

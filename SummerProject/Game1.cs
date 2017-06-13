@@ -19,12 +19,15 @@ namespace SummerProject
         Wall wall;
         Enemies enemies;
         Projectiles projectiles;
+        Sprite background;
 
         CollisionHandler colhandl;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             Content.RootDirectory = "Content";
         }
 
@@ -49,12 +52,13 @@ namespace SummerProject
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture2D backgroundTex = Content.Load<Texture2D>("background1");
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
             Texture2D shotTex = Content.Load<Texture2D>("lazor");
-
-            projectiles = new Projectiles(new Sprite(shotTex, 4));
+            background = new Sprite(backgroundTex);
+            projectiles = new Projectiles(new Sprite(shotTex));
             player = new Player(new Vector2(100, 100), new Sprite(shipTex), projectiles);
             enemies = new Enemies(new Sprite(enemyTex), player, 100);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
@@ -109,11 +113,13 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();           
-            player.Draw(spriteBatch, gameTime);
-            projectiles.Draw(spriteBatch, gameTime);
-            wall.Draw(spriteBatch, gameTime);
-            enemies.Draw(spriteBatch, gameTime);
+            spriteBatch.Begin();
+            background.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            projectiles.Draw(spriteBatch);
+            wall.Draw(spriteBatch);
+            enemies.Draw(spriteBatch);
+            projectiles.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
