@@ -10,7 +10,12 @@ namespace SummerProject
 {
     class Bullet : Collidable
     {        
-        public bool isActive {get; set;}
+        //private Sprite sprite;
+        private float despawnTimer = 0f;
+        private const float despawnTime = 7f;
+        public bool isActive {get; set;}     
+
+              
         public int Damage { get; set; }
         public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
@@ -18,9 +23,21 @@ namespace SummerProject
             Damage = 1; //!   
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float) Math.Sin(angle));            
+            UpdateTimer(gameTime);
+            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
+        }
+
+        private void UpdateTimer(GameTime gameTime)
+        {
+            if (isActive)
+                despawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (despawnTimer > despawnTime)
+            {
+                isActive = false;
+                despawnTimer = 0;
+            }
         }
 
         public void Activate(Vector2 source, Vector2 target)
@@ -34,7 +51,7 @@ namespace SummerProject
 
         protected override void Move()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void collision(Collidable c2)

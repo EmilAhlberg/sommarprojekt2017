@@ -12,17 +12,31 @@ namespace SummerProject
     class Player : Collidable
     {
         private const float startSpeed = 5f;
-        private int reloadTime = 1000;
-        public Player(Vector2 position, Sprite sprite ) : base(position, sprite)
+
+        private Projectiles projectiles;
+
+        public Player(Vector2 position, Sprite sprite, Projectiles projectiles)
+            : base(position, sprite)
         {
             Position = position;
+            this.projectiles = projectiles;
+            
             speed = startSpeed;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Move();           
+            Move();
+            Fire();
+            projectiles.Update(gameTime);          
+
+        }
+
+        private void Fire()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                projectiles.Fire(Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
         }
 
         private void CalculateAngle()
