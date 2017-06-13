@@ -11,12 +11,12 @@ namespace SummerProject
 {
     class Player : Collidable
     {
-        private const float startSpeed = 5f;
+        private const float startSpeed = 5f; //-!
         private int health = 10; //!
         private Projectiles projectiles;
 
         public Player(Vector2 position, Sprite sprite, Projectiles projectiles)
-            : base(position, sprite)
+            : base(position, sprite) 
         {
             Position = position;
             this.projectiles = projectiles;

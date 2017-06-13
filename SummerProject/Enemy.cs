@@ -11,7 +11,7 @@ namespace SummerProject
 {
     class Enemy : Collidable
     {
-        private const float startSpeed = 0.5f;
+        private const float startSpeed = 0.5f; //-!
         private Player player;
 
         public int health { get; set; }
