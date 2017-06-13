@@ -11,14 +11,15 @@ namespace SummerProject
 {
     class Enemy : Collidable
     {
+        private const float startSpeed = 0.5f;
         private Player player;
-        private float speed = 0.5f;
+
         public int health { get; set; }
-        public Enemy(Vector2 position, Sprite sprite, Player player)
-            : base(position, sprite)
+        public Enemy(Vector2 position, Sprite sprite, Player player) : base(position, sprite)
         {
             Position = position;
             this.player = player;
+            speed = startSpeed;
             health = 10; //!
         }
 

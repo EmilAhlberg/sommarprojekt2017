@@ -10,7 +10,6 @@ namespace SummerProject
 {
     class Bullet : Collidable
     {        
-        private Sprite sprite;
         public bool isActive {get; set;}
         public int Damage { get; set; }
         public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
