@@ -18,7 +18,7 @@ namespace SummerProject
 
         public void Update()
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float) Math.Sin(angle));            
+            Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }
 
         public void Activate(Vector2 source, Vector2 target)
