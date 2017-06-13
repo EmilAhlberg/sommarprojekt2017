@@ -13,11 +13,14 @@ namespace SummerProject
     {
         private const float startSpeed = 0.5f;
         private Player player;
+
+        public int health { get; set; }
         public Enemy(Vector2 position, Sprite sprite, Player player) : base(position, sprite)
         {
             Position = position;
             this.player = player;
             speed = startSpeed;
+            health = 10; //!
         }
 
         public void Update()
@@ -40,6 +43,11 @@ namespace SummerProject
 
         public override void collision(Collidable c2)
         {
+            if(c2 is Bullet)
+            {
+                Bullet b = c2 as Bullet;
+                health -= b.Damage;
+            }
         }
     }
 }
