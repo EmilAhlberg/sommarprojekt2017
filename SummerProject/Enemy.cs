@@ -28,8 +28,17 @@ namespace SummerProject
 
         public void Update()
         {
-            CalculateAngle();
-            Move();
+            if (health < 1)
+                Death();
+            else
+            {
+                CalculateAngle();
+                Move();
+            }
+        }
+        public void Death()
+        {
+            isActive = false;
         }
 
         private void CalculateAngle()
