@@ -32,6 +32,8 @@ namespace SummerProject
                 MoveObject(c2, c1);
             else if (c1.IsStatic)
                 MoveObject(c1, c2);
+            c1.collision(c2);
+            c2.collision(c1);
         }
 
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
@@ -42,7 +44,6 @@ namespace SummerProject
             backVect *= 0.2f;
             while (c1.BoundBox.Intersects(c2.BoundBox))
                 c1.Position += backVect;
-
             if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
                 c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
             else
