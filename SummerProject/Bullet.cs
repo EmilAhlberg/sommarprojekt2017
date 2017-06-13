@@ -11,12 +11,11 @@ namespace SummerProject
     class Bullet : Collidable
     {        
         //private Sprite sprite;
-        private float despawnTimer = 4f;
-        private const float despawnTime = 4f;
-        public bool isActive {get; set;}     
-
-              
+        private float despawnTimer = 7f;
+        private const float despawnTime = 7f;
+        public bool isActive {get; set;}  
         public int Damage { get; set; }
+
         public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
             this.sprite = sprite;

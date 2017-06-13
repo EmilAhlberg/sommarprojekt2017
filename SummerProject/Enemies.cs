@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
@@ -50,8 +51,10 @@ namespace SummerProject
             }
             spawnDelay -= (float)gt.ElapsedGameTime.TotalSeconds;
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                Spawn(new Vector2(250, 250), gameTime);
             foreach (Enemy e in enemyList)
             {
                 if (e.isActive)

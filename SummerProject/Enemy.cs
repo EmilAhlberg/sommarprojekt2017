@@ -49,11 +49,6 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        protected override void Move()
-        {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed);
-        }
-
         public override void collision(Collidable c2)
         {
             if(c2 is Bullet)
