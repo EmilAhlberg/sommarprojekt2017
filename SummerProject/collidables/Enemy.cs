@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.collidables;
 
 namespace SummerProject
 {
@@ -45,9 +46,9 @@ namespace SummerProject
        
         public override void Collision(Collidable c2)
         {
-            if (c2 is Bullet)
+            if (c2 is Projectile)
             {
-                Bullet b = c2 as Bullet;
+                Projectile b = c2 as Projectile;
                 Health -= b.Damage;
             }
             if (c2 is Player)
