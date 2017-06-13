@@ -11,12 +11,12 @@ namespace SummerProject
 {
     class Player : Collidable
     {
+        private const float startSpeed = 5f;
         private int reloadTime = 1000;
-        private const float speed = 5f;
         public Player(Vector2 position, Sprite sprite ) : base(position, sprite)
         {
             Position = position;
-            
+            speed = startSpeed;
         }
 
         public void Update()

@@ -9,9 +9,14 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
+        protected float speed {set; get;}
+
         public Movable(Vector2 position, Sprite sprite) : base(position, sprite) { }
 
-        protected void Move(int TODO) { }
+        protected void Move(int TODO)
+        {
+
+        }
 
         protected abstract void Move();
     }
