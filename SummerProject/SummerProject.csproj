@@ -57,6 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Ammunition.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />

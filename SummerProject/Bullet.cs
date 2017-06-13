@@ -13,9 +13,8 @@ namespace SummerProject
         //private Sprite sprite;
         private float despawnTimer = 0f;
         private const float despawnTime = 7f;
-        public bool isActive {get; set;}  
+        public bool isActive {get; set;}   
         public int Damage { get; set; }
-
         public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
             this.sprite = sprite;
@@ -32,7 +31,7 @@ namespace SummerProject
         {
             if (isActive)
                 despawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        
+            
             if (despawnTimer > despawnTime)
             {
                 isActive = false;
