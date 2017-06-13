@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -15,7 +16,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
-        Enemy enemy;
+        Enemies enemies;
         Projectiles projectiles;
 
         CollisionHandler colhandl;
@@ -51,7 +52,7 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
             player = new Player(new Vector2(100, 100), new Sprite(shipTex));
-            enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
+            enemies = new Enemies(new Sprite(enemyTex), player, 100);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
             projectiles = new Projectiles(new Sprite(shipTex));
@@ -77,11 +78,17 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update();
-            enemy.Update();
+            enemies.Update();
             projectiles.Update();
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-            colhandl.CheckCollisions(player, wall, enemy);
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                enemies.Spawn(new Vector2(250, 250), gameTime);
+            List<Enemy> enemyList = enemies.getEnemyList();
+            foreach (Enemy e in enemyList)
+            {
+                colhandl.CheckCollisions(player, wall, e);
+            }
 
 
             base.Update(gameTime);
@@ -97,7 +104,7 @@ namespace SummerProject
             spriteBatch.Begin();
             player.Draw(spriteBatch);
             wall.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
+            enemies.Draw(spriteBatch);
             projectiles.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here

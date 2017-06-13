@@ -12,6 +12,7 @@ namespace SummerProject
     class Enemy : Drawable
     {
         private Player player;
+        public bool isActive { get; set;}
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
             : base(position, sprite)
