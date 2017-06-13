@@ -50,11 +50,12 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
+            Texture2D shotTex = Content.Load<Texture2D>("lazor");
             player = new Player(new Vector2(100, 100), new Sprite(shipTex));
             enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
-            projectiles = new Projectiles(new Sprite(shipTex));
+            projectiles = new Projectiles(new Sprite(shotTex));
             // TODO: use this.Content to load your game content here
         }
 
@@ -95,10 +96,11 @@ namespace SummerProject
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+            projectiles.Draw(spriteBatch);
             player.Draw(spriteBatch);
             wall.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
-            projectiles.Draw(spriteBatch);
+            
             spriteBatch.End();
             // TODO: Add your drawing code here
 
