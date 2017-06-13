@@ -26,7 +26,7 @@ namespace SummerProject
 
         public void Update(GameTime gameTime)
         {
-            //CalculateAngle();
+            CalculateAngle();
             Move();
             Fire();                     
         }
