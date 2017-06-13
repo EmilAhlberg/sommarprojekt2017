@@ -13,7 +13,7 @@ namespace SummerProject
         [STAThread]
         static void Main()
         {
-            using (var game = new TestGame())
+            using (var game = new Game1())
                 game.Run();
         }
     }

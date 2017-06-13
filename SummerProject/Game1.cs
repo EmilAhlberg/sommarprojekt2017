@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -15,7 +16,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
-        Enemy enemy;
+        Enemies enemies;
         Projectiles projectiles;
 
         CollisionHandler colhandl;
@@ -50,12 +51,16 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
-            
+
             Texture2D shotTex = Content.Load<Texture2D>("lazor");
             projectiles = new Projectiles(new Sprite(shotTex));
+
             player = new Player(new Vector2(100, 100), new Sprite(shipTex), projectiles);
+            enemies = new Enemies(new Sprite(enemyTex), player, 100);
+            
+          
+            
            
-            enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
@@ -80,8 +85,22 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update(gameTime);
-            enemy.Update();            
-            colhandl.CheckCollisions(player, wall, enemy);
+            enemies.Update();
+            projectiles.Update(gameTime);
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                enemies.Spawn(new Vector2(250, 250), gameTime);
+            List<Collidable> collidableList = new List<Collidable>();
+            foreach(Collidable c in enemies.getEnemyList())
+            {
+                collidableList.Add(c);
+            }
+            foreach (Collidable c in projectiles.projectiles)
+            {
+                collidableList.Add(c);
+            }
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
 
             base.Update(gameTime);
         }
@@ -97,7 +116,8 @@ namespace SummerProject
             player.Draw(spriteBatch);
             projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);           
+            enemies.Draw(spriteBatch);
+            projectiles.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 

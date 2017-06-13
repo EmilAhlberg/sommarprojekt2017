@@ -60,6 +60,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
+    <Compile Include="Enemies.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="Projectiles.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="TestGame.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
