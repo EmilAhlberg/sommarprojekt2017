@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
+using System;
 
 namespace SummerProject
 {
@@ -85,14 +86,17 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update(gameTime);
-            enemies.Update();
+            enemies.Update(gameTime);
             projectiles.Update(gameTime);
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                enemies.Spawn(new Vector2(250, 250), gameTime);
+            HandleAllCollisions();       
+
+            base.Update(gameTime);
+        }
+
+        private void HandleAllCollisions()
+        {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach(Collidable c in enemies.getEnemyList())
+            foreach (Collidable c in enemies.getEnemyList())
             {
                 collidableList.Add(c);
             }
@@ -101,8 +105,6 @@ namespace SummerProject
                 collidableList.Add(c);
             }
             colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
-
-            base.Update(gameTime);
         }
 
         /// <summary>
