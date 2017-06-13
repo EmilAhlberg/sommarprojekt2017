@@ -52,7 +52,7 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
             player = new Player(new Vector2(100, 100), new Sprite(shipTex));
-            enemies = new Enemies(new Sprite(enemyTex), player, 100);
+            enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
             projectiles = new Projectiles(new Sprite(shipTex));
@@ -78,18 +78,8 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             player.Update();
-            enemies.Update();
-            projectiles.Update();
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                enemies.Spawn(new Vector2(250, 250), gameTime);
-            List<Enemy> enemyList = enemies.getEnemyList();
-            foreach (Enemy e in enemyList)
-            {
-                colhandl.CheckCollisions(player, wall, e);
-            }
-
+            enemy.Update();
+            colhandl.CheckCollisions(player, wall, enemy);
 
             base.Update(gameTime);
         }
@@ -103,6 +93,7 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            player.projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
             enemies.Draw(spriteBatch);
             projectiles.Draw(spriteBatch);
