@@ -20,7 +20,6 @@ namespace SummerProject
         {
             Position = position;
             projectiles = new Projectiles(projectileSprite);
-            
             speed = startSpeed;
         }
 
