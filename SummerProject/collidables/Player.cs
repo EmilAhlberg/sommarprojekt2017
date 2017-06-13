@@ -16,7 +16,7 @@ namespace SummerProject
 
         private Projectiles projectiles;
 
-        public Player(Vector2 position, Sprite sprite, Projectiles projectiles)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
             : base(position, sprite) 
         {
             Position = position;

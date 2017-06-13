@@ -19,7 +19,7 @@ namespace SummerProject
         public bool isActive { get; set; }
         public int Damage { get; private set;  } 
         private float speed = 0.5f;
-        public Enemy(Vector2 position, Sprite sprite, Player player)
+        public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
         {
             Position = position;

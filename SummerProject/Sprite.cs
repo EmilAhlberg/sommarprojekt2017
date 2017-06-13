@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public class Sprite
+    public class Sprite : ISprite
     {
         Texture2D texture;
-        public Rectangle spriteRect { get; private set; }
-        public Vector2 position { get; set; }
-        public float rotation { get; set; }
-        public Vector2 origin { get; set; }
+        public Rectangle SpriteRect { get; set; }
+        public Vector2 Position { get; set; }
+        public float Rotation { get; set; }
+        public Vector2 Origin { get; set; }
         public float scale { get; set; }
         public SpriteEffects spriteFX { get; set; }
         public float layerDepth { get; set; }
@@ -32,10 +32,10 @@ namespace SummerProject
             this.texture = texture;
             this.subimages = subimages;
             this.fps = fps;
-            spriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
-            position = Vector2.Zero;
-            rotation = 0;
-            origin = Vector2.Zero;
+            SpriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
+            Position = Vector2.Zero;
+            Rotation = 0;
+            Origin = Vector2.Zero;
             scale = 1f;
             spriteFX = SpriteEffects.None;
             layerDepth = 0;
@@ -44,17 +44,17 @@ namespace SummerProject
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
-            sb.Draw(texture, position, spriteRect, Color.White, rotation, origin, scale, spriteFX, layerDepth);
+            sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, scale, spriteFX, layerDepth);
         }
 
-        private void Animate(GameTime gameTime)
+        public void Animate(GameTime gameTime)
         {      
             currentFrame += (float)gameTime.ElapsedGameTime.TotalSeconds * fps;
             if((int)currentFrame > subimages-1)
             {
                 currentFrame = 0;
             }
-            spriteRect = new Rectangle((int)currentFrame * spriteRect.Width, 0, spriteRect.Width, spriteRect.Height);
+            SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
         }
     }
 }

@@ -28,9 +28,9 @@ namespace SummerProject
         }
         public bool IsStatic { get; set; }
 
-        public Collidable(Vector2 position, Sprite sprite) : base(position,sprite)
+        public Collidable(Vector2 position, ISprite sprite) : base(position,sprite)
         {
-            BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
+            BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height);
         }
 
         public abstract void Collision(Collidable c2);

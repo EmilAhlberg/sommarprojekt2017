@@ -11,7 +11,7 @@ namespace SummerProject
     class Bullet : Projectile
     {               
 
-        public Bullet(Sprite sprite) : base(sprite)
+        public Bullet(ISprite sprite) : base(sprite)
         {
             this.sprite = sprite;
             Damage = 10; //!   
