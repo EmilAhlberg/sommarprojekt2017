@@ -37,17 +37,21 @@ namespace SummerProject
         {
             if (reloadTimer > reloadTime)
             {
-                reloadTimer = 0;
-                foreach (Bullet b in projectiles)
+                TryToShoot(source, target);               
+            }           
+        }
+
+        private void TryToShoot(Vector2 source, Vector2 target)
+        {
+            foreach (Bullet b in projectiles)
+            {
+                if (!b.isActive)
                 {
-                    if (!b.isActive)
-                    {
-                        b.Activate(source, target);
-                        break;
-                    }
+                    b.Activate(source, target);
+                    reloadTimer = 0;
+                    break;
                 }
             }
-           
         }
 
         public void Update(GameTime gameTime)
