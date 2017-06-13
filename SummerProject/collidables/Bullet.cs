@@ -8,20 +8,32 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class Bullet : Projectile
-    {               
+    class Bullet : collidables.Projectile
+    {      
 
-        public Bullet(Sprite sprite) : base(sprite)
-        {
-            this.sprite = sprite;
+        public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
+        {            
             Damage = 10; //!   
         }
-            
 
-        protected override void Move()
+        public override void Update(GameTime gameTime)
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
+            UpdateTimer(gameTime);
+            Move();
         }
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            float dX = source.X - target.X;
+            float dY = source.Y - target.Y;
+            base.CalculateAngle(dX, dY);
+            ResetSpawnTime(); 
+        }
+
+
+
+       
+
 
         public override void Collision(Collidable c2)
         {
@@ -30,5 +42,8 @@ namespace SummerProject
                 Death();
             }
         }
+
+        
+
     }
 }

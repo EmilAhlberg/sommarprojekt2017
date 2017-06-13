@@ -6,44 +6,35 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.collidables;
 
 namespace SummerProject
 {
-    class Enemy : Collidable, IKillable
+    class Enemy : Entity, IKillable
     {
         private const float startSpeed = 0.5f; //-!
         private Player player;
-
-
-        public int health { get; set; }
-        public bool isActive { get; set; }
-        public int Damage { get; private set;  } 
-        private float speed = 0.5f;
+     
         public Enemy(Vector2 position, Sprite sprite, Player player)
             : base(position, sprite)
-        {
-            Position = position;
+        {           
             this.player = player;
             Speed = startSpeed;
-            health = 10; //!
+            Health = 10; //!
             Damage = 2; //!
         }
 
-        public void Update()
+        public override void Update(GameTime gameTime)
         {
-            if (health < 1)
-                Death();
-            else
-            {
-                CalculateAngle();
-                Move();
-            }
+            CalculateAngle();
+            Move();
+            if (Health < 1)
+                Death();           
         }
-        public void Death()
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            isActive = false;
-            Position = new Vector2(-5000, -5000); //!
-            health = 10; //!
+            Health = 10; //!
         }
 
         private void CalculateAngle()
@@ -51,16 +42,16 @@ namespace SummerProject
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
             base.CalculateAngle(dX, dY);
-        }
-
+        }   
+       
         public override void Collision(Collidable c2)
         {
-            if(c2 is Bullet)
+            if (c2 is Projectile)
             {
-                Bullet b = c2 as Bullet;
-                health -= b.Damage;
+                Projectile b = c2 as Projectile;
+                Health -= b.Damage;
             }
-            if(c2 is Player)
+            if (c2 is Player)
             {
                 Death();
             }

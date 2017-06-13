@@ -57,8 +57,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="collidables\Projectile.cs" />
+    <Compile Include="collidables\BulletTest.cs" />
+    <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\Bullet.cs" />
+    <Compile Include="collidables\Projectile.cs" />
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="factories\Enemies.cs" />
