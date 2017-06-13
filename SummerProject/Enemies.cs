@@ -11,7 +11,7 @@ namespace SummerProject
 {
     class Enemies
     {
-        private List<Enemy> enemyList;
+        public List<Enemy> EnemyList { get; private set; }
         private float spawnDelay = -0.2f;
         private Sprite sprite;
         private Player player;
@@ -19,7 +19,7 @@ namespace SummerProject
         {
             this.sprite = sprite;
             this.player = player;
-            enemyList = new List<Enemy>();
+            EnemyList = new List<Enemy>();
             InitEnemy(NbrOfEnemies);
         }
         private void InitEnemy(int num)
@@ -31,15 +31,12 @@ namespace SummerProject
         }
         public void AddEnemy(Enemy enemy)
         {
-            enemyList.Add(enemy);
+            EnemyList.Add(enemy);
         }
-        public List<Enemy> getEnemyList()
-        {
-            return enemyList;
-        }
+
         public void Spawn(Vector2 pos, GameTime gt)
         {
-            foreach (Enemy e in enemyList)
+            foreach (Enemy e in EnemyList)
             {
                 if (spawnDelay < 0 && !e.isActive)
                 {
@@ -55,7 +52,7 @@ namespace SummerProject
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 Spawn(new Vector2(250, 250), gameTime);
-            foreach (Enemy e in enemyList)
+            foreach (Enemy e in EnemyList)
             {
                 if (e.isActive)
                     e.Update();
@@ -64,7 +61,7 @@ namespace SummerProject
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Enemy e in enemyList)
+            foreach (Enemy e in EnemyList)
             {
                 if (e.isActive)
                     e.Draw(spriteBatch);
