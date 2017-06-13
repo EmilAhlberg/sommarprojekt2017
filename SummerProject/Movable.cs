@@ -9,7 +9,7 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        protected float Speed { set; get; } = 1f;
+        protected float Speed { set; get; } = 1f; //-!
 
         public Movable(Vector2 position, Sprite sprite) : base(position, sprite) { }
 
