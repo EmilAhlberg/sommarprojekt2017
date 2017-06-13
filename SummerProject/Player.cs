@@ -65,6 +65,24 @@ namespace SummerProject
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * Speed);
             }
+            //if (ks.IsKeyDown(Keys.S))
+            //{
+            //    //Position = new Vector2(Position.X - (float)Math.Cos(angle) * Speed, Position.Y - (float)Math.Sin(angle) * Speed);
+            //}
+            //if (ks.IsKeyDown(Keys.W))
+            //{
+            //    Move();
+            //}
+            //if (ks.IsKeyDown(Keys.A))
+            //{
+            //    angle = angle + 0.001f;
+            //    Move();
+            //}
+            //if (ks.IsKeyDown(Keys.D))
+            //{
+            //    angle = angle - 0.001f;
+            //    Move();
+            //}
         }
 
         public override void collision(Collidable c2)
