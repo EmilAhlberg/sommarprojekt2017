@@ -12,12 +12,13 @@ namespace SummerProject
         public Vector2 PrevPos { get; set; }
         public Rectangle BoundBox { get; set; }
 
-        public Vector2 Position {
-            get { return position; }
-            set {
-                position = value;
-                BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), BoundBox.Width, BoundBox.Height);
+        public override Vector2 Position {
+            set
+            {
+                base.Position = value;
+                BoundBox = new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), BoundBox.Width, BoundBox.Height);
             }
+            get { return base.Position; }   
         }
         public bool IsStatic { get; set; }
 
