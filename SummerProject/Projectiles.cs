@@ -13,6 +13,10 @@ namespace SummerProject
         private List<Bullet> projectiles = new List<Bullet>();
         private int bulletCap;
         private Sprite sprite;
+        private float reloadTimer = 0f;
+        private const float reloadTime = 1f;
+            
+             
         public Projectiles(Sprite sprite)
         {
             this.sprite = sprite;
@@ -30,22 +34,28 @@ namespace SummerProject
 
         public void Fire(Vector2 source, Vector2 target)
         {
-            foreach (Bullet b in projectiles)
+            if (reloadTimer > reloadTime)
             {
-                if(!b.isActive )
+                reloadTimer = 0;
+                foreach (Bullet b in projectiles)
                 {
-                    b.Activate(source, target);
-                    break;
+                    if (!b.isActive)
+                    {
+                        b.Activate(source, target);
+                        break;
+                    }
                 }
             }
+           
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            reloadTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             foreach (Bullet b in projectiles)
             {
                 if (b.isActive)                
-                    b.Update();
+                    b.Update(gameTime);
                 
             }           
         }

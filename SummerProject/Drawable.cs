@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    class Drawable : Collidable
+    public class Drawable
     {
+        protected Vector2 position;
+        protected Sprite sprite;
         protected float angle = 0;
-        private Sprite sprite;
-        public Drawable(Vector2 position, Sprite sprite) : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+
+        public Drawable(Vector2 position, Sprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             this.sprite = sprite;
             sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
         }
+
         protected void CalculateAngle(float dX, float dY)
         {
             if (dX != 0)
@@ -30,7 +33,7 @@ namespace SummerProject
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.position = Position;
+            sprite.position = position;
             sprite.rotation = angle;
             sprite.Draw(spriteBatch);
         }

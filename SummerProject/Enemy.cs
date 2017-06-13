@@ -9,9 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Enemy : Drawable
+    class Enemy : Collidable
     {
+        private const float startSpeed = 0.5f;
         private Player player;
+
+        public int health { get; set; }
         public bool isActive { get; set;}
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
@@ -19,7 +22,8 @@ namespace SummerProject
         {
             Position = position;
             this.player = player;
-     
+            speed = startSpeed;
+            health = 10; //!
         }
 
         public void Update()
@@ -35,11 +39,18 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        private void Move()
+        protected override void Move()
         {
             Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }
 
-
+        public override void collision(Collidable c2)
+        {
+            if(c2 is Bullet)
+            {
+                Bullet b = c2 as Bullet;
+                health -= b.Damage;
+            }
+        }
     }
 }

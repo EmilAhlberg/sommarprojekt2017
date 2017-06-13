@@ -51,11 +51,12 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
+            player = new Player(new Vector2(100, 100), new Sprite(shipTex), new Sprite(shipTex));
+            Texture2D shotTex = Content.Load<Texture2D>("lazor");            
             player = new Player(new Vector2(100, 100), new Sprite(shipTex));
             enemies = new Enemies(new Sprite(enemyTex), player, 100);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            colhandl = new CollisionHandler();
-            projectiles = new Projectiles(new Sprite(shipTex));
+            colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
         }
 
@@ -89,7 +90,7 @@ namespace SummerProject
             {
                 colhandl.CheckCollisions(player, wall, e);
             }
-
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -101,8 +102,9 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin();           
             player.Draw(spriteBatch);
+            player.projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
             enemies.Draw(spriteBatch);
             projectiles.Draw(spriteBatch);
