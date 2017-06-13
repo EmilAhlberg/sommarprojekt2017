@@ -33,6 +33,7 @@ namespace SummerProject
         {
             if (isActive)
                 despawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
             if (despawnTimer > despawnTime)
             {
                 isActive = false;
@@ -58,6 +59,7 @@ namespace SummerProject
         {
             if(c2 is Enemy || c2 is Wall)
             {
+                despawnTimer = despawnTime;
                 isActive = false;
             }
         }
