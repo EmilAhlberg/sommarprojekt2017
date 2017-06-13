@@ -25,9 +25,9 @@ namespace SummerProject
             angle = angle % (2 * (float)Math.PI);
         }
 
-        protected void Move(int TODO)
+        protected Vector2 Move(int TODO)
         {
-
+            return new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed); //TODO
         }
 
         protected abstract void Move();
