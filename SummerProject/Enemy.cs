@@ -15,7 +15,8 @@ namespace SummerProject
         private Player player;
 
         public int health { get; set; }
-        public bool isActive { get; set;}
+        public bool isActive { get; set; }
+        public int Damage { get; private set;  } 
         private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
             : base(position, sprite)
@@ -24,6 +25,7 @@ namespace SummerProject
             this.player = player;
             speed = startSpeed;
             health = 10; //!
+            Damage = 2; //!
         }
 
         public void Update()
@@ -50,6 +52,10 @@ namespace SummerProject
             {
                 Bullet b = c2 as Bullet;
                 health -= b.Damage;
+            }
+            if(c2 is Player)
+            {
+                Death();
             }
         }
     }
