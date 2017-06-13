@@ -20,6 +20,12 @@ namespace SummerProject
             }
             get { return base.Position; }   
         }
+
+        protected override void Move()
+        {
+            base.Move();
+            BoundBox = new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), BoundBox.Width, BoundBox.Height);
+        }
         public bool IsStatic { get; set; }
 
         public Collidable(Vector2 position, Sprite sprite) : base(position,sprite)
