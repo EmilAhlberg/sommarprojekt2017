@@ -11,12 +11,12 @@ namespace SummerProject
 {
     class Player : Collidable
     {
-        private const float startSpeed = 5f;
-
+        private const float startSpeed = 5f; //-!
+        private int health = 10; //!
         private Projectiles projectiles;
 
         public Player(Vector2 position, Sprite sprite, Projectiles projectiles)
-            : base(position, sprite)
+            : base(position, sprite) 
         {
             Position = position;
             this.projectiles = projectiles;
@@ -28,7 +28,13 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            Fire();        
+            Fire();
+            projectiles.Update(gameTime);     
+            if(health <= 0)
+            {
+                Death();
+            }     
+
         }
 
         private void Fire()
@@ -85,7 +91,17 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
+            if(c2 is Enemy)
+            {
+                Enemy e = c2 as Enemy;
+                health -= e.Damage;
+            }
+        }
 
+        public void Death()
+        {
+            health = 10;
+            Position = Vector2.Zero;
         }
     }
 }
