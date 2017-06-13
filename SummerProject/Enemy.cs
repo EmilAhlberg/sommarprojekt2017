@@ -38,6 +38,8 @@ namespace SummerProject
             Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }
 
-
+        public override void collision(Collidable c2)
+        {
+        }
     }
 }

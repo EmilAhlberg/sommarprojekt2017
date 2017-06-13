@@ -25,5 +25,7 @@ namespace SummerProject
         {
             BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
+
+        public abstract void collision(Collidable c2);
     }
 }
