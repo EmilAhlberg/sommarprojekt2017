@@ -30,7 +30,7 @@ namespace SummerProject
             Move();
             Fire();
             projectiles.Update(gameTime);     
-            if(health < 0)
+            if(health <= 0)
             {
                 Death();
             }     
