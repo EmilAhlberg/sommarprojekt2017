@@ -26,7 +26,7 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             UpdateTimer(gameTime);
-            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
+            Move();
         }
 
         private void UpdateTimer(GameTime gameTime)
@@ -51,7 +51,7 @@ namespace SummerProject
 
         protected override void Move()
         {
-            
+            Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
         }
 
         public override void collision(Collidable c2)
