@@ -16,13 +16,12 @@ namespace SummerProject
 
         public int health { get; set; }
         public bool isActive { get; set;}
-        private float speed = 0.5f;
         public Enemy(Vector2 position, Sprite sprite, Player player)
             : base(position, sprite)
         {
             Position = position;
             this.player = player;
-            speed = startSpeed;
+            Speed = startSpeed;
             health = 10; //!
         }
 
@@ -50,7 +49,7 @@ namespace SummerProject
 
         protected override void Move()
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
+            Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed);
         }
 
         public override void collision(Collidable c2)

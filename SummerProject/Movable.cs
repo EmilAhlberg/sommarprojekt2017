@@ -9,7 +9,7 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        protected float speed { set; get; } = 1f;
+        protected float Speed { set; get; } = 1f;
 
         public Movable(Vector2 position, Sprite sprite) : base(position, sprite) { }
 
@@ -25,9 +25,9 @@ namespace SummerProject
             angle = angle % (2 * (float)Math.PI);
         }
 
-        protected void Move(int TODO)
+        protected Vector2 Move(int TODO)
         {
-
+            return new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed); //TODO
         }
 
         protected abstract void Move();

@@ -91,12 +91,16 @@ namespace SummerProject
                 projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 enemies.Spawn(new Vector2(250, 250), gameTime);
-            List<Enemy> enemyList = enemies.getEnemyList();
-            foreach (Enemy e in enemyList)
+            List<Collidable> collidableList = new List<Collidable>();
+            foreach(Collidable c in enemies.getEnemyList())
             {
-                colhandl.CheckCollisions(player, wall, e);
+                collidableList.Add(c);
             }
-            player.Update(gameTime);
+            foreach (Collidable c in projectiles.projectiles)
+            {
+                collidableList.Add(c);
+            }
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
 
             base.Update(gameTime);
         }
