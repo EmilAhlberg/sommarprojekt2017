@@ -12,9 +12,11 @@ namespace SummerProject
     {        
         private Sprite sprite;
         public bool isActive {get; set;}
-        public Bullet( Sprite sprite) : base(Vector2.Zero, sprite)
+        public int Damage { get; set; }
+        public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
-            this.sprite = sprite;        
+            this.sprite = sprite;
+            Damage = 1; //!   
         }
 
         public void Update()
