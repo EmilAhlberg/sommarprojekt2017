@@ -11,8 +11,8 @@ namespace SummerProject
 {
     class Player : Collidable
     {
-        private const float startSpeed = 5f;      
-        private const float speed = 5f;
+        private const float startSpeed = 5f;
+      
         public Projectiles projectiles { get; }
 
         public Player(Vector2 position, Sprite sprite, Sprite projectileSprite )
