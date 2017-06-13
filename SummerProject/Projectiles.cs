@@ -14,7 +14,7 @@ namespace SummerProject
         private int bulletCap;
         private Sprite sprite;
         private float reloadTimer = 0f;
-        private float reloadTime = 100f;
+        private const float reloadTime = 1f;
             
              
         public Projectiles(Sprite sprite)
@@ -55,7 +55,7 @@ namespace SummerProject
             foreach (Bullet b in projectiles)
             {
                 if (b.isActive)                
-                    b.Update();
+                    b.Update(gameTime);
                 
             }           
         }

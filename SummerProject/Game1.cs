@@ -89,8 +89,7 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
-            projectiles.Draw(spriteBatch);
+            spriteBatch.Begin();           
             player.Draw(spriteBatch);
             player.projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
