@@ -38,6 +38,8 @@ namespace SummerProject
         public void Death()
         {
             isActive = false;
+            Position = new Vector2(-5000, -5000); //!
+            health = 10; //!
         }
 
         private void CalculateAngle()

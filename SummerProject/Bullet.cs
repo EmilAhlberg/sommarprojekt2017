@@ -11,8 +11,8 @@ namespace SummerProject
     class Bullet : Collidable
     {        
         //private Sprite sprite;
-        private float despawnTimer = 0f;
-        private const float despawnTime = 7f;
+        private float despawnTimer = 4f;
+        private const float despawnTime = 4f;
         public bool isActive {get; set;}     
 
               
@@ -20,7 +20,7 @@ namespace SummerProject
         public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
             this.sprite = sprite;
-            Damage = 1; //!   
+            Damage = 10; //!   
         }
 
         public void Update(GameTime gameTime)
@@ -32,13 +32,17 @@ namespace SummerProject
         private void UpdateTimer(GameTime gameTime)
         {
             if (isActive)
-                despawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
-            if (despawnTimer > despawnTime)
             {
-                isActive = false;
-                despawnTimer = 0;
+                despawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (despawnTimer < 0)
+                    Death();
             }
+        }
+        public void Death()
+        {
+            despawnTimer = despawnTime;
+            isActive = false;
+            Position = new Vector2(-4000, -4000); //!
         }
 
         public void Activate(Vector2 source, Vector2 target)
@@ -59,8 +63,7 @@ namespace SummerProject
         {
             if(c2 is Enemy || c2 is Wall)
             {
-                despawnTimer = despawnTime;
-                isActive = false;
+                Death();
             }
         }
     }

@@ -25,7 +25,7 @@ namespace SummerProject
         {
             for (int i = 0; i < num; i++)
             {
-                AddEnemy(new Enemy(new Vector2(0, 0), sprite, player));
+                AddEnemy(new Enemy(new Vector2(-5000, -5000), sprite, player));
             }
         }
         public void AddEnemy(Enemy enemy)

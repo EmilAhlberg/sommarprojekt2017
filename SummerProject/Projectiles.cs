@@ -13,7 +13,7 @@ namespace SummerProject
         public List<Bullet> projectiles { get; private set; }
         private int bulletCap;
         private Sprite sprite;
-        private float reloadTimer = 0f;
+        private float reloadTimer = 1f;
         private const float reloadTime = 1f;
             
              
