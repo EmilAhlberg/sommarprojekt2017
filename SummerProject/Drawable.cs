@@ -20,11 +20,11 @@ namespace SummerProject
             sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.position = Position;
             sprite.rotation = angle;
-            sprite.Draw(spriteBatch);
+            sprite.Draw(spriteBatch, gameTime);
         }
     }
 }

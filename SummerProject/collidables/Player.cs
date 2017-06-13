@@ -29,8 +29,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            Fire();
-            projectiles.Update(gameTime);     
+            Fire();     
             if(health <= 0)
             {
                 Death();

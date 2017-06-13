@@ -19,11 +19,20 @@ namespace SummerProject
         public float scale { get; set; }
         public SpriteEffects spriteFX { get; set; }
         public float layerDepth { get; set; }
+        private int subimages;
+        private float currentFrame;
+        private int fps;
 
-        public Sprite(Texture2D texture)
+        public Sprite(Sprite sprite) : this(sprite.texture, sprite.subimages, sprite.fps)
+        {
+        }
+
+        public Sprite(Texture2D texture, int subimages = 1, int fps = 4)
         {
             this.texture = texture;
-            spriteRect = new Rectangle(0, 0, texture.Width, texture.Height);
+            this.subimages = subimages;
+            this.fps = fps;
+            spriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
             position = Vector2.Zero;
             rotation = 0;
             origin = Vector2.Zero;
@@ -32,9 +41,20 @@ namespace SummerProject
             layerDepth = 0;
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, GameTime gameTime)
         {
+            Animate(gameTime);
             sb.Draw(texture, position, spriteRect, Color.White, rotation, origin, scale, spriteFX, layerDepth);
+        }
+
+        private void Animate(GameTime gameTime)
+        {      
+            currentFrame += (float)gameTime.ElapsedGameTime.TotalSeconds * fps;
+            if((int)currentFrame > subimages-1)
+            {
+                currentFrame = 0;
+            }
+            spriteRect = new Rectangle((int)currentFrame * spriteRect.Width, 0, spriteRect.Width, spriteRect.Height);
         }
     }
 }

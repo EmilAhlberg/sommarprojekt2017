@@ -26,7 +26,7 @@ namespace SummerProject
         {
             for (int i = 0; i < num; i++)
             {
-                AddEnemy(new Enemy(new Vector2(-5000, -5000), sprite, player));
+                AddEnemy(new Enemy(new Vector2(-5000, -5000), new Sprite(sprite), player));
             }
         }
         public void AddEnemy(Enemy enemy)
@@ -59,12 +59,12 @@ namespace SummerProject
 
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             foreach (Enemy e in EnemyList)
             {
                 if (e.isActive)
-                    e.Draw(spriteBatch);
+                    e.Draw(spriteBatch, gameTime);
             }
         }
     }

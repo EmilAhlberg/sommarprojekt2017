@@ -29,7 +29,7 @@ namespace SummerProject
         {
             for (int i = 0; i<bulletCap; i++)
             {
-                projectiles.Add(new Bullet(sprite));
+                projectiles.Add(new Bullet(new Sprite(sprite)));
             }           
         }
 
@@ -64,12 +64,12 @@ namespace SummerProject
                 
             }           
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             foreach (Projectile p in projectiles)
             {
                 if(p.isActive)
-                    p.Draw(spriteBatch);
+                    p.Draw(spriteBatch, gameTime);
             }
         }
     }

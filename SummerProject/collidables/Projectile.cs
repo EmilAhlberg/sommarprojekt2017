@@ -13,7 +13,7 @@ namespace SummerProject
         private float despawnTimer = 7f;
         private const float despawnTime = 7f; //!!!!!!!
         public bool isActive { get; set; }
-        public int Damage {get; set; }
+        public int Damage { get; set; }
 
         public Projectile(Sprite sprite) : base (Vector2.Zero, sprite)
         {
