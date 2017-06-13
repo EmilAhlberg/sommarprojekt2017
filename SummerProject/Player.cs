@@ -67,6 +67,7 @@ namespace SummerProject
 
         public override void collision(Collidable c2)
         {
+
         }
     }
 }
