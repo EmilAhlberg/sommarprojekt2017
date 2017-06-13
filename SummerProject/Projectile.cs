@@ -10,7 +10,7 @@ namespace SummerProject
 {
     abstract class Projectile : Collidable
     {
-        private float despawnTimer = 0f;
+        private float despawnTimer = 7f;
         private const float despawnTime = 7f; //!!!!!!!
         public bool isActive { get; set; }
         public int Damage {get; set; }
@@ -19,7 +19,11 @@ namespace SummerProject
         {
         }
 
-        public abstract void Update(GameTime gametime);
+        public void Update(GameTime gameTime)
+        {
+            UpdateTimer(gameTime);
+            Move();
+        }
 
         public void Activate(Vector2 source, Vector2 target)
         {

@@ -16,12 +16,7 @@ namespace SummerProject
             this.sprite = sprite;
             Damage = 10; //!   
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            UpdateTimer(gameTime);
-            Move();
-        }      
+            
 
         protected override void Move()
         {
