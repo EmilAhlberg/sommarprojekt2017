@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Enemy : Drawable
+    class Enemy : Collidable
     {
         private Player player;
         private float speed = 0.5f;
@@ -34,7 +34,7 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        private void Move()
+        protected override void Move()
         {
             Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    class Wall : Drawable
+    class Wall : Collidable
     {
 
         public Wall(Vector2 position, Sprite sprite)
@@ -18,5 +18,9 @@ namespace SummerProject
             IsStatic = true;
         }
 
+        protected override void Move()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

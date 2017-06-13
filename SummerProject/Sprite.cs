@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    class Sprite
+    public class Sprite
     {
         Texture2D texture;
         public Rectangle spriteRect { get; private set; }

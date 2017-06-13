@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
-    class Player : Drawable
-    {     
+    class Player : Collidable
+    {
+        
         private const float speed = 5f;
         public Projectiles projectiles { get; }
 
@@ -44,7 +45,7 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        private void Move()
+        protected override void Move()
         {            
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.S))
@@ -64,7 +65,5 @@ namespace SummerProject
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
         }
-      
-            
     }
 }
