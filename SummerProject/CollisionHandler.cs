@@ -9,8 +9,9 @@ namespace SummerProject
 {
     class CollisionHandler
     {
-        public void CheckCollisions(params Collidable[] list)
+        public void CheckCollisions(Collidable[] list1, params Collidable[] list2)
         {
+            Collidable[] list = list1.Concat(list2).ToArray();
             foreach (Collidable c1 in list)
             {
                 foreach (Collidable c2 in list)

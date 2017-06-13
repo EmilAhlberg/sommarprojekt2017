@@ -10,7 +10,7 @@ namespace SummerProject
 {
     class Projectiles
     {
-        private List<Bullet> projectiles = new List<Bullet>();
+        public List<Bullet> projectiles { get; private set; }
         private int bulletCap;
         private Sprite sprite;
         private float reloadTimer = 0f;
@@ -20,6 +20,7 @@ namespace SummerProject
         public Projectiles(Sprite sprite)
         {
             this.sprite = sprite;
+            projectiles = new List<Bullet>();
             bulletCap = 10;
             initializeBullets();
         }
