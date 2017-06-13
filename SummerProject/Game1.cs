@@ -91,7 +91,7 @@ namespace SummerProject
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in enemies.getEnemyList())
+            foreach (Collidable c in enemies.EnemyList)
             {
                 collidableList.Add(c);
             }
