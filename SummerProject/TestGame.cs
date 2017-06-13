@@ -49,7 +49,7 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
-            player = new Player(new Vector2(100, 100), new Sprite(shipTex));
+            player = new Player(new Vector2(100, 100), new Sprite(shipTex), new Sprite(shipTex));
             enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
@@ -74,7 +74,7 @@ namespace SummerProject
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update();
+            player.Update(gameTime);
             enemy.Update();
             colhandl.CheckCollisions(player, wall, enemy);
 
@@ -87,9 +87,10 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.OrangeRed);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            player.projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
             spriteBatch.End();

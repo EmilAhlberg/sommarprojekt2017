@@ -15,8 +15,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         Player player;
         Wall wall;
-        Enemy enemy;
-        Projectiles projectiles;
+        Enemy enemy;        
 
         CollisionHandler colhandl;
 
@@ -50,11 +49,10 @@ namespace SummerProject
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
-            player = new Player(new Vector2(100, 100), new Sprite(shipTex));
+            player = new Player(new Vector2(100, 100), new Sprite(shipTex), new Sprite(shipTex));
             enemy = new Enemy(new Vector2(500, 500), new Sprite(enemyTex), player);
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            colhandl = new CollisionHandler();
-            projectiles = new Projectiles(new Sprite(shipTex));
+            colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,13 +74,9 @@ namespace SummerProject
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update();
-            enemy.Update();
-            projectiles.Update();
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-                projectiles.Fire(player.Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            player.Update(gameTime);
+            enemy.Update();            
             colhandl.CheckCollisions(player, wall, enemy);
-
 
             base.Update(gameTime);
         }
@@ -96,9 +90,9 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            player.projectiles.Draw(spriteBatch);
             wall.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
-            projectiles.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);           
             spriteBatch.End();
             // TODO: Add your drawing code here
 

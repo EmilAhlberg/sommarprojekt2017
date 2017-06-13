@@ -10,20 +10,31 @@ using Microsoft.Xna.Framework.Input;
 namespace SummerProject
 {
     class Player : Drawable
-    {
-        private int reloadTime = 1000;
+    {     
         private const float speed = 5f;
-        public Player(Vector2 position, Sprite sprite )
+        public Projectiles projectiles { get; }
+
+        public Player(Vector2 position, Sprite sprite, Sprite projectileSprite )
             : base(position, sprite)
         {
             Position = position;
+            projectiles = new Projectiles(projectileSprite);
             
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Move();           
+            Move();
+            Fire();
+            projectiles.Update(gameTime);          
+
+        }
+
+        private void Fire()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                projectiles.Fire(Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
         }
 
         private void CalculateAngle()

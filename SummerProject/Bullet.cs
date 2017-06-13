@@ -11,8 +11,9 @@ namespace SummerProject
     class Bullet : Drawable
     {        
         private Sprite sprite;
-        public bool isActive {get; set;}
-        public Bullet( Sprite sprite) : base(Vector2.Zero, sprite)
+        public bool isActive {get; set;}       
+
+        public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
         {
             this.sprite = sprite;        
         }
