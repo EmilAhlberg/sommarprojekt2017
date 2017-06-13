@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public abstract class Collidable
+    public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
         public Rectangle BoundBox { get; set; }
-        private Vector2 position; 
+
         public Vector2 Position {
             get { return position; }
             set {
@@ -21,9 +21,9 @@ namespace SummerProject
         }
         public bool IsStatic { get; set; }
 
-        public Collidable(int width, int height)
+        public Collidable(Vector2 position, Sprite sprite) : base(position,sprite)
         {
-            BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), width, height);
+            BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.spriteRect.Width, sprite.spriteRect.Height);
         }
     }
 }

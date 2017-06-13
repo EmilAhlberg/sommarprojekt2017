@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class Bullet : Drawable
+    class Bullet : Collidable
     {        
         private Sprite sprite;
         public bool isActive {get; set;}
@@ -29,6 +29,11 @@ namespace SummerProject
             float dY = Position.Y - target.Y;
             CalculateAngle(dX, dY);
             isActive = true;
+        }
+
+        protected override void Move()
+        {
+            throw new NotImplementedException();
         }
     }
 }
