@@ -28,9 +28,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            Fire();
-            projectiles.Update(gameTime);          
-
+            Fire();                     
         }
 
         private void Fire()
