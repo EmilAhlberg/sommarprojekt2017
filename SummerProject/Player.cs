@@ -11,7 +11,7 @@ namespace SummerProject
 {
     class Player : Collidable
     {
-        
+        private const float startSpeed = 5f;      
         private const float speed = 5f;
         public Projectiles projectiles { get; }
 
@@ -21,6 +21,7 @@ namespace SummerProject
             Position = position;
             projectiles = new Projectiles(projectileSprite);
             
+            speed = startSpeed;
         }
 
         public void Update(GameTime gameTime)
@@ -64,6 +65,10 @@ namespace SummerProject
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * speed);
             }
+        }
+
+        public override void collision(Collidable c2)
+        {
         }
     }
 }

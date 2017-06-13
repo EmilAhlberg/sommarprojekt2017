@@ -11,14 +11,13 @@ namespace SummerProject
 {
     class Enemy : Collidable
     {
+        private const float startSpeed = 0.5f;
         private Player player;
-        private float speed = 0.5f;
-        public Enemy(Vector2 position, Sprite sprite, Player player)
-            : base(position, sprite)
+        public Enemy(Vector2 position, Sprite sprite, Player player) : base(position, sprite)
         {
             Position = position;
             this.player = player;
-     
+            speed = startSpeed;
         }
 
         public void Update()
@@ -39,6 +38,8 @@ namespace SummerProject
             Position = new Vector2(Position.X + (float)Math.Cos(angle) * speed, Position.Y + (float)Math.Sin(angle) * speed);
         }
 
-
+        public override void collision(Collidable c2)
+        {
+        }
     }
 }
