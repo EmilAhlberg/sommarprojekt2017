@@ -23,7 +23,7 @@ namespace SummerProject
             throw new NotImplementedException();
         }
 
-        public override void collision(Collidable c2)
+        public override void Collision(Collidable c2)
         {
         }
     }

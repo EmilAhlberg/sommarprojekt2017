@@ -10,17 +10,17 @@ namespace SummerProject
 {
     class Projectiles
     {
-        public List<Bullet> projectiles { get; private set; }
+        public List<Projectile> projectiles { get; private set; }
         private int bulletCap;
         private Sprite sprite;
-        private float reloadTimer = 1f;
+        private float reloadTimer = 0f;
         private const float reloadTime = 1f;
             
              
         public Projectiles(Sprite sprite)
         {
             this.sprite = sprite;
-            projectiles = new List<Bullet>();
+            projectiles = new List<Projectile>();
             bulletCap = 10;
             initializeBullets();
         }
@@ -43,11 +43,11 @@ namespace SummerProject
 
         private void TryToShoot(Vector2 source, Vector2 target)
         {
-            foreach (Bullet b in projectiles)
+            foreach (Projectile p in projectiles)
             {
-                if (!b.isActive)
+                if (!p.isActive)
                 {
-                    b.Activate(source, target);
+                    p.Activate(source, target);
                     reloadTimer = 0;
                     break;
                 }
@@ -57,19 +57,19 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             reloadTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            foreach (Bullet b in projectiles)
+            foreach (Projectile p in projectiles)
             {
-                if (b.isActive)                
-                    b.Update(gameTime);
+                if (p.isActive)                
+                    p.Update(gameTime);
                 
             }           
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Bullet b in projectiles)
+            foreach (Projectile p in projectiles)
             {
-                if(b.isActive)
-                    b.Draw(spriteBatch);
+                if(p.isActive)
+                    p.Draw(spriteBatch);
             }
         }
     }

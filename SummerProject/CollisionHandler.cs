@@ -33,8 +33,8 @@ namespace SummerProject
                 MoveObject(c2, c1);
             else if (c1.IsStatic)
                 MoveObject(c1, c2);
-            c1.collision(c2);
-            c2.collision(c1);
+            c1.Collision(c2);
+            c2.Collision(c1);
         }
 
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 

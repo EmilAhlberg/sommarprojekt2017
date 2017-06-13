@@ -49,7 +49,7 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        public override void collision(Collidable c2)
+        public override void Collision(Collidable c2)
         {
             if(c2 is Bullet)
             {

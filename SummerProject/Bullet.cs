@@ -8,56 +8,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class Bullet : Collidable
-    {        
-        //private Sprite sprite;
-        private float despawnTimer = 7f;
-        private const float despawnTime = 7f;
-        public bool isActive {get; set;}   
-        public int Damage { get; set; }
-        public Bullet(Sprite sprite) : base(Vector2.Zero, sprite)
+    class Bullet : Projectile
+    {               
+
+        public Bullet(Sprite sprite) : base(sprite)
         {
             this.sprite = sprite;
             Damage = 10; //!   
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             UpdateTimer(gameTime);
             Move();
-        }
-
-        private void UpdateTimer(GameTime gameTime)
-        {
-            if (isActive)
-            {
-                despawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (despawnTimer < 0)
-                    Death();
-            }
-        }
-        public void Death()
-        {
-            despawnTimer = despawnTime;
-            isActive = false;
-            Position = new Vector2(-4000, -4000); //!
-        }
-
-        public void Activate(Vector2 source, Vector2 target)
-        {
-            Position = source;
-            float dX = Position.X - target.X;
-            float dY = Position.Y - target.Y;
-            CalculateAngle(dX, dY);
-            isActive = true;
-        }
+        }      
 
         protected override void Move()
         {
             Position = new Vector2(Position.X + (float)Math.Cos(angle), Position.Y + (float)Math.Sin(angle));
         }
 
-        public override void collision(Collidable c2)
+        public override void Collision(Collidable c2)
         {
             if(c2 is Enemy || c2 is Wall)
             {
