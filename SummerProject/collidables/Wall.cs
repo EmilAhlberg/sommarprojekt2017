@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SummerProject
+namespace SummerProject.collidables
 {
-    class Wall : Collidable
+    class Wall : Entity
     {
 
         public Wall(Vector2 position, ISprite sprite)
@@ -25,6 +25,11 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
+        }
+
+        public override void Death()
+        {
+            throw new NotImplementedException();
         }
     }
 }

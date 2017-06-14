@@ -14,11 +14,16 @@ namespace SummerProject.collidables
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
+        private const int homingDamage = 10;
+        private const int homingHealth = 2;
+
         public HomingBullet(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             oldBoundBox = BoundBox;
             bigBoundBox = new Rectangle(oldBoundBox.X, oldBoundBox.Y, 200, 200);
             InitDetection();
+            Damage = homingDamage;
+            Health = homingHealth;
         }
         private void InitDetection()
         {
@@ -34,7 +39,7 @@ namespace SummerProject.collidables
             oldBoundBox.Location = BoundBox.Location;
             oldBoundBox.Offset(-200, 0);
             BoundBox = oldBoundBox;
-            Damage = 10;    // set damage here
+            Damage = homingDamage;    // set damage here
         }
 
         private void CalculateAngle()

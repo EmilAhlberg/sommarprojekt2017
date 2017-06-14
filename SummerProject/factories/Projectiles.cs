@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
@@ -50,7 +51,7 @@ namespace SummerProject.factories
             }
         }
 
-        protected override Entity CreateEntity(int index)
+        protected override AIEntity CreateEntity(int index)
         {
             return EntityFactory.CreateEntity(sprites[index], bulletType);
         }

@@ -10,9 +10,12 @@ using SummerProject.collidables;
 
 namespace SummerProject
 {
-    class Enemy : Entity, IKillable
+    class Enemy : AIEntity
     {
         private const float startSpeed = 0.5f; //-!
+        private const int enemyHealth = 10;
+        private const int enemyDamage = 2;
+
         private Player player;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
@@ -20,8 +23,8 @@ namespace SummerProject
         {           
             this.player = player;
             Speed = startSpeed;
-            Health = 10; //!
-            Damage = 2; //!
+            Health = enemyHealth; ; 
+            Damage = enemyDamage;
         }
 
         public override void Update(GameTime gameTime)
@@ -34,7 +37,7 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            Health = 10; //!
+            Health = enemyHealth;
         }
 
         private void CalculateAngle()
