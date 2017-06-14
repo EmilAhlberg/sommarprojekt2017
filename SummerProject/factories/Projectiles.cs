@@ -27,15 +27,30 @@ namespace SummerProject.factories
 
         public void switchBullets(int newType)
         {
+            RemoveInactiveType(createEntity());
             bulletType = newType;
             InitializeEntities();
+            
         }
       
 
         public void Update(GameTime gameTime)
         {           
-            UpdateEntities(gameTime);  
-        }       
+            UpdateEntities(gameTime);
+            RemoveAbundantType();
+
+        }
+
+        private void RemoveAbundantType()
+        {
+            for(int i = entityList.Count-1; i>=entityCap; i--)
+            {
+                if (!entityList[i].isActive)
+                {
+                    entityList.Remove(entityList[i]);
+                }
+            }
+        }
 
         protected override Entity createEntity()
         {

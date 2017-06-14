@@ -13,8 +13,7 @@ namespace SummerProject
     class Player : Collidable, IKillable
     {
         private const float startSpeed = 5f; //-!
-        public int health { get; set; } = 10; //!
-        private int bulletType = 1;
+        public int health { get; set; } = 10; //!       
 
         private Projectiles projectiles;
 
