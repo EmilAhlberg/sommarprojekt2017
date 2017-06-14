@@ -14,6 +14,7 @@ namespace SummerProject
     {
         private const float startSpeed = 5f; //-!
         public int health { get; set; } = 10; //!
+        private int bulletType = 1;
 
         private Projectiles projectiles;
 
@@ -30,11 +31,20 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
+            HandleBulletType();
             Fire();     
             if(health <= 0)
             {
                 Death();
             }     
+        }
+
+        private void HandleBulletType()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+                projectiles.switchBullets(EntityTypes.BULLET_TYPE);
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+                projectiles.switchBullets(EntityTypes.HOMINGBULLET_TYPE);
         }
 
         private void Fire()

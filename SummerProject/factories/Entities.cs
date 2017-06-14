@@ -21,14 +21,14 @@ namespace SummerProject.factories
             Sprite = sprite;
             this.entityCap = entityCap;
             this.eventTime = eventTime;
-            EventTimer = 0;
-            entityList = new List<Entity>();           
+            EventTimer = 0;                     
         }
 
         protected abstract Entity createEntity();
 
         protected void InitializeEntities()
         {
+            entityList = new List<Entity>();
             for (int i = 0; i < entityCap; i++)
             {
                 entityList.Add(createEntity());
