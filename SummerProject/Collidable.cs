@@ -10,13 +10,13 @@ namespace SummerProject
     public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
-        public Rectangle BoundBox { get; set; }
+        public RotRectangle BoundBox { get; set; }
 
         public override Vector2 Position {
             set
             {
                 base.Position = value;
-                BoundBox = new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), BoundBox.Width, BoundBox.Height);
+                BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
             }
             get { return base.Position; }   
         }
@@ -24,13 +24,13 @@ namespace SummerProject
         protected override void Move()
         {
             base.Move();
-            BoundBox = new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), BoundBox.Width, BoundBox.Height);
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
         }
         public bool IsStatic { get; set; }
 
         public Collidable(Vector2 position, ISprite sprite) : base(position,sprite)
         {
-            BoundBox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height);
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle);
         }
 
         public abstract void Collision(Collidable c2);
