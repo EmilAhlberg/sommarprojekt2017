@@ -11,9 +11,11 @@ namespace SummerProject.collidables
     class HomingBullet : Projectile
     {
         private Enemy enemy;
+        private Wall wall;
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
+        private bool lockedOnEnemy;
         public HomingBullet(ISprite sprite) : base(sprite)
         {
             oldBoundBox = BoundBox;
@@ -23,43 +25,71 @@ namespace SummerProject.collidables
         private void InitDetection()
         {
             Damage = 0; //!   big box must do 0 dmg bcuz detection
+            bigBoundBox.Location = BoundBox.Location;
             BoundBox = bigBoundBox;
             lockedOn = false;
         }
         private void InitLockOn()
         {
-            lockedOn = true;
-            BoundBox = oldBoundBox;
             Damage = 10;    // set damage here
+            lockedOn = true;
+            oldBoundBox.Location = BoundBox.Location;
+            BoundBox = oldBoundBox;
         }
 
         private void CalculateAngle()
         {
-            float dX = Position.X - enemy.Position.X;
-            float dY = Position.Y - enemy.Position.Y;
+            float dX;
+            float dY;
+            if (lockedOnEnemy)
+            {
+                 dX = Position.X - enemy.Position.X;
+                 dY = Position.Y - enemy.Position.Y;
+            }
+            else
+            {
+                 dX = Position.X - wall.Position.X;
+                 dY = Position.Y - wall.Position.Y;
+            }
             base.CalculateAngle(dX, dY);
         }
 
 
         public override void Collision(Collidable c2)
         {
-            if (!lockedOn && c2 is Enemy)
+            if (!lockedOn)
             {
-                enemy = (Enemy)c2;
-                InitLockOn();
+                if (c2 is Enemy)
+                {
+                    lockedOnEnemy = true;
+                    enemy = (Enemy)c2;
+                    InitLockOn();
+                }
+                else if (c2 is Wall)
+                {
+                    lockedOnEnemy = false;
+                    wall = (Wall)c2;
+                    InitLockOn();
+                }
             }
-            else if ((lockedOn && c2 is Enemy) || c2 is Wall)
+            else if (lockedOn && (c2 is Enemy || c2 is Wall))
             {
                 Death();
                 InitDetection();
             }
+
         }
 
         public override void Update(GameTime gameTime)
         {
             if (lockedOn)
             {
-                if (enemy.isActive)
+                if (lockedOnEnemy)
+                {
+                    if (enemy.isActive)
+                        CalculateAngle();
+                }
+                else if (wall != null)
                     CalculateAngle();
                 else
                     InitDetection();

@@ -32,7 +32,7 @@ namespace SummerProject.factories
 
         protected override Entity createEntity()
         {
-            return EntityFactory.CreateEntity(Sprite, EntityTypes.BULLET_TYPE);
+            return EntityFactory.CreateEntity(Sprite, EntityTypes.HOMINGBULLET_TYPE);
         }
     }
 }
