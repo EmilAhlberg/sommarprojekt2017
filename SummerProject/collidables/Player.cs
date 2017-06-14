@@ -12,8 +12,9 @@ namespace SummerProject
 {
     class Player : Collidable, IKillable
     {
-        private const float startSpeed = 5f; //-!
-        public int health { get; set; } = 10; //!       
+        private const float startSpeed = 5f;
+        private const float startTurnSpeed = 0.05f * (float)Math.PI;
+        public int health { get; set; } = 10; //!
 
         private Projectiles projectiles;
 
@@ -24,6 +25,7 @@ namespace SummerProject
             this.projectiles = projectiles;
             
             Speed = startSpeed;
+            TurnSpeed = startTurnSpeed;
         }
 
         public void Update(GameTime gameTime)
