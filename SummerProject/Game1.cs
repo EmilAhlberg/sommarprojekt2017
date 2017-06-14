@@ -22,6 +22,7 @@ namespace SummerProject
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
+        Particles particles;
 
         CollisionHandler colhandl;
 
@@ -77,6 +78,7 @@ namespace SummerProject
 
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 10);
+            particles = new Particles(new Sprite(homingTex));
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 10);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
@@ -105,6 +107,8 @@ namespace SummerProject
             player.Update(gameTime);
             enemies.Update(gameTime);
             projectiles.Update(gameTime);
+            particles.CreateParticle(new Vector2(800, 800), 1, (float)(new Random().NextDouble()*2*Math.PI));
+            particles.Update(gameTime);
             HandleAllCollisions();       
 
             base.Update(gameTime);
@@ -133,6 +137,7 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             background.Draw(spriteBatch, gameTime);
+            particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);

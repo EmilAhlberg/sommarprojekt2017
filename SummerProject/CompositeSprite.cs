@@ -12,6 +12,7 @@ namespace SummerProject
     {
         List<ISprite> spriteList;
       
+        public float Scale { get; set; } //!
         private float rotation;
         public float Rotation
         {

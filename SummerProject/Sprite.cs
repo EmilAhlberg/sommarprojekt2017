@@ -16,7 +16,7 @@ namespace SummerProject
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
-        public float scale { get; set; }
+        public float Scale { get; set; }
         public SpriteEffects spriteFX { get; set; }
         public float layerDepth { get; set; }
         private int subimages;
@@ -36,7 +36,7 @@ namespace SummerProject
             Position = Vector2.Zero;
             Rotation = 0;
             Origin = Vector2.Zero;
-            scale = 1f;
+            Scale = 1f;
             spriteFX = SpriteEffects.None;
             layerDepth = 0;
         }
@@ -44,7 +44,7 @@ namespace SummerProject
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
-            sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, scale, spriteFX, layerDepth);
+            sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, Scale, spriteFX, layerDepth);
         }
 
         public void Animate(GameTime gameTime)
