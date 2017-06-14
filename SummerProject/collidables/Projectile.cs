@@ -11,8 +11,6 @@ namespace SummerProject.collidables
     {
         private float despawnTimer = 7f;
         private const float despawnTime = 7f; //!!!!!!!
-        public bool isActive { get; set; }
-        public int Damage {get; set; }
 
         public Projectile(ISprite sprite) : base (Vector2.Zero, sprite)
         {
