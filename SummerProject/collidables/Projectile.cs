@@ -10,9 +10,7 @@ namespace SummerProject.collidables
     abstract class Projectile : Entity
     {
         private float despawnTimer = 7f;
-        private const float despawnTime = 7f; //!!!!!!!
-        public bool isActive { get; set; }
-        public int Damage {get; set; }
+        private const float despawnTime = 7f; //!!
 
         public Projectile(ISprite sprite) : base (Vector2.Zero, sprite)
         {

@@ -13,16 +13,21 @@ namespace SummerProject
         private Vector2 DL { set; get; }
         private Vector2 DR { set; get; }
         private Vector2 UR { set; get; }
+        public float Width { set; get; }
+        public float Height { set; get; }
 
-        public RotRectangle(Rectangle rect)
+        public RotRectangle(Rectangle rect, float angleRad)
         {
             this.UL = new Vector2(rect.Left, rect.Top);
             this.DL = new Vector2(rect.Left, rect.Bottom);
             this.DR = new Vector2(rect.Right, rect.Bottom);
-            this.UR = new Vector2(rect.Right, rect.Top);    
+            this.UR = new Vector2(rect.Right, rect.Top);
+            Width = rect.Width;
+            Height = rect.Height;
+            Rotate(angleRad);
         }
 
-        public void rotate(float angleRad)
+        public void Rotate(float angleRad)
         {
             Matrix rotate = Matrix.CreateRotationZ(angleRad);
             UL = Vector2.Transform(UL, rotate);
@@ -38,11 +43,11 @@ namespace SummerProject
             axes[1] = new Vector2(UR.X - DR.X, UR.Y - DR.Y);
             axes[2] = new Vector2(r.UL.X - r.DL.X, r.UL.Y - r.DL.Y);
             axes[3] = new Vector2(r.UL.X - r.UR.X, r.UL.Y - r.UR.Y);
-
+            float[] scalarA = new float[4];
+            float[] scalarB = new float[4];
             foreach (Vector2 axis in axes)
             {
-                float[] scalarA = new float[4];
-                float[] scalarB = new float[4];
+                
                 scalarA[0] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(UL, axis) / axis.LengthSquared()));
                 scalarA[1] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(DL, axis) / axis.LengthSquared()));
                 scalarA[2] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(DR, axis) / axis.LengthSquared()));

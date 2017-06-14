@@ -65,6 +65,9 @@
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />
     <Compile Include="factories\Enemies.cs" />
+    <Compile Include="factories\Entities.cs" />
+    <Compile Include="factories\EntityFactory.cs" />
+    <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="IKillable.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Movable.cs" />
