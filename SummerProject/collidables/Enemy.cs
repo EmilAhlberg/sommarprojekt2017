@@ -15,8 +15,6 @@ namespace SummerProject
         private const float startSpeed = 0.5f; //-!
         private Player player;
 
-
-
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
         {           

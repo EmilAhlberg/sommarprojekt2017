@@ -41,9 +41,9 @@ namespace SummerProject
         private void HandleBulletType()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
-                projectiles.switchBullets(EntityTypes.BULLET_TYPE);
+                projectiles.switchBullets(EntityTypes.BULLET);
             if (Keyboard.GetState().IsKeyDown(Keys.D2))
-                projectiles.switchBullets(EntityTypes.HOMINGBULLET_TYPE);
+                projectiles.switchBullets(EntityTypes.HOMINGBULLET);
         }
 
         private void Fire()
@@ -109,7 +109,7 @@ namespace SummerProject
 
         public void Death()
         {
-            health = 10;
+            health = 10; //!
             Position = Vector2.Zero;
         }
     }

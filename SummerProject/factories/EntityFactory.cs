@@ -10,9 +10,10 @@ namespace SummerProject.factories
 {
     class EntityFactory
     {
+        private const int standard = -5000;
         public static Entity CreateEntity(Sprite sprite, Player player)
         {
-            return new Enemy(new Vector2(-5000, -5000), new Sprite(sprite), player);
+            return new Enemy(FarAway(), new Sprite(sprite), player);
             
         }
                
@@ -20,11 +21,16 @@ namespace SummerProject.factories
         {
             switch (type)
             {
-                case 1: return new Bullet(new Sprite(sprite));                   
-                case 2: return new HomingBullet(new Sprite(sprite));           
+                case 1: return new Bullet(FarAway(), new Sprite(sprite));                   
+                case 2: return new HomingBullet(FarAway(), new Sprite(sprite));           
                 default:
                     throw new NotImplementedException();
             }        
+        }
+
+        private static Vector2 FarAway()
+        {
+            return new Vector2(standard, standard);
         }
     }
 }

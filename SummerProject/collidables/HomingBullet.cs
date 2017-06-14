@@ -14,7 +14,7 @@ namespace SummerProject.collidables
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
-        public HomingBullet(ISprite sprite) : base(sprite)
+        public HomingBullet(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             oldBoundBox = BoundBox;
             bigBoundBox = new Rectangle(oldBoundBox.X, oldBoundBox.Y, 200, 200);

@@ -13,7 +13,7 @@ namespace SummerProject.factories
         private int bulletType;
         public Projectiles(Sprite sprite, int ammoCap) : base(sprite, ammoCap, 1) //!!
         {
-            bulletType = EntityTypes.BULLET_TYPE;
+            bulletType = EntityTypes.BULLET;
             InitializeEntities();
         }
 
@@ -29,16 +29,14 @@ namespace SummerProject.factories
         {
             RemoveInactiveType(createEntity());
             bulletType = newType;
-            InitializeEntities();
-            
+            InitializeEntities();            
         }
       
 
         public void Update(GameTime gameTime)
         {           
             UpdateEntities(gameTime);
-            RemoveAbundantType();
-
+            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
         }
 
         private void RemoveAbundantType()

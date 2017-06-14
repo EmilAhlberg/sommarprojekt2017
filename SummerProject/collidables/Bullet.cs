@@ -11,9 +11,8 @@ namespace SummerProject
     class Bullet : collidables.Projectile
     {      
 
-        public Bullet(ISprite sprite) : base(sprite)
-        {
-            this.sprite = sprite;
+        public Bullet(Vector2 position, ISprite sprite) : base(position, sprite)
+        {       
             Damage = 10; //!   
         }
 
