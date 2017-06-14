@@ -17,7 +17,7 @@ namespace SummerProject
             {
                 base.Position = value;
                 BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
-            }
+            } //SPRITE:ORIGIN????
             get { return base.Position; }   
         }
 
