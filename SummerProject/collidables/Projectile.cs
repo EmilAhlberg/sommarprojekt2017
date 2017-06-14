@@ -7,13 +7,14 @@ using Microsoft.Xna.Framework;
 
 namespace SummerProject.collidables
 {
-    abstract class Projectile : Entity
+    abstract class Projectile : AIEntity
     {
         private float despawnTimer = 7f;
-        private const float despawnTime = 7f; //!!
+        private const float despawnTime = 7f;
 
-        public Projectile(ISprite sprite) : base (Vector2.Zero, sprite)
+        public Projectile(Vector2 position, ISprite sprite) : base (position, sprite)
         {
+            Speed = 10;
         }
 
         protected void UpdateTimer(GameTime gameTime)

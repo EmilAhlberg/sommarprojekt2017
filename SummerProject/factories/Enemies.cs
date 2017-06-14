@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     class Enemies : Entities
     {             
         private Player player;
-        public Enemies (Sprite sprite, Player player, int NbrOfEnemies) : base(sprite, NbrOfEnemies, 0.5f)
+        public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies) : base(sprites, NbrOfEnemies, 0.5f)
         {         
             this.player = player;
-            InitializeEntities();
+            InitializeEntities(0);
         }
      
         public void Update(GameTime gameTime)
@@ -31,9 +32,9 @@ namespace SummerProject.factories
         }
 
 
-        protected override Entity createEntity()
+        protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(Sprite, player);
+            return EntityFactory.CreateEntity(sprites[index], player);
         }
     }
 }

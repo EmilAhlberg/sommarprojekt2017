@@ -4,26 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     class EntityFactory
     {
-        public static Entity CreateEntity(Sprite sprite, Player player)
+        private const int standard = -5000;
+        public static AIEntity CreateEntity(Sprite sprite, Player player)
         {
-            return new Enemy(new Vector2(-5000, -5000), sprite, player);
+            return new Enemy(FarAway(), new Sprite(sprite), player);
             
         }
                
-        public static Entity CreateEntity(Sprite sprite, int type)
+        public static AIEntity CreateEntity(Sprite sprite, int type)
         {
             switch (type)
             {
-                case 1: return new Bullet(sprite);                   
-                //case 2: return new TestBullet(sprite)               
+                case 0: return new Bullet(FarAway(), new Sprite(sprite));                   
+                case 1: return new HomingBullet(FarAway(), new Sprite(sprite));           
                 default:
                     throw new NotImplementedException();
             }        
+        }
+
+        public static Vector2 FarAway()
+        {
+            return new Vector2(standard, standard);
         }
     }
 }

@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SummerProject
+namespace SummerProject.collidables
 {
-    class Bullet : collidables.Projectile
-    {      
-
-        public Bullet(ISprite sprite) : base(sprite)
-        {
-            this.sprite = sprite;
-            Damage = 10; //!   
+    class Bullet : Projectile
+    {
+        private const int bulletDamage = 10;
+        private const int bulletHealth = 1;
+        public Bullet(Vector2 position, ISprite sprite) : base(position, sprite)
+        {       
+            Damage = bulletDamage;
+            Health = bulletHealth;
         }
 
         public override void Update(GameTime gameTime)
