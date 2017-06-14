@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SummerProject
+namespace SummerProject.factories
 {
-    class Projectiles : factories.Entities
+    class Projectiles : Entities
     {
   
         public Projectiles(Sprite sprite, int ammoCap) : base(sprite, ammoCap, 1) //!!
@@ -32,7 +32,7 @@ namespace SummerProject
 
         protected override Entity createEntity()
         {
-            return new Bullet(Sprite);
+            return EntityFactory.CreateEntity(Sprite, EntityTypes.BULLET_TYPE);
         }
     }
 }
