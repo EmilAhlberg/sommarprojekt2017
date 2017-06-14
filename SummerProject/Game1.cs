@@ -57,9 +57,18 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
             Texture2D shotTex = Content.Load<Texture2D>("lazor");
+            Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
+            Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
+
+            CompositeSprite compSpr = new CompositeSprite();
+
+            compSpr.addSprite(new Sprite(shipTex), new Vector2(0, 0));
+            compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
+            compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
+
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(new Sprite(shotTex, 4));
-            player = new Player(new Vector2(100, 100), new Sprite(shipTex), projectiles);
+            player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(new Sprite(enemyTex), player, 100);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();           

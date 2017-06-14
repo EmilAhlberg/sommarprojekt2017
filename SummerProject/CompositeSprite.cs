@@ -33,7 +33,7 @@ namespace SummerProject
             {
                 foreach (ISprite s in spriteList)
                 {
-                    s.Position = s.Position - Position + value; //All sprites have positions relative to the CompositeSprite.
+                    s.Position = value; //All sprites have positions relative to the CompositeSprite.
                 }
                 position = value;
             }
@@ -48,7 +48,7 @@ namespace SummerProject
             {
                 foreach (ISprite s in spriteList)
                 {
-                    s.Origin = value; //All sprites have origins relative to the CompositeSprite.
+                    s.Origin = s.Origin + value; //All sprites have origins relative to the CompositeSprite.
                 }
                 origin = value;
             }
@@ -66,8 +66,7 @@ namespace SummerProject
                 Origin = s.Origin;
                 SpriteRect = s.SpriteRect;
             }
-            s.Position = Position + relativePos;
-            s.Origin = Origin;
+            s.Origin = -relativePos;
             spriteList.Add(s);
         }
 
