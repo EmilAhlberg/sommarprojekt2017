@@ -9,32 +9,52 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public class Sprite
+    public class Sprite : ISprite
     {
         Texture2D texture;
-        public Rectangle spriteRect { get; private set; }
-        public Vector2 position { get; set; }
-        public float rotation { get; set; }
-        public Vector2 origin { get; set; }
+        public Rectangle SpriteRect { get; set; }
+        public Vector2 Position { get; set; }
+        public float Rotation { get; set; }
+        public Vector2 Origin { get; set; }
         public float scale { get; set; }
         public SpriteEffects spriteFX { get; set; }
         public float layerDepth { get; set; }
+        private int subimages;
+        private float currentFrame;
+        private int fps;
 
-        public Sprite(Texture2D texture)
+        public Sprite(Sprite sprite) : this(sprite.texture, sprite.subimages, sprite.fps)
+        {
+        }
+
+        public Sprite(Texture2D texture, int subimages = 1, int fps = 4)
         {
             this.texture = texture;
-            spriteRect = new Rectangle(0, 0, texture.Width, texture.Height);
-            position = Vector2.Zero;
-            rotation = 0;
-            origin = Vector2.Zero;
+            this.subimages = subimages;
+            this.fps = fps;
+            SpriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
+            Position = Vector2.Zero;
+            Rotation = 0;
+            Origin = Vector2.Zero;
             scale = 1f;
             spriteFX = SpriteEffects.None;
             layerDepth = 0;
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, GameTime gameTime)
         {
-            sb.Draw(texture, position, spriteRect, Color.White, rotation, origin, scale, spriteFX, layerDepth);
+            Animate(gameTime);
+            sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, scale, spriteFX, layerDepth);
+        }
+
+        public void Animate(GameTime gameTime)
+        {      
+            currentFrame += (float)gameTime.ElapsedGameTime.TotalSeconds * fps;
+            if((int)currentFrame > subimages-1)
+            {
+                currentFrame = 0;
+            }
+            SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
         }
     }
 }

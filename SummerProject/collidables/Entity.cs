@@ -14,7 +14,7 @@ namespace SummerProject
         public int Damage {get; set; }
         public int Health { get; set; }
 
-        public Entity(Vector2 position, Sprite sprite) : base (position, sprite)
+        public Entity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
         }
 

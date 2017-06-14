@@ -10,9 +10,9 @@ namespace SummerProject.collidables
     abstract class Projectile : Entity
     {
         private float despawnTimer = 7f;
-        private const float despawnTime = 7f; //!!
+        private const float despawnTime = 7f; //!!!!!!!
 
-        public Projectile(Vector2 position, Sprite sprite) : base(position, sprite)
+        public Projectile(ISprite sprite) : base (Vector2.Zero, sprite)
         {
         }
 

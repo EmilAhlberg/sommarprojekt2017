@@ -11,20 +11,20 @@ namespace SummerProject
     public class Drawable
     {
         public virtual Vector2 Position { set; get; }
-        protected Sprite sprite;
+        protected ISprite sprite;
         protected float angle = 0;
 
-        public Drawable(Vector2 position, Sprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+        public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             this.sprite = sprite;
-            sprite.origin = new Vector2(sprite.spriteRect.Width / 2, sprite.spriteRect.Height / 2);
+            sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            sprite.position = Position;
-            sprite.rotation = angle;
-            sprite.Draw(spriteBatch);
+            sprite.Position = Position;
+            sprite.Rotation = angle;
+            sprite.Draw(spriteBatch, gameTime);
         }
     }
 }

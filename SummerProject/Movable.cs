@@ -11,7 +11,7 @@ namespace SummerProject
     {
         protected float Speed { set; get; } = 1f; //-!
 
-        public Movable(Vector2 position, Sprite sprite) : base(position, sprite) { }
+        public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
         protected void CalculateAngle(float dX, float dY)
         {
