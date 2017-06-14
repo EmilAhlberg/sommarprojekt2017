@@ -125,11 +125,11 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             background.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
+            player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
             enemies.Draw(spriteBatch, gameTime);
-            projectiles.Draw(spriteBatch, gameTime);
+            
             spriteBatch.End();
             // TODO: Add your drawing code here
 
