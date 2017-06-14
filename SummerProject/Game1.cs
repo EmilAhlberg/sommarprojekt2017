@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System;
 using SummerProject.factories;
+using SummerProject.collidables;
 
 namespace SummerProject
 {

@@ -8,13 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.factories;
 
-namespace SummerProject
+namespace SummerProject.collidables
 {
-    class Player : Collidable, IKillable
+    class Player : Entity
     {
         private const float startSpeed = 5f;
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
-        public int health { get; set; } = 10; //!
+        private const int playerHealth = 10;
+        private const int playerDamage = 2;    
 
         private Projectiles projectiles;
 
@@ -23,7 +24,8 @@ namespace SummerProject
         {
             Position = position;
             this.projectiles = projectiles;
-            
+            Health = playerHealth;
+            Damage = playerDamage;
             Speed = startSpeed;
             TurnSpeed = startTurnSpeed;
         }
@@ -34,7 +36,7 @@ namespace SummerProject
             Move();
             HandleBulletType();
             Fire();     
-            if(health <= 0)
+            if(Health <= 0)
             {
                 Death();
             }     
@@ -105,14 +107,14 @@ namespace SummerProject
             if(c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
-                health -= e.Damage;
+                Health -= e.Damage;
             }
         }
 
-        public void Death()
+        public override void Death()
         {
-            health = 10; //!
-            Position = Vector2.Zero;
+            Health = playerHealth;
+            Position = Vector2.Zero; //!
         }
     }
 }

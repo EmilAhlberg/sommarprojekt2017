@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
@@ -31,7 +32,7 @@ namespace SummerProject.factories
         }
 
 
-        protected override Entity createEntity()
+        protected override AIEntity createEntity()
         {
             return EntityFactory.CreateEntity(Sprite, player);
         }

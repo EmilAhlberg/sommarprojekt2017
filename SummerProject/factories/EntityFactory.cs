@@ -11,13 +11,13 @@ namespace SummerProject.factories
     class EntityFactory
     {
         private const int standard = -5000;
-        public static Entity CreateEntity(Sprite sprite, Player player)
+        public static AIEntity CreateEntity(Sprite sprite, Player player)
         {
             return new Enemy(FarAway(), new Sprite(sprite), player);
             
         }
                
-        public static Entity CreateEntity(Sprite sprite, int type)
+        public static AIEntity CreateEntity(Sprite sprite, int type)
         {
             switch (type)
             {
@@ -28,7 +28,7 @@ namespace SummerProject.factories
             }        
         }
 
-        private static Vector2 FarAway()
+        public static Vector2 FarAway()
         {
             return new Vector2(standard, standard);
         }

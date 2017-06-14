@@ -57,8 +57,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\Entity.cs" />
+    <Compile Include="collidables\HomingBullet.cs" />
+    <Compile Include="collidables\AIEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="CollisionHandler.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
-    <Compile Include="IKillable.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
