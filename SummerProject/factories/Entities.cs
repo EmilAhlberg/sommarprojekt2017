@@ -5,40 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     abstract class Entities
     {
-        public Sprite Sprite { get; }
+        public List<Sprite> sprites { get; }
         protected int entityCap;
-        public List<Entity> entityList { get; private set; }
+        public List<AIEntity> entityList { get; private set; }
         public float EventTimer { get; set; }
         private float eventTime;
 
-        public Entities(Sprite sprite, int entityCap, float eventTime)
+        public Entities(List<Sprite> sprites, int entityCap, float eventTime)
         {
-            Sprite = sprite;
+            this.sprites = sprites;
             this.entityCap = entityCap;
             this.eventTime = eventTime;
             EventTimer = 0;
-            entityList = new List<Entity>();
+            entityList = new List<AIEntity>();
         }
 
-        protected abstract Entity createEntity();
+        protected abstract AIEntity CreateEntity(int index);
 
-        protected void InitializeEntities()
+        protected void InitializeEntities(int index)
         {            
             for (int i = 0; i < entityCap; i++)
             {
-                entityList.Insert(0, createEntity());
+                entityList.Insert(0, CreateEntity(index));
               
             }
         }
 
         protected void ActivateEntities(Vector2 source, Vector2 target)
         {
-            foreach (Entity e in entityList)
+            foreach (AIEntity e in entityList)
             {
                 if (!e.isActive)
                 {
@@ -49,7 +50,7 @@ namespace SummerProject.factories
             }
         }
 
-        protected void RemoveInactiveType(Entity type)
+        protected void RemoveInactiveType(AIEntity type)
         {
             int tempCap = entityCap;
             for(int i = 0; i<tempCap; i++)
@@ -65,7 +66,7 @@ namespace SummerProject.factories
 
         protected void UpdateEntities(GameTime gameTime)
         {
-            foreach (Entity e in entityList)
+            foreach (AIEntity e in entityList)
             {
                 if (e.isActive)
                     e.Update(gameTime);
@@ -75,7 +76,7 @@ namespace SummerProject.factories
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (Entity e in entityList)
+            foreach (AIEntity e in entityList)
             {
                 if (e.isActive)
                     e.Draw(spriteBatch, gameTime);

@@ -8,7 +8,7 @@ namespace SummerProject.factories
 {
     class EntityTypes
     {
-        public const int BULLET_TYPE = 1;
-        public const int HOMINGBULLET_TYPE = 2;
+        public const int BULLET = 0;
+        public const int HOMINGBULLET = 1;
     }
 }

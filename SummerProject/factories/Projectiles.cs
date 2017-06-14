@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     class Projectiles : Entities
     {
         private int bulletType;
-        public Projectiles(Sprite sprite, int ammoCap) : base(sprite, ammoCap, 1) //!!
+        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap, 1) //!!
         {
-            bulletType = EntityTypes.BULLET_TYPE;
-            InitializeEntities();
+            bulletType = EntityTypes.BULLET;
+            InitializeEntities(0);
         }
 
         public void Fire(Vector2 source, Vector2 target)
@@ -27,18 +28,16 @@ namespace SummerProject.factories
 
         public void switchBullets(int newType)
         {
-            RemoveInactiveType(createEntity());
+            RemoveInactiveType(CreateEntity(bulletType));
             bulletType = newType;
-            InitializeEntities();
-            
+            InitializeEntities(newType);            
         }
       
 
         public void Update(GameTime gameTime)
         {           
             UpdateEntities(gameTime);
-            RemoveAbundantType();
-
+            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
         }
 
         private void RemoveAbundantType()
@@ -52,9 +51,9 @@ namespace SummerProject.factories
             }
         }
 
-        protected override Entity createEntity()
+        protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(Sprite, bulletType);
+            return EntityFactory.CreateEntity(sprites[index], bulletType);
         }
     }
 }

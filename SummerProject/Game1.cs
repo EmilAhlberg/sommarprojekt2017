@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System;
 using SummerProject.factories;
+using SummerProject.collidables;
 
 namespace SummerProject
 {
@@ -58,8 +59,15 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("ship");
             Texture2D wallTex = Content.Load<Texture2D>("wall");
             Texture2D shotTex = Content.Load<Texture2D>("lazor");
+            Texture2D homingTex = Content.Load<Texture2D>("homing");
             Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
+
+            List<Sprite> bulletSprites = new List<Sprite>();
+            List<Sprite> enemySprites = new List<Sprite>();
+            enemySprites.Add(new Sprite(enemyTex));        // order is important
+            bulletSprites.Add(new Sprite(shotTex, 4));
+            bulletSprites.Add(new Sprite(homingTex));
 
             CompositeSprite compSpr = new CompositeSprite();
 
@@ -68,9 +76,9 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(new Sprite(shotTex, 4), 10);
+            projectiles = new Projectiles(bulletSprites, 10);
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
-            enemies = new Enemies(new Sprite(enemyTex), player, 10);    
+            enemies = new Enemies(enemySprites, player, 10);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
