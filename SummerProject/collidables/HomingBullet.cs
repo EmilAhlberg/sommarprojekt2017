@@ -23,12 +23,16 @@ namespace SummerProject.collidables
         private void InitDetection()
         {
             Damage = 0; //!   big box must do 0 dmg bcuz detection
+            bigBoundBox.Location = BoundBox.Location;
+            bigBoundBox.Offset(200, 0);
             BoundBox = bigBoundBox;
             lockedOn = false;
         }
         private void InitLockOn()
         {
             lockedOn = true;
+            oldBoundBox.Location = BoundBox.Location;
+            oldBoundBox.Offset(-200, 0);
             BoundBox = oldBoundBox;
             Damage = 10;    // set damage here
         }
@@ -43,16 +47,30 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
-            if (!lockedOn && c2 is Enemy)
+            if (!lockedOn)
             {
-                enemy = (Enemy)c2;
-                InitLockOn();
+                if (c2 is Enemy)
+                {
+                    enemy = (Enemy)c2;
+                    InitLockOn();
+                }
+                else if (c2 is Wall)
+                {
+                    oldBoundBox.Location = BoundBox.Location;
+                    BoundBox = oldBoundBox;
+                    if (c2.BoundBox.Intersects(oldBoundBox))
+                    {
+                        Death();
+                        InitDetection();
+                    }
+                }
             }
-            else if ((lockedOn && c2 is Enemy) || c2 is Wall)
+            else if (lockedOn && (c2 is Enemy || c2 is Wall))
             {
                 Death();
                 InitDetection();
             }
+
         }
 
         public override void Update(GameTime gameTime)

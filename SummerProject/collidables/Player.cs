@@ -32,11 +32,20 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
+            HandleBulletType();
             Fire();     
             if(health <= 0)
             {
                 Death();
             }     
+        }
+
+        private void HandleBulletType()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+                projectiles.switchBullets(EntityTypes.BULLET_TYPE);
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+                projectiles.switchBullets(EntityTypes.HOMINGBULLET_TYPE);
         }
 
         private void Fire()
