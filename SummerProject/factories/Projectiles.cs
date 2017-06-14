@@ -8,69 +8,31 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class Projectiles
+    class Projectiles : factories.Entities
     {
-        public List<Entity> projectiles { get; private set; }
-        private int bulletCap;
-        private Sprite sprite;
-        private float reloadTimer = 1f;
-        private const float reloadTime = 1f;
-            
-             
-        public Projectiles(Sprite sprite)
+  
+        public Projectiles(Sprite sprite, int ammoCap) : base(sprite, ammoCap, 1) //!!
         {
-            this.sprite = sprite;
-            projectiles = new List<Entity>();
-            bulletCap = 10;
-            initializeBullets();
-        }
-
-        private void initializeBullets()
-        {
-            for (int i = 0; i<bulletCap; i++)
-            {
-                projectiles.Add(new Bullet(sprite));
-            }           
+            InitializeEntities();
         }
 
         public void Fire(Vector2 source, Vector2 target)
         {
-            if (reloadTimer > reloadTime)
+            if (EventTimer < 0)
             {
-                TryToShoot(source, target);               
+                ActivateEntities(source, target);               
             }           
         }
-
-        private void TryToShoot(Vector2 source, Vector2 target)
-        {
-            foreach (Entity p in projectiles)
-            {
-                if (!p.isActive)
-                {
-                    p.Activate(source, target);
-                    reloadTimer = 0;
-                    break;
-                }
-            }
-        }
+      
 
         public void Update(GameTime gameTime)
+        {           
+            UpdateEntities(gameTime);  
+        }      
+
+        protected override Entity createEntity()
         {
-            reloadTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            foreach (Entity p in projectiles)
-            {
-                if (p.isActive)                
-                    p.Update(gameTime);
-                
-            }           
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (Entity p in projectiles)
-            {
-                if(p.isActive)
-                    p.Draw(spriteBatch);
-            }
+            return new Bullet(Sprite);
         }
     }
 }

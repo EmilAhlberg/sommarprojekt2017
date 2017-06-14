@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class BulletTest : Projectile
+    class BulletTest : collidables.Projectile
     {
         private Enemy enemy;
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
-        public BulletTest(Sprite sprite) : base(sprite)
+        public BulletTest(Sprite sprite) : base(Vector2.Zero, sprite)
         {
             this.sprite = sprite;
             Damage = 10; //!   
@@ -52,6 +52,16 @@ namespace SummerProject
                 lockedOn = false;
                 BoundBox = bigBoundBox;
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            throw new NotImplementedException();
         }
     }
 }

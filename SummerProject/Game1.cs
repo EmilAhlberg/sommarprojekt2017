@@ -59,9 +59,9 @@ namespace SummerProject
             Texture2D shotTex = Content.Load<Texture2D>("lazor");
 
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(new Sprite(shotTex));
+            projectiles = new Projectiles(new Sprite(shotTex), 10); //!
             player = new Player(new Vector2(100, 100), new Sprite(shipTex), projectiles);
-            enemies = new Enemies(new Sprite(enemyTex), player, 100);    
+            enemies = new Enemies(new Sprite(enemyTex), player, 10); //!    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();           
             // TODO: use this.Content to load your game content here
@@ -96,11 +96,11 @@ namespace SummerProject
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in enemies.EnemyList)
+            foreach (Collidable c in enemies.entityList)
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in projectiles.projectiles)
+            foreach (Collidable c in projectiles.entityList)
             {
                 collidableList.Add(c);
             }
