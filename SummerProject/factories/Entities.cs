@@ -11,7 +11,7 @@ namespace SummerProject.factories
     abstract class Entities
     {
         public Sprite Sprite { get; }
-        private int entityCap;
+        protected int entityCap;
         public List<Entity> entityList { get; private set; }
         public float EventTimer { get; set; }
         private float eventTime;
@@ -22,16 +22,17 @@ namespace SummerProject.factories
             this.entityCap = entityCap;
             this.eventTime = eventTime;
             EventTimer = 0;
-            entityList = new List<Entity>();           
+            entityList = new List<Entity>();
         }
 
         protected abstract Entity createEntity();
 
         protected void InitializeEntities()
-        {
+        {            
             for (int i = 0; i < entityCap; i++)
             {
-                entityList.Add(createEntity());
+                entityList.Insert(0, createEntity());
+              
             }
         }
 
@@ -45,6 +46,20 @@ namespace SummerProject.factories
                     EventTimer = eventTime;
                     break;
                 }                 
+            }
+        }
+
+        protected void RemoveInactiveType(Entity type)
+        {
+            int tempCap = entityCap;
+            for(int i = 0; i<tempCap; i++)
+            {
+                if (entityList[i].GetType().Equals(type.GetType()) && !entityList[i].isActive)
+                {
+                    entityList.Remove(entityList[i]);
+                    i--;
+                    tempCap--;
+                }
             }
         }
 
