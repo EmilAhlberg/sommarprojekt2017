@@ -51,6 +51,7 @@ namespace SummerProject
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
+                if (isActive)
                 Health -= b.Damage;
             }
             if (c2 is Player)
