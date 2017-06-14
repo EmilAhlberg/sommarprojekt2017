@@ -11,11 +11,9 @@ namespace SummerProject.collidables
     class HomingBullet : Projectile
     {
         private Enemy enemy;
-        private Wall wall;
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
-        private bool lockedOnEnemy;
         public HomingBullet(ISprite sprite) : base(sprite)
         {
             oldBoundBox = BoundBox;
@@ -26,31 +24,23 @@ namespace SummerProject.collidables
         {
             Damage = 0; //!   big box must do 0 dmg bcuz detection
             bigBoundBox.Location = BoundBox.Location;
+            bigBoundBox.Offset(200, 0);
             BoundBox = bigBoundBox;
             lockedOn = false;
         }
         private void InitLockOn()
         {
-            Damage = 10;    // set damage here
             lockedOn = true;
             oldBoundBox.Location = BoundBox.Location;
+            oldBoundBox.Offset(-200, 0);
             BoundBox = oldBoundBox;
+            Damage = 10;    // set damage here
         }
 
         private void CalculateAngle()
         {
-            float dX;
-            float dY;
-            if (lockedOnEnemy)
-            {
-                 dX = Position.X - enemy.Position.X;
-                 dY = Position.Y - enemy.Position.Y;
-            }
-            else
-            {
-                 dX = Position.X - wall.Position.X;
-                 dY = Position.Y - wall.Position.Y;
-            }
+            float dX = Position.X - enemy.Position.X;
+            float dY = Position.Y - enemy.Position.Y;
             base.CalculateAngle(dX, dY);
         }
 
@@ -61,15 +51,18 @@ namespace SummerProject.collidables
             {
                 if (c2 is Enemy)
                 {
-                    lockedOnEnemy = true;
                     enemy = (Enemy)c2;
                     InitLockOn();
                 }
                 else if (c2 is Wall)
                 {
-                    lockedOnEnemy = false;
-                    wall = (Wall)c2;
-                    InitLockOn();
+                    oldBoundBox.Location = BoundBox.Location;
+                    BoundBox = oldBoundBox;
+                    if (c2.BoundBox.Intersects(oldBoundBox))
+                    {
+                        Death();
+                        InitDetection();
+                    }
                 }
             }
             else if (lockedOn && (c2 is Enemy || c2 is Wall))
@@ -84,12 +77,7 @@ namespace SummerProject.collidables
         {
             if (lockedOn)
             {
-                if (lockedOnEnemy)
-                {
-                    if (enemy.isActive)
-                        CalculateAngle();
-                }
-                else if (wall != null)
+                if (enemy.isActive)
                     CalculateAngle();
                 else
                     InitDetection();
