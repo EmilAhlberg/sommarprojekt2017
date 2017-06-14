@@ -28,11 +28,11 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {           
             UpdateEntities(gameTime);  
-        }      
+        }       
 
         protected override Entity createEntity()
         {
-            return EntityFactory.CreateEntity(Sprite, EntityTypes.BULLET_TYPE);
+            return EntityFactory.CreateEntity(Sprite, EntityTypes.HOMINGBULLET_TYPE);
         }
     }
 }

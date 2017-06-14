@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
@@ -20,7 +21,7 @@ namespace SummerProject.factories
             switch (type)
             {
                 case 1: return new Bullet(sprite);                   
-                //case 2: return new TestBullet(sprite)               
+                case 2: return new HomingBullet(sprite);           
                 default:
                     throw new NotImplementedException();
             }        
