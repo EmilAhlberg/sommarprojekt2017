@@ -10,28 +10,28 @@ namespace SummerProject.factories
 {
     abstract class Entities
     {
-        public Sprite Sprite { get; }
+        public List<Sprite> sprites { get; }
         protected int entityCap;
         public List<Entity> entityList { get; private set; }
         public float EventTimer { get; set; }
         private float eventTime;
 
-        public Entities(Sprite sprite, int entityCap, float eventTime)
+        public Entities(List<Sprite> sprites, int entityCap, float eventTime)
         {
-            Sprite = sprite;
+            this.sprites = sprites;
             this.entityCap = entityCap;
             this.eventTime = eventTime;
             EventTimer = 0;
             entityList = new List<Entity>();
         }
 
-        protected abstract Entity createEntity();
+        protected abstract Entity CreateEntity(int index);
 
-        protected void InitializeEntities()
+        protected void InitializeEntities(int index)
         {            
             for (int i = 0; i < entityCap; i++)
             {
-                entityList.Insert(0, createEntity());
+                entityList.Insert(0, CreateEntity(index));
               
             }
         }

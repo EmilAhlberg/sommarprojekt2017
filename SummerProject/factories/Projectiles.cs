@@ -11,10 +11,10 @@ namespace SummerProject.factories
     class Projectiles : Entities
     {
         private int bulletType;
-        public Projectiles(Sprite sprite, int ammoCap) : base(sprite, ammoCap, 1) //!!
+        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap, 1) //!!
         {
             bulletType = EntityTypes.BULLET;
-            InitializeEntities();
+            InitializeEntities(0);
         }
 
         public void Fire(Vector2 source, Vector2 target)
@@ -27,9 +27,9 @@ namespace SummerProject.factories
 
         public void switchBullets(int newType)
         {
-            RemoveInactiveType(createEntity());
+            RemoveInactiveType(CreateEntity(bulletType));
             bulletType = newType;
-            InitializeEntities();            
+            InitializeEntities(newType);            
         }
       
 
@@ -50,9 +50,9 @@ namespace SummerProject.factories
             }
         }
 
-        protected override Entity createEntity()
+        protected override Entity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(Sprite, bulletType);
+            return EntityFactory.CreateEntity(sprites[index], bulletType);
         }
     }
 }
