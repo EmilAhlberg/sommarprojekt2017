@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace SummerProject
+namespace SummerProject.factories
 {
-    class Enemies : factories.Entities
+    class Enemies : Entities
     {             
         private Player player;
         public Enemies (Sprite sprite, Player player, int NbrOfEnemies) : base(sprite, NbrOfEnemies, 0.5f)
@@ -33,7 +33,7 @@ namespace SummerProject
 
         protected override Entity createEntity()
         {
-            return new Enemy(new Vector2(-5000, -5000), Sprite, player);
+            return EntityFactory.CreateEntity(Sprite, player);
         }
     }
 }

@@ -58,12 +58,12 @@ namespace SummerProject.factories
             EventTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             foreach (Entity e in entityList)
             {
                 if (e.isActive)
-                    e.Draw(spriteBatch);
+                    e.Draw(spriteBatch, gameTime);
             }
         }
     }
