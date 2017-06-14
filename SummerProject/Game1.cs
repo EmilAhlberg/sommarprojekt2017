@@ -68,7 +68,7 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(new Sprite(shotTex, 4));
+            projectiles = new Projectiles(new Sprite(shotTex, 4), 10);
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(new Sprite(enemyTex), player, 10);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));

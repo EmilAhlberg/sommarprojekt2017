@@ -12,7 +12,7 @@ namespace SummerProject.factories
     {
         public static Entity CreateEntity(Sprite sprite, Player player)
         {
-            return new Enemy(new Vector2(-5000, -5000), sprite, player);
+            return new Enemy(new Vector2(-5000, -5000), new Sprite(sprite), player);
             
         }
                
@@ -20,8 +20,8 @@ namespace SummerProject.factories
         {
             switch (type)
             {
-                case 1: return new Bullet(sprite);                   
-                case 2: return new HomingBullet(sprite);           
+                case 1: return new Bullet(new Sprite(sprite));                   
+                case 2: return new HomingBullet(new Sprite(sprite));           
                 default:
                     throw new NotImplementedException();
             }        
