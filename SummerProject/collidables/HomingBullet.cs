@@ -6,20 +6,31 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SummerProject
+namespace SummerProject.collidables
 {
-    class BulletTest : collidables.Projectile
+    class HomingBullet : Projectile
     {
         private Enemy enemy;
         private bool lockedOn;
         private Rectangle oldBoundBox;
         private Rectangle bigBoundBox;
-        public BulletTest(Sprite sprite) : base(Vector2.Zero, sprite)
+        public HomingBullet(ISprite sprite) : base(sprite)
         {
-            Damage = 0; //!   
             oldBoundBox = BoundBox;
             bigBoundBox = new Rectangle(oldBoundBox.X, oldBoundBox.Y, 200, 200);
+            InitDetection();
+        }
+        private void InitDetection()
+        {
+            Damage = 0; //!   big box must do 0 dmg bcuz detection
             BoundBox = bigBoundBox;
+            lockedOn = false;
+        }
+        private void InitLockOn()
+        {
+            lockedOn = true;
+            BoundBox = oldBoundBox;
+            Damage = 10;    // set damage here
         }
 
         private void CalculateAngle()
@@ -35,24 +46,27 @@ namespace SummerProject
             if (!lockedOn && c2 is Enemy)
             {
                 enemy = (Enemy)c2;
-                lockedOn = true;
-                BoundBox = oldBoundBox;
-                Damage = 10;
+                InitLockOn();
             }
             else if ((lockedOn && c2 is Enemy) || c2 is Wall)
             {
                 Death();
-                lockedOn = false;
-                BoundBox = bigBoundBox;
+                InitDetection();
             }
         }
 
         public override void Update(GameTime gameTime)
         {
             if (lockedOn)
-                CalculateAngle();
+            {
+                if (enemy.isActive)
+                    CalculateAngle();
+                else
+                    InitDetection();
+            }
             UpdateTimer(gameTime);
             Move();
+
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -60,7 +74,6 @@ namespace SummerProject
             float dX = source.X - target.X;
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
-            Damage = 0;
             ResetSpawnTime();
         }
     }
