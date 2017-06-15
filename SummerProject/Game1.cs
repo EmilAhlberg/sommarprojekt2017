@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using SummerProject.factories;
 using SummerProject.collidables;
+using SummerProject.menu;
 
 namespace SummerProject
 {
@@ -18,6 +19,7 @@ namespace SummerProject
         public const int MENU_STATE = 1;
         public const int GAME_STATE = 2;
         GraphicsDeviceManager graphics;
+        SpriteFont debugFont;
         SpriteBatch spriteBatch;
         MenuComponent menuComponent;
         public int GameState { set; get; }
@@ -70,6 +72,7 @@ namespace SummerProject
             // Create a new SpriteBatch, which can be used to draw textures.
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            debugFont = Content.Load<SpriteFont>("debugfont");
 
             SpriteFont font = Content.Load<SpriteFont>("testfont");          
             Texture2D backgroundTex = Content.Load<Texture2D>("background1");
@@ -81,9 +84,7 @@ namespace SummerProject
             Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
             Texture2D deadTex1 = Content.Load<Texture2D>("denemy1");
-            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");
-
-            LoadMenuContent(spriteBatch, font);
+            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");      
 
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
@@ -97,6 +98,8 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
+            menuComponent = new MenuComponent(this, spriteBatch, font);
+            
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 10);
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
@@ -107,13 +110,11 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex2));
             Particles.AddSprite(new Sprite(deadTex1));
             // TODO: use this.Content to load your game content here
-        }
 
-        private void LoadMenuContent(SpriteBatch spriteBatch, SpriteFont font)
-        {
-            string[] menuItems = { "Start Game", "Settings", "End Game" };
-            menuComponent = new MenuComponent(this, spriteBatch, font, menuItems);
+          
         }
+       
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -187,13 +188,20 @@ namespace SummerProject
                     break;
                 default: throw new NotImplementedException();
             }
-           
-            
-            
+            //
+            //
+            DebugMode(spriteBatch);
+            //
+            //
             spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
-    }
+
+        private void DebugMode(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+        }
+    }   
 }
