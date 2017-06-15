@@ -15,7 +15,7 @@ namespace SummerProject.factories
         protected int entityCap;
         public List<AIEntity> entityList { get; private set; }
         public float EventTimer { get; set; }
-        private float eventTime;
+        protected float eventTime;
 
         public Entities(List<Sprite> sprites, int entityCap, float eventTime)
         {
