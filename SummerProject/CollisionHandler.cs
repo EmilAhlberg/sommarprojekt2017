@@ -43,9 +43,9 @@ namespace SummerProject
             Vector2 backVect = c1.PrevPos - collidedPos;
             backVect.Normalize();
             backVect *= 0.2f;
-            //while (c1.BoundBox.Intersects(c2.BoundBox))
-            //    c1.Position += backVect;
-
+            while (c1.BoundBox.Intersects(c2.BoundBox))
+                c1.Position += backVect;
+     
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
             //    c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
             //else
