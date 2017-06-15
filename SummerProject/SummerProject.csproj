@@ -70,7 +70,8 @@
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="ISprite.cs" />
-    <Compile Include="MenuComponent.cs" />
+    <Compile Include="menu\Menu.cs" />
+    <Compile Include="menu\MenuComponent.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />

@@ -158,3 +158,10 @@
 /processorParam:TextureFormat=Color
 /build:denemy1.png
 
+#begin debugfont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:debugfont.spritefont
+
