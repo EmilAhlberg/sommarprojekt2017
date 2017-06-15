@@ -45,10 +45,11 @@ namespace SummerProject
             backVect *= 0.2f;
             while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                 c1.Position += backVect;
-            if (c1.BoundBoxes[0].Bottom == c2.BoundBoxes[0].Top || c1.BoundBoxes[0].Top == c2.BoundBoxes[0].Bottom)
-                c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
-            else
-                c1.Position = new Vector2(c1.Position.X, collidedPos.Y);
+     
+            //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
+            //    c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
+            //else
+            //    c1.Position = new Vector2(c1.Position.X, collidedPos.Y);
         }
 
         //private void rotatingIntersection(Collidable c1, Collidable c2)
