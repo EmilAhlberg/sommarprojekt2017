@@ -44,7 +44,7 @@ namespace SummerProject
 
         public Sprite() : this(baseTexture, 1, 1)
         {
-
+            Origin = new Vector2(SpriteRect.Width/2, SpriteRect.Height / 2); //! HMM
         }
 
         public static void addBaseTexture(Texture2D t)

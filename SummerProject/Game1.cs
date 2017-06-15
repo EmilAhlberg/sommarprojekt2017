@@ -61,9 +61,12 @@ namespace SummerProject
         {
             #region Adding base texture to Sprite
 
-            Texture2D baseTex = new Texture2D(GraphicsDevice, 1, 1);
-            Color[] c = new Color[1];
+            Texture2D baseTex = new Texture2D(GraphicsDevice, 2, 2);
+            Color[] c = new Color[4];
             c[0] = Color.White;
+            c[1] = Color.White;
+            c[2] = Color.White;
+            c[3] = Color.White;
             baseTex.SetData(c);
             Sprite.addBaseTexture(baseTex);
 
@@ -84,7 +87,9 @@ namespace SummerProject
             Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
             Texture2D deadTex1 = Content.Load<Texture2D>("denemy1");
-            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");      
+            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");
+            Texture2D deadTex3 = Content.Load<Texture2D>("dship1");
+            Texture2D deadTex4 = Content.Load<Texture2D>("dship2");
 
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
@@ -109,9 +114,11 @@ namespace SummerProject
 
             Particles.AddSprite(new Sprite(deadTex2));
             Particles.AddSprite(new Sprite(deadTex1));
+            Particles.AddSprite(new Sprite(deadTex4));
+            Particles.AddSprite(new Sprite(deadTex3));
             // TODO: use this.Content to load your game content here
 
-          
+
         }
        
 
@@ -142,7 +149,7 @@ namespace SummerProject
                     player.Update(gameTime);
                     enemies.Update(gameTime);
                     projectiles.Update(gameTime);
-                    Particles.CreateParticle(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
+                    Particles.GenerateParticles(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
                     Particles.Update(gameTime);
                     HandleAllCollisions();
                     break;
