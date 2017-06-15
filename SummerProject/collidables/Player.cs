@@ -12,10 +12,13 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
-        private const float startSpeed = 5f;
+        private const float startSpeed = 1f;
+        private const float maxSpeed = 10f;
+        private const float acceleration = 0.2f;
+        private KeyboardState prevKeyDown;
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
-        private const int playerDamage = 2;    
+        private const int playerDamage = 2; 
 
         private Projectiles projectiles;
 
@@ -64,14 +67,19 @@ namespace SummerProject.collidables
         }
 
         protected override void Move()
-        {            
+        {
+            
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.S))
             {
+                if (prevKeyDown.IsKeyDown(Keys.W))
+                    Speed = startSpeed;
                 Position = new Vector2(Position.X - (float)Math.Cos(angle) * Speed, Position.Y - (float)Math.Sin(angle) * Speed);
             }
             if (ks.IsKeyDown(Keys.W))
             {
+                if (prevKeyDown.IsKeyDown(Keys.S))
+                    Speed = startSpeed;
                 Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed);
             }
             if (ks.IsKeyDown(Keys.A))
@@ -82,6 +90,20 @@ namespace SummerProject.collidables
             {
                 Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * Speed);
             }
+            bool pressed = false;
+                foreach (Keys k in ks.GetPressedKeys())
+                {
+                    if (prevKeyDown.GetPressedKeys().Contains(k))
+                    {
+                        pressed = true;
+                    if (Speed < maxSpeed)
+                        Speed += acceleration;
+                        break;
+                    }
+            }
+            if (!pressed)
+                Speed = startSpeed;
+            prevKeyDown = ks;
             //if (ks.IsKeyDown(Keys.A))
             //{
             //    angle = angle - 0.1f;
