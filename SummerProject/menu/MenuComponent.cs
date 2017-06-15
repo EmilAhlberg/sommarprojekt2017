@@ -18,120 +18,91 @@ namespace SummerProject.menu
     using Microsoft.Xna.Framework.Media;
 
 
-    public class MenuComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class MenuComponent
     {
-        private static readonly String[] MAIN_MENU ={ "Start Game", "Settings", "End Game" };
-        private string[] menuItems;
-        private int selectedIndex;
-        private int currentMenu = 1; //!
-        private Game1 game;
-        private Color normal = Color.White;
-        private Color hilite = Color.Yellow;
-        private KeyboardState keyboardState;
-        private KeyboardState oldKeyboardState;
-        private SpriteBatch spriteBatch;
+
+        private string[] MenuItems;  
         private SpriteFont spriteFont;
+        private static readonly Color normal = Color.White;
+        private static readonly Color hilite = Color.Yellow;
+        private float width; 
+        private float height;
         private Vector2 position;
-        private float width = 0f; //!
-        private float height = 0f; //!
 
-        public MenuComponent(Game1 game, SpriteBatch spriteBatch, SpriteFont spriteFont)
-           : base(game)
+        public MenuComponent(Vector2 position, SpriteFont spriteFont, string[] menuItems)
         {
-            menuItems = MAIN_MENU;
-            this.spriteBatch = spriteBatch;
+            this.MenuItems = menuItems;
             this.spriteFont = spriteFont;
-            this.game = game;
             MeasureMenu();
-        }
-
-        public int SelectedIndex
-        {
-            get { return selectedIndex; }
-            set
-            {
-                selectedIndex = value;
-                if (selectedIndex < 0)
-                    selectedIndex = 0;
-                if (selectedIndex >= menuItems.Length)
-                    selectedIndex = menuItems.Length - 1;
-            }
+            this.position = position - (new Vector2(width, height))/2;        
         }
 
         private void MeasureMenu()
         {
             height = 0;
             width = 0;
-            foreach (string item in menuItems)
+            foreach (string item in MenuItems)
             {
                 Vector2 size = spriteFont.MeasureString(item);
                 if (size.X > width)
                     width = size.X;
                 height += spriteFont.LineSpacing + 5;
             }
-            position = new Vector2((Game.Window.ClientBounds.Width - width) / 2, (Game.Window.ClientBounds.Height - height) / 2);
-        }
+        }     
 
-        public override void Initialize()
+        public int HandleSelection(int currentMenu, int selectedIndex, Game1 game)
         {
-            base.Initialize();
+            switch(currentMenu)
+            {
+                case MenuConstants.MAIN:
+                    return HandleMainMenu(selectedIndex, game);                    
+                case MenuConstants.SETTINGS:
+                    return HandleSettingsMenu(selectedIndex, game);                   
+                default: throw new NotImplementedException();
+            }           
         }
 
-        private bool CheckKey(Keys theKey)
-        {
-            return keyboardState.IsKeyUp(theKey) && oldKeyboardState.IsKeyDown(theKey);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            keyboardState = Keyboard.GetState();
-            if (CheckKey(Keys.Down))
-            {
-                selectedIndex++;
-                selectedIndex %= menuItems.Length;
-            }
-            if (CheckKey(Keys.Up))
-            {
-                selectedIndex--;
-                if (selectedIndex < 0)
-                    selectedIndex = menuItems.Length - 1;
-            }
-            if (CheckKey(Keys.Enter))
-            {
-                HandleSelection();
-            }
-
-            base.Update(gameTime);
-            oldKeyboardState = keyboardState;
-        }
-
-        private void HandleSelection()
+        private int HandleSettingsMenu(int selectedIndex, Game1 game)
         {
             switch (selectedIndex)
             {
-                case 0:
-                    game.GameState = 2;
+                case 0:                    
                     break;
                 case 1:
                     break;
                 case 2:
+                    return MenuConstants.MAIN;                    
+            }
+            return -1;
+        }
+
+        private int HandleMainMenu(int selectedIndex, Game1 game)
+        {
+            switch (selectedIndex)
+            {
+                case 0:
+                    game.GameState = Game1.GAME_STATE;
+                    break;
+                case 1:
+                    return MenuConstants.SETTINGS;
+                case 2:
                     game.Exit();
                     break;
             }
+            return -1;
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, int selectedIndex)
+        {          
             Vector2 location = position;
             Color tint;
-            for (int i = 0; i < menuItems.Length; i++)
+            for (int i = 0; i < MenuItems.Length; i++)
             {
                 if (i == selectedIndex)
                     tint = hilite;
                 else
                     tint = normal;
-                spriteBatch.DrawString(spriteFont, menuItems[i], location, tint);
+                spriteBatch.DrawString(spriteFont, MenuItems[i], location, tint);
                 location.Y += spriteFont.LineSpacing + 5;
             }
         }
