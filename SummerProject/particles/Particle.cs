@@ -62,15 +62,15 @@ namespace SummerProject
                 case 2:
                     {
                         sprite = sprites[1];
-                        Speed = 3*TTL;
-                        
+                        Speed = Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 3; //!!!
+
                         Move();
                         break;
                     }
                 case 3:
                     {
                         sprite = sprites[2];
-                        Speed = -3 * TTL;
+                        Speed = Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * -3; //!!!
                         Move();
                         break;
                     }
