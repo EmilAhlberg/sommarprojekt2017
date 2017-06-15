@@ -13,8 +13,8 @@ namespace SummerProject
         private Vector2 DL { set; get; }
         private Vector2 DR { set; get; }
         private Vector2 UR { set; get; }
-        public float Width { set; get; }
-        public float Height { set; get; }
+        public int Width { set; get; }
+        public int Height { set; get; }
         //public Point Location { set; get; }
 
         public RotRectangle(Rectangle rect, float angleRad)
