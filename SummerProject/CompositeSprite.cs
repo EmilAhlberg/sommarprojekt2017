@@ -80,7 +80,7 @@ namespace SummerProject
                 Origin = s.Origin;
                 SpriteRect = s.SpriteRect;
             }
-            //s.Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2); //! hmmm
+            s.Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2); //! hmmm
             s.Origin += -relativePos;
             spriteList.Add(s);
         }
