@@ -151,7 +151,6 @@ namespace SummerProject
                     player.Update(gameTime);
                     enemies.Update(gameTime);
                     projectiles.Update(gameTime);
-                    Particles.GenerateParticles(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
                     Particles.Update(gameTime);
                     HandleAllCollisions();
                     break;

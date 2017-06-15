@@ -22,7 +22,7 @@ namespace SummerProject
             : base(position, sprite)
         {           
             this.player = player;
-            Speed = startSpeed*Speed;
+            Speed = speedMultiplier * Speed;
             Health = enemyHealth; ; 
             Damage = enemyDamage;
         }
