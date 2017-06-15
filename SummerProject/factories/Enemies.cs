@@ -35,7 +35,7 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-            Vector2 spawnPoint = new Vector2(250, 250);
+            //Vector2 spawnPoint = new Vector2(250, 250);
             Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
             UpdateEntities(gameTime);
         }

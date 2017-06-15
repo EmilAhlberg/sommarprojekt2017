@@ -45,7 +45,14 @@ namespace SummerProject
 
         protected virtual void Move()
         {
-            Position += Speed;
+            if (this is collidables.Bullet)
+            {
+                Position += Speed;
+            } else
+            {
+                Position += Speed;
+            }
+           
         }
     }
 }

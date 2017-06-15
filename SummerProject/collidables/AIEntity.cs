@@ -10,8 +10,7 @@ namespace SummerProject.collidables
 {
     abstract class AIEntity : Entity
     {
-        public bool isActive { get; set; }
-        private float maxSpeed = 5f;     
+        public bool isActive { get; set; }       
 
         public AIEntity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
@@ -33,11 +32,7 @@ namespace SummerProject.collidables
             isActive = false;
             Position = factories.EntityFactory.FarAway();
         }
-        protected override void Move()
-        {
-            Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * maxSpeed;
-            base.Move();
-        }
+
 
     }
 }

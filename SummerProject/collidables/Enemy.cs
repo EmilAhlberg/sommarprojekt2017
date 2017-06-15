@@ -12,10 +12,10 @@ namespace SummerProject
 {
     class Enemy : AIEntity
     {
-        private const float startSpeed = 0.5f; //-!
+        private const float speedMultiplier = 5f; //-!
         private const int enemyHealth = 10;
         private const int enemyDamage = 2;
-
+        private const int scoreValue = 100;
         private Player player;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
@@ -30,6 +30,7 @@ namespace SummerProject
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();
+            Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
             Move();
             if (Health < 1)
                 Death();           
@@ -53,7 +54,10 @@ namespace SummerProject
             {
                 Projectile b = c2 as Projectile;
                 if (isActive)
-                Health -= b.Damage;
+                {
+                    player.score += scoreValue;
+                    Health -= b.Damage;
+                }
             }
             if (c2 is Player)
             {

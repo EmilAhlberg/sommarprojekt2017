@@ -20,6 +20,7 @@ namespace SummerProject
         public const int GAME_STATE = 2;
         GraphicsDeviceManager graphics;
         SpriteFont debugFont;
+        SpriteFont scoreFont;
         SpriteBatch spriteBatch;
         Menu menu;
         public int GameState { set; get; }
@@ -73,6 +74,7 @@ namespace SummerProject
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             debugFont = Content.Load<SpriteFont>("debugfont");
+            scoreFont = Content.Load<SpriteFont>("ScoreFont");
 
             SpriteFont font = Content.Load<SpriteFont>("testfont");          
             Texture2D backgroundTex = Content.Load<Texture2D>("background1");
@@ -101,7 +103,7 @@ namespace SummerProject
             menu = new Menu(new Vector2((this.Window.ClientBounds.Width) / 2, (this.Window.ClientBounds.Height) / 2), font);
             
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(bulletSprites, 10);
+            projectiles = new Projectiles(bulletSprites, 30);
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 10, 3);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
@@ -202,6 +204,8 @@ namespace SummerProject
         private void DebugMode(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
+            spriteBatch.DrawString(scoreFont, "Health: " + player.Health/2, new Vector2(1600, 90), Color.OrangeRed);
         }
     }   
 }
