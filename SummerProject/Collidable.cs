@@ -15,6 +15,7 @@ namespace SummerProject
         public override Vector2 Position {
             set
             {
+                
                 base.Position = value;
                 BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
             } //SPRITE:ORIGIN????
@@ -24,7 +25,7 @@ namespace SummerProject
         protected override void Move()
         {
             base.Move();
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
         }
         public bool IsStatic { get; set; }
 

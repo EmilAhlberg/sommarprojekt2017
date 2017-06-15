@@ -15,7 +15,7 @@ namespace SummerProject
         private Vector2 UR { set; get; }
         public float Width { set; get; }
         public float Height { set; get; }
-        public Point Location { set; get; }
+        //public Point Location { set; get; }
 
         public RotRectangle(Rectangle rect, float angleRad)
         {
@@ -23,7 +23,7 @@ namespace SummerProject
             this.DL = new Vector2(rect.Left, rect.Bottom);
             this.DR = new Vector2(rect.Right, rect.Bottom);
             this.UR = new Vector2(rect.Right, rect.Top);
-            Location = rect.Location;
+            //Location = rect.Location;
             Width = rect.Width;
             Height = rect.Height;
             Rotate(angleRad);
@@ -32,9 +32,11 @@ namespace SummerProject
         public void Rotate(float angleRad)
         {
             Matrix rotation = Matrix.CreateRotationZ(angleRad);
-            DL = Vector2.Add(UL, Vector2.Transform(DL-UL, rotation));
-            DR = Vector2.Add(UL, Vector2.Transform(DR-UL, rotation));
-            UR = Vector2.Add(UL, Vector2.Transform(UR-UL, rotation));
+            Vector2 pos = new Vector2((DR.X + UL.X)/2, (DR.Y + UL.Y)/2);
+            UL = Vector2.Add(pos, Vector2.Transform(UL - pos, rotation));
+            DL = Vector2.Add(pos, Vector2.Transform(DL-pos, rotation));
+            DR = Vector2.Add(pos, Vector2.Transform(DR - pos, rotation));
+            UR = Vector2.Add(pos, Vector2.Transform(UR - pos, rotation));
         }
 
         public bool Intersects(RotRectangle r)
