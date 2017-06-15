@@ -141,8 +141,8 @@ namespace SummerProject
                     player.Update(gameTime);
                     enemies.Update(gameTime);
                     projectiles.Update(gameTime);
-                    particles.CreateParticle(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
-                    particles.Update(gameTime);
+                    Particles.CreateParticle(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
+                    Particles.Update(gameTime);
                     HandleAllCollisions();
                     break;
                 default: throw new NotImplementedException();
@@ -179,7 +179,7 @@ namespace SummerProject
                     menuComponent.Draw(gameTime);
                     break;
                 case 2:
-                    particles.Draw(spriteBatch, gameTime);
+                    Particles.Draw(spriteBatch, gameTime);
                     projectiles.Draw(spriteBatch, gameTime);
                     player.Draw(spriteBatch, gameTime);
                     wall.Draw(spriteBatch, gameTime);
