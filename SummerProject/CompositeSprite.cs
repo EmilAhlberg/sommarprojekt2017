@@ -54,6 +54,19 @@ namespace SummerProject
                 origin = value;
             }
         }
+        private Color color;
+        public Color MColor
+        {
+            get { return color; }
+            set
+            {
+                foreach (ISprite s in spriteList)
+                {
+                    s.MColor = value; //All sprites have the same color as CompositeSprite.
+                }
+                color = value;
+            }
+        }
 
         public CompositeSprite()
         {
