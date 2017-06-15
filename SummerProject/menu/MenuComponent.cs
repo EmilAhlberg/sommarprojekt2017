@@ -66,9 +66,9 @@ namespace SummerProject.menu
         {
             switch (selectedIndex)
             {
-                case 0:                    
+                case 0: game.IsMouseVisible = false;           
                     break;
-                case 1:
+                case 1: game.IsMouseVisible = true;
                     break;
                 case 2:
                     return MenuConstants.MAIN;                    

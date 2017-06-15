@@ -144,6 +144,7 @@ namespace SummerProject.collidables
         public override void Death()
         {
             Health = playerHealth;
+            Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = Vector2.Zero; //!
         }
     }
