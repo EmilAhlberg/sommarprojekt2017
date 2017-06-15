@@ -35,12 +35,13 @@ namespace SummerProject
             }
         }
 
-        public void Activate(Vector2 position, float angle, int ID)
+        public void Activate(Vector2 position, float angle, float speed, int ttl, int ID)
         {
             Position = position;
+            Speed = speed;
             this.angle = angle;
             this.ID = ID;
-            TTL = 1; //!
+            TTL = ttl; //!
             isActive = true;
         } 
 
