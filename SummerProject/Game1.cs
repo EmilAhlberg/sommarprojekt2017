@@ -21,7 +21,7 @@ namespace SummerProject
         GraphicsDeviceManager graphics;
         SpriteFont debugFont;
         SpriteBatch spriteBatch;
-        MenuComponent menuComponent;
+        Menu menu;
         public int GameState { set; get; }
         Player player;
         Wall wall;
@@ -103,12 +103,12 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
-            menuComponent = new MenuComponent(this, spriteBatch, font);
+            menu = new Menu(new Vector2((this.Window.ClientBounds.Width) / 2, (this.Window.ClientBounds.Height) / 2), font);
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 10);
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
-            enemies = new Enemies(enemySprites, player, 10);    
+            enemies = new Enemies(enemySprites, player, 10, 3);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
 
@@ -143,7 +143,7 @@ namespace SummerProject
                 Exit();
             switch(GameState)
             {
-                case 1: menuComponent.Update(gameTime);
+                case 1: menu.Update(gameTime, this);
                     break;
                 case 2:
                     player.Update(gameTime);
@@ -184,7 +184,7 @@ namespace SummerProject
             switch (GameState)
             {
                 case 1:
-                    menuComponent.Draw(gameTime);
+                    menu.Draw(spriteBatch,gameTime);
                     break;
                 case 2:
                     Particles.Draw(spriteBatch, gameTime);

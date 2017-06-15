@@ -72,6 +72,7 @@
     <Compile Include="ISprite.cs" />
     <Compile Include="menu\Menu.cs" />
     <Compile Include="menu\MenuComponent.cs" />
+    <Compile Include="menu\MenuConstants.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
