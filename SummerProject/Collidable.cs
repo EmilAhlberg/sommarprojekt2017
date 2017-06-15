@@ -10,30 +10,47 @@ namespace SummerProject
     public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
-        public RotRectangle BoundBox { get; set; }
+        public List<RotRectangle> BoundBoxes { get; set; }
+        public bool IsStatic { get; set; }
 
+        public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
+        {
+            BoundBoxes = new List<RotRectangle>();
+            if (sprite is CompositeSprite)
+            {
+                List<ISprite> spriteList = ((CompositeSprite)sprite).spriteList;
+                foreach (ISprite s in spriteList)
+                {
+                    BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(s.Position.X), (int)Math.Round(s.Position.Y), s.SpriteRect.Width, s.SpriteRect.Height),angle));
+                }
+            }
+            else
+               BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height),angle));
+        }
+        public void AddBoundBox(RotRectangle rect)
+        {
+            BoundBoxes.Add(rect);
+        }
         public override Vector2 Position {
             set
             {
                 
                 base.Position = value;
-                BoundBox = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
-            } //SPRITE:ORIGIN????
+                for (int i = 0; i < BoundBoxes.Count(); i++)
+                {
+                    BoundBoxes[i] = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), (int)BoundBoxes[i].Width, (int)BoundBoxes[i].Height), angle);
+                }
+            }
             get { return base.Position; }   
         }
 
         protected override void Move()
         {
             base.Move();
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y),(int) BoundBox.Width,(int) BoundBox.Height), angle);
+            for (int i = 0; i < BoundBoxes.Count(); i++) {
+                BoundBoxes[i] = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X), (int)Math.Round(base.Position.Y), BoundBoxes[i].Width, BoundBoxes[i].Height),angle);
+            }
         }
-        public bool IsStatic { get; set; }
-
-        public Collidable(Vector2 position, ISprite sprite) : base(position,sprite)
-        {
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle);
-        }
-
         public abstract void Collision(Collidable c2);
     }
 }

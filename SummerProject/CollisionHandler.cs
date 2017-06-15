@@ -17,7 +17,7 @@ namespace SummerProject
                 foreach (Collidable c2 in list)
                 {
                     if (c1 != c2)
-                        if (c1.BoundBox.Intersects(c2.BoundBox))
+                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                             HandleCollision(c1, c2);
                 }
             }
@@ -43,7 +43,7 @@ namespace SummerProject
             Vector2 backVect = c1.PrevPos - collidedPos;
             backVect.Normalize();
             backVect *= 0.2f;
-            while (c1.BoundBox.Intersects(c2.BoundBox))
+            while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                 c1.Position += backVect;
      
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)

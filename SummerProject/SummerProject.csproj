@@ -70,10 +70,13 @@
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="ISprite.cs" />
+    <Compile Include="MenuComponent.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="collidables\Enemy.cs" />
+    <Compile Include="particles\Particle.cs" />
+    <Compile Include="particles\Particles.cs" />
     <Compile Include="RotRectangle.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="collidables\Player.cs" />

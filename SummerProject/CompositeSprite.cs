@@ -10,8 +10,9 @@ namespace SummerProject
 {
     class CompositeSprite : ISprite
     {
-        List<ISprite> spriteList;
+      public List<ISprite> spriteList { get; }
       
+        public float Scale { get; set; } //!
         private float rotation;
         public float Rotation
         {

@@ -15,8 +15,12 @@ namespace SummerProject
     /// </summary>
     public class Game1 : Game
     {
+        public const int MENU_STATE = 1;
+        public const int GAME_STATE = 2;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        MenuComponent menuComponent;
+        public int GameState { set; get; }
         Player player;
         Wall wall;
         Enemies enemies;
@@ -30,6 +34,7 @@ namespace SummerProject
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            GameState = MENU_STATE;
             Content.RootDirectory = "Content";
         }
 
@@ -52,8 +57,21 @@ namespace SummerProject
         /// </summary>
         protected override void LoadContent()
         {
+            #region Adding base texture to Sprite
+
+            Texture2D baseTex = new Texture2D(GraphicsDevice, 1, 1);
+            Color[] c = new Color[1];
+            c[0] = Color.White;
+            baseTex.SetData(c);
+            Sprite.addBaseTexture(baseTex);
+
+            #endregion
+
             // Create a new SpriteBatch, which can be used to draw textures.
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            SpriteFont font = Content.Load<SpriteFont>("testfont");          
             Texture2D backgroundTex = Content.Load<Texture2D>("background1");
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
@@ -62,6 +80,10 @@ namespace SummerProject
             Texture2D homingTex = Content.Load<Texture2D>("homing");
             Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
+            Texture2D deadTex1 = Content.Load<Texture2D>("denemy1");
+            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");
+
+            LoadMenuContent(spriteBatch, font);
 
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
@@ -80,8 +102,17 @@ namespace SummerProject
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 10);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            colhandl = new CollisionHandler();           
+            colhandl = new CollisionHandler();
+
+            Particles.AddSprite(new Sprite(deadTex2));
+            Particles.AddSprite(new Sprite(deadTex1));
             // TODO: use this.Content to load your game content here
+        }
+
+        private void LoadMenuContent(SpriteBatch spriteBatch, SpriteFont font)
+        {
+            string[] menuItems = { "Start Game", "Settings", "End Game" };
+            menuComponent = new MenuComponent(this, spriteBatch, font, menuItems);
         }
 
         /// <summary>
@@ -102,11 +133,20 @@ namespace SummerProject
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update(gameTime);
-            enemies.Update(gameTime);
-            projectiles.Update(gameTime);
-            HandleAllCollisions();       
-
+            switch(GameState)
+            {
+                case 1: menuComponent.Update(gameTime);
+                    break;
+                case 2:
+                    player.Update(gameTime);
+                    enemies.Update(gameTime);
+                    projectiles.Update(gameTime);
+                    Particles.CreateParticle(new Vector2(800, 800), 1, (float)(new Random().NextDouble() * 2 * Math.PI));
+                    Particles.Update(gameTime);
+                    HandleAllCollisions();
+                    break;
+                default: throw new NotImplementedException();
+            }                  
             base.Update(gameTime);
         }
 
@@ -133,10 +173,22 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             background.Draw(spriteBatch, gameTime);
-            projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
-            wall.Draw(spriteBatch, gameTime);
-            enemies.Draw(spriteBatch, gameTime);
+            switch (GameState)
+            {
+                case 1:
+                    menuComponent.Draw(gameTime);
+                    break;
+                case 2:
+                    Particles.Draw(spriteBatch, gameTime);
+                    projectiles.Draw(spriteBatch, gameTime);
+                    player.Draw(spriteBatch, gameTime);
+                    wall.Draw(spriteBatch, gameTime);
+                    enemies.Draw(spriteBatch, gameTime);
+                    break;
+                default: throw new NotImplementedException();
+            }
+           
+            
             
             spriteBatch.End();
             // TODO: Add your drawing code here
