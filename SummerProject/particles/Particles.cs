@@ -43,7 +43,7 @@ namespace SummerProject
             {
                 if (!p.isActive)
                 {
-                    p.Activate(position, angle, 1, 1, ID);
+                    p.Activate(position, angle, new Vector2(0, 0), 1, ID);
                     break;
                 }
             }
