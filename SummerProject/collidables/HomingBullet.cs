@@ -19,7 +19,7 @@ namespace SummerProject.collidables
 
         public HomingBullet(Vector2 position, ISprite sprite) : base(position, sprite)
         {
-            oldBoundBox = BoundBox;
+            oldBoundBox = BoundBoxes[0];
             bigBoundBox = new Rectangle(oldBoundBox.X, oldBoundBox.Y, 200, 200);
             InitDetection();
             Damage = homingDamage;
@@ -28,17 +28,17 @@ namespace SummerProject.collidables
         private void InitDetection()
         {
             Damage = 0; //!   big box must do 0 dmg bcuz detection
-            bigBoundBox.Location = BoundBox.Location;
+            bigBoundBox.Location = BoundBoxes[0].Location;
             bigBoundBox.Offset(200, 0);
-            BoundBox = bigBoundBox;
+            BoundBoxes[0] = bigBoundBox;
             lockedOn = false;
         }
         private void InitLockOn()
         {
             lockedOn = true;
-            oldBoundBox.Location = BoundBox.Location;
+            oldBoundBox.Location = BoundBoxes[0].Location;
             oldBoundBox.Offset(-200, 0);
-            BoundBox = oldBoundBox;
+            BoundBoxes[0] = oldBoundBox;
             Damage = homingDamage;    // set damage here
         }
 
@@ -61,9 +61,9 @@ namespace SummerProject.collidables
                 }
                 else if (c2 is Wall)
                 {
-                    oldBoundBox.Location = BoundBox.Location;
-                    BoundBox = oldBoundBox;
-                    if (c2.BoundBox.Intersects(oldBoundBox))
+                    oldBoundBox.Location = BoundBoxes[0].Location;
+                    BoundBoxes[0] = oldBoundBox;
+                    if (c2.BoundBoxes[0].Intersects(oldBoundBox))
                     {
                         Death();
                         InitDetection();
