@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -9,11 +10,19 @@ namespace SummerProject
         float TTL;
         int ID;
         public bool isActive { get; set; }
+        List<ISprite> sprites;
         public Particle(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             Position = position;
             this.sprite = sprite;
+            sprites = new List<ISprite>();
+            sprites.Add(sprite);
+        }
 
+        public void AddSprite(Sprite s)
+        {
+            s.Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2); //! hmmm
+            sprites.Add(s);
         }
 
         public void Update(GameTime gameTime)
@@ -32,7 +41,7 @@ namespace SummerProject
             this.angle = angle;
             
             this.ID = ID;
-            TTL = 3; //!
+            TTL = 1; //!
             isActive = true;
         } 
 
@@ -43,9 +52,25 @@ namespace SummerProject
 
                 case 1:
                     {
+                        sprite = sprites[0];
                         Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 10; //!!!
-                        sprite.Scale = TTL/2;
+                        sprite.Scale = 10*TTL;
                         angle += 0.1f;
+                        Move();
+                        break;
+                    }
+                case 2:
+                    {
+                        sprite = sprites[1];
+                        Speed = 3*TTL;
+                        
+                        Move();
+                        break;
+                    }
+                case 3:
+                    {
+                        sprite = sprites[2];
+                        Speed = -3 * TTL;
                         Move();
                         break;
                     }

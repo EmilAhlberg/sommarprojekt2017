@@ -54,6 +54,19 @@ namespace SummerProject
                 origin = value;
             }
         }
+        private Color color;
+        public Color MColor
+        {
+            get { return color; }
+            set
+            {
+                foreach (ISprite s in spriteList)
+                {
+                    s.MColor = value; //All sprites have the same color as CompositeSprite.
+                }
+                color = value;
+            }
+        }
 
         public CompositeSprite()
         {
@@ -67,7 +80,8 @@ namespace SummerProject
                 Origin = s.Origin;
                 SpriteRect = s.SpriteRect;
             }
-            s.Origin = -relativePos;
+            s.Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2); //! hmmm
+            s.Origin += -relativePos;
             spriteList.Add(s);
         }
 

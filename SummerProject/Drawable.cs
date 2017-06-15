@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace SummerProject
@@ -17,7 +18,8 @@ namespace SummerProject
         public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             this.sprite = sprite;
-            sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
+            if(sprite is Sprite)
+                sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -25,6 +27,8 @@ namespace SummerProject
             sprite.Position = Position;
             sprite.Rotation = angle;
             sprite.Draw(spriteBatch, gameTime);
+            Color c = Color.White;
+            //Microsoft.Xna.Framework.Graphics.DrawLine(new Pen(c),new Point((int)Position.X,(int)Position.Y), new Point((int)Position.X+(int)sprite.Origin.X, (int)Position.Y+(int)sprite.Origin.Y));
         }
     }
 }

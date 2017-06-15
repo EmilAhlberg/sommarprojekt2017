@@ -11,6 +11,7 @@ namespace SummerProject
 {
     public class Sprite : ISprite
     {
+        static Texture2D baseTexture;
         Texture2D texture;
         public Rectangle SpriteRect { get; set; }
         public Vector2 Position { get; set; }
@@ -19,6 +20,7 @@ namespace SummerProject
         public float Scale { get; set; }
         public SpriteEffects spriteFX { get; set; }
         public float layerDepth { get; set; }
+        public Color MColor { get; set; }
         private int subimages;
         private float currentFrame;
         private int fps;
@@ -33,19 +35,28 @@ namespace SummerProject
             this.subimages = subimages;
             this.fps = fps;
             SpriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
-            Position = Vector2.Zero;
             Rotation = 0;
-            Origin = Vector2.Zero;
             Scale = 1f;
+            MColor = Color.White;
             spriteFX = SpriteEffects.None;
             layerDepth = 0;
+        }
+
+        public Sprite() : this(baseTexture, 1, 1)
+        {
+
+        }
+
+        public static void addBaseTexture(Texture2D t)
+        {
+            baseTexture = t;
         }
 
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
-            sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, Scale, spriteFX, layerDepth);
-        }
+            sb.Draw(texture, Position, SpriteRect, MColor, Rotation, Origin, Scale, spriteFX, layerDepth);
+        } 
 
         public void Animate(GameTime gameTime)
         {      

@@ -15,6 +15,7 @@ namespace SummerProject
         Rectangle SpriteRect { get; set; }
         Vector2 Origin { get; set; }
         float Scale { get; set; }
+        Color MColor { get; set; }
 
         void Draw(SpriteBatch sb, GameTime gameTime);
         void Animate(GameTime gameTime);
