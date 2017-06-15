@@ -26,7 +26,6 @@ namespace SummerProject
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
-        Particles particles;
 
         CollisionHandler colhandl;
 
@@ -58,7 +57,18 @@ namespace SummerProject
         /// </summary>
         protected override void LoadContent()
         {
+            #region Adding base texture to Sprite
+
+            Texture2D baseTex = new Texture2D(GraphicsDevice, 1, 1);
+            Color[] c = new Color[1];
+            c[0] = Color.White;
+            baseTex.SetData(c);
+            Sprite.addBaseTexture(baseTex);
+
+            #endregion
+
             // Create a new SpriteBatch, which can be used to draw textures.
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             SpriteFont font = Content.Load<SpriteFont>("testfont");          
@@ -70,6 +80,8 @@ namespace SummerProject
             Texture2D homingTex = Content.Load<Texture2D>("homing");
             Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
+            Texture2D deadTex1 = Content.Load<Texture2D>("denemy1");
+            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");
 
             LoadMenuContent(spriteBatch, font);
 
@@ -87,11 +99,13 @@ namespace SummerProject
 
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 10);
-            particles = new Particles(new Sprite(homingTex));
             player = new Player(new Vector2(100, 100), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 10);    
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            colhandl = new CollisionHandler();           
+            colhandl = new CollisionHandler();
+
+            Particles.AddSprite(new Sprite(deadTex2));
+            Particles.AddSprite(new Sprite(deadTex1));
             // TODO: use this.Content to load your game content here
         }
 

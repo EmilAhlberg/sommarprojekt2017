@@ -8,28 +8,27 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public class Particles
+    public static class Particles
     {
-        List<Particle> particles;
-        List<Sprite> spriteList;
+        static List<Particle> particles;
         private const int maxParticles = 100;
 
-        public Particles(Sprite baseSprite)
+        static Particles()
         {
             particles = new List<Particle>();
             for(int i = 0; i < maxParticles; i++)
             {
-                particles.Add(new Particle(Vector2.Zero, new Sprite(baseSprite)));
+                particles.Add(new Particle(Vector2.Zero, new Sprite())); //!
             }
         }
 
-        public void addSprite(Sprite s)
+        public static void AddSprite(Sprite s)
         {
-            spriteList.Add(s);
-            throw new NotImplementedException();
+            foreach(Particle p in particles)
+                p.AddSprite(new Sprite(s));
         }
 
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             foreach (Particle p in particles) //flattens the lists
             {
@@ -38,7 +37,7 @@ namespace SummerProject
             }
         }
 
-        public void CreateParticle(Vector2 position, int ID, float angle = 0)
+        public static void CreateParticle(Vector2 position, int ID, float angle = 0)
         {
             foreach(Particle p in particles)
             {
@@ -50,9 +49,9 @@ namespace SummerProject
             }
         }
 
-        public void Draw(SpriteBatch sb, GameTime gameTime)
+        public static void Draw(SpriteBatch sb, GameTime gameTime)
         {
-            foreach (Particle p in particles) //flattens the lists
+            foreach (Particle p in particles)
             {
                 if (p.isActive)
                     p.Draw(sb, gameTime);

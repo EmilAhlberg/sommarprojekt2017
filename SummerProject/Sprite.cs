@@ -11,6 +11,7 @@ namespace SummerProject
 {
     public class Sprite : ISprite
     {
+        static Texture2D baseTexture;
         Texture2D texture;
         public Rectangle SpriteRect { get; set; }
         public Vector2 Position { get; set; }
@@ -41,11 +42,21 @@ namespace SummerProject
             layerDepth = 0;
         }
 
+        public Sprite() : this(baseTexture, 1, 1)
+        {
+
+        }
+
+        public static void addBaseTexture(Texture2D t)
+        {
+            baseTexture = t;
+        }
+
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
             sb.Draw(texture, Position, SpriteRect, Color.White, Rotation, Origin, Scale, spriteFX, layerDepth);
-        }
+        } 
 
         public void Animate(GameTime gameTime)
         {      
