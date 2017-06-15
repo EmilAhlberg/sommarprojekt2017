@@ -35,9 +35,9 @@ namespace SummerProject
             this.subimages = subimages;
             this.fps = fps;
             SpriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
-            Position = Vector2.Zero;
+            Position = new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2);
             Rotation = 0;
-            Origin = Vector2.Zero;
+            Origin = new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2);
             Scale = 1f;
             MColor = Color.White;
             spriteFX = SpriteEffects.None;

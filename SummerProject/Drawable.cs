@@ -17,7 +17,6 @@ namespace SummerProject
         public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             this.sprite = sprite;
-            sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
