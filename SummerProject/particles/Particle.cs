@@ -40,6 +40,7 @@ namespace SummerProject
             Position = position;
             Speed = speed;
             this.angle = angle;
+            
             this.ID = ID;
             TTL = ttl; //!
             isActive = true;
@@ -53,7 +54,7 @@ namespace SummerProject
                 case 1:
                     {
                         sprite = sprites[0];
-                        Speed = 10;
+                        Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 10; //!!!
                         sprite.Scale = 10*TTL;
                         angle += 0.1f;
                         Move();
@@ -62,15 +63,15 @@ namespace SummerProject
                 case 2:
                     {
                         sprite = sprites[1];
-                        Speed = 3*TTL;
-                        
+                        Speed = Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 3; //!!!
+
                         Move();
                         break;
                     }
                 case 3:
                     {
                         sprite = sprites[2];
-                        Speed = -3 * TTL;
+                        Speed = Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * -3; //!!!
                         Move();
                         break;
                     }
