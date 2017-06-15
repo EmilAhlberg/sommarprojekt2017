@@ -20,18 +20,18 @@ namespace SummerProject
 
     public class MenuComponent : Microsoft.Xna.Framework.DrawableGameComponent
         {
-            string[] menuItems;
-            int selectedIndex;
+            private string[] menuItems;
+            private int selectedIndex;
             private Game1 game;
-            Color normal = Color.White;
-            Color hilite = Color.Yellow;          
-            KeyboardState keyboardState;
-            KeyboardState oldKeyboardState;
-            SpriteBatch spriteBatch;
-            SpriteFont spriteFont;
-            Vector2 position;
-            float width = 0f;
-            float height = 0f;
+            private Color normal = Color.White;
+            private Color hilite = Color.Yellow;          
+            private KeyboardState keyboardState;
+            private KeyboardState oldKeyboardState;
+            private SpriteBatch spriteBatch;
+            private SpriteFont spriteFont;
+            private Vector2 position;
+            private float width = 0f; //!
+            private float height = 0f; //!
 
             public MenuComponent(Game1 game, SpriteBatch spriteBatch, SpriteFont spriteFont, string[] menuItems)
                : base(game)
@@ -96,27 +96,29 @@ namespace SummerProject
                 }
                 if (CheckKey(Keys.Enter))
                 {
-                    switch (selectedIndex)
-                {
-                    case 0:
-                        game.GameState = 2;                       
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        game.Exit();
-                        break;
-                    
-                }
+                HandleSelection();
             }
 
             base.Update(gameTime);
                 oldKeyboardState = keyboardState;
             }
 
+        private void HandleSelection()
+        {
+            switch (selectedIndex)
+            {
+                case 0:
+                    game.GameState = 2;
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    game.Exit();
+                    break;
+            }
+        }
 
-
-            public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
             {
                 base.Draw(gameTime);
                 Vector2 location = position;

@@ -97,7 +97,7 @@ namespace SummerProject
 
         private void LoadMenuContent(SpriteBatch spriteBatch, SpriteFont font)
         {
-            string[] menuItems = { "Start Game", "Big Boy Game Menu", "End Game" };
+            string[] menuItems = { "Start Game", "Settings", "End Game" };
             menuComponent = new MenuComponent(this, spriteBatch, font, menuItems);
         }
 
