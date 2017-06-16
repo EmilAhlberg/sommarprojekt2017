@@ -72,19 +72,19 @@ namespace SummerProject.collidables
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.S))
             {
-                Speed += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
+                Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.W))
             {
-                Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.A))
             {
-                Speed += new Vector2((float)Math.Cos(angle - Math.PI/2), (float)Math.Sin(angle - Math.PI/2)) * acceleration;
+                Velocity += new Vector2((float)Math.Cos(angle - Math.PI/2), (float)Math.Sin(angle - Math.PI/2)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.D))
             {
-                Speed += new Vector2((float)Math.Cos(angle + Math.PI/2), (float)Math.Sin(angle + Math.PI/2)) * acceleration;
+                Velocity += new Vector2((float)Math.Cos(angle + Math.PI/2), (float)Math.Sin(angle + Math.PI/2)) * acceleration;
             }
             Position = Position;
             bool pressed = false;
@@ -99,14 +99,14 @@ namespace SummerProject.collidables
 
             if (!pressed)
             {
-                Speed -= Speed * friction;
+                Velocity -= Velocity * friction;
             }
             
-            if (Speed.Length() > maxSpeed)
+            if (Velocity.Length() > maxSpeed)
             {
-                Vector2 temp = Speed;
+                Vector2 temp = Velocity;
                 temp.Normalize();
-                Speed = temp * maxSpeed;
+                Velocity = temp * maxSpeed;
             }
 
 
