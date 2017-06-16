@@ -17,7 +17,7 @@ namespace SummerProject.menu
             {
                 {MAIN, new string[] { "Start Game", "Settings", "End Game" }},
                 {SETTINGS, new string[] { "God Mode", "I am a Peasant", "Back" }},
-                {GAME_OVER, new string[] { "Play Again" }}
+                {GAME_OVER, new string[] { "Play Again", "Return to Main Menu" }}
             };
     }
 }

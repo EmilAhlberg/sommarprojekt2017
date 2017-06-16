@@ -16,18 +16,16 @@ namespace SummerProject.menu
 
         public override int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler)
         {
-            handler.NewGameState = EventOperator.GAME_STATE;
-            //switch (selectedIndex)
-            //{
-            //    case 0:
-            //        handler.IsMouseVisible(false);
-            //        break;
-            //    case 1:
-            //        handler.IsMouseVisible(true);
-            //        break;
-            //    case 2:
-            //        return MenuConstants.MAIN;
-            //}
+            
+            switch (selectedIndex)
+            {
+                case 0:
+                    handler.NewGameState = EventOperator.GAME_STATE;
+                    break;
+                case 1:
+                    handler.NewGameState = EventOperator.MENU_STATE;
+                    return MenuConstants.MAIN;                                                     
+            }
             return -1;
         }
     }
