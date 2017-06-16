@@ -28,13 +28,13 @@ namespace SummerProject.collidables
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            
             float dX = source.X - target.X;
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
-            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))*10; //!
+            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))*15; //!
             ResetSpawnTime(); 
         }
+
         public override void Collision(Collidable c2)
         {
             if(c2 is Enemy || c2 is Wall)

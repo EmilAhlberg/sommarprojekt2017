@@ -13,6 +13,7 @@ namespace SummerProject.collidables
     class Player : Entity
     {
         private int controlScheme = 3; // 1-4
+        private Vector2 startPosition;
         private const float maxSpeed = 10f;
         private const float acceleration = 1f;
         private float friction = 0.1f;
@@ -29,6 +30,7 @@ namespace SummerProject.collidables
             : base(position, sprite)
         {
             Position = position;
+            startPosition = position;
             this.projectiles = projectiles;
             Health = playerHealth;
             Damage = playerDamage;
@@ -181,7 +183,7 @@ namespace SummerProject.collidables
         {
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            Position = Vector2.Zero; //!
+            Position = startPosition; 
         }
     }
 }

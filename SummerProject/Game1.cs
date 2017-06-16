@@ -25,7 +25,7 @@ namespace SummerProject
         Menu menu;
         public int GameState { set; get; }
         Player player;
-        Wall wall;
+        //Wall wall;
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
@@ -109,9 +109,9 @@ namespace SummerProject
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(100, 100), compSpr, projectiles);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 10, 3);    
-            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
+            //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
 
             Particles.AddSprite(new Sprite(deadTex2));
@@ -153,6 +153,7 @@ namespace SummerProject
                     projectiles.Update(gameTime);
                     Particles.Update(gameTime);
                     HandleAllCollisions();
+                    KeepPlayerInScreen();
                     break;
                 default: throw new NotImplementedException();
             }                  
@@ -170,7 +171,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
+            colhandl.CheckCollisions(collidableList.ToArray(), player /*,wall*/);
         }
 
         /// <summary>
@@ -191,7 +192,7 @@ namespace SummerProject
                     Particles.Draw(spriteBatch, gameTime);
                     projectiles.Draw(spriteBatch, gameTime);
                     player.Draw(spriteBatch, gameTime);
-                    wall.Draw(spriteBatch, gameTime);
+                    //wall.Draw(spriteBatch, gameTime);
                     enemies.Draw(spriteBatch, gameTime);
                     break;
                 default: throw new NotImplementedException();
@@ -207,9 +208,24 @@ namespace SummerProject
             base.Draw(gameTime);
         }
 
+        private void KeepPlayerInScreen()
+        {
+            float x = player.Position.X;
+            float y = player.Position.Y;
+            if (player.Position.X > graphics.PreferredBackBufferWidth)
+                x = graphics.PreferredBackBufferWidth;
+            if (player.Position.Y > graphics.PreferredBackBufferHeight)
+                y = graphics.PreferredBackBufferHeight;
+            if (player.Position.X < 0)
+                x = 0;
+            if (player.Position.Y < 0)
+                y = 0;
+            player.Position = new Vector2(x, y);
+        }
+
         private void DebugMode(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health/2, new Vector2(1600, 90), Color.OrangeRed);
         }
