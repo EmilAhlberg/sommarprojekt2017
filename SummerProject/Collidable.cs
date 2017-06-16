@@ -39,7 +39,8 @@ namespace SummerProject
                 base.Position = value;
                 for (int i = 0; i < BoundBoxes.Count(); i++) //FIXA FÖR FLERA BOUNDBOXES, UTGÅR JUST NU FRÅN SPRITE.ORIGIN <--- MÅSTE ÄNDRAS
                 {
-                    BoundBoxes[i] = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X - sprite.Origin.X), (int)Math.Round(base.Position.Y - sprite.Origin.Y), (int)BoundBoxes[i].Width, (int)BoundBoxes[i].Height), angle);
+                    BoundBoxes[i].Location = value;
+                    BoundBoxes[i].Angle = angle;
                 }
             }
             get { return base.Position; }   
@@ -49,7 +50,8 @@ namespace SummerProject
         {
             base.Move();
             for (int i = 0; i < BoundBoxes.Count(); i++) { //ÄVEN HÄR, SE OVAN KOMMENTAR
-                BoundBoxes[i] = new RotRectangle(new Rectangle((int)Math.Round(base.Position.X - -sprite.Origin.X), (int)Math.Round(base.Position.Y - sprite.Origin.Y), BoundBoxes[i].Width, BoundBoxes[i].Height),angle);
+                BoundBoxes[i].Location = Position;
+                BoundBoxes[i].Angle = angle;
             }
         }
         public abstract void Collision(Collidable c2);

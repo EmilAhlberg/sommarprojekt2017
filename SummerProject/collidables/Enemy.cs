@@ -22,7 +22,7 @@ namespace SummerProject
             : base(position, sprite)
         {           
             this.player = player;
-            Speed = speedMultiplier * Speed;
+            Velocity = speedMultiplier * Velocity;
             Health = enemyHealth; ; 
             Damage = enemyDamage;
         }
@@ -30,8 +30,9 @@ namespace SummerProject
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
+            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
             Move();
+            Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
                 Death();           
         }

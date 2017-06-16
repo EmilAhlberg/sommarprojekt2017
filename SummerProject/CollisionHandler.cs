@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SummerProject.collidables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,21 @@ namespace SummerProject
                 foreach (Collidable c2 in list)
                 {
                     if (c1 != c2)
-                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                            HandleCollision(c1, c2);
+                    {
+                        if (c1 is AIEntity && c2 is AIEntity)
+                        {
+                            AIEntity e1 = c1 as AIEntity;
+                            AIEntity e2 = c2 as AIEntity;
+                            if (e1.isActive && e2.isActive)
+                            {
+                                if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                                    HandleCollision(c1, c2);
+                            }
+                        }
+                        else
+                            if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                                HandleCollision(c1, c2);
+                    }
                 }
             }
             foreach (Collidable c in list)
