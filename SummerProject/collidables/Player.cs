@@ -13,6 +13,9 @@ namespace SummerProject.collidables
     public class Player : Entity
     {
         private Vector2 startPosition;
+
+        private float respawnTimer = 3f;
+        private const float respawnTime = 3f;
         public bool isDead { get; private set; }
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
@@ -22,8 +25,9 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        public int score { get; set; }     
+        private int score;     
         private EventOperator eventOperator;
+
 
         private Projectiles projectiles;
 
@@ -41,15 +45,23 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            isDead = false;
-            if (controlScheme != 4)
-                CalculateAngle();
-            Particles.GenerateParticles(Position, 4, angle);
-            Move();
-            //HandleBulletType();
-            Fire();
-            if (Health <= 0)
-                Death();
+            if (isDead)
+            {
+                respawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (respawnTimer < 0)
+                    Respawn();
+            }
+            else
+            {
+                if (controlScheme != 4)
+                    CalculateAngle();
+                Particles.GenerateParticles(Position, 4, angle);
+                Move();
+                //HandleBulletType();
+                Fire();
+                if (Health <= 0 && !isDead)
+                    Death();
+            }
         }
 
         private void HandleBulletType()
@@ -190,14 +202,22 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            if (score > eventOperator.HighScore)
-                eventOperator.HighScore = score;
-            score = 0;
+            if (score > eventOperator.highScore)
+                eventOperator.highScore = score;
             isDead = true;
+            Particles.GenerateParticles(Position, 3, angle); //Death animation
+            respawnTimer = respawnTime;
+            sprite.MColor = Color.Transparent;    
+        }
+
+        private void Respawn()
+        {
+            score = 0;
             eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
             Health = playerHealth;
-            Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = startPosition;
+            isDead = false;
+            sprite.MColor = Color.White;
         }
     }
 }
