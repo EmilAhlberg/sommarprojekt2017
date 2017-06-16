@@ -77,6 +77,7 @@ namespace SummerProject.collidables
             if (ks.IsKeyDown(Keys.W))
             {
                 Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                Particles.GenerateParticles(Position, 4, angle);
             }
             if (ks.IsKeyDown(Keys.A))
             {

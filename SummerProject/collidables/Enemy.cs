@@ -32,6 +32,7 @@ namespace SummerProject
             CalculateAngle();
             Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
             Move();
+            Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
                 Death();           
         }
