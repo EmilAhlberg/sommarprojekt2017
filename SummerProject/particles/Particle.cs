@@ -19,7 +19,7 @@ namespace SummerProject
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
-            Speed = velocity;
+            Velocity = velocity;
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.sprite.MColor = color;
@@ -50,14 +50,14 @@ namespace SummerProject
                 case 1:
                     {
                         sprite.Scale = 4 * baseScale * currentTTL /TTL;
-                        Speed -= Speed * ((TTL - currentTTL) * 0.1f); //!!!
+                        Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
                         sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL/TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case 2:
                     {
-                        Speed -= Speed * ((TTL - currentTTL) * 0.1f); //!!!
+                        Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
                         sprite.MColor = new Color(1, 1, 1, (currentTTL/TTL));                     
                         break;
                     }
