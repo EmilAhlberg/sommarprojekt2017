@@ -16,20 +16,16 @@ namespace SummerProject
     /// </summary>
     public class Game1 : Game
     {
-        public const int MENU_STATE = 1;
-        public const int GAME_STATE = 2;
         GraphicsDeviceManager graphics;
         SpriteFont debugFont;
         SpriteFont scoreFont;
         SpriteBatch spriteBatch;
-        Menu menu;
-        public int GameState { set; get; }
+        EventOperator eventOperator;
         Player player;
         Wall wall;
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
-
         CollisionHandler colhandl;
 
         public Game1()
@@ -37,7 +33,6 @@ namespace SummerProject
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            GameState = MENU_STATE;
             Content.RootDirectory = "Content";
         }
 
@@ -52,6 +47,16 @@ namespace SummerProject
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             base.Initialize();
+        }
+
+        internal void StartGame(GameTime gameTime)
+        {
+            while (eventOperator.ActiveEvent)
+            {
+                Draw(gameTime);
+                eventOperator.UpdateEventTimer(gameTime);
+            }
+            
         }
 
         /// <summary>
@@ -105,7 +110,7 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
-            menu = new Menu(new Vector2((this.Window.ClientBounds.Width) / 2, (this.Window.ClientBounds.Height) / 2), font);
+            eventOperator = new EventOperator(new Vector2((Window.ClientBounds.Width) / 2, (Window.ClientBounds.Height) / 2), font, this);
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
@@ -119,8 +124,6 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex4));
             Particles.AddSprite(new Sprite(deadTex3));
             // TODO: use this.Content to load your game content here
-
-
         }
        
 
@@ -143,19 +146,19 @@ namespace SummerProject
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            switch(GameState)
+
+            if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
-                case 1: menu.Update(gameTime, this);
-                    break;
-                case 2:
-                    player.Update(gameTime);
-                    enemies.Update(gameTime);
-                    projectiles.Update(gameTime);
-                    Particles.Update(gameTime);
-                    HandleAllCollisions();
-                    break;
-                default: throw new NotImplementedException();
-            }                  
+                player.Update(gameTime);
+                enemies.Update(gameTime);
+                projectiles.Update(gameTime);
+                Particles.Update(gameTime);
+                HandleAllCollisions();
+            }                             
+            else {
+                eventOperator.Update(gameTime);
+            }             
+                           
             base.Update(gameTime);
         }
 
@@ -182,24 +185,19 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             background.Draw(spriteBatch, gameTime);
-            switch (GameState)
+            if(eventOperator.GameState == EventOperator.GAME_STATE)
             {
-                case 1:
-                    menu.Draw(spriteBatch,gameTime);
-                    break;
-                case 2:
-                    Particles.Draw(spriteBatch, gameTime);
-                    projectiles.Draw(spriteBatch, gameTime);
-                    player.Draw(spriteBatch, gameTime);
-                    wall.Draw(spriteBatch, gameTime);
-                    enemies.Draw(spriteBatch, gameTime);
-                    break;
-                default: throw new NotImplementedException();
-            }
-            //
+                Particles.Draw(spriteBatch, gameTime);
+                projectiles.Draw(spriteBatch, gameTime);
+                player.Draw(spriteBatch, gameTime);
+                wall.Draw(spriteBatch, gameTime);
+                enemies.Draw(spriteBatch, gameTime);
+            } else
+            {
+                eventOperator.Draw(spriteBatch, gameTime);
+            }            
             //
             DebugMode(spriteBatch);
-            //
             //
             spriteBatch.End();
             // TODO: Add your drawing code here

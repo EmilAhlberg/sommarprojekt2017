@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 namespace SummerProject.menu
 {
     using System;
+    using SummerProject;
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.Xna.Framework;
@@ -18,13 +19,13 @@ namespace SummerProject.menu
     using Microsoft.Xna.Framework.Media;
 
 
-    public class MenuComponent
+    public abstract class MenuComponent
     {
 
         private string[] MenuItems;  
         private SpriteFont spriteFont;
-        private static readonly Color normal = Color.White;
-        private static readonly Color hilite = Color.Yellow;
+        private static readonly Color normal = Color.Gold;
+        private static readonly Color hilite = Color.OrangeRed;
         private float width; 
         private float height;
         private Vector2 position;
@@ -48,49 +49,9 @@ namespace SummerProject.menu
                     width = size.X;
                 height += spriteFont.LineSpacing + 5;
             }
-        }     
-
-        public int HandleSelection(int currentMenu, int selectedIndex, Game1 game)
-        {
-            switch(currentMenu)
-            {
-                case MenuConstants.MAIN:
-                    return HandleMainMenu(selectedIndex, game);                    
-                case MenuConstants.SETTINGS:
-                    return HandleSettingsMenu(selectedIndex, game);                   
-                default: throw new NotImplementedException();
-            }           
         }
 
-        private int HandleSettingsMenu(int selectedIndex, Game1 game)
-        {
-            switch (selectedIndex)
-            {
-                case 0: game.IsMouseVisible = false;           
-                    break;
-                case 1: game.IsMouseVisible = true;
-                    break;
-                case 2:
-                    return MenuConstants.MAIN;                    
-            }
-            return -1;
-        }
-
-        private int HandleMainMenu(int selectedIndex, Game1 game)
-        {
-            switch (selectedIndex)
-            {
-                case 0:
-                    game.GameState = Game1.GAME_STATE;
-                    break;
-                case 1:
-                    return MenuConstants.SETTINGS;
-                case 2:
-                    game.Exit();
-                    break;
-            }
-            return -1;
-        }
+        public abstract int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler);       
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, int selectedIndex)
         {          
