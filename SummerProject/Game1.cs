@@ -55,8 +55,7 @@ namespace SummerProject
             {
                 Draw(gameTime);
                 eventOperator.UpdateEventTimer(gameTime);
-            }
-            
+            }            
         }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
-            eventOperator = new EventOperator(new Vector2((Window.ClientBounds.Width) / 2, (Window.ClientBounds.Height) / 2), font, this);
+            eventOperator = new EventOperator(font, this);
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
@@ -156,7 +155,12 @@ namespace SummerProject
                 HandleAllCollisions();
             }                             
             else {
-                eventOperator.Update(gameTime);
+                if (eventOperator.ActiveEvent)
+                    eventOperator.UpdateEventTimer(gameTime);               
+                else
+                {
+                    eventOperator.Update(gameTime);
+                }
             }             
                            
             base.Update(gameTime);
@@ -195,6 +199,7 @@ namespace SummerProject
             } else
             {
                 eventOperator.Draw(spriteBatch, gameTime);
+                enemies.Draw(spriteBatch, gameTime);
             }            
             //
             DebugMode(spriteBatch);

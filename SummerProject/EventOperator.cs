@@ -14,25 +14,28 @@ namespace SummerProject
         public const int EXIT = 0;
         public const int MENU_STATE = 1;
         public const int GAME_STATE = 2;
+        public static readonly string[] COUNTDOWN = { "GO!", "SET!", "READY!", ""};
 
         public int GameState { get; set; } = MenuConstants.MAIN;
         public bool ActiveEvent { get; private set; }
         public int NewGameState { private get; set; }
-        private float eventTime = 10f;        
+        private float eventTime = 3f;   //!!     
         private Menu menu;
         private Game1 game;
+        private SpriteFont font;
 
-        public EventOperator(Vector2 position, SpriteFont font, Game1 game)
-        {         
+        public EventOperator(SpriteFont font, Game1 game)
+        {
+            this.font = font;
             GameState = MENU_STATE;
-             NewGameState= GameState;
-            menu = new Menu(position, font);
+            NewGameState= GameState;            
+            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2, 
+                    (game.Window.ClientBounds.Height) / 2), font);
             this.game = game;
         }
 
         public void Update(GameTime gameTime)
-        {
-            //UpdateEventTime(gameTime);
+        {            
             ChangeState(gameTime);
             HandleState(gameTime);            
         }
@@ -44,9 +47,8 @@ namespace SummerProject
                  switch (GameState)
                 {
                     case MENU_STATE:
-                        ActiveEvent = true;
-                        game.StartGame(gameTime);
-                        GameState = NewGameState;                      
+                        ActiveEvent = true;                        
+                        //GameState = NewGameState;                      
                         break;
                 }
             }
@@ -73,26 +75,42 @@ namespace SummerProject
                 if (eventTime < 0)
                 {
                     ActiveEvent = false;
-                    eventTime = 5f; //!
-                }                              
-                 
+                GameState = NewGameState;
+                    eventTime = 3f; //!
+                }                               
         }
         
         
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            //switch (GameState)
-            //{
-            //    case MENU_STATE:
-                    menu.Draw(spriteBatch, gameTime);
-            //        break;
-            //    case GAME_STATE:
-            //        throw new NotImplementedException();                                   
-            //}
+        {        
+            if (ActiveEvent)
+            {
+                switch (NewGameState)
+                {
+                    case GAME_STATE:
+                        String word = COUNTDOWN[(int)eventTime];
+                        spriteBatch.DrawString(font, word, WordLayoutPosition(word), Color.Red);
+                        break;
+                }
+            } else
+            {
+                menu.Draw(spriteBatch, gameTime);
+            }                                                  
         }
 
-        //super method
+        private Vector2 WordLayoutPosition(String s)
+        {
+            Vector2 size = font.MeasureString(s);
+            float width = 0;
+            float height = 0;
+            if (size.X > width)
+                width = size.X;
+            height += font.LineSpacing + 5;
+            return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - height) / 2);
+        }
+
+        //super duper big-method
         public void IsMouseVisible(bool mouseVisibility)
         {
             game.IsMouseVisible = mouseVisibility;
