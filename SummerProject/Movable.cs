@@ -11,13 +11,23 @@ namespace SummerProject
     {
         protected float TurnSpeed { set; get; } = 1000f * (float)Math.PI; //! //rad per tick
         protected Vector2 Velocity { set; get; } = new Vector2(0,0); //-!
-        protected float Mass { set; get; } = 1;
-        protected float Acceleration { get { return Thrust / Mass; } }
-        protected float Thrust { set; get; } = 1;
-
-
+        protected float Mass { set; get; } = 1; //-!
+        protected float Thrust { set; get; } = 1/0.9f; //-!
+        private const float FRICTION = 0.1f;
+        private Vector2 Friction { get { return FRICTION * Velocity; } }
+        private Vector2 Acceleration{get{ return FRICTION * (ThrusterForce + TotalExteriorForce); } }
+        private Vector2 ThrusterForce { get { return DirectionVector * Thrust;}}
+        private Vector2 TotalExteriorForce { set; get; }
+        protected Vector2 DirectionVector { get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }
 
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
+
+        protected void addForce(Vector2 appliedForce)
+        {
+            TotalExteriorForce = TotalExteriorForce + appliedForce;
+
+            //Velocity -= Acceleration * Friction;
+        }
 
         protected void CalculateAngle(float dX, float dY)
         {
@@ -50,14 +60,9 @@ namespace SummerProject
 
         protected virtual void Move()
         {
-            if (this is collidables.Bullet)
-            {
-                Position += Velocity;
-            } else
-            {
-                Position += Velocity;
-            }
-           
+            Velocity += Acceleration;
+            Position += Velocity;
+
         }
     }
 }
