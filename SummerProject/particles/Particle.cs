@@ -10,6 +10,7 @@ namespace SummerProject
         float currentTTL;
         float TTL;
         int ID;
+        float baseScale;
         public bool isActive { get; set; }
         private float angularVelocity;
 
@@ -22,7 +23,8 @@ namespace SummerProject
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.sprite.MColor = color;
-            this.sprite.Scale = scale;
+            baseScale = scale;
+            this.sprite.Scale = baseScale;
             TTL = ttl;
             currentTTL = TTL;
             this.ID = ID;
@@ -47,7 +49,7 @@ namespace SummerProject
 
                 case 1:
                     {
-                        sprite.Scale = 8 * currentTTL/TTL;
+                        sprite.Scale = 4 * baseScale * currentTTL /TTL;
                         Speed -= Speed * ((TTL - currentTTL) * 0.1f); //!!!
                         sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL/TTL);
                         angle += angularVelocity;

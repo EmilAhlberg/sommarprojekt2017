@@ -35,6 +35,7 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
+            Particles.GenerateParticles(Position, 4, angle);
             CalculateAngle();
             Move();
             HandleBulletType();
@@ -77,7 +78,7 @@ namespace SummerProject.collidables
             if (ks.IsKeyDown(Keys.W))
             {
                 Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
-                Particles.GenerateParticles(Position, 4, angle);
+                
             }
             if (ks.IsKeyDown(Keys.A))
             {
