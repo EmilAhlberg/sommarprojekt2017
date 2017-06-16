@@ -80,22 +80,22 @@ namespace SummerProject
             // Create a new SpriteBatch, which can be used to draw textures.
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            debugFont = Content.Load<SpriteFont>("debugfont");
-            scoreFont = Content.Load<SpriteFont>("ScoreFont");
-            SpriteFont bigFont = Content.Load<SpriteFont>("BigScoreFont");
+            debugFont = Content.Load<SpriteFont>("fonts/debugfont");
+            scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
+            SpriteFont bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
 
-            Texture2D backgroundTex = Content.Load<Texture2D>("background1");
-            Texture2D enemyTex = Content.Load<Texture2D>("enemy");
-            Texture2D shipTex = Content.Load<Texture2D>("ship");
-            Texture2D wallTex = Content.Load<Texture2D>("wall");
-            Texture2D shotTex = Content.Load<Texture2D>("lazor");
-            Texture2D homingTex = Content.Load<Texture2D>("homing");
-            Texture2D partTex1 = Content.Load<Texture2D>("shipPart1");
-            Texture2D partTex2 = Content.Load<Texture2D>("shipPart2");
-            Texture2D deadTex1 = Content.Load<Texture2D>("denemy1");
-            Texture2D deadTex2 = Content.Load<Texture2D>("denemy2");
-            Texture2D deadTex3 = Content.Load<Texture2D>("dship1");
-            Texture2D deadTex4 = Content.Load<Texture2D>("dship2");
+            Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
+            Texture2D enemyTex = Content.Load<Texture2D>("textures/enemy");
+            Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
+            Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
+            Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
+            Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
+            Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
+            Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
+            Texture2D deadTex1 = Content.Load<Texture2D>("textures/denemy1");
+            Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
+            Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
+            Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
 
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
@@ -188,7 +188,7 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             background.Draw(spriteBatch, gameTime);
             if(eventOperator.GameState == EventOperator.GAME_STATE)
             {
