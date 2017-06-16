@@ -83,8 +83,8 @@ namespace SummerProject
             spriteBatch = new SpriteBatch(GraphicsDevice);
             debugFont = Content.Load<SpriteFont>("debugfont");
             scoreFont = Content.Load<SpriteFont>("ScoreFont");
+            SpriteFont bigFont = Content.Load<SpriteFont>("BigScoreFont");
 
-            SpriteFont font = Content.Load<SpriteFont>("testfont");          
             Texture2D backgroundTex = Content.Load<Texture2D>("background1");
             Texture2D enemyTex = Content.Load<Texture2D>("enemy");
             Texture2D shipTex = Content.Load<Texture2D>("ship");
@@ -110,7 +110,7 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
-            eventOperator = new EventOperator(new Vector2((Window.ClientBounds.Width) / 2, (Window.ClientBounds.Height) / 2), font, this);
+            eventOperator = new EventOperator(new Vector2((Window.ClientBounds.Width) / 2, (Window.ClientBounds.Height) / 2), bigFont, this);
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
@@ -234,10 +234,13 @@ namespace SummerProject
             if (controlSheme == 4)
                 usingControls = "WASD : AD = Rotate";
 
-            //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
-            spriteBatch.DrawString(scoreFont, "Health: " + player.Health/2, new Vector2(1600, 90), Color.OrangeRed);
-            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls , new Vector2(1250, 1000), Color.Crimson);
+            if (eventOperator.GameState == EventOperator.GAME_STATE)
+            {
+                //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+                spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
+            }
         }
     }   
 }

@@ -12,7 +12,6 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
-        private int controlScheme = 3; // 1-4
         private Vector2 startPosition;
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
