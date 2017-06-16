@@ -18,6 +18,7 @@ namespace SummerProject
         public const int GAME_OVER_STATE = 3;
         public static readonly string[] COUNTDOWN = { "GO!", "SET!", "READY!", ""};
 
+        public int HighScore { get; set; }
         public int GameState { get; set; } = MenuConstants.MAIN;
         public bool ActiveEvent { get; private set; }
         public int NewGameState { get; set; }
@@ -53,10 +54,14 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        ActiveEvent = true;                        
+                        ActiveEvent = true;   //set event times here?             
                         //GameState = NewGameState;                      
                         break;
+                    case MENU_STATE:
+                        GameState = NewGameState;
+                        break;
                     case GAME_OVER_STATE:
+                        ActiveEvent = true;  //set event times here?
                         GameState = NewGameState;
                         break;
                    
@@ -106,6 +111,10 @@ namespace SummerProject
                         String word = COUNTDOWN[(int)eventTime];
                         spriteBatch.DrawString(font, word, WordLayoutPosition(word), Color.Red);
                         break;
+                    case GAME_OVER_STATE:
+                        String score ="High Score: " + HighScore;
+                        spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Red);
+                        break;                        
                 }
             } else
             {

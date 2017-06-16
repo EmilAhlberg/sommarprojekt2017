@@ -22,8 +22,7 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        public int score { get; set; }
-        public int highScore { get; set; }
+        public int score { get; set; }     
         private EventOperator eventOperator;
 
         private Projectiles projectiles;
@@ -191,8 +190,8 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            if (score > highScore)
-                highScore = score;
+            if (score > eventOperator.HighScore)
+                eventOperator.HighScore = score;
             score = 0;
             isDead = true;
             eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
