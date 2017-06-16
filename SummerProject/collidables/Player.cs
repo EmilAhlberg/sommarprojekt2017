@@ -25,7 +25,7 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        private int score;     
+        public int score;     
         private EventOperator eventOperator;
 
 
@@ -202,8 +202,8 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            if (score > eventOperator.highScore)
-                eventOperator.highScore = score;
+            if (score > eventOperator.HighScore)
+                eventOperator.HighScore = score;
             isDead = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             respawnTimer = respawnTime;
