@@ -21,6 +21,7 @@ namespace SummerProject.collidables
         private const int playerHealth = 10;
         private const int playerDamage = 2;
         public int score { get; set; }
+        public int highScore { get; set; }
 
         private Projectiles projectiles;
 
@@ -186,6 +187,9 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
+            if (score > highScore)
+                highScore = score;
+            score = 0;
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = Vector2.Zero; //!
