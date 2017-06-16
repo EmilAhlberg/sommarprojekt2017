@@ -113,7 +113,7 @@ namespace SummerProject
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles, eventOperator);
             enemies = new Enemies(enemySprites, player, 10, 3);    
             //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
@@ -146,7 +146,7 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (eventOperator.GameState == EventOperator.GAME_STATE)
+            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
             {
                 player.Update(gameTime);
                 enemies.Update(gameTime);

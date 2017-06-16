@@ -10,7 +10,7 @@ using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private Vector2 startPosition;
         public bool isDead { get; private set; }
@@ -24,15 +24,17 @@ namespace SummerProject.collidables
         private const int playerDamage = 2;
         public int score { get; set; }
         public int highScore { get; set; }
+        private EventOperator eventOperator;
 
         private Projectiles projectiles;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles, EventOperator eventOperator)
             : base(position, sprite)
         {
             Position = position;
             startPosition = position;
             this.projectiles = projectiles;
+            this.eventOperator = eventOperator;
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
@@ -45,7 +47,7 @@ namespace SummerProject.collidables
                 CalculateAngle();
             Particles.GenerateParticles(Position, 4, angle);
             Move();
-            HandleBulletType();
+            //HandleBulletType();
             Fire();
             if (Health <= 0)
                 Death();
@@ -193,6 +195,7 @@ namespace SummerProject.collidables
                 highScore = score;
             score = 0;
             isDead = true;
+            eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = startPosition;

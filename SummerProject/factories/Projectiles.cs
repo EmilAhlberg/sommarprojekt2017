@@ -9,7 +9,7 @@ using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
-    class Projectiles : Entities
+    public class Projectiles : Entities
     {
         private int bulletType;
         private const float reloadTime = 0.3f;

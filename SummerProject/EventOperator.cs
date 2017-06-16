@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 using SummerProject.menu;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,15 @@ namespace SummerProject
 
         public int GameState { get; set; } = MenuConstants.MAIN;
         public bool ActiveEvent { get; private set; }
-        public int NewGameState { private get; set; }
+        public int NewGameState { get; set; }
         private float eventTime = 3f;   //!!     
         private Menu menu;
         private Game1 game;
         private SpriteFont font;
+       
 
         public EventOperator(SpriteFont font, Game1 game)
-        {
+        {           
             this.font = font;
             GameState = MENU_STATE;
             NewGameState= GameState;            
