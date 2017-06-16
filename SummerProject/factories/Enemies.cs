@@ -39,7 +39,6 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-
             if (isInactive)
             {
                 if (!player.isDead)
@@ -77,8 +76,6 @@ namespace SummerProject.factories
             if (EventTimer < 0)
                 ActivateEntities(source, target);
         }
-
-
         protected override AIEntity CreateEntity(int index)
         {
             return EntityFactory.CreateEntity(sprites[index], player);
