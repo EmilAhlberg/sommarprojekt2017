@@ -53,45 +53,102 @@ namespace SummerProject
 
             switch (ID)
             {
+                #region Nothing
                 case 1:
                     {
-                        particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, angle, angularVelocity, color, scale, ttl, ID));
+                        particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, angle, angularVelocity, color, scale, ttl, 1));
                         break;
                     }
+                #endregion
+
+                #region Enemy Explosion
                 case 2:
                     {
                         velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                        particles.Add(new Particle(new Sprite(spriteList[1]), position, velocity, angle, angularVelocity, color, scale, ttl, ID));
-                        particles.Add(new Particle(new Sprite(spriteList[2]), position, -velocity, angle, angularVelocity, color, scale, ttl, ID));
+                        particles.Add(new Particle(new Sprite(spriteList[1]), position, velocity, angle, angularVelocity, color, scale, ttl, 2));
+                        particles.Add(new Particle(new Sprite(spriteList[2]), position, -velocity, angle, angularVelocity, color, scale, ttl, 2));
                         for(int i = 0; i < 10; i++)
                         {
                             velocity = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
                             velocity.Normalize();
-                            velocity *= (float)rand.NextDouble()+1;
-                            color = Color.Orange;
-                            angularVelocity = 0.1f;
-                            scale = 3;
+                            velocity *= 2*((float)rand.NextDouble()+1);
+                            color = Color.MonoGameOrange;
+                            angularVelocity = 0.2f;
+                            scale = 2;
                             particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, (float)Math.Atan2(velocity.Y, velocity.X), angularVelocity, color, scale, ttl, 1));
                         }
                         break;
                     }
+                #endregion
+
+                #region Player Explosion
                 case 3:
                     {
                         velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                        particles.Add(new Particle(new Sprite(spriteList[3]), position, velocity, angle, angularVelocity, color, scale, ttl, ID));
-                        particles.Add(new Particle(new Sprite(spriteList[4]), position, -velocity, angle, angularVelocity, color, scale, ttl, ID));
+                        particles.Add(new Particle(new Sprite(spriteList[3]), position, velocity, angle, angularVelocity, color, scale, ttl, 2));
+                        particles.Add(new Particle(new Sprite(spriteList[4]), position, -velocity, angle, angularVelocity, color, scale, ttl, 2));
+                        for (int i = 0; i < 100; i++)
+                        {
+                            velocity = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
+                            velocity.Normalize();
+                            velocity *= 4*((float)rand.NextDouble() + 1);
+                            color = Color.CornflowerBlue;
+                            angularVelocity = 0.1f;
+                            scale = 2;
+                            particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, (float)Math.Atan2(velocity.Y, velocity.X), angularVelocity, color, scale, ttl, 1));
+                        }
+                        break;
+                    }
+                #endregion
+
+                #region Thruster Trail
+                case 4:
+                    {
+                        velocity = -new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        {
+                            velocity.Normalize();
+                            ttl = 0.3f;
+                            velocity *= (float)rand.NextDouble() + 1;
+                            color = Color.MonoGameOrange;
+                            scale = 2;
+                            particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, (float)Math.Atan2(velocity.Y, velocity.X), angularVelocity, color, scale, ttl, 1));
+                        }
+                        break;
+                    }
+                #endregion
+
+                #region Bullet Explosion
+                case 5:
+                    {
                         for (int i = 0; i < 10; i++)
                         {
                             velocity = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
                             velocity.Normalize();
-                            velocity *= (float)rand.NextDouble() + 1;
-                            color = Color.Orange;
-                            angularVelocity = 0.1f;
-                            scale = 3;
+                            velocity *= ((float)rand.NextDouble() + 1);
+                            color = Color.CornflowerBlue;
+                            angularVelocity = 0.5f;
+                            scale = 1;
                             particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, (float)Math.Atan2(velocity.Y, velocity.X), angularVelocity, color, scale, ttl, 1));
                         }
                         break;
                     }
+                #endregion
+
+                #region Bullet Trail
+                case 6:
+                    {
+                        velocity = -new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        {
+                            velocity.Normalize();
+                            ttl = 0.3f;
+                            velocity *= (float)rand.NextDouble() + 1;
+                            color = Color.CornflowerBlue;
+                            scale = 1;
+                            particles.Add(new Particle(new Sprite(spriteList[0]), position, velocity, (float)Math.Atan2(velocity.Y, velocity.X), angularVelocity, color, scale, ttl, 1));
+                        }
+                        break;
+                    }
+                    #endregion
             }
         }
 

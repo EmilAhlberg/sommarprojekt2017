@@ -14,7 +14,6 @@ namespace SummerProject.collidables
     {
         private int controlScheme = 1; // 1-4
         private const float maxSpeed = 10f;
-        private const float acceleration = 1f;
         private float friction = 0.1f;
         private float oldFriction = 0.1f;
         private KeyboardState prevKeyDown;
@@ -39,6 +38,8 @@ namespace SummerProject.collidables
         {
             if (controlScheme != 4)
                 CalculateAngle();
+            Particles.GenerateParticles(Position, 4, angle);
+            CalculateAngle();
             Move();
             HandleBulletType();
             Fire();
@@ -91,38 +92,38 @@ namespace SummerProject.collidables
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.D))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
                 }
             }
             else if (controlScheme == 2)
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Velocity += new Vector2(0, 1) * acceleration;
+                    Velocity += new Vector2(0, 1) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Velocity += new Vector2(0, -1) * acceleration;
+                    Velocity += new Vector2(0, -1) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {
-                    Velocity += new Vector2(-1, 0) * acceleration;
+                    Velocity += new Vector2(-1, 0) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.D))
                 {
-                    Velocity += new Vector2(1, 0) * acceleration;
+                    Velocity += new Vector2(1, 0) * Acceleration;
                 }
             }
             else if (controlScheme == 3)
@@ -130,7 +131,7 @@ namespace SummerProject.collidables
                 friction = 0.03f;
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
                     pressed = true;
                 }
             }
@@ -138,11 +139,11 @@ namespace SummerProject.collidables
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {

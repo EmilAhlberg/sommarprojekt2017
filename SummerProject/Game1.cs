@@ -180,7 +180,7 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             background.Draw(spriteBatch, gameTime);
             switch (GameState)
             {
