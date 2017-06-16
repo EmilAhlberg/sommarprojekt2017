@@ -25,7 +25,7 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        public int score;     
+        public int score { get; set; }     
         private EventOperator eventOperator;
 
 
