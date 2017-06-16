@@ -225,9 +225,21 @@ namespace SummerProject
 
         private void DebugMode(SpriteBatch spriteBatch)
         {
+            int controlSheme = player.controlScheme;
+            string usingControls = "";
+            if (controlSheme <= 1)
+                usingControls = "WASD + Follow mouse";
+            if (controlSheme == 2)
+                usingControls = "Absolute WASD";
+            if (controlSheme == 3)
+                usingControls = "Mouse only";
+            if (controlSheme == 4)
+                usingControls = "WASD : AD = Rotate";
+
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health/2, new Vector2(1600, 90), Color.OrangeRed);
+            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls , new Vector2(1250, 1000), Color.Crimson);
         }
     }   
 }
