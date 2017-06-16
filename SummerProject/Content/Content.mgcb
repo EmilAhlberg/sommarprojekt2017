@@ -172,6 +172,11 @@
 /processorParam:TextureFormat=Compressed
 /build:ScoreFont.spritefont
 
+#begin OCRASTD.OTF
+/importer:OpenAssetImporter
+/processor:PassThroughProcessor
+/build:OCRASTD.OTF
+
 #begin enemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
