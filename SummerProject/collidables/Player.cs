@@ -82,38 +82,38 @@ namespace SummerProject.collidables
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.D))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * acceleration;
                 }
             }
             else if (controlScheme == 2)
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Speed += new Vector2(0, 1) * acceleration;
+                    Velocity += new Vector2(0, 1) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Speed += new Vector2(0, -1) * acceleration;
+                    Velocity += new Vector2(0, -1) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {
-                    Speed += new Vector2(-1, 0) * acceleration;
+                    Velocity += new Vector2(-1, 0) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.D))
                 {
-                    Speed += new Vector2(1, 0) * acceleration;
+                    Velocity += new Vector2(1, 0) * acceleration;
                 }
             }
             else if (controlScheme == 3)
@@ -121,7 +121,7 @@ namespace SummerProject.collidables
                 friction = 0.03f;
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
                     pressed = true;
                 }
             }
@@ -129,11 +129,11 @@ namespace SummerProject.collidables
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.W))
                 {
-                    Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
+                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
                 }
                 if (ks.IsKeyDown(Keys.A))
                 {
@@ -154,13 +154,13 @@ namespace SummerProject.collidables
             }
             if (!pressed)
             {
-                Speed -= Speed * friction;
+                Velocity -= Velocity * friction;
             }
-            if (Speed.Length() > maxSpeed)
+            if (Velocity.Length() > maxSpeed)
             {
-                Vector2 temp = Speed;
+                Vector2 temp = Velocity;
                 temp.Normalize();
-                Speed = temp * maxSpeed;
+                Velocity = temp * maxSpeed;
             }
             base.Move();
             prevKeyDown = ks;
