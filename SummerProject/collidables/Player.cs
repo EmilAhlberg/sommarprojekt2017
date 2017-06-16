@@ -12,7 +12,7 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
-        private int controlScheme = 1; // 1-4
+        public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
         private float oldFriction = 0.1f;
@@ -39,7 +39,6 @@ namespace SummerProject.collidables
             if (controlScheme != 4)
                 CalculateAngle();
             Particles.GenerateParticles(Position, 4, angle);
-            CalculateAngle();
             Move();
             HandleBulletType();
             Fire();
