@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.collidables
 {
-    abstract class AIEntity : Entity
+    public abstract class AIEntity : Entity
     {
         public bool isActive { get; set; }       
 

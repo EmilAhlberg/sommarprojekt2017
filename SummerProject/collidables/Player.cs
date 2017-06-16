@@ -10,9 +10,10 @@ using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private Vector2 startPosition;
+        public bool isDead { get; private set; }
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
@@ -23,15 +24,17 @@ namespace SummerProject.collidables
         private const int playerDamage = 2;
         public int score { get; set; }
         public int highScore { get; set; }
+        private EventOperator eventOperator;
 
         private Projectiles projectiles;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles, EventOperator eventOperator)
             : base(position, sprite)
         {
             Position = position;
             startPosition = position;
             this.projectiles = projectiles;
+            this.eventOperator = eventOperator;
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
@@ -39,16 +42,15 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
+            isDead = false;
             if (controlScheme != 4)
                 CalculateAngle();
             Particles.GenerateParticles(Position, 4, angle);
             Move();
-            HandleBulletType();
+            //HandleBulletType();
             Fire();
             if (Health <= 0)
-            {
                 Death();
-            }
         }
 
         private void HandleBulletType()
@@ -192,9 +194,11 @@ namespace SummerProject.collidables
             if (score > highScore)
                 highScore = score;
             score = 0;
+            isDead = true;
+            eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            Position = startPosition; 
+            Position = startPosition;
         }
     }
 }

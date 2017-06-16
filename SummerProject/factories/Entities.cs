@@ -9,7 +9,7 @@ using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
-    abstract class Entities
+    public abstract class Entities
     {
         public List<Sprite> sprites { get; }
         protected int entityCap;
