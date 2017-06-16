@@ -86,6 +86,7 @@ namespace SummerProject.collidables
             {
                 Speed += new Vector2((float)Math.Cos(angle + Math.PI/2), (float)Math.Sin(angle + Math.PI/2)) * acceleration;
             }
+            Position = Position;
             bool pressed = false;
                 foreach (Keys k in ks.GetPressedKeys())
                 {

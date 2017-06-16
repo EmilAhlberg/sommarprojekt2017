@@ -12,6 +12,7 @@ namespace SummerProject
         public Vector2 PrevPos { get; set; }
         public List<RotRectangle> BoundBoxes { get; set; }
         public bool IsStatic { get; set; }
+        public float mass = 1;
 
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
