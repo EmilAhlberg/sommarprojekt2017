@@ -11,8 +11,8 @@ namespace SummerProject
     {
         protected float TurnSpeed { set; get; } = 1000f * (float)Math.PI; //! //rad per tick
         protected Vector2 Velocity { set; get; } = new Vector2(0,0); //-!
-        protected float mass { set; get; } = 1;
-        protected float thrust { set; get; } = 1;
+        protected float Mass { set; get; } = 1;
+        protected float Thrust { set; get; } = 1;
 
 
 
