@@ -16,30 +16,38 @@ namespace SummerProject.factories
         private Vector2[] spawnPoints;
         private Random rand;
         private float minSpawnDelay = 0.3f;
+        private float defaultSpawnDelay;
         public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
             this.eventTime = eventTime;
+            defaultSpawnDelay = eventTime;
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
             spawnPoints = new Vector2[8];
             spawnPoints[0] = new Vector2(-50, -50);
             spawnPoints[1] = new Vector2(1970, -50);
-            spawnPoints[2] = new Vector2(-50, 1230);
-            spawnPoints[3] = new Vector2(1970, 1230);
-            spawnPoints[4] = new Vector2(1970, 615);
-            spawnPoints[5] = new Vector2(-50, 615);
-            spawnPoints[6] = new Vector2(985, 1230);
-            spawnPoints[7] = new Vector2(985, -50);
+            spawnPoints[2] = new Vector2(-50, 1130);
+            spawnPoints[3] = new Vector2(1970, 1130);
+            spawnPoints[4] = new Vector2(1970, 540);
+            spawnPoints[5] = new Vector2(-50, 540);
+            spawnPoints[6] = new Vector2(960, 1130);
+            spawnPoints[7] = new Vector2(960, -50);
         }
      
         public void Update(GameTime gameTime)
         {
-            //Vector2 spawnPoint = new Vector2(250, 250);
+            if (player.isDead)
+                reset();
             Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
             UpdateEntities(gameTime);
         }
-
+        private void reset()
+        {
+            eventTime = defaultSpawnDelay;
+            foreach(Enemy e in entityList)
+                e.Death();
+        }
         public void Spawn(Vector2 source, Vector2 target)
         {
             if (EventTimer < 0)
