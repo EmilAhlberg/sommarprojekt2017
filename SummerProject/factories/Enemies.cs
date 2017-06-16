@@ -16,8 +16,9 @@ namespace SummerProject.factories
         private Vector2[] spawnPoints;
         private Random rand;
         private bool isInactive;
-        private float minSpawnDelay = 0.3f;
+        private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
+        private float secondTimer;
         public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
             this.eventTime = eventTime;
@@ -38,7 +39,6 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-
             if (isInactive)
             {
                 if (!player.isDead)
@@ -46,6 +46,15 @@ namespace SummerProject.factories
             }
             else
             {
+                secondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (eventTime > minSpawnDelay && secondTimer > 1f)
+                {
+                    secondTimer = 0;
+                    if (eventTime > 1.5f)
+                        eventTime *= 0.75f;
+                    else
+                        eventTime *= 0.97f;
+                }
                 if (player.isDead)
                 {
                     isInactive = true;
@@ -65,14 +74,8 @@ namespace SummerProject.factories
         public void Spawn(Vector2 source, Vector2 target)
         {
             if (EventTimer < 0)
-            {
                 ActivateEntities(source, target);
-                if (eventTime > minSpawnDelay)
-                    eventTime *= 0.95f;
-            }
         }
-
-
         protected override AIEntity CreateEntity(int index)
         {
             return EntityFactory.CreateEntity(sprites[index], player);
