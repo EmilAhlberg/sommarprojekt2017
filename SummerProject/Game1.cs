@@ -200,7 +200,7 @@ namespace SummerProject
             } else
             {
                 eventOperator.Draw(spriteBatch, gameTime);
-                enemies.Draw(spriteBatch, gameTime);
+                enemies.Draw(spriteBatch, gameTime); //ajabaja
             }            
             //
             DebugMode(spriteBatch);
