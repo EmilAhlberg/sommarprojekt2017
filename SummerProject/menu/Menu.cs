@@ -15,7 +15,7 @@ namespace SummerProject.menu
         private KeyboardState oldKeyboardState;
         private List<MenuComponent> menues;     
         private int selectedIndex;
-        private int currentMenu = MenuConstants.MAIN;        
+        public int currentMenu { private get; set; } = MenuConstants.MAIN;        
 
         public Menu(Vector2 position, SpriteFont spriteFont)
         {             
@@ -27,7 +27,8 @@ namespace SummerProject.menu
             menues = new List<MenuComponent>();
             //order of added menues is important
             menues.Add(new MainMenu(position, spriteFont));
-            menues.Add(new SettingsMenu(position, spriteFont));            
+            menues.Add(new SettingsMenu(position, spriteFont));
+            menues.Add(new GameOverMenu(position, spriteFont));
         }
 
         private bool CheckKey(Keys theKey)

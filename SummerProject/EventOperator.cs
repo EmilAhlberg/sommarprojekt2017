@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 using SummerProject.menu;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,20 @@ namespace SummerProject
         public const int EXIT = 0;
         public const int MENU_STATE = 1;
         public const int GAME_STATE = 2;
+        public const int GAME_OVER_STATE = 3;
         public static readonly string[] COUNTDOWN = { "GO!", "SET!", "READY!", ""};
 
         public int GameState { get; set; } = MenuConstants.MAIN;
         public bool ActiveEvent { get; private set; }
-        public int NewGameState { private get; set; }
+        public int NewGameState { get; set; }
         private float eventTime = 3f;   //!!     
         private Menu menu;
         private Game1 game;
         private SpriteFont font;
+       
 
         public EventOperator(SpriteFont font, Game1 game)
-        {
+        {           
             this.font = font;
             GameState = MENU_STATE;
             NewGameState= GameState;            
@@ -44,12 +47,19 @@ namespace SummerProject
         {
             if (NewGameState != GameState)
             {
-                 switch (GameState)
+                 switch (NewGameState)
                 {
-                    case MENU_STATE:
+                    case EXIT:
+                        GameState = NewGameState;
+                        break;
+                    case GAME_STATE:
                         ActiveEvent = true;                        
                         //GameState = NewGameState;                      
                         break;
+                    case GAME_OVER_STATE:
+                        GameState = NewGameState;
+                        break;
+                   
                 }
             }
         }
@@ -62,6 +72,10 @@ namespace SummerProject
                     game.Exit();
                     break;
                 case MENU_STATE:
+                    menu.Update(gameTime, this);
+                    break;
+                case GAME_OVER_STATE:
+                    menu.currentMenu = MenuConstants.GAME_OVER;
                     menu.Update(gameTime, this);
                     break;
                 //case GAME_STATE:

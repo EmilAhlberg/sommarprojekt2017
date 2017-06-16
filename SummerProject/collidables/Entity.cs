@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace SummerProject.collidables
 {
-    abstract class Entity : Collidable
+    public abstract class Entity : Collidable
     {
         public int Damage { get; set; }
         public int Health { get; set; }

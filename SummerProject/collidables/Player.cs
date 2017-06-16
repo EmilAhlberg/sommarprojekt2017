@@ -10,9 +10,12 @@ using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private Vector2 startPosition;
+
+        private float respawnTimer = 3f;
+        private const float respawnTime = 3f;
         public bool isDead { get; private set; }
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
@@ -24,15 +27,18 @@ namespace SummerProject.collidables
         private const int playerDamage = 2;
         public int score { get; set; }
         public int highScore { get; set; }
+        private EventOperator eventOperator;
+
 
         private Projectiles projectiles;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles, EventOperator eventOperator)
             : base(position, sprite)
         {
             Position = position;
             startPosition = position;
             this.projectiles = projectiles;
+            this.eventOperator = eventOperator;
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
@@ -40,15 +46,23 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            isDead = false;
-            if (controlScheme != 4)
-                CalculateAngle();
-            Particles.GenerateParticles(Position, 4, angle);
-            Move();
-            HandleBulletType();
-            Fire();
-            if (Health <= 0)
-                Death();
+            if (isDead)
+            {
+                respawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (respawnTimer < 0)
+                    Respawn();
+            }
+            else
+            {
+                if (controlScheme != 4)
+                    CalculateAngle();
+                Particles.GenerateParticles(Position, 4, angle);
+                Move();
+                //HandleBulletType();
+                Fire();
+                if (Health <= 0 && !isDead)
+                    Death();
+            }
         }
 
         private void HandleBulletType()
@@ -191,11 +205,20 @@ namespace SummerProject.collidables
         {
             if (score > highScore)
                 highScore = score;
-            score = 0;
             isDead = true;
-            Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
+            respawnTimer = respawnTime;
+            sprite.MColor = Color.Transparent;    
+        }
+
+        private void Respawn()
+        {
+            score = 0;
+            eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+            Health = playerHealth;
             Position = startPosition;
+            isDead = false;
+            sprite.MColor = Color.White;
         }
     }
 }

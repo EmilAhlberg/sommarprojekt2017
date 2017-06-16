@@ -15,6 +15,7 @@ namespace SummerProject.factories
         private Player player;
         private Vector2[] spawnPoints;
         private Random rand;
+        private bool isInactive;
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private float secondTimer;
@@ -38,20 +39,33 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-            secondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (eventTime > minSpawnDelay && secondTimer > 1f)
+
+            if (isInactive)
             {
-                secondTimer = 0;
-                if (eventTime > 1.5f)
-                    eventTime *= 0.75f;
-                else
-                   eventTime *= 0.97f;
+                if (!player.isDead)
+                    isInactive = false;
             }
-            if (player.isDead)
-                reset();
-            Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
-            UpdateEntities(gameTime);
+            else
+            {
+                secondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (eventTime > minSpawnDelay && secondTimer > 1f)
+                {
+                    secondTimer = 0;
+                    if (eventTime > 1.5f)
+                        eventTime *= 0.75f;
+                    else
+                        eventTime *= 0.97f;
+                }
+                if (player.isDead)
+                {
+                    isInactive = true;
+                    reset();
+                }
+                Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
+                UpdateEntities(gameTime);
+            }
         }
+
         private void reset()
         {
             eventTime = defaultSpawnDelay;
