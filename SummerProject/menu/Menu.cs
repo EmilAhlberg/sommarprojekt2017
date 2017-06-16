@@ -26,17 +26,16 @@ namespace SummerProject.menu
         {
             menues = new List<MenuComponent>();
             //order of added menues is important
-            menues.Add(new MenuComponent(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.MAIN]));
-            menues.Add(new MenuComponent(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.SETTINGS]));            
+            menues.Add(new MainMenu(position, spriteFont));
+            menues.Add(new SettingsMenu(position, spriteFont));            
         }
 
         private bool CheckKey(Keys theKey)
         {
             return keyboardState.IsKeyUp(theKey) && oldKeyboardState.IsKeyDown(theKey);
-        }
-       
+        }       
 
-        public void Update(GameTime gameTime, Game1 game)
+        public void Update(GameTime gameTime, EventOperator handler)
         {
             keyboardState = Keyboard.GetState();
             if (CheckKey(Keys.Down))
@@ -52,7 +51,7 @@ namespace SummerProject.menu
             }
             if (CheckKey(Keys.Enter))
             {
-                int changedMenu = menues[currentMenu].HandleSelection(currentMenu, selectedIndex, game);
+                int changedMenu = menues[currentMenu].HandleSelection(currentMenu, selectedIndex, handler);
                 if(changedMenu >= 0) 
                 {
                     selectedIndex = 0;
