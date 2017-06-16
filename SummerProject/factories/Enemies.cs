@@ -42,7 +42,7 @@ namespace SummerProject.factories
             Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
             UpdateEntities(gameTime);
         }
-        public void reset()
+        private void reset()
         {
             eventTime = defaultSpawnDelay;
             foreach(Enemy e in entityList)
