@@ -16,9 +16,11 @@ namespace SummerProject.factories
         private Vector2[] spawnPoints;
         private Random rand;
         private float minSpawnDelay = 0.3f;
+        private float defaultSpawnDelay;
         public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
             this.eventTime = eventTime;
+            defaultSpawnDelay = eventTime;
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
@@ -35,11 +37,17 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-            //Vector2 spawnPoint = new Vector2(250, 250);
+            if (player.isDead)
+                reset();
             Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
             UpdateEntities(gameTime);
         }
-
+        public void reset()
+        {
+            eventTime = defaultSpawnDelay;
+            foreach(Enemy e in entityList)
+                e.Death();
+        }
         public void Spawn(Vector2 source, Vector2 target)
         {
             if (EventTimer < 0)

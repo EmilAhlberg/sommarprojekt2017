@@ -13,6 +13,7 @@ namespace SummerProject.collidables
     class Player : Entity
     {
         private Vector2 startPosition;
+        public bool isDead { get; private set; }
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
@@ -39,6 +40,7 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
+            isDead = false;
             if (controlScheme != 4)
                 CalculateAngle();
             Particles.GenerateParticles(Position, 4, angle);
@@ -46,9 +48,7 @@ namespace SummerProject.collidables
             HandleBulletType();
             Fire();
             if (Health <= 0)
-            {
                 Death();
-            }
         }
 
         private void HandleBulletType()
@@ -192,9 +192,10 @@ namespace SummerProject.collidables
             if (score > highScore)
                 highScore = score;
             score = 0;
+            isDead = true;
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            Position = startPosition; 
+            Position = startPosition;
         }
     }
 }
