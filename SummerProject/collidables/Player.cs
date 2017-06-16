@@ -14,7 +14,6 @@ namespace SummerProject.collidables
     {
         private int controlScheme = 3; // 1-4
         private const float maxSpeed = 10f;
-        private const float acceleration = 1f;
         private float friction = 0.1f;
         private float oldFriction = 0.1f;
         private KeyboardState prevKeyDown;
