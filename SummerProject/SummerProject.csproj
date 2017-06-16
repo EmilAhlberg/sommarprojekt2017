@@ -65,14 +65,17 @@
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />
+    <Compile Include="EventOperator.cs" />
     <Compile Include="factories\Enemies.cs" />
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="ISprite.cs" />
+    <Compile Include="menu\MainMenu.cs" />
     <Compile Include="menu\Menu.cs" />
     <Compile Include="menu\MenuComponent.cs" />
     <Compile Include="menu\MenuConstants.cs" />
+    <Compile Include="menu\SettingsMenu.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
