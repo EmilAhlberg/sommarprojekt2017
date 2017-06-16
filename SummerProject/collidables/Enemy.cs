@@ -22,17 +22,18 @@ namespace SummerProject
             : base(position, sprite)
         {           
             this.player = player;
-            Velocity = speedMultiplier * Velocity;
+            //Velocity = speedMultiplier * Velocity;
             Health = enemyHealth; ; 
             Damage = enemyDamage;
+            Thrust = 5;
         }
 
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
+            //Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
             Move();
-            Particles.GenerateParticles(Position, 4, angle);
+            //Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
                 Death();           
         }
@@ -68,7 +69,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 2, angle); //Death animation
+            //Particles.GenerateParticles(Position, 2, angle); //Death animation
             base.Death();
         }
     }

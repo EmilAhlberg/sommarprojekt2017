@@ -9,20 +9,30 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
+        private const float FRICTION = 10f; //!
+        private Vector2 Friction { get { return FRICTION * Velocity*Mass*Mass/1000; } }
+        private Vector2 Velocity { set; get; } = new Vector2(0,0); //-!
         protected float TurnSpeed { set; get; } = 1000f * (float)Math.PI; //! //rad per tick
-        protected Vector2 Velocity { set; get; } = new Vector2(0,0); //-!
-        protected float Mass { set; get; } = 1; //-!
-        protected float Thrust { set; get; } = 1/0.9f; //-!
-        private const float FRICTION = 0.1f;
-        private Vector2 Friction { get { return FRICTION * Velocity; } }
-        private Vector2 Acceleration{get{ return FRICTION * (ThrusterForce + TotalExteriorForce); } }
+        protected float Mass { set; get; } = 10; //-!
+        protected float Thrust { set; get; } = 10; //-!
+        private Vector2 Acceleration{get{ return (ThrusterForce + TotalExteriorForce - Friction) /Mass; } }
         private Vector2 ThrusterForce { get { return DirectionVector * Thrust;}}
         private Vector2 TotalExteriorForce { set; get; }
-        protected Vector2 DirectionVector { get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }
+        protected Vector2 DirectionVector { set { angle = (float)Math.Atan(value.Y / value.X); } get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }
 
+        protected void Stop()
+        {
+            Velocity = new Vector2(0, 0);
+            TotalExteriorForce = new Vector2(0, 0);
+        }
+
+        protected void AddSpeed(float speed)
+        {
+            AddForce(DirectionVector * speed*Mass);
+        }
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
-        protected void addForce(Vector2 appliedForce)
+        protected void AddForce(Vector2 appliedForce)
         {
             TotalExteriorForce = TotalExteriorForce + appliedForce;
 
@@ -62,7 +72,7 @@ namespace SummerProject
         {
             Velocity += Acceleration;
             Position += Velocity;
-
+            TotalExteriorForce = new Vector2(0, 0);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
+        private new float Thrust = 12;
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
@@ -38,7 +39,7 @@ namespace SummerProject.collidables
         {
             if (controlScheme != 4)
                 CalculateAngle();
-            Particles.GenerateParticles(Position, 4, angle);
+            //Particles.GenerateParticles(Position, 4, angle);
             Move();
             HandleBulletType();
             Fire();
@@ -89,88 +90,105 @@ namespace SummerProject.collidables
 
             if (controlScheme <= 1)
             {
+                base.Thrust = 0;
                 if (ks.IsKeyDown(Keys.S))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
-                }
+                    base.Thrust = -Thrust;
+
                 if (ks.IsKeyDown(Keys.W))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.A))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.D))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
-                }
+                    base.Thrust = Thrust;
+
+                //if (ks.IsKeyDown(Keys.A)) //SVÄNGA UTAN ATT VIN
+                //{
+                //    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
+                //}
+                //if (ks.IsKeyDown(Keys.D))
+                //{
+                //    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
+                //}
             }
-            else if (controlScheme == 2)
-            {
-                if (ks.IsKeyDown(Keys.S))
-                {
-                    Velocity += new Vector2(0, 1) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.W))
-                {
-                    Velocity += new Vector2(0, -1) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.A))
-                {
-                    Velocity += new Vector2(-1, 0) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.D))
-                {
-                    Velocity += new Vector2(1, 0) * Acceleration;
-                }
-            }
+            //{
+            //    if (ks.IsKeyDown(Keys.S))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.W))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.A))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.D))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
+            //    }
+            //}
+            //else if (controlScheme == 2)
+            //{
+            //    if (ks.IsKeyDown(Keys.S))
+            //    {
+            //        Velocity += new Vector2(0, 1) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.W))
+            //    {
+            //        Velocity += new Vector2(0, -1) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.A))
+            //    {
+            //        Velocity += new Vector2(-1, 0) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.D))
+            //    {
+            //        Velocity += new Vector2(1, 0) * Acceleration;
+            //    }
+            //}
             else if (controlScheme == 3)
             {
                 friction = 0.03f;
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
+                    base.Thrust = Thrust;
                     pressed = true;
                 }
             }
-            else if (controlScheme == 4)
-            {
-                if (ks.IsKeyDown(Keys.S))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.W))
-                {
-                    Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
-                }
-                if (ks.IsKeyDown(Keys.A))
-                {
-                    angle -= 0.1f;
-                }
-                if (ks.IsKeyDown(Keys.D))
-                {
-                    angle += 0.1f;
-                }
-            }
+            //else if (controlScheme == 4)
+            //{
+            //    if (ks.IsKeyDown(Keys.S))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.W))
+            //    {
+            //        Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
+            //    }
+            //    if (ks.IsKeyDown(Keys.A))
+            //    {
+            //        angle -= 0.1f;
+            //    }
+            //    if (ks.IsKeyDown(Keys.D))
+            //    {
+            //        angle += 0.1f;
+            //    }
+            //}
             foreach (Keys k in ks.GetPressedKeys())
             {
                 if (prevKeyDown.GetPressedKeys().Contains(k))
                 {
-                    pressed = true;
+                    pressed = false;
                     break;
                 }
             }
-            if (!pressed)
-            {
-                Velocity -= Velocity * friction;
-            }
-            if (Velocity.Length() > maxSpeed)
-            {
-                Vector2 temp = Velocity;
-                temp.Normalize();
-                Velocity = temp * maxSpeed;
-            }
+            //if (!pressed)
+            //{
+            //    Velocity -= Velocity * friction;
+            //}
+            //if (Velocity.Length() > maxSpeed)
+            //{
+            //    Vector2 temp = Velocity;
+            //    temp.Normalize();
+            //    Velocity = temp * maxSpeed;
+            //}
             base.Move();
             prevKeyDown = ks;
         }
@@ -187,7 +205,7 @@ namespace SummerProject.collidables
         public override void Death()
         {
             Health = playerHealth;
-            Particles.GenerateParticles(Position, 3, angle); //Death animation
+            //Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = Vector2.Zero; //!
         }
     }
