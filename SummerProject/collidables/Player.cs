@@ -12,7 +12,7 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
-        private int controlScheme = 3; // 1-4
+        private int controlScheme = 1; // 1-4
         private const float maxSpeed = 10f;
         private const float acceleration = 1f;
         private float friction = 0.1f;
@@ -50,10 +50,10 @@ namespace SummerProject.collidables
 
         private void HandleBulletType()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
-                projectiles.switchBullets(EntityTypes.BULLET);
-            if (Keyboard.GetState().IsKeyDown(Keys.D2))
-                projectiles.switchBullets(EntityTypes.HOMINGBULLET);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D1))
+           //     projectiles.switchBullets(EntityTypes.BULLET);
+          //  if (Keyboard.GetState().IsKeyDown(Keys.D2))
+         //       projectiles.switchBullets(EntityTypes.HOMINGBULLET);
         }
 
         private void Fire()
@@ -78,6 +78,15 @@ namespace SummerProject.collidables
             KeyboardState ks = Keyboard.GetState();
             bool pressed = false;
             friction = oldFriction;
+            if (ks.IsKeyDown(Keys.D1))
+                controlScheme = 1;
+            if (ks.IsKeyDown(Keys.D2))
+                controlScheme = 2;
+            if (ks.IsKeyDown(Keys.D3))
+                controlScheme = 3;
+            if (ks.IsKeyDown(Keys.D4))
+                controlScheme = 4;
+
             if (controlScheme <= 1)
             {
                 if (ks.IsKeyDown(Keys.S))
