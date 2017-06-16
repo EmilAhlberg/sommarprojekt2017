@@ -13,22 +13,41 @@ namespace SummerProject.factories
     class Enemies : Entities
     {             
         private Player player;
-        public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies) : base(sprites, NbrOfEnemies, 0.5f)
-        {         
+        private Vector2[] spawnPoints;
+        private Random rand;
+        private float minSpawnDelay = 0.3f;
+        public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
+        {
+            this.eventTime = eventTime;
             this.player = player;
             InitializeEntities(0);
+            rand = new Random();
+            spawnPoints = new Vector2[8];
+            spawnPoints[0] = new Vector2(-50, -50);
+            spawnPoints[1] = new Vector2(1970, -50);
+            spawnPoints[2] = new Vector2(-50, 1230);
+            spawnPoints[3] = new Vector2(1970, 1230);
+            spawnPoints[4] = new Vector2(1970, 615);
+            spawnPoints[5] = new Vector2(-50, 615);
+            spawnPoints[6] = new Vector2(985, 1230);
+            spawnPoints[7] = new Vector2(985, -50);
         }
      
         public void Update(GameTime gameTime)
         {
-            Spawn(new Vector2(250, 250), player.Position); //!
+            //Vector2 spawnPoint = new Vector2(250, 250);
+            Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
             UpdateEntities(gameTime);
         }
 
         public void Spawn(Vector2 source, Vector2 target)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && EventTimer < 0)
+            if (EventTimer < 0)
+            {
                 ActivateEntities(source, target);
+                if (eventTime > minSpawnDelay)
+                    eventTime *= 0.95f;
+            }
         }
 
 

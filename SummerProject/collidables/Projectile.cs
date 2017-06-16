@@ -14,7 +14,6 @@ namespace SummerProject.collidables
 
         public Projectile(Vector2 position, ISprite sprite) : base (position, sprite)
         {
-            Speed = 10;
         }
 
         protected void UpdateTimer(GameTime gameTime)

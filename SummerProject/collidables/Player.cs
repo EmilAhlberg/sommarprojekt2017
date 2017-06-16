@@ -12,13 +12,14 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
-        private const float startSpeed = 1f;
         private const float maxSpeed = 10f;
-        private const float acceleration = 0.2f;
+        private const float acceleration = 1f;
+        private const float friction = 0.1f;
         private KeyboardState prevKeyDown;
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2; 
+        public int score { get; set; }
 
         private Projectiles projectiles;
 
@@ -29,7 +30,6 @@ namespace SummerProject.collidables
             this.projectiles = projectiles;
             Health = playerHealth;
             Damage = playerDamage;
-            Speed = startSpeed;
             TurnSpeed = startTurnSpeed;
         }
 
@@ -72,23 +72,19 @@ namespace SummerProject.collidables
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.S))
             {
-                if (prevKeyDown.IsKeyDown(Keys.W))
-                    Speed = startSpeed;
-                Position = new Vector2(Position.X - (float)Math.Cos(angle) * Speed, Position.Y - (float)Math.Sin(angle) * Speed);
+                Speed += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.W))
             {
-                if (prevKeyDown.IsKeyDown(Keys.S))
-                    Speed = startSpeed;
-                Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed);
+                Speed += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.A))
             {
-                Position = new Vector2(Position.X + (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y + (float)Math.Sin(angle - Math.PI / 2) * Speed);
+                Speed += new Vector2((float)Math.Cos(angle - Math.PI/2), (float)Math.Sin(angle - Math.PI/2)) * acceleration;
             }
             if (ks.IsKeyDown(Keys.D))
             {
-                Position = new Vector2(Position.X - (float)Math.Cos(angle - Math.PI / 2) * Speed, Position.Y - (float)Math.Sin(angle - Math.PI / 2) * Speed);
+                Speed += new Vector2((float)Math.Cos(angle + Math.PI/2), (float)Math.Sin(angle + Math.PI/2)) * acceleration;
             }
             bool pressed = false;
                 foreach (Keys k in ks.GetPressedKeys())
@@ -96,14 +92,26 @@ namespace SummerProject.collidables
                     if (prevKeyDown.GetPressedKeys().Contains(k))
                     {
                         pressed = true;
-                    if (Speed < maxSpeed)
-                        Speed += acceleration;
                         break;
                     }
             }
+
             if (!pressed)
-                Speed = startSpeed;
+            {
+                Speed -= Speed * friction;
+            }
+            
+            if (Speed.Length() > maxSpeed)
+            {
+                Vector2 temp = Speed;
+                temp.Normalize();
+                Speed = temp * maxSpeed;
+            }
+
+
+            base.Move();
             prevKeyDown = ks;
+
             //if (ks.IsKeyDown(Keys.A))
             //{
             //    angle = angle - 0.1f;
@@ -136,6 +144,7 @@ namespace SummerProject.collidables
         public override void Death()
         {
             Health = playerHealth;
+            Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = Vector2.Zero; //!
         }
     }

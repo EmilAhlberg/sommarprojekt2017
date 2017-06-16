@@ -12,7 +12,8 @@ namespace SummerProject.factories
     class Projectiles : Entities
     {
         private int bulletType;
-        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap, 1) //!!
+        private const float reloadTime = 0.3f;
+        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap, reloadTime) //!!
         {
             bulletType = EntityTypes.BULLET;
             InitializeEntities(0);

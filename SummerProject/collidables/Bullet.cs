@@ -13,7 +13,8 @@ namespace SummerProject.collidables
         private const int bulletDamage = 10;
         private const int bulletHealth = 1;
         public Bullet(Vector2 position, ISprite sprite) : base(position, sprite)
-        {       
+        {
+
             Damage = bulletDamage;
             Health = bulletHealth;
         }
@@ -29,14 +30,9 @@ namespace SummerProject.collidables
             float dX = source.X - target.X;
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
+            Speed = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))*10; //!
             ResetSpawnTime(); 
         }
-
-
-
-       
-
-
         public override void Collision(Collidable c2)
         {
             if(c2 is Enemy || c2 is Wall)
@@ -44,8 +40,5 @@ namespace SummerProject.collidables
                 Death();
             }
         }
-
-        
-
     }
 }

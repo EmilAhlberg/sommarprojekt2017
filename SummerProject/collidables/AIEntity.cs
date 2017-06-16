@@ -10,7 +10,7 @@ namespace SummerProject.collidables
 {
     abstract class AIEntity : Entity
     {
-        public bool isActive { get; set; }      
+        public bool isActive { get; set; }       
 
         public AIEntity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
@@ -32,6 +32,7 @@ namespace SummerProject.collidables
             isActive = false;
             Position = factories.EntityFactory.FarAway();
         }
-      
+
+
     }
 }

@@ -10,7 +10,7 @@ namespace SummerProject
     public abstract class Movable : Drawable
     {
         protected float TurnSpeed { set; get; } = 1000f * (float)Math.PI; //! //rad per tick
-        protected float Speed { set; get; } = 1f; //-! //pixel per tick
+        protected Vector2 Speed { set; get; } = new Vector2(0,0); //-! 
 
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
@@ -45,7 +45,14 @@ namespace SummerProject
 
         protected virtual void Move()
         {
-            Position = new Vector2(Position.X + (float)Math.Cos(angle) * Speed, Position.Y + (float)Math.Sin(angle) * Speed); //TODO
+            if (this is collidables.Bullet)
+            {
+                Position += Speed;
+            } else
+            {
+                Position += Speed;
+            }
+           
         }
     }
 }
