@@ -12,6 +12,7 @@ namespace SummerProject.collidables
 {
     class Player : Entity
     {
+        private Vector2 startPosition;
         public int controlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
@@ -21,6 +22,7 @@ namespace SummerProject.collidables
         private const int playerHealth = 10;
         private const int playerDamage = 2;
         public int score { get; set; }
+        public int highScore { get; set; }
 
         private Projectiles projectiles;
 
@@ -28,6 +30,7 @@ namespace SummerProject.collidables
             : base(position, sprite)
         {
             Position = position;
+            startPosition = position;
             this.projectiles = projectiles;
             Health = playerHealth;
             Damage = playerDamage;
@@ -186,9 +189,12 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
+            if (score > highScore)
+                highScore = score;
+            score = 0;
             Health = playerHealth;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            Position = Vector2.Zero; //!
+            Position = startPosition; 
         }
     }
 }
