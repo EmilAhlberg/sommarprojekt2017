@@ -109,14 +109,14 @@ namespace SummerProject
                 {
                     case GAME_STATE:
                         String word = COUNTDOWN[(int)eventTime];
-                        Color color = Color.OrangeRed;
+                        Color color = Color.Gold;
                         if ((int)eventTime == 0)
-                            color = Color.Gold;
+                            color = Color.OrangeRed;
                         spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
                         break;
                     case GAME_OVER_STATE:
                         String score ="High Score: " + HighScore;
-                        spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.OrangeRed);
+                        spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
                         break;                        
                 }
             } else

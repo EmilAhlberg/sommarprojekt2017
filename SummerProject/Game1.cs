@@ -18,6 +18,7 @@ namespace SummerProject
     {
         GraphicsDeviceManager graphics;
         SpriteFont debugFont;
+        SpriteFont bigFont;
         SpriteFont scoreFont;
         SpriteBatch spriteBatch;
         EventOperator eventOperator;
@@ -82,7 +83,7 @@ namespace SummerProject
             spriteBatch = new SpriteBatch(GraphicsDevice);
             debugFont = Content.Load<SpriteFont>("fonts/debugfont");
             scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
-            SpriteFont bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
+            bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
 
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
             Texture2D enemyTex = Content.Load<Texture2D>("textures/enemy");
@@ -200,7 +201,6 @@ namespace SummerProject
             } else
             {
                 eventOperator.Draw(spriteBatch, gameTime);
-                enemies.Draw(spriteBatch, gameTime); //ajabaja
             }            
             //
             DebugMode(spriteBatch);
@@ -246,6 +246,9 @@ namespace SummerProject
                 spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
                 spriteBatch.DrawString(scoreFont, "High Score: " + eventOperator.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + eventOperator.HighScore).X / 2, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
+                Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
+                if(player.isDead)
+                    spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
             }
         }
     }   

@@ -53,6 +53,7 @@ namespace SummerProject.collidables
             }
             else
             {
+                sprite.MColor = Color.White; //Move to Respawn()
                 if (controlScheme != 4)
                     CalculateAngle();
                 Particles.GenerateParticles(Position, 4, angle);
@@ -217,7 +218,7 @@ namespace SummerProject.collidables
             Health = playerHealth;
             Position = startPosition;
             isDead = false;
-            sprite.MColor = Color.White;
+            
         }
     }
 }
