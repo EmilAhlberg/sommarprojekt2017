@@ -8,7 +8,7 @@ namespace SummerProject.collidables
 {
     public class Player : Entity
     {
-        private new float Thrust = 12;
+        private new float Thrust = 6;
         public int ControlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float respawnTimer = 3f;
@@ -29,6 +29,7 @@ namespace SummerProject.collidables
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
+            Mass = 5;
         }
 
         public void Update(GameTime gameTime)
