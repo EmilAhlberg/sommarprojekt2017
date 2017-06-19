@@ -11,8 +11,6 @@ namespace SummerProject.collidables
         private new float Thrust = 6;
         public int ControlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
-        private float respawnTimer = 3f;
-        private const float respawnTime = 3f;
         public bool IsDead { get; private set; }
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
@@ -153,7 +151,6 @@ namespace SummerProject.collidables
         {
             IsDead = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            respawnTimer = respawnTime;
             sprite.MColor = Color.Transparent;
         }
 
