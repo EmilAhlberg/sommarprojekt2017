@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.factories
 {
@@ -10,7 +11,7 @@ namespace SummerProject.factories
         private Player player;
         private Vector2[] spawnPoints;
         private Random rand;
-        private bool isInactive;
+        private bool isActive;
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private Timer difficultyTimer;
@@ -21,42 +22,54 @@ namespace SummerProject.factories
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
+            int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             spawnPoints = new Vector2[8];
-            spawnPoints[0] = new Vector2(-50, -50);
-            spawnPoints[1] = new Vector2(1970, -50);
-            spawnPoints[2] = new Vector2(-50, 1130);
-            spawnPoints[3] = new Vector2(1970, 1130);
-            spawnPoints[4] = new Vector2(1970, 540);
-            spawnPoints[5] = new Vector2(-50, 540);
-            spawnPoints[6] = new Vector2(960, 1130);
-            spawnPoints[7] = new Vector2(960, -50);
+            spawnPoints[0] = new Vector2(-50, -50);     // Top left
+            spawnPoints[1] = new Vector2(width + 50, -50);  // top right
+            spawnPoints[2] = new Vector2(-50, height + 50); // bottom left
+            spawnPoints[3] = new Vector2(width + 50, height + 50); // bottom right
+            spawnPoints[4] = new Vector2(width + 50, height / 2 ); // right
+            spawnPoints[5] = new Vector2(-50, height / 2); // left
+            spawnPoints[6] = new Vector2(width / 2, height + 50); // bottom
+            spawnPoints[7] = new Vector2(width / 2, -50); // top
         }
 
         public void Update(GameTime gameTime)
         {
-            if (isInactive)
+            CheckActive();
+            if (isActive)
             {
-                if (!player.IsDead)
-                    isInactive = false;
-            }
-            else
-            {
-                difficultyTimer.CountDown(gameTime);
-                if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
-                {
-                    difficultyTimer.Reset();
-                    if (eventTimer.maxTime > 1.5f)
-                        eventTimer.maxTime *= 0.75f;
-                    else
-                        eventTimer.maxTime *= 0.97f;
-                }
-                if (player.IsDead)
-                {
-                    isInactive = true;
-                    Reset();
-                }
+                UpdateDifficulty(gameTime);
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
+            }
+        }
+
+        private void CheckActive()
+        {
+            if (!isActive)
+            {
+                if (!player.IsDead)
+                    isActive = true;
+            }
+            else if (player.IsDead)
+            {
+                isActive = false;
+                Reset();
+            }
+        }
+
+        private void UpdateDifficulty(GameTime gameTime)
+        {
+            difficultyTimer.CountDown(gameTime);
+            if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
+            {
+                difficultyTimer.Reset();
+                if (eventTimer.maxTime > 1.5f)
+                    eventTimer.maxTime *= 0.75f;
+                else
+                    eventTimer.maxTime *= 0.97f;
             }
         }
 
@@ -64,7 +77,7 @@ namespace SummerProject.factories
         {
             eventTimer.maxTime = defaultSpawnDelay;
             foreach (Enemy e in EntityList)
-                if(e.IsActive)
+                if (e.IsActive)
                     e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)

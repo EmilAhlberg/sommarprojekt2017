@@ -61,7 +61,7 @@ namespace SummerProject
                     case MENU_STATE:
                         GameState = NewGameState;
                         break;
-                    case GAME_OVER_STATE:
+                    case GAME_OVER_STATE:                        
                         activeEvent = true;  //set event times here?
                         GameState = NewGameState;
                         break;
@@ -110,10 +110,7 @@ namespace SummerProject
                     break;
             }
             activeEvent = false;
-            GameState = NewGameState;
-            
-        
-                                     
+            GameState = NewGameState;                                 
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -130,7 +127,7 @@ namespace SummerProject
                         spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
                         break;
                     case GAME_OVER_STATE:
-                        String score = "High Score: ";
+                        String score = "Score: " + ScoreHandler.Score;
                         spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
                         break;
                 }
