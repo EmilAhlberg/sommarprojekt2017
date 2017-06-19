@@ -7,6 +7,8 @@ namespace SummerProject.menu
 {
     class Menu
     {
+        private MouseState mouseState;
+        private MouseState oldMouseState;
         private KeyboardState keyboardState;
         private KeyboardState oldKeyboardState;
         private List<MenuComponent> menues;
@@ -34,19 +36,17 @@ namespace SummerProject.menu
 
         public void Update(GameTime gameTime, EventOperator handler)
         {
-            keyboardState = Keyboard.GetState();
-            if (CheckKey(Keys.Down))
+            mouseState = Mouse.GetState();
+            for(int i = 0; i < MenuConstants.MENUITEMS[CurrentMenu].Length; i++)
             {
-                selectedIndex++;
-                selectedIndex %= MenuConstants.MENUITEMS[CurrentMenu].Length;
+                Vector2 measuredString = menues[CurrentMenu].Font.MeasureString(MenuConstants.MENUITEMS[CurrentMenu][i]);
+                Point indexPosition = new Point((int)(menues[CurrentMenu].Position.X), (int)(menues[CurrentMenu].Position.Y + i * measuredString.Y)); //Might be inprecise for a large number of menuitems DUNNO
+                Rectangle boundBox = new Rectangle(indexPosition.X, indexPosition.Y, (int)measuredString.X, (int)measuredString.Y);
+                if (boundBox.Contains(new Point(mouseState.X, mouseState.Y)))
+                    selectedIndex = i;
             }
-            if (CheckKey(Keys.Up))
-            {
-                selectedIndex--;
-                if (selectedIndex < 0)
-                    selectedIndex = MenuConstants.MENUITEMS[CurrentMenu].Length - 1;
-            }
-            if (CheckKey(Keys.Enter))
+
+            if (mouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
                 int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
                 if (changedMenu >= 0)
@@ -55,7 +55,29 @@ namespace SummerProject.menu
                     CurrentMenu = changedMenu;
                 }
             }
-            oldKeyboardState = keyboardState;
+            oldMouseState = mouseState;
+            //keyboardState = Keyboard.GetState();        
+            //if (CheckKey(Keys.Down))
+            //{
+            //    selectedIndex++;
+            //    selectedIndex %= MenuConstants.MENUITEMS[CurrentMenu].Length;
+            //}
+            //if (CheckKey(Keys.Up))
+            //{
+            //    selectedIndex--;
+            //    if (selectedIndex < 0)
+            //        selectedIndex = MenuConstants.MENUITEMS[CurrentMenu].Length - 1;
+            //}
+            //if (CheckKey(Keys.Enter))
+            //{
+            //    int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
+            //    if (changedMenu >= 0)
+            //    {
+            //        selectedIndex = 0;
+            //        CurrentMenu = changedMenu;
+            //    }
+            //}
+            //oldKeyboardState = keyboardState;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
