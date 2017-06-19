@@ -6,7 +6,6 @@ namespace SummerProject
 {
     class Enemy : AIEntity
     {
-        private const float speedMultiplier = 5f; //-!
         private const int enemyHealth = 10;
         private const int enemyDamage = 2;
         public int WorthScore {get; private set;}
@@ -16,16 +15,15 @@ namespace SummerProject
             : base(position, sprite)
         {           
             this.player = player;
-            Velocity = speedMultiplier * Velocity;
-            Health = enemyHealth; 
+            Health = enemyHealth; ; 
             Damage = enemyDamage;
+            Thrust = 5;
             WorthScore = 100;                        //!!
         }
 
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))* speedMultiplier;
             Move();
             Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)

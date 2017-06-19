@@ -12,20 +12,21 @@ namespace SummerProject
         public bool IsActive { get; set; }
         private float angularVelocity;
 
-        public Particle(ISprite sprite, Vector2 position, Vector2 velocity, float angle, float angularVelocity, Color color, float scale, float ttl, int ID) : base(position, sprite)
+        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID) : base(position, sprite)
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
-            Velocity = velocity;
+            AddForce(initialForce*20);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.sprite.MColor = color;
             baseScale = scale;
             this.sprite.Scale = baseScale;
-            TTL = ttl;
             currentTTL = new Timer(TTL);
+            this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
+            Thrust = 0;
         }
 
         public void Update(GameTime gameTime)
@@ -45,14 +46,12 @@ namespace SummerProject
                 case 1:
                     {
                         sprite.Scale = 4 * baseScale * currentTTL.currentTime / TTL;
-                        Velocity -= Velocity * ((TTL - currentTTL.currentTime) * 0.1f); //!!!
                         sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL.currentTime / TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case 2:
                     {
-                        Velocity -= Velocity * ((TTL - currentTTL.currentTime) * 0.1f); //!!!
                         sprite.MColor = new Color(1, 1, 1, (currentTTL.currentTime / TTL));
                         break;
                     }
