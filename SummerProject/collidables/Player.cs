@@ -53,9 +53,9 @@ namespace SummerProject.collidables
 
         private void Fire()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Position, new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                projectiles.Fire(Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
             }
         }
 
@@ -68,66 +68,65 @@ namespace SummerProject.collidables
 
         protected override void Move()
         {
-            KeyboardState ks = Keyboard.GetState();
-            if (ks.IsKeyDown(Keys.D1))
+            if (InputHandler.isPressed(Keys.D1))
                 ControlScheme = 1;
-            if (ks.IsKeyDown(Keys.D2))
+            if (InputHandler.isPressed(Keys.D2))
                 ControlScheme = 2;
-            if (ks.IsKeyDown(Keys.D3))
+            if (InputHandler.isPressed(Keys.D3))
                 ControlScheme = 3;
-            if (ks.IsKeyDown(Keys.D4))
+            if (InputHandler.isPressed(Keys.D4))
                 ControlScheme = 4;
 
             base.Thrust = 0;
             if (ControlScheme <= 1)
             {
-                if (ks.IsKeyDown(Keys.S))
+                if (InputHandler.isPressed(Keys.S))
                     base.Thrust = -Thrust;
 
-                if (ks.IsKeyDown(Keys.W))
+                if (InputHandler.isPressed(Keys.W))
                     base.Thrust += Thrust;
 
-                if (ks.IsKeyDown(Keys.A))
+                if (InputHandler.isPressed(Keys.A))
                     AddForce(Thrust*(new Vector2((float)Math.Cos(angle-Math.PI/2), (float)Math.Sin(angle-Math.PI/2))));
 
-                if (ks.IsKeyDown(Keys.D))
+                if (InputHandler.isPressed(Keys.D))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2))));
             }
 
             else if (ControlScheme == 2)
             {
-                if (ks.IsKeyDown(Keys.S))
+                if (InputHandler.isPressed(Keys.S))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI/2), (float)Math.Sin(Math.PI/2))));
 
-                if (ks.IsKeyDown(Keys.W))
+                if (InputHandler.isPressed(Keys.W))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2))));
 
-                if (ks.IsKeyDown(Keys.A))
+                if (InputHandler.isPressed(Keys.A))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI))));
                
-                if (ks.IsKeyDown(Keys.D))
+                if (InputHandler.isPressed(Keys.D))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(0), (float)Math.Sin(0))));
             }
 
             else if (ControlScheme == 3)
             {
-                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                if (InputHandler.isPressed(MouseButton.RIGHT))
                     base.Thrust = Thrust;
 
             }
             else if (ControlScheme == 4)
             {
                 base.Thrust = 0;
-                if (ks.IsKeyDown(Keys.S))
+                if (InputHandler.isPressed(Keys.S))
                     base.Thrust = -Thrust;
 
-                if (ks.IsKeyDown(Keys.W))
+                if (InputHandler.isPressed(Keys.W))
                     base.Thrust += Thrust;
 
-                if (ks.IsKeyDown(Keys.A))
+                if (InputHandler.isPressed(Keys.A))
                     angle -= 0.1f;
 
-                if (ks.IsKeyDown(Keys.D))
+                if (InputHandler.isPressed(Keys.D))
                     angle += 0.1f;
             }
             base.Move();
