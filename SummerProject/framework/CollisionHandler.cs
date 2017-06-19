@@ -9,26 +9,25 @@ namespace SummerProject
         public void CheckCollisions(Collidable[] list1, params Collidable[] list2)
         {
             Collidable[] list = list1.Concat(list2).ToArray();
-            foreach (Collidable c1 in list)
+            for (int i = 0; i < list.Length; i++)
             {
-                foreach (Collidable c2 in list)
+                for (int j = i + 1; j < list.Length; j++)
                 {
-                    if (c1 != c2)
+                    Collidable c1 = list[i];
+                    Collidable c2 = list[j];
+                    if (c1 is AIEntity && c2 is AIEntity)
                     {
-                        if (c1 is AIEntity && c2 is AIEntity)
+                        AIEntity e1 = c1 as AIEntity;
+                        AIEntity e2 = c2 as AIEntity;
+                        if (e1.IsActive && e2.IsActive)
                         {
-                            AIEntity e1 = c1 as AIEntity;
-                            AIEntity e2 = c2 as AIEntity;
-                            if (e1.IsActive && e2.IsActive)
-                            {
-                                if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                                    HandleCollision(c1, c2);
-                            }
-                        }
-                        else
                             if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                            HandleCollision(c1, c2);
+                                HandleCollision(c1, c2);
+                        }
                     }
+                    else
+                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                            HandleCollision(c1, c2);
                 }
             }
             foreach (Collidable c in list)

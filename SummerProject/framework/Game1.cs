@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using SummerProject.factories;
 using SummerProject.collidables;
+using System;
 
 namespace SummerProject
 {
@@ -165,21 +166,22 @@ namespace SummerProject
             {                
                     eventOperator.Update(gameTime);                
             }
+            CheckGameStatus(gameTime); 
+                                
+            base.Update(gameTime);
+        }
 
-
-            //            
+        private void CheckGameStatus(GameTime gameTime)
+        {
             if (player.IsDead && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 deathTimer.CountDown(gameTime);
                 if (deathTimer.IsFinished)
-                { 
+                {
                     eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
                     deathTimer.Reset();
                 }
-
             }
-                
-            base.Update(gameTime);
         }
 
         public void ResetGame()

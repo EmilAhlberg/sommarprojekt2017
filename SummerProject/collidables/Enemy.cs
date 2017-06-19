@@ -5,20 +5,17 @@ using SummerProject.collidables;
 namespace SummerProject
 {
     class Enemy : AIEntity
-    {
-        private const int enemyHealth = 10;
-        private const int enemyDamage = 2;
+    {        
         public int WorthScore {get; private set;}
         private Player player;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
-        {           
-            this.player = player;
-            Health = enemyHealth; ; 
-            Damage = enemyDamage;
-            Thrust = 5;
-            WorthScore = 100;                        //!!
+        {
+            this.player = player;            
+            Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
+            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];                  
         }
 
         public override void Update(GameTime gameTime)
@@ -35,7 +32,7 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            Health = enemyHealth;
+            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
         private void CalculateAngle()
