@@ -48,16 +48,7 @@ namespace SummerProject
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             base.Initialize();
-        }
-
-        internal void StartGame(GameTime gameTime)
-        {
-            while (eventOperator.ActiveEvent)
-            {
-                Draw(gameTime);
-                eventOperator.UpdateEventTimer(gameTime);
-            }            
-        }
+        }       
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -114,7 +105,7 @@ namespace SummerProject
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles, eventOperator);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 30, 3);    
             //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
@@ -156,15 +147,14 @@ namespace SummerProject
                 HandleAllCollisions();
                 KeepPlayerInScreen();
             }                             
-            else {
-                if (eventOperator.ActiveEvent)
-                    eventOperator.UpdateEventTimer(gameTime);               
-                else
-                {
-                    eventOperator.Update(gameTime);
-                }
-            }             
-                           
+            else
+            {                
+                    eventOperator.Update(gameTime);                
+            } 
+            //            
+              if(player.isDead)
+                eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+            //             
             base.Update(gameTime);
         }
 

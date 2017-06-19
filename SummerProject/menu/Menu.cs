@@ -15,7 +15,7 @@ namespace SummerProject.menu
         private KeyboardState oldKeyboardState;
         private List<MenuComponent> menues;     
         private int selectedIndex;
-        public int currentMenu { private get; set; } = MenuConstants.MAIN;        
+        public int CurrentMenu { private get; set; } = MenuConstants.MAIN;        
 
         public Menu(Vector2 position, SpriteFont spriteFont)
         {             
@@ -42,21 +42,21 @@ namespace SummerProject.menu
             if (CheckKey(Keys.Down))
             {
                 selectedIndex++;
-                selectedIndex %= MenuConstants.MENUITEMS[currentMenu].Length;
+                selectedIndex %= MenuConstants.MENUITEMS[CurrentMenu].Length;
             }
             if (CheckKey(Keys.Up))
             {
                 selectedIndex--;
                 if (selectedIndex < 0)
-                    selectedIndex = MenuConstants.MENUITEMS[currentMenu].Length - 1;
+                    selectedIndex = MenuConstants.MENUITEMS[CurrentMenu].Length - 1;
             }
             if (CheckKey(Keys.Enter))
             {
-                int changedMenu = menues[currentMenu].HandleSelection(currentMenu, selectedIndex, handler);
+                int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
                 if(changedMenu >= 0) 
                 {
                     selectedIndex = 0;
-                    currentMenu = changedMenu;
+                    CurrentMenu = changedMenu;
                 }
             }
             oldKeyboardState = keyboardState;
@@ -64,7 +64,7 @@ namespace SummerProject.menu
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            menues[currentMenu].Draw(spriteBatch, gameTime, selectedIndex);
+            menues[CurrentMenu].Draw(spriteBatch, gameTime, selectedIndex);
         }
     }
 }
