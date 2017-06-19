@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject
 {
@@ -21,9 +18,9 @@ namespace SummerProject
         {
             set
             {
-                Rotate(value-angle);
+                Rotate(value - angle);
             }
-            get { return angle;}
+            get { return angle; }
         }
         public Vector2 Location
         {
@@ -39,7 +36,6 @@ namespace SummerProject
             }
             get { return Vector2.Add(UL, Vector2.Divide(Vector2.Subtract(DR, UL), 2)); }
         }
-
 
         public RotRectangle(Rectangle rect, float angleRad)
         {
@@ -79,7 +75,7 @@ namespace SummerProject
                 scalarB[1] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(r.DL, axis) / axis.LengthSquared()));
                 scalarB[2] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(r.DR, axis) / axis.LengthSquared()));
                 scalarB[3] = Vector2.Dot(axis, Vector2.Multiply(axis, Vector2.Dot(r.UR, axis) / axis.LengthSquared()));
-               if(scalarB.Max() < scalarA.Min() || scalarA.Max() < scalarB.Min() )
+                if (scalarB.Max() < scalarA.Min() || scalarA.Max() < scalarB.Min())
                     return false;
             }
             return true;

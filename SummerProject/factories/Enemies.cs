@@ -1,59 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     class Enemies : Entities
-    {             
+    {
         private Player player;
         private Vector2[] spawnPoints;
         private Random rand;
-        private float minSpawnDelay = 0.3f;
-        public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
+        private bool isInactive;
+        private float minSpawnDelay = 0.4f;
+        private float defaultSpawnDelay;
+        private Timer difficultyTimer;
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
-            this.eventTime = eventTime;
+            defaultSpawnDelay = eventTime;
+            difficultyTimer = new Timer(eventTime);
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
             spawnPoints = new Vector2[8];
             spawnPoints[0] = new Vector2(-50, -50);
             spawnPoints[1] = new Vector2(1970, -50);
-            spawnPoints[2] = new Vector2(-50, 1230);
-            spawnPoints[3] = new Vector2(1970, 1230);
-            spawnPoints[4] = new Vector2(1970, 615);
-            spawnPoints[5] = new Vector2(-50, 615);
-            spawnPoints[6] = new Vector2(985, 1230);
-            spawnPoints[7] = new Vector2(985, -50);
-        }
-     
-        public void Update(GameTime gameTime)
-        {
-            //Vector2 spawnPoint = new Vector2(250, 250);
-            Spawn(spawnPoints[(int) (rand.NextDouble() * 8)], player.Position); //!
-            UpdateEntities(gameTime);
+            spawnPoints[2] = new Vector2(-50, 1130);
+            spawnPoints[3] = new Vector2(1970, 1130);
+            spawnPoints[4] = new Vector2(1970, 540);
+            spawnPoints[5] = new Vector2(-50, 540);
+            spawnPoints[6] = new Vector2(960, 1130);
+            spawnPoints[7] = new Vector2(960, -50);
         }
 
-        public void Spawn(Vector2 source, Vector2 target)
+        public void Update(GameTime gameTime)
         {
-            if (EventTimer < 0)
+            if (isInactive)
             {
-                ActivateEntities(source, target);
-                if (eventTime > minSpawnDelay)
-                    eventTime *= 0.95f;
+                if (!player.IsDead)
+                    isInactive = false;
+            }
+            else
+            {
+                difficultyTimer.CountDown(gameTime);
+                if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
+                {
+                    difficultyTimer.Reset();
+                    if (eventTimer.maxTime > 1.5f)
+                        eventTimer.maxTime *= 0.75f;
+                    else
+                        eventTimer.maxTime *= 0.97f;
+                }
+                if (player.IsDead)
+                {
+                    isInactive = true;
+                    Reset();
+                }
+                Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
+                UpdateEntities(gameTime);
             }
         }
 
-
+        private void Reset()
+        {
+            eventTimer.maxTime = defaultSpawnDelay;
+            foreach (Enemy e in entityList)
+                e.Death();
+        }
+        public void Spawn(Vector2 source, Vector2 target)
+        {
+            if (eventTimer.IsFinished)
+                ActivateEntities(source, target);
+        }
         protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(sprites[index], player);
+            return EntityFactory.CreateEntity(Sprites[index], player);
         }
     }
 }

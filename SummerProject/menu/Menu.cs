@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
@@ -13,12 +9,12 @@ namespace SummerProject.menu
     {
         private KeyboardState keyboardState;
         private KeyboardState oldKeyboardState;
-        private List<MenuComponent> menues;     
+        private List<MenuComponent> menues;
         private int selectedIndex;
-        private int currentMenu = MenuConstants.MAIN;        
+        public int CurrentMenu { private get; set; } = MenuConstants.MAIN;
 
         public Menu(Vector2 position, SpriteFont spriteFont)
-        {             
+        {
             InitializeMenues(spriteFont, position);
         }
 
@@ -26,37 +22,37 @@ namespace SummerProject.menu
         {
             menues = new List<MenuComponent>();
             //order of added menues is important
-            menues.Add(new MenuComponent(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.MAIN]));
-            menues.Add(new MenuComponent(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.SETTINGS]));            
+            menues.Add(new MainMenu(position, spriteFont));
+            menues.Add(new SettingsMenu(position, spriteFont));
+            menues.Add(new GameOverMenu(position, spriteFont));
         }
 
         private bool CheckKey(Keys theKey)
         {
             return keyboardState.IsKeyUp(theKey) && oldKeyboardState.IsKeyDown(theKey);
         }
-       
 
-        public void Update(GameTime gameTime, Game1 game)
+        public void Update(GameTime gameTime, EventOperator handler)
         {
             keyboardState = Keyboard.GetState();
             if (CheckKey(Keys.Down))
             {
                 selectedIndex++;
-                selectedIndex %= MenuConstants.MENUITEMS[currentMenu].Length;
+                selectedIndex %= MenuConstants.MENUITEMS[CurrentMenu].Length;
             }
             if (CheckKey(Keys.Up))
             {
                 selectedIndex--;
                 if (selectedIndex < 0)
-                    selectedIndex = MenuConstants.MENUITEMS[currentMenu].Length - 1;
+                    selectedIndex = MenuConstants.MENUITEMS[CurrentMenu].Length - 1;
             }
             if (CheckKey(Keys.Enter))
             {
-                int changedMenu = menues[currentMenu].HandleSelection(currentMenu, selectedIndex, game);
-                if(changedMenu >= 0) 
+                int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
+                if (changedMenu >= 0)
                 {
                     selectedIndex = 0;
-                    currentMenu = changedMenu;
+                    CurrentMenu = changedMenu;
                 }
             }
             oldKeyboardState = keyboardState;
@@ -64,7 +60,7 @@ namespace SummerProject.menu
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            menues[currentMenu].Draw(spriteBatch, gameTime, selectedIndex);
+            menues[CurrentMenu].Draw(spriteBatch, gameTime, selectedIndex);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,8 +6,8 @@ namespace SummerProject
 {
     class CompositeSprite : ISprite
     {
-      public List<ISprite> spriteList { get; }
-      
+        public List<ISprite> spriteList { get; }
+
         public float Scale { get; set; } //!
         private float rotation;
         public float Rotation
@@ -75,7 +71,7 @@ namespace SummerProject
 
         public void addSprite(Sprite s, Vector2 relativePos)
         {
-            if(spriteList.Count == 0)
+            if (spriteList.Count == 0)
             {
                 Origin = s.Origin;
                 SpriteRect = s.SpriteRect;
@@ -87,7 +83,7 @@ namespace SummerProject
 
         public void Animate(GameTime gameTime)
         {
-            foreach(ISprite s in spriteList)
+            foreach (ISprite s in spriteList)
             {
                 s.Animate(gameTime);
             }

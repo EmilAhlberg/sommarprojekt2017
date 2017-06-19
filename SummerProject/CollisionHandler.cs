@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SummerProject.collidables;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject
 {
@@ -23,7 +19,7 @@ namespace SummerProject
                         {
                             AIEntity e1 = c1 as AIEntity;
                             AIEntity e2 = c2 as AIEntity;
-                            if (e1.isActive && e2.isActive)
+                            if (e1.IsActive && e2.IsActive)
                             {
                                 if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                                     HandleCollision(c1, c2);
@@ -31,7 +27,7 @@ namespace SummerProject
                         }
                         else
                             if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                                HandleCollision(c1, c2);
+                            HandleCollision(c1, c2);
                     }
                 }
             }
@@ -59,7 +55,7 @@ namespace SummerProject
             backVect *= 0.2f;
             while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                 c1.Position += backVect;
-     
+
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
             //    c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
             //else

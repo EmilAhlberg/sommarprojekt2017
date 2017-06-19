@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject
 {
@@ -30,7 +27,7 @@ namespace SummerProject
         {
             for (int i = 0; i < particles.Count; i++)
             {
-                if (particles[i].isActive)
+                if (particles[i].IsActive)
                 {
                     particles[i].Update(gameTime);
                 }
@@ -156,7 +153,7 @@ namespace SummerProject
         {
             foreach (Particle p in particles)
             {
-                if (p.isActive)
+                if (p.IsActive)
                     p.Draw(sb, gameTime);
             }
         }

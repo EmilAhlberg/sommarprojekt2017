@@ -1,21 +1,18 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace SummerProject
 {
     public class Particle : Movable
     {
-        float currentTTL;
+        Timer currentTTL;
         float TTL;
         int ID;
         float baseScale;
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         private float angularVelocity;
 
-
-        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float ttl, int ID) : base(position, sprite)
+        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID) : base(position, sprite)
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
@@ -25,21 +22,19 @@ namespace SummerProject
             this.sprite.MColor = color;
             baseScale = scale;
             this.sprite.Scale = baseScale;
-            TTL = ttl;
-            currentTTL = TTL;
+            currentTTL = new Timer(TTL);
             this.ID = ID;
-            isActive = true;
+            IsActive = true;
             Thrust = 0;
         }
-
 
         public void Update(GameTime gameTime)
         {
             Behaviour(ID);
-            currentTTL -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (currentTTL < 0)
+            currentTTL.CountDown(gameTime);
+            if (currentTTL.IsFinished)
             {
-                isActive = false;
+                IsActive = false;
             }
         }
 
@@ -47,20 +42,18 @@ namespace SummerProject
         {
             switch (ID)
             {
-
                 case 1:
                     {
-                        sprite.Scale = 4 * baseScale * currentTTL / TTL;
-                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL / TTL);
+                        sprite.Scale = 4 * baseScale * currentTTL.currentTime / TTL;
+                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL.currentTime / TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case 2:
                     {
-                        sprite.MColor = new Color(1, 1, 1, (currentTTL / TTL));
+                        sprite.MColor = new Color(1, 1, 1, (currentTTL.currentTime / TTL));
                         break;
                     }
-
                 default: throw new NotImplementedException();
             }
             Move();
