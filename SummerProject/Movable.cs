@@ -8,7 +8,7 @@ namespace SummerProject
     {
         private const float FRICTION = 4f; //!
         private Vector2 Friction { get { return FRICTION * (Velocity * Velocity.Length() / 5 + Velocity) * Mass * Mass / 1000; } }
-        private Vector2 Velocity { set; get; } = Vector2.Zero; //-!
+        protected Vector2 Velocity { private set; get; } = Vector2.Zero; //-!
         protected float TurnSpeed { set; get; } = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
         protected float Mass { set; get; } = EntityConstants.MASS[EntityConstants.DEFAULT]; 
         protected float Thrust { set; get; } = EntityConstants.THRUST[EntityConstants.DEFAULT];

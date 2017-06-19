@@ -15,24 +15,22 @@ namespace SummerProject.factories
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private Timer difficultyTimer;
-        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime, int windowWidth, int windowHeight) : base(sprites, NbrOfEnemies, eventTime)
         {
             defaultSpawnDelay = eventTime;
             difficultyTimer = new Timer(eventTime);
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
-            int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             spawnPoints = new Vector2[8];
             spawnPoints[0] = new Vector2(-50, -50);     // Top left
-            spawnPoints[1] = new Vector2(width + 50, -50);  // top right
-            spawnPoints[2] = new Vector2(-50, height + 50); // bottom left
-            spawnPoints[3] = new Vector2(width + 50, height + 50); // bottom right
-            spawnPoints[4] = new Vector2(width + 50, height / 2 ); // right
-            spawnPoints[5] = new Vector2(-50, height / 2); // left
-            spawnPoints[6] = new Vector2(width / 2, height + 50); // bottom
-            spawnPoints[7] = new Vector2(width / 2, -50); // top
+            spawnPoints[1] = new Vector2(windowWidth + 50, -50);  // top right
+            spawnPoints[2] = new Vector2(-50, windowHeight + 50); // bottom left
+            spawnPoints[3] = new Vector2(windowWidth + 50, windowHeight + 50); // bottom right
+            spawnPoints[4] = new Vector2(windowWidth + 50, windowHeight / 2 ); // right  (bugged)
+            spawnPoints[5] = new Vector2(-50, windowHeight / 2 ); // left      (bugged)
+            spawnPoints[6] = new Vector2(windowWidth / 2, windowHeight + 50); // bottom
+            spawnPoints[7] = new Vector2(windowWidth / 2, -50); // top
         }
 
         public void Update(GameTime gameTime)
