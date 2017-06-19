@@ -164,8 +164,9 @@ namespace SummerProject
             {                
                     eventOperator.Update(gameTime);                
             }
-            CheckGameStatus(gameTime); 
-                                
+            CheckGameStatus(gameTime);
+
+            InputHandler.UpdatePreviousState();
             base.Update(gameTime);
         }
 

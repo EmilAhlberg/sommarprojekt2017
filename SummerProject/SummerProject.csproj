@@ -71,6 +71,7 @@
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
+    <Compile Include="InputHandler.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="menu\GameOverMenu.cs" />
     <Compile Include="menu\MainMenu.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="menu\MenuComponent.cs" />
     <Compile Include="menu\MenuConstants.cs" />
     <Compile Include="menu\SettingsMenu.cs" />
+    <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
