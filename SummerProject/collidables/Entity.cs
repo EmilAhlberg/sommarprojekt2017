@@ -18,5 +18,6 @@ namespace SummerProject.collidables
         }
 
         public abstract void Death();
+        
     }
 }

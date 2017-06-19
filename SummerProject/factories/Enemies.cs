@@ -39,13 +39,13 @@ namespace SummerProject.factories
      
         public void Update(GameTime gameTime)
         {
-            if (isInactive)
-            {
-                if (!player.isDead)
-                    isInactive = false;
-            }
-            else
-            {
+            //if (isInactive)
+            //{
+            //    if (!player.isDead)
+            //        isInactive = false;
+            //}
+            //else
+            //{
                 secondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (eventTime > minSpawnDelay && secondTimer > 1f)
                 {
@@ -55,17 +55,16 @@ namespace SummerProject.factories
                     else
                         eventTime *= 0.97f;
                 }
-                if (player.isDead)
-                {
-                    isInactive = true;
-                    reset();
-                }
+                //if (player.isDead)
+                //{
+                //    isInactive = true;
+                //    reset();
+                //}
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
-            }
+            //}
         }
-
-        private void reset()
+        public void Reset()
         {
             eventTime = defaultSpawnDelay;
             foreach(Enemy e in entityList)

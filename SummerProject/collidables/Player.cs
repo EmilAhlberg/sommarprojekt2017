@@ -47,9 +47,10 @@ namespace SummerProject.collidables
             if (isDead)
             {
                 respawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (respawnTimer < 0)
-                    Respawn();
+                if (respawnTimer < 0) { }
+                //Respawn();
             }
+
             else
             {
                 sprite.MColor = Color.White; //Move to Respawn()
@@ -202,21 +203,19 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            //if (score > eventOperator.HighScore)
-            //    eventOperator.HighScore = score;
+          
             isDead = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             respawnTimer = respawnTime;
             sprite.MColor = Color.Transparent;    
         }
 
-        private void Respawn()
+        public void Reset()
         {
             score = 0;           
             Health = playerHealth;
             Position = startPosition;
-            isDead = false;
-            
+            isDead = false;            
         }
     }
 }

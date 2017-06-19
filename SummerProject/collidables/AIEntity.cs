@@ -33,6 +33,5 @@ namespace SummerProject.collidables
             Position = factories.EntityFactory.FarAway();
         }
 
-
     }
 }
