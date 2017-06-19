@@ -19,7 +19,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         EventOperator eventOperator;
         Player player;
-        //Wall wall;
+        Wall wall;
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
@@ -52,6 +52,8 @@ namespace SummerProject
         /// </summary>
         protected override void LoadContent()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
             #region Adding base texture to Sprite
 
             Texture2D baseTex = new Texture2D(GraphicsDevice, 2, 2);
@@ -65,13 +67,14 @@ namespace SummerProject
 
             #endregion
 
-            // Create a new SpriteBatch, which can be used to draw textures.
+            #region Loading fonts
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
             debugFont = Content.Load<SpriteFont>("fonts/debugfont");
             scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
             bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
+            #endregion
 
+            #region Loading textures
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
             Texture2D enemyTex = Content.Load<Texture2D>("textures/enemy");
             Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
@@ -84,32 +87,41 @@ namespace SummerProject
             Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
+            #endregion
 
+            #region Adding entity-sprites to lists
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
             enemySprites.Add(new Sprite(enemyTex));        // order is important
             bulletSprites.Add(new Sprite(shotTex, 4));
             bulletSprites.Add(new Sprite(homingTex));
+            #endregion
 
+            #region Testing composite sprite
             CompositeSprite compSpr = new CompositeSprite();
 
             compSpr.addSprite(new Sprite(shipTex), new Vector2(0, 0));
             compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
-            eventOperator = new EventOperator(bigFont, this);
+            #endregion
 
+            #region Initializing game objects etc.
+            eventOperator = new EventOperator(bigFont, this);
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 30, 3);
-            //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
+            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
+            #endregion
 
+            #region Adding sprites to particles
             Particles.AddSprite(new Sprite(deadTex2));
             Particles.AddSprite(new Sprite(deadTex1));
             Particles.AddSprite(new Sprite(deadTex4));
             Particles.AddSprite(new Sprite(deadTex3));
+            #endregion
             // TODO: use this.Content to load your game content here
         }
 
@@ -134,14 +146,17 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
             {
+                #region Update for game state
                 player.Update(gameTime);
                 enemies.Update(gameTime);
                 projectiles.Update(gameTime);
                 Particles.Update(gameTime);
                 HandleAllCollisions();
                 KeepPlayerInScreen();
+                #endregion
             }
             else
             {                
@@ -151,14 +166,13 @@ namespace SummerProject
             if (player.IsDead && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 int i = 100;
-                while (i>0)
+                while (i > 0)
                 {
                     i--;
                 }
-                    eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
-            }
+                eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+            } //LMAO
                 
-            //             
             base.Update(gameTime);
         }
 
@@ -180,7 +194,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player /*,wall*/);
+            colhandl.CheckCollisions(collidableList.ToArray(), player ,wall);
         }
 
         /// <summary>
@@ -194,19 +208,29 @@ namespace SummerProject
             background.Draw(spriteBatch, gameTime);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
+                #region Draw for GameState
                 Particles.Draw(spriteBatch, gameTime);
                 projectiles.Draw(spriteBatch, gameTime);
                 player.Draw(spriteBatch, gameTime);
-                //wall.Draw(spriteBatch, gameTime);
+                wall.Draw(spriteBatch, gameTime);
                 enemies.Draw(spriteBatch, gameTime);
+
+                #region DrawString
+                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
+                Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
+                if (player.IsDead)
+                    spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
+                #endregion
+
+                #endregion
             }
             else
             {
                 eventOperator.Draw(spriteBatch, gameTime);
             }
-            //
             DebugMode(spriteBatch);
-            //
             spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -241,17 +265,9 @@ namespace SummerProject
             if (controlSheme == 4)
                 usingControls = "WASD : AD = Rotate";
 
-            if (eventOperator.GameState == EventOperator.GAME_STATE)
-            {
-                //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
-                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
-                Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
-                if (player.IsDead)
-                    spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
-            }
+
+            //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
         }
     }
 }
