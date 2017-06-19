@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
@@ -13,12 +9,12 @@ namespace SummerProject.menu
     {
         private KeyboardState keyboardState;
         private KeyboardState oldKeyboardState;
-        private List<MenuComponent> menues;     
+        private List<MenuComponent> menues;
         private int selectedIndex;
-        public int CurrentMenu { private get; set; } = MenuConstants.MAIN;        
+        public int CurrentMenu { private get; set; } = MenuConstants.MAIN;
 
         public Menu(Vector2 position, SpriteFont spriteFont)
-        {             
+        {
             InitializeMenues(spriteFont, position);
         }
 
@@ -34,7 +30,7 @@ namespace SummerProject.menu
         private bool CheckKey(Keys theKey)
         {
             return keyboardState.IsKeyUp(theKey) && oldKeyboardState.IsKeyDown(theKey);
-        }       
+        }
 
         public void Update(GameTime gameTime, EventOperator handler)
         {
@@ -53,7 +49,7 @@ namespace SummerProject.menu
             if (CheckKey(Keys.Enter))
             {
                 int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
-                if(changedMenu >= 0) 
+                if (changedMenu >= 0)
                 {
                     selectedIndex = 0;
                     CurrentMenu = changedMenu;

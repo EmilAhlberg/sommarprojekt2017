@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace SummerProject
@@ -10,12 +6,10 @@ namespace SummerProject
     public abstract class Movable : Drawable
     {
         protected float TurnSpeed { set; get; } = 1000f * (float)Math.PI; //! //rad per tick
-        protected Vector2 Velocity { set; get; } = new Vector2(0,0); //-!
+        protected Vector2 Velocity { set; get; } = new Vector2(0, 0); //-!
         protected float Mass { set; get; } = 1;
         protected float Acceleration { get { return Thrust / Mass; } }
         protected float Thrust { set; get; } = 1;
-
-
 
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
@@ -38,7 +32,7 @@ namespace SummerProject
             {
                 addedAngle = TurnSpeed;
             }
-            else if(addedAngle < -TurnSpeed)
+            else if (addedAngle < -TurnSpeed)
             {
                 addedAngle = -TurnSpeed;
             }
@@ -53,11 +47,11 @@ namespace SummerProject
             if (this is collidables.Bullet)
             {
                 Position += Velocity;
-            } else
+            }
+            else
             {
                 Position += Velocity;
             }
-           
         }
     }
 }

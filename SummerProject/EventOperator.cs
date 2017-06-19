@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SummerProject.collidables;
 using SummerProject.menu;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject
 {
@@ -16,24 +11,22 @@ namespace SummerProject
         public const int MENU_STATE = 1;
         public const int GAME_STATE = 2;
         public const int GAME_OVER_STATE = 3;
-        public static readonly string[] COUNTDOWN = { "GO!", "SET!", "READY!", ""};
-
+        public static readonly string[] COUNTDOWN = { "GO!", "SET!", "READY!", "" };
         public int HighScore { get; set; }
         public int GameState { get; set; } = MenuConstants.MAIN;
-        private bool activeEvent; 
+        private bool activeEvent;
         public int NewGameState { get; set; }
         private float eventTime = 3f;   //!!     
         private Menu menu;
         private Game1 game;
         private SpriteFont font;
-       
 
         public EventOperator(SpriteFont font, Game1 game)
-        {           
+        {
             this.font = font;
             GameState = MENU_STATE;
-            NewGameState= GameState;            
-            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2, 
+            NewGameState = GameState;
+            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2,
                     (game.Window.ClientBounds.Height) / 2), font);
             this.game = game;
         }
@@ -46,14 +39,14 @@ namespace SummerProject
             {
                 ChangeState(gameTime);
                 HandleState(gameTime);
-            }         
+            }
         }
 
         public void ChangeState(GameTime gameTime)
         {
             if (NewGameState != GameState)
             {
-                 switch (NewGameState)
+                switch (NewGameState)
                 {
                     case EXIT:
                         GameState = NewGameState;
@@ -69,7 +62,7 @@ namespace SummerProject
                         activeEvent = true;  //set event times here?
                         GameState = NewGameState;
                         break;
-                   
+
                 }
             }
         }
@@ -88,26 +81,24 @@ namespace SummerProject
                     menu.CurrentMenu = MenuConstants.GAME_OVER;
                     menu.Update(gameTime, this);
                     break;
-                //case GAME_STATE:
-                //    throw new NotImplementedException();
+                    //case GAME_STATE:
+                    //    throw new NotImplementedException();
             }
         }
 
         public void UpdateEventTimer(GameTime gameTime)
-        {            
-                eventTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (eventTime < 0)
-                {
-                    activeEvent = false;
+        {
+            eventTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (eventTime < 0)
+            {
+                activeEvent = false;
                 GameState = NewGameState;
-                    eventTime = 3f; //!
-                }                               
+                eventTime = 3f; //!
+            }
         }
-        
-        
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {        
+        {
             if (activeEvent)
             {
                 switch (NewGameState)
@@ -120,14 +111,15 @@ namespace SummerProject
                         spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
                         break;
                     case GAME_OVER_STATE:
-                        String score ="High Score: " + HighScore;
+                        String score = "High Score: " + HighScore;
                         spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
-                        break;                        
+                        break;
                 }
-            } else
+            }
+            else
             {
                 menu.Draw(spriteBatch, gameTime);
-            }                                                  
+            }
         }
 
         private Vector2 WordLayoutPosition(String s)

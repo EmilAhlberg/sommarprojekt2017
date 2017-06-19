@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.factories;
 
@@ -13,11 +9,10 @@ namespace SummerProject.collidables
     public class Player : Entity
     {
         private Vector2 startPosition;
-
         private float respawnTimer = 3f;
         private const float respawnTime = 3f;
-        public bool isDead { get; private set; }
-        public int controlScheme { get; set; } = 1; // 1-4
+        public bool IsDead { get; private set; }
+        public int ControlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
         private float oldFriction = 0.1f;
@@ -25,9 +20,6 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        
-
-
         private Projectiles projectiles;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
@@ -35,7 +27,7 @@ namespace SummerProject.collidables
         {
             Position = position;
             startPosition = position;
-            this.projectiles = projectiles;            
+            this.projectiles = projectiles;
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
@@ -43,7 +35,7 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            if (isDead)
+            if (IsDead)
             {
                 respawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (respawnTimer < 0)
@@ -52,13 +44,13 @@ namespace SummerProject.collidables
             else
             {
                 sprite.MColor = Color.White; //Move to Respawn()
-                if (controlScheme != 4)
+                if (ControlScheme != 4)
                     CalculateAngle();
                 Particles.GenerateParticles(Position, 4, angle);
                 Move();
                 //HandleBulletType();
                 Fire();
-                if (Health <= 0 && !isDead)
+                if (Health <= 0 && !IsDead)
                     Death();
             }
         }
@@ -66,9 +58,9 @@ namespace SummerProject.collidables
         private void HandleBulletType()
         {
             //if (Keyboard.GetState().IsKeyDown(Keys.D1))
-           //     projectiles.switchBullets(EntityTypes.BULLET);
-          //  if (Keyboard.GetState().IsKeyDown(Keys.D2))
-         //       projectiles.switchBullets(EntityTypes.HOMINGBULLET);
+            //     projectiles.switchBullets(EntityTypes.BULLET);
+            //  if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            //       projectiles.switchBullets(EntityTypes.HOMINGBULLET);
         }
 
         private void Fire()
@@ -94,15 +86,15 @@ namespace SummerProject.collidables
             bool pressed = false;
             friction = oldFriction;
             if (ks.IsKeyDown(Keys.D1))
-                controlScheme = 1;
+                ControlScheme = 1;
             if (ks.IsKeyDown(Keys.D2))
-                controlScheme = 2;
+                ControlScheme = 2;
             if (ks.IsKeyDown(Keys.D3))
-                controlScheme = 3;
+                ControlScheme = 3;
             if (ks.IsKeyDown(Keys.D4))
-                controlScheme = 4;
+                ControlScheme = 4;
 
-            if (controlScheme <= 1)
+            if (ControlScheme <= 1)
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
@@ -121,7 +113,7 @@ namespace SummerProject.collidables
                     Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
                 }
             }
-            else if (controlScheme == 2)
+            else if (ControlScheme == 2)
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
@@ -140,7 +132,7 @@ namespace SummerProject.collidables
                     Velocity += new Vector2(1, 0) * Acceleration;
                 }
             }
-            else if (controlScheme == 3)
+            else if (ControlScheme == 3)
             {
                 friction = 0.03f;
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
@@ -149,7 +141,7 @@ namespace SummerProject.collidables
                     pressed = true;
                 }
             }
-            else if (controlScheme == 4)
+            else if (ControlScheme == 4)
             {
                 if (ks.IsKeyDown(Keys.S))
                 {
@@ -201,18 +193,18 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            isDead = true;
+            IsDead = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             respawnTimer = respawnTime;
-            sprite.MColor = Color.Transparent;    
+            sprite.MColor = Color.Transparent;
         }
 
         private void Respawn()
-        {      
+        {
             Health = playerHealth;
             Position = startPosition;
-            isDead = false;
-            
+            IsDead = false;
+
         }
     }
 }

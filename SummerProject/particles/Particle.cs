@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -11,9 +9,8 @@ namespace SummerProject
         float TTL;
         int ID;
         float baseScale;
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         private float angularVelocity;
-
 
         public Particle(ISprite sprite, Vector2 position, Vector2 velocity, float angle, float angularVelocity, Color color, float scale, float ttl, int ID) : base(position, sprite)
         {
@@ -28,17 +25,16 @@ namespace SummerProject
             TTL = ttl;
             currentTTL = TTL;
             this.ID = ID;
-            isActive = true;
+            IsActive = true;
         }
-
 
         public void Update(GameTime gameTime)
         {
             Behaviour(ID);
             currentTTL -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(currentTTL < 0)
+            if (currentTTL < 0)
             {
-                isActive = false;
+                IsActive = false;
             }
         }
 
@@ -46,22 +42,20 @@ namespace SummerProject
         {
             switch (ID)
             {
-
                 case 1:
                     {
-                        sprite.Scale = 4 * baseScale * currentTTL /TTL;
+                        sprite.Scale = 4 * baseScale * currentTTL / TTL;
                         Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
-                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL/TTL);
+                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL / TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case 2:
                     {
                         Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
-                        sprite.MColor = new Color(1, 1, 1, (currentTTL/TTL));                     
+                        sprite.MColor = new Color(1, 1, 1, (currentTTL / TTL));
                         break;
                     }
-
                 default: throw new NotImplementedException();
             }
             Move();

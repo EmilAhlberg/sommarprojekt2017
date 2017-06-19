@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SummerProject.collidables;
 
 namespace SummerProject.factories
 {
     class Enemies : Entities
-    {             
+    {
         private Player player;
         private Vector2[] spawnPoints;
         private Random rand;
@@ -19,7 +14,7 @@ namespace SummerProject.factories
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private float secondTimer;
-        public Enemies (List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
             this.eventTime = eventTime;
             defaultSpawnDelay = eventTime;
@@ -36,12 +31,12 @@ namespace SummerProject.factories
             spawnPoints[6] = new Vector2(960, 1130);
             spawnPoints[7] = new Vector2(960, -50);
         }
-     
+
         public void Update(GameTime gameTime)
         {
             if (isInactive)
             {
-                if (!player.isDead)
+                if (!player.IsDead)
                     isInactive = false;
             }
             else
@@ -55,20 +50,20 @@ namespace SummerProject.factories
                     else
                         eventTime *= 0.97f;
                 }
-                if (player.isDead)
+                if (player.IsDead)
                 {
                     isInactive = true;
-                    reset();
+                    Reset();
                 }
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
             }
         }
 
-        private void reset()
+        private void Reset()
         {
             eventTime = defaultSpawnDelay;
-            foreach(Enemy e in entityList)
+            foreach (Enemy e in EntityList)
                 e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
@@ -78,7 +73,7 @@ namespace SummerProject.factories
         }
         protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(sprites[index], player);
+            return EntityFactory.CreateEntity(Sprites[index], player);
         }
     }
 }

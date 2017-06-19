@@ -1,11 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xna.Framework;
-using SummerProject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject.Tests
 {
@@ -15,7 +9,7 @@ namespace SummerProject.Tests
         [TestMethod()]
         public void IntersectsTest()
         {
-            RotRectangle rect1 = new RotRectangle(new Rectangle(1,-1,2,2),0);
+            RotRectangle rect1 = new RotRectangle(new Rectangle(1, -1, 2, 2), 0);
             Assert.Fail();
         }
 

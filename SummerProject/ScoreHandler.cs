@@ -1,6 +1,6 @@
 ﻿namespace SummerProject
 {
-  public static class ScoreHandler
+    public static class ScoreHandler
     {
         public static int Score { get; set; }
         public static int HighScore { get; private set; }
