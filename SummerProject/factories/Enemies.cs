@@ -21,23 +21,25 @@ namespace SummerProject.factories
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
+            int width = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            int height = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
             spawnPoints = new Vector2[8];
-            spawnPoints[0] = new Vector2(-50, -50);
-            spawnPoints[1] = new Vector2(1970, -50);
-            spawnPoints[2] = new Vector2(-50, 1130);
-            spawnPoints[3] = new Vector2(1970, 1130);
-            spawnPoints[4] = new Vector2(1970, 540);
-            spawnPoints[5] = new Vector2(-50, 540);
-            spawnPoints[6] = new Vector2(960, 1130);
-            spawnPoints[7] = new Vector2(960, -50);
+            spawnPoints[0] = new Vector2(-50, -50);     // Top left
+            spawnPoints[1] = new Vector2(width + 50, -50);  // top right
+            spawnPoints[2] = new Vector2(-50, height + 50); // bottom left
+            spawnPoints[3] = new Vector2(width + 50, height + 50); // bottom right
+            spawnPoints[4] = new Vector2(width + 50, height / 2 + 50); // right
+            spawnPoints[5] = new Vector2(-50, height / 2 - 50); // left
+            spawnPoints[6] = new Vector2(width / 2 + 50, height + 50); // bottom
+            spawnPoints[7] = new Vector2(width / 2 - 50, -50); // top
         }
 
         public void Update(GameTime gameTime)
         {
-            CheckActive();          
-            if(isActive)
+            CheckActive();
+            if (isActive)
             {
-                UpdateDifficulty(gameTime);                           
+                UpdateDifficulty(gameTime);
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
             }
@@ -49,7 +51,8 @@ namespace SummerProject.factories
             {
                 if (!player.IsDead)
                     isActive = true;
-            } else if (player.IsDead)
+            }
+            else if (player.IsDead)
             {
                 isActive = false;
                 Reset();
@@ -73,7 +76,7 @@ namespace SummerProject.factories
         {
             eventTimer.maxTime = defaultSpawnDelay;
             foreach (Enemy e in EntityList)
-                if(e.IsActive)
+                if (e.IsActive)
                     e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)

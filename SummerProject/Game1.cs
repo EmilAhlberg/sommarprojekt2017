@@ -112,8 +112,8 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this);
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            enemies = new Enemies(enemySprites, player, 30, 3);
+            player = new Player(new Vector2(graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width / 2, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / 2), compSpr, projectiles);
+            enemies = new Enemies(enemySprites, player, 30, 3, graphics);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             #endregion
