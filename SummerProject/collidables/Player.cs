@@ -8,13 +8,10 @@ namespace SummerProject.collidables
 {
     public class Player : Entity
     {
-        private new float Thrust = 6;
-        public int ControlScheme { get; set; } = 1; // 1-4
-        private const float maxSpeed = 10f;
+        private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+        public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
-        private const float startTurnSpeed = 0.05f * (float)Math.PI;
-        private const int playerHealth = 10;
-        private const int playerDamage = 2;
+             
         private Projectiles projectiles;
         private Vector2 startPosition;
 
@@ -24,10 +21,10 @@ namespace SummerProject.collidables
             Position = position;
             startPosition = position;
             this.projectiles = projectiles;
-            Health = playerHealth;
-            Damage = playerDamage;
-            TurnSpeed = startTurnSpeed;
-            Mass = 5;
+            Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
+            Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
+            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Mass = EntityConstants.MASS[EntityConstants.PLAYER];           
         }
 
         public void Update(GameTime gameTime)
@@ -64,11 +61,9 @@ namespace SummerProject.collidables
 
         private void CalculateAngle()
         {
-
             float dX = Position.X - Mouse.GetState().X;
             float dY = Position.Y - Mouse.GetState().Y;
             base.CalculateAngle(dX, dY);
-
         }
 
         protected override void Move()
@@ -156,7 +151,7 @@ namespace SummerProject.collidables
 
         public void Reset()
         {
-            Health = playerHealth;
+            Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
             IsDead = false;
 

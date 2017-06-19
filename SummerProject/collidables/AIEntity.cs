@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
@@ -24,7 +25,7 @@ namespace SummerProject.collidables
         public override void Death()
         {            
             IsActive = false;
-            Position = factories.EntityFactory.FarAway();
+            Position = EntityFactory.FarAway();
         }
 
     }
