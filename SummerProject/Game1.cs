@@ -186,6 +186,7 @@ namespace SummerProject
             player.Reset();
             //projectiles.Reset();
             enemies.Reset();
+            ScoreHandler.Reset();
         }
 
         private void HandleAllCollisions()
