@@ -5,14 +5,13 @@ namespace SummerProject.collidables
 {
     class Bullet : Projectile
     {
-        private const int bulletDamage = 10;
-        private const int bulletHealth = 1;
+
         public Bullet(Vector2 position, ISprite sprite) : base(position, sprite)
         {
-            Damage = bulletDamage;
-            Health = bulletHealth;
-            Mass = 0.05f;
-            Thrust = 0;
+            Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
+            Health = EntityConstants.HEALTH[EntityConstants.BULLET];
+            Mass = EntityConstants.MASS[EntityConstants.BULLET];
+            Thrust = EntityConstants.THRUST[EntityConstants.BULLET];
         }
 
         public override void Update(GameTime gameTime)
