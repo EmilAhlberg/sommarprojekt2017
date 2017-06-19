@@ -16,7 +16,7 @@ namespace SummerProject
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
-            AddForce(initialForce*20);
+            AddForce(initialForce);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.sprite.MColor = color;
