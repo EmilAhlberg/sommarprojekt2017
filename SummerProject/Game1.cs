@@ -29,8 +29,9 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            Window.AllowUserResizing = true;
             Content.RootDirectory = "Content";
         }
 
@@ -112,8 +113,8 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this);
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width / 2, graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height / 2), compSpr, projectiles);
-            enemies = new Enemies(enemySprites, player, 30, 3);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
+            enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             #endregion
