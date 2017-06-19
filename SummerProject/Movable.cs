@@ -35,8 +35,6 @@ namespace SummerProject
         protected void AddForce(Vector2 appliedForce)
         {
             TotalExteriorForce = TotalExteriorForce + appliedForce;
-
-            //Velocity -= Acceleration * Friction;
         }
 
         protected void CalculateAngle(float dX, float dY)

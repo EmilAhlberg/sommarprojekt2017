@@ -17,7 +17,6 @@ namespace SummerProject.collidables
         private const float maxSpeed = 10f;
         private float friction = 0.1f;
         private float oldFriction = 0.1f;
-        private KeyboardState prevKeyDown;
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
@@ -77,7 +76,6 @@ namespace SummerProject.collidables
         protected override void Move()
         {
             KeyboardState ks = Keyboard.GetState();
-            bool pressed = false;
             friction = oldFriction;
             if (ks.IsKeyDown(Keys.D1))
                 controlScheme = 1;
@@ -88,109 +86,59 @@ namespace SummerProject.collidables
             if (ks.IsKeyDown(Keys.D4))
                 controlScheme = 4;
 
+            base.Thrust = 0;
             if (controlScheme <= 1)
+            {
+                if (ks.IsKeyDown(Keys.S))
+                    base.Thrust = -Thrust;
+
+                if (ks.IsKeyDown(Keys.W))
+                    base.Thrust += Thrust;
+
+                if (ks.IsKeyDown(Keys.A))
+                    AddForce(Thrust*(new Vector2((float)Math.Cos(angle-Math.PI/2), (float)Math.Sin(angle-Math.PI/2))));
+
+                if (ks.IsKeyDown(Keys.D))
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2))));
+            }
+
+            else if (controlScheme == 2)
+            {
+                if (ks.IsKeyDown(Keys.S))
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI/2), (float)Math.Sin(Math.PI/2))));
+
+                if (ks.IsKeyDown(Keys.W))
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2))));
+
+                if (ks.IsKeyDown(Keys.A))
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI))));
+               
+                if (ks.IsKeyDown(Keys.D))
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(0), (float)Math.Sin(0))));
+            }
+
+            else if (controlScheme == 3)
+            {
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                    base.Thrust = Thrust;
+
+            }
+            else if (controlScheme == 4)
             {
                 base.Thrust = 0;
                 if (ks.IsKeyDown(Keys.S))
                     base.Thrust = -Thrust;
 
                 if (ks.IsKeyDown(Keys.W))
-                    base.Thrust = Thrust;
+                    base.Thrust += Thrust;
 
-                //if (ks.IsKeyDown(Keys.A)) //SVÄNGA UTAN ATT VIN
-                //{
-                //    Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
-                //}
-                //if (ks.IsKeyDown(Keys.D))
-                //{
-                //    Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
-                //}
+                if (ks.IsKeyDown(Keys.A))
+                    angle -= 0.1f;
+
+                if (ks.IsKeyDown(Keys.D))
+                    angle += 0.1f;
             }
-            //{
-            //    if (ks.IsKeyDown(Keys.S))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.W))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.A))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2)) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.D))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2)) * Acceleration;
-            //    }
-            //}
-            //else if (controlScheme == 2)
-            //{
-            //    if (ks.IsKeyDown(Keys.S))
-            //    {
-            //        Velocity += new Vector2(0, 1) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.W))
-            //    {
-            //        Velocity += new Vector2(0, -1) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.A))
-            //    {
-            //        Velocity += new Vector2(-1, 0) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.D))
-            //    {
-            //        Velocity += new Vector2(1, 0) * Acceleration;
-            //    }
-            //}
-            else if (controlScheme == 3)
-            {
-                friction = 0.03f;
-                if (Mouse.GetState().RightButton == ButtonState.Pressed)
-                {
-                    base.Thrust = Thrust;
-                    pressed = true;
-                }
-            }
-            //else if (controlScheme == 4)
-            //{
-            //    if (ks.IsKeyDown(Keys.S))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle + Math.PI), (float)Math.Sin(angle + Math.PI)) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.W))
-            //    {
-            //        Velocity += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * Acceleration;
-            //    }
-            //    if (ks.IsKeyDown(Keys.A))
-            //    {
-            //        angle -= 0.1f;
-            //    }
-            //    if (ks.IsKeyDown(Keys.D))
-            //    {
-            //        angle += 0.1f;
-            //    }
-            //}
-            foreach (Keys k in ks.GetPressedKeys())
-            {
-                if (prevKeyDown.GetPressedKeys().Contains(k))
-                {
-                    pressed = false;
-                    break;
-                }
-            }
-            //if (!pressed)
-            //{
-            //    Velocity -= Velocity * friction;
-            //}
-            //if (Velocity.Length() > maxSpeed)
-            //{
-            //    Vector2 temp = Velocity;
-            //    temp.Normalize();
-            //    Velocity = temp * maxSpeed;
-            //}
             base.Move();
-            prevKeyDown = ks;
         }
 
         public override void Collision(Collidable c2)
