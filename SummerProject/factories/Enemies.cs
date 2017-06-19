@@ -14,7 +14,7 @@ namespace SummerProject.factories
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private Timer difficultyTimer;
-        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime, GraphicsDeviceManager graphics) : base(sprites, NbrOfEnemies, eventTime)
         {
             defaultSpawnDelay = eventTime;
             difficultyTimer = new Timer(eventTime);
