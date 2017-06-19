@@ -57,13 +57,13 @@ namespace SummerProject.factories
                 }
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
-            //}
+            }
         }
 
-        private void Reset()
+        public void Reset()
         {
             eventTimer.maxTime = defaultSpawnDelay;
-            foreach (Enemy e in entityList)
+            foreach (Enemy e in EntityList)
                 e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)

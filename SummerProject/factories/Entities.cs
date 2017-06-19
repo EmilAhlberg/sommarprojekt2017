@@ -9,7 +9,7 @@ namespace SummerProject.factories
     {
         public List<Sprite> Sprites { get; }
         protected int entityCap;
-        public List<AIEntity> entityList { get; private set; }
+        public List<AIEntity> EntityList { get; private set; }
         protected Timer eventTimer { get; set; }
 
         public Entities(List<Sprite> sprites, int entityCap, float eventTime)
@@ -17,7 +17,7 @@ namespace SummerProject.factories
             this.Sprites = sprites;
             this.entityCap = entityCap;
             eventTimer = new Timer(eventTime);
-            entityList = new List<AIEntity>();
+            EntityList = new List<AIEntity>();
         }
 
         protected abstract AIEntity CreateEntity(int index);

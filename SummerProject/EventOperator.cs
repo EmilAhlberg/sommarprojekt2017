@@ -91,8 +91,7 @@ namespace SummerProject
         }
 
         public void UpdateEventTimer(GameTime gameTime)
-        {            
-                eventTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+        {  
             eventTimer.CountDown(gameTime);
             if (eventTimer.IsFinished)
             {
@@ -113,7 +112,7 @@ namespace SummerProject
             activeEvent = false;
             GameState = NewGameState;
             
-        {
+        
                                      
         }
 
