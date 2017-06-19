@@ -20,6 +20,7 @@ namespace SummerProject
         EventOperator eventOperator;
         Player player;
         //Wall wall;
+        Timer deathTimer;
         Enemies enemies;
         Projectiles projectiles;
         Sprite background;
@@ -43,6 +44,7 @@ namespace SummerProject
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
+            deathTimer = new Timer(3); //!
             base.Initialize();
         }
 
@@ -147,15 +149,17 @@ namespace SummerProject
             {                
                     eventOperator.Update(gameTime);                
             }
+
+
             //            
             if (player.IsDead && eventOperator.GameState == EventOperator.GAME_STATE)
             {
-                int i = 100;
-                while (i>0)
-                {
-                    i--;
-                }
+                deathTimer.CountDown(gameTime);
+                if (deathTimer.IsFinished)
+                { 
                     eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+                    deathTimer.Reset();
+                }
             }
                 
             //             
