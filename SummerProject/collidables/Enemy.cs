@@ -15,7 +15,7 @@ namespace SummerProject
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
-            WorthScore = 100;                        //!!
+            WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];                  
         }
 
         public override void Update(GameTime gameTime)

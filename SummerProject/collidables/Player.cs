@@ -8,7 +8,7 @@ namespace SummerProject.collidables
 {
     public class Player : Entity
     {
-        private new float Thrust = 10;
+        private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
              
@@ -24,8 +24,7 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
-            Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-            base.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+            Mass = EntityConstants.MASS[EntityConstants.PLAYER];           
         }
 
         public void Update(GameTime gameTime)
@@ -62,11 +61,9 @@ namespace SummerProject.collidables
 
         private void CalculateAngle()
         {
-
             float dX = Position.X - Mouse.GetState().X;
             float dY = Position.Y - Mouse.GetState().Y;
             base.CalculateAngle(dX, dY);
-
         }
 
         protected override void Move()

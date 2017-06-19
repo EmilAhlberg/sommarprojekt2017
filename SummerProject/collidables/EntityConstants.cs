@@ -36,7 +36,7 @@ namespace SummerProject.collidables
           {
                 {DEFAULT, 10},
                 {PLAYER, 5},
-                {ENEMY, 10}, //?
+                {ENEMY, 10},
                 {BULLET, 0.05f}
           };
 
@@ -44,7 +44,7 @@ namespace SummerProject.collidables
          new Dictionary<int, int>
          {
                 {DEFAULT, 10},
-                {PLAYER, 5}, //!!!!!!!
+                {PLAYER, 5}, 
                 {ENEMY, 5},
                 {BULLET, 0}
          };
@@ -53,14 +53,16 @@ namespace SummerProject.collidables
         new Dictionary<int, float>
         {
                 {DEFAULT, 1000f * (float)Math.PI }, //! //rad per tick
-                {PLAYER, 0.05f * (float)Math.PI}, //!!!!!!!
+                {PLAYER, 0.05f * (float)Math.PI},
                 {ENEMY, 0},
                 {BULLET, 0}
         };
 
-
-
-
+        public static readonly Dictionary<int, int> SCORE =
+        new Dictionary<int, int>
+        {             
+                {ENEMY, 100},                
+        };        
 
     }
 }
