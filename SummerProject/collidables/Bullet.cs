@@ -14,9 +14,10 @@ namespace SummerProject.collidables
         private const int bulletHealth = 1;
         public Bullet(Vector2 position, ISprite sprite) : base(position, sprite)
         {
-
             Damage = bulletDamage;
             Health = bulletHealth;
+            Mass = 0.05f;
+            Thrust = 0;
         }
 
         public override void Update(GameTime gameTime)
@@ -32,7 +33,8 @@ namespace SummerProject.collidables
             float dX = source.X - target.X;
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
-            Velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))*10; //!
+            Stop();
+            AddSpeed(30);
             ResetSpawnTime(); 
         }
         public override void Collision(Collidable c2)

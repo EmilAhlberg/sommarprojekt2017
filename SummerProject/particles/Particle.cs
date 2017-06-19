@@ -15,11 +15,11 @@ namespace SummerProject
         private float angularVelocity;
 
 
-        public Particle(ISprite sprite, Vector2 position, Vector2 velocity, float angle, float angularVelocity, Color color, float scale, float ttl, int ID) : base(position, sprite)
+        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float ttl, int ID) : base(position, sprite)
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
-            Velocity = velocity;
+            AddForce(initialForce*20);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
             this.sprite.MColor = color;
@@ -29,6 +29,7 @@ namespace SummerProject
             currentTTL = TTL;
             this.ID = ID;
             isActive = true;
+            Thrust = 0;
         }
 
 
@@ -36,7 +37,7 @@ namespace SummerProject
         {
             Behaviour(ID);
             currentTTL -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(currentTTL < 0)
+            if (currentTTL < 0)
             {
                 isActive = false;
             }
@@ -49,16 +50,14 @@ namespace SummerProject
 
                 case 1:
                     {
-                        sprite.Scale = 4 * baseScale * currentTTL /TTL;
-                        Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
-                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL/TTL);
+                        sprite.Scale = 4 * baseScale * currentTTL / TTL;
+                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL / TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case 2:
                     {
-                        Velocity -= Velocity * ((TTL - currentTTL) * 0.1f); //!!!
-                        sprite.MColor = new Color(1, 1, 1, (currentTTL/TTL));                     
+                        sprite.MColor = new Color(1, 1, 1, (currentTTL / TTL));
                         break;
                     }
 

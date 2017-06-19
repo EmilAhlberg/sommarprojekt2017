@@ -38,7 +38,7 @@ namespace SummerProject.collidables
         {
             if (controlScheme != 4)
                 CalculateAngle();
-            //Particles.GenerateParticles(Position, 4, angle);
+            Particles.GenerateParticles(Position, 4, angle);
             Move();
             HandleBulletType();
             Fire();
@@ -153,7 +153,7 @@ namespace SummerProject.collidables
         public override void Death()
         {
             Health = playerHealth;
-            //Particles.GenerateParticles(Position, 3, angle); //Death animation
+            Particles.GenerateParticles(Position, 3, angle); //Death animation
             Position = Vector2.Zero; //!
         }
     }
