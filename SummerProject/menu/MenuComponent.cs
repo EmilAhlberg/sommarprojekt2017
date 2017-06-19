@@ -7,19 +7,19 @@
     public abstract class MenuComponent
     {
         private string[] MenuItems;
-        private SpriteFont spriteFont;
+        public SpriteFont Font { get; private set; }
         private static readonly Color normal = Color.Gold;
         private static readonly Color hilite = Color.OrangeRed;
         private float width;
         private float height;
-        private Vector2 position;
+        public Vector2 Position { get; private set; }
 
         public MenuComponent(Vector2 position, SpriteFont spriteFont, string[] menuItems)
         {
             this.MenuItems = menuItems;
-            this.spriteFont = spriteFont;
+            this.Font = spriteFont;
             MeasureMenu();
-            this.position = position - (new Vector2(width, height)) / 2;
+            this.Position = position - (new Vector2(width, height)) / 2;
         }
 
         private void MeasureMenu()
@@ -28,10 +28,10 @@
             width = 0;
             foreach (string item in MenuItems)
             {
-                Vector2 size = spriteFont.MeasureString(item);
+                Vector2 size = Font.MeasureString(item);
                 if (size.X > width)
                     width = size.X;
-                height += spriteFont.LineSpacing + 5;
+                height += Font.LineSpacing;
             }
         }
 
@@ -39,7 +39,7 @@
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, int selectedIndex)
         {
-            Vector2 location = position;
+            Vector2 location = Position;
             Color tint;
             for (int i = 0; i < MenuItems.Length; i++)
             {
@@ -47,8 +47,8 @@
                     tint = hilite;
                 else
                     tint = normal;
-                spriteBatch.DrawString(spriteFont, MenuItems[i], location, tint);
-                location.Y += spriteFont.LineSpacing + 5;
+                spriteBatch.DrawString(Font, MenuItems[i], location, tint);
+                location.Y += Font.LineSpacing + 5;
             }
         }
     }

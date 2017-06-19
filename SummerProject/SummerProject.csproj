@@ -63,6 +63,7 @@
     <Compile Include="collidables\AIEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Projectile.cs" />
+    <Compile Include="CompositePart.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
+    <Compile Include="InputHandler.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="menu\GameOverMenu.cs" />
     <Compile Include="menu\MainMenu.cs" />
@@ -79,12 +81,15 @@
     <Compile Include="menu\MenuConstants.cs" />
     <Compile Include="menu\PauseMenu.cs" />
     <Compile Include="menu\SettingsMenu.cs" />
+    <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="collidables\Enemy.cs" />
+    <Compile Include="Part.cs" />
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
+    <Compile Include="RectangularHull.cs" />
     <Compile Include="util\RotRectangle.cs" />
     <Compile Include="framework\ScoreHandler.cs" />
     <Compile Include="Sprite.cs" />

@@ -21,7 +21,7 @@ namespace SummerProject
             sprite.Position = Position;
             sprite.Rotation = angle;
             sprite.Draw(spriteBatch, gameTime);
-            Color c = Color.White;
+            //Color c = Color.White;
             //Microsoft.Xna.Framework.Graphics.DrawLine(new Pen(c),new Point((int)Position.X,(int)Position.Y), new Point((int)Position.X+(int)sprite.Origin.X, (int)Position.Y+(int)sprite.Origin.Y));
         }
     }
