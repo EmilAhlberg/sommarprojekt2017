@@ -152,14 +152,7 @@ namespace SummerProject
 
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
             {
-                #region Update for game state
-                player.Update(gameTime);
-                enemies.Update(gameTime);
-                projectiles.Update(gameTime);
-                Particles.Update(gameTime);
-                HandleAllCollisions();
-                KeepPlayerInScreen();
-                #endregion
+                UpdateGame(gameTime);               
             }
             else
             {                
@@ -170,8 +163,21 @@ namespace SummerProject
             base.Update(gameTime);
         }
 
+        public void UpdateGame(GameTime gameTime)
+        {
+            #region Update for game state
+            player.Update(gameTime);
+            enemies.Update(gameTime);
+            projectiles.Update(gameTime);
+            Particles.Update(gameTime);
+            HandleAllCollisions();
+            KeepPlayerInScreen();
+            #endregion
+        }
+
         private void CheckGameStatus(GameTime gameTime)
         {
+            //check: game over
             if (player.IsDead && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 deathTimer.CountDown(gameTime);
@@ -180,6 +186,11 @@ namespace SummerProject
                     eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
                     deathTimer.Reset();
                 }
+            }
+            //check: pause
+            if(Keyboard.GetState().IsKeyDown(Keys.P) && eventOperator.GameState == EventOperator.GAME_STATE)
+            {
+                eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
         }
 
@@ -217,11 +228,8 @@ namespace SummerProject
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 #region Draw for GameState
-                Particles.Draw(spriteBatch, gameTime);
-                projectiles.Draw(spriteBatch, gameTime);
-                player.Draw(spriteBatch, gameTime);
-                wall.Draw(spriteBatch, gameTime);
-                enemies.Draw(spriteBatch, gameTime);
+                DrawGame(spriteBatch, gameTime);
+               
 
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
@@ -243,6 +251,15 @@ namespace SummerProject
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
+        {            
+            Particles.Draw(spriteBatch, gameTime);
+            projectiles.Draw(spriteBatch, gameTime);
+            player.Draw(spriteBatch, gameTime);
+            wall.Draw(spriteBatch, gameTime);
+            enemies.Draw(spriteBatch, gameTime);
         }
 
         private void KeepPlayerInScreen()

@@ -77,6 +77,7 @@
     <Compile Include="menu\Menu.cs" />
     <Compile Include="menu\MenuComponent.cs" />
     <Compile Include="menu\MenuConstants.cs" />
+    <Compile Include="menu\PauseMenu.cs" />
     <Compile Include="menu\SettingsMenu.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />

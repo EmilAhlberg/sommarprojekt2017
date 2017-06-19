@@ -25,6 +25,7 @@ namespace SummerProject.menu
             menues.Add(new MainMenu(position, spriteFont));
             menues.Add(new SettingsMenu(position, spriteFont));
             menues.Add(new GameOverMenu(position, spriteFont));
+            menues.Add(new PauseMenu(position, spriteFont));
         }
 
         private bool CheckKey(Keys theKey)
