@@ -60,7 +60,7 @@ namespace SummerProject.factories
             }
         }
 
-        private void Reset()
+        public void Reset()
         {
             eventTimer.maxTime = defaultSpawnDelay;
             foreach (Enemy e in EntityList)

@@ -34,14 +34,8 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            if (IsDead)
-            {
-                respawnTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (respawnTimer < 0)
-                    Respawn();
-            }
-            else
-            {
+            if (!IsDead)
+            {         
                 sprite.MColor = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
                     CalculateAngle();
@@ -163,7 +157,7 @@ namespace SummerProject.collidables
             sprite.MColor = Color.Transparent;
         }
 
-        private void Respawn()
+        public void Reset()
         {
             Health = playerHealth;
             Position = startPosition;
