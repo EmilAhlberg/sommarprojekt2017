@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using SummerProject.collidables;
 
 namespace SummerProject
@@ -15,7 +9,7 @@ namespace SummerProject
         private const float speedMultiplier = 5f; //-!
         private const int enemyHealth = 10;
         private const int enemyDamage = 2;
-        private const int scoreValue = 100;
+        public int WorthScore {get; private set;}
         private Player player;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
@@ -23,8 +17,9 @@ namespace SummerProject
         {           
             this.player = player;
             Velocity = speedMultiplier * Velocity;
-            Health = enemyHealth; ; 
+            Health = enemyHealth; 
             Damage = enemyDamage;
+            WorthScore = 100;                        //!!
         }
 
         public override void Update(GameTime gameTime)
@@ -34,7 +29,10 @@ namespace SummerProject
             Move();
             Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
-                Death();           
+            {
+                ScoreHandler.AddScore(WorthScore);
+                Death();
+            }    
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -54,16 +52,11 @@ namespace SummerProject
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
-                if (isActive)
-                {
-                    player.score += scoreValue;
+                if (IsActive)
                     Health -= b.Damage;
-                }
             }
             if (c2 is Player)
-            {
                 Death();
-            }
         }
 
         public override void Death()

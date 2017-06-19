@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SummerProject
 {
@@ -30,7 +27,7 @@ namespace SummerProject
         {
             for (int i = 0; i < particles.Count; i++)
             {
-                if (particles[i].isActive)
+                if (particles[i].IsActive)
                 {
                     particles[i].Update(gameTime);
                 }
@@ -67,11 +64,11 @@ namespace SummerProject
                         velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                         particles.Add(new Particle(new Sprite(spriteList[1]), position, velocity, angle, angularVelocity, color, scale, ttl, 2));
                         particles.Add(new Particle(new Sprite(spriteList[2]), position, -velocity, angle, angularVelocity, color, scale, ttl, 2));
-                        for(int i = 0; i < 10; i++)
+                        for (int i = 0; i < 10; i++)
                         {
                             velocity = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
                             velocity.Normalize();
-                            velocity *= 2*((float)rand.NextDouble()+1);
+                            velocity *= 2 * ((float)rand.NextDouble() + 1);
                             color = Color.MonoGameOrange;
                             angularVelocity = 0.2f;
                             scale = 2;
@@ -91,7 +88,7 @@ namespace SummerProject
                         {
                             velocity = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
                             velocity.Normalize();
-                            velocity *= 4*((float)rand.NextDouble() + 1);
+                            velocity *= 4 * ((float)rand.NextDouble() + 1);
                             color = Color.CornflowerBlue;
                             angularVelocity = 0.1f;
                             scale = 2;
@@ -156,7 +153,7 @@ namespace SummerProject
         {
             foreach (Particle p in particles)
             {
-                if (p.isActive)
+                if (p.IsActive)
                     p.Draw(sb, gameTime);
             }
         }

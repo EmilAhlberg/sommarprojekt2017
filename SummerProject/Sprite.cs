@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace SummerProject
 {
@@ -18,8 +12,8 @@ namespace SummerProject
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
         public float Scale { get; set; }
-        public SpriteEffects spriteFX { get; set; }
-        public float layerDepth { get; set; }
+        public SpriteEffects SpriteFX { get; set; }
+        public float LayerDepth { get; set; }
         public Color MColor { get; set; }
         private int subimages;
         private float currentFrame;
@@ -34,17 +28,17 @@ namespace SummerProject
             this.texture = texture;
             this.subimages = subimages;
             this.fps = fps;
-            SpriteRect = new Rectangle(0, 0, texture.Width/subimages, texture.Height);
+            SpriteRect = new Rectangle(0, 0, texture.Width / subimages, texture.Height);
             Rotation = 0;
             Scale = 1f;
             MColor = Color.White;
-            spriteFX = SpriteEffects.None;
-            layerDepth = 0;
+            SpriteFX = SpriteEffects.None;
+            LayerDepth = 0;
         }
 
         public Sprite() : this(baseTexture, 1, 1)
         {
-            Origin = new Vector2(SpriteRect.Width/2, SpriteRect.Height / 2); //! HMM
+            Origin = new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); //! HMM
         }
 
         public static void addBaseTexture(Texture2D t)
@@ -55,13 +49,13 @@ namespace SummerProject
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
-            sb.Draw(texture, Position, SpriteRect, MColor, Rotation, Origin, Scale, spriteFX, layerDepth);
-        } 
+            sb.Draw(texture, Position, SpriteRect, MColor, Rotation, Origin, Scale, SpriteFX, LayerDepth);
+        }
 
         public void Animate(GameTime gameTime)
-        {      
+        {
             currentFrame += (float)gameTime.ElapsedGameTime.TotalSeconds * fps;
-            if((int)currentFrame > subimages-1)
+            if ((int)currentFrame > subimages - 1)
             {
                 currentFrame = 0;
             }

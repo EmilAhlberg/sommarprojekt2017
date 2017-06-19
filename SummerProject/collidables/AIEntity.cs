@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace SummerProject.collidables
 {
     public abstract class AIEntity : Entity
     {
-        public bool isActive { get; set; }       
+        public bool IsActive { get; set; }       
 
         public AIEntity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
@@ -23,13 +17,13 @@ namespace SummerProject.collidables
         public void Activate(Vector2 source, Vector2 target)
         {
             Position = source;          
-            isActive = true;
+            IsActive = true;
             SpecificActivation(source, target);
         }       
 
         public override void Death()
         {            
-            isActive = false;
+            IsActive = false;
             Position = factories.EntityFactory.FarAway();
         }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.menu
@@ -16,7 +11,7 @@ namespace SummerProject.menu
 
         public override int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler)
         {
-            
+
             switch (selectedIndex)
             {
                 case 0:
@@ -24,7 +19,7 @@ namespace SummerProject.menu
                     break;
                 case 1:
                     handler.NewGameState = EventOperator.MENU_STATE;
-                    return MenuConstants.MAIN;                                                     
+                    return MenuConstants.MAIN;
             }
             return -1;
         }

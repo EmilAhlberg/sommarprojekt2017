@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables;
 
 namespace SummerProject.factories
@@ -21,40 +16,39 @@ namespace SummerProject.factories
 
         public void Fire(Vector2 source, Vector2 target)
         {
-            if (EventTimer < 0)
+            if (eventTimer.IsFinished)
             {
-                ActivateEntities(source, target);               
-            }           
+                ActivateEntities(source, target);
+            }
         }
 
-        public void switchBullets(int newType)
+        public void SwitchBullets(int newType)
         {
             RemoveInactiveType(CreateEntity(bulletType));
             bulletType = newType;
-            InitializeEntities(newType);            
+            InitializeEntities(newType);
         }
-      
 
         public void Update(GameTime gameTime)
-        {           
+        {
             UpdateEntities(gameTime);
             RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
         }
 
         private void RemoveAbundantType()
         {
-            for(int i = entityList.Count-1; i>=entityCap; i--)
+            for (int i = EntityList.Count - 1; i >= entityCap; i--)
             {
-                if (!entityList[i].isActive)
+                if (!EntityList[i].IsActive)
                 {
-                    entityList.Remove(entityList[i]);
+                    EntityList.Remove(EntityList[i]);
                 }
             }
         }
 
         protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(sprites[index], bulletType);
+            return EntityFactory.CreateEntity(Sprites[index], bulletType);
         }
     }
 }

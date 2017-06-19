@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
-using System;
 using SummerProject.factories;
 using SummerProject.collidables;
-using SummerProject.menu;
 
 namespace SummerProject
 {
@@ -48,7 +44,7 @@ namespace SummerProject
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             base.Initialize();
-        }       
+        }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -102,11 +98,11 @@ namespace SummerProject
             compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
             eventOperator = new EventOperator(bigFont, this);
-            
+
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles);
-            enemies = new Enemies(enemySprites, player, 30, 3);    
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
+            enemies = new Enemies(enemySprites, player, 30, 3);
             //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
 
@@ -116,7 +112,7 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex3));
             // TODO: use this.Content to load your game content here
         }
-       
+
 
 
         /// <summary>
@@ -146,7 +142,7 @@ namespace SummerProject
                 Particles.Update(gameTime);
                 HandleAllCollisions();
                 KeepPlayerInScreen();
-            }                             
+            }
             else
             {                
                     eventOperator.Update(gameTime);                
@@ -176,11 +172,11 @@ namespace SummerProject
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in enemies.entityList)
+            foreach (Collidable c in enemies.EntityList)
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in projectiles.entityList)
+            foreach (Collidable c in projectiles.EntityList)
             {
                 collidableList.Add(c);
             }
@@ -196,17 +192,18 @@ namespace SummerProject
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             background.Draw(spriteBatch, gameTime);
-            if(eventOperator.GameState == EventOperator.GAME_STATE)
+            if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 Particles.Draw(spriteBatch, gameTime);
                 projectiles.Draw(spriteBatch, gameTime);
                 player.Draw(spriteBatch, gameTime);
                 //wall.Draw(spriteBatch, gameTime);
                 enemies.Draw(spriteBatch, gameTime);
-            } else
+            }
+            else
             {
                 eventOperator.Draw(spriteBatch, gameTime);
-            }            
+            }
             //
             DebugMode(spriteBatch);
             //
@@ -233,7 +230,7 @@ namespace SummerProject
 
         private void DebugMode(SpriteBatch spriteBatch)
         {
-            int controlSheme = player.controlScheme;
+            int controlSheme = player.ControlScheme;
             string usingControls = "";
             if (controlSheme <= 1)
                 usingControls = "WASD + Follow mouse";
@@ -247,14 +244,14 @@ namespace SummerProject
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-                spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
-                spriteBatch.DrawString(scoreFont, "High Score: ", new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: ").X / 2, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + eventOperator.HighScore).X / 2, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
-                if(player.isDead)
+                if (player.IsDead)
                     spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
             }
         }
-    }   
+    }
 }
