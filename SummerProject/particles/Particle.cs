@@ -23,6 +23,7 @@ namespace SummerProject
             baseScale = scale;
             this.sprite.Scale = baseScale;
             currentTTL = new Timer(TTL);
+            this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
             Thrust = 0;

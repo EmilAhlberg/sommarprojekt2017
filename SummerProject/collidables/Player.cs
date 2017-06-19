@@ -9,7 +9,7 @@ namespace SummerProject.collidables
     public class Player : Entity
     {
         private new float Thrust = 12;
-        public int controlScheme { get; set; } = 1; // 1-4
+        public int ControlScheme { get; set; } = 1; // 1-4
         private const float maxSpeed = 10f;
         private float respawnTimer = 3f;
         private const float respawnTime = 3f;
@@ -18,6 +18,7 @@ namespace SummerProject.collidables
         private const int playerHealth = 10;
         private const int playerDamage = 2;
         private Projectiles projectiles;
+        private Vector2 startPosition;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
             : base(position, sprite)
@@ -80,7 +81,6 @@ namespace SummerProject.collidables
         protected override void Move()
         {
             KeyboardState ks = Keyboard.GetState();
-            friction = oldFriction;
             if (ks.IsKeyDown(Keys.D1))
                 ControlScheme = 1;
             if (ks.IsKeyDown(Keys.D2))

@@ -63,7 +63,7 @@ namespace SummerProject.factories
         private void Reset()
         {
             eventTimer.maxTime = defaultSpawnDelay;
-            foreach (Enemy e in entityList)
+            foreach (Enemy e in EntityList)
                 e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
