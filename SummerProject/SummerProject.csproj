@@ -84,6 +84,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="RotRectangle.cs" />
+    <Compile Include="ScoreHandler.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="collidables\Player.cs" />
     <Compile Include="Game1.cs" />

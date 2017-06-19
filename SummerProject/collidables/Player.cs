@@ -25,19 +25,17 @@ namespace SummerProject.collidables
         private const float startTurnSpeed = 0.05f * (float)Math.PI;
         private const int playerHealth = 10;
         private const int playerDamage = 2;
-        public int score { get; set; }     
-        private EventOperator eventOperator;
+        
 
 
         private Projectiles projectiles;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles, EventOperator eventOperator)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
             : base(position, sprite)
         {
             Position = position;
             startPosition = position;
-            this.projectiles = projectiles;
-            this.eventOperator = eventOperator;
+            this.projectiles = projectiles;            
             Health = playerHealth;
             Damage = playerDamage;
             TurnSpeed = startTurnSpeed;
@@ -203,8 +201,6 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            if (score > eventOperator.HighScore)
-                eventOperator.HighScore = score;
             isDead = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             respawnTimer = respawnTime;
@@ -212,9 +208,7 @@ namespace SummerProject.collidables
         }
 
         private void Respawn()
-        {
-            score = 0;
-            eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+        {      
             Health = playerHealth;
             Position = startPosition;
             isDead = false;

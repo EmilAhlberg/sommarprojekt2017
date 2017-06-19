@@ -48,16 +48,7 @@ namespace SummerProject
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             base.Initialize();
-        }
-
-        internal void StartGame(GameTime gameTime)
-        {
-            while (eventOperator.ActiveEvent)
-            {
-                Draw(gameTime);
-                eventOperator.UpdateEventTimer(gameTime);
-            }            
-        }
+        }       
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -114,7 +105,7 @@ namespace SummerProject
             
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles, eventOperator);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth/2, graphics.PreferredBackBufferHeight/2), compSpr, projectiles);
             enemies = new Enemies(enemySprites, player, 30, 3);    
             //wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             colhandl = new CollisionHandler();
@@ -156,15 +147,14 @@ namespace SummerProject
                 HandleAllCollisions();
                 KeepPlayerInScreen();
             }                             
-            else {
-                if (eventOperator.ActiveEvent)
-                    eventOperator.UpdateEventTimer(gameTime);               
-                else
-                {
-                    eventOperator.Update(gameTime);
-                }
-            }             
-                           
+            else
+            {                
+                    eventOperator.Update(gameTime);                
+            } 
+            //            
+              if(player.isDead)
+                eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+            //             
             base.Update(gameTime);
         }
 
@@ -242,9 +232,9 @@ namespace SummerProject
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-                spriteBatch.DrawString(scoreFont, "Score: " + player.score, new Vector2(1600, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
-                spriteBatch.DrawString(scoreFont, "High Score: " + eventOperator.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + eventOperator.HighScore).X / 2, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + eventOperator.HighScore).X / 2, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if(player.isDead)

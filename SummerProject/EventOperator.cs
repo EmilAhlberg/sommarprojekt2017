@@ -20,7 +20,7 @@ namespace SummerProject
 
         public int HighScore { get; set; }
         public int GameState { get; set; } = MenuConstants.MAIN;
-        public bool ActiveEvent { get; private set; }
+        private bool activeEvent; 
         public int NewGameState { get; set; }
         private const float eventTime = 3f;
         private Timer eventTimer;    
@@ -41,9 +41,14 @@ namespace SummerProject
         }
 
         public void Update(GameTime gameTime)
-        {            
-            ChangeState(gameTime);
-            HandleState(gameTime);            
+        {
+            if (activeEvent)
+                UpdateEventTimer(gameTime);
+            else
+            {
+                ChangeState(gameTime);
+                HandleState(gameTime);
+            }         
         }
 
         public void ChangeState(GameTime gameTime)
@@ -57,14 +62,14 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        ActiveEvent = true;
+                        activeEvent = true;   //set event times here?             
                         //GameState = NewGameState;                      
                         break;
                     case MENU_STATE:
                         GameState = NewGameState;
                         break;
                     case GAME_OVER_STATE:
-                        ActiveEvent = true;                       
+                        activeEvent = true;  //set event times here?
                         GameState = NewGameState;
                         break;
                    
@@ -83,7 +88,7 @@ namespace SummerProject
                     menu.Update(gameTime, this);
                     break;
                 case GAME_OVER_STATE:
-                    menu.currentMenu = MenuConstants.GAME_OVER;
+                    menu.CurrentMenu = MenuConstants.GAME_OVER;
                     menu.Update(gameTime, this);
                     break;
                 //case GAME_STATE:
@@ -96,7 +101,7 @@ namespace SummerProject
             eventTimer.CountDown(gameTime);
             if (eventTimer.IsFinished)
             {
-                ActiveEvent = false;
+                activeEvent = false;
                 GameState = NewGameState;
                 eventTimer.Reset(); //?
             }                               
@@ -104,7 +109,7 @@ namespace SummerProject
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {        
-            if (ActiveEvent)
+            if (activeEvent)
             {
                 switch (NewGameState)
                 {
@@ -131,11 +136,11 @@ namespace SummerProject
         {
             Vector2 size = font.MeasureString(s);
             float width = 0;
-            float height = 0;
+            //float height = 0;
             if (size.X > width)
                 width = size.X;
-            height += font.LineSpacing + 5;
-            return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - height) / 2);
+            //height += font.LineSpacing + 5;
+            return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - 0) / 2);
         }
 
         //super duper big-method
