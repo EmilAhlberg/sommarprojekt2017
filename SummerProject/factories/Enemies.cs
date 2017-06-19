@@ -10,7 +10,7 @@ namespace SummerProject.factories
         private Player player;
         private Vector2[] spawnPoints;
         private Random rand;
-        private bool isInactive;
+        private bool isActive;
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private Timer difficultyTimer;
@@ -34,29 +34,38 @@ namespace SummerProject.factories
 
         public void Update(GameTime gameTime)
         {
-            if (isInactive)
+            CheckActive();          
+            if(isActive)
             {
-                if (!player.IsDead)
-                    isInactive = false;
-            }
-            else
-            {
-                difficultyTimer.CountDown(gameTime);
-                if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
-                {
-                    difficultyTimer.Reset();
-                    if (eventTimer.maxTime > 1.5f)
-                        eventTimer.maxTime *= 0.75f;
-                    else
-                        eventTimer.maxTime *= 0.97f;
-                }
-                if (player.IsDead)
-                {
-                    isInactive = true;
-                    Reset();
-                }
+                UpdateDifficulty(gameTime);                           
                 Spawn(spawnPoints[(int)(rand.NextDouble() * 8)], player.Position); //!
                 UpdateEntities(gameTime);
+            }
+        }
+
+        private void CheckActive()
+        {
+            if (!isActive)
+            {
+                if (!player.IsDead)
+                    isActive = true;
+            } else if (player.IsDead)
+            {
+                isActive = false;
+                Reset();
+            }
+        }
+
+        private void UpdateDifficulty(GameTime gameTime)
+        {
+            difficultyTimer.CountDown(gameTime);
+            if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
+            {
+                difficultyTimer.Reset();
+                if (eventTimer.maxTime > 1.5f)
+                    eventTimer.maxTime *= 0.75f;
+                else
+                    eventTimer.maxTime *= 0.97f;
             }
         }
 
@@ -64,7 +73,8 @@ namespace SummerProject.factories
         {
             eventTimer.maxTime = defaultSpawnDelay;
             foreach (Enemy e in EntityList)
-                e.Death();
+                if(e.IsActive)
+                    e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
         {
