@@ -64,7 +64,8 @@ namespace SummerProject.factories
         {
             eventTimer.maxTime = defaultSpawnDelay;
             foreach (Enemy e in EntityList)
-                e.Death();
+                if(e.IsActive)
+                    e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
         {

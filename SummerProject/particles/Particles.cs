@@ -71,7 +71,7 @@ namespace SummerProject
                             initialForce *= 20 * (float)rand.NextDouble() + 60;
                             color = Color.MonoGameOrange;
                             angularVelocity = 0.2f;
-                            scale = 2;
+                            scale = (float)rand.NextDouble() + 1;
                             particles.Add(new Particle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1));
                         }
                         break;
@@ -91,7 +91,7 @@ namespace SummerProject
                             initialForce *= 30 * (float)rand.NextDouble() + 100;
                             color = Color.CornflowerBlue;
                             angularVelocity = 0.1f;
-                            scale = 2;
+                            scale = (float)rand.NextDouble() + 1;
                             particles.Add(new Particle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1));
                         }
                         break;
@@ -124,7 +124,7 @@ namespace SummerProject
                             initialForce *= 10 * (float)rand.NextDouble() + 40;
                             color = Color.CornflowerBlue;
                             angularVelocity = 0.5f;
-                            scale = 1;
+                            scale = 1 * (float)rand.NextDouble() + 0.5f;
                             particles.Add(new Particle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1));
                         }
                         break;
