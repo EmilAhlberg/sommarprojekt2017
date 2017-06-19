@@ -13,11 +13,11 @@ namespace SummerProject.factories
         private bool isInactive;
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
-        private float secondTimer;
+        private Timer difficultyTimer;
         public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
-            this.eventTime = eventTime;
             defaultSpawnDelay = eventTime;
+            difficultyTimer = new Timer(eventTime);
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
@@ -41,14 +41,14 @@ namespace SummerProject.factories
             }
             else
             {
-                secondTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (eventTime > minSpawnDelay && secondTimer > 1f)
+                difficultyTimer.CountDown(gameTime);
+                if (eventTimer.maxTime > minSpawnDelay && difficultyTimer.IsFinished)
                 {
-                    secondTimer = 0;
-                    if (eventTime > 1.5f)
-                        eventTime *= 0.75f;
+                    difficultyTimer.Reset();
+                    if (eventTimer.maxTime > 1.5f)
+                        eventTimer.maxTime *= 0.75f;
                     else
-                        eventTime *= 0.97f;
+                        eventTimer.maxTime *= 0.97f;
                 }
                 if (player.IsDead)
                 {
@@ -62,13 +62,13 @@ namespace SummerProject.factories
 
         private void Reset()
         {
-            eventTime = defaultSpawnDelay;
-            foreach (Enemy e in EntityList)
+            eventTimer.maxTime = defaultSpawnDelay;
+            foreach (Enemy e in entityList)
                 e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
         {
-            if (EventTimer < 0)
+            if (eventTimer.IsFinished)
                 ActivateEntities(source, target);
         }
         protected override AIEntity CreateEntity(int index)

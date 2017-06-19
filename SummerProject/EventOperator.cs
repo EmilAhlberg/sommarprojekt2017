@@ -16,7 +16,8 @@ namespace SummerProject
         public int GameState { get; set; } = MenuConstants.MAIN;
         private bool activeEvent;
         public int NewGameState { get; set; }
-        private float eventTime = 3f;   //!!     
+        private const float eventTime = 3f;
+        private Timer eventTimer;    
         private Menu menu;
         private Game1 game;
         private SpriteFont font;
@@ -25,8 +26,9 @@ namespace SummerProject
         {
             this.font = font;
             GameState = MENU_STATE;
-            NewGameState = GameState;
-            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2,
+            NewGameState= GameState;
+            eventTimer = new Timer(eventTime);
+            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2, 
                     (game.Window.ClientBounds.Height) / 2), font);
             this.game = game;
         }
@@ -46,6 +48,7 @@ namespace SummerProject
         {
             if (NewGameState != GameState)
             {
+                eventTimer.Reset(); //May want to set this differently in different cases.
                 switch (NewGameState)
                 {
                     case EXIT:
@@ -88,13 +91,13 @@ namespace SummerProject
 
         public void UpdateEventTimer(GameTime gameTime)
         {
-            eventTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (eventTime < 0)
+            eventTimer.CountDown(gameTime);
+            if (eventTimer.IsFinished)
             {
                 activeEvent = false;
                 GameState = NewGameState;
-                eventTime = 3f; //!
-            }
+                eventTimer.Reset(); //?
+            }                               
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -104,9 +107,9 @@ namespace SummerProject
                 switch (NewGameState)
                 {
                     case GAME_STATE:
-                        String word = COUNTDOWN[(int)eventTime];
+                        String word = COUNTDOWN[(int)eventTimer.currentTime];
                         Color color = Color.Gold;
-                        if ((int)eventTime == 0)
+                        if ((int)eventTimer.currentTime == 0)
                             color = Color.OrangeRed;
                         spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
                         break;
