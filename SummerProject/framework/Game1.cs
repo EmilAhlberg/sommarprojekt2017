@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using SummerProject.factories;
 using SummerProject.collidables;
-using System;
 
 namespace SummerProject
 {
@@ -30,9 +29,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
-            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
-            Window.AllowUserResizing = true;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             Content.RootDirectory = "Content";
         }
 
@@ -225,8 +223,8 @@ namespace SummerProject
                 enemies.Draw(spriteBatch, gameTime);
 
                 #region DrawString
-                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(1600, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(1600, 90), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (player.IsDead)
@@ -276,7 +274,7 @@ namespace SummerProject
 
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(1250, 1000), Color.Crimson);
+            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
         }
     }
 }
