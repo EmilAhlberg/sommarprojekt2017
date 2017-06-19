@@ -11,7 +11,12 @@ namespace SummerProject.collidables
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
-             
+        public float Energy { get; set; }
+
+        private float shieldDischargeRate;
+        private float shieldRechargeRate;
+        private float maxEnergy;
+        private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
 
@@ -24,7 +29,11 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
-            Mass = EntityConstants.MASS[EntityConstants.PLAYER];           
+            Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+            maxEnergy = 100; //!
+            Energy = maxEnergy;
+            shieldDischargeRate = 0.1f; //!
+            shieldRechargeRate = shieldDischargeRate / 10; //!
         }
 
         public void Update(GameTime gameTime)
@@ -40,6 +49,10 @@ namespace SummerProject.collidables
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
+                if (!shieldOn && Energy < maxEnergy)
+                    Energy += shieldRechargeRate;
+                else if(shieldOn && Energy > 0)
+                     Energy -= shieldDischargeRate;
             }
         }
 
@@ -77,7 +90,10 @@ namespace SummerProject.collidables
                 ControlScheme = 3;
             if (ks.IsKeyDown(Keys.D4))
                 ControlScheme = 4;
-
+            if (Mouse.GetState().RightButton == ButtonState.Pressed && Energy > 0)
+                shieldOn = true;
+            else
+                shieldOn = false;
             base.Thrust = 0;
             if (ControlScheme <= 1)
             {
@@ -137,8 +153,11 @@ namespace SummerProject.collidables
         {
             if (c2 is Enemy)
             {
-                Enemy e = c2 as Enemy;
-                Health -= e.Damage;
+                if (!shieldOn)
+                {
+                    Enemy e = c2 as Enemy;
+                    Health -= e.Damage;
+                }
             }
         }
 
