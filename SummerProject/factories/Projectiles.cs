@@ -21,7 +21,7 @@ namespace SummerProject.factories
 
         public void Fire(Vector2 source, Vector2 target)
         {
-            if (EventTimer < 0)
+            if (eventTimer.IsFinished)
             {
                 ActivateEntities(source, target);               
             }           

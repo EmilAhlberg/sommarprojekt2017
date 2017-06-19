@@ -14,15 +14,13 @@ namespace SummerProject.factories
         public List<Sprite> sprites { get; }
         protected int entityCap;
         public List<AIEntity> entityList { get; private set; }
-        public float EventTimer { get; set; }
-        protected float eventTime;
+        protected Timer eventTimer { get; set; }
 
         public Entities(List<Sprite> sprites, int entityCap, float eventTime)
         {
             this.sprites = sprites;
             this.entityCap = entityCap;
-            this.eventTime = eventTime;
-            EventTimer = 0;
+            eventTimer = new Timer(eventTime);
             entityList = new List<AIEntity>();
         }
 
@@ -44,7 +42,7 @@ namespace SummerProject.factories
                 if (!e.isActive)
                 {
                     e.Activate(source, target);
-                    EventTimer = eventTime;
+                    eventTimer.Reset();
                     break;
                 }                 
             }
@@ -71,7 +69,7 @@ namespace SummerProject.factories
                 if (e.isActive)
                     e.Update(gameTime);
             }
-            EventTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            eventTimer.CountDown(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
