@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.factories
 {
@@ -14,24 +15,24 @@ namespace SummerProject.factories
         private float minSpawnDelay = 0.4f;
         private float defaultSpawnDelay;
         private Timer difficultyTimer;
-        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime, GraphicsDeviceManager graphics) : base(sprites, NbrOfEnemies, eventTime)
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies, float eventTime) : base(sprites, NbrOfEnemies, eventTime)
         {
             defaultSpawnDelay = eventTime;
             difficultyTimer = new Timer(eventTime);
             this.player = player;
             InitializeEntities(0);
             rand = new Random();
-            int width = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-            int height = graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+            int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             spawnPoints = new Vector2[8];
             spawnPoints[0] = new Vector2(-50, -50);     // Top left
             spawnPoints[1] = new Vector2(width + 50, -50);  // top right
             spawnPoints[2] = new Vector2(-50, height + 50); // bottom left
             spawnPoints[3] = new Vector2(width + 50, height + 50); // bottom right
-            spawnPoints[4] = new Vector2(width + 50, height / 2 + 50); // right
-            spawnPoints[5] = new Vector2(-50, height / 2 - 50); // left
-            spawnPoints[6] = new Vector2(width / 2 + 50, height + 50); // bottom
-            spawnPoints[7] = new Vector2(width / 2 - 50, -50); // top
+            spawnPoints[4] = new Vector2(width + 50, height / 2 ); // right
+            spawnPoints[5] = new Vector2(-50, height / 2); // left
+            spawnPoints[6] = new Vector2(width / 2, height + 50); // bottom
+            spawnPoints[7] = new Vector2(width / 2, -50); // top
         }
 
         public void Update(GameTime gameTime)
