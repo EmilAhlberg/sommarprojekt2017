@@ -34,6 +34,7 @@ namespace SummerProject.collidables
             Energy = maxEnergy;
             shieldDischargeRate = 0.1f; //!
             shieldRechargeRate = shieldDischargeRate / 10; //!
+            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, 300, 300), angle)); //! Set Shield size
         }
 
         public void Update(GameTime gameTime)
@@ -53,11 +54,13 @@ namespace SummerProject.collidables
                 {
                     Energy -= shieldDischargeRate;
                     shieldOn = true;
+                    ActiveBoundBoxIndex = 1;
                 }
                 else if(maxEnergy > Energy)
                 {
                     Energy += shieldRechargeRate;
                     shieldOn = false;
+                    ActiveBoundBoxIndex = 0;
                 }
             }
         }
