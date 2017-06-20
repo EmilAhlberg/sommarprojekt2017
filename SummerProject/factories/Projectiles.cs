@@ -38,7 +38,7 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
+            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type' // can optimize
         }
 
         private void RemoveAbundantType()

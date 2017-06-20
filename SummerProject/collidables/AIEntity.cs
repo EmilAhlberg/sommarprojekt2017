@@ -25,6 +25,7 @@ namespace SummerProject.collidables
         public override void Death()
         {            
             IsActive = false;
+            Stop();
             Position = EntityFactory.FarAway();
         }
 

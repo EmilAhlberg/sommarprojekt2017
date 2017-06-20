@@ -11,23 +11,37 @@ namespace SummerProject
             Collidable[] list = list1.Concat(list2).ToArray();
             for (int i = 0; i < list.Length; i++)
             {
-                for (int j = i + 1; j < list.Length; j++)
+                for (int j = 0; j < list.Length; j++)     // can optimize
                 {
                     Collidable c1 = list[i];
                     Collidable c2 = list[j];
+                    if (c1 == c2)
+                        continue;
                     if (c1 is AIEntity && c2 is AIEntity)
                     {
                         AIEntity e1 = c1 as AIEntity;
                         AIEntity e2 = c2 as AIEntity;
                         if (e1.IsActive && e2.IsActive)
                         {
-                            if (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
+                            if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                                 HandleCollision(c1, c2);
+                            for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
+                            {
+                                if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
+                                    HandleDetectionCollision(c1, c2);
+                            }
                         }
                     }
                     else
-                        if (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
-                        HandleCollision(c1, c2);
+                    {
+                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                            HandleCollision(c1, c2);
+                        for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
+                        {
+                            if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
+                                HandleDetectionCollision(c1, c2);
+                        }
+                    }
                 }
             }
             foreach (Collidable c in list)
@@ -36,14 +50,20 @@ namespace SummerProject
             }
         }
 
+        private void HandleDetectionCollision(Collidable c1, Collidable c2)
+        {
+            if (!(c1 is Player || c2 is Player || c1 is Wall || c2 is Wall))
+                c1.Collision(c2);
+        }
         private void HandleCollision(Collidable c1, Collidable c2)
         {
             if (c1.IsStatic)
                 MoveObject(c2, c1);
-            else if (c1.IsStatic)
+            else if (c2.IsStatic)
                 MoveObject(c1, c2);
             c1.Collision(c2);
             c2.Collision(c1);
+
         }
 
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
@@ -52,7 +72,7 @@ namespace SummerProject
             Vector2 backVect = c1.PrevPos - collidedPos;
             backVect.Normalize();
             backVect *= 0.2f;
-            while (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
+            while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                 c1.Position += backVect;
 
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)

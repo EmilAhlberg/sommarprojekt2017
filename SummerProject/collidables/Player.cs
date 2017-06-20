@@ -46,7 +46,7 @@ namespace SummerProject.collidables
                     CalculateAngle();
                 Particles.GenerateParticles(Position, 4, angle);
                 Move();
-                //HandleBulletType();
+                HandleBulletType();
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
@@ -57,24 +57,22 @@ namespace SummerProject.collidables
                         Particles.GenerateParticles(Position, 7, angle);
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
-                        ActiveBoundBoxIndex = 1;
                     }
                 }
                 else if(maxEnergy > Energy)
                 {
                     Energy += shieldRechargeRate;
                     shieldOn = false;
-                    ActiveBoundBoxIndex = 0;
                 }
             }
         }
 
         private void HandleBulletType()
         {
-            //if (Keyboard.GetState().IsKeyDown(Keys.D1))
-            //     projectiles.switchBullets(EntityTypes.BULLET);
-            //  if (Keyboard.GetState().IsKeyDown(Keys.D2))
-            //       projectiles.switchBullets(EntityTypes.HOMINGBULLET);
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
+                projectiles.SwitchBullets(EntityTypes.BULLET);
+            if (Keyboard.GetState().IsKeyDown(Keys.D2))
+                projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
         }
 
         private void Fire()
