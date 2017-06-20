@@ -21,13 +21,13 @@ namespace SummerProject
                         AIEntity e2 = c2 as AIEntity;
                         if (e1.IsActive && e2.IsActive)
                         {
-                            if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                            if (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
                                 HandleCollision(c1, c2);
                         }
                     }
                     else
-                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                            HandleCollision(c1, c2);
+                        if (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
+                        HandleCollision(c1, c2);
                 }
             }
             foreach (Collidable c in list)
@@ -52,7 +52,7 @@ namespace SummerProject
             Vector2 backVect = c1.PrevPos - collidedPos;
             backVect.Normalize();
             backVect *= 0.2f;
-            while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+            while (c1.ActiveBoundBox.Intersects(c2.ActiveBoundBox))
                 c1.Position += backVect;
 
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)

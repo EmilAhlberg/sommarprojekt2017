@@ -64,6 +64,7 @@
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
+	<Compile Include="framework\AnimatedEventHandler.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
+    <Compile Include="framework\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="menu\GameOverMenu.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="menu\MenuConstants.cs" />
     <Compile Include="menu\PauseMenu.cs" />
     <Compile Include="menu\SettingsMenu.cs" />
+    <Compile Include="menu\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />

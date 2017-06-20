@@ -16,10 +16,13 @@ namespace SummerProject.menu
             {
                 case 0:
                     handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.ResetGame(true);
                     break;
                 case 1:
                     handler.NewGameState = EventOperator.MENU_STATE;
-                    return MenuConstants.MAIN;
+                    handler.ResetGame(false);
+                    //return MenuConstants.MAIN;
+                    break;
             }
             return -1;
         }

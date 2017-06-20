@@ -23,8 +23,9 @@ namespace SummerProject.menu
                     break;
                 case 1:
                     handler.NewGameState = EventOperator.MENU_STATE;
-                    handler.AbandonGame();
-                    return MenuConstants.MAIN;              
+                    handler.ResetGame(false);
+                    //return MenuConstants.MAIN;       
+                    break;       
             }
             return -1;
         }
