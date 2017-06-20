@@ -196,7 +196,7 @@ namespace SummerProject
 
         public void ResetGame()
         {
-            player.Reset();
+            player.Reset();          
             //projectiles.Reset();
             enemies.Reset();
             ScoreHandler.Reset();
@@ -255,9 +255,9 @@ namespace SummerProject
 
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
         {            
-            Particles.Draw(spriteBatch, gameTime);
+            Particles.Draw(spriteBatch, gameTime);           
             projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
+            player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             enemies.Draw(spriteBatch, gameTime);
         }
