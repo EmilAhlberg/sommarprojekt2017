@@ -134,8 +134,7 @@ namespace SummerProject
                         game.DrawGame(spriteBatch, gameTime);
                         String s = "Mediocre!"; //!
                         spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
-                        System.Threading.Thread.Sleep(40); //!
-                           // menu.Draw(spriteBatch, gameTime);                    
+                        System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                         break;
                     case GAME_STATE:                          
                         game.DrawGame(spriteBatch, gameTime);
@@ -149,8 +148,8 @@ namespace SummerProject
             }
             else
             {
-               if(GameState == PAUSE_STATE)                    
-                        game.DrawGame(spriteBatch, gameTime);
+                if(GameState == PAUSE_STATE)                    
+                  game.DrawGame(spriteBatch, gameTime);
 
 
                 if (!activeEvent)             
