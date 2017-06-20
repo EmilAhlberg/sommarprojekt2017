@@ -108,7 +108,7 @@ namespace SummerProject
                 #region Shield Visuals
                 case 7:
                     {
-                        CreateExplosion(1, position, 0, 40, 0, Color.Yellow, 0, 1f, ttl);
+                        CreateCircle(10, position, 0, 150, 0, Color.Yellow, 1, 0.5f, 0.4f);
                         break;
                     }
                     #endregion
@@ -140,6 +140,16 @@ namespace SummerProject
             initialForce *= RandomFloat(spread, baseValue);
             float scale = RandomFloat(scaleSpread, baseScale);
             particles.Add(new Particle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1));
+        }
+
+        private static void CreateCircle(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        {
+            for (int i = 0; i < nbrOfParticles; i++)
+            {
+                Vector2 initialPosition = RandomVector2(spread, baseValue);
+                float scale = RandomFloat(scaleSpread, baseScale);
+                particles.Add(new Particle(new Sprite(spriteList[0]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1));
+            }
         }
 
         private static Vector2 RandomVector2(float spread, float baseValue)

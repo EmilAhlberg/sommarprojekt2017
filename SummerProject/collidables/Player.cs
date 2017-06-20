@@ -50,11 +50,15 @@ namespace SummerProject.collidables
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
-                if (InputHandler.isPressed(MouseButton.RIGHT) && Energy > 0)
+                if (InputHandler.isPressed(MouseButton.RIGHT))
                 {
-                    Energy -= shieldDischargeRate;
-                    shieldOn = true;
-                    ActiveBoundBoxIndex = 1;
+                    if (Energy > 0)
+                    {
+                        Particles.GenerateParticles(Position, 7, angle);
+                        Energy -= shieldDischargeRate;
+                        shieldOn = true;
+                        ActiveBoundBoxIndex = 1;
+                    }
                 }
                 else if(maxEnergy > Energy)
                 {
