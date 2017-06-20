@@ -103,6 +103,14 @@ namespace SummerProject
                         CreateTrail(angle, position, 1, 20, 0, Color.CornflowerBlue, 0, 1, 0.3f);
                         break;
                     }
+                #endregion
+
+                #region Shield Visuals
+                case 7:
+                    {
+                        CreateExplosion(1, position, 0, 40, 0, Color.Yellow, 0, 1f, ttl);
+                        break;
+                    }
                     #endregion
             }
         }
