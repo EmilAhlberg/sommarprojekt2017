@@ -11,7 +11,12 @@ namespace SummerProject.collidables
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
-             
+        public float Energy { get; set; }
+
+        private float shieldDischargeRate;
+        private float shieldRechargeRate;
+        private float maxEnergy;
+        private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
 
@@ -24,13 +29,17 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
-            Mass = EntityConstants.MASS[EntityConstants.PLAYER];           
+            Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+            maxEnergy = 100; //!
+            Energy = maxEnergy;
+            shieldDischargeRate = 0.1f; //!
+            shieldRechargeRate = shieldDischargeRate / 10; //!
         }
 
         public void Update(GameTime gameTime)
         {
             if (!IsDead)
-            {         
+            {
                 sprite.MColor = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
                     CalculateAngle();
@@ -40,6 +49,16 @@ namespace SummerProject.collidables
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
+                if (InputHandler.isPressed(MouseButton.RIGHT) && Energy > 0)
+                {
+                    Energy -= shieldDischargeRate;
+                    shieldOn = true;
+                }
+                else if(maxEnergy > Energy)
+                {
+                    Energy += shieldRechargeRate;
+                    shieldOn = false;
+                }
             }
         }
 
@@ -76,7 +95,6 @@ namespace SummerProject.collidables
                 ControlScheme = 3;
             if (InputHandler.isPressed(Keys.D4))
                 ControlScheme = 4;
-
             base.Thrust = 0;
             if (ControlScheme <= 1)
             {
@@ -87,7 +105,7 @@ namespace SummerProject.collidables
                     base.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust*(new Vector2((float)Math.Cos(angle-Math.PI/2), (float)Math.Sin(angle-Math.PI/2))));
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2))));
 
                 if (InputHandler.isPressed(Keys.D))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2))));
@@ -96,14 +114,14 @@ namespace SummerProject.collidables
             else if (ControlScheme == 2)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI/2), (float)Math.Sin(Math.PI/2))));
+                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2))));
 
                 if (InputHandler.isPressed(Keys.W))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2))));
 
                 if (InputHandler.isPressed(Keys.A))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI))));
-               
+
                 if (InputHandler.isPressed(Keys.D))
                     AddForce(Thrust * (new Vector2((float)Math.Cos(0), (float)Math.Sin(0))));
             }
@@ -136,8 +154,11 @@ namespace SummerProject.collidables
         {
             if (c2 is Enemy)
             {
-                Enemy e = c2 as Enemy;
-                Health -= e.Damage;
+                if (!shieldOn)
+                {
+                    Enemy e = c2 as Enemy;
+                    Health -= e.Damage;
+                }
             }
         }
 
