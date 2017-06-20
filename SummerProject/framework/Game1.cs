@@ -109,7 +109,7 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
-            eventOperator = new EventOperator(bigFont, this);
+            eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30);
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
@@ -148,15 +148,11 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
-            {
-                UpdateGame(gameTime);               
-            }
-            else
-            {                
-                    eventOperator.Update(gameTime);                
-            }
+            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)            
+                UpdateGame(gameTime);           
+            else                
+                eventOperator.Update(gameTime);               
+           
             CheckGameStatus(gameTime);
 
             InputHandler.UpdatePreviousState();
@@ -176,8 +172,8 @@ namespace SummerProject
         }
 
         private void CheckGameStatus(GameTime gameTime)
-        {
-            //check: game over
+        {            
+            #region Game Over
             if (player.IsDead && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 deathTimer.CountDown(gameTime);
@@ -187,17 +183,29 @@ namespace SummerProject
                     deathTimer.Reset();
                 }
             }
-            //check: pause
-            if(Keyboard.GetState().IsKeyDown(Keys.P) && eventOperator.GameState == EventOperator.GAME_STATE)
+            #endregion
+            #region Pause
+            if (InputHandler.isPressed(Keys.P) && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
+            #endregion
+            #region Upgrade Ship
+            if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
+            {
+                eventOperator.NewGameState = EventOperator.UPGRADE_STATE;
+            }
+            #endregion
         }
 
-        public void ResetGame()
+        public void ResetGame(bool fullReset)
         {
-            player.Reset();
-            //projectiles.Reset();
+            if (fullReset)
+            {
+                player.Reset();
+                projectiles.Reset();
+                //particles.Reset();
+            }
             enemies.Reset();
             ScoreHandler.Reset();
         }
@@ -234,6 +242,7 @@ namespace SummerProject
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (player.IsDead)
@@ -242,10 +251,9 @@ namespace SummerProject
 
                 #endregion
             }
-            else
-            {
+            else           
                 eventOperator.Draw(spriteBatch, gameTime);
-            }
+            
             DebugMode(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
@@ -254,12 +262,14 @@ namespace SummerProject
         }
 
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
-        {            
-            Particles.Draw(spriteBatch, gameTime);
+        {
+            #region Draw Game
+            Particles.Draw(spriteBatch, gameTime);           
             projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
+            player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             enemies.Draw(spriteBatch, gameTime);
+            #endregion
         }
 
         private void KeepPlayerInScreen()

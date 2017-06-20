@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.menu
 {
-    class MainMenu : MenuComponent
+    public class UpgradeMenu : MenuComponent
     {
-        public MainMenu(Vector2 position, SpriteFont font) : base(position, font, MenuConstants.MENUITEMS[MenuConstants.MAIN])
+
+
+        public UpgradeMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.UPGRADE])
         {
         }
 
@@ -15,15 +18,10 @@ namespace SummerProject.menu
             {
                 case 0:
                     handler.NewGameState = EventOperator.GAME_STATE;
-                    handler.ResetGame(true);
-                    break;
-                case 1:
-                    return MenuConstants.SETTINGS;
-                case 2:
-                    handler.NewGameState = EventOperator.EXIT;
                     break;
             }
             return -1;
+
         }
     }
 }

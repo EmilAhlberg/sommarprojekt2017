@@ -71,12 +71,13 @@ namespace SummerProject.factories
             }
         }
 
-        public void Reset()
+        public override void Reset()
         {
             eventTimer.maxTime = defaultSpawnDelay;
-            foreach (Enemy e in EntityList)
-                if (e.IsActive)
-                    e.Death();
+            ResetEntities();
+            //foreach (Enemy e in EntityList)
+            //    if (e.IsActive)
+            //        e.Death();
         }
         public void Spawn(Vector2 source, Vector2 target)
         {
