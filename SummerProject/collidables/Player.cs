@@ -58,8 +58,11 @@ namespace SummerProject.collidables
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
                     }
+                    else
+                        shieldOn = false;
                 }
-                else if(maxEnergy > Energy)
+                else
+                if(maxEnergy > Energy)
                 {
                     Energy += shieldRechargeRate;
                     shieldOn = false;
