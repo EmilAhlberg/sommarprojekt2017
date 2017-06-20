@@ -21,6 +21,7 @@ namespace SummerProject.factories
         }
 
         protected abstract AIEntity CreateEntity(int index);
+        public abstract void Reset();
 
         protected void InitializeEntities(int index)
         {
@@ -29,6 +30,12 @@ namespace SummerProject.factories
                 EntityList.Insert(0, CreateEntity(index));
 
             }
+        }
+        protected void ResetEntities()
+        {
+            foreach (AIEntity e in EntityList)
+                if (e.IsActive)
+                    e.Death();
         }
 
         protected void ActivateEntities(Vector2 source, Vector2 target)

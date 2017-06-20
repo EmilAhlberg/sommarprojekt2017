@@ -15,7 +15,7 @@ namespace SummerProject
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };
                 
         public int GameState { get; set; } = MenuConstants.MAIN;
-        private bool activeEvent;
+        private bool activeEvent;        
         public int NewGameState { get; set; }
         private const float eventTime = 2f;
         private Timer eventTimer;    
@@ -68,7 +68,6 @@ namespace SummerProject
                     case PAUSE_STATE:
                         GameState = NewGameState;
                         break;
-
                 }
             }
         }
@@ -80,7 +79,7 @@ namespace SummerProject
                 case EXIT:
                     game.Exit();
                     break;
-                case MENU_STATE:                
+                case MENU_STATE:
                     break;
                 case GAME_OVER_STATE:
                     menu.CurrentMenu = MenuConstants.GAME_OVER;                   
@@ -90,7 +89,7 @@ namespace SummerProject
                     break;
                 case PAUSE_STATE:
                     if (NewGameState != EventOperator.MENU_STATE)
-                        menu.CurrentMenu = MenuConstants.PAUSE;                  
+                        menu.CurrentMenu = MenuConstants.PAUSE;             
                     break;
             }
             menu.Update(gameTime, this);
@@ -111,9 +110,12 @@ namespace SummerProject
         {
             switch (NewGameState)
             {
+                case MENU_STATE:
+                    menu.CurrentMenu = MenuConstants.MAIN;
+                    break;
                 case GAME_STATE:
                     if (!(GameState == EventOperator.PAUSE_STATE))             
-                        game.ResetGame();        
+                        game.ResetGame(true);        
                     break;
             }
             activeEvent = false;
@@ -127,11 +129,12 @@ namespace SummerProject
                 switch (NewGameState)
                 {
                     case MENU_STATE:                      
-                        AbandonGame();
+                        ResetGame(false);
                         game.UpdateGame(gameTime);
                         game.DrawGame(spriteBatch, gameTime);
-                        String s = "Mediocre!";
+                        String s = "Mediocre!"; //!
                         spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
+                        System.Threading.Thread.Sleep(40); //!
                            // menu.Draw(spriteBatch, gameTime);                    
                         break;
                     case GAME_STATE:                          
@@ -139,7 +142,7 @@ namespace SummerProject
                         DrawCountDown(spriteBatch, gameTime);                       
                         break;
                     case GAME_OVER_STATE:
-                        String score = "Score: " + ScoreHandler.Score;
+                        String score = "Score: " + ScoreHandler.Score; //!
                         spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
                         break;
                 }
@@ -148,7 +151,10 @@ namespace SummerProject
             {
                if(GameState == PAUSE_STATE)                    
                         game.DrawGame(spriteBatch, gameTime);
-               menu.Draw(spriteBatch, gameTime);                      
+
+
+                if (!activeEvent)             
+                  menu.Draw(spriteBatch, gameTime);                      
             }
         }
 
@@ -176,9 +182,9 @@ namespace SummerProject
             game.IsMouseVisible = mouseVisibility;
         }
 
-        public void AbandonGame()
+        public void ResetGame(bool fullReset)
         {
-            game.ResetGame();
+            game.ResetGame(fullReset);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace SummerProject.menu
             {
                 case 0:
                     handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.ResetGame(true);
                     break;
                 case 1:
                     return MenuConstants.SETTINGS;
