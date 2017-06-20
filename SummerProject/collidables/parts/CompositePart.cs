@@ -17,8 +17,8 @@ namespace SummerProject
         }
 
         public bool AddPart(Part p, int slot) {
-            if (parts[slot].SetPart(p))
-            {
+            if (slot < parts.Length) {
+                parts[slot].SetPart(p);
                 p.Hull = this;
                 return true;
             }
@@ -39,20 +39,11 @@ namespace SummerProject
                 Angle = angle;
             }
         
-            public bool SetPart(Part p)
+            public void SetPart(Part p)
             {
-                Vector2 prevPos = p.Position;
-                float prevAngle = p.angle;
                 p.Position = LinkPos;
                 p.angle = Angle;
-                if (p.BoundBoxes[0].Intersects(null)/*TODO : INTERSECTAR ANDRA PARTS??*/)
-                {
-                    p.Position = prevPos;
-                    p.angle = prevAngle;
-                    return false;
-                }
                 Part = p;
-                return true;
             }
         }
 
