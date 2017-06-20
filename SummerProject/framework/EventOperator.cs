@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.framework;
 using SummerProject.menu;
 using System;
 
@@ -12,23 +13,22 @@ namespace SummerProject
         public const int GAME_STATE = 2;
         public const int GAME_OVER_STATE = 3;
         public const int PAUSE_STATE = 4;
-        public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };
+        public const int UPGRADE_STATE = 5;
+       
                 
-        public int GameState { get; set; } = MenuConstants.MAIN;
-        private bool activeEvent;        
+        public int GameState { get; set; } 
         public int NewGameState { get; set; }
-        private const float eventTime = 2f;
-        private Timer eventTimer;    
+        private AnimatedEventHandler animatedHandler;
         private Menu menu;
-        private Game1 game;
-        private SpriteFont font;
+        private UpgradeView upgradeView;
+        private Game1 game;      
 
-        public EventOperator(SpriteFont font, Game1 game)
-        {
-            this.font = font;
+        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText)
+        {            
             GameState = MENU_STATE;
-            NewGameState= GameState;
-            eventTimer = new Timer(eventTime);
+            NewGameState = GameState;
+            animatedHandler = new AnimatedEventHandler(game, this, font);
+            upgradeView = new UpgradeView(upgradeViewText);            
             menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2, 
                     (game.Window.ClientBounds.Height) / 2), font);
             this.game = game;
@@ -36,9 +36,9 @@ namespace SummerProject
 
         public void Update(GameTime gameTime)
         {
-            if (activeEvent)
-                UpdateEventTimer(gameTime);
-            else
+            if (animatedHandler.AnimatedEvent && animatedHandler.UpdateEventTimer(gameTime))
+                FinishEvent();
+            else if (!animatedHandler.AnimatedEvent)
             {
                 ActivateEvent(gameTime);
                 UpdateState(gameTime);
@@ -49,23 +49,26 @@ namespace SummerProject
         {
             if (NewGameState != GameState)
             {
-                eventTimer.Reset(); //May want to set this differently in different cases.
+                animatedHandler.Reset(); //May want to set this differently in different cases.
                 switch (NewGameState)
                 {
                     case EXIT:
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        activeEvent = true;                                                
+                        animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
-                        activeEvent = true;
+                        animatedHandler.AnimatedEvent = true;
                         break;
-                    case GAME_OVER_STATE:                        
-                        activeEvent = true;  
+                    case GAME_OVER_STATE:
+                        animatedHandler.AnimatedEvent = true;
                         GameState = NewGameState;
                         break;
                     case PAUSE_STATE:
+                        GameState = NewGameState;
+                        break;
+                    case UPGRADE_STATE:
                         GameState = NewGameState;
                         break;
                 }
@@ -91,90 +94,47 @@ namespace SummerProject
                     if (NewGameState != EventOperator.MENU_STATE)
                         menu.CurrentMenu = MenuConstants.PAUSE;             
                     break;
+                case UPGRADE_STATE:
+                    menu.CurrentMenu = MenuConstants.UPGRADE;
+                    upgradeView.Update(gameTime);
+                    break;
             }
             menu.Update(gameTime, this);
         }
-
-        public void UpdateEventTimer(GameTime gameTime)
-        {  
-            eventTimer.CountDown(gameTime);
-            if (eventTimer.IsFinished)
-            {
-                FinishEvent();
-                eventTimer.Reset(); 
-            }
-        }
-
-        // handles end-of-event functionality
+     
         private void FinishEvent()
         {
             switch (NewGameState)
             {
-                case MENU_STATE:
+                case EventOperator.MENU_STATE:
                     menu.CurrentMenu = MenuConstants.MAIN;
                     break;
-                case GAME_STATE:
-                    if (!(GameState == EventOperator.PAUSE_STATE))             
-                        game.ResetGame(true);        
+                case EventOperator.GAME_STATE:
+                    if (GameState == EventOperator.MENU_STATE)
+                        game.ResetGame(true);
                     break;
             }
-            activeEvent = false;
-            GameState = NewGameState;                                 
+            animatedHandler.AnimatedEvent = false;
+            GameState = NewGameState;
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (activeEvent)
-            { 
-                switch (NewGameState)
-                {
-                    case MENU_STATE:                      
-                        ResetGame(false);
-                        game.UpdateGame(gameTime);
-                        game.DrawGame(spriteBatch, gameTime);
-                        String s = "Mediocre!"; //!
-                        spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
-                        System.Threading.Thread.Sleep(40); //!
-                           // menu.Draw(spriteBatch, gameTime);                    
-                        break;
-                    case GAME_STATE:                          
-                        game.DrawGame(spriteBatch, gameTime);
-                        DrawCountDown(spriteBatch, gameTime);                       
-                        break;
-                    case GAME_OVER_STATE:
-                        String score = "Score: " + ScoreHandler.Score; //!
-                        spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
-                        break;
-                }
-            }
+            //refactor whole draw?
+            if (animatedHandler.AnimatedEvent)            
+                animatedHandler.Draw(spriteBatch, gameTime);            
             else
             {
-               if(GameState == PAUSE_STATE)                    
-                        game.DrawGame(spriteBatch, gameTime);
+                if(GameState == PAUSE_STATE || GameState == UPGRADE_STATE)                    
+                  game.DrawGame(spriteBatch, gameTime);
 
+                if (GameState == UPGRADE_STATE)
+                    upgradeView.Draw(spriteBatch, gameTime);
 
-                if (!activeEvent)             
+                if (!animatedHandler.AnimatedEvent)             
                   menu.Draw(spriteBatch, gameTime);                      
             }
-        }
-
-        private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            String word = COUNTDOWN[(int)eventTimer.currentTime];
-            Color color = Color.Gold;
-            if ((int)eventTimer.currentTime == 0)
-                color = Color.OrangeRed;
-            spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
-        }
-
-        private Vector2 WordLayoutPosition(String s)
-        {
-            Vector2 size = font.MeasureString(s);
-            float width = 0;         
-            if (size.X > width)
-                width = size.X;         
-            return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - 0) / 2);
-        }
+        }     
 
         //super duper big-method
         public void IsMouseVisible(bool mouseVisibility)

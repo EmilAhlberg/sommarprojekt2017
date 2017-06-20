@@ -50,10 +50,14 @@ namespace SummerProject.collidables
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
-                if (InputHandler.isPressed(MouseButton.RIGHT) && Energy > 0)
+                if (InputHandler.isPressed(MouseButton.RIGHT))
                 {
-                    Energy -= shieldDischargeRate;
-                    shieldOn = true;
+                    if (Energy > 0)
+                    {
+                        Particles.GenerateParticles(Position, 7, angle);
+                        Energy -= shieldDischargeRate;
+                        shieldOn = true;
+                    }
                 }
                 else if(maxEnergy > Energy)
                 {
@@ -175,6 +179,7 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
             angle = 0;
+            Stop();
             IsDead = false;
 
         }
