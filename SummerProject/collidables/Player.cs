@@ -176,6 +176,7 @@ namespace SummerProject.collidables
         {
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
+            angle = 0;
             IsDead = false;
 
         }

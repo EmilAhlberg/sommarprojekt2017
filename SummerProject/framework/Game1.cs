@@ -194,10 +194,14 @@ namespace SummerProject
             }
         }
 
-        public void ResetGame()
+        public void ResetGame(bool fullReset)
         {
-            player.Reset();
-            //projectiles.Reset();
+            if (fullReset)
+            {
+                player.Reset();
+                projectiles.Reset();
+                //particles.Reset();
+            }
             enemies.Reset();
             ScoreHandler.Reset();
         }
@@ -256,9 +260,9 @@ namespace SummerProject
 
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
         {            
-            Particles.Draw(spriteBatch, gameTime);
+            Particles.Draw(spriteBatch, gameTime);           
             projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
+            player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             enemies.Draw(spriteBatch, gameTime);
         }

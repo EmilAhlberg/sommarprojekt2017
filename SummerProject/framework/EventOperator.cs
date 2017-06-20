@@ -15,7 +15,7 @@ namespace SummerProject
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };
                 
         public int GameState { get; set; } = MenuConstants.MAIN;
-        private bool activeEvent;
+        private bool activeEvent;        
         public int NewGameState { get; set; }
         private const float eventTime = 2f;
         private Timer eventTimer;    
@@ -56,21 +56,18 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        activeEvent = true;   //set event times here?                                    
-                        //GameState = NewGameState;                      
+                        activeEvent = true;                                                
                         break;
                     case MENU_STATE:
                         activeEvent = true;
-                        //GameState = NewGameState;
                         break;
                     case GAME_OVER_STATE:                        
-                        activeEvent = true;  //set event times here?
+                        activeEvent = true;  
                         GameState = NewGameState;
                         break;
                     case PAUSE_STATE:
                         GameState = NewGameState;
                         break;
-
                 }
             }
         }
@@ -83,22 +80,19 @@ namespace SummerProject
                     game.Exit();
                     break;
                 case MENU_STATE:
-                    menu.Update(gameTime, this);
                     break;
                 case GAME_OVER_STATE:
-                    menu.CurrentMenu = MenuConstants.GAME_OVER;
-                    menu.Update(gameTime, this);
+                    menu.CurrentMenu = MenuConstants.GAME_OVER;                   
                     break;
                 case GAME_STATE:     
-                    menu.CurrentMenu = MenuConstants.MAIN;
-                    menu.Update(gameTime, this);
+                    menu.CurrentMenu = MenuConstants.MAIN;                
                     break;
                 case PAUSE_STATE:
                     if (NewGameState != EventOperator.MENU_STATE)
-                        menu.CurrentMenu = MenuConstants.PAUSE;
-                    menu.Update(gameTime, this);
+                        menu.CurrentMenu = MenuConstants.PAUSE;             
                     break;
             }
+            menu.Update(gameTime, this);
         }
 
         public void UpdateEventTimer(GameTime gameTime)
@@ -107,7 +101,7 @@ namespace SummerProject
             if (eventTimer.IsFinished)
             {
                 FinishEvent();
-                eventTimer.Reset(); //?
+                eventTimer.Reset(); 
             }
         }
 
@@ -116,9 +110,12 @@ namespace SummerProject
         {
             switch (NewGameState)
             {
+                case MENU_STATE:
+                    menu.CurrentMenu = MenuConstants.MAIN;
+                    break;
                 case GAME_STATE:
                     if (!(GameState == EventOperator.PAUSE_STATE))             
-                        game.ResetGame();        
+                        game.ResetGame(true);        
                     break;
             }
             activeEvent = false;
@@ -131,42 +128,51 @@ namespace SummerProject
             { 
                 switch (NewGameState)
                 {
-                    case MENU_STATE:
-                        AbandonGame();
+                    case MENU_STATE:                      
+                        ResetGame(false);
                         game.UpdateGame(gameTime);
                         game.DrawGame(spriteBatch, gameTime);
-                        menu.Draw(spriteBatch, gameTime);
+                        String s = "Mediocre!"; //!
+                        spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
+                        System.Threading.Thread.Sleep(40); //!
+                           // menu.Draw(spriteBatch, gameTime);                    
                         break;
                     case GAME_STATE:                          
                         game.DrawGame(spriteBatch, gameTime);
-                        String word = COUNTDOWN[(int)eventTimer.currentTime];
-                        Color color = Color.Gold;
-                        if ((int)eventTimer.currentTime == 0)
-                            color = Color.OrangeRed;
-                        spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
+                        DrawCountDown(spriteBatch, gameTime);                       
                         break;
                     case GAME_OVER_STATE:
-                        String score = "Score: " + ScoreHandler.Score;
+                        String score = "Score: " + ScoreHandler.Score; //!
                         spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
                         break;
                 }
             }
             else
             {
-               if(GameState == PAUSE_STATE || GameState == MENU_STATE)                    
+               if(GameState == PAUSE_STATE)                    
                         game.DrawGame(spriteBatch, gameTime);
-               menu.Draw(spriteBatch, gameTime);                      
+
+
+                if (!activeEvent)             
+                  menu.Draw(spriteBatch, gameTime);                      
             }
+        }
+
+        private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            String word = COUNTDOWN[(int)eventTimer.currentTime];
+            Color color = Color.Gold;
+            if ((int)eventTimer.currentTime == 0)
+                color = Color.OrangeRed;
+            spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
         }
 
         private Vector2 WordLayoutPosition(String s)
         {
             Vector2 size = font.MeasureString(s);
-            float width = 0;
-            //float height = 0;
+            float width = 0;         
             if (size.X > width)
-                width = size.X;
-            //height += font.LineSpacing + 5;
+                width = size.X;         
             return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - 0) / 2);
         }
 
@@ -176,9 +182,9 @@ namespace SummerProject
             game.IsMouseVisible = mouseVisibility;
         }
 
-        public void AbandonGame()
+        public void ResetGame(bool fullReset)
         {
-            game.ResetGame();
+            game.ResetGame(fullReset);
         }
     }
 }

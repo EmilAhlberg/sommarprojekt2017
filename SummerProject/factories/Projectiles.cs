@@ -29,6 +29,12 @@ namespace SummerProject.factories
             InitializeEntities(newType);
         }
 
+        public override void Reset()
+        {
+            eventTimer.Reset();
+            ResetEntities();
+        }
+
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
