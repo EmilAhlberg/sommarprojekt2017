@@ -62,10 +62,10 @@ namespace SummerProject
                 #region Enemy Explosion
                 case 2:
                     {
-                        initialForce = 30 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                         particles.Add(new Particle(new Sprite(spriteList[1]), position, initialForce, angle, angularVelocity, color, scale, ttl, 2));
                         particles.Add(new Particle(new Sprite(spriteList[2]), position, -initialForce, angle, angularVelocity, color, scale, ttl, 2));
-                        CreateExplosion(10, position, 10, 40, 0.2f, Color.MonoGameOrange, 1, 1, ttl);
+                        CreateExplosion(10, position, 10, 80, 0.2f, Color.MonoGameOrange, 1, 1, ttl);
                         break;
                     }
                 #endregion
@@ -73,11 +73,11 @@ namespace SummerProject
                 #region Player Explosion
                 case 3:
                     {
-                        initialForce = 30 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                         particles.Add(new Particle(new Sprite(spriteList[3]), position, initialForce, angle, angularVelocity, color, scale, ttl, 2));
                         particles.Add(new Particle(new Sprite(spriteList[4]), position, -initialForce, angle, angularVelocity, color, scale, ttl, 2));
-                        CreateExplosion(100, position, 20, 80, 0.2f, Color.CornflowerBlue, 1, 1, ttl);
-                        break;
+                        CreateExplosion(100, position, 40, 100, 0.2f, Color.CornflowerBlue, 1, 1, ttl);
+                        break; 
                     }
                 #endregion
 
@@ -92,7 +92,7 @@ namespace SummerProject
                 #region Bullet Explosion
                 case 5:
                     {
-                        CreateExplosion(10, position, 10, 20, 0.5f, Color.CornflowerBlue, 1, 0.5f, ttl);
+                        CreateExplosion(10, position, 10, 40, 0.5f, Color.CornflowerBlue, 1, 0.5f, ttl);
                         break;
                     }
                 #endregion
@@ -108,7 +108,7 @@ namespace SummerProject
                 #region Shield Visuals
                 case 7:
                     {
-                        CreateCircle(10, position, 0, 150, 0, Color.Yellow, 1, 0.5f, 0.4f);
+                        CreateCircle(10, position, 0, 50, 0, Color.Yellow, 1, 0.5f, 0.4f);
                         break;
                     }
                     #endregion
