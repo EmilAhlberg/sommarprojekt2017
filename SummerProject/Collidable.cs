@@ -7,7 +7,7 @@ namespace SummerProject
     public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
-        public List<RotRectangle> BoundBoxes { get; private set; }
+        public List<RotRectangle> BoundBoxes { get; set; }
         public bool IsStatic { get; set; }
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
