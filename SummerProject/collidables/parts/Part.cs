@@ -9,12 +9,10 @@ namespace SummerProject
 {
     public abstract class Part : Collidable
     {
-        protected abstract CompositePart Hull {set; get; }
-
-        public Part(Vector2 position, ISprite sprite, CompositePart Hull) : base(position, sprite)
+        public Part(Vector2 position, ISprite sprite) : base(position, sprite)
         {
-            this.Hull = Hull;
         }
 
+        public CompositePart Hull {set; get;}
     }
 }
