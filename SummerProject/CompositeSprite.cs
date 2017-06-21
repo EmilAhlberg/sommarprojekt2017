@@ -41,7 +41,7 @@ namespace SummerProject
         private Vector2 origin;
         public Vector2 Origin
         {
-            get { Console.WriteLine(origin);  return origin; }
+            get { return origin; }
             set
             {
                 foreach (ISprite s in spriteList)
