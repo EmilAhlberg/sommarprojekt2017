@@ -108,8 +108,8 @@ namespace SummerProject
             CompositeSprite compSpr = new CompositeSprite();
 
             compSpr.addSprite(new Sprite(shipTex), new Vector2(0, 0));
-            compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
-            compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
+            //compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
+            //compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
 
             #endregion
 

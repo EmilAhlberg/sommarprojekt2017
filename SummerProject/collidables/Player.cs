@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.factories;
+using System.Collections.Generic;
 
 namespace SummerProject.collidables
 {
@@ -52,7 +53,7 @@ namespace SummerProject.collidables
                 {
                     if (Energy > 0)
                     {
-                        Particles.GenerateParticles(Position, 7, angle);
+                        Particles.GenerateEdgeParticles(sprite.CalculateEdges(), Position, sprite.Origin, 7, angle);
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
                     }
