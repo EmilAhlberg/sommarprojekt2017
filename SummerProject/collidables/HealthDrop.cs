@@ -17,7 +17,8 @@ namespace SummerProject.collidables
         {
             if (c2 is Player)
             {
-                ((Player)c2).Health += givesHealth; 
+                ((Player)c2).Health += givesHealth;
+                Particles.GenerateParticles(Position, 8);
                 Death();
             }
         }
