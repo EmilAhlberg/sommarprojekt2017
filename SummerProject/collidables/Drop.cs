@@ -2,11 +2,11 @@
 
 namespace SummerProject.collidables
 {
-    abstract class PowerUp : Projectile
+    abstract class Drop : Projectile
     {
         protected const float stdDespawnTime = 5f;
 
-        public PowerUp(Vector2 position, ISprite sprite) : base(position, sprite)
+        public Drop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             despawnTime = stdDespawnTime; 
         }

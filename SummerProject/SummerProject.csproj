@@ -63,10 +63,9 @@
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\AIEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
-    <Compile Include="collidables\PowerUp.cs" />
+    <Compile Include="collidables\Drop.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
-
     <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="factories\Drops.cs" />
     <Compile Include="framework\CollisionHandler.cs" />

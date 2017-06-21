@@ -26,7 +26,7 @@ namespace SummerProject
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
-        HealthPowerUp healthPowerUp;
+        Drops drops;
 
         public Game1()
         {
@@ -91,14 +91,17 @@ namespace SummerProject
             Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
+            Texture2D healthPackTex = Content.Load<Texture2D>("textures/dship2");
             #endregion
 
             #region Adding entity-sprites to lists
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
+            List<Sprite> dropSprites = new List<Sprite>();
             enemySprites.Add(new Sprite(enemyTex));        // order is important
             bulletSprites.Add(new Sprite(shotTex, 4));
             bulletSprites.Add(new Sprite(homingTex));
+            dropSprites.Add(new SummerProject.Sprite(healthPackTex));
             #endregion
 
             #region Testing composite sprite
@@ -119,8 +122,7 @@ namespace SummerProject
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            healthPowerUp = new HealthPowerUp(new Vector2(-500, -500), new Sprite(partTex1));
-            healthPowerUp.Spawn(new Vector2(500, 500));
+            drops = new Drops(dropSprites, 10);
             #endregion
 
             #region Adding sprites to particles
@@ -170,6 +172,7 @@ namespace SummerProject
             player.Update(gameTime);
             waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
+            drops.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
             KeepPlayerInScreen();
@@ -209,6 +212,7 @@ namespace SummerProject
             {
                 player.Reset();
                 projectiles.Reset();
+                drops.Reset();
                 //particles.Reset();
             }
             waveGenerator.Reset();
@@ -226,7 +230,10 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            collidableList.Add(healthPowerUp);
+            foreach (Collidable c in drops.EntityList)
+            {
+                collidableList.Add(c);
+            }
             colhandl.CheckCollisions(collidableList.ToArray(), player ,wall);
         }
 
@@ -275,7 +282,7 @@ namespace SummerProject
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             waveGenerator.Draw(spriteBatch, gameTime);
-            healthPowerUp.Draw(spriteBatch, gameTime);
+            drops.Draw(spriteBatch, gameTime);
             #endregion
         }
 
@@ -307,6 +314,7 @@ namespace SummerProject
             if (controlSheme == 4)
                 usingControls = "WASD : AD = Rotate";
 
+            drops.Spawn(new Vector2(500, 500));
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);

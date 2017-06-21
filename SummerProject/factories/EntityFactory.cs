@@ -18,7 +18,8 @@ namespace SummerProject.factories
             switch (type)
             {
                 case 0: return new Bullet(FarAway(), new Sprite(sprite));
-                case 1: return new HomingBullet(FarAway(), new Sprite(sprite));           
+                case 1: return new HomingBullet(FarAway(), new Sprite(sprite));
+                case 2: return new HealthPowerUp(FarAway(), new Sprite(sprite));
                 default:
                     throw new NotImplementedException();
             }
