@@ -14,9 +14,10 @@ namespace SummerProject.collidables
         public bool IsDead { get; private set; }
         public float Energy { get; set; }
 
-        private float shieldDischargeRate;
-        private float shieldRechargeRate;
-        private float maxEnergy;
+        private const float shieldDischargeRate = 0.1f;
+        private const float shieldRechargeRate = shieldDischargeRate / 10;
+        private const float maxEnergy = 100;
+        private const int shieldSize = 300;
         private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
@@ -31,11 +32,8 @@ namespace SummerProject.collidables
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
             Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-            maxEnergy = 100; //!
             Energy = maxEnergy;
-            shieldDischargeRate = 0.1f; //!
-            shieldRechargeRate = shieldDischargeRate / 10; //!
-            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, 300, 300), angle)); //! Set Shield size
+            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
         }
 
         public void Update(GameTime gameTime)
@@ -161,13 +159,10 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
-            if (c2 is Enemy)
+            if (!shieldOn && c2 is Enemy)
             {
-                if (!shieldOn)
-                {
                     Enemy e = c2 as Enemy;
                     Health -= e.Damage;
-                }
             }
         }
 

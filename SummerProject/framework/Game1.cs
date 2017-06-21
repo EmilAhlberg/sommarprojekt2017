@@ -26,6 +26,7 @@ namespace SummerProject
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
+        Drops drops;
 
         public Game1()
         {
@@ -90,15 +91,18 @@ namespace SummerProject
             Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
+            Texture2D healthPackTex = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             #endregion
 
             #region Adding entity-sprites to lists
             List<Sprite> bulletSprites = new List<Sprite>();
             List<Sprite> enemySprites = new List<Sprite>();
+            List<Sprite> dropSprites = new List<Sprite>();
             enemySprites.Add(new Sprite(enemyTex));        // order is important
             bulletSprites.Add(new Sprite(shotTex, 4));
             bulletSprites.Add(new Sprite(homingTex));
+            dropSprites.Add(new SummerProject.Sprite(healthPackTex));
             #endregion
 
             #region Testing composite sprite
@@ -119,6 +123,7 @@ namespace SummerProject
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
+            drops = new Drops(dropSprites, 10);
             #endregion
 
             #region Adding sprites to particles
@@ -169,6 +174,7 @@ namespace SummerProject
             player.Update(gameTime);
             waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
+            drops.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
             KeepPlayerInScreen();
@@ -208,6 +214,7 @@ namespace SummerProject
             {
                 player.Reset();
                 projectiles.Reset();
+                drops.Reset();
                 //particles.Reset();
             }
             waveGenerator.Reset();
@@ -222,6 +229,10 @@ namespace SummerProject
                 collidableList.Add(c);
             }
             foreach (Collidable c in projectiles.EntityList)
+            {
+                collidableList.Add(c);
+            }
+            foreach (Collidable c in drops.EntityList)
             {
                 collidableList.Add(c);
             }
@@ -245,7 +256,7 @@ namespace SummerProject
 
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health , new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
                 spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
@@ -273,6 +284,7 @@ namespace SummerProject
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             waveGenerator.Draw(spriteBatch, gameTime);
+            drops.Draw(spriteBatch, gameTime);
             #endregion
         }
 
@@ -304,6 +316,7 @@ namespace SummerProject
             if (controlSheme == 4)
                 usingControls = "WASD : AD = Rotate";
 
+            drops.Spawn(new Vector2(500, 500));
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
