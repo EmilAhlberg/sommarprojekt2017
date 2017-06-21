@@ -16,9 +16,9 @@ namespace SummerProject.collidables
         public static readonly Dictionary<int, int> HEALTH =
           new Dictionary<int, int>
           {
-                {DEFAULT, 10},
-                {PLAYER, 10},
-                {ENEMY, 10},
+                {DEFAULT, 5},
+                {PLAYER, 5},
+                {ENEMY, 5},
                 {BULLET, 1}
           };
 
@@ -26,9 +26,9 @@ namespace SummerProject.collidables
           new Dictionary<int, int>
           {
                 {DEFAULT, 1},
-                {PLAYER, 2},
-                {ENEMY, 2},
-                {BULLET, 10}
+                {PLAYER, 1},
+                {ENEMY, 1},
+                {BULLET, 5}
           };
 
         public static readonly Dictionary<int, float> MASS =

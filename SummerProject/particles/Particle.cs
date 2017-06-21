@@ -29,6 +29,28 @@ namespace SummerProject
             Thrust = 0;
         }
 
+        public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID)
+        {
+
+            this.sprite = sprite;
+            if (sprite is Sprite)
+                sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! If drawables constructor changes, so must this
+            Stop();
+            sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
+            Position = position;
+            AddForce(initialForce);
+            this.angle = angle;
+            this.angularVelocity = angularVelocity;
+            this.sprite.MColor = color;
+            baseScale = scale;
+            this.sprite.Scale = baseScale;
+            currentTTL = new Timer(TTL);
+            this.TTL = TTL;
+            this.ID = ID;
+            IsActive = true;
+            Thrust = 0;
+        }
+
         public void Update(GameTime gameTime)
         {
             Behaviour(ID);
