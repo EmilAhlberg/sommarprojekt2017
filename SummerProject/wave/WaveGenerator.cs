@@ -11,48 +11,49 @@ using Microsoft.Xna.Framework;
 namespace SummerProject
 {
     public class WaveGenerator
-    {      
+    {
+        public const int INCREASING_PRESSURE = 1;
+        public const int WAVESPAWN_MODE = 2;
+
+        private int mode;
+        
+
         private List<Sprite> enemySprites;
         private Enemies enemies;
-        private Player player;
-      
-        private Random rand;
-        private Vector2[] spawnPoints;
+        private Player player;      
+       
         private bool isActive;
-        SpawnCalculator spawnCalc;
+        private SpawnCalculator spawnCalc;
 
         public WaveGenerator(List<Sprite> enemySprites, Player player, int windowWidth, int windowHeight)
         {
             this.enemySprites = enemySprites;
             this.player = player;
-            spawnCalc = new SpawnCalculator();    
-
-           
-            rand = new Random();
-
-            spawnPoints = new Vector2[8];
-            spawnPoints[0] = new Vector2(-50, -50);     // Top left
-            spawnPoints[1] = new Vector2(windowWidth + 50, -50);  // top right
-            spawnPoints[2] = new Vector2(-50, windowHeight + 50); // bottom left
-            spawnPoints[3] = new Vector2(windowWidth + 50, windowHeight + 50); // bottom right
-            spawnPoints[4] = new Vector2(windowWidth + 50, windowHeight / 2); // right  (bugged)
-            spawnPoints[5] = new Vector2(-50, windowHeight / 2); // left      (bugged)
-            spawnPoints[6] = new Vector2(windowWidth / 2, windowHeight + 50); // bottom
-            spawnPoints[7] = new Vector2(windowWidth / 2, -50); // top
-
-
-
-            enemies = new Enemies(enemySprites, player, 30);
+            mode = INCREASING_PRESSURE;       
+            spawnCalc = new SpawnCalculator(mode, windowWidth, windowHeight);    
+            enemies = new Enemies(enemySprites, player, 30); //!
         }
 
         public void Update(GameTime gameTime)
         {
             CheckActive();
-            if (isActive)
-            {
+            if (isActive)            
                 UpdateWave(gameTime);                
-            }
+            
             enemies.Update(gameTime);
+            UpdateMode();                       
+        }
+
+        private void UpdateMode()
+        {
+            if (ScoreHandler.Score > 5000 && mode != WAVESPAWN_MODE) //!!
+            {                      
+                if (mode == INCREASING_PRESSURE)
+                    mode = WAVESPAWN_MODE;
+                //if (mode == WAVESPAWN_MODE)
+                //    mode = INCREASING_PRESSURE;
+                spawnCalc.SetGameMode(mode);
+            }
         }
 
         private void UpdateWave(GameTime gameTime)
@@ -60,10 +61,9 @@ namespace SummerProject
             spawnCalc.Update(gameTime);
             if(spawnCalc.SpawnIsReady)
             {
-                enemies.Spawn(spawnPoints[(int)(rand.NextDouble() * 8)]); //!
+                enemies.Spawn(spawnCalc.GetSpawnPoint());
                 spawnCalc.JustSpawned();
-            }     
-               
+            }               
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -74,6 +74,8 @@ namespace SummerProject
         public void Reset()
         {
             enemies.Reset();
+            mode = INCREASING_PRESSURE; //DEFAULT
+            spawnCalc.SetGameMode(mode);
         }
 
         private void CheckActive()
@@ -95,9 +97,4 @@ namespace SummerProject
             return enemies.EntityList;
         }
     }
-
-    
-
-
-
 }

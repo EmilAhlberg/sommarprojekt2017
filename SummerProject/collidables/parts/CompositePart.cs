@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public abstract class CompositePart : Collidable
+    public abstract class CompositePart : Part
     {
         protected Link[] parts;
 
@@ -19,26 +20,82 @@ namespace SummerProject
         public bool AddPart(Part p, int slot) {
             if (slot < parts.Length)
             {
-                p.Position = Position;
-                parts[slot].SetPart(p);
                 p.Hull = this;
+                SetPart(p, slot);
                 return true;
             }
             return false;
+        }
+
+        private void SetPart(Part p, int slot)
+        {
+            p.Position = Position;
+            parts[slot].SetPart(p);
+        }
+
+        public void UpdateParts(float angle)
+        {
+            Matrix rot = Matrix.CreateRotationZ(angle);
+            for (int i = 0; i < parts.Length; i++)
+            {
+                if (parts[i].Part != null)
+                {
+                    parts[i].RelativePos = Vector2.Transform(parts[i].RelativePos, rot);
+                    SetPart(parts[i].Part,i);
+                    if(parts[i].Part is CompositePart)
+                    {
+                        ((CompositePart)parts[i].Part).UpdateParts(angle);
+                    }
+                }
+            }
+        }
+
+        protected override void Move()
+        {
+            float prevAngle = angle;
+            base.Move();
+            UpdateParts(angle-prevAngle);
+        }
+
+        public override void Draw(SpriteBatch sb, GameTime gameTime)
+        {
+            base.Draw(sb, gameTime);
+            foreach(Link p in parts)
+            {
+                if (p.Part != null)
+                    p.Part.Draw(sb, gameTime);
+            }
+
+        }
+
+        public List<Part> GetParts()
+        {
+            List<Part> totalParts = new List<Part>();
+            totalParts.Add(this);
+
+            foreach(Link p in parts)
+            {
+                if (p.Part != null) {
+                    if (p.Part is CompositePart)
+                        totalParts.AddRange(((CompositePart)p.Part).GetParts());
+                    else
+                        totalParts.Add(p.Part);
+                }
+            }
+            return totalParts;  
         }
 
         protected abstract void AddLinkPositions();
 
         protected class Link
         {
-            public Vector2 RelativePos { private set; get; }
-            public float Angle { private set; get; }
+            public Vector2 RelativePos { set; get; }
+            public float Angle { get { return (float)Math.Atan((RelativePos.Y / RelativePos.X)); } }
             public Part Part { private set; get; } = null;
 
             public Link(Vector2 relativePos, float angle)
             {
                 RelativePos = relativePos;
-                Angle = angle;
             }
 
             public void SetPart(Part p)
@@ -48,7 +105,6 @@ namespace SummerProject
                 Part = p;
             }
         }
-
     }
 }
 
