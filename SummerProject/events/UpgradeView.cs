@@ -11,11 +11,8 @@ namespace SummerProject.framework
     public class UpgradeView
     {
         private Texture2D text;
-
         private List<Color> colors;
         private List<Rectangle> rects;
-    
-        private Color color;
 
         public UpgradeView(Texture2D text)
         {

@@ -21,7 +21,8 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        Enemies enemies;
+        WaveGenerator waveGenerator;
+        //Enemies enemies;
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
@@ -112,9 +113,10 @@ namespace SummerProject
             #region Initializing game objects etc.
             eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(bulletSprites, 30);
+            projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             healthPowerUp = new HealthPowerUp(new Vector2(-500, -500), new Sprite(partTex1));
@@ -166,7 +168,7 @@ namespace SummerProject
         {
             #region Update for game state
             player.Update(gameTime);
-            enemies.Update(gameTime);
+            waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
@@ -209,14 +211,14 @@ namespace SummerProject
                 projectiles.Reset();
                 //particles.Reset();
             }
-            enemies.Reset();
+            waveGenerator.Reset();
             ScoreHandler.Reset();
         }
 
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in enemies.EntityList)
+            foreach (Collidable c in waveGenerator.CollidableList())
             {
                 collidableList.Add(c);
             }
@@ -272,7 +274,7 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
-            enemies.Draw(spriteBatch, gameTime);
+            waveGenerator.Draw(spriteBatch, gameTime);
             healthPowerUp.Draw(spriteBatch, gameTime);
             #endregion
         }
