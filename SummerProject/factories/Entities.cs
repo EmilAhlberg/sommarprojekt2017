@@ -36,7 +36,7 @@ namespace SummerProject.factories
                     e.Death();
         }
 
-        protected bool ActivateEntities(Vector2 source, Vector2 target)
+        public  bool ActivateEntities(Vector2 source, Vector2 target)
         {
             foreach (AIEntity e in EntityList)
             {

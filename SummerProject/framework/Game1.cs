@@ -123,7 +123,7 @@ namespace SummerProject
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            drops = new Drops(dropSprites, 10);
+            drops = new Drops(dropSprites, 10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #endregion
 
             #region Adding sprites to particles
@@ -178,6 +178,7 @@ namespace SummerProject
             Particles.Update(gameTime);
             HandleAllCollisions();
             KeepPlayerInScreen();
+            drops.Spawn();
             #endregion
         }
 
@@ -315,8 +316,6 @@ namespace SummerProject
                 usingControls = "Mouse only";
             if (controlSheme == 4)
                 usingControls = "WASD : AD = Rotate";
-
-            drops.Spawn(new Vector2(500, 500));
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
