@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables.parts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public abstract class CompositePart : Part
+    public abstract class CompositePart : Part, IPartCarrier
     {
         protected Link[] parts;
 
-        public CompositePart(Vector2 position, ISprite sprite) : base(position, sprite)
+        public CompositePart(Vector2 position, ISprite sprite, CompositePart hull) : base(position, sprite, hull)
         {
             AddLinkPositions();
         }
 
-        public bool AddPart(Part p, int slot) {
-            if (slot < parts.Length)
+        public bool AddPart(Part part, int pos) {
+            if (pos < parts.Length)
             {
-                p.Hull = this;
-                SetPart(p, slot);
+                part.Hull = this;
+                SetPart(part, pos);
                 return true;
             }
             return false;
         }
 
-        private void SetPart(Part p, int slot)
+        private void SetPart(Part p, int pos)
         {
             p.Position = Position;
-            parts[slot].SetPart(p);
+            parts[pos].SetPart(p);
         }
 
         public void UpdateParts(float angle)
@@ -41,6 +42,7 @@ namespace SummerProject
                 if (parts[i].Part != null)
                 {
                     parts[i].RelativePos = Vector2.Transform(parts[i].RelativePos, rot);
+                    parts[i].Angle += angle;
                     SetPart(parts[i].Part,i);
                     if(parts[i].Part is CompositePart)
                     {
@@ -90,7 +92,7 @@ namespace SummerProject
         protected class Link
         {
             public Vector2 RelativePos { set; get; }
-            public float Angle { get { return (float)Math.Atan((RelativePos.Y / RelativePos.X)); } }
+            public float Angle { set;get; }
             public Part Part { private set; get; } = null;
 
             public Link(Vector2 relativePos, float angle)
