@@ -11,7 +11,7 @@ namespace SummerProject.factories
         public Drops(List<Sprite> sprites, int entityCap) : base(sprites, entityCap)
         {
             spawnTimer = new Timer(spawnTime);
-            InitializeEntities(2);
+            InitializeEntities(0);
         }
 
         public void Spawn(Vector2 source)
@@ -35,9 +35,9 @@ namespace SummerProject.factories
             ResetEntities();
         }
 
-        protected override AIEntity CreateEntity(int type) // health pack = 2
+        protected override AIEntity CreateEntity(int type) 
         {
-            return EntityFactory.CreateEntity(Sprites[0], type);  // temp fix, we want different EntityFactories in the future
-        }                                                         // i.e. BulletFactory, DropFactory
+            return EntityFactory.CreateDrop(Sprites[0], type);  
+        }                                                        
     }
 }

@@ -59,7 +59,7 @@ namespace SummerProject.factories
 
         protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(Sprites[index], bulletType);
+            return EntityFactory.CreateProjectile(Sprites[index], bulletType);
         }
     }
 }

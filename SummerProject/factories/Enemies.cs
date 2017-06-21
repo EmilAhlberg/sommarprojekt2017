@@ -31,7 +31,7 @@ namespace SummerProject.factories
         }
         protected override AIEntity CreateEntity(int index)
         {
-            return EntityFactory.CreateEntity(Sprites[index], player);
+            return EntityFactory.CreateEnemy(Sprites[index], player);
         }
     }
 }
