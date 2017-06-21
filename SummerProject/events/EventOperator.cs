@@ -107,8 +107,8 @@ namespace SummerProject
             switch (NewGameState)
             {
                 case EventOperator.MENU_STATE:
-                    //if (GameState == EventOperator.GAME_OVER_STATE)
-                    //    game.ResetGame(true);
+                    if (GameState == EventOperator.GAME_OVER_STATE)
+                        game.ResetGame(true);
                     menu.CurrentMenu = MenuConstants.MAIN;
                     break;
                 case EventOperator.GAME_STATE:

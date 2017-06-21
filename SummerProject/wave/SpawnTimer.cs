@@ -13,7 +13,9 @@ namespace SummerProject.wave
         private const float TIMER2_INCREASINGMODE = 3f;
 
         private const float TIMER1_WAVESPAWNMODE = 2.5f;
-        private const float TIMER2_WAVESPAWNMODE = 0.06f;
+       // private const float TIMER2_WAVESPAWNMODE = 0.06f;
+
+       private const float TIMER1_DEBUGMODE = 30f;
 
 
         private float increasingModeTimeCap = 0.4f;
@@ -40,7 +42,10 @@ namespace SummerProject.wave
                     break;
                 case WaveGenerator.WAVESPAWN_MODE:
                     timer1.maxTime = TIMER1_WAVESPAWNMODE;
-                    //timer2.maxTime = TIMER2_WAVESPAWNMODE;                   
+                    break;
+                //timer2.maxTime = TIMER2_WAVESPAWNMODE;              
+                case WaveGenerator.DEBUG_MODE:
+                    timer1.maxTime = TIMER1_DEBUGMODE;     
                     break;
             }
             timer1.Reset();
@@ -58,7 +63,10 @@ namespace SummerProject.wave
                     return timer1.IsFinished;                    
                 case WaveGenerator.WAVESPAWN_MODE:
                     WaveSpawnMode(gameTime);
-                    return timer1.IsFinished;                    
+                    return timer1.IsFinished;
+                case WaveGenerator.DEBUG_MODE:
+                    WaveSpawnMode(gameTime); //!
+                    return timer1.IsFinished;                
             }
 
             return false;

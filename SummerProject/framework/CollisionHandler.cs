@@ -64,7 +64,6 @@ namespace SummerProject
                 MoveObject(c1, c2);
             c1.Collision(c2);
             c2.Collision(c1);
-
         }
 
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
@@ -72,7 +71,7 @@ namespace SummerProject
             Vector2 collidedPos = c1.Position;
             Vector2 backVect;
             backVect = c1.PrevPos - c2.Position;
-            if(backVect.Length() == 0)
+            while(backVect.Length() == 0)
             {
                 Random rand = new Random();
                 backVect = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1); //! LOL

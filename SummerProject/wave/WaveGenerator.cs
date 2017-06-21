@@ -13,6 +13,7 @@ namespace SummerProject
 {
     public class WaveGenerator
     {
+        public const int DEBUG_MODE = 0;
         public const int INCREASING_PRESSURE = 1;
         public const int WAVESPAWN_MODE = 2;
 
@@ -56,6 +57,13 @@ namespace SummerProject
             if (InputHandler.isJustPressed(Keys.F2))
             {
                 mode = WAVESPAWN_MODE;
+                spawnCalc.SetGameMode(mode);
+            }
+
+
+            if (InputHandler.isJustPressed(Keys.F3))
+            {
+                mode = DEBUG_MODE;
                 spawnCalc.SetGameMode(mode);
             }
         }

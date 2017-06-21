@@ -80,6 +80,7 @@
     <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="events\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="events\menu\GameOverMenu.cs" />
     <Compile Include="events\menu\MainMenu.cs" />
