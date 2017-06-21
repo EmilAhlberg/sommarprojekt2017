@@ -28,9 +28,9 @@ namespace SummerProject
             spawnPointGen.ChangeMode(modeType);    
         }
 
-        public Vector2 GetSpawnPoint()
+        public Vector2[] GetSpawnPoints()
         {
-            return spawnPointGen.GetSpawnPoint();
+            return spawnPointGen.GetSpawnPoints();
         }
         
         public void JustSpawned()
@@ -41,7 +41,7 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             SpawnIsReady = spawnTimer.Update(gameTime);
-            spawnPointGen.Update(gameTime);      
+            spawnPointGen.Update(gameTime, ScoreHandler.Score / 1000 +1);      //!
         }
     }
 }

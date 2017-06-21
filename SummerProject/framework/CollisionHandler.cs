@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using System;
 using System.Linq;
 
 namespace SummerProject
@@ -71,6 +72,11 @@ namespace SummerProject
             Vector2 collidedPos = c1.Position;
             Vector2 backVect;
             backVect = c1.PrevPos - c2.Position;
+            if(backVect.Length() == 0)
+            {
+                Random rand = new Random();
+                backVect = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1); //! LOL
+            }
             backVect.Normalize();
             backVect *= 0.2f;
             float dotProd = Vector2.Dot(backVect, c1.Velocity);

@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
-    class Enemy : AIEntity
+    class Enemy : AIEntity, IPartCarrier
     {        
         public int WorthScore {get; private set;}
         private Player player;
@@ -58,6 +59,11 @@ namespace SummerProject
         {
             Particles.GenerateParticles(Position, 2, angle); //Death animation
             base.Death();
+        }
+
+        public bool AddPart(Part part, int pos)
+        {
+            throw new NotImplementedException();
         }
     }
 }

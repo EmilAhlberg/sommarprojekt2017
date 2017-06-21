@@ -27,7 +27,7 @@ namespace SummerProject.collidables
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
             Stop();
-            AddSpeed(30);
+            AddSpeed(30); //!
             ResetSpawnTime(); 
         }
 
