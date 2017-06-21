@@ -27,6 +27,7 @@ namespace SummerProject
         Sprite background;
         CollisionHandler colhandl;
         Drops drops;
+        const bool SPAWN_ENEMIES = true;
 
         public Game1()
         {
@@ -172,7 +173,8 @@ namespace SummerProject
         {
             #region Update for game state
             player.Update(gameTime);
-            waveGenerator.Update(gameTime);         
+            if(SPAWN_ENEMIES)
+                waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
             drops.Update(gameTime);
             Particles.Update(gameTime);
