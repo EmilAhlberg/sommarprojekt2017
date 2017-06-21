@@ -35,7 +35,7 @@ namespace SummerProject
             this.sprite = sprite;
             if (sprite is Sprite)
                 sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! If drawables constructor changes, so must this
-
+            Stop();
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
             AddForce(initialForce);
