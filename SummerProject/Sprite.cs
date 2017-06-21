@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -53,13 +55,52 @@ namespace SummerProject
         }
 
         public void Animate(GameTime gameTime)
-        {
+        {            
             currentFrame += (float)gameTime.ElapsedGameTime.TotalSeconds * fps;
             if ((int)currentFrame > subimages - 1)
             {
                 currentFrame = 0;
             }
             SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
+        }
+
+        public List<Vector2> CalculateEdges()
+        {
+            Color[] colors1D = new Color[texture.Width*texture.Height];
+            texture.GetData(colors1D);
+            Color[,] colors2D = new Color[texture.Width, texture.Height];
+            for(int x = 0; x < texture.Width; x++)
+                for(int y = 0; y < texture.Height; y++)
+                {
+                    colors2D[x, y] = colors1D[x + y * texture.Width];
+                }
+            
+            List<Vector2> edgeList = new List<Vector2>();
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < texture.Height; y++)
+                {
+                    if (colors2D[x, y].A != 0)
+                    {
+                        if (x == 0 || x == texture.Width - 1 || y == 0 || y == texture.Height - 1)
+                        {
+                             edgeList.Add(new Vector2(x, y));
+                        }
+                        else
+                            for (int i = -1; i <= 1; i++)
+                                for (int j = -1; j <= 1; j++)
+                                    if (!(i == j))
+                                    {
+                                        if (colors2D[x + i, y + j].A == 0)
+                                        {
+                                            edgeList.Add(new Vector2(x, y));
+                                            break;
+                                        }
+                                    }
+                    }
+                }
+            for(int i = 0; i < edgeList.Count; i++)
+                edgeList[i] = Vector2.Transform(edgeList[i] - Origin, Matrix.CreateRotationZ(Rotation));
+            return edgeList;
         }
     }
 }
