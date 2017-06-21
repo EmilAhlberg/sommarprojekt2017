@@ -47,17 +47,6 @@ namespace SummerProject
             get { return base.Position; }
         }
 
-        public Vector2 Origin
-        {
-            set
-            {
-
-            }
-            get
-            {
-
-            }
-        }
         protected override void Move()
         {
             base.Move();
