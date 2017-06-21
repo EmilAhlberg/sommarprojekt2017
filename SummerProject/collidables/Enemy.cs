@@ -9,6 +9,7 @@ namespace SummerProject
     {        
         public int WorthScore {get; private set;}
         private Player player;
+        protected CompositePart Hull;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
@@ -16,7 +17,8 @@ namespace SummerProject
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
-            WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];                  
+            WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
+            //Hull = new RectangularHull(position, sprite);                
         }
 
         public override void Update(GameTime gameTime)

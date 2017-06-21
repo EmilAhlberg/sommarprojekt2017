@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SummerProject.collidables.parts
 {
-    interface IPartCarrier
+    public interface IPartCarrier
     {
         bool AddPart(Part part, int pos);
+        void Collision(Collidable c2);
     }
 }

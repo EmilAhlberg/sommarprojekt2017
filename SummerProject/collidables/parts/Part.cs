@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
     public abstract class Part : Collidable
     {
-        public CompositePart Hull { set; get; }
-        public Part(Vector2 position, ISprite sprite, CompositePart hull) : base(position, sprite)
+        public IPartCarrier Carrier { set; get; }
+        public Part(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite)
         {
-            Hull = hull;
+            Carrier = carrier;
         }
 
         public virtual void Collission(Collidable c2)
         {
-            Hull.Collision(c2);
+            Carrier.Collision(c2);
         }
     }
 }
