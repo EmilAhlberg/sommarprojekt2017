@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace SummerProject.collidables
 {
-    class HealthPowerUp : Drop
+    class HealthDrop : Drop
     {
         private const int givesHealth = 1;
-        public HealthPowerUp(Vector2 position, ISprite sprite) : base(position, sprite)
+        public HealthDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
         }
         public override void Collision(Collidable c2)
