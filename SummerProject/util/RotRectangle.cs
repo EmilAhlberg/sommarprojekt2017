@@ -12,8 +12,22 @@ namespace SummerProject
         private Vector2 UR { set; get; }
         public int Width { set; get; }
         public int Height { set; get; }
-        public Vector2 origin { get; }
-        private float angle { set; get; } = 0;
+        private Vector2 origin;
+        public Vector2 Origin
+        {
+            set
+            {
+                Vector2 DRUL = (DR - UL) / 2;
+                Vector2 URDL = (UR - DL) / 2;
+                UL = value + location - DRUL;
+                DR = value + location + DRUL;
+                DL = value + location - URDL;
+                UR = value + location + URDL;
+                origin = value;
+            }
+            get { return origin; }
+        }
+        private float angle = 0;
         public float Angle
         {
             set
@@ -22,19 +36,20 @@ namespace SummerProject
             }
             get { return angle; }
         }
+        private Vector2 location;
         public Vector2 Location
         {
             set
             {
-                Vector2 DRUL = Vector2.Divide(Vector2.Subtract(DR, UL), 2);
-                Vector2 URDL = Vector2.Divide(Vector2.Subtract(UR, DL), 2);
-                UL = Vector2.Subtract(value, DRUL);
-                DR = Vector2.Add(value, DRUL);
-                DL = Vector2.Subtract(value, URDL);
-                UR = Vector2.Add(value, URDL);
-
+                Vector2 DRUL = (DR - UL) / 2;
+                Vector2 URDL = (UR - DL) / 2;
+                UL = value + origin - DRUL;
+                DR = value + origin + DRUL;
+                DL = value + origin - URDL;
+                UR = value + origin + URDL;
+                location = value;
             }
-            get { return Vector2.Add(UL, Vector2.Divide(Vector2.Subtract(DR, UL), 2)); }
+            get { return location; }
         }
 
         public RotRectangle(Rectangle rect, float angleRad)
@@ -43,21 +58,22 @@ namespace SummerProject
             this.DL = new Vector2(rect.Left, rect.Bottom);
             this.DR = new Vector2(rect.Right, rect.Bottom);
             this.UR = new Vector2(rect.Right, rect.Top);
+            Location = new Vector2(rect.Location.X, rect.Location.Y);
             Width = rect.Width;
             Height = rect.Height;
             Rotate(angleRad);
-            origin = Vector2.Divide(Vector2.Subtract(DR, UL), 2);
+            origin = Vector2.Zero;
         }
 
         public void Rotate(float angleRad)
         {
             angle = (angle + angleRad) % (float)(2 * Math.PI);
-            Vector2 loc = new Vector2(Location.X, Location.Y);
             Matrix rotation = Matrix.CreateRotationZ(angleRad);
-            UL = Vector2.Add(loc, Vector2.Transform(UL - loc, rotation));
-            DL = Vector2.Add(loc, Vector2.Transform(DL - loc, rotation));
-            DR = Vector2.Add(loc, Vector2.Transform(DR - loc, rotation));
-            UR = Vector2.Add(loc, Vector2.Transform(UR - loc, rotation));
+            UL = Vector2.Add(location, Vector2.Transform(UL - location - origin, rotation));
+            DL = Vector2.Add(location, Vector2.Transform(DL - location - origin, rotation));
+            DR = Vector2.Add(location, Vector2.Transform(DR - location - origin, rotation));
+            UR = Vector2.Add(location, Vector2.Transform(UR - location - origin, rotation));
+            Location = Vector2.Transform(location, rotation);
         }
 
         public bool Intersects(RotRectangle r)

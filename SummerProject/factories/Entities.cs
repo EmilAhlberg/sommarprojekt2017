@@ -9,14 +9,12 @@ namespace SummerProject.factories
     {
         public List<Sprite> Sprites { get; }
         protected int entityCap;
-        public List<AIEntity> EntityList { get; private set; }
-        protected Timer eventTimer { get; set; }
+        public List<AIEntity> EntityList { get; private set; }       
 
-        public Entities(List<Sprite> sprites, int entityCap, float eventTime)
+        public Entities(List<Sprite> sprites, int entityCap)
         {
             this.Sprites = sprites;
-            this.entityCap = entityCap;
-            eventTimer = new Timer(eventTime);
+            this.entityCap = entityCap;            
             EntityList = new List<AIEntity>();
         }
 
@@ -38,17 +36,17 @@ namespace SummerProject.factories
                     e.Death();
         }
 
-        protected void ActivateEntities(Vector2 source, Vector2 target)
+        protected bool ActivateEntities(Vector2 source, Vector2 target)
         {
             foreach (AIEntity e in EntityList)
             {
                 if (!e.IsActive)
                 {
-                    e.Activate(source, target);
-                    eventTimer.Reset();
-                    break;
+                    e.Activate(source, target);                   
+                    return true;                  
                 }
             }
+            return false;
         }
 
         protected void RemoveInactiveType(AIEntity type)
@@ -71,8 +69,7 @@ namespace SummerProject.factories
             {
                 if (e.IsActive)
                     e.Update(gameTime);
-            }
-            eventTimer.CountDown(gameTime);
+            }            
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

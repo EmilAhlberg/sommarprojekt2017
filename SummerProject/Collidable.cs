@@ -47,6 +47,16 @@ namespace SummerProject
             get { return base.Position; }
         }
 
+        public Vector2 Origin
+        {
+            set
+            {
+                BoundBoxes[0].Origin = value;
+                sprite.Origin = value;
+            }
+            get{ return sprite.Origin; }
+        }
+
         protected override void Move()
         {
             base.Move();

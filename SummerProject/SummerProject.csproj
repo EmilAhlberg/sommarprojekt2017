@@ -64,26 +64,27 @@
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
-	<Compile Include="framework\AnimatedEventHandler.cs" />
+
+    <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />
-    <Compile Include="framework\EventOperator.cs" />
+    <Compile Include="events\EventOperator.cs" />
     <Compile Include="factories\Enemies.cs" />
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\EntityTypes.cs" />
-    <Compile Include="framework\UpgradeView.cs" />
+    <Compile Include="events\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="ISprite.cs" />
-    <Compile Include="menu\GameOverMenu.cs" />
-    <Compile Include="menu\MainMenu.cs" />
-    <Compile Include="menu\Menu.cs" />
-    <Compile Include="menu\MenuComponent.cs" />
-    <Compile Include="menu\MenuConstants.cs" />
-    <Compile Include="menu\PauseMenu.cs" />
-    <Compile Include="menu\SettingsMenu.cs" />
-    <Compile Include="menu\UpgradeMenu.cs" />
+    <Compile Include="events\menu\GameOverMenu.cs" />
+    <Compile Include="events\menu\MainMenu.cs" />
+    <Compile Include="events\menu\Menu.cs" />
+    <Compile Include="events\menu\MenuComponent.cs" />
+    <Compile Include="events\menu\MenuConstants.cs" />
+    <Compile Include="events\menu\PauseMenu.cs" />
+    <Compile Include="events\menu\SettingsMenu.cs" />
+    <Compile Include="events\menu\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
+    <Compile Include="SpawnCalculator.cs" />
     <Compile Include="util\RotRectangle.cs" />
     <Compile Include="framework\ScoreHandler.cs" />
     <Compile Include="Sprite.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="collidables\Wall.cs" />
     <Compile Include="util\Timer.cs" />
+    <Compile Include="WaveGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
