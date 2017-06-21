@@ -37,21 +37,24 @@ namespace SummerProject.wave
 
         public void ChangeMode(int modeType)
         {
-            switch(modeType)
-            {
-                case WaveGenerator.INCREASING_PRESSURE:
-                    spawnSize = 1; //! DEFAULT
-                    break;
-                case WaveGenerator.WAVESPAWN_MODE:
-                    spawnSize = 5; //! DEFAULT
-                    break;
-            }
+            //switch(modeType)
+            //{
+            //    case WaveGenerator.INCREASING_PRESSURE:
+            //        spawnSize = 1; //! DEFAULT
+            //        break;
+            //    case WaveGenerator.WAVESPAWN_MODE:
+            //        spawnSize = 5; //! DEFAULT
+            //        break;
+            //}
             mode = modeType;
         }
 
-        public void Update(GameTime gameTime, int spawnSize)
+        public void Update(GameTime gameTime)
         {
-            this.spawnSize = spawnSize;
+            if (mode == WaveGenerator.WAVESPAWN_MODE)
+                spawnSize = ScoreHandler.Score / 1000 + 1;
+            else
+                spawnSize = 1;        
         }
 
         public Vector2[] GetSpawnPoints()
