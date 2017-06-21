@@ -213,10 +213,10 @@ namespace SummerProject
             if (fullReset)
             {
                 player.Reset();
-                projectiles.Reset();
-                drops.Reset();
                 Particles.Reset();
             }
+            projectiles.Reset();
+            drops.Reset();           
             waveGenerator.Reset();
             ScoreHandler.Reset();
         }
