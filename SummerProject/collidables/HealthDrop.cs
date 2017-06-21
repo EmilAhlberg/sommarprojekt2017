@@ -9,7 +9,7 @@ namespace SummerProject.collidables
 {
     class HealthDrop : Drop
     {
-        private const int givesHealth = 1;
+        private const int heal = 1;
         public HealthDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
         }
@@ -17,7 +17,7 @@ namespace SummerProject.collidables
         {
             if (c2 is Player)
             {
-                ((Player)c2).Health += givesHealth; 
+                ((Player)c2).Health += heal; 
                 Death();
             }
         }
