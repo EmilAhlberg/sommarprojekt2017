@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -13,5 +14,6 @@ namespace SummerProject
         Color MColor { get; set; }
         void Draw(SpriteBatch sb, GameTime gameTime);
         void Animate(GameTime gameTime);
+        List<Vector2> CalculateEdges();
     }
 }

@@ -41,6 +41,21 @@ namespace SummerProject
             }
         }
 
+        public static void GenerateEdgeParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
+        { 
+            Random rand = new Random();
+            switch (ID)
+            {
+                case 7:
+                    
+                    for (int i = 0; i < 10; i++)
+                    {
+                        GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
+                    }
+                    break;
+            }
+        }
+
         public static void GenerateParticles(Vector2 position, int ID, float angle = 0)
         {
             Vector2 initialForce = Vector2.Zero; //TODO: FIX
@@ -51,7 +66,7 @@ namespace SummerProject
 
             switch (ID)
             {
-                #region Nothing
+                #region Nothing 1
                 case 1:
                     {
                         particles.Add(new Particle(new Sprite(spriteList[0]), position, initialForce, angle, angularVelocity, color, scale, ttl, 1));
@@ -59,7 +74,7 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Enemy Explosion
+                #region Enemy Explosion 2
                 case 2:
                     {
                         initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -70,7 +85,7 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Player Explosion
+                #region Player Explosion 3
                 case 3:
                     {
                         initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -81,7 +96,7 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Thruster Trail
+                #region Thruster Trail 4
                 case 4:
                     {
                         CreateTrail(angle, position, 5, 40, 0, Color.MonoGameOrange, 0, 2, 0.3f);
@@ -89,7 +104,7 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Bullet Explosion
+                #region Bullet Explosion 5
                 case 5:
                     {
                         CreateExplosion(10, position, 10, 40, 0.5f, Color.CornflowerBlue, 1, 0.5f, ttl);
@@ -97,7 +112,7 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Bullet Trail
+                #region Bullet Trail 6
                 case 6:
                     {
                         CreateTrail(angle, position, 1, 20, 0, Color.CornflowerBlue, 0, 1, 0.3f);
@@ -105,10 +120,10 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Shield Visuals
+                #region Shield Visuals 7
                 case 7:
                     {
-                        CreateCircle(10, position, 0, 50, 0, Color.Yellow, 1, 0.5f, 0.4f);
+                        particles.Add(new Particle(new Sprite(spriteList[0]), position, Vector2.Zero, angle, 0, Color.Yellow, 1, 0.2f, 1));
                         break;
                     }
                     #endregion

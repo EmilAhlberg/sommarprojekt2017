@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -40,7 +41,7 @@ namespace SummerProject
         private Vector2 origin;
         public Vector2 Origin
         {
-            get { return origin; }
+            get { Console.WriteLine(origin);  return origin; }
             set
             {
                 foreach (ISprite s in spriteList)
@@ -73,7 +74,7 @@ namespace SummerProject
         {
             if (spriteList.Count == 0)
             {
-                Origin = s.Origin;
+                Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2);
                 SpriteRect = s.SpriteRect;
             }
             s.Origin = new Vector2(s.SpriteRect.Width / 2, s.SpriteRect.Height / 2); //! hmmm
@@ -95,6 +96,11 @@ namespace SummerProject
             {
                 s.Draw(sb, gameTime);
             }
+        }
+
+        public List<Vector2> CalculateEdges()
+        {
+            return spriteList[0].CalculateEdges(); //!
         }
     }
 }
