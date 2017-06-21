@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.factories;
 using System.Collections.Generic;
+using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables
 {
-    public class Player : Entity
+    public class Player : Entity, IPartCarrier
     {
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
         public float Energy { get; set; }
-
         private const float shieldDischargeRate = 0.1f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
         private const float maxEnergy = 100;
@@ -21,6 +21,7 @@ namespace SummerProject.collidables
         private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
+        protected CompositePart Hull;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
             : base(position, sprite)
@@ -34,6 +35,7 @@ namespace SummerProject.collidables
             Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Energy = maxEnergy;
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
+            //Hull = new RectangularHull(position, sprite);
         }
 
         public void Update(GameTime gameTime)
@@ -181,6 +183,11 @@ namespace SummerProject.collidables
             Stop();
             IsDead = false;
 
+        }
+
+        public bool AddPart(Part part, int pos)
+        {
+            throw new NotImplementedException();
         }
     }
 }
