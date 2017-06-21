@@ -6,19 +6,23 @@ namespace SummerProject.factories
 {
     public class Projectiles : Entities
     {
-        private int bulletType;
         private const float reloadTime = 0.3f;
-        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap, reloadTime) //!!
+        private int bulletType;
+        private Timer reloadTimer;
+
+        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap)
         {
             bulletType = EntityTypes.BULLET;
+            reloadTimer = new Timer(reloadTime);
             InitializeEntities(0);
         }
 
         public void Fire(Vector2 source, Vector2 target)
         {
-            if (eventTimer.IsFinished)
+            if (reloadTimer.IsFinished)
             {
-                ActivateEntities(source, target);
+                if (ActivateEntities(source, target))
+                    reloadTimer.Reset();
             }
         }
 
@@ -31,7 +35,7 @@ namespace SummerProject.factories
 
         public override void Reset()
         {
-            eventTimer.Reset();
+            reloadTimer.Reset();
             ResetEntities();
         }
 
@@ -39,6 +43,7 @@ namespace SummerProject.factories
         {
             UpdateEntities(gameTime);
             RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
+            reloadTimer.CountDown(gameTime);
         }
 
         private void RemoveAbundantType()

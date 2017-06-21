@@ -37,8 +37,6 @@ namespace SummerProject.framework
             }
             return false;
         }
-       
-
 
         internal void Reset()
         {
