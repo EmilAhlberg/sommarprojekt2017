@@ -6,7 +6,7 @@ namespace SummerProject
     public class Drawable
     {
         public virtual Vector2 Position { set; get; }
-        protected ISprite sprite;
+        public ISprite sprite;
         public float angle = 0;
 
         public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)

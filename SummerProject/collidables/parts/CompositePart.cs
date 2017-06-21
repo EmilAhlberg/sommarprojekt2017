@@ -18,6 +18,7 @@ namespace SummerProject
 
         public bool AddPart(Part p, int slot) {
             if (slot < parts.Length) {
+                p.Position = Position;
                 parts[slot].SetPart(p);
                 p.Hull = this;
                 return true;
@@ -29,19 +30,19 @@ namespace SummerProject
 
         protected class Link
         {
-            public Vector2 LinkPos { private set; get; }
+            public Vector2 RelativePos { private set; get; }
             public float Angle { private set; get; }
             public Part Part { private set; get; } = null;
 
-            public Link(Vector2 linkPos, float angle)
+            public Link(Vector2 relativePos, float angle)
             {
-                LinkPos = linkPos;
+                RelativePos = relativePos;
                 Angle = angle;
             }
         
             public void SetPart(Part p)
             {
-                p.Position = LinkPos;
+                p.sprite.Origin = -RelativePos - new Vector2((float)Math.Cos(Angle)*p.BoundBoxes[0].Width, (float)Math.Sin(Angle) * p.BoundBoxes[0].Height);
                 p.angle = Angle;
                 Part = p;
             }
