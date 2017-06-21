@@ -28,9 +28,9 @@ namespace SummerProject
             spawnPointGen.ChangeMode(modeType);    
         }
 
-        public Vector2 GetSpawnPoint()
+        public Vector2[] GetSpawnPoints()
         {
-            return spawnPointGen.GetSpawnPoint();
+            return spawnPointGen.GetSpawnPoints();
         }
         
         public void JustSpawned()

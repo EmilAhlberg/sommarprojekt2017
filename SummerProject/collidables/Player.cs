@@ -166,6 +166,10 @@ namespace SummerProject.collidables
                     Enemy e = c2 as Enemy;
                     Health -= e.Damage;
             }
+            if(c2 is HealthDrop)
+            {
+                Health += HealthDrop.heal;
+            }
         }
 
         public override void Death()
@@ -179,10 +183,10 @@ namespace SummerProject.collidables
         {
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
+            Energy = maxEnergy;
             angle = 0;
             Stop();
             IsDead = false;
-
         }
 
         public bool AddPart(Part part, int pos)

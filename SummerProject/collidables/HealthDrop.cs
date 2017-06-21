@@ -9,18 +9,22 @@ namespace SummerProject.collidables
 {
     class HealthDrop : Drop
     {
-        private const int heal = 1;
+        public const int heal = 1;
         public HealthDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
         }
         public override void Collision(Collidable c2)
         {
             if (c2 is Player)
-            {
-                ((Player)c2).Health += heal; 
-                Particles.GenerateParticles(Position, 8);
+            {        
                 Death();
             }
+        }
+
+        public override void Death()
+        {
+            Particles.GenerateParticles(Position, 8); //Death animation
+            base.Death();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace SummerProject.factories
         public override void Reset()
         {
            spawnTimer.Reset();
-            ResetEntities();
+           ResetEntities();
         }
 
         protected override AIEntity CreateEntity(int type) 

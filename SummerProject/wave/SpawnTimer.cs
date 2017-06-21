@@ -40,7 +40,7 @@ namespace SummerProject.wave
                     break;
                 case WaveGenerator.WAVESPAWN_MODE:
                     timer1.maxTime = TIMER1_WAVESPAWNMODE;
-                    timer2.maxTime = TIMER2_WAVESPAWNMODE;                   
+                    //timer2.maxTime = TIMER2_WAVESPAWNMODE;                   
                     break;
             }
             timer1.Reset();
@@ -95,15 +95,13 @@ namespace SummerProject.wave
 
         private void WaveSpawnMode(GameTime gameTime)
         {
-            timer1.CountDown(gameTime);
             if (timer1.IsFinished)
-                timer2.CountDown(gameTime);
-
-            if(timer2.IsFinished)
-            {
                 timer1.Reset();
-                timer2.Reset();
-            }              
+                       
+               timer1.CountDown(gameTime);            
+            
+            //if (timer1.IsFinished)
+            //    timer2.CountDown(gameTime);                   
         }
 
       
