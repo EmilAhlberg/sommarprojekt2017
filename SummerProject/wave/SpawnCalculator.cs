@@ -41,7 +41,7 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             SpawnIsReady = spawnTimer.Update(gameTime);
-            spawnPointGen.Update(gameTime);      
+            spawnPointGen.Update(gameTime, ScoreHandler.Score / 1000 +1);      //!
         }
     }
 }

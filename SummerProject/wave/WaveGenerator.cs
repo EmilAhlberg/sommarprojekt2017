@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SummerProject.collidables;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject
 {
@@ -46,22 +47,24 @@ namespace SummerProject
 
         private void UpdateMode()
         {
-            if (ScoreHandler.Score > 1000 && mode != WAVESPAWN_MODE) //!!
-            {                      
-                if (mode == INCREASING_PRESSURE)
-                    mode = WAVESPAWN_MODE;
-                //if (mode == WAVESPAWN_MODE)
-                //    mode = INCREASING_PRESSURE;
+            if (InputHandler.isJustPressed(Keys.F1))
+            {
+                mode = INCREASING_PRESSURE;
+                spawnCalc.SetGameMode(mode);
+            }
+              
+            if (InputHandler.isJustPressed(Keys.F2))
+            {
+                mode = WAVESPAWN_MODE;
                 spawnCalc.SetGameMode(mode);
             }
         }
 
         private void UpdateWave(GameTime gameTime)
         {
-            spawnCalc.Update(gameTime);
+            spawnCalc.Update(gameTime);            
             if (spawnCalc.SpawnIsReady)
-                SpawnWave();
-                
+                SpawnWave();                
             }
 
         private void SpawnWave()
