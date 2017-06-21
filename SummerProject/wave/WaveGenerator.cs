@@ -46,7 +46,7 @@ namespace SummerProject
 
         private void UpdateMode()
         {
-            if (ScoreHandler.Score > 5000 && mode != WAVESPAWN_MODE) //!!
+            if (ScoreHandler.Score > 1000 && mode != WAVESPAWN_MODE) //!!
             {                      
                 if (mode == INCREASING_PRESSURE)
                     mode = WAVESPAWN_MODE;
@@ -59,12 +59,21 @@ namespace SummerProject
         private void UpdateWave(GameTime gameTime)
         {
             spawnCalc.Update(gameTime);
-            if(spawnCalc.SpawnIsReady)
+            if (spawnCalc.SpawnIsReady)
+                SpawnWave();
+                
+            }
+
+        private void SpawnWave()
+        {
+            Vector2[] spawnPoints = spawnCalc.GetSpawnPoints();
+            foreach (Vector2 v in spawnPoints)
             {
-                enemies.Spawn(spawnCalc.GetSpawnPoint());
+                enemies.Spawn(v);
                 spawnCalc.JustSpawned();
-            }               
+            }            
         }
+    
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

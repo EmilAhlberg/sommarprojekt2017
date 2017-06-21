@@ -12,6 +12,8 @@ namespace SummerProject.wave
 
         private Random rand;
         private Vector2[] spawnPoints;
+        private int mode;
+        private int spawnSize;
 
         public SpawnPointGenerator(int windowWidth, int windowHeight)
         {
@@ -30,7 +32,16 @@ namespace SummerProject.wave
 
         public void ChangeMode(int modeType)
         {
-            //throw new NotImplementedException();
+            switch(modeType)
+            {
+                case WaveGenerator.INCREASING_PRESSURE:
+                    spawnSize = 1;
+                    break;
+                case WaveGenerator.WAVESPAWN_MODE:
+                    spawnSize = 5;
+                    break;
+            }
+            mode = modeType;
         }
 
         public void Update(GameTime gameTime)
@@ -38,9 +49,21 @@ namespace SummerProject.wave
             //throw new NotImplementedException();
         }
 
-        public Vector2 GetSpawnPoint()
+        public Vector2[] GetSpawnPoints()
         {
-            return spawnPoints[(int)(rand.NextDouble() * 8)];
+            
+            bool[] takenPoint = new bool[8]; //!!!    8 :: the number of predefined spawnPoints
+            Vector2[] vs = new Vector2[spawnSize];
+            for (int i = 0; i<spawnSize; i++)
+            {
+                int rNbr = (int)rand.Next(0, 8);//!!
+                //gets unique points, avoids 'overlap spawn'
+                while (takenPoint[rNbr])
+                    rNbr = (rNbr + 3) % 8; //!!!!!!
+                takenPoint[rNbr] = true;
+                vs[i] = spawnPoints[rNbr];
+            }
+            return vs;
         }
 
     }
