@@ -121,6 +121,14 @@ namespace SummerProject
                         CreateParticle(new Sprite(spriteList[0]), position, Vector2.Zero, angle, 0, Color.Yellow, 1, 0.2f, 1);
                         break;
                     }
+                #endregion
+
+                #region Health Explosion 8
+                case 8:
+                    {
+                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl);
+                        break;
+                    }
                     #endregion
             }
         }
@@ -141,6 +149,16 @@ namespace SummerProject
                 Vector2 initialForce = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
                 CreateParticle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+            }
+        }
+
+        private static void CreateNonRotExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        {
+            for (int i = 0; i < nbrOfParticles; i++)
+            {
+                Vector2 initialForce = RandomVector2(spread, baseValue);
+                float scale = RandomFloat(scaleSpread, baseScale);
+                CreateParticle(new Sprite(spriteList[5]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); //LMAO HELP ME
             }
         }
 
