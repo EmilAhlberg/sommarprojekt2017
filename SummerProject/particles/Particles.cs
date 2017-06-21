@@ -25,6 +25,17 @@ namespace SummerProject
             spriteList.Add(new Sprite(s));
         }
 
+        public static void Reset()
+        {
+            foreach (Particle p in particles)
+            {
+                if (p.IsActive)
+                {
+                    p.IsActive = false;
+                }
+            }
+        }
+
         public static void Update(GameTime gameTime)
         {
             for (int i = 0; i < particles.Count; i++)
