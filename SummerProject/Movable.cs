@@ -6,13 +6,13 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        private const float FRICTION = 4f; //!
-        private Vector2 Friction { get { return FRICTION * (Velocity * Velocity.Length() / 5 + Velocity) * Mass * Mass / 1000; } }
+        private const float FRICTION = 10f; //!
+        private Vector2 Friction { get { return FRICTION * Velocity * Mass * Mass / 1000; } }
         protected Vector2 Velocity { private set; get; } = Vector2.Zero; //-!
         protected float TurnSpeed { set; get; } = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
         protected float Mass { set; get; } = EntityConstants.MASS[EntityConstants.DEFAULT]; 
         protected float Thrust { set; get; } = EntityConstants.THRUST[EntityConstants.DEFAULT];
-        private Vector2 Acceleration{get{ return (ThrusterForce + TotalExteriorForce - Friction) /Mass; } }
+        private Vector2 Acceleration{ get { return (ThrusterForce + TotalExteriorForce - Friction) / Mass; } }
         private Vector2 ThrusterForce { get { return DirectionVector * Thrust;}}
         private Vector2 TotalExteriorForce { set; get; }
         protected Vector2 DirectionVector { set { angle = (float)Math.Atan(value.Y / value.X); } get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }

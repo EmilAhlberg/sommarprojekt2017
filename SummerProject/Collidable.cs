@@ -1,29 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SummerProject
 {
     public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
-        private List<RotRectangle> BoundBoxes { get; set; }
+        public List<RotRectangle> BoundBoxes { get; set; }
         public bool IsStatic { get; set; }
-        private int activeIndex;
-        public int ActiveBoundBoxIndex
-        {
-            get
-            {
-                return activeIndex;
-            }
-            set
-            {
-                ActiveBoundBox = BoundBoxes[value];
-                activeIndex = value;
-            }
-        }
-        public RotRectangle ActiveBoundBox { get; private set; }
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             BoundBoxes = new List<RotRectangle>();
@@ -37,11 +22,15 @@ namespace SummerProject
             //}
             //else
             BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X - sprite.Origin.X), (int)Math.Round(position.Y - sprite.Origin.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
-            ActiveBoundBoxIndex = 0;
         }
         public void AddBoundBox(RotRectangle rect)
         {
+            rect.Location = Position;
             BoundBoxes.Add(rect);
+        }
+        public void RemoveBoundBox(int index)
+        {
+            BoundBoxes.RemoveAt(index);
         }
 
         public override Vector2 Position
@@ -49,8 +38,11 @@ namespace SummerProject
             set
             {
                 base.Position = value;
-                BoundBoxes[ActiveBoundBoxIndex].Location = value;
-                BoundBoxes[ActiveBoundBoxIndex].Angle = angle;
+                for (int i = 0; i < BoundBoxes.Count; i++)
+                {
+                    BoundBoxes[i].Location = value;
+                    BoundBoxes[i].Angle = angle;
+                }
             }
             get { return base.Position; }
         }
@@ -58,8 +50,11 @@ namespace SummerProject
         protected override void Move()
         {
             base.Move();
-            BoundBoxes[ActiveBoundBoxIndex].Location = Position;
-            BoundBoxes[ActiveBoundBoxIndex].Angle = angle;
+            for (int i = 0; i < BoundBoxes.Count; i++)
+            {
+                BoundBoxes[i].Location = Position;
+                BoundBoxes[i].Angle = angle;
+            }
         }
         public abstract void Collision(Collidable c2);
     }

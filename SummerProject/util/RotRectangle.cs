@@ -26,12 +26,12 @@ namespace SummerProject
         {
             set
             {
-                Vector2 DRUL = Vector2.Divide(Vector2.Subtract(DR, UL), 2);
-                Vector2 URDL = Vector2.Divide(Vector2.Subtract(UR, DL), 2);
-                UL = Vector2.Subtract(value, DRUL);
-                DR = Vector2.Add(value, DRUL);
-                DL = Vector2.Subtract(value, URDL);
-                UR = Vector2.Add(value, URDL);
+                Vector2 DRUL = (DR - UL) / 2;
+                Vector2 URDL = (UR - DL) / 2;
+                UL = value - DRUL;
+                DR = value + DRUL;
+                DL = value - URDL;
+                UR = value + URDL;
 
             }
             get { return Vector2.Add(UL, Vector2.Divide(Vector2.Subtract(DR, UL), 2)); }
@@ -46,7 +46,7 @@ namespace SummerProject
             Width = rect.Width;
             Height = rect.Height;
             Rotate(angleRad);
-            origin = Vector2.Divide(Vector2.Subtract(DR, UL), 2);
+            origin = (DR - UL) / 2;
         }
 
         public void Rotate(float angleRad)
