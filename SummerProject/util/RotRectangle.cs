@@ -46,7 +46,7 @@ namespace SummerProject
             Width = rect.Width;
             Height = rect.Height;
             Rotate(angleRad);
-            origin = Vector2.Divide(Vector2.Subtract(DR, UL), 2);
+            origin = (DR - UL) / 2;
         }
 
         public void Rotate(float angleRad)
