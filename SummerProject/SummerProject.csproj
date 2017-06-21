@@ -59,12 +59,15 @@
   <ItemGroup>
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
+    <Compile Include="collidables\HealthPowerUp.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\AIEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
+    <Compile Include="collidables\PowerUp.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
-	<Compile Include="framework\AnimatedEventHandler.cs" />
+    <Compile Include="factories\Drops.cs" />
+    <Compile Include="framework\AnimatedEventHandler.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="CompositeSprite.cs" />

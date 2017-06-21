@@ -25,6 +25,7 @@ namespace SummerProject
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
+        HealthPowerUp healthPowerUp;
 
         public Game1()
         {
@@ -116,6 +117,8 @@ namespace SummerProject
             enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
+            healthPowerUp = new HealthPowerUp(new Vector2(-500, -500), new Sprite(partTex1));
+            healthPowerUp.Spawn(new Vector2(500, 500));
             #endregion
 
             #region Adding sprites to particles
@@ -221,6 +224,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
+            collidableList.Add(healthPowerUp);
             colhandl.CheckCollisions(collidableList.ToArray(), player ,wall);
         }
 
@@ -241,7 +245,7 @@ namespace SummerProject
 
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health / 2, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health , new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
                 spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
@@ -269,6 +273,7 @@ namespace SummerProject
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
             enemies.Draw(spriteBatch, gameTime);
+            healthPowerUp.Draw(spriteBatch, gameTime);
             #endregion
         }
 
