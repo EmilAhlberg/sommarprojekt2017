@@ -68,6 +68,23 @@ namespace SummerProject
 
         }
 
+        public List<Part> GetParts()
+        {
+            List<Part> totalParts = new List<Part>();
+            totalParts.Add(this);
+
+            foreach(Link p in parts)
+            {
+                if (p.Part != null) {
+                    if (p.Part is CompositePart)
+                        totalParts.AddRange(((CompositePart)p.Part).GetParts());
+                    else
+                        totalParts.Add(p.Part);
+                }
+            }
+            return totalParts;  
+        }
+
         protected abstract void AddLinkPositions();
 
         protected class Link
