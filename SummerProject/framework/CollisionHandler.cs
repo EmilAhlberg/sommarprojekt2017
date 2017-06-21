@@ -69,11 +69,13 @@ namespace SummerProject
         private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
         {
             Vector2 collidedPos = c1.Position;
-            Vector2 backVect = c1.PrevPos - collidedPos;
+            Vector2 backVect;
+            backVect = c1.BoundBoxes[0].Location - c2.BoundBoxes[0].Location;
             backVect.Normalize();
             backVect *= 0.2f;
             while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
                 c1.Position += backVect;
+            c1.Stop();
 
             //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
             //    c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
