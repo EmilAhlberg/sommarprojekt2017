@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
+    <Compile Include="collidables\ExplosionDrop.cs" />
     <Compile Include="collidables\HealthDrop.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\AIEntity.cs" />

@@ -29,6 +29,7 @@ namespace SummerProject.factories
             switch (type)
             {
                 case 0: return new HealthDrop(FarAway(), new Sprite(sprite));
+                case 1: return new ExplosionDrop(FarAway(), new Sprite(sprite));
                 default:
                     throw new NotImplementedException();
             }

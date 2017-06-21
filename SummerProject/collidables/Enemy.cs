@@ -48,8 +48,14 @@ namespace SummerProject
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
-                if (IsActive)
+                if (b.IsActive)
                     Health -= b.Damage;
+            }
+            if (c2 is ExplosionDrop)
+            {
+                ExplosionDrop ed = c2 as ExplosionDrop;
+                if (ed.IsActive)
+                    Health -= ed.Damage;
             }
             if (c2 is Player)
                 Death();

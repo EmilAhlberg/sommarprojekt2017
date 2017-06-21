@@ -19,7 +19,7 @@ namespace SummerProject.factories
             height = windowHeight - 100;
             spawnTimer = new Timer(spawnTime);
             rand = new Random(42);
-            InitializeEntities(0);
+            InitializeEntities(1);              // change here to create different drops initially
         }
 
         public void Spawn()
