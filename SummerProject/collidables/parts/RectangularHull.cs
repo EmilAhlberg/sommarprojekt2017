@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
     class RectangularHull : CompositePart
     {
-        public RectangularHull(Vector2 position, ISprite sprite, CompositePart hull) : base(position, sprite, hull)
+        public RectangularHull(Vector2 position, ISprite sprite, IPartCarrier hull) : base(position, sprite, hull)
         {
         }
 

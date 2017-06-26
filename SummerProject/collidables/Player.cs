@@ -35,7 +35,7 @@ namespace SummerProject.collidables
             Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Energy = maxEnergy;
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            //Hull = new RectangularHull(position, sprite);
+            Hull = new RectangularHull(position, sprite, this);
         }
 
         public void Update(GameTime gameTime)

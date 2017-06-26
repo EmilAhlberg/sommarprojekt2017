@@ -19,7 +19,7 @@ namespace SummerProject
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            //Hull = new RectangularHull(position, sprite);                
+            Hull = new RectangularHull(position, sprite, this);                
         }
 
         public override void Update(GameTime gameTime)
