@@ -13,8 +13,10 @@ namespace SummerProject.factories
         private int width;
         private int height;
         private Random rand;
+        public bool IsActive { get; set; }
         public Drops(List<Sprite> sprites, int entityCap, int windowWidth, int windowHeight) : base(sprites, entityCap)
         {
+            IsActive = true;
             width = windowWidth - 100;
             height = windowHeight - 100;
             spawnTimer = new Timer(spawnTime);
@@ -38,8 +40,11 @@ namespace SummerProject.factories
 
         public void Update(GameTime gameTime)
         {
-            UpdateEntities(gameTime);
-            spawnTimer.CountDown(gameTime);
+            if (IsActive)
+            {
+                UpdateEntities(gameTime);
+                spawnTimer.CountDown(gameTime);
+            }
         }
 
         public override void Reset()
