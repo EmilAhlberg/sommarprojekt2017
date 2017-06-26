@@ -9,10 +9,11 @@ namespace SummerProject.factories
     class Drops : Entities
     {
         private Timer spawnTimer;
-        private const float spawnTime = 5f;
+        private const float spawnTime = .1f;
         private int width;
         private int height;
         private Random rand;
+        private const int totalNbrOfDrops = 3;
         public bool IsActive { get; set; }
         public Drops(List<Sprite> sprites, int entityCap, int windowWidth, int windowHeight) : base(sprites, entityCap)
         {
@@ -21,7 +22,9 @@ namespace SummerProject.factories
             height = windowHeight - 100;
             spawnTimer = new Timer(spawnTime);
             rand = new Random(42);
-            InitializeEntities(1);              // change here to create different drops initially
+            InitializeEntities(0);             
+            InitializeEntities(1);
+            InitializeEntities(2);
         }
 
         public void Spawn()
@@ -33,7 +36,7 @@ namespace SummerProject.factories
         {
             if (spawnTimer.IsFinished)
             {
-                if (ActivateEntities(source, source, 1))
+                if (ActivateEntities(source, source, (int) (rand.NextDouble() * totalNbrOfDrops)))
                     spawnTimer.Reset();
             }
         }
@@ -55,7 +58,7 @@ namespace SummerProject.factories
 
         protected override AIEntity CreateEntity(int spriteIndex, int type)
         {
-            return EntityFactory.CreateDrop(Sprites[1], type);
+            return EntityFactory.CreateDrop(Sprites[type], type);
         }
     }
 }

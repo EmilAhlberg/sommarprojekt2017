@@ -93,8 +93,9 @@ namespace SummerProject
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
-            Texture2D healthPackTex = Content.Load<Texture2D>("textures/healthpack");
+            Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthpack");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
+            Texture2D energyDropTex = Content.Load<Texture2D>("textures/dship2");
             #endregion
 
             #region Adding entity-sprites to lists
@@ -104,8 +105,9 @@ namespace SummerProject
             enemySprites.Add(new Sprite(enemyTex));        // order is important
             bulletSprites.Add(new Sprite(shotTex, 4));
             bulletSprites.Add(new Sprite(homingTex));
-            dropSprites.Add(new SummerProject.Sprite(healthPackTex));
+            dropSprites.Add(new SummerProject.Sprite(healthDropTex));
             dropSprites.Add(new SummerProject.Sprite(explosionDropTex, 5, 5));
+            dropSprites.Add(new SummerProject.Sprite(energyDropTex));
             #endregion
 
             #region Testing composite sprite
