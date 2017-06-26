@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.collidables
 {
@@ -13,7 +14,7 @@ namespace SummerProject.collidables
         private bool exploding;
         private RotRectangle originalBoundBox;
         private Timer explosionTimer;
-        private const float explosionTime = 1f;
+        private const float explosionTime = .13f;
         private const int explosionSize = 500;
         public ExplosionDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
@@ -39,9 +40,15 @@ namespace SummerProject.collidables
 
         private void Explode()
         {
-          exploding = true;
+            exploding = true;
             Damage = damage;
-            BoundBoxes[0] =  new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, explosionSize, explosionSize), 0);
+            BoundBoxes[0] = new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, explosionSize, explosionSize), 0);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            if (!exploding)
+                base.Draw(spriteBatch, gameTime);
         }
 
         public override void Death()
@@ -49,7 +56,7 @@ namespace SummerProject.collidables
             exploding = false;
             explosionTimer.Reset();
             BoundBoxes[0] = originalBoundBox;
-            Particles.GenerateParticles(Position, 8); //Death animation
+            // Particles.GenerateParticles(Position, 8); //Death animation
             Damage = 0;
             base.Death();
         }

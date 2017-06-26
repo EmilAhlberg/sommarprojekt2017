@@ -94,6 +94,7 @@ namespace SummerProject
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthPackTex = Content.Load<Texture2D>("textures/healthpack");
+            Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             #endregion
 
             #region Adding entity-sprites to lists
@@ -104,6 +105,7 @@ namespace SummerProject
             bulletSprites.Add(new Sprite(shotTex, 4));
             bulletSprites.Add(new Sprite(homingTex));
             dropSprites.Add(new SummerProject.Sprite(healthPackTex));
+            dropSprites.Add(new SummerProject.Sprite(explosionDropTex, 5, 5));
             #endregion
 
             #region Testing composite sprite
@@ -158,11 +160,11 @@ namespace SummerProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)            
-                UpdateGame(gameTime);           
-            else                
-                eventOperator.Update(gameTime);               
-           
+            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
+                UpdateGame(gameTime);
+            else
+                eventOperator.Update(gameTime);
+
             CheckGameStatus(gameTime);
 
             InputHandler.UpdatePreviousState();
@@ -173,8 +175,8 @@ namespace SummerProject
         {
             #region Update for game state
             player.Update(gameTime);
-            if(SPAWN_ENEMIES)
-                waveGenerator.Update(gameTime);         
+            if (SPAWN_ENEMIES)
+                waveGenerator.Update(gameTime);
             projectiles.Update(gameTime);
             drops.Update(gameTime);
             Particles.Update(gameTime);
@@ -185,7 +187,7 @@ namespace SummerProject
         }
 
         private void CheckGameStatus(GameTime gameTime)
-        {            
+        {
             #region Game Over
             if (player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
@@ -219,7 +221,7 @@ namespace SummerProject
                 Particles.Reset();
             }
             projectiles.Reset();
-            drops.Reset();           
+            drops.Reset();
             waveGenerator.Reset();
             ScoreHandler.Reset();
         }
@@ -239,7 +241,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player ,wall);
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
         }
 
         /// <summary>
@@ -255,11 +257,11 @@ namespace SummerProject
             {
                 #region Draw for GameState
                 DrawGame(spriteBatch, gameTime);
-               
+
 
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health , new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
                 spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
@@ -269,9 +271,9 @@ namespace SummerProject
 
                 #endregion
             }
-            else           
+            else
                 eventOperator.Draw(spriteBatch, gameTime);
-            
+
             DebugMode(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
@@ -282,9 +284,9 @@ namespace SummerProject
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
         {
             #region Draw Game
-            Particles.Draw(spriteBatch, gameTime);           
+            Particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);                 
+            player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
             waveGenerator.Draw(spriteBatch, gameTime);
             drops.Draw(spriteBatch, gameTime);
@@ -320,7 +322,7 @@ namespace SummerProject
                 usingControls = "WASD : AD = Rotate";
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
+            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth - 700, graphics.PreferredBackBufferHeight - 100), Color.Crimson);
         }
     }
 }
