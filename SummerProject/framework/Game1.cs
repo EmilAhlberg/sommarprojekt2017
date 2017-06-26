@@ -22,12 +22,10 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        WaveGenerator waveGenerator;
-        //Enemies enemies;
+        WaveGenerator waveGenerator;    
         Projectiles projectiles;
         Sprite background;
-        CollisionHandler colhandl;
-        Drops drops;
+        CollisionHandler colhandl;    
         const bool SPAWN_ENEMIES = true;
 
         public Game1()
@@ -127,10 +125,11 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont);
+            Drops drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); //!! dropCap
+            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont, drops);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex)); //! wall location
+           
             #endregion
 
             #region Adding sprites to particles
@@ -183,11 +182,9 @@ namespace SummerProject
             if (SPAWN_ENEMIES)
                 waveGenerator.Update(gameTime);
             projectiles.Update(gameTime);
-            drops.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
-            KeepPlayerInScreen();
-            drops.Spawn();
+            KeepPlayerInScreen();        
             #endregion
         }
 
@@ -196,6 +193,7 @@ namespace SummerProject
             #region Game Over
             if (player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
+                ResetGame(false);
                 deathTimer.CountDown(gameTime);
                 if (deathTimer.IsFinished)
                 {
@@ -225,8 +223,7 @@ namespace SummerProject
                 player.Reset();
                 Particles.Reset();
             }
-            projectiles.Reset();
-            drops.Reset();
+            projectiles.Reset();  
             waveGenerator.Reset();
             ScoreHandler.Reset();
         }
@@ -242,7 +239,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in drops.GetValues())
+            foreach (Collidable c in waveGenerator.Drops.GetValues())
             {
                 collidableList.Add(c);
             }
@@ -293,8 +290,7 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
-            waveGenerator.Draw(spriteBatch, gameTime);
-            drops.Draw(spriteBatch, gameTime);
+            waveGenerator.Draw(spriteBatch, gameTime);      
             #endregion
         }
 

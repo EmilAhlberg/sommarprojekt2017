@@ -58,7 +58,7 @@ namespace SummerProject.wave
                 case GameMode.DECREASING_TIME:
                     DecreasingTimeMode(gameTime);                   
                     return timer1.IsFinished;                    
-                case GameMode.RANDOM_WAVESPAWN:
+                case GameMode.CONSTANT_TIME:
                     ConstantTimeMode(gameTime);
                     return timer1.IsFinished;
                 case GameMode.DEBUG_MODE:

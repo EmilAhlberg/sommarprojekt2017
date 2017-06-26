@@ -6,7 +6,7 @@ using System;
 
 namespace SummerProject.factories
 {
-    class Drops : Entities
+    public class Drops : Entities
     {
         private Timer spawnTimer;
         private const float spawnTime = 1f;
@@ -40,8 +40,8 @@ namespace SummerProject.factories
 
         public void Update(GameTime gameTime)
         {
-                UpdateEntities(gameTime);
-                spawnTimer.CountDown(gameTime);
+            UpdateEntities(gameTime);
+            spawnTimer.CountDown(gameTime);         
         }
 
         public override void Reset()
