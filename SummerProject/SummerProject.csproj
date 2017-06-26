@@ -57,8 +57,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="collidables\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
+    <Compile Include="collidables\ExplosionDrop.cs" />
     <Compile Include="collidables\HealthDrop.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\AIEntity.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="factories\EntityTypes.cs" />
     <Compile Include="events\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="ISprite.cs" />
     <Compile Include="events\menu\GameOverMenu.cs" />
     <Compile Include="events\menu\MainMenu.cs" />
@@ -97,7 +100,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
-    <Compile Include="wave\SpawnCalculator.cs" />
+    <Compile Include="wave\GameMode.cs" />
     <Compile Include="util\RotRectangle.cs" />
     <Compile Include="framework\ScoreHandler.cs" />
     <Compile Include="Sprite.cs" />
@@ -171,6 +174,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

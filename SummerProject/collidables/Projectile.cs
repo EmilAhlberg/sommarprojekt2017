@@ -4,11 +4,13 @@ namespace SummerProject.collidables
 {
     abstract class Projectile : AIEntity
     {
-        private Timer despawnTimer;
+        protected Timer despawnTimer;
         protected float despawnTime = 7f; //!!
+        public bool IsEvil;
 
-        public Projectile(Vector2 position, ISprite sprite) : base(position, sprite)
+        public Projectile(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite)
         {
+            this.IsEvil = isEvil;
             despawnTimer = new Timer(despawnTime);
         }
 

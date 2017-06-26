@@ -10,7 +10,7 @@ namespace SummerProject
         static List<Particle> particles;
         static Random rand;
         static List<Sprite> spriteList;
-        private const int maxParticles = 100;
+        private const int maxParticles = 1000;
 
         static Particles()
         {
@@ -47,19 +47,19 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateEdgeParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
+        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
         {
-            Random rand = new Random();
-            switch (ID)
-            {
-                case 7:
 
-                    for (int i = 0; i < 10; i++)
-                    {
-                        GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
-                    }
-                    break;
-            }
+            //switch (ID)
+            //{
+            //    case 7:
+
+            //        for (int i = 0; i < 10; i++)
+            //        {
+            //            GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
+            //        }
+            //        break;
+            //}
         }
 
         public static void GenerateParticles(Vector2 position, int ID, float angle = 0)
@@ -129,15 +129,47 @@ namespace SummerProject
                 #region Shield Visuals 7
                 case 7:
                     {
-                        CreateParticle(new Sprite(spriteList[0]), position, Vector2.Zero, angle, 0, Color.Yellow, 1, 0.2f, 1);
+                        CreateCircle(20, position, 34, 0, 0, Color.Yellow, 1, 0.1f, 0.1f);
                         break;
                     }
                 #endregion
 
-                #region Health Explosion 8
+                #region Health Death 8
                 case 8:
                     {
-                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl);
+                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl, 5);
+                        break;
+                    }
+                #endregion
+
+                #region Explosion Drop 9
+                case 9:
+                    {
+                        CreateExplosion(10, position, 10, 500 / 2, 0, Color.DodgerBlue, 1, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region EvilBullet Explosion 10
+                case 10:
+                    {
+                        CreateExplosion(10, position, 10, 40, 0.5f, Color.DarkRed, 1, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region EvilBullet Trail 11
+                case 11:
+                    {
+                        CreateTrail(angle, position, 1, 20, 0, Color.DarkRed, 0, 1, 0.3f);
+                        break;
+                    }
+                #endregion
+
+                #region Energy Death 12
+                case 12:
+                    {
+                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Yellow, 0, 1, ttl, 6);
                         break;
                     }
                     #endregion
@@ -153,41 +185,40 @@ namespace SummerProject
             }
         }
 
-        private static void CreateExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
+        {
+            for (int i = 0; i < nbrOfParticles; i++)
+            {
+                float angle = RandomFloat(2 * (float)Math.PI, 0);
+                CreateTrail(angle, position, spread, baseValue, angularVelocity, color, scaleSpread, baseScale, ttl, spriteIndex);
+            }
+        }
+
+        private static void CreateNonRotExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialForce = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+                CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); 
             }
         }
 
-        private static void CreateNonRotExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
-        {
-            for (int i = 0; i < nbrOfParticles; i++)
-            {
-                Vector2 initialForce = RandomVector2(spread, baseValue);
-                float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[5]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); //LMAO HELP ME
-            }
-        }
-
-        private static void CreateTrail(float angle, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateTrail(float angle, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             Vector2 initialForce = -new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             initialForce *= RandomFloat(spread, baseValue);
             float scale = RandomFloat(scaleSpread, baseScale);
-            CreateParticle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+            CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
         }
 
-        private static void CreateCircle(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateCircle(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialPosition = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[0]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1);
+                CreateParticle(new Sprite(spriteList[spriteIndex]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1);
             }
         }
 

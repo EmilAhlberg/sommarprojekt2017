@@ -13,22 +13,22 @@ namespace SummerProject.factories
 
         }
 
-        public static AIEntity CreateProjectile(Sprite sprite, int type)
+        public static AIEntity CreateEntity(Sprite sprite, int type)
         {
             switch (type)
             {
-                case 0: return new Bullet(FarAway(), new Sprite(sprite));
-                case 1: return new HomingBullet(FarAway(), new Sprite(sprite));
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        public static AIEntity CreateDrop(Sprite sprite, int type)
-        {
-            switch (type)
-            {
-                case 0: return new HealthDrop(FarAway(), new Sprite(sprite));
+                #region Bullets
+                case 0: return new Bullet(FarAway(), new Sprite(sprite), false);
+                case 1: return new HomingBullet(FarAway(), new Sprite(sprite), false);
+                #endregion
+                #region Drops
+                case 50: return new HealthDrop(FarAway(), new Sprite(sprite));
+                case 51: return new ExplosionDrop(FarAway(), new Sprite(sprite));
+                case 52: return new EnergyDrop(FarAway(), new Sprite(sprite));
+                #endregion
+                #region Enemy Bullets
+                case 100: return new Bullet(FarAway(), new Sprite(sprite), true);
+                #endregion
                 default:
                     throw new NotImplementedException();
             }

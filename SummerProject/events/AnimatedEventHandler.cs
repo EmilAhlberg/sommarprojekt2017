@@ -13,7 +13,7 @@ namespace SummerProject.framework
         public bool AnimatedEvent { get; set; }
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };
 
-        private const float eventTime = 2f; //! one eventTime to rule them all
+        private const float eventTime = 2f;
         private Timer eventTimer;
         private Game1 game;
         private EventOperator op;
@@ -56,7 +56,8 @@ namespace SummerProject.framework
                     System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                     break;
                 case EventOperator.GAME_STATE:
-                    game.DrawGame(spriteBatch, gameTime);
+                    //op.ResetGame(true);
+                    game.DrawGame(spriteBatch, gameTime); //WHY WONT PLAYER ALWAYS DRAAAW?1111111111
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:

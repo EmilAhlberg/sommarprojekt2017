@@ -10,25 +10,32 @@ namespace SummerProject.factories
         private int bulletType;
         private Timer reloadTimer;
 
-        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap)
+        public Projectiles(int ammoCap) : base(ammoCap)
         {
             bulletType = EntityTypes.BULLET;
             reloadTimer = new Timer(reloadTime);
             InitializeEntities(0);
+            InitializeEntities(EntityTypes.EVILBULLET);
+            Enemy.projectiles = this; //! Hmmmmm
         }
 
         public void Fire(Vector2 source, Vector2 target)
         {
             if (reloadTimer.IsFinished)
             {
-                if (ActivateEntities(source, target))
+                if (ActivateEntities(source, target, bulletType))
                     reloadTimer.Reset();
             }
         }
 
+        public void EvilFire(Vector2 source, Vector2 target)
+        {
+            ActivateEntities(source, target, EntityTypes.EVILBULLET);
+        }
+
         public void SwitchBullets(int newType)
         {
-            RemoveInactiveType(CreateEntity(bulletType));
+            //RemoveInactiveType(CreateEntity(bulletType));
             bulletType = newType;
             InitializeEntities(newType);
         }
@@ -42,24 +49,24 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
+            //RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
             reloadTimer.CountDown(gameTime);
         }
 
-        private void RemoveAbundantType()
-        {
-            for (int i = EntityList.Count - 1; i >= entityCap; i--)
-            {
-                if (!EntityList[i].IsActive)
-                {
-                    EntityList.Remove(EntityList[i]);
-                }
-            }
-        }
+        //private void RemoveAbundantType()
+        //{
+        //    for (int i = EntityDic.Count - 1; i >= entityCap; i--)
+        //    {
+        //        if (!EntityDic[i].IsActive)
+        //        {
+        //            EntityDic.Remove(EntityDic[i]);
+        //        }
+        //    }
+        //}
 
-        protected override AIEntity CreateEntity(int index)
+        protected override AIEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateProjectile(Sprites[index], bulletType);
+            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type); //! LOL
         }
     }
 }

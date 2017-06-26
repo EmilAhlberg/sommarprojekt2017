@@ -1,24 +1,39 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace SummerProject.factories
 {
-    class Drops : Entities
+    public class Drops : Entities
     {
         private Timer spawnTimer;
-        private const float spawnTime = 10f;
-        public Drops(List<Sprite> sprites, int entityCap) : base(sprites, entityCap)
+        private const float spawnTime = 1f;
+        private int width;
+        private int height;
+        private Random rand;
+        public Drops(int entityCap, int windowWidth, int windowHeight) : base(entityCap)
         {
+            width = windowWidth - 100;
+            height = windowHeight - 100;
             spawnTimer = new Timer(spawnTime);
-            InitializeEntities(0);
+            rand = new Random(42);
+            InitializeEntities(EntityTypes.HEALTHDROP);             
+            InitializeEntities(EntityTypes.EXPLOSIONDROP);
+            InitializeEntities(EntityTypes.ENERGYDROP);
         }
 
-        public void Spawn(Vector2 source)
+        public void Spawn()
+        {
+            SpawnAt(new Vector2((float)rand.NextDouble() * width + 50, (float)rand.NextDouble() * height + 50));
+        }
+
+        public void SpawnAt(Vector2 source)
         {
             if (spawnTimer.IsFinished)
             {
-                if (ActivateEntities(source, source))
+                if (ActivateEntities(source, source, rand.Next(EntityTypes.HEALTHDROP,EntityTypes.ENERGYDROP + 1)))
                     spawnTimer.Reset();
             }
         }
@@ -26,18 +41,18 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            spawnTimer.CountDown(gameTime);
+            spawnTimer.CountDown(gameTime);         
         }
 
         public override void Reset()
         {
-           spawnTimer.Reset();
-           ResetEntities();
+            spawnTimer.Reset();
+            ResetEntities();
         }
 
-        protected override AIEntity CreateEntity(int type) 
+        protected override AIEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateDrop(Sprites[0], type);  
-        }                                                        
+            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type);
+        }
     }
 }

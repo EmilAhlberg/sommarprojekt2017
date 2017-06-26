@@ -64,7 +64,12 @@ namespace SummerProject
             SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
         }
 
-        public List<Vector2> CalculateEdges()
+
+        /// <summary>
+        /// Slow as fuck, just so that you know. Don't use
+        /// </summary>
+        /// <returns></returns>
+        public List<Vector2> CalculateEdges() 
         {
             Color[] colors1D = new Color[texture.Width*texture.Height];
             texture.GetData(colors1D);

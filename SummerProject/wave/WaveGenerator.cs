@@ -7,103 +7,124 @@ using System.Text;
 using System.Threading.Tasks;
 using SummerProject.collidables;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using SummerProject.wave;
 
 namespace SummerProject
 {
     public class WaveGenerator
-    {
-        public const int INCREASING_PRESSURE = 1;
-        public const int WAVESPAWN_MODE = 2;
-
-        private int mode;
-        
-
-        private List<Sprite> enemySprites;
+    {    
         private Enemies enemies;
-        private Player player;      
-       
-        private bool isActive;
-        private SpawnCalculator spawnCalc;
+        private Player player;
+        private GameMode gameMode;
+        private SpawnPointGenerator spawnPointGen;
+        private SpawnTimer spawnTimer;
+        public Drops Drops { get; private set; }
 
-        public WaveGenerator(List<Sprite> enemySprites, Player player, int windowWidth, int windowHeight)
+        private bool isActive;
+  
+
+        //enemies as param insted of sprites?
+        public WaveGenerator( Player player, int windowWidth, int windowHeight, SpriteFont font, Drops drops)
         {
-            this.enemySprites = enemySprites;
             this.player = player;
-            mode = INCREASING_PRESSURE;       
-            spawnCalc = new SpawnCalculator(mode, windowWidth, windowHeight);    
-            enemies = new Enemies(enemySprites, player, 30); //!
+            Drops = drops;
+            gameMode = new GameMode(font, windowWidth, windowHeight);
+            spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
+            spawnTimer = new SpawnTimer(gameMode);  
+            enemies = new Enemies(player, 30); //! nbrOfEnemies
         }
 
         public void Update(GameTime gameTime)
         {
             CheckActive();
             if (isActive)            
-                UpdateWave(gameTime);                
+                UpdateSpawnHandlers(gameTime);            
             
             enemies.Update(gameTime);
-            UpdateMode();                       
-        }
+            Drops.Update(gameTime);
+            gameMode.Update(gameTime);
+            UpdateMode(); 
+        }       
 
-        private void UpdateMode()
+        private void UpdateSpawnHandlers(GameTime gameTime)
         {
-            if (ScoreHandler.Score > 1000 && mode != WAVESPAWN_MODE) //!!
-            {                      
-                if (mode == INCREASING_PRESSURE)
-                    mode = WAVESPAWN_MODE;
-                //if (mode == WAVESPAWN_MODE)
-                //    mode = INCREASING_PRESSURE;
-                spawnCalc.SetGameMode(mode);
-            }
-        }
-
-        private void UpdateWave(GameTime gameTime)
-        {
-            spawnCalc.Update(gameTime);
-            if (spawnCalc.SpawnIsReady)
-                SpawnWave();
-                
+            Drops.Spawn();
+            spawnPointGen.Update(gameTime);            
+            if (spawnTimer.Update(gameTime))
+                SpawnWave();                
             }
 
         private void SpawnWave()
         {
-            Vector2[] spawnPoints = spawnCalc.GetSpawnPoints();
+            Vector2[] spawnPoints = spawnPointGen.GetSpawnPoints();
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
-                spawnCalc.JustSpawned();
+                spawnTimer.JustSpawned();
             }            
-        }
-    
+        }    
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             enemies.Draw(spriteBatch, gameTime);
+            Drops.Draw(spriteBatch, gameTime);
+            if(isActive)
+                gameMode.Draw(spriteBatch, gameTime);
         }
 
         public void Reset()
         {
             enemies.Reset();
-            mode = INCREASING_PRESSURE; //DEFAULT
-            spawnCalc.SetGameMode(mode);
+            gameMode.Reset();
+            Drops.Reset();
+            spawnTimer.ChangeMode();
+            spawnPointGen.ChangeMode();
         }
 
         private void CheckActive()
         {
             if (!isActive)
             {
-                if (!player.IsDead)
+                if (!player.IsActive)
                     isActive = true;
             }
-            else if (player.IsDead)
+            else if (player.IsActive)
             {
                 isActive = false;
-                Reset();
             }
         }        
 
+
         public List<AIEntity> CollidableList()
         {
-            return enemies.EntityList;
+            return enemies.GetValues();
+        }
+
+        private void UpdateMode()
+        {
+            if (InputHandler.isJustPressed(Keys.F1))
+            {
+                gameMode.TimeMode = GameMode.DECREASING_TIME;
+                gameMode.SpawnMode = GameMode.RANDOM_SINGLESPAWN;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
+            }
+
+            if (InputHandler.isJustPressed(Keys.F2))
+            {
+                gameMode.TimeMode = GameMode.RANDOM_WAVESPAWN;
+                gameMode.SpawnMode = GameMode.RANDOM_WAVESPAWN;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
+            }
+
+            if (InputHandler.isJustPressed(Keys.F3))
+            {
+                gameMode.TimeMode = GameMode.DEBUG_MODE;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
+            }
         }
     }
 }

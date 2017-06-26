@@ -7,21 +7,23 @@ using Microsoft.Xna.Framework;
 
 namespace SummerProject.collidables
 {
-    class HealthDrop : Drop
+    class EnergyDrop : Drop
     {
-        public const int heal = 1;
-        public HealthDrop(Vector2 position, ISprite sprite) : base(position, sprite)
+        public const int charge = 50;
+        public EnergyDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
         }
         public override void Collision(Collidable c2)
         {
-            if (c2 is Player)  
+            if (c2 is Player)
+            {
                 Death();
+            }
         }
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 8); //Death animation
+            Particles.GenerateParticles(Position, 12); //Death animation
             base.Death();
         }
     }

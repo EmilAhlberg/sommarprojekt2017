@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using System;
 using System.Linq;
 
 namespace SummerProject
@@ -57,32 +58,8 @@ namespace SummerProject
         }
         private void HandleCollision(Collidable c1, Collidable c2)
         {
-            if (c1.IsStatic)
-                MoveObject(c2, c1);
-            else if (c2.IsStatic)
-                MoveObject(c1, c2);
             c1.Collision(c2);
             c2.Collision(c1);
-
-        }
-
-        private void MoveObject(Collidable c1, Collidable c2) // c1 should be moved 
-        {
-            Vector2 collidedPos = c1.Position;
-            Vector2 backVect;
-            backVect = c1.PrevPos - c2.Position;
-            backVect.Normalize();
-            backVect *= 0.2f;
-            float dotProd = Vector2.Dot(backVect, c1.Velocity);
-            Vector2 result = dotProd / backVect.LengthSquared() * backVect;
-            while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                c1.Position += backVect;
-            c1.Velocity -= result;
-
-            //if (c1.BoundBox.Bottom == c2.BoundBox.Top || c1.BoundBox.Top == c2.BoundBox.Bottom)
-            //    c1.Position = new Vector2(collidedPos.X, c1.Position.Y);
-            //else
-            //    c1.Position = new Vector2(c1.Position.X, collidedPos.Y);
         }
 
         //private void rotatingIntersection(Collidable c1, Collidable c2)
