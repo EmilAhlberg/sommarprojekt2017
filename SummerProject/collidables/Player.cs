@@ -154,17 +154,23 @@ namespace SummerProject.collidables
             Hull.Move();
         }
 
-        public void Collision(Collidable c2) //NEEDS FIX
+        public new void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
         {
-            if (/**!shieldOn && */c2 is Enemy)
+            if (/**!shieldOn && */c2 is Part)
             {
-                    Enemy e = c2 as Enemy;
-                    Health -= e.Damage;
+                Part p = c2 as Part;
+                if (p.Carrier is Part)
+                    Collision(p.Carrier as Part);
+                else
+                {
+                    if (p.Carrier is Enemy)
+                        Health -= (p.Carrier as Enemy).Damage;
+                }
             }
-            if(c2 is HealthDrop)
-            {
-                Health += HealthDrop.heal;
-            }
+            //if (c2 is HealthDrop)
+            //{
+            //    Health += HealthDrop.heal;
+            //}
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts

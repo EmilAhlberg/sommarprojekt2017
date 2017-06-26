@@ -13,7 +13,7 @@ namespace SummerProject
     {
         protected CompositePart Hull;
         protected int Health { get; set; }
-        protected int Damage { get; set; }
+        public int Damage { get; protected set; }
         public bool IsDead { get; set; }
 
         public Entity2(Vector2 position, ISprite sprite)

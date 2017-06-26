@@ -29,7 +29,7 @@ namespace SummerProject
             //Particles.GenerateParticles(Position, 4, angle);
         }
 
-        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        protected void SpecificActivation(Vector2 source, Vector2 target)
         {
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
@@ -39,18 +39,26 @@ namespace SummerProject
             float dX = Hull.Position.X - player.Hull.Position.X;
             float dY = Hull.Position.Y - player.Hull.Position.Y;
             Hull.TurnTowardsVector(dX, dY);
-        }   
-       
-        public void Collision(Collidable c2) //NEEDS FIX
+        }
+
+        public new void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
         {
-            if (c2 is Projectile)
+            if (c2 is Part)
             {
-                Projectile b = c2 as Projectile;
-                if (IsActive)
-                    Health -= b.Damage;
+                Part p = c2 as Part;
+                if (p.Carrier is Part)
+                    Collision(p.Carrier as Part);
+                else
+                {
+                    if (p.Carrier is Player)
+                        Health -= (p.Carrier as Player).Damage;
+                }
+                //Projectile b = c2 as Projectile;
+                //if (IsActive)
+                //    Health -= b.Damage;
             }
-            if (c2 is Player)
-                Death();
+            //if (c2 is Player)
+            //    Death();
         }
 
         public override void Death() //NEEDS FIX
