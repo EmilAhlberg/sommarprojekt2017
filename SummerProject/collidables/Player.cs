@@ -12,7 +12,6 @@ namespace SummerProject.collidables
     {
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
-        public bool IsDead { get; private set; }
         public float Energy { get; set; }
         private const float shieldDischargeRate = 0.1f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
@@ -40,7 +39,7 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            if (!IsDead)
+            if (!IsActive)
             {
                 sprite.MColor = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
@@ -49,7 +48,7 @@ namespace SummerProject.collidables
                 Move();
                 HandleBulletType();
                 Fire();
-                if (Health <= 0 && !IsDead)
+                if (Health <= 0 && !IsActive)
                     Death();
                 if (InputHandler.isPressed(MouseButton.RIGHT))
                 {
@@ -170,11 +169,19 @@ namespace SummerProject.collidables
             {
                 Health += HealthDrop.heal;
             }
+            if(c2 is Projectile)
+            {
+                Projectile b = c2 as Projectile;
+                if(b.IsActive && b.IsEvil)
+                {
+                    Health -= b.Damage;
+                }
+            }
         }
 
         public override void Death()
         {
-            IsDead = true;
+            IsActive = true;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             sprite.MColor = Color.Transparent;
         }
@@ -186,7 +193,7 @@ namespace SummerProject.collidables
             Energy = maxEnergy;
             angle = 0;
             Stop();
-            IsDead = false;
+            IsActive = false;
         }
 
         public bool AddPart(Part part, int pos)

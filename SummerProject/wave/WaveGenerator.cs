@@ -102,10 +102,10 @@ namespace SummerProject
         {
             if (!isActive)
             {
-                if (!player.IsDead)
+                if (!player.IsActive)
                     isActive = true;
             }
-            else if (player.IsDead)
+            else if (player.IsActive)
             {
                 isActive = false;
                 Reset();

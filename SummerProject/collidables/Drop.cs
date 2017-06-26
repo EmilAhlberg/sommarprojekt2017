@@ -6,7 +6,7 @@ namespace SummerProject.collidables
     {
         protected const float stdDespawnTime = 5f;
 
-        public Drop(Vector2 position, ISprite sprite) : base(position, sprite)
+        public Drop(Vector2 position, ISprite sprite) : base(position, sprite, false)
         {
             despawnTime = stdDespawnTime; 
         }

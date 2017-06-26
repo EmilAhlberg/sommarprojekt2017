@@ -10,11 +10,11 @@ namespace SummerProject.collidables
 {
     class HomingBullet : Projectile
     {
-        private Enemy enemy;
+        private Entity target;
         private bool lockedOn;
         private const int homingDamage = 10;
 
-        public HomingBullet(Vector2 position, ISprite sprite) : base(position, sprite)
+        public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
             InitDetection();
         }
@@ -32,8 +32,8 @@ namespace SummerProject.collidables
 
         private void CalculateAngle()
         {
-            float dX = Position.X - enemy.Position.X;
-            float dY = Position.Y - enemy.Position.Y;
+            float dX = Position.X - target.Position.X;
+            float dY = Position.Y - target.Position.Y;
             base.CalculateAngle(dX, dY);
         }
 
@@ -41,9 +41,9 @@ namespace SummerProject.collidables
         {
             if (!lockedOn)
             {
-                if (c2 is Enemy)
+                if (c2 is Enemy && !IsEvil || c2 is Player && IsEvil)
                 {
-                    enemy = (Enemy)c2;
+                    target = c2 as Entity;
                     InitLockOn();
                     RemoveBoundBox(1);
                 }
@@ -60,7 +60,7 @@ namespace SummerProject.collidables
         {
             if (lockedOn)
             {
-                if (enemy.IsActive)
+                if (target.IsActive)
                     CalculateAngle();
                else
                     InitDetection();
