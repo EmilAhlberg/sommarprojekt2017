@@ -12,7 +12,7 @@ namespace SummerProject.wave
         private const float TIMER1_DECREASINGMODE = 3f;
         private const float TIMER2_DECREASINGMODE = 3f;
 
-        private const float TIMER1_CONSTANTMODE = 2.5f;       
+        private const float TIMER1_CONSTANTMODE = 4f;      
 
         private const float TIMER1_DEBUGMODE = 30f;
 

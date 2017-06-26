@@ -9,14 +9,14 @@ namespace SummerProject.wave
 {
     public class SpawnPointGenerator
     {
-
         private Random rand;
         //private Vector2[] spawnPoints;
         private GameMode gameMode;
         private int spawnSize;
         private int windowWidth;
         private int windowHeight;
-        private int mapOffset = -50; //!        
+        private int mapOffset = -10; //!       
+        private int diagonalWaveSize = 600; //!
 
         public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
         {
@@ -52,15 +52,17 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             if (gameMode.TimeMode == GameMode.RANDOM_WAVESPAWN)
-                spawnSize = ScoreHandler.Score / (spawnSize * 500) + 2;    
+                spawnSize = ScoreHandler.Score / (spawnSize * 500) + 2;    //bugged!! spawnSize is inconsistent
         }
 
         public Vector2[] GetSpawnPoints()
         {
             Vector2[] vs = new Vector2[spawnSize];
 
-
-            if (rand.Next(1, 5) == 4)
+            int waveType = rand.Next(0, 9);
+            if (waveType >= 4)
+                vs = RandomDiagonalWave();
+            else if (waveType >= 5)
                 vs = RandomSideWave();
             else
             {
@@ -69,23 +71,25 @@ namespace SummerProject.wave
                     vs[i] = RandomOffMapLocation();
                 }
             }
+            
 
             return vs;
         }
 
         private Vector2 SidePoint(int side, float spacing, float x, float y)
         {
-            Vector2 v = Vector2.Zero;
+            Vector2 v = Vector2.Zero;          
+
             switch (side)
             {
                 case 1: //bottom
                     v = new Vector2(x + spacing, windowHeight - mapOffset);
                     break;
                 case 2: // top
-                    v = new Vector2(x + spacing, mapOffset);
+                    v = new Vector2(x + spacing, mapOffset) ;
                     break;
                 case 3: //left
-                    v = new Vector2(mapOffset, y + spacing);
+                    v = new Vector2(mapOffset, y + spacing) ;
                     break;
                 case 4: //right
                     v = new Vector2(windowWidth - mapOffset, y + spacing);
@@ -93,6 +97,29 @@ namespace SummerProject.wave
             }
             return v;
         }
+
+        private Vector2 DiagonalPoint(int side, int offset)
+        {
+            Vector2 v = Vector2.Zero;
+            switch (side)
+            {
+                case 1: //bottom left
+                    v = new Vector2(offset, windowHeight + offset);
+                    break;
+                case 2: // bottom right
+                    v = new Vector2(windowWidth + offset, windowHeight-offset);
+                    break;
+                case 3: //top left
+                    v = new Vector2(offset, -offset);
+                    break;
+                case 4: //top right
+                    v = new Vector2(windowWidth + offset, offset);
+                    break;
+            }
+            return v;
+        }
+
+
 
         /*
          * MODES:
@@ -120,8 +147,21 @@ namespace SummerProject.wave
                 vs[i] = SidePoint(side, sum, 0, 0);
                 sum += gapLength;            
             }
-            return vs;           
-            
+            return vs;                       
+        }
+              
+      
+        private Vector2[] RandomDiagonalWave()
+        {
+            Vector2[] vs = new Vector2[spawnSize];
+            int side = rand.Next(1, 5);
+            int offset = -spawnSize/2;
+            for (int i = 0; i< spawnSize; i++)
+            {
+                vs[i] = DiagonalPoint(side, offset* diagonalWaveSize/spawnSize);
+                offset++;
+            }
+            return vs;                            
         }
 
         private Vector2 RandomOffMapLocation()
@@ -138,8 +178,10 @@ namespace SummerProject.wave
 
             v = SidePoint(side, 0, x, y);           
             return v;
-        }
-
-      
+        }      
     }
+
+
+
+
 }
