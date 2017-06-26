@@ -6,27 +6,26 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
-    class Enemy : AIEntity, IPartCarrier
+    class Enemy : IPartCarrier
     {        
         public int WorthScore {get; private set;}
         private Player player;
         protected CompositePart Hull;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
-            : base(position, sprite)
         {
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
-            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            Hull = new RectangularHull(position, sprite, this);                
+            Hull = new RectangularHull(position, sprite, this);
+            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];      
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             CalculateAngle();
-            Move();
-            Particles.GenerateParticles(Position, 4, angle);
+            Hull.Move();
+            //Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
@@ -41,12 +40,12 @@ namespace SummerProject
 
         private void CalculateAngle()
         {
-            float dX = Position.X - player.Position.X;
-            float dY = Position.Y - player.Position.Y;
-            base.CalculateAngle(dX, dY);
+            float dX = Hull.Position.X - player.Hull.Position.X;
+            float dY = Hull.Position.Y - player.Hull.Position.Y;
+            Hull.TurnTowardsVector(dX, dY);
         }   
        
-        public override void Collision(Collidable c2)
+        public void Collision(Collidable c2) //NEEDS FIX
         {
             if (c2 is Projectile)
             {
@@ -58,9 +57,9 @@ namespace SummerProject
                 Death();
         }
 
-        public override void Death()
+        public override void Death() //NEEDS FIX
         {
-            Particles.GenerateParticles(Position, 2, angle); //Death animation
+            //Particles.GenerateParticles(Position, 2, angle); //Death animation
             base.Death();
         }
 

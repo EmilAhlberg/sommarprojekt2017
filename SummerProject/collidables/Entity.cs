@@ -2,7 +2,7 @@
 
 namespace SummerProject.collidables
 {
-    public abstract class Entity : Collidable
+    public abstract class Entity : Movable
     {
         public int Damage { get; set; }
         public int Health { get; set; }

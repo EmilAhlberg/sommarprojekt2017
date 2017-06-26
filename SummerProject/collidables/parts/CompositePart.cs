@@ -12,12 +12,40 @@ namespace SummerProject
     public abstract class CompositePart : Part, IPartCarrier
     {
         protected Link[] parts;
-
+        public new float TurnSpeed { set { base.TurnSpeed = value} get { return base.TurnSpeed; } }
+        public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
+        public override Color Color {
+            set
+            {
+                base.Color = value;
+                foreach (Link p in parts)
+                    p.Part.Color = value;
+            }
+            get
+            {
+                return base.Color;
+            }
+        }
+        public new float Mass
+        {
+            set { base.Mass = value; }
+            get
+            {
+                float m = base.Mass;
+                foreach (Link p in parts)
+                    m += p.Part.Mass;
+                return m;
+            }
+        }
+        
         public CompositePart(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite, carrier)
         {
             AddLinkPositions();
         }
 
+        public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))); }
+
+        public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
         public bool AddPart(Part part, int pos) {
             if (pos < parts.Length)
             {
@@ -34,7 +62,7 @@ namespace SummerProject
             parts[pos].SetPart(p);
         }
 
-        public void UpdateParts(float angle)
+        protected void UpdatePartsPos(float angle)
         {
             Matrix rot = Matrix.CreateRotationZ(angle);
             for (int i = 0; i < parts.Length; i++)
@@ -46,17 +74,17 @@ namespace SummerProject
                     SetPart(parts[i].Part,i);
                     if(parts[i].Part is CompositePart)
                     {
-                        ((CompositePart)parts[i].Part).UpdateParts(angle);
+                        ((CompositePart)parts[i].Part).UpdatePartsPos(angle);
                     }
                 }
             }
         }
 
-        protected override void Move()
+        public void Move()
         {
             float prevAngle = angle;
             base.Move();
-            UpdateParts(angle-prevAngle);
+            UpdatePartsPos(angle-prevAngle);
         }
 
         public override void Draw(SpriteBatch sb, GameTime gameTime)

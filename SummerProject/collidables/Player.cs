@@ -8,70 +8,68 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables
 {
-    public class Player : Entity, IPartCarrier
+    public class Player : IPartCarrier
     {
-        private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+        private float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         public bool IsDead { get; private set; }
-        public float Energy { get; set; }
-        private const float shieldDischargeRate = 0.1f;
-        private const float shieldRechargeRate = shieldDischargeRate / 10;
-        private const float maxEnergy = 100;
-        private const int shieldSize = 300;
-        private bool shieldOn;
-        private Projectiles projectiles;
         private Vector2 startPosition;
-        protected CompositePart Hull;
+        public CompositePart Hull;
+        private Projectiles projectiles;
+        //public float Energy { get; set; }
+        //private const float shieldDischargeRate = 0.1f;
+        //private const float shieldRechargeRate = shieldDischargeRate / 10;
+        //private const float maxEnergy = 100;
+        //private const int shieldSize = 300;
+        //private bool shieldOn;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
-            : base(position, sprite)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) 
         {
-            Position = position;
             startPosition = position;
             this.projectiles = projectiles;
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
-            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
-            Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-            Energy = maxEnergy;
-            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
+            //Energy = maxEnergy;
             Hull = new RectangularHull(position, sprite, this);
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime) //NEEDS FIX
         {
             if (!IsDead)
             {
-                sprite.MColor = Color.White; //Move to Respawn()
+                Hull.Color = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
                     CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle);
+                //Particles.GenerateParticles(Position, 4, angle);
                 Move();
                 HandleBulletType();
                 Fire();
                 if (Health <= 0 && !IsDead)
                     Death();
-                if (InputHandler.isPressed(MouseButton.RIGHT))
-                {
-                    if (Energy > 0)
-                    {
-                        Particles.GenerateEdgeParticles(sprite.CalculateEdges(), Position, sprite.Origin, 7, angle);
-                        Energy -= shieldDischargeRate;
-                        shieldOn = true;
-                    }
-                    else
-                        shieldOn = false;
-                }
-                else
-                if(maxEnergy > Energy)
-                {
-                    Energy += shieldRechargeRate;
-                    shieldOn = false;
-                }
+                //if (InputHandler.isPressed(MouseButton.RIGHT))
+                //{
+                //    if (Energy > 0)
+                //    {
+                //        //Particles.GenerateEdgeParticles(sprite.CalculateEdges(), Position, sprite.Origin, 7, angle);
+                //        Energy -= shieldDischargeRate;
+                //        shieldOn = true;
+                //    }
+                //    else
+                //        shieldOn = false;
+                //}
+                //else
+                //if(maxEnergy > Energy)
+                //{
+                //    Energy += shieldRechargeRate;
+                //    shieldOn = false;
+                //}
             }
         }
 
-        private void HandleBulletType()
+        private void HandleBulletType() //NEEDS FIX
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
                 projectiles.SwitchBullets(EntityTypes.BULLET);
@@ -79,22 +77,22 @@ namespace SummerProject.collidables
                 projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
         }
 
-        private void Fire()
+        private void Fire() //NEEDS FIX
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
+                projectiles.Fire(Hull.Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
             }
         }
 
         private void CalculateAngle()
         {
-            float dX = Position.X - Mouse.GetState().X;
-            float dY = Position.Y - Mouse.GetState().Y;
-            base.CalculateAngle(dX, dY);
+            float dX = Hull.Position.X - Mouse.GetState().X;
+            float dY = Hull.Position.Y - Mouse.GetState().Y;
+            Hull.TurnTowardsVector(dX, dY);
         }
 
-        protected override void Move()
+        protected void Move() //Change when adding engine
         {
             if (InputHandler.isPressed(Keys.D1))
                 ControlScheme = 1;
@@ -104,64 +102,64 @@ namespace SummerProject.collidables
                 ControlScheme = 3;
             if (InputHandler.isPressed(Keys.D4))
                 ControlScheme = 4;
-            base.Thrust = 0;
+            Hull.Thrust = 0;
             if (ControlScheme <= 1)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    base.Thrust = -Thrust;
+                    Hull.Thrust = -Thrust;
 
                 if (InputHandler.isPressed(Keys.W))
-                    base.Thrust += Thrust;
+                    Hull.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2))));
+                    Hull.AddForce(Thrust, Hull.angle - (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2))));
+                    Hull.AddForce(Thrust, Hull.angle + (float)Math.PI / 2);
             }
 
             else if (ControlScheme == 2)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2))));
+                    Hull.AddForce(Thrust, (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.W))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2))));
+                    Hull.AddForce(Thrust, -(float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI))));
+                    Hull.AddForce(Thrust, (float)Math.PI);
 
                 if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(0), (float)Math.Sin(0))));
+                    Hull.AddForce(Thrust, 0);
             }
 
             else if (ControlScheme == 3)
             {
                 if (InputHandler.isPressed(MouseButton.RIGHT))
-                    base.Thrust = Thrust;
+                    Hull.Thrust = Thrust;
 
             }
             else if (ControlScheme == 4)
             {
-                base.Thrust = 0;
+                Hull.Thrust = 0;
                 if (InputHandler.isPressed(Keys.S))
-                    base.Thrust = -Thrust;
+                    Hull.Thrust = -Thrust;
 
                 if (InputHandler.isPressed(Keys.W))
-                    base.Thrust += Thrust;
+                    Hull.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    angle -= 0.1f;
+                    Hull.angle -= 0.1f;
 
                 if (InputHandler.isPressed(Keys.D))
-                    angle += 0.1f;
+                    Hull.angle += 0.1f;
             }
-            base.Move();
+            Hull.Move();
         }
 
-        public override void Collision(Collidable c2)
+        public void Collision(Collidable c2) //NEEDS FIX
         {
-            if (!shieldOn && c2 is Enemy)
+            if (/**!shieldOn && */c2 is Enemy)
             {
                     Enemy e = c2 as Enemy;
                     Health -= e.Damage;
@@ -172,20 +170,20 @@ namespace SummerProject.collidables
             }
         }
 
-        public override void Death()
+        public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             IsDead = true;
-            Particles.GenerateParticles(Position, 3, angle); //Death animation
-            sprite.MColor = Color.Transparent;
+            //Particles.GenerateParticles(Position, 3, angle);
+            Hull.Color = Color.Transparent;
         }
 
-        public void Reset()
+        public void Reset() //NEEDS FIX
         {
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
-            Position = startPosition;
-            Energy = maxEnergy;
-            angle = 0;
-            Stop();
+            //Energy = maxEnergy;
+            Hull.angle = 0;
+            Hull.Position = startPosition;
+            Hull.Stop();
             IsDead = false;
         }
 

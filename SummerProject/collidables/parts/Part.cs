@@ -11,8 +11,11 @@ namespace SummerProject
     public abstract class Part : Collidable
     {
         public IPartCarrier Carrier { set; get; }
+        public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
+        public virtual Color Color { set { sprite.MColor = value; } get { return sprite.MColor; } }
         public Part(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite)
         {
+            //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
             Carrier = carrier;
         }
 
