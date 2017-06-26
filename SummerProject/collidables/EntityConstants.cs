@@ -18,7 +18,7 @@ namespace SummerProject.collidables
           {
                 {DEFAULT, 5},
                 {PLAYER, 5},
-                {ENEMY, 5},
+                {ENEMY, 1},
                 {BULLET, 1}
           };
 
@@ -28,7 +28,7 @@ namespace SummerProject.collidables
                 {DEFAULT, 1},
                 {PLAYER, 1},
                 {ENEMY, 1},
-                {BULLET, 5}
+                {BULLET, 1}
           };
 
         public static readonly Dictionary<int, float> MASS =

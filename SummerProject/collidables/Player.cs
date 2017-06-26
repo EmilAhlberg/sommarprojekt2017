@@ -169,10 +169,10 @@ namespace SummerProject.collidables
             {
                 Health += HealthDrop.heal;
             }
-            if(c2 is Projectile)
+            if(!shieldOn && c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
-                if(b.IsActive && b.IsEvil)
+                if(b.IsEvil)
                 {
                     Health -= b.Damage;
                 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.parts;
+using SummerProject.factories;
 
 namespace SummerProject
 {
@@ -9,6 +10,7 @@ namespace SummerProject
     {        
         public int WorthScore {get; private set;}
         private Player player;
+        public static Projectiles projectiles;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
@@ -23,6 +25,11 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
+            Random rand = new Random();
+            if(rand.NextDouble() < 0.01)
+            {
+                projectiles.EvilFire(Position, player.Position);
+            }
             Particles.GenerateParticles(Position, 4, angle);
             if (Health < 1)
             {
