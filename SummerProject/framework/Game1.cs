@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using SummerProject.factories;
 using SummerProject.collidables;
+using System;
 
 namespace SummerProject
 {
@@ -35,6 +36,10 @@ namespace SummerProject
             graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             Content.RootDirectory = "Content";
+            //this.IsFixedTimeStep = false; //use to make game rly fast :)
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //graphics.ApplyChanges();
+
         }
 
         /// <summary>
@@ -277,7 +282,7 @@ namespace SummerProject
             else
                 eventOperator.Draw(spriteBatch, gameTime);
 
-            DebugMode(spriteBatch);
+            DebugMode(spriteBatch, gameTime);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -311,7 +316,7 @@ namespace SummerProject
             player.Position = new Vector2(x, y);
         }
 
-        private void DebugMode(SpriteBatch spriteBatch)
+        private void DebugMode(SpriteBatch spriteBatch, GameTime gameTime)
         {
             int controlSheme = player.ControlScheme;
             string usingControls = "";
@@ -326,6 +331,8 @@ namespace SummerProject
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth - 700, graphics.PreferredBackBufferHeight - 100), Color.Crimson);
+            spriteBatch.DrawString(scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Gold);
+
         }
     }
 }
