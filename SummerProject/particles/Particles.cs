@@ -134,17 +134,17 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Health Explosion 8
+                #region Health Death 8
                 case 8:
                     {
                         CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl);
                         break;
                     }
                 #endregion
-                #region Drop Explosion 9
+                #region Explosion Drop 9
                 case 9:
                     {
-                        CreateCircle(10, position, 10, 500/2, 0, Color.OrangeRed, 1, 0.5f, ttl);
+                        CreateExplosion(10, position, 10, 500 / 2, 0, Color.DodgerBlue, 1, 0.5f, ttl);
                         break;
                     }
                     #endregion
