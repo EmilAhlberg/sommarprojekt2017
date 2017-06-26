@@ -92,7 +92,6 @@ namespace SummerProject
             else if (player.IsActive)
             {
                 isActive = false;
-                Reset();
             }
         }        
 

@@ -193,6 +193,7 @@ namespace SummerProject
             #region Game Over
             if (player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
+                ResetGame(false);
                 deathTimer.CountDown(gameTime);
                 if (deathTimer.IsFinished)
                 {
