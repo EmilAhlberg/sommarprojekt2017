@@ -104,16 +104,13 @@ namespace SummerProject
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             #endregion
 
-            #region Adding entity-sprites to lists
-            List<Sprite> bulletSprites = new List<Sprite>();
-            List<Sprite> enemySprites = new List<Sprite>();
-            List<Sprite> dropSprites = new List<Sprite>();
-            enemySprites.Add(new Sprite(enemyTex));        // order is important
-            bulletSprites.Add(new Sprite(shotTex, 4));
-            bulletSprites.Add(new Sprite(homingTex));
-            dropSprites.Add(new SummerProject.Sprite(healthDropTex));
-            dropSprites.Add(new SummerProject.Sprite(explosionDropTex, 5, 5));
-            dropSprites.Add(new SummerProject.Sprite(energyDropTex,5,5));
+            #region Adding entity-sprites to list
+            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex);
+            Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
+            Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
+            Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex);
+            Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,6,6);
+            Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,6,6);
             #endregion
 
             #region Testing composite sprite
@@ -128,12 +125,12 @@ namespace SummerProject
             #region Initializing game objects etc.
             eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
+            projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont);
+            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            drops = new Drops(dropSprites, 10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #endregion
 
             #region Adding sprites to particles

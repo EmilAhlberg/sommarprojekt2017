@@ -13,18 +13,15 @@ namespace SummerProject.factories
         private int width;
         private int height;
         private Random rand;
-        private const int totalNbrOfDrops = 3;
-        public bool IsActive { get; set; }
-        public Drops(List<Sprite> sprites, int entityCap, int windowWidth, int windowHeight) : base(sprites, entityCap)
+        public Drops(int entityCap, int windowWidth, int windowHeight) : base(entityCap)
         {
-            IsActive = true;
             width = windowWidth - 100;
             height = windowHeight - 100;
             spawnTimer = new Timer(spawnTime);
             rand = new Random(42);
-            InitializeEntities(0);             
-            InitializeEntities(1);
-            InitializeEntities(2);
+            InitializeEntities(EntityTypes.HEALTHDROP);             
+            InitializeEntities(EntityTypes.EXPLOSIONDROP);
+            InitializeEntities(EntityTypes.ENERGYDROP);
         }
 
         public void Spawn()
@@ -36,18 +33,15 @@ namespace SummerProject.factories
         {
             if (spawnTimer.IsFinished)
             {
-                if (ActivateEntities(source, source, (int) (rand.NextDouble() * totalNbrOfDrops)))
+                if (ActivateEntities(source, source, rand.Next(EntityTypes.HEALTHDROP,EntityTypes.ENERGYDROP + 1)))
                     spawnTimer.Reset();
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (IsActive)
-            {
                 UpdateEntities(gameTime);
                 spawnTimer.CountDown(gameTime);
-            }
         }
 
         public override void Reset()
@@ -58,7 +52,7 @@ namespace SummerProject.factories
 
         protected override AIEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateDrop(Sprites[EntityTypes.SPRITE[type]], type);
+            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type);
         }
     }
 }

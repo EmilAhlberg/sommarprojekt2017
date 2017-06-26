@@ -4,7 +4,7 @@ namespace SummerProject.collidables
 {
     abstract class Projectile : AIEntity
     {
-        private Timer despawnTimer;
+        protected Timer despawnTimer;
         protected float despawnTime = 7f; //!!
         public bool IsEvil;
 

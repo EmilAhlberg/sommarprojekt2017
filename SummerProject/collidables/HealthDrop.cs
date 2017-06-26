@@ -15,10 +15,8 @@ namespace SummerProject.collidables
         }
         public override void Collision(Collidable c2)
         {
-            if (c2 is Player)
-            {        
+            if (c2 is Player)  
                 Death();
-            }
         }
 
         public override void Death()
