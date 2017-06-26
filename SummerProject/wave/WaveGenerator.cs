@@ -41,9 +41,7 @@ namespace SummerProject
             
             enemies.Update(gameTime);
             UpdateMode(); 
-        }
-
-       
+        }       
 
         private void UpdateSpawnHandlers(GameTime gameTime)
         {            
