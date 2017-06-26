@@ -12,16 +12,18 @@ namespace SummerProject.wave
 
         private Random rand;
         private Vector2[] spawnPoints;
-        private int mode;
+        private GameMode gameMode;
         private int spawnSize;
         private int windowWidth;
         private int windowHeight;
         private int mapOffset = 50; //!
 
-        public SpawnPointGenerator(int windowWidth, int windowHeight)
+        public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
         {
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
+            this.gameMode = gameMode;
+
             rand = new Random();
             //spawnPoints = new Vector2[8]; //!!
             ////!!
@@ -37,24 +39,22 @@ namespace SummerProject.wave
 
         public void ChangeMode(int modeType)
         {
-            //switch(modeType)
-            //{
-            //    case WaveGenerator.INCREASING_PRESSURE:
-            //        spawnSize = 1; //! DEFAULT
-            //        break;
-            //    case WaveGenerator.WAVESPAWN_MODE:
-            //        spawnSize = 5; //! DEFAULT
-            //        break;
-            //}
-            mode = modeType;
+            switch (modeType)
+            {
+                case GameMode.RANDOM_SINGLESPAWN:
+                    spawnSize = 1; //! DEFAULT
+                    break;
+                case GameMode.RANDOM_WAVESPAWN:
+                    spawnSize = ScoreHandler.Score / 1000 + 1; //! 
+                    break;
+
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (mode == WaveGenerator.WAVESPAWN_MODE)
-                spawnSize = ScoreHandler.Score / 1000 + 1;
-            else
-                spawnSize = 1;        
+            if (gameMode.TimeMode == GameMode.RANDOM_WAVESPAWN)
+                spawnSize = ScoreHandler.Score / 1000 + 1;    
         }
 
         public Vector2[] GetSpawnPoints()

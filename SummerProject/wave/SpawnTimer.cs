@@ -9,11 +9,10 @@ namespace SummerProject.wave
 {
     public class SpawnTimer
     {
-        private const float TIMER1_INCREASINGMODE = 3f;
-        private const float TIMER2_INCREASINGMODE = 3f;
+        private const float TIMER1_DECREASINGMODE = 3f;
+        private const float TIMER2_DECREASINGMODE = 3f;
 
-        private const float TIMER1_WAVESPAWNMODE = 2.5f;
-       // private const float TIMER2_WAVESPAWNMODE = 0.06f;
+        private const float TIMER1_CONSTANTMODE = 2.5f;       
 
        private const float TIMER1_DEBUGMODE = 30f;
 
@@ -23,49 +22,47 @@ namespace SummerProject.wave
 
         private Timer timer2;
         private Timer timer1;
-        private int mode;
+        private GameMode gameMode;
 
-        public SpawnTimer(int mode)
+        public SpawnTimer(GameMode gameMode)
         {
-            this.mode = mode;
-            timer1 = new Timer(TIMER1_INCREASINGMODE);
-            timer2 = new Timer(TIMER2_INCREASINGMODE);
+            this.gameMode = gameMode;
+            timer1 = new Timer(TIMER1_DECREASINGMODE);
+            timer2 = new Timer(TIMER2_DECREASINGMODE);
         }
 
-        public void ChangeMode(int modeType)
+        public void ChangeMode()
         {
-            switch (modeType)
+            switch (gameMode.TimeMode)
             {
-                case WaveGenerator.INCREASING_PRESSURE:                  
-                    timer1.maxTime = TIMER1_INCREASINGMODE; 
-                    timer2.maxTime = TIMER2_INCREASINGMODE;                    
+                case GameMode.DECREASING_TIME:                  
+                    timer1.maxTime = TIMER1_DECREASINGMODE; 
+                    timer2.maxTime = TIMER2_DECREASINGMODE;                    
                     break;
-                case WaveGenerator.WAVESPAWN_MODE:
-                    timer1.maxTime = TIMER1_WAVESPAWNMODE;
-                    break;
-                //timer2.maxTime = TIMER2_WAVESPAWNMODE;              
-                case WaveGenerator.DEBUG_MODE:
+                case GameMode.RANDOM_WAVESPAWN:
+                    timer1.maxTime = TIMER1_CONSTANTMODE;
+                    break;                          
+                case GameMode.DEBUG_MODE:
                     timer1.maxTime = TIMER1_DEBUGMODE;     
                     break;
             }
             timer1.Reset();
-            timer2.Reset();
-            mode = modeType;
+            timer2.Reset();            
         }
        
 
         public bool Update(GameTime gameTime)
         {            
-            switch (mode)
+            switch (gameMode.TimeMode)
             {
-                case WaveGenerator.INCREASING_PRESSURE:
-                    IncreasingPressureMode(gameTime);                   
+                case GameMode.DECREASING_TIME:
+                    DecreasingTimeMode(gameTime);                   
                     return timer1.IsFinished;                    
-                case WaveGenerator.WAVESPAWN_MODE:
-                    WaveSpawnMode(gameTime);
+                case GameMode.RANDOM_WAVESPAWN:
+                    ConstantTimeMode(gameTime);
                     return timer1.IsFinished;
-                case WaveGenerator.DEBUG_MODE:
-                    WaveSpawnMode(gameTime); //!
+                case GameMode.DEBUG_MODE:
+                    ConstantTimeMode(gameTime);
                     return timer1.IsFinished;                
             }
 
@@ -74,19 +71,20 @@ namespace SummerProject.wave
 
         public void JustSpawned()
         {
-            switch (mode)
+            switch (gameMode.TimeMode)
             {
-                case WaveGenerator.INCREASING_PRESSURE:
+                case GameMode.DECREASING_TIME:
                     timer1.Reset();
                     break;
             }
         }
 
+
         //
         // MODES:
         //
 
-        private void IncreasingPressureMode(GameTime gameTime)
+        private void DecreasingTimeMode(GameTime gameTime)
         {
             timer2.CountDown(gameTime);
             if (timer1.maxTime > increasingModeTimeCap && timer2.IsFinished)
@@ -101,7 +99,7 @@ namespace SummerProject.wave
             timer1.CountDown(gameTime);
         }
 
-        private void WaveSpawnMode(GameTime gameTime)
+        private void ConstantTimeMode(GameTime gameTime)
         {
             if (timer1.IsFinished)
                 timer1.Reset();
@@ -111,7 +109,5 @@ namespace SummerProject.wave
             //if (timer1.IsFinished)
             //    timer2.CountDown(gameTime);                   
         }
-
-      
     }
 }

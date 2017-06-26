@@ -57,7 +57,7 @@ namespace SummerProject.framework
                     break;
                 case EventOperator.GAME_STATE:
                     //op.ResetGame(true);
-                    game.DrawGame(spriteBatch, gameTime); //WHY WONT PLAYER ALWAYS DRAAAAAAAAAAAAAAAAAAAAAAAAW?1111111111
+                    game.DrawGame(spriteBatch, gameTime); //WHY WONT PLAYER ALWAYS DRAAAW?1111111111
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:
