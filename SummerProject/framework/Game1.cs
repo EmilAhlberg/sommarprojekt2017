@@ -96,6 +96,7 @@ namespace SummerProject
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthpack");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/dship2");
+            Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             #endregion
 
             #region Adding entity-sprites to lists
@@ -137,6 +138,7 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex4));
             Particles.AddSprite(new Sprite(deadTex3));
             Particles.AddSprite(new Sprite(plusTex));
+            Particles.AddSprite(new Sprite(boltTex));
             #endregion
             // TODO: use this.Content to load your game content here
         }

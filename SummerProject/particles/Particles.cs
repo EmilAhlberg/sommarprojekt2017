@@ -137,7 +137,7 @@ namespace SummerProject
                 #region Health Death 8
                 case 8:
                     {
-                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl);
+                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl, 5);
                         break;
                     }
                 #endregion
@@ -164,6 +164,14 @@ namespace SummerProject
                         CreateTrail(angle, position, 1, 20, 0, Color.DarkRed, 0, 1, 0.3f);
                         break;
                     }
+                #endregion
+
+                #region Energy Death 12
+                case 12:
+                    {
+                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Yellow, 0, 1, ttl, 6);
+                        break;
+                    }
                     #endregion
             }
         }
@@ -177,41 +185,41 @@ namespace SummerProject
             }
         }
 
-        private static void CreateExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialForce = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+                CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
             }
         }
 
-        private static void CreateNonRotExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateNonRotExplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialForce = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[5]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); //LMAO HELP ME
+                CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); 
             }
         }
 
-        private static void CreateTrail(float angle, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateTrail(float angle, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             Vector2 initialForce = -new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             initialForce *= RandomFloat(spread, baseValue);
             float scale = RandomFloat(scaleSpread, baseScale);
-            CreateParticle(new Sprite(spriteList[0]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+            CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
         }
 
-        private static void CreateCircle(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl)
+        private static void CreateCircle(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, int spriteIndex = 0)
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialPosition = RandomVector2(spread, baseValue);
                 float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[0]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1);
+                CreateParticle(new Sprite(spriteList[spriteIndex]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1);
             }
         }
 

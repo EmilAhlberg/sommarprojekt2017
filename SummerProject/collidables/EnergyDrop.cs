@@ -23,7 +23,7 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 8); //Death animation
+            Particles.GenerateParticles(Position, 12); //Death animation
             base.Death();
         }
     }

@@ -13,6 +13,7 @@ namespace SummerProject.factories
   {
                 {BULLET, 0},
                 {HOMINGBULLET, 1},
+                {2,2},
                 {EVILBULLET, 0},
   };
     }
