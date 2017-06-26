@@ -99,7 +99,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
-    <Compile Include="wave\SpawnCalculator.cs" />
+    <Compile Include="wave\GameMode.cs" />
     <Compile Include="util\RotRectangle.cs" />
     <Compile Include="framework\ScoreHandler.cs" />
     <Compile Include="Sprite.cs" />

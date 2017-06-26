@@ -8,83 +8,59 @@ using System.Threading.Tasks;
 using SummerProject.collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.wave;
 
 namespace SummerProject
 {
     public class WaveGenerator
-    {
-        public const int DEBUG_MODE = 0;
-        public const int INCREASING_PRESSURE = 1;
-        public const int WAVESPAWN_MODE = 2;
-
-        private int mode;
-        
-
-        private List<Sprite> enemySprites;
+    {    
         private Enemies enemies;
-        private Player player;      
-       
-        private bool isActive;
-        private SpawnCalculator spawnCalc;
+        private Player player;
+        private GameMode gameMode;
+        private SpawnPointGenerator spawnPointGen;
+        private SpawnTimer spawnTimer;
 
+        private bool isActive;
+  
+
+        //enemies as param insted of sprites?
         public WaveGenerator(List<Sprite> enemySprites, Player player, int windowWidth, int windowHeight)
         {
-            this.enemySprites = enemySprites;
             this.player = player;
-            mode = INCREASING_PRESSURE;       
-            spawnCalc = new SpawnCalculator(mode, windowWidth, windowHeight);    
-            enemies = new Enemies(enemySprites, player, 30); //!
+            gameMode = new GameMode();
+            spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
+            spawnTimer = new SpawnTimer(gameMode);  
+            enemies = new Enemies(enemySprites, player, 30); //! nbrOfEnemies
         }
 
         public void Update(GameTime gameTime)
         {
             CheckActive();
             if (isActive)            
-                UpdateWave(gameTime);                
+                UpdateSpawnHandlers(gameTime);                
             
             enemies.Update(gameTime);
-            UpdateMode();                       
+            UpdateMode(); 
         }
 
-        private void UpdateMode()
-        {
-            if (InputHandler.isJustPressed(Keys.F1))
-            {
-                mode = INCREASING_PRESSURE;
-                spawnCalc.SetGameMode(mode);
-            }
-              
-            if (InputHandler.isJustPressed(Keys.F2))
-            {
-                mode = WAVESPAWN_MODE;
-                spawnCalc.SetGameMode(mode);
-            }
+       
 
-
-            if (InputHandler.isJustPressed(Keys.F3))
-            {
-                mode = DEBUG_MODE;
-                spawnCalc.SetGameMode(mode);
-            }
-        }
-
-        private void UpdateWave(GameTime gameTime)
-        {
-            spawnCalc.Update(gameTime);            
-            if (spawnCalc.SpawnIsReady)
+        private void UpdateSpawnHandlers(GameTime gameTime)
+        {            
+            spawnPointGen.Update(gameTime);            
+            if (spawnTimer.Update(gameTime))
                 SpawnWave();                
             }
 
         private void SpawnWave()
         {
-            Vector2[] spawnPoints = spawnCalc.GetSpawnPoints();
+            Vector2[] spawnPoints = spawnPointGen.GetSpawnPoints();
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
-                spawnCalc.JustSpawned();
+                spawnTimer.JustSpawned();
             }            
-        }
-    
+        }    
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -94,8 +70,7 @@ namespace SummerProject
         public void Reset()
         {
             enemies.Reset();
-            mode = INCREASING_PRESSURE; //DEFAULT
-            spawnCalc.SetGameMode(mode);
+            gameMode.Reset();
         }
 
         private void CheckActive()
@@ -112,9 +87,30 @@ namespace SummerProject
             }
         }        
 
+
         public List<AIEntity> CollidableList()
         {
             return enemies.GetValues();
+        }
+
+        private void UpdateMode()
+        {
+            if (InputHandler.isJustPressed(Keys.F1))
+            {
+                gameMode.TimeMode = GameMode.DECREASING_TIME;
+                gameMode.SpawnMode = GameMode.RANDOM_SINGLESPAWN;
+            }
+
+            if (InputHandler.isJustPressed(Keys.F2))
+            {
+                gameMode.TimeMode = GameMode.RANDOM_WAVESPAWN;
+                gameMode.SpawnMode = GameMode.RANDOM_WAVESPAWN;
+            }
+
+            if (InputHandler.isJustPressed(Keys.F3))
+            {
+                gameMode.TimeMode = GameMode.DEBUG_MODE;
+            }
         }
     }
 }
