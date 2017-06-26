@@ -10,7 +10,7 @@ namespace SummerProject
         static List<Particle> particles;
         static Random rand;
         static List<Sprite> spriteList;
-        private const int maxParticles = 100;
+        private const int maxParticles = 1000;
 
         static Particles()
         {
@@ -47,19 +47,19 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateEdgeParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
+        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
         {
-            Random rand = new Random();
-            switch (ID)
-            {
-                case 7:
 
-                    for (int i = 0; i < 10; i++)
-                    {
-                        GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
-                    }
-                    break;
-            }
+            //switch (ID)
+            //{
+            //    case 7:
+
+            //        for (int i = 0; i < 10; i++)
+            //        {
+            //            GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
+            //        }
+            //        break;
+            //}
         }
 
         public static void GenerateParticles(Vector2 position, int ID, float angle = 0)
@@ -129,7 +129,7 @@ namespace SummerProject
                 #region Shield Visuals 7
                 case 7:
                     {
-                        CreateParticle(new Sprite(spriteList[0]), position, Vector2.Zero, angle, 0, Color.Yellow, 1, 0.2f, 1);
+                        CreateCircle(20, position, 34, 0, 0, Color.Yellow, 1, 0.1f, 0.1f);
                         break;
                     }
                 #endregion
@@ -189,9 +189,8 @@ namespace SummerProject
         {
             for (int i = 0; i < nbrOfParticles; i++)
             {
-                Vector2 initialForce = RandomVector2(spread, baseValue);
-                float scale = RandomFloat(scaleSpread, baseScale);
-                CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
+                float angle = RandomFloat(2 * (float)Math.PI, 0);
+                CreateTrail(angle, position, spread, baseValue, angularVelocity, color, scaleSpread, baseScale, ttl, spriteIndex);
             }
         }
 

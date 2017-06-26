@@ -9,14 +9,15 @@ namespace SummerProject.wave
 {
     public class SpawnPointGenerator
     {
-
         private Random rand;
-        private Vector2[] spawnPoints;
+        //private Vector2[] spawnPoints;
         private GameMode gameMode;
         private int spawnSize;
+        private int newSpawnSize;
         private int windowWidth;
         private int windowHeight;
-        private int mapOffset = 50; //!
+        private int mapOffset = -10; //!       
+        private int diagonalWaveSize = 600; //!
 
         public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
         {
@@ -44,74 +45,153 @@ namespace SummerProject.wave
                     spawnSize = 1; //! DEFAULT
                     break;
                 case GameMode.RANDOM_WAVESPAWN:
-                    spawnSize = ScoreHandler.Score / 1000 + 1; //! 
+                    spawnSize = 2; //! 
+                    newSpawnSize = spawnSize;
                     break;
-
             }
         }
 
         public void Update(GameTime gameTime)
         {
             if (gameMode.TimeMode == GameMode.RANDOM_WAVESPAWN)
-                spawnSize = ScoreHandler.Score / 1000 + 1;    
+            {
+                newSpawnSize = ScoreHandler.Score / (newSpawnSize * 500) + 2; //!!
+                if (newSpawnSize > spawnSize)
+                {
+                    spawnSize = newSpawnSize;
+                    gameMode.ProgressGame(spawnSize-1); //!!
+                }
+            }
+                
         }
 
         public Vector2[] GetSpawnPoints()
         {
             Vector2[] vs = new Vector2[spawnSize];
-            //bool[] takenPoint = new bool[8]; //!!!    8 :: the number of predefined spawnPoints
-            //for (int i = 0; i<spawnSize; i++)
-            //{
-            //    int rNbr = rand.Next(0, 8); //!!
-            //    //gets unique points, avoids 'overlap spawn'
-            //    while (takenPoint[rNbr])
-            //        rNbr = (rNbr + 3) % 8; //!!!!!! nbr: x= '3' cant be a divider of y = '8'
-            //    takenPoint[rNbr] = true;
-            //    vs[i] = spawnPoints[rNbr];
-            //}
 
-
-
-            for (int i = 0; i<spawnSize; i++)
+            int waveType = rand.Next(0, 9);
+            if (waveType >= 8)
+                vs = RandomDiagonalWave();
+            else if (waveType >= 5)
+                vs = RandomSideWave();
+            else
             {
-                vs[i] = RandomOffMapLocation();
+                for (int i = 0; i < spawnSize; i++)
+                {
+                    vs[i] = RandomOffMapLocation();
+                }
             }
+            
 
             return vs;
         }
 
-        private Vector2 RandomOffMapLocation()
+        private Vector2 SidePoint(int side, float spacing, float x, float y)
         {
-            int side = RandomSideSelection(); 
-            Vector2 v = Vector2.Zero;            
-            float x = 0 ;
-            float y = 0;
-
-            if(side <3)            
-                x = windowWidth * (float)rand.NextDouble();               
-             else       
-                y = windowHeight * (float)rand.NextDouble();     
+            Vector2 v = Vector2.Zero;          
 
             switch (side)
             {
                 case 1: //bottom
-                    v = new Vector2(x, windowHeight + mapOffset);
+                    v = new Vector2(x + spacing, windowHeight - mapOffset);
                     break;
                 case 2: // top
-                    v = new Vector2(x, -mapOffset);
+                    v = new Vector2(x + spacing, mapOffset) ;
                     break;
                 case 3: //left
-                    v = new Vector2(-mapOffset, y);
+                    v = new Vector2(mapOffset, y + spacing) ;
                     break;
                 case 4: //right
-                    v = new Vector2(windowWidth + mapOffset, y);
+                    v = new Vector2(windowWidth - mapOffset, y + spacing);
                     break;
             }
             return v;
         }
-        private int RandomSideSelection()
+
+        private Vector2 DiagonalPoint(int corner, int offset)
         {
-            return rand.Next(1, 5);
+            Vector2 v = Vector2.Zero;
+            switch (corner)
+            {
+                case 1: //bottom left
+                    v = new Vector2(offset, windowHeight + offset);
+                    break;
+                case 2: // bottom right
+                    v = new Vector2(windowWidth + offset, windowHeight-offset);
+                    break;
+                case 3: //top left
+                    v = new Vector2(offset, -offset);
+                    break;
+                case 4: //top right
+                    v = new Vector2(windowWidth + offset, offset);
+                    break;
+            }
+            return v;
         }
+
+
+
+        /*
+         * MODES:
+         *      RandomSideWave: Spaces enemies evenly on a randomly selected side.
+         *      RandomOffMapLocation: Spawns an enemy on a random location, just outside the map.
+         *      
+         */       
+        
+        private Vector2[] RandomSideWave()
+        {
+            Vector2[] vs = new Vector2[spawnSize];
+
+            int side = rand.Next(1, 5);
+            float sideLength = 0;
+            if (side < 3)
+                sideLength = windowWidth;
+            else
+                sideLength = windowHeight;
+
+            float gapLength = (sideLength / (float)spawnSize);
+            float sum = gapLength/2;
+
+            for (int i = 0; i < spawnSize; i++)
+            {
+                vs[i] = SidePoint(side, sum, 0, 0);
+                sum += gapLength;            
+            }
+            return vs;                       
+        }
+              
+      
+        private Vector2[] RandomDiagonalWave()
+        {
+            Vector2[] vs = new Vector2[spawnSize];
+            int corner = rand.Next(1, 5);
+            int offset = -spawnSize/2;
+            for (int i = 0; i< spawnSize; i++)
+            {
+                vs[i] = DiagonalPoint(corner, offset* diagonalWaveSize/spawnSize);
+                offset++;
+            }
+            return vs;                            
+        }
+
+        private Vector2 RandomOffMapLocation()
+        {
+            int side = rand.Next(1, 5); 
+            Vector2 v = Vector2.Zero;            
+            float x = 0;
+            float y = 0;
+
+            if(side < 3)            
+                x = windowWidth * (float)rand.NextDouble();               
+             else       
+                y = windowHeight * (float)rand.NextDouble();
+
+            v = SidePoint(side, 0, x, y);           
+            return v;
+        }      
     }
+
+
+
+
 }

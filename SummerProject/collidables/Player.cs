@@ -54,7 +54,7 @@ namespace SummerProject.collidables
                 {
                     if (Energy > 0)
                     {
-                        Particles.GenerateEdgeParticles(sprite.CalculateEdges(), Position, sprite.Origin, 7, angle);
+                        Particles.GenerateParticles(Position, 7, angle);
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
                     }
@@ -62,10 +62,12 @@ namespace SummerProject.collidables
                         shieldOn = false;
                 }
                 else
-                if(maxEnergy > Energy)
                 {
-                    Energy += shieldRechargeRate;
                     shieldOn = false;
+                    if (maxEnergy > Energy)
+                    {
+                        Energy += shieldRechargeRate;
+                    }
                 }
             }
         }
@@ -165,11 +167,12 @@ namespace SummerProject.collidables
                     Enemy e = c2 as Enemy;
                     Health -= e.Damage;
             }
+
             if(c2 is HealthDrop)
                 Health += HealthDrop.heal;
             if (c2 is EnergyDrop)
                 Energy += EnergyDrop.charge;
-        
+
             if(!shieldOn && c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
