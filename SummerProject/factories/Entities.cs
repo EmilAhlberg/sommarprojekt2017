@@ -8,13 +8,12 @@ namespace SummerProject.factories
 {
     public abstract class Entities
     {
-        public List<Sprite> Sprites { get; }
+        public static Sprite[] Sprites = new Sprite[EntityTypes.ARRAYSIZE]; //!
         protected int entityCap;
         public Dictionary<int, List<AIEntity>> EntityDic { get; private set; }       
 
-        public Entities(List<Sprite> sprites, int entityCap)
+        public Entities(int entityCap)
         {
-            this.Sprites = sprites;
             this.entityCap = entityCap;            
             EntityDic = new Dictionary<int, List<AIEntity>>();
         }

@@ -10,7 +10,7 @@ namespace SummerProject.factories
         private int bulletType;
         private Timer reloadTimer;
 
-        public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap)
+        public Projectiles(int ammoCap) : base(ammoCap)
         {
             bulletType = EntityTypes.BULLET;
             reloadTimer = new Timer(reloadTime);
@@ -66,7 +66,7 @@ namespace SummerProject.factories
 
         protected override AIEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateProjectile(Sprites[EntityTypes.SPRITE[type]], type); //! LOL
+            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type); //! LOL
         }
     }
 }

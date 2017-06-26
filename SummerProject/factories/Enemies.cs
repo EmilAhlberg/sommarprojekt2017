@@ -10,10 +10,10 @@ namespace SummerProject.factories
     {
         private Player player;
     
-        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies) : base(sprites, NbrOfEnemies)
+        public Enemies(Player player, int NbrOfEnemies) : base(NbrOfEnemies)
         {
             this.player = player;
-            InitializeEntities(0);
+            InitializeEntities(EntityTypes.ENEMY);
         }
 
         public void Update(GameTime gameTime)
@@ -27,7 +27,7 @@ namespace SummerProject.factories
         }
         public void Spawn(Vector2 source)
         {           
-            ActivateEntities(source, player.Position, 0);
+            ActivateEntities(source, player.Position, EntityTypes.ENEMY);
         }
         protected override AIEntity CreateEntity(int index)
         {
