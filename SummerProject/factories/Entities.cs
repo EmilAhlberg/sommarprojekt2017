@@ -19,7 +19,7 @@ namespace SummerProject.factories
             EntityDic = new Dictionary<int, List<AIEntity>>();
         }
 
-        protected abstract AIEntity CreateEntity(int index);
+        protected abstract AIEntity CreateEntity(int spriteIndex, int index);
         public abstract void Reset();
 
         protected void InitializeEntities(int type)
@@ -29,7 +29,7 @@ namespace SummerProject.factories
                 EntityDic[type] = new List<AIEntity>();
                 for (int i = 0; i < entityCap; i++)
                 {
-                    EntityDic[type].Insert(0, CreateEntity(type));
+                    EntityDic[type].Insert(0, CreateEntity(EntityTypes.SPRITE[type], type));
                 }
             }
         }

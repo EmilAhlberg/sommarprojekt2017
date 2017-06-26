@@ -64,9 +64,9 @@ namespace SummerProject.factories
         //    }
         //}
 
-        protected override AIEntity CreateEntity(int type)
+        protected override AIEntity CreateEntity(int spriteIndex, int type)
         {
-            return EntityFactory.CreateProjectile(Sprites[type%100], type); //! LOL
+            return EntityFactory.CreateProjectile(Sprites[spriteIndex], type); //! LOL
         }
     }
 }
