@@ -8,13 +8,11 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables
 {
-    public class Player : IPartCarrier
+    public class Player : Entity2, IPartCarrier
     {
         private float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
-        public bool IsDead { get; private set; }
         private Vector2 startPosition;
-        public CompositePart Hull;
         private Projectiles projectiles;
         //public float Energy { get; set; }
         //private const float shieldDischargeRate = 0.1f;
@@ -23,20 +21,19 @@ namespace SummerProject.collidables
         //private const int shieldSize = 300;
         //private bool shieldOn;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) 
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
             startPosition = position;
             this.projectiles = projectiles;
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             //Energy = maxEnergy;
-            Hull = new RectangularHull(position, sprite, this);
-            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
             Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
         }
 
-        public void Update(GameTime gameTime) //NEEDS FIX
+        public override void Update(GameTime gameTime) //NEEDS FIX
         {
             if (!IsDead)
             {
@@ -69,7 +66,7 @@ namespace SummerProject.collidables
             }
         }
 
-        private void HandleBulletType() //NEEDS FIX
+        private void HandleBulletType() //Change when adding gun
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
                 projectiles.SwitchBullets(EntityTypes.BULLET);
@@ -77,7 +74,7 @@ namespace SummerProject.collidables
                 projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
         }
 
-        private void Fire() //NEEDS FIX
+        private void Fire() //Change when adding gun
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
@@ -85,7 +82,7 @@ namespace SummerProject.collidables
             }
         }
 
-        private void CalculateAngle()
+        protected override void CalculateAngle()
         {
             float dX = Hull.Position.X - Mouse.GetState().X;
             float dY = Hull.Position.Y - Mouse.GetState().Y;
@@ -172,7 +169,7 @@ namespace SummerProject.collidables
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            IsDead = true;
+            base.Death();
             //Particles.GenerateParticles(Position, 3, angle);
             Hull.Color = Color.Transparent;
         }
@@ -185,16 +182,6 @@ namespace SummerProject.collidables
             Hull.Position = startPosition;
             Hull.Stop();
             IsDead = false;
-        }
-
-        public bool AddPart(Part part, int pos)
-        {
-            return Hull.AddPart(part, pos);
-        }
-
-        public List<Part> GetParts()
-        {
-            return Hull.GetParts();
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
+    <Compile Include="Entity2.cs" />
     <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="factories\Drops.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="events\menu\PauseMenu.cs" />
     <Compile Include="events\menu\SettingsMenu.cs" />
     <Compile Include="events\menu\UpgradeMenu.cs" />
+    <Compile Include="IUpdate.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />

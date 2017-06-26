@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
 using SummerProject.collidables.parts;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace SummerProject
     public abstract class CompositePart : Part, IPartCarrier
     {
         protected Link[] parts;
-        public new float TurnSpeed { set { base.TurnSpeed = value} get { return base.TurnSpeed; } }
+        public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
         public override Color Color {
             set
@@ -40,10 +41,13 @@ namespace SummerProject
         
         public CompositePart(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite, carrier)
         {
+            Mass = EntityConstants.MASS[EntityConstants.DEFAULT];
+            Thrust = EntityConstants.THRUST[EntityConstants.DEFAULT];
+            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
             AddLinkPositions();
         }
 
-        public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle))); }
+        public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
 
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
         public bool AddPart(Part part, int pos) {

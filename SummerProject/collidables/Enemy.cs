@@ -6,31 +6,27 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
-    class Enemy : IPartCarrier
+    class Enemy : Entity2, IPartCarrier
     {        
         public int WorthScore {get; private set;}
         private Player player;
-        protected CompositePart Hull;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player)
+        public Enemy(Vector2 position, ISprite sprite, Player player) : base(position, sprite)
         {
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            Hull = new RectangularHull(position, sprite, this);
-            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];      
+            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            Hull.Mass = EntityConstants.MASS[EntityConstants.ENEMY];
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
         }
 
         public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            CalculateAngle();
-            Hull.Move();
-            //Particles.GenerateParticles(Position, 4, angle);
-            if (Health < 1)
-            {
+            if (Health < 1 && IsDead==false)
                 ScoreHandler.AddScore(WorthScore);
-                Death();
-            }    
+            base.Update(gameTime);
+            //Particles.GenerateParticles(Position, 4, angle);
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -38,7 +34,7 @@ namespace SummerProject
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
-        private void CalculateAngle()
+        protected override void CalculateAngle()
         {
             float dX = Hull.Position.X - player.Hull.Position.X;
             float dY = Hull.Position.Y - player.Hull.Position.Y;
@@ -61,16 +57,6 @@ namespace SummerProject
         {
             //Particles.GenerateParticles(Position, 2, angle); //Death animation
             base.Death();
-        }
-
-        public bool AddPart(Part part, int pos)
-        {
-            return Hull.AddPart(part, pos);
-        }
-
-        public List<Part> GetParts()
-        {
-            return Hull.GetParts();
         }
     }
 }
