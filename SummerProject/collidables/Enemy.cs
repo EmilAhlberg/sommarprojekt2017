@@ -66,7 +66,7 @@ namespace SummerProject
 
         public bool AddPart(Part part, int pos)
         {
-            throw new NotImplementedException();
+            return Hull.AddPart(part, pos);
         }
 
         public List<Part> GetParts()
