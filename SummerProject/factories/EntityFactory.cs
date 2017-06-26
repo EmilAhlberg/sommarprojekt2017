@@ -19,6 +19,7 @@ namespace SummerProject.factories
             {
                 case 0: return new Bullet(FarAway(), new Sprite(sprite), false);
                 case 1: return new HomingBullet(FarAway(), new Sprite(sprite), false);
+                case 100: return new Bullet(FarAway(), new Sprite(sprite), true);
                 default:
                     throw new NotImplementedException();
             }

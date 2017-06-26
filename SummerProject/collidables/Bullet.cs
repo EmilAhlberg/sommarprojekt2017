@@ -20,7 +20,10 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 6, angle);
+            if(!IsEvil)
+                Particles.GenerateParticles(Position, 6, angle);
+            else
+                Particles.GenerateParticles(Position, 11, angle);
             UpdateTimer(gameTime);
             Move();
         }
@@ -31,7 +34,10 @@ namespace SummerProject.collidables
             float dY = source.Y - target.Y;
             base.CalculateAngle(dX, dY);
             Stop();
-            AddSpeed(30); //!
+            if (!IsEvil)
+                AddSpeed(30); //!
+            else
+                AddSpeed(10);
             ResetSpawnTime(); 
         }
 
@@ -39,7 +45,10 @@ namespace SummerProject.collidables
         {
             if(c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
             {
-                Particles.GenerateParticles(Position, 5);
+                if(!IsEvil)
+                    Particles.GenerateParticles(Position, 5);
+                else
+                    Particles.GenerateParticles(Position, 10);
                 Death();
             }
         }

@@ -8,7 +8,6 @@ namespace SummerProject.factories
     {
         private const float reloadTime = 0.3f;
         private int bulletType;
-        private int enemyBulletType;
         private Timer reloadTimer;
 
         public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap)
@@ -16,6 +15,8 @@ namespace SummerProject.factories
             bulletType = EntityTypes.BULLET;
             reloadTimer = new Timer(reloadTime);
             InitializeEntities(0);
+            InitializeEntities(EntityTypes.EVILBULLET);
+            Enemy.projectiles = this; //! Hmmmmm
         }
 
         public void Fire(Vector2 source, Vector2 target)
@@ -63,9 +64,9 @@ namespace SummerProject.factories
         //    }
         //}
 
-        protected override AIEntity CreateEntity(int index)
+        protected override AIEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateProjectile(Sprites[index], bulletType);
+            return EntityFactory.CreateProjectile(Sprites[type%100], type); //! LOL
         }
     }
 }

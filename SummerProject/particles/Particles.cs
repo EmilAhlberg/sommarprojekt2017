@@ -141,10 +141,27 @@ namespace SummerProject
                         break;
                     }
                 #endregion
+
                 #region Explosion Drop 9
                 case 9:
                     {
                         CreateExplosion(10, position, 10, 500 / 2, 0, Color.DodgerBlue, 1, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region EvilBullet Explosion 10
+                case 10:
+                    {
+                        CreateExplosion(10, position, 10, 40, 0.5f, Color.DarkRed, 1, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region EvilBullet Trail 11
+                case 11:
+                    {
+                        CreateTrail(angle, position, 1, 20, 0, Color.DarkRed, 0, 1, 0.3f);
                         break;
                     }
                     #endregion
