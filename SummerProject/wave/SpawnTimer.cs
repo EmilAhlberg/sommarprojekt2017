@@ -14,10 +14,10 @@ namespace SummerProject.wave
 
         private const float TIMER1_CONSTANTMODE = 2.5f;       
 
-       private const float TIMER1_DEBUGMODE = 30f;
+        private const float TIMER1_DEBUGMODE = 30f;
 
 
-        private float increasingModeTimeCap = 0.4f;
+        private float decreasingModeTimeCap = 0.4f;
 
 
         private Timer timer2;
@@ -65,7 +65,6 @@ namespace SummerProject.wave
                     ConstantTimeMode(gameTime);
                     return timer1.IsFinished;                
             }
-
             return false;
         }
 
@@ -87,7 +86,7 @@ namespace SummerProject.wave
         private void DecreasingTimeMode(GameTime gameTime)
         {
             timer2.CountDown(gameTime);
-            if (timer1.maxTime > increasingModeTimeCap && timer2.IsFinished)
+            if (timer1.maxTime > decreasingModeTimeCap && timer2.IsFinished)
             {
                 timer2.Reset();
                 if (timer1.maxTime > 1.5f)

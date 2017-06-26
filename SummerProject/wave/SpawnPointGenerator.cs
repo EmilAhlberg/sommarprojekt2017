@@ -26,7 +26,6 @@ namespace SummerProject.wave
 
             rand = new Random();
             //spawnPoints = new Vector2[8]; //!!
-            ////!!
             //spawnPoints[0] = new Vector2(-50, -50);     // Top left
             //spawnPoints[1] = new Vector2(windowWidth + 50, -50);  // top right
             //spawnPoints[2] = new Vector2(-50, windowHeight + 50); // bottom left
@@ -37,9 +36,9 @@ namespace SummerProject.wave
             //spawnPoints[7] = new Vector2(windowWidth / 2, -50); // top
         }
 
-        public void ChangeMode(int modeType)
+        public void ChangeMode()
         {
-            switch (modeType)
+            switch (gameMode.SpawnMode)
             {
                 case GameMode.RANDOM_SINGLESPAWN:
                     spawnSize = 1; //! DEFAULT
@@ -83,7 +82,7 @@ namespace SummerProject.wave
 
         private Vector2 RandomOffMapLocation()
         {
-            int side = rand.Next(1, 5); 
+            int side = RandomSideSelection(); 
             Vector2 v = Vector2.Zero;            
             float x = 0 ;
             float y = 0;
@@ -108,9 +107,11 @@ namespace SummerProject.wave
                     v = new Vector2(windowWidth + mapOffset, y);
                     break;
             }
-
-
             return v;
+        }
+        private int RandomSideSelection()
+        {
+            return rand.Next(1, 5);
         }
     }
 }
