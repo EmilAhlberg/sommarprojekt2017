@@ -19,14 +19,16 @@ namespace SummerProject
         private GameMode gameMode;
         private SpawnPointGenerator spawnPointGen;
         private SpawnTimer spawnTimer;
+        public Drops Drops { get; private set; }
 
         private bool isActive;
   
 
         //enemies as param insted of sprites?
-        public WaveGenerator( Player player, int windowWidth, int windowHeight, SpriteFont font)
+        public WaveGenerator( Player player, int windowWidth, int windowHeight, SpriteFont font, Drops drops)
         {
             this.player = player;
+            Drops = drops;
             gameMode = new GameMode(font, windowWidth, windowHeight);
             spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
             spawnTimer = new SpawnTimer(gameMode);  
@@ -37,15 +39,17 @@ namespace SummerProject
         {
             CheckActive();
             if (isActive)            
-                UpdateSpawnHandlers(gameTime);                
+                UpdateSpawnHandlers(gameTime);            
             
             enemies.Update(gameTime);
+            Drops.Update(gameTime);
             gameMode.Update(gameTime);
             UpdateMode(); 
         }       
 
         private void UpdateSpawnHandlers(GameTime gameTime)
-        {            
+        {
+            Drops.Spawn();
             spawnPointGen.Update(gameTime);            
             if (spawnTimer.Update(gameTime))
                 SpawnWave();                
@@ -64,6 +68,7 @@ namespace SummerProject
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             enemies.Draw(spriteBatch, gameTime);
+            Drops.Draw(spriteBatch, gameTime);
             if(isActive)
                 gameMode.Draw(spriteBatch, gameTime);
         }
@@ -72,6 +77,7 @@ namespace SummerProject
         {
             enemies.Reset();
             gameMode.Reset();
+            Drops.Reset();
             spawnTimer.ChangeMode();
             spawnPointGen.ChangeMode();
         }
