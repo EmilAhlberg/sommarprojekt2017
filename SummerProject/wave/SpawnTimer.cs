@@ -79,9 +79,13 @@ namespace SummerProject.wave
         }
 
 
-        //
-        // MODES:
-        //
+       
+        /*
+         *  MODES:
+         *          DecreasingTimeMode: Spawn frequency is continually increased.
+         *          ConstantTimeMode: Spawn frequency is unchanged.         
+         */
+
 
         private void DecreasingTimeMode(GameTime gameTime)
         {
