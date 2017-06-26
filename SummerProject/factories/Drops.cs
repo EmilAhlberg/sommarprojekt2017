@@ -9,7 +9,7 @@ namespace SummerProject.factories
     class Drops : Entities
     {
         private Timer spawnTimer;
-        private const float spawnTime = .1f;
+        private const float spawnTime = 1f;
         private int width;
         private int height;
         private Random rand;
