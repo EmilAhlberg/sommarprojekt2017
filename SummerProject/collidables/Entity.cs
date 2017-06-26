@@ -6,6 +6,7 @@ namespace SummerProject.collidables
     {
         public int Damage { get; set; }
         public int Health { get; set; }
+        public bool IsActive { get; set; }
 
 
         public Entity(Vector2 position, ISprite sprite) : base(position, sprite)
