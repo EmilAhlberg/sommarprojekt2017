@@ -10,5 +10,6 @@ namespace SummerProject.collidables.parts
     {
         bool AddPart(Part part, int pos);
         void Collision(Collidable c2);
+        List<Part> GetParts();
     }
 }
