@@ -5,7 +5,7 @@ namespace SummerProject.collidables
 {
     public abstract class AIEntity : Entity
     {
-        public bool IsActive { get; set; }       
+  
 
         public AIEntity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
