@@ -71,6 +71,8 @@ namespace SummerProject
         {
             enemies.Reset();
             gameMode.Reset();
+            spawnTimer.ChangeMode();
+            spawnPointGen.ChangeMode();
         }
 
         private void CheckActive()
@@ -99,17 +101,23 @@ namespace SummerProject
             {
                 gameMode.TimeMode = GameMode.DECREASING_TIME;
                 gameMode.SpawnMode = GameMode.RANDOM_SINGLESPAWN;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
             }
 
             if (InputHandler.isJustPressed(Keys.F2))
             {
                 gameMode.TimeMode = GameMode.RANDOM_WAVESPAWN;
                 gameMode.SpawnMode = GameMode.RANDOM_WAVESPAWN;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
             }
 
             if (InputHandler.isJustPressed(Keys.F3))
             {
                 gameMode.TimeMode = GameMode.DEBUG_MODE;
+                spawnTimer.ChangeMode();
+                spawnPointGen.ChangeMode();
             }
         }
     }
