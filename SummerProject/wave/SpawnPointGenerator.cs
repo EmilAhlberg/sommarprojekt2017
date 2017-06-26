@@ -53,7 +53,7 @@ namespace SummerProject.wave
 
         public void Update(GameTime gameTime)
         {
-            if (gameMode.TimeMode == GameMode.RANDOM_WAVESPAWN)
+            if (gameMode.SpawnMode == GameMode.RANDOM_WAVESPAWN)
             {
                 newSpawnSize = ScoreHandler.Score / (newSpawnSize * 500) + 2; //!!
                 if (newSpawnSize > spawnSize)
