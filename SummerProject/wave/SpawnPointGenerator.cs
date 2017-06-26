@@ -60,7 +60,7 @@ namespace SummerProject.wave
             Vector2[] vs = new Vector2[spawnSize];
 
             int waveType = rand.Next(0, 9);
-            if (waveType >= 4)
+            if (waveType >= 8)
                 vs = RandomDiagonalWave();
             else if (waveType >= 5)
                 vs = RandomSideWave();
