@@ -24,10 +24,10 @@ namespace SummerProject
   
 
         //enemies as param insted of sprites?
-        public WaveGenerator(List<Sprite> enemySprites, Player player, int windowWidth, int windowHeight)
+        public WaveGenerator(List<Sprite> enemySprites, Player player, int windowWidth, int windowHeight, SpriteFont font)
         {
             this.player = player;
-            gameMode = new GameMode();
+            gameMode = new GameMode(font, windowWidth, windowHeight);
             spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(enemySprites, player, 30); //! nbrOfEnemies
@@ -40,6 +40,7 @@ namespace SummerProject
                 UpdateSpawnHandlers(gameTime);                
             
             enemies.Update(gameTime);
+            gameMode.Update(gameTime);
             UpdateMode(); 
         }       
 
@@ -63,6 +64,8 @@ namespace SummerProject
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             enemies.Draw(spriteBatch, gameTime);
+            if(isActive)
+                gameMode.Draw(spriteBatch, gameTime);
         }
 
         public void Reset()

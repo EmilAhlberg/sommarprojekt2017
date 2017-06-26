@@ -13,6 +13,7 @@ namespace SummerProject.wave
         //private Vector2[] spawnPoints;
         private GameMode gameMode;
         private int spawnSize;
+        private int newSpawnSize;
         private int windowWidth;
         private int windowHeight;
         private int mapOffset = -10; //!       
@@ -45,6 +46,7 @@ namespace SummerProject.wave
                     break;
                 case GameMode.RANDOM_WAVESPAWN:
                     spawnSize = 2; //! 
+                    newSpawnSize = spawnSize;
                     break;
             }
         }
@@ -52,7 +54,15 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             if (gameMode.TimeMode == GameMode.RANDOM_WAVESPAWN)
-                spawnSize = ScoreHandler.Score / (spawnSize * 500) + 2;    //bugged!! spawnSize is inconsistent
+            {
+                newSpawnSize = ScoreHandler.Score / (newSpawnSize * 500) + 2; //!!
+                if (newSpawnSize > spawnSize)
+                {
+                    spawnSize = newSpawnSize;
+                    gameMode.ProgressGame(spawnSize-1); //!!
+                }
+            }
+                
         }
 
         public Vector2[] GetSpawnPoints()
@@ -98,10 +108,10 @@ namespace SummerProject.wave
             return v;
         }
 
-        private Vector2 DiagonalPoint(int side, int offset)
+        private Vector2 DiagonalPoint(int corner, int offset)
         {
             Vector2 v = Vector2.Zero;
-            switch (side)
+            switch (corner)
             {
                 case 1: //bottom left
                     v = new Vector2(offset, windowHeight + offset);
@@ -154,11 +164,11 @@ namespace SummerProject.wave
         private Vector2[] RandomDiagonalWave()
         {
             Vector2[] vs = new Vector2[spawnSize];
-            int side = rand.Next(1, 5);
+            int corner = rand.Next(1, 5);
             int offset = -spawnSize/2;
             for (int i = 0; i< spawnSize; i++)
             {
-                vs[i] = DiagonalPoint(side, offset* diagonalWaveSize/spawnSize);
+                vs[i] = DiagonalPoint(corner, offset* diagonalWaveSize/spawnSize);
                 offset++;
             }
             return vs;                            
