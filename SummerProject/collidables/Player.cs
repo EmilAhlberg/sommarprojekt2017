@@ -193,5 +193,10 @@ namespace SummerProject.collidables
         {
             throw new NotImplementedException();
         }
+
+        public List<Part> GetParts()
+        {
+            return Hull.GetParts();
+        }
     }
 }
