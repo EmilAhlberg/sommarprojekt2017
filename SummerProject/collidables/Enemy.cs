@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.parts;
@@ -66,6 +67,11 @@ namespace SummerProject
         public bool AddPart(Part part, int pos)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Part> GetParts()
+        {
+            return Hull.GetParts();
         }
     }
 }
