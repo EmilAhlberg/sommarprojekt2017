@@ -10,6 +10,7 @@ namespace SummerProject
     {        
         public int WorthScore {get; private set;}
         private Player player;
+        Random rand = new Random();
         public static Projectiles projectiles;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
@@ -25,8 +26,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            Random rand = new Random();
-            if(rand.NextDouble() < 0.01)
+            if(rand.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
             }

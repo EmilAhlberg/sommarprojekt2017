@@ -47,7 +47,7 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateEdgeParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
+        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
         {
             Random rand = new Random();
             switch (ID)
