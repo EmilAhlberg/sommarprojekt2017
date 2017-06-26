@@ -30,6 +30,8 @@ namespace SummerProject
                 Death();
             }    
         }
+        
+
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {

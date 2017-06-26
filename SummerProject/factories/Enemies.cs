@@ -27,7 +27,7 @@ namespace SummerProject.factories
         }
         public void Spawn(Vector2 source)
         {           
-            ActivateEntities(source, player.Position);
+            ActivateEntities(source, player.Position, 0);
         }
         protected override AIEntity CreateEntity(int index)
         {

@@ -33,7 +33,7 @@ namespace SummerProject.factories
         {
             if (spawnTimer.IsFinished)
             {
-                if (ActivateEntities(source, source))
+                if (ActivateEntities(source, source, 1))
                     spawnTimer.Reset();
             }
         }

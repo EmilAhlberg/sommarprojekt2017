@@ -114,7 +114,7 @@ namespace SummerProject
 
         public List<AIEntity> CollidableList()
         {
-            return enemies.EntityList;
+            return enemies.GetValues();
         }
     }
 }

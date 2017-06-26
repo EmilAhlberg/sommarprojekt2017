@@ -231,11 +231,11 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in projectiles.EntityList)
+            foreach (Collidable c in projectiles.GetValues())
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in drops.EntityList)
+            foreach (Collidable c in drops.GetValues())
             {
                 collidableList.Add(c);
             }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables;
+using System.Linq;
 
 namespace SummerProject.factories
 {
@@ -9,36 +10,45 @@ namespace SummerProject.factories
     {
         public List<Sprite> Sprites { get; }
         protected int entityCap;
-        public List<AIEntity> EntityList { get; private set; }       
+        public Dictionary<int, List<AIEntity>> EntityDic { get; private set; }       
 
         public Entities(List<Sprite> sprites, int entityCap)
         {
             this.Sprites = sprites;
             this.entityCap = entityCap;            
-            EntityList = new List<AIEntity>();
+            EntityDic = new Dictionary<int, List<AIEntity>>();
         }
 
         protected abstract AIEntity CreateEntity(int index);
         public abstract void Reset();
 
-        protected void InitializeEntities(int index)
+        protected void InitializeEntities(int type)
         {
-            for (int i = 0; i < entityCap; i++)
+            if (!EntityDic.ContainsKey(type))
             {
-                EntityList.Insert(0, CreateEntity(index));
-
+                EntityDic[type] = new List<AIEntity>();
+                for (int i = 0; i < entityCap; i++)
+                {
+                    EntityDic[type].Insert(0, CreateEntity(type));
+                }
             }
         }
+
         protected void ResetEntities()
         {
-            foreach (AIEntity e in EntityList)
+            foreach (AIEntity e in GetValues())
                 if (e.IsActive)
                     e.Death();
         }
 
-        public  bool ActivateEntities(Vector2 source, Vector2 target)
+        public List<AIEntity> GetValues()
         {
-            foreach (AIEntity e in EntityList)
+            return EntityDic.Values.SelectMany(e => e).ToList();
+        }
+
+        public bool ActivateEntities(Vector2 source, Vector2 target, int type)
+        {
+            foreach (AIEntity e in EntityDic[type])
             {
                 if (!e.IsActive)
                 {
@@ -49,23 +59,23 @@ namespace SummerProject.factories
             return false;
         }
 
-        protected void RemoveInactiveType(AIEntity type)
-        {
-            int tempCap = entityCap;
-            for (int i = 0; i < tempCap; i++)
-            {
-                if (EntityList[i].GetType().Equals(type.GetType()) && !EntityList[i].IsActive)
-                {
-                    EntityList.Remove(EntityList[i]);
-                    i--;
-                    tempCap--;
-                }
-            }
-        }
+        //protected void RemoveInactiveType(AIEntity type)
+        //{
+        //    int tempCap = entityCap;
+        //    for (int i = 0; i < tempCap; i++)
+        //    {
+        //        if (EntityDic[i].GetType().Equals(type.GetType()) && !EntityDic[i].IsActive)
+        //        {
+        //            EntityDic.Remove(EntityDic[i]);
+        //            i--;
+        //            tempCap--;
+        //        }
+        //    }
+        //}
 
         protected void UpdateEntities(GameTime gameTime)
         {
-            foreach (AIEntity e in EntityList)
+            foreach (AIEntity e in GetValues())
             {
                 if (e.IsActive)
                     e.Update(gameTime);
@@ -74,7 +84,7 @@ namespace SummerProject.factories
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (AIEntity e in EntityList)
+            foreach (AIEntity e in GetValues())
             {
                 if (e.IsActive)
                     e.Draw(spriteBatch, gameTime);

@@ -8,6 +8,7 @@ namespace SummerProject.factories
     {
         private const float reloadTime = 0.3f;
         private int bulletType;
+        private int enemyBulletType;
         private Timer reloadTimer;
 
         public Projectiles(List<Sprite> sprites, int ammoCap) : base(sprites, ammoCap)
@@ -21,14 +22,19 @@ namespace SummerProject.factories
         {
             if (reloadTimer.IsFinished)
             {
-                if (ActivateEntities(source, target))
+                if (ActivateEntities(source, target, bulletType))
                     reloadTimer.Reset();
             }
         }
 
+        public void EvilFire(Vector2 source, Vector2 target)
+        {
+            ActivateEntities(source, target, EntityTypes.EVILBULLET);
+        }
+
         public void SwitchBullets(int newType)
         {
-            RemoveInactiveType(CreateEntity(bulletType));
+            //RemoveInactiveType(CreateEntity(bulletType));
             bulletType = newType;
             InitializeEntities(newType);
         }
@@ -42,20 +48,20 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
+            //RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
             reloadTimer.CountDown(gameTime);
         }
 
-        private void RemoveAbundantType()
-        {
-            for (int i = EntityList.Count - 1; i >= entityCap; i--)
-            {
-                if (!EntityList[i].IsActive)
-                {
-                    EntityList.Remove(EntityList[i]);
-                }
-            }
-        }
+        //private void RemoveAbundantType()
+        //{
+        //    for (int i = EntityDic.Count - 1; i >= entityCap; i--)
+        //    {
+        //        if (!EntityDic[i].IsActive)
+        //        {
+        //            EntityDic.Remove(EntityDic[i]);
+        //        }
+        //    }
+        //}
 
         protected override AIEntity CreateEntity(int index)
         {
