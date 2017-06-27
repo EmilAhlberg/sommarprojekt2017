@@ -23,11 +23,12 @@ namespace SummerProject.wave
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
 
-        private int level = 1;
+        public bool ChangeLevel { get; private set; }
+        public int Level { get; private set; } 
         private SpriteFont font;
         private int windowWidth;
-        private int windowHeight;
-        private Timer timer;
+        private int windowHeight;       
+        private Timer betweenLevelsTimer;
       
 
         public GameMode(SpriteFont font)
@@ -36,33 +37,43 @@ namespace SummerProject.wave
             this.windowWidth = WindowSize.Width;
             this.windowHeight = WindowSize.Height;
 
-            timer = new Timer(3); //!
-            
+            betweenLevelsTimer = new Timer(3); //!         
         }
 
-        public void Reset()
+        public void Reset(bool fullReset)
         {
             TimeMode = CONSTANT_TIME;      //DEFAULT GAME MODE
             SpawnMode = RANDOM_WAVESPAWN;
+            Level = 1;
+            if (fullReset) 
+                betweenLevelsTimer.Reset();
         }
 
-        public void ProgressGame(int level)
+        private void ProgressGame()
         {
-            this.level = level;
-            timer.Reset();
+            int newLevel = ScoreHandler.Score / (Level * 500);
+            if (newLevel > Level)
+            {
+                Level = newLevel;
+                ChangeLevel = true;
+                betweenLevelsTimer.Reset();           
+            }        
+            
         }
 
         public void Update(GameTime gameTime)
         {
-            timer.CountDown(gameTime);
+            ChangeLevel = false;
+            betweenLevelsTimer.CountDown(gameTime);
             UpdateMode();
+            ProgressGame();
             
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!timer.IsFinished)
+            if (!betweenLevelsTimer.IsFinished)
             {
-                String s = "Wave: " + level;
+                String s = "Wave: " + Level;
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
             }
         }

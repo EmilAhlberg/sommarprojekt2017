@@ -40,9 +40,5 @@ namespace SummerProject.wave
             return vs;            
         }
 
-
-
-
-
     }
 }
