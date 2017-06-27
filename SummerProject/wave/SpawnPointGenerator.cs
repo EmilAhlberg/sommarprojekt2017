@@ -10,8 +10,7 @@ namespace SummerProject.wave
     public class SpawnPointGenerator
     {
         private GameMode gameMode;
-        private int spawnSize;
-        private int newSpawnSize;
+        private int spawnSize;       
         private int windowWidth;
         private int windowHeight;
         private int mapOffset = -10; //!       
@@ -38,8 +37,7 @@ namespace SummerProject.wave
                         spawnSize = 1; //! 
                         break;
                     case GameMode.RANDOM_WAVESPAWN:
-                        spawnSize = 2; //! 
-                        newSpawnSize = spawnSize;
+                        spawnSize = 2; //!                    
                         break;
                 }
                 oldMode = gameMode.SpawnMode;
@@ -49,17 +47,21 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             UpdateMode();
+            ChangeLevel();                
+        }
 
-            if (gameMode.SpawnMode == GameMode.RANDOM_WAVESPAWN)
+        private void ChangeLevel()
+        {
+            if (gameMode.ChangeLevel)
             {
-                newSpawnSize = ScoreHandler.Score / (newSpawnSize * 500) + 2; //!!
-                if (newSpawnSize > spawnSize)
+
+                switch (gameMode.SpawnMode)
                 {
-                    spawnSize = newSpawnSize;
-                    gameMode.ProgressGame(spawnSize-1); //!!
+                    case GameMode.RANDOM_WAVESPAWN:
+                        spawnSize = gameMode.Level + 1;
+                        break;
                 }
             }
-                
         }
 
         public Vector2[] GetSpawnPoints()

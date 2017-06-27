@@ -60,19 +60,36 @@ namespace SummerProject.wave
         public bool Update(GameTime gameTime)
         {
             UpdateMode();
+            ChangeLevel();
+            return HandleGameMode(gameTime);
+
+           
+        }
+
+        private bool HandleGameMode(GameTime gameTime)
+        {
             switch (gameMode.TimeMode)
             {
                 case GameMode.DECREASING_TIME:
-                    DecreasingTimeMode(gameTime);                   
-                    return timer1.IsFinished;                    
+                    DecreasingTimeMode(gameTime);
+                    return timer1.IsFinished;
                 case GameMode.CONSTANT_TIME:
                     ConstantTimeMode(gameTime);
                     return timer1.IsFinished;
                 case GameMode.DEBUG_MODE:
                     ConstantTimeMode(gameTime);
-                    return timer1.IsFinished;                
+                    return timer1.IsFinished;
             }
             return false;
+        }
+
+        private void ChangeLevel()
+        {
+            if (gameMode.ChangeLevel)
+            {
+                timer1.Reset();
+                timer2.Reset();
+            }
         }
 
         public void JustSpawned()
