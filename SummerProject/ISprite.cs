@@ -15,5 +15,6 @@ namespace SummerProject
         void Draw(SpriteBatch sb, GameTime gameTime);
         void Animate(GameTime gameTime);
         List<Vector2> CalculateEdges();
+        void Colorize(Color c);
     }
 }

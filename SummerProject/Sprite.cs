@@ -64,6 +64,28 @@ namespace SummerProject
             SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
         }
 
+        /// <summary>
+        /// Don't use this either. Needs to have a way to restore the texture. Colors the grays in the texture. 
+        /// </summary>
+        /// <param name="c"></param>
+        public void Colorize(Color c)
+        {
+            Color[] cArray = new Color[texture.Width * texture.Height];
+            texture.GetData(cArray);
+            for (int i = 0; i < cArray.Length; i++)
+            {
+                Color currentColor = cArray[i];
+                if (currentColor.R == currentColor.G && currentColor.G == currentColor.B && currentColor.A != 0)
+                    cArray[i] = new Color(currentColor.R * c.R / 255, currentColor.G * c.G / 255, currentColor.B * c.B / 255, currentColor.A * c.A / 255);
+            }
+            texture.SetData(cArray);
+        }
+
+        public void ColorRestore()
+        {
+
+        }
+
 
         /// <summary>
         /// Slow as fuck, just so that you know. Don't use

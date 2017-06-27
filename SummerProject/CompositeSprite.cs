@@ -102,5 +102,13 @@ namespace SummerProject
         {
             return spriteList[0].CalculateEdges(); //!
         }
+
+        public void Colorize(Color c)
+        {
+            foreach(ISprite s in spriteList)
+            {
+                s.Colorize(c);
+            }
+        }
     }
 }
