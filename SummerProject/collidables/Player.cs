@@ -208,6 +208,7 @@ namespace SummerProject.collidables
         {
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
+            maxEnergy = startingEnergy;
             Energy = maxEnergy;
             angle = 0;
             Stop();
