@@ -84,7 +84,7 @@ namespace SummerProject
 
             #region Loading textures
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
-            Texture2D enemyTex = Content.Load<Texture2D>("textures/enemy");
+            Texture2D enemyTex = Content.Load<Texture2D>("textures/enemyShip");
             Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
@@ -104,7 +104,7 @@ namespace SummerProject
             #endregion
 
             #region Adding entity-sprites to list
-            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex);
+            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex, 2, 4);
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
