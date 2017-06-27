@@ -9,17 +9,23 @@ namespace SummerProject.wave
 {
     public class SpawnTimer
     {
+        //!
         private const float TIMER1_DECREASINGMODE = 3f;
         private const float TIMER2_DECREASINGMODE = 3f;
 
-        private const float TIMER1_CONSTANTMODE = 4f;      
+        private const float TIMER1_CONSTANTMODE = 4f;
+
+        private const float TIMER1_BURSTMODE = 5f;
+        private const float TIMER2_BURSTMODE = 2.5f;
+        private const float TIMER3_BURSTMODE = 0.3f;
 
         private const float TIMER1_DEBUGMODE = 30f;
 
 
         private float decreasingModeTimeCap = 0.4f;
+        //!
 
-
+        private Timer timer3;
         private Timer timer2;
         private Timer timer1;
         private GameMode gameMode;
@@ -31,6 +37,7 @@ namespace SummerProject.wave
             this.gameMode = gameMode;
             timer1 = new Timer(TIMER1_DECREASINGMODE);
             timer2 = new Timer(TIMER2_DECREASINGMODE);
+            timer3 = new Timer(TIMER1_DEBUGMODE);
         }
 
         private void UpdateMode()
@@ -43,10 +50,15 @@ namespace SummerProject.wave
                         timer1.maxTime = TIMER1_DECREASINGMODE;
                         timer2.maxTime = TIMER2_DECREASINGMODE;
                         break;
-                    case GameMode.RANDOM_WAVESPAWN:
+                    case GameMode.CONSTANT_TIME:
                         timer1.maxTime = TIMER1_CONSTANTMODE;
                         break;
-                    case GameMode.DEBUG_MODE:
+                    case GameMode.BURST_TIME:
+                        timer1.maxTime = TIMER1_BURSTMODE;
+                        timer2.maxTime = TIMER2_BURSTMODE;
+                        timer3.maxTime = TIMER3_BURSTMODE;
+                        break;
+                    case GameMode.DEBUG_TIME:
                         timer1.maxTime = TIMER1_DEBUGMODE;
                         break;
                 }
@@ -76,7 +88,10 @@ namespace SummerProject.wave
                 case GameMode.CONSTANT_TIME:
                     ConstantTimeMode(gameTime);
                     return timer1.IsFinished;
-                case GameMode.DEBUG_MODE:
+                case GameMode.BURST_TIME:
+                    BurstTimeMode(gameTime);
+                    return timer3.IsFinished;
+                case GameMode.DEBUG_TIME:
                     ConstantTimeMode(gameTime);
                     return timer1.IsFinished;
             }
@@ -92,6 +107,7 @@ namespace SummerProject.wave
             }
         }
 
+        //refactor?
         public void JustSpawned()
         {
             switch (gameMode.TimeMode)
@@ -132,6 +148,26 @@ namespace SummerProject.wave
                 timer1.Reset();
                        
                timer1.CountDown(gameTime);           
+        }
+
+        private void BurstTimeMode(GameTime gameTime)
+        {
+            if (timer2.IsFinished)
+            {
+                timer1.CountDown(gameTime);
+                if (timer1.IsFinished)
+                {
+                    timer1.Reset();
+                    timer2.Reset();
+                }               
+            }
+            if (!timer2.IsFinished)
+            {
+                if (timer3.IsFinished)
+                    timer3.Reset();
+                timer3.CountDown(gameTime);
+            }           
+            timer2.CountDown(gameTime);
         }
     }
 }

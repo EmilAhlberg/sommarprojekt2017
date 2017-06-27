@@ -16,6 +16,8 @@ namespace SummerProject.wave
         private int mapOffset = -10; //!       
         private int diagonalWaveSize = 600; //!
         private int oldMode;
+        private Vector2[] tempPoints;
+        private int burstIndex;
 
         public SpawnPointGenerator(GameMode gameMode)
         {
@@ -33,10 +35,10 @@ namespace SummerProject.wave
 
                 switch (gameMode.SpawnMode)
                 {
-                    case GameMode.RANDOM_SINGLESPAWN:
+                    case GameMode.RANDOM_SINGLE:
                         spawnSize = 1; //! 
                         break;
-                    case GameMode.RANDOM_WAVESPAWN:
+                    case GameMode.RANDOM_WAVE:
                         spawnSize = 2; //!                    
                         break;
                 }
@@ -57,7 +59,7 @@ namespace SummerProject.wave
 
                 switch (gameMode.SpawnMode)
                 {
-                    case GameMode.RANDOM_WAVESPAWN:
+                    case GameMode.RANDOM_WAVE:
                         spawnSize = gameMode.Level + 1;
                         break;
                 }
@@ -68,18 +70,10 @@ namespace SummerProject.wave
         {
             Vector2[] vs = new Vector2[spawnSize];
 
-            int waveType = SRandom.Next(0, 9);
-            if (waveType >= 8)
-                vs = RandomDiagonalWave();
-            else if (waveType >= 5)
-                vs = RandomSideWave();
-            else
-            {
-                for (int i = 0; i < spawnSize; i++)
-                {
-                    vs[i] = RandomOffMapLocation();
-                }
-            }            
+            //vs = RandomWaveMode();
+            vs = BurstWaveMode();
+
+            
 
             return vs;
         }
@@ -127,15 +121,60 @@ namespace SummerProject.wave
             return v;
         }
 
+        /*
+         * MODES:
+         * 
+         */
+        private Vector2[] RandomWaveMode()
+        {
+            Vector2[] vs = new Vector2[spawnSize];
+
+            int waveType = SRandom.Next(0, 9);
+            if (waveType >= 8)
+                vs = RandomDiagonalWave();
+            else if (waveType >= 5)
+                vs = RandomSideWave();
+            else
+            {
+                vs = RandomOffMapLocation();
+            }
+            return vs;
+        }    
+
+        private Vector2[] BurstWaveMode()
+        {
+            //spawnSize = 20;
+            Vector2[] vs = new Vector2[1];
+            if (tempPoints == null) {
+                tempPoints = RandomSideWave();
+            }
+
+            if(burstIndex < tempPoints.Length)
+            {
+                vs[0] = tempPoints[burstIndex];
+                burstIndex++;                              
+            } else
+            {
+                burstIndex = 0;
+                tempPoints = null;
+            }
+          
+            return vs;
+        }
+
+
+
+
 
 
         /*
-         * MODES:
-         *      RandomSideWave: Spaces enemies evenly on a Randomly selected side.
-         *      RandomOffMapLocation: Spawns an enemy on a Random location, just outside the map.
+         * WaveTypes:
+         *      RandomSideWave: Spaces enemies evenly on a randomly selected side.
+         *      RandomDiagonalWave: Spaces enemies evenly across the DiagonalWaveSize, corner is randomly selected.
+         *      RandomOffMapLocation: Spawns an enemy on a random location, just outside the map.
          *      
-         */       
-        
+         */
+
         private Vector2[] RandomSideWave()
         {
             Vector2[] vs = new Vector2[spawnSize];
@@ -172,20 +211,26 @@ namespace SummerProject.wave
             return vs;                            
         }
 
-        private Vector2 RandomOffMapLocation()
+        private Vector2[] RandomOffMapLocation()
         {
-            int side = SRandom.Next(1, 5); 
-            Vector2 v = Vector2.Zero;            
-            float x = 0;
-            float y = 0;
+            Vector2[] vs = new Vector2[spawnSize];
 
-            if(side < 3)            
-                x = windowWidth * SRandom.NextFloat();               
-             else       
-                y = windowHeight * SRandom.NextFloat();
+            for (int i = 0; i < spawnSize; i++)
+            {
+                int side = SRandom.Next(1, 5);
+                Vector2 v = Vector2.Zero;
+                float x = 0;
+                float y = 0;
 
-            v = SidePoint(side, 0, x, y);           
-            return v;
+                if (side < 3)
+                    x = windowWidth * SRandom.NextFloat();
+                else
+                    y = windowHeight * SRandom.NextFloat();
+
+                v = SidePoint(side, 0, x, y);
+                vs[i] = v;
+            }   
+            return vs;
         }      
     }
 
