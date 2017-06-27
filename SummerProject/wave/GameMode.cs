@@ -30,12 +30,12 @@ namespace SummerProject.wave
         private Timer timer;
       
 
-
-        public GameMode(SpriteFont font, int windowWidth, int windowHeight)
+        public GameMode(SpriteFont font)
         {
             this.font = font;
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
+            this.windowWidth = WindowSize.Width;
+            this.windowHeight = WindowSize.Height;
+
             timer = new Timer(3); //!
             
         }

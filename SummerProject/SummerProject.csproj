@@ -114,6 +114,7 @@
     <Compile Include="wave\SpawnPointGenerator.cs" />
     <Compile Include="wave\SpawnTimer.cs" />
     <Compile Include="wave\WaveGenerator.cs" />
+    <Compile Include="WindowSize.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

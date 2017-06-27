@@ -19,10 +19,10 @@ namespace SummerProject.wave
         private int diagonalWaveSize = 600; //!
         private int oldMode;
 
-        public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
+        public SpawnPointGenerator(GameMode gameMode)
         {
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
+            this.windowWidth = WindowSize.Width;
+            this.windowHeight = WindowSize.Height;
             this.gameMode = gameMode;
             oldMode = gameMode.SpawnMode;
 

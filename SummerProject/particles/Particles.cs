@@ -33,16 +33,20 @@ namespace SummerProject
                 {
                     p.IsActive = false;
                 }
-            }
+            }      
         }
 
         public static void Update(GameTime gameTime)
         {
-            for (int i = 0; i < particles.Count; i++)
+            foreach (Particle p in particles)
             {
-                if (particles[i].IsActive)
-                {
-                    particles[i].Update(gameTime);
+                if (p.IsActive)
+                { 
+                    p.Update(gameTime);
+                    if (WindowSize.IsOutOfBounds(p.Position))
+                    {
+                        p.IsActive = false;
+                    }   
                 }
             }
         }
@@ -50,16 +54,31 @@ namespace SummerProject
         public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
         {
 
-            //switch (ID)
-            //{
-            //    case 7:
-
-            //        for (int i = 0; i < 10; i++)
-            //        {
-            //            GenerateParticles(edges[(int)(rand.NextDouble() * edges.Count)] + position, 7, angle);
-            //        }
-            //        break;
-            //}
+            switch (ID)
+            {
+                #region Shield Visuals 7
+                case 7:
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 currentEdge = edges[(int)(rand.NextDouble() * edges.Count)];
+                        currentEdge = Vector2.Transform(currentEdge, Matrix.CreateRotationZ(angle));
+                        GenerateParticles(currentEdge + position, 7, angle);
+                    }
+                    break;
+                #endregion
+                #region Blue Burning 13
+                case 13:
+                    {
+                        if (rand.NextDouble() < 0.2f)
+                        {
+                            Vector2 currentEdge = edges[(int)(rand.NextDouble() * edges.Count)];
+                            currentEdge = Vector2.Transform(currentEdge, Matrix.CreateRotationZ(angle));
+                            GenerateParticles(currentEdge + position, 13, angle);
+                        }
+                        break;
+                    }
+                #endregion
+            }
         }
 
         public static void GenerateParticles(Vector2 position, int ID, float angle = 0)
@@ -129,7 +148,7 @@ namespace SummerProject
                 #region Shield Visuals 7
                 case 7:
                     {
-                        CreateCircle(20, position, 34, 0, 0, Color.Yellow, 1, 0.1f, 0.1f);
+                        CreateParticle(new Sprite(spriteList[0]), position, initialForce, angle, angularVelocity, Color.Gold, scale, 0.1f, 1);
                         break;
                     }
                 #endregion
@@ -137,7 +156,7 @@ namespace SummerProject
                 #region Health Death 8
                 case 8:
                     {
-                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl, 5);
+                        CreateExplosion(8, position, 10, 40, 0.2f, Color.WhiteSmoke, 0, 0.5f, ttl, 7);
                         break;
                     }
                 #endregion
@@ -169,7 +188,14 @@ namespace SummerProject
                 #region Energy Death 12
                 case 12:
                     {
-                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Yellow, 0, 1, ttl, 6);
+                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Gold, 0, 1, ttl, 6);
+                        break;
+                    }
+                #endregion
+                #region Blue Burning 13
+                case 13:
+                    {
+                        CreateExplosion(1, position, 10, 40, 0.5f, Color.MonoGameOrange, 1, 0.5f, ttl);
                         break;
                     }
                     #endregion
