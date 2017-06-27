@@ -17,6 +17,15 @@ namespace SummerProject
         public SpriteEffects SpriteFX { get; set; }
         public float LayerDepth { get; set; }
         public Color MColor { get; set; }
+        private List<Vector2> edges;
+        public List<Vector2> Edges
+        {
+            get
+            {
+                return edges ?? CalculateEdges();
+            }
+        }
+
         private int subimages;
         private float currentFrame;
         private int fps;
@@ -88,10 +97,10 @@ namespace SummerProject
 
 
         /// <summary>
-        /// Slow as fuck, just so that you know. Don't use
+        /// Slow as fuck, just so that you know. Use only once per sprite, at most.
         /// </summary>
         /// <returns></returns>
-        public List<Vector2> CalculateEdges() 
+        private List<Vector2> CalculateEdges() 
         {
             Color[] colors1D = new Color[texture.Width*texture.Height];
             texture.GetData(colors1D);
@@ -110,7 +119,7 @@ namespace SummerProject
                     {
                         if (x == 0 || x == texture.Width - 1 || y == 0 || y == texture.Height - 1)
                         {
-                             edgeList.Add(new Vector2(x, y));
+                             edgeList.Add(new Vector2(x - Origin.X, y - Origin.Y));
                         }
                         else
                             for (int i = -1; i <= 1; i++)
@@ -119,14 +128,14 @@ namespace SummerProject
                                     {
                                         if (colors2D[x + i, y + j].A == 0)
                                         {
-                                            edgeList.Add(new Vector2(x, y));
+                                            edgeList.Add(new Vector2(x - Origin.X, y - Origin.Y));
                                             break;
                                         }
                                     }
                     }
                 }
-            for(int i = 0; i < edgeList.Count; i++)
-                edgeList[i] = Vector2.Transform(edgeList[i] - Origin, Matrix.CreateRotationZ(Rotation));
+
+            edges = edgeList;
             return edgeList;
         }
     }

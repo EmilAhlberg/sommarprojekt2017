@@ -65,6 +65,14 @@ namespace SummerProject
             }
         }
 
+        public List<Vector2> Edges
+        {
+            get
+            {
+                return CalculateEdges();
+            }
+        }
+
         public CompositeSprite()
         {
             spriteList = new List<ISprite>();
@@ -98,9 +106,9 @@ namespace SummerProject
             }
         }
 
-        public List<Vector2> CalculateEdges()
+        private List<Vector2> CalculateEdges()
         {
-            return spriteList[0].CalculateEdges(); //!
+            return spriteList[0].Edges; //!
         }
 
         public void Colorize(Color c)

@@ -14,7 +14,7 @@ namespace SummerProject
         Color MColor { get; set; }
         void Draw(SpriteBatch sb, GameTime gameTime);
         void Animate(GameTime gameTime);
-        List<Vector2> CalculateEdges();
         void Colorize(Color c);
+        List<Vector2> Edges { get; }
     }
 }
