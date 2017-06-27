@@ -14,6 +14,7 @@ namespace SummerProject
         public static Projectiles projectiles;
         public bool CanShoot { get; set; }
         protected CompositePart Hull;
+        private Timer rageTimer;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
@@ -22,7 +23,7 @@ namespace SummerProject
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-
+            rageTimer = new Timer(10);
             //Hull = new RectangularHull(position, sprite);                
         }
 
@@ -30,6 +31,11 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
+            rageTimer.CountDown(gameTime);
+            if (rageTimer.IsFinished)
+            {
+                Thrust = 3*EntityConstants.THRUST[EntityConstants.ENEMY];
+            }
             if(CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
@@ -46,6 +52,7 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
+            rageTimer.Reset();
             CanShoot = SRandom.Next(0, 5) == 0; //! 1/5th chance of being able to shoot
             if (CanShoot)
             {
