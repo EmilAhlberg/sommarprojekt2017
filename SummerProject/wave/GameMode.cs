@@ -22,6 +22,7 @@ namespace SummerProject.wave
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
+        private bool removeFrameFix; //hack solution to wave# + ready/go overlap
 
         public bool ChangeLevel { get; private set; }
         public int Level { get; private set; } 
@@ -43,8 +44,11 @@ namespace SummerProject.wave
             SpawnMode = RANDOM_WAVESPAWN;
             Level = 1; //!
             ChangeLevel = true;
-            if (fullReset) 
+            if (fullReset)
+            {
                 BetweenLevelsTimer.Reset();
+                removeFrameFix = true;
+            }
         }
 
         private void ProgressGame()
@@ -70,11 +74,12 @@ namespace SummerProject.wave
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!BetweenLevelsTimer.IsFinished)
+            if (!BetweenLevelsTimer.IsFinished && !removeFrameFix)
             {
                 String s = "Wave: " + Level;
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
             }
+            removeFrameFix = false;
         }
 
         private void UpdateMode()

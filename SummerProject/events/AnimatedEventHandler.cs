@@ -56,7 +56,7 @@ namespace SummerProject.framework
                     System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                     break;
                 case EventOperator.GAME_STATE:
-                    //op.ResetGame(true);
+                    op.ResetGame(true);
                     game.DrawGame(spriteBatch, gameTime); //WHY WONT PLAYER ALWAYS DRAAAW?1111111111
                     DrawCountDown(spriteBatch, gameTime);
                     break;
