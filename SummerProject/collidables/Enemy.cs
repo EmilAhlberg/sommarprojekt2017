@@ -23,7 +23,7 @@ namespace SummerProject
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            rageTimer = new Timer(10);
+            rageTimer = new Timer(15);
             //Hull = new RectangularHull(position, sprite);                
         }
 
@@ -34,13 +34,15 @@ namespace SummerProject
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
-                Thrust = 3*EntityConstants.THRUST[EntityConstants.ENEMY];
+                Enrage();
             }
-            if(CanShoot && SRandom.Next(0, 100) < 1)
+            else
+                Particles.GenerateParticles(Position, 4, angle);
+            if (CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
             }
-            Particles.GenerateParticles(Position, 4, angle);
+            
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
@@ -53,6 +55,7 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             CanShoot = SRandom.Next(0, 5) == 0; //! 1/5th chance of being able to shoot
             if (CanShoot)
             {
@@ -61,6 +64,13 @@ namespace SummerProject
             else
                 sprite.MColor = Color.White;
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
+        }
+
+        private void Enrage()
+        {
+            Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
+            Particles.GenerateParticles(Position, 10, angle);
+            sprite.MColor = Color.Black;
         }
 
         private void CalculateAngle()
