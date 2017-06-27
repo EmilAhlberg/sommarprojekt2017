@@ -103,7 +103,8 @@ namespace SummerProject
                         initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                         CreateParticle(new Sprite(spriteList[1]), position, initialForce, angle, angularVelocity, color, scale, ttl, 2);
                         CreateParticle(new Sprite(spriteList[2]), position, -initialForce, angle, angularVelocity, color, scale, ttl, 2);
-                        CreateExplosion(10, position, 10, 80, 0.2f, Color.MonoGameOrange, 1, 1, ttl);
+                        CreateExplosion(10, position, 10, 80, 0.2f, Color.DarkViolet, 1, 1, ttl);
+                        CreateExplosion(1, position, 10, 80, 0.2f, Color.DarkGreen, 1, 1, ttl);
                         break;
                     }
                 #endregion
@@ -194,6 +195,14 @@ namespace SummerProject
                 case 13:
                     {
                         CreateExplosion(1, position, 10, 40, 0.5f, Color.MonoGameOrange, 1, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region Enemy Thruster Trail 14
+                case 14:
+                    {
+                        CreateTrail(angle, position, 5, 40, 0, Color.Green, 0, 2, 0.3f);
                         break;
                     }
                     #endregion

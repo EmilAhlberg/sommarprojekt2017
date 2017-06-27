@@ -37,7 +37,7 @@ namespace SummerProject
                 Enrage();
             }
             else
-                Particles.GenerateParticles(Position, 4, angle);
+                Particles.GenerateParticles(Position, 14, angle);
             if (CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
