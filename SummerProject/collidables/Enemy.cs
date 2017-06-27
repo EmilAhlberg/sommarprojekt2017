@@ -11,8 +11,8 @@ namespace SummerProject
     {        
         public int WorthScore {get; private set;}
         private Player player;
-        Random rand = new Random();
         public static Projectiles projectiles;
+        public bool CanShoot { get; set; }
         protected CompositePart Hull;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
@@ -22,6 +22,7 @@ namespace SummerProject
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
+
             //Hull = new RectangularHull(position, sprite);                
         }
 
@@ -29,7 +30,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Move();
-            if(rand.Next(0, 100) < 1)
+            if(CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
             }
@@ -45,6 +46,13 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
+            CanShoot = SRandom.Next(0, 5) == 0; //! 1/5th chance of being able to shoot
+            if (CanShoot)
+            {
+                sprite.MColor = Color.Red;
+            }
+            else
+                sprite.MColor = Color.White;
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
