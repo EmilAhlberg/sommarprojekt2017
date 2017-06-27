@@ -201,6 +201,7 @@ namespace SummerProject.collidables
             Energy = maxEnergy;
             angle = 0;
             Stop();
+            sprite.MColor = Color.White;
             IsActive = true;
         }
 
