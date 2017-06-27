@@ -193,7 +193,7 @@ namespace SummerProject
         private void CheckGameStatus(GameTime gameTime)
         {
             #region Game Over
-            if (player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (!player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 ResetGame(false);
                 deathTimer.CountDown(gameTime);
@@ -269,7 +269,7 @@ namespace SummerProject
                 spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(WindowSize.Width - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
-                if (player.IsActive)
+                if (!player.IsActive)
                     spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
                 #endregion
 
