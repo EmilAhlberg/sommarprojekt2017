@@ -19,7 +19,7 @@ namespace SummerProject.collidables
             if (IsActive)
             {
                 despawnTimer.CountDown(gameTime);
-                if (despawnTimer.IsFinished)
+                if (despawnTimer.IsFinished || WindowSize.IsOutOfBounds(Position))
                     Death();
             }
         }

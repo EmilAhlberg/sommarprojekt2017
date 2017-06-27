@@ -20,8 +20,7 @@ namespace SummerProject.collidables
             backVect = c1.PrevPos - c2.Position;
             while (backVect.Length() == 0)
             {
-                Random rand = new Random();
-                backVect = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1); //! LOL
+                backVect = new Vector2(2 * SRandom.NextFloat() - 1, 2 * SRandom.NextFloat() - 1); //! LOL
             }
             backVect.Normalize();
             backVect *= 0.2f;

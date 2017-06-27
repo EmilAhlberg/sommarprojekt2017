@@ -9,7 +9,6 @@ namespace SummerProject.wave
 {
     public class SpawnPointGenerator
     {
-        private Random rand;
         private GameMode gameMode;
         private int spawnSize;
         private int newSpawnSize;
@@ -26,7 +25,6 @@ namespace SummerProject.wave
             this.gameMode = gameMode;
             oldMode = gameMode.SpawnMode;
 
-            rand = new Random();
         }
 
         public void UpdateMode()
@@ -68,7 +66,7 @@ namespace SummerProject.wave
         {
             Vector2[] vs = new Vector2[spawnSize];
 
-            int waveType = rand.Next(0, 9);
+            int waveType = SRandom.Next(0, 9);
             if (waveType >= 8)
                 vs = RandomDiagonalWave();
             else if (waveType >= 5)
@@ -131,8 +129,8 @@ namespace SummerProject.wave
 
         /*
          * MODES:
-         *      RandomSideWave: Spaces enemies evenly on a randomly selected side.
-         *      RandomOffMapLocation: Spawns an enemy on a random location, just outside the map.
+         *      RandomSideWave: Spaces enemies evenly on a Randomly selected side.
+         *      RandomOffMapLocation: Spawns an enemy on a Random location, just outside the map.
          *      
          */       
         
@@ -140,7 +138,7 @@ namespace SummerProject.wave
         {
             Vector2[] vs = new Vector2[spawnSize];
 
-            int side = rand.Next(1, 5);
+            int side = SRandom.Next(1, 5);
             float sideLength = 0;
             if (side < 3)
                 sideLength = windowWidth;
@@ -162,7 +160,7 @@ namespace SummerProject.wave
         private Vector2[] RandomDiagonalWave()
         {
             Vector2[] vs = new Vector2[spawnSize];
-            int corner = rand.Next(1, 5);
+            int corner = SRandom.Next(1, 5);
             int offset = -spawnSize/2;
             for (int i = 0; i< spawnSize; i++)
             {
@@ -174,15 +172,15 @@ namespace SummerProject.wave
 
         private Vector2 RandomOffMapLocation()
         {
-            int side = rand.Next(1, 5); 
+            int side = SRandom.Next(1, 5); 
             Vector2 v = Vector2.Zero;            
             float x = 0;
             float y = 0;
 
             if(side < 3)            
-                x = windowWidth * (float)rand.NextDouble();               
+                x = windowWidth * SRandom.NextFloat();               
              else       
-                y = windowHeight * (float)rand.NextDouble();
+                y = windowHeight * SRandom.NextFloat();
 
             v = SidePoint(side, 0, x, y);           
             return v;
