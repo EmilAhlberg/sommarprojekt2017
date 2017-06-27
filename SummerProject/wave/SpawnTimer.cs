@@ -23,36 +23,43 @@ namespace SummerProject.wave
         private Timer timer2;
         private Timer timer1;
         private GameMode gameMode;
+        private int oldMode;
 
         public SpawnTimer(GameMode gameMode)
         {
+            oldMode = gameMode.TimeMode;
             this.gameMode = gameMode;
             timer1 = new Timer(TIMER1_DECREASINGMODE);
             timer2 = new Timer(TIMER2_DECREASINGMODE);
         }
 
-        public void ChangeMode()
+        private void UpdateMode()
         {
-            switch (gameMode.TimeMode)
+            if (oldMode != gameMode.TimeMode)
             {
-                case GameMode.DECREASING_TIME:                  
-                    timer1.maxTime = TIMER1_DECREASINGMODE; 
-                    timer2.maxTime = TIMER2_DECREASINGMODE;                    
-                    break;
-                case GameMode.RANDOM_WAVESPAWN:
-                    timer1.maxTime = TIMER1_CONSTANTMODE;
-                    break;                          
-                case GameMode.DEBUG_MODE:
-                    timer1.maxTime = TIMER1_DEBUGMODE;     
-                    break;
-            }
-            timer1.Reset();
-            timer2.Reset();            
+                switch (gameMode.TimeMode)
+                {
+                    case GameMode.DECREASING_TIME:
+                        timer1.maxTime = TIMER1_DECREASINGMODE;
+                        timer2.maxTime = TIMER2_DECREASINGMODE;
+                        break;
+                    case GameMode.RANDOM_WAVESPAWN:
+                        timer1.maxTime = TIMER1_CONSTANTMODE;
+                        break;
+                    case GameMode.DEBUG_MODE:
+                        timer1.maxTime = TIMER1_DEBUGMODE;
+                        break;
+                }
+                timer1.Reset();
+                timer2.Reset();
+                oldMode = gameMode.TimeMode;
+            } 
         }
        
 
         public bool Update(GameTime gameTime)
-        {            
+        {
+            UpdateMode();
             switch (gameMode.TimeMode)
             {
                 case GameMode.DECREASING_TIME:
@@ -107,10 +114,7 @@ namespace SummerProject.wave
             if (timer1.IsFinished)
                 timer1.Reset();
                        
-               timer1.CountDown(gameTime);            
-            
-            //if (timer1.IsFinished)
-            //    timer2.CountDown(gameTime);                   
+               timer1.CountDown(gameTime);           
         }
     }
 }

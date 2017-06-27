@@ -10,7 +10,6 @@ namespace SummerProject.wave
     public class SpawnPointGenerator
     {
         private Random rand;
-        //private Vector2[] spawnPoints;
         private GameMode gameMode;
         private int spawnSize;
         private int newSpawnSize;
@@ -18,41 +17,41 @@ namespace SummerProject.wave
         private int windowHeight;
         private int mapOffset = -10; //!       
         private int diagonalWaveSize = 600; //!
+        private int oldMode;
 
         public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
         {
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
             this.gameMode = gameMode;
+            oldMode = gameMode.SpawnMode;
 
             rand = new Random();
-            //spawnPoints = new Vector2[8]; //!!
-            //spawnPoints[0] = new Vector2(-50, -50);     // Top left
-            //spawnPoints[1] = new Vector2(windowWidth + 50, -50);  // top right
-            //spawnPoints[2] = new Vector2(-50, windowHeight + 50); // bottom left
-            //spawnPoints[3] = new Vector2(windowWidth + 50, windowHeight + 50); // bottom right
-            //spawnPoints[4] = new Vector2(windowWidth + 50, windowHeight / 2); // right  (bugged)
-            //spawnPoints[5] = new Vector2(-50, windowHeight / 2); // left      (bugged)
-            //spawnPoints[6] = new Vector2(windowWidth / 2, windowHeight + 50); // bottom
-            //spawnPoints[7] = new Vector2(windowWidth / 2, -50); // top
         }
 
-        public void ChangeMode()
+        public void UpdateMode()
         {
-            switch (gameMode.SpawnMode)
+            if (oldMode != gameMode.SpawnMode)
             {
-                case GameMode.RANDOM_SINGLESPAWN:
-                    spawnSize = 1; //! DEFAULT
-                    break;
-                case GameMode.RANDOM_WAVESPAWN:
-                    spawnSize = 2; //! 
-                    newSpawnSize = spawnSize;
-                    break;
+
+                switch (gameMode.SpawnMode)
+                {
+                    case GameMode.RANDOM_SINGLESPAWN:
+                        spawnSize = 1; //! 
+                        break;
+                    case GameMode.RANDOM_WAVESPAWN:
+                        spawnSize = 2; //! 
+                        newSpawnSize = spawnSize;
+                        break;
+                }
+                oldMode = gameMode.SpawnMode;
             }
         }
 
         public void Update(GameTime gameTime)
         {
+            UpdateMode();
+
             if (gameMode.SpawnMode == GameMode.RANDOM_WAVESPAWN)
             {
                 newSpawnSize = ScoreHandler.Score / (newSpawnSize * 500) + 2; //!!
@@ -80,8 +79,7 @@ namespace SummerProject.wave
                 {
                     vs[i] = RandomOffMapLocation();
                 }
-            }
-            
+            }            
 
             return vs;
         }

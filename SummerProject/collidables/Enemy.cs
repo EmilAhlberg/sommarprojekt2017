@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.parts;
 using SummerProject.factories;
+using SummerProject.wave;
 
 namespace SummerProject
 {
@@ -75,6 +76,7 @@ namespace SummerProject
         public override void Death()
         {
             Particles.GenerateParticles(Position, 2, angle); //Death animation
+            DropSpawnPoints.DeathAt(Position);
             base.Death();
         }
 
