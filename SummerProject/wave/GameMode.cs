@@ -12,16 +12,18 @@ namespace SummerProject.wave
     public class GameMode
     {
         //Modes for the timer
-        public const int DEBUG_MODE = 0;        
+        public const int DEBUG_TIME = 0;        
         public const int CONSTANT_TIME = 1;
         public const int DECREASING_TIME = 2;
+        public const int BURST_TIME = 3;
 
         //Modes for the point generator
-        public const int RANDOM_SINGLESPAWN = 10;
-        public const int RANDOM_WAVESPAWN = 11;       
+        public const int RANDOM_SINGLE = 10;
+        public const int RANDOM_WAVE = 11;       
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
+        private bool removeFrameFix; //hack solution to wave# + ready/go overlap
 
         public bool ChangeLevel { get; private set; }
         public int Level { get; private set; } 
@@ -39,12 +41,15 @@ namespace SummerProject.wave
 
         public void Reset(bool fullReset)
         {
-            TimeMode = CONSTANT_TIME;      //DEFAULT GAME MODE
-            SpawnMode = RANDOM_WAVESPAWN;
+            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
+            SpawnMode = RANDOM_WAVE;
             Level = 1; //!
             ChangeLevel = true;
-            if (fullReset) 
+            if (fullReset)
+            {
                 BetweenLevelsTimer.Reset();
+                removeFrameFix = true;
+            }
         }
 
         private void ProgressGame()
@@ -70,11 +75,12 @@ namespace SummerProject.wave
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!BetweenLevelsTimer.IsFinished)
+            if (!BetweenLevelsTimer.IsFinished && !removeFrameFix)
             {
                 String s = "Wave: " + Level;
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
             }
+            removeFrameFix = false;
         }
 
         private void UpdateMode()
@@ -82,18 +88,18 @@ namespace SummerProject.wave
             if (InputHandler.isJustPressed(Keys.F1))
             {
                 TimeMode = GameMode.DECREASING_TIME;
-                SpawnMode = GameMode.RANDOM_SINGLESPAWN;        
+                SpawnMode = GameMode.RANDOM_SINGLE;        
             }
 
             if (InputHandler.isJustPressed(Keys.F2))
             {
-                TimeMode = GameMode.RANDOM_WAVESPAWN;
-                SpawnMode = GameMode.RANDOM_WAVESPAWN;         
+                TimeMode = GameMode.RANDOM_WAVE;
+                SpawnMode = GameMode.RANDOM_WAVE;         
             }
 
             if (InputHandler.isJustPressed(Keys.F3))
             {
-                TimeMode = GameMode.DEBUG_MODE;              
+                TimeMode = GameMode.DEBUG_TIME;              
             }
         }
 

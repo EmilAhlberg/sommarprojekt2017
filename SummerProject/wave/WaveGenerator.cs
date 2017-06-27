@@ -51,7 +51,7 @@ namespace SummerProject
         {
             Drops.SpawnAt(dropPoints.SpawnPositions());           
 
-            spawnPointGen.Update(gameTime);            
+            spawnPointGen.Update(gameTime);
             if (spawnTimer.Update(gameTime))
                 SpawnWave();                
             }

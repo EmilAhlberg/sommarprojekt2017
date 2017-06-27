@@ -131,7 +131,7 @@ namespace SummerProject
                   game.DrawGame(spriteBatch, gameTime);
 
                 if (GameState == UPGRADE_STATE)
-                    upgradeView.Draw(spriteBatch, gameTime);
+                  upgradeView.Draw(spriteBatch, gameTime);
 
                 if (!animatedHandler.AnimatedEvent)             
                   menu.Draw(spriteBatch, gameTime);                      
