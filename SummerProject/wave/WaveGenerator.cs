@@ -85,10 +85,10 @@ namespace SummerProject
         {
             if (!isActive)
             {
-                if (!player.IsActive)
+                if (player.IsActive)
                     isActive = true;
             }
-            else if (player.IsActive)
+            else if (!player.IsActive)
             {
                 isActive = false;
             }

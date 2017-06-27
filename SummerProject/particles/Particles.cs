@@ -8,7 +8,6 @@ namespace SummerProject
     public static class Particles
     {
         static List<Particle> particles;
-        static Random rand;
         static List<Sprite> spriteList;
         private const int maxParticles = 1000;
 
@@ -17,7 +16,6 @@ namespace SummerProject
             particles = new List<Particle>();
             spriteList = new List<Sprite>();
             spriteList.Add(new Sprite());
-            rand = new Random();
         }
 
         public static void AddSprite(Sprite s)
@@ -60,7 +58,7 @@ namespace SummerProject
                 case 7:
                     for (int i = 0; i < 10; i++)
                     {
-                        Vector2 currentEdge = edges[(int)(rand.NextDouble() * edges.Count)];
+                        Vector2 currentEdge = edges[(int)(SRandom.NextFloat() * edges.Count)];
                         currentEdge = Vector2.Transform(currentEdge, Matrix.CreateRotationZ(angle));
                         GenerateParticles(currentEdge + position, 7, angle);
                     }
@@ -69,9 +67,9 @@ namespace SummerProject
                 #region Blue Burning 13
                 case 13:
                     {
-                        if (rand.NextDouble() < 0.2f)
+                        if (SRandom.NextFloat() < 0.2f)
                         {
-                            Vector2 currentEdge = edges[(int)(rand.NextDouble() * edges.Count)];
+                            Vector2 currentEdge = edges[(int)(SRandom.NextFloat() * edges.Count)];
                             currentEdge = Vector2.Transform(currentEdge, Matrix.CreateRotationZ(angle));
                             GenerateParticles(currentEdge + position, 13, angle);
                         }
@@ -250,7 +248,7 @@ namespace SummerProject
 
         private static Vector2 RandomVector2(float spread, float baseValue)
         {
-            Vector2 v = new Vector2(2 * (float)rand.NextDouble() - 1, 2 * (float)rand.NextDouble() - 1);
+            Vector2 v = new Vector2(2 * SRandom.NextFloat() - 1, 2 * SRandom.NextFloat() - 1);
             v.Normalize();
             v *= RandomFloat(spread, baseValue);
             return v;
@@ -276,7 +274,7 @@ namespace SummerProject
 
         private static float RandomFloat(float spread, float baseValue)
         {
-            return (float)rand.NextDouble() * spread + baseValue;
+            return SRandom.NextFloat() * spread + baseValue;
         }
     }
 }

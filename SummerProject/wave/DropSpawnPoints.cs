@@ -9,7 +9,7 @@ namespace SummerProject.wave
 {
     public class DropSpawnPoints
     {
-        private Random rand = new Random();
+        private Random SRandom = new Random();
         public static List<Vector2> points = new List<Vector2>();
         
 
@@ -23,7 +23,7 @@ namespace SummerProject.wave
         {
             for(int i =points.Count-1; i>=0; i--)
             {
-                if(rand.Next(0,6) <5)
+                if(SRandom.Next(0,6) <5)
                 {
                     points.RemoveAt(i);                    
                 }
