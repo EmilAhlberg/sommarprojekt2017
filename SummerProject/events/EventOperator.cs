@@ -29,8 +29,8 @@ namespace SummerProject
             NewGameState = GameState;
             animatedHandler = new AnimatedEventHandler(game, this, font);
             upgradeView = new UpgradeView(upgradeViewText);            
-            menu = new Menu(new Vector2((game.Window.ClientBounds.Width) / 2, 
-                    (game.Window.ClientBounds.Height) / 2), font);
+            menu = new Menu(new Vector2(WindowSize.Width / 2,
+                    WindowSize.Height / 2), font);
             this.game = game;
         }
 

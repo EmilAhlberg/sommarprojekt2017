@@ -31,8 +31,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = WindowSize.Width;
+            graphics.PreferredBackBufferHeight = WindowSize.Height;
             Content.RootDirectory = "Content";
             //this.IsFixedTimeStep = false; //use to make game rly fast :)
             //graphics.SynchronizeWithVerticalRetrace = false;
@@ -97,6 +97,7 @@ namespace SummerProject
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
+            Texture2D wrenchTex = Content.Load<Texture2D>("textures/wrench");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
@@ -124,9 +125,9 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            Drops drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); //!! dropCap
-            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont, drops);
+            player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), compSpr, projectiles);
+            Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
+            waveGenerator = new WaveGenerator(player, scoreFont, drops);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex)); //! wall location
            
@@ -139,6 +140,7 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex3));
             Particles.AddSprite(new Sprite(plusTex));
             Particles.AddSprite(new Sprite(boltTex));
+            Particles.AddSprite(new Sprite(wrenchTex));
             #endregion
             // TODO: use this.Content to load your game content here
         }
@@ -262,11 +264,11 @@ namespace SummerProject
 
 
                 #region DrawString
-                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
-                spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
-                Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
+                spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(WindowSize.Width - 300, 100), Color.OrangeRed);
+                spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(WindowSize.Width - 300, 150), Color.Gold);
+                spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
+                Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (player.IsActive)
                     spriteBatch.DrawString(bigFont, "GAME OVER", shitvect, Color.OrangeRed);
                 #endregion
@@ -298,10 +300,10 @@ namespace SummerProject
         {
             float x = player.Position.X;
             float y = player.Position.Y;
-            if (player.Position.X > graphics.PreferredBackBufferWidth)
-                x = graphics.PreferredBackBufferWidth;
-            if (player.Position.Y > graphics.PreferredBackBufferHeight)
-                y = graphics.PreferredBackBufferHeight;
+            if (player.Position.X > WindowSize.Width)
+                x = WindowSize.Width;
+            if (player.Position.Y > WindowSize.Height)
+                y = WindowSize.Height;
             if (player.Position.X < 0)
                 x = 0;
             if (player.Position.Y < 0)
@@ -323,7 +325,7 @@ namespace SummerProject
                 usingControls = "WASD : AD = Rotate";
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth - 700, graphics.PreferredBackBufferHeight - 100), Color.Crimson);
+            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 100), Color.Crimson);
             spriteBatch.DrawString(scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Gold);
 
         }

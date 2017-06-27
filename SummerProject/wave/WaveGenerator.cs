@@ -20,36 +20,38 @@ namespace SummerProject
         private SpawnPointGenerator spawnPointGen;
         private SpawnTimer spawnTimer;
         public Drops Drops { get; private set; }
+        private DropSpawnPoints dropPoints;
 
         private bool isActive;
   
 
         //enemies as param insted of sprites?
-        public WaveGenerator( Player player, int windowWidth, int windowHeight, SpriteFont font, Drops drops)
+        public WaveGenerator(Player player, SpriteFont font, Drops drops)
         {
             this.player = player;
             Drops = drops;
-            gameMode = new GameMode(font, windowWidth, windowHeight);
-            spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
+            gameMode = new GameMode(font);
+            spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(player, 30); //! nbrOfEnemies
+            dropPoints = new DropSpawnPoints();
         }
 
         public void Update(GameTime gameTime)
         {
             CheckActive();
             if (isActive)            
-                UpdateSpawnHandlers(gameTime);            
+                UpdateSpawnHandlers(gameTime);
             
             enemies.Update(gameTime);
             Drops.Update(gameTime);
-            gameMode.Update(gameTime);
-            UpdateMode(); 
+            gameMode.Update(gameTime);          
         }       
 
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
-            Drops.Spawn();
+            Drops.SpawnAt(dropPoints.SpawnPositions());           
+
             spawnPointGen.Update(gameTime);            
             if (spawnTimer.Update(gameTime))
                 SpawnWave();                
@@ -78,8 +80,6 @@ namespace SummerProject
             enemies.Reset();
             gameMode.Reset();
             Drops.Reset();
-            spawnTimer.ChangeMode();
-            spawnPointGen.ChangeMode();
         }
 
         private void CheckActive()
@@ -100,31 +100,6 @@ namespace SummerProject
         {
             return enemies.GetValues();
         }
-
-        private void UpdateMode()
-        {
-            if (InputHandler.isJustPressed(Keys.F1))
-            {
-                gameMode.TimeMode = GameMode.DECREASING_TIME;
-                gameMode.SpawnMode = GameMode.RANDOM_SINGLESPAWN;
-                spawnTimer.ChangeMode();
-                spawnPointGen.ChangeMode();
-            }
-
-            if (InputHandler.isJustPressed(Keys.F2))
-            {
-                gameMode.TimeMode = GameMode.RANDOM_WAVESPAWN;
-                gameMode.SpawnMode = GameMode.RANDOM_WAVESPAWN;
-                spawnTimer.ChangeMode();
-                spawnPointGen.ChangeMode();
-            }
-
-            if (InputHandler.isJustPressed(Keys.F3))
-            {
-                gameMode.TimeMode = GameMode.DEBUG_MODE;
-                spawnTimer.ChangeMode();
-                spawnPointGen.ChangeMode();
-            }
-        }
+       
     }
 }

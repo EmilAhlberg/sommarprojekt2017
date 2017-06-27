@@ -8,8 +8,8 @@ namespace SummerProject.factories
 {
     public class Drops : Entities
     {
-        private Timer spawnTimer;
-        private const float spawnTime = 1f;
+        //private Timer spawnTimer;
+        //private const float spawnTime = 1f;
         private int width;
         private int height;
         private Random rand;
@@ -17,36 +17,44 @@ namespace SummerProject.factories
         {
             width = windowWidth - 100;
             height = windowHeight - 100;
-            spawnTimer = new Timer(spawnTime);
+            //spawnTimer = new Timer(spawnTime);
             rand = new Random(42);
-            InitializeEntities(EntityTypes.HEALTHDROP);             
+            InitializeEntities(EntityTypes.HEALTHDROP);
             InitializeEntities(EntityTypes.EXPLOSIONDROP);
             InitializeEntities(EntityTypes.ENERGYDROP);
         }
 
-        public void Spawn()
-        {
-            SpawnAt(new Vector2((float)rand.NextDouble() * width + 50, (float)rand.NextDouble() * height + 50));
-        }
+        //public void Spawn()
+        //{
+        //    SpawnAt(new Vector2((float)rand.NextDouble() * width + 50, (float)rand.NextDouble() * height + 50));
+        //}
 
-        public void SpawnAt(Vector2 source)
+        //public void SpawnAt(Vector2 source)
+        //{
+        //    if (spawnTimer.IsFinished)
+        //    {
+        //        if (ActivateEntities(source, source, rand.Next(EntityTypes.HEALTHDROP,EntityTypes.ENERGYDROP + 1)))
+        //            spawnTimer.Reset();
+        //    }
+        //}
+
+        public void SpawnAt(Vector2[] source)
         {
-            if (spawnTimer.IsFinished)
+            foreach (Vector2 v in source)
             {
-                if (ActivateEntities(source, source, rand.Next(EntityTypes.HEALTHDROP,EntityTypes.ENERGYDROP + 1)))
-                    spawnTimer.Reset();
+                ActivateEntities(v, v, rand.Next(EntityTypes.HEALTHDROP, EntityTypes.ENERGYDROP + 1));                    
             }
         }
 
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            spawnTimer.CountDown(gameTime);         
+            //spawnTimer.CountDown(gameTime);         
         }
 
         public override void Reset()
         {
-            spawnTimer.Reset();
+            //spawnTimer.Reset();
             ResetEntities();
         }
 

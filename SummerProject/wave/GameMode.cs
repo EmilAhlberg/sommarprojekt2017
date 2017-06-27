@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,16 @@ namespace SummerProject.wave
         private int windowWidth;
         private int windowHeight;
         private Timer timer;
+      
 
-
-        public GameMode(SpriteFont font, int windowWidth, int windowHeight)
+        public GameMode(SpriteFont font)
         {
             this.font = font;
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
-            //TimeMode = CONSTANT_TIME;
-            //SpawnMode = RANDOM_WAVESPAWN;
+            this.windowWidth = WindowSize.Width;
+            this.windowHeight = WindowSize.Height;
+
             timer = new Timer(3); //!
+            
         }
 
         public void Reset()
@@ -54,6 +55,8 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             timer.CountDown(gameTime);
+            UpdateMode();
+            
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -63,7 +66,27 @@ namespace SummerProject.wave
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
             }
         }
-          
+
+        private void UpdateMode()
+        {
+            if (InputHandler.isJustPressed(Keys.F1))
+            {
+                TimeMode = GameMode.DECREASING_TIME;
+                SpawnMode = GameMode.RANDOM_SINGLESPAWN;        
+            }
+
+            if (InputHandler.isJustPressed(Keys.F2))
+            {
+                TimeMode = GameMode.RANDOM_WAVESPAWN;
+                SpawnMode = GameMode.RANDOM_WAVESPAWN;         
+            }
+
+            if (InputHandler.isJustPressed(Keys.F3))
+            {
+                TimeMode = GameMode.DEBUG_MODE;              
+            }
+        }
+
 
         //duplicated in AnimatedEventHandler
         private Vector2 WordLayoutPosition(String s)

@@ -100,6 +100,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
+    <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />
     <Compile Include="util\RotRectangle.cs" />
     <Compile Include="framework\ScoreHandler.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="wave\SpawnPointGenerator.cs" />
     <Compile Include="wave\SpawnTimer.cs" />
     <Compile Include="wave\WaveGenerator.cs" />
+    <Compile Include="WindowSize.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
