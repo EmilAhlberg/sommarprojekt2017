@@ -16,6 +16,7 @@ namespace SummerProject.collidables
 
         public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
+            
             InitDetection();
         }
         private void InitDetection()

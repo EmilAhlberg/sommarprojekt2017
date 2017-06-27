@@ -11,11 +11,12 @@ namespace SummerProject.collidables
     public class Player : Entity, IPartCarrier
     {
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
-        public int ControlScheme { get; set; } = 1; // 1-4      
+        public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
-        private const float shieldDischargeRate = 0.1f;
+        private const float shieldDischargeRate = 3f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
-        private const float maxEnergy = 100;
+        private const float startingEnergy = 100f;
+        private float maxEnergy;
         private const int shieldSize = 300;
         private bool shieldOn;
         private Projectiles projectiles;
@@ -27,6 +28,7 @@ namespace SummerProject.collidables
         {
             Position = position;
             startPosition = position;
+            maxEnergy = startingEnergy;
             this.projectiles = projectiles;
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
@@ -59,7 +61,10 @@ namespace SummerProject.collidables
                         shieldOn = true;
                     }
                     else
+                    {
+                        Energy = 0;
                         shieldOn = false;
+                    }
                 }
                 else
                 {
@@ -101,15 +106,16 @@ namespace SummerProject.collidables
 
         protected override void Move()
         {
-            if (InputHandler.isPressed(Keys.D1))
-                ControlScheme = 1;
-            if (InputHandler.isPressed(Keys.D2))
-                ControlScheme = 2;
-            if (InputHandler.isPressed(Keys.D3))
-                ControlScheme = 3;
-            if (InputHandler.isPressed(Keys.D4))
-                ControlScheme = 4;
+            //if (InputHandler.isPressed(Keys.D1))
+            //    ControlScheme = 1;
+            //if (InputHandler.isPressed(Keys.D2))
+            //    ControlScheme = 2;
+            //if (InputHandler.isPressed(Keys.D3))
+            //    ControlScheme = 3;
+            //if (InputHandler.isPressed(Keys.D4))
+            //    ControlScheme = 4;
             base.Thrust = 0;
+            #region Controls
             if (ControlScheme <= 1)
             {
                 if (InputHandler.isPressed(Keys.S))
@@ -161,6 +167,7 @@ namespace SummerProject.collidables
                 if (InputHandler.isPressed(Keys.D))
                     angle += 0.1f;
             }
+            #endregion
             base.Move();
         }
 
@@ -175,7 +182,10 @@ namespace SummerProject.collidables
             if(c2 is HealthDrop)
                 Health += HealthDrop.heal;
             if (c2 is EnergyDrop)
-                Energy += EnergyDrop.charge;
+            {
+                maxEnergy += EnergyDrop.charge;
+                Energy = maxEnergy;
+            }
 
             if(!shieldOn && c2 is Projectile)
             {

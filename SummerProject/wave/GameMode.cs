@@ -25,28 +25,26 @@ namespace SummerProject.wave
 
         public bool ChangeLevel { get; private set; }
         public int Level { get; private set; } 
-        private SpriteFont font;
-        private int windowWidth;
-        private int windowHeight;       
-        private Timer betweenLevelsTimer;
+        private SpriteFont font;     
+        public Timer BetweenLevelsTimer { get; private set; }
       
 
         public GameMode(SpriteFont font)
         {
             this.font = font;
-            this.windowWidth = WindowSize.Width;
-            this.windowHeight = WindowSize.Height;
+          
 
-            betweenLevelsTimer = new Timer(3); //!         
+            BetweenLevelsTimer = new Timer(3); //!         
         }
 
         public void Reset(bool fullReset)
         {
             TimeMode = CONSTANT_TIME;      //DEFAULT GAME MODE
             SpawnMode = RANDOM_WAVESPAWN;
-            Level = 1;
+            Level = 1; //!
+            ChangeLevel = true;
             if (fullReset) 
-                betweenLevelsTimer.Reset();
+                BetweenLevelsTimer.Reset();
         }
 
         private void ProgressGame()
@@ -56,7 +54,7 @@ namespace SummerProject.wave
             {
                 Level = newLevel;
                 ChangeLevel = true;
-                betweenLevelsTimer.Reset();           
+                BetweenLevelsTimer.Reset();           
             }        
             
         }
@@ -64,14 +62,15 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             ChangeLevel = false;
-            betweenLevelsTimer.CountDown(gameTime);
+            BetweenLevelsTimer.CountDown(gameTime);
             UpdateMode();
             ProgressGame();
             
         }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (!betweenLevelsTimer.IsFinished)
+            if (!BetweenLevelsTimer.IsFinished)
             {
                 String s = "Wave: " + Level;
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
@@ -106,7 +105,7 @@ namespace SummerProject.wave
             float width = 0;
             if (size.X > width)
                 width = size.X;
-            return new Vector2((windowWidth - width) / 2, windowHeight / 2);
+            return new Vector2((WindowSize.Width - width) / 2, WindowSize.Height / 2);
         }
     }
 }
