@@ -46,7 +46,7 @@ namespace SummerProject.collidables
          {
                 {DEFAULT, 10},
                 {PLAYER, 5}, 
-                {ENEMY, 5},
+                {ENEMY, 7},
                 {BULLET, 0}
          };
 

@@ -162,7 +162,7 @@ namespace SummerProject
                 #region Explosion Drop 9
                 case 9:
                     {
-                        CreateExplosion(10, position, 10, 500 / 2, 0, Color.DodgerBlue, 1, 0.5f, ttl);
+                        CreateExplosion(10, position, 10, 750 / 2, 0, Color.DodgerBlue, 1, 0.5f, ttl);
                         break;
                     }
                 #endregion
