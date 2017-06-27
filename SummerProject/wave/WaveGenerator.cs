@@ -25,12 +25,12 @@ namespace SummerProject
   
 
         //enemies as param insted of sprites?
-        public WaveGenerator( Player player, int windowWidth, int windowHeight, SpriteFont font, Drops drops)
+        public WaveGenerator(Player player, SpriteFont font, Drops drops)
         {
             this.player = player;
             Drops = drops;
-            gameMode = new GameMode(font, windowWidth, windowHeight);
-            spawnPointGen = new SpawnPointGenerator(gameMode, windowWidth, windowHeight);
+            gameMode = new GameMode(font);
+            spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(player, 30); //! nbrOfEnemies
         }

@@ -33,16 +33,20 @@ namespace SummerProject
                 {
                     p.IsActive = false;
                 }
-            }
+            }      
         }
 
         public static void Update(GameTime gameTime)
         {
-            for (int i = 0; i < particles.Count; i++)
+            foreach (Particle p in particles)
             {
-                if (particles[i].IsActive)
-                {
-                    particles[i].Update(gameTime);
+                if (p.IsActive)
+                { 
+                    p.Update(gameTime);
+                    if (WindowSize.IsOutOfBounds(p.Position))
+                    {
+                        p.IsActive = false;
+                    }   
                 }
             }
         }

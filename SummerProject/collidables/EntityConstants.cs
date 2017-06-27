@@ -12,6 +12,7 @@ namespace SummerProject.collidables
         public const int PLAYER = 1;
         public const int ENEMY = 2;
         public const int BULLET = 3;
+        public const int HOMINGBULLET = 4;
 
         public static readonly Dictionary<int, int> HEALTH =
           new Dictionary<int, int>
@@ -55,14 +56,14 @@ namespace SummerProject.collidables
                 {DEFAULT, 1000f * (float)Math.PI }, //! //rad per tick
                 {PLAYER, 0.05f * (float)Math.PI},
                 {ENEMY, 0},
-                {BULLET, 0}
+                {BULLET, 0},
+                {HOMINGBULLET, 0.07f * (float)Math.PI}
         };
 
         public static readonly Dictionary<int, int> SCORE =
         new Dictionary<int, int>
         {             
                 {ENEMY, 100},                
-        };        
-
+        };
     }
 }

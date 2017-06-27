@@ -19,10 +19,10 @@ namespace SummerProject.wave
         private int mapOffset = -10; //!       
         private int diagonalWaveSize = 600; //!
 
-        public SpawnPointGenerator(GameMode gameMode, int windowWidth, int windowHeight)
+        public SpawnPointGenerator(GameMode gameMode)
         {
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
+            this.windowWidth = WindowSize.Width;
+            this.windowHeight = WindowSize.Height;
             this.gameMode = gameMode;
 
             rand = new Random();

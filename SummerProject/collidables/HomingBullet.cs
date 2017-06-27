@@ -23,11 +23,13 @@ namespace SummerProject.collidables
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, 300, 300), angle));
             Damage = 0; //!   big box must do 0 dmg bcuz detection
             lockedOn = false;
+            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
         }
         private void InitLockOn()
         {
             lockedOn = true;
-            Damage = homingDamage;    
+            Damage = homingDamage;
+            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.HOMINGBULLET]; 
         }
 
         private void CalculateAngle()

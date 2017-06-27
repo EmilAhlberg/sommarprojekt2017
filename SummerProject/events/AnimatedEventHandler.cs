@@ -51,7 +51,7 @@ namespace SummerProject.framework
                     op.ResetGame(false);
                     game.UpdateGame(gameTime);
                     game.DrawGame(spriteBatch, gameTime);
-                    String s = "Mediocre!"; //!
+                    string s = "Mediocre!"; //!
                     spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
                     System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                     break;
@@ -61,7 +61,7 @@ namespace SummerProject.framework
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:
-                    String score = "Score: " + ScoreHandler.Score; //!
+                    string score = "Score: " + ScoreHandler.Score; //!
                     spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
                     break;
             }
@@ -76,13 +76,13 @@ namespace SummerProject.framework
             spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
         }
 
-        private Vector2 WordLayoutPosition(String s)
+        private Vector2 WordLayoutPosition(string s)
         {
             Vector2 size = font.MeasureString(s);
             float width = 0;
             if (size.X > width)
                 width = size.X;
-            return new Vector2((game.Window.ClientBounds.Width - width) / 2, (game.Window.ClientBounds.Height - 0) / 2);
+            return new Vector2((WindowSize.Width - width) / 2, (WindowSize.Height - 0) / 2);
         }
     }
 }
