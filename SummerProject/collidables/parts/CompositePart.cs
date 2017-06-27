@@ -13,7 +13,7 @@ namespace SummerProject
     {
         protected Link[] parts;
 
-        public CompositePart(Vector2 position, ISprite sprite, CompositePart hull) : base(position, sprite, hull)
+        public CompositePart(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite, carrier)
         {
             AddLinkPositions();
         }
@@ -21,7 +21,7 @@ namespace SummerProject
         public bool AddPart(Part part, int pos) {
             if (pos < parts.Length)
             {
-                part.Hull = this;
+                part.Carrier = this;
                 SetPart(part, pos);
                 return true;
             }

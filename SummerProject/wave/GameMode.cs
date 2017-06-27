@@ -34,15 +34,15 @@ namespace SummerProject.wave
             this.font = font;
             this.windowWidth = windowWidth;
             this.windowHeight = windowHeight;
-            TimeMode = DECREASING_TIME;
-            SpawnMode = RANDOM_SINGLESPAWN;
+            //TimeMode = CONSTANT_TIME;
+            //SpawnMode = RANDOM_WAVESPAWN;
             timer = new Timer(3); //!
         }
 
         public void Reset()
         {
-            TimeMode = DECREASING_TIME;
-            SpawnMode = RANDOM_SINGLESPAWN;
+            TimeMode = CONSTANT_TIME;      //DEFAULT GAME MODE
+            SpawnMode = RANDOM_WAVESPAWN;
         }
 
         public void ProgressGame(int level)

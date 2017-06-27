@@ -22,12 +22,10 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        WaveGenerator waveGenerator;
-        //Enemies enemies;
+        WaveGenerator waveGenerator;    
         Projectiles projectiles;
         Sprite background;
-        CollisionHandler colhandl;
-        Drops drops;
+        CollisionHandler colhandl;    
         const bool SPAWN_ENEMIES = true;
 
         public Game1()
@@ -98,7 +96,7 @@ namespace SummerProject
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
-            Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthpack");
+            Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
@@ -108,7 +106,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex);
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
-            Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex);
+            Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,6,6);
             Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,6,6);
             Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,6,6);
             #endregion
@@ -127,10 +125,11 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont);
+            Drops drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); //!! dropCap
+            waveGenerator = new WaveGenerator(player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, scoreFont, drops);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
-            drops = new Drops(10, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex)); //! wall location
+           
             #endregion
 
             #region Adding sprites to particles
@@ -183,11 +182,9 @@ namespace SummerProject
             if (SPAWN_ENEMIES)
                 waveGenerator.Update(gameTime);
             projectiles.Update(gameTime);
-            drops.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
-            KeepPlayerInScreen();
-            drops.Spawn();
+            KeepPlayerInScreen();        
             #endregion
         }
 
@@ -226,8 +223,7 @@ namespace SummerProject
                 player.Reset();
                 Particles.Reset();
             }
-            projectiles.Reset();
-            drops.Reset();
+            projectiles.Reset();  
             waveGenerator.Reset();
             ScoreHandler.Reset();
         }
@@ -243,7 +239,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in drops.GetValues())
+            foreach (Collidable c in waveGenerator.Drops.GetValues())
             {
                 collidableList.Add(c);
             }
@@ -294,8 +290,7 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
-            waveGenerator.Draw(spriteBatch, gameTime);
-            drops.Draw(spriteBatch, gameTime);
+            waveGenerator.Draw(spriteBatch, gameTime);      
             #endregion
         }
 
