@@ -15,9 +15,9 @@ namespace SummerProject.wave
 
         private const float TIMER1_CONSTANTMODE = 4f;
 
-        private const float TIMER1_BURSTMODE = 5f;
-        private const float TIMER2_BURSTMODE = 2.5f;
-        private const float TIMER3_BURSTMODE = 0.3f;
+        private const float TIMER1_BURSTMODE = 8f;
+        private const float TIMER2_BURSTMODE = 3.0f;
+        private const float TIMER3_BURSTMODE = 0.2f;
 
         private const float TIMER1_DEBUGMODE = 30f;
 
@@ -35,9 +35,9 @@ namespace SummerProject.wave
         {
             oldMode = gameMode.TimeMode;
             this.gameMode = gameMode;
-            timer1 = new Timer(TIMER1_DECREASINGMODE);
-            timer2 = new Timer(TIMER2_DECREASINGMODE);
-            timer3 = new Timer(TIMER1_DEBUGMODE);
+            timer1 = new Timer(TIMER1_BURSTMODE); //! changing time settings when game inits is bugged
+            timer2 = new Timer(TIMER2_BURSTMODE);
+            timer3 = new Timer(TIMER3_BURSTMODE);
         }
 
         private void UpdateMode()
@@ -154,18 +154,19 @@ namespace SummerProject.wave
         {
             if (timer2.IsFinished)
             {
+                if (timer3.IsFinished)
+                    timer3.Reset();
+                timer3.CountDown(gameTime);
+
+                
+            } else
+            {
                 timer1.CountDown(gameTime);
                 if (timer1.IsFinished)
                 {
                     timer1.Reset();
                     timer2.Reset();
-                }               
-            }
-            if (!timer2.IsFinished)
-            {
-                if (timer3.IsFinished)
-                    timer3.Reset();
-                timer3.CountDown(gameTime);
+                }
             }           
             timer2.CountDown(gameTime);
         }

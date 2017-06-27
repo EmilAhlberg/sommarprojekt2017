@@ -62,6 +62,9 @@ namespace SummerProject.wave
                     case GameMode.RANDOM_WAVE:
                         spawnSize = gameMode.Level + 1;
                         break;
+                    //case GameMode.BURST_TIME: //!
+                    //    spawnSize = 15;
+                    //    break;
                 }
             }
         }
@@ -143,7 +146,7 @@ namespace SummerProject.wave
 
         private Vector2[] BurstWaveMode()
         {
-            //spawnSize = 20;
+            spawnSize = 15;
             Vector2[] vs = new Vector2[1];
             if (tempPoints == null) {
                 tempPoints = RandomSideWave();
