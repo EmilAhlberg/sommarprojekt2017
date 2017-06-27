@@ -39,7 +39,7 @@ namespace SummerProject.collidables
 
         public void Update(GameTime gameTime)
         {
-            if (!IsActive)
+            if (IsActive)
             {
                 sprite.MColor = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
@@ -48,7 +48,7 @@ namespace SummerProject.collidables
                 Move();
                 HandleBulletType();
                 Fire();
-                if (Health <= 0 && !IsActive)
+                if (Health <= 0 && IsActive)
                     Death();
                 if (InputHandler.isPressed(MouseButton.RIGHT))
                 {
@@ -189,7 +189,7 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            IsActive = true;
+            IsActive = false;
             Particles.GenerateParticles(Position, 3, angle); //Death animation
             sprite.MColor = Color.Transparent;
         }
@@ -201,7 +201,8 @@ namespace SummerProject.collidables
             Energy = maxEnergy;
             angle = 0;
             Stop();
-            IsActive = false;
+            sprite.MColor = Color.White;
+            IsActive = true;
         }
 
         public bool AddPart(Part part, int pos)

@@ -23,7 +23,6 @@ namespace SummerProject
         private DropSpawnPoints dropPoints;
 
         private bool isActive;
-  
 
         //enemies as param insted of sprites?
         public WaveGenerator(Player player, SpriteFont font, Drops drops)
@@ -75,10 +74,10 @@ namespace SummerProject
                 gameMode.Draw(spriteBatch, gameTime);
         }
 
-        public void Reset()
+        public void Reset(bool fullReset)
         {
             enemies.Reset();
-            gameMode.Reset();
+            gameMode.Reset(fullReset);
             Drops.Reset();
         }
 
@@ -86,20 +85,18 @@ namespace SummerProject
         {
             if (!isActive)
             {
-                if (!player.IsActive)
+                if (player.IsActive)
                     isActive = true;
             }
-            else if (player.IsActive)
+            else if (!player.IsActive)
             {
                 isActive = false;
             }
         }        
 
-
         public List<AIEntity> CollidableList()
         {
             return enemies.GetValues();
-        }
-       
+        }       
     }
 }
