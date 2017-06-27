@@ -108,7 +108,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
-            Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,6,6);
+            Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
             Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,8,6);
             #endregion
 
