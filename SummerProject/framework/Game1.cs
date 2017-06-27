@@ -97,6 +97,7 @@ namespace SummerProject
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
+            Texture2D wrenchTex = Content.Load<Texture2D>("textures/wrench");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
@@ -139,6 +140,7 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex3));
             Particles.AddSprite(new Sprite(plusTex));
             Particles.AddSprite(new Sprite(boltTex));
+            Particles.AddSprite(new Sprite(wrenchTex));
             #endregion
             // TODO: use this.Content to load your game content here
         }

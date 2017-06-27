@@ -137,7 +137,7 @@ namespace SummerProject
                 #region Health Death 8
                 case 8:
                     {
-                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Crimson, 1, 0.5f, ttl, 5);
+                        CreateExplosion(8, position, 10, 40, 0.2f, Color.WhiteSmoke, 0, 0.5f, ttl, 7);
                         break;
                     }
                 #endregion
