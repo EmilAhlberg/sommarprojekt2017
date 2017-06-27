@@ -146,7 +146,7 @@ namespace SummerProject.wave
 
         private Vector2[] BurstWaveMode()
         {
-            spawnSize = 15;
+            spawnSize = 12;
             Vector2[] vs = new Vector2[1];
             if (tempPoints == null) {
                 tempPoints = RandomSideWave();
