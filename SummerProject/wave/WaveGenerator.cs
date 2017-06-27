@@ -79,6 +79,7 @@ namespace SummerProject
             enemies.Reset();
             gameMode.Reset(fullReset);
             Drops.Reset();
+            dropPoints.Reset();
         }
 
         private void CheckActive()
