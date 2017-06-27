@@ -31,8 +31,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = WindowSize.Width;
-            graphics.PreferredBackBufferHeight = WindowSize.Height;
+            graphics.PreferredBackBufferWidth = WindowSize.Width -50;
+            graphics.PreferredBackBufferHeight = WindowSize.Height-100;
             Content.RootDirectory = "Content";
             //this.IsFixedTimeStep = false; //use to make game rly fast :)
             //graphics.SynchronizeWithVerticalRetrace = false;
@@ -224,10 +224,10 @@ namespace SummerProject
             {
                 player.Reset();
                 Particles.Reset();
+                ScoreHandler.Reset();
             }
             projectiles.Reset();  
             waveGenerator.Reset(fullReset);
-            ScoreHandler.Reset();
         }
 
         private void HandleAllCollisions()

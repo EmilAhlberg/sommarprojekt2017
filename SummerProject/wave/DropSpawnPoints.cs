@@ -39,6 +39,10 @@ namespace SummerProject.wave
            
             return vs;            
         }
+        public void Reset()
+        {
+            points = new List<Vector2>();
+        }
 
     }
 }
