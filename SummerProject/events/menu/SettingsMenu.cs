@@ -15,11 +15,14 @@ namespace SummerProject.menu
             {
                 case 0:
                     handler.ChangeGameMode(0);
+                    pressedIndex = selectedIndex;
                     break;
                 case 1:
                     handler.ChangeGameMode(1);
+                    pressedIndex = selectedIndex;
                     break;
                 case 2:
+                    pressedIndex = int.MaxValue;
                     return MenuConstants.MAIN;   
             }
             return -1;
