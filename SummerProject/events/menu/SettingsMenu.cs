@@ -21,7 +21,7 @@ namespace SummerProject.menu
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
-                    handler.GameMode.TimeMode = GameMode.RANDOM_WAVE;
+                    handler.GameMode.TimeMode = GameMode.CONSTANT_TIME;
                     handler.GameMode.SpawnMode = GameMode.RANDOM_WAVE;
                     handler.GameMode.ChangeLevel = true;
                     pressedIndex = selectedIndex;

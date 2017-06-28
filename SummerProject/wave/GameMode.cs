@@ -87,7 +87,6 @@ namespace SummerProject.wave
         {
         }
 
-
         //duplicated in AnimatedEventHandler
         private Vector2 WordLayoutPosition(String s)
         {

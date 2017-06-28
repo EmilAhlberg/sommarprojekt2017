@@ -74,9 +74,16 @@ namespace SummerProject.wave
         {
             Vector2[] vs = new Vector2[spawnSize];
 
-            //vs = RandomWaveMode();
+            switch (gameMode.SpawnMode)
+            {
+                case GameMode.BURST_WAVE:
+                    vs = BurstWaveMode();
+                    break;
+                default:
+                    vs = RandomWaveType();
+                    break;
+            }    
             vs = BurstWaveMode();
-
             
 
             return vs;
@@ -129,7 +136,7 @@ namespace SummerProject.wave
          * MODES:
          * 
          */
-        private Vector2[] RandomWaveMode()
+        private Vector2[] RandomWaveType()
         {
             Vector2[] vs = new Vector2[spawnSize];
 
@@ -151,7 +158,8 @@ namespace SummerProject.wave
             Vector2[] vs = new Vector2[1];
             if (tempPoints == null || burstIndex >= tempPoints.Length)
             {
-                tempPoints = RandomSideWave(); //should be changed
+                //tempPoints = RandomSideWave(); //should be changed
+                tempPoints = RandomWaveType();
                 burstIndex = 0;
             }
 
