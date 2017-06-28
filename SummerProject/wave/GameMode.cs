@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,8 +76,8 @@ namespace SummerProject.wave
         {
             if (!BetweenLevelsTimer.IsFinished && !removeFrameFix)
             {
-                String s = "Wave: " + Level;
-                spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
+                string s = "Wave: " + Level;
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, WordLayoutPosition(s), Color.Gold);
             }
             removeFrameFix = false;
         }
@@ -87,7 +88,7 @@ namespace SummerProject.wave
 
 
         //duplicated in AnimatedEventHandler
-        private Vector2 WordLayoutPosition(String s)
+        private Vector2 WordLayoutPosition(string s)
         {
             Vector2 size = font.MeasureString(s);
             float width = 0;

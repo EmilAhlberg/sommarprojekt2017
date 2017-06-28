@@ -10,7 +10,7 @@ namespace SummerProject.util
 {
     static class DrawHelper
     {
-        public static void DrawOutlinedString(SpriteBatch sb, float outlineSize, Color outlineColor, SpriteFont font, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale)
+        public static void DrawOutlinedString(this SpriteBatch sb, float outlineSize, Color outlineColor, SpriteFont font, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale)
         {
             sb.DrawString(font, text, position + new Vector2(outlineSize, outlineSize), outlineColor, rotation, origin, scale, SpriteEffects.None, 1);
             sb.DrawString(font, text, position + new Vector2(-outlineSize, -outlineSize), outlineColor, rotation, origin, scale, SpriteEffects.None, 1);
@@ -22,7 +22,14 @@ namespace SummerProject.util
             sb.DrawString(font, text, position + new Vector2(0, -outlineSize), outlineColor, rotation, origin, scale, SpriteEffects.None, 1);
             sb.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.None, 1);
         }
-        public static void DrawExtrudedString(SpriteBatch sb, float outlineSize, Color outlineColor, SpriteFont font, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale)
+
+        public static void DrawOutlinedString(this SpriteBatch sb, float outlineSize, Color outlineColor, SpriteFont font, string text, Vector2 position, Color color)
+        {
+            DrawOutlinedString(sb, outlineSize, outlineColor, font, text, position, color, 0, Vector2.Zero, 1);
+        }
+
+
+        public static void DrawExtrudedString(this SpriteBatch sb, float outlineSize, Color outlineColor, SpriteFont font, string text, Vector2 position, Color color, float rotation, Vector2 origin, float scale)
         {
             sb.DrawString(font, text, position + new Vector2(outlineSize, -outlineSize), Color.Black, rotation, origin, scale, SpriteEffects.None, 1);
             sb.DrawString(font, text, position + new Vector2(-outlineSize, outlineSize), Color.White, rotation, origin, scale, SpriteEffects.None, 1);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.util;
 
 namespace SummerProject.framework
 {
@@ -52,7 +53,7 @@ namespace SummerProject.framework
                     game.UpdateGame(gameTime);
                     game.DrawGame(spriteBatch, gameTime);
                     string s = "Mediocre!"; //!
-                    spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
+                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, WordLayoutPosition(s), Color.Gold);
                     System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                     break;
                 case EventOperator.GAME_STATE:
@@ -62,18 +63,18 @@ namespace SummerProject.framework
                     break;
                 case EventOperator.GAME_OVER_STATE:
                     string score = "Score: " + ScoreHandler.Score; //!
-                    spriteBatch.DrawString(font, score, WordLayoutPosition(score), Color.Gold);
+                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, score, WordLayoutPosition(score), Color.Gold);
                     break;
             }
         }
 
         private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            String word = COUNTDOWN[(int)eventTimer.currentTime];
+            string word = COUNTDOWN[(int)eventTimer.currentTime];
             Color color = Color.Gold;
             if ((int)eventTimer.currentTime == 0)
                 color = Color.OrangeRed;
-            spriteBatch.DrawString(font, word, WordLayoutPosition(word), color);
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, word, WordLayoutPosition(word), color);
         }
 
         private Vector2 WordLayoutPosition(string s)
