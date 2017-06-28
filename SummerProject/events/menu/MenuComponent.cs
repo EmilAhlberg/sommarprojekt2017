@@ -49,8 +49,12 @@
             for (int i = 0; i < MenuItems.Length; i++)
             {
                 if (i == pressedIndex)
+                {
                     tint = pressed;
+                    scale = 1.1f;
+                }
                 else if (i == selectedIndex)
+                {
                     tint = hilite;
                     scale = 1.1f;
                 }

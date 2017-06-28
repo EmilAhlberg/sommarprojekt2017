@@ -27,6 +27,12 @@ namespace SummerProject.menu
                     pressedIndex = selectedIndex;
                     break;
                 case 2:
+                    handler.GameMode.TimeMode = GameMode.BURST_TIME;
+                    handler.GameMode.SpawnMode = GameMode.BURST_WAVE;
+                    handler.GameMode.ChangeLevel = true;
+                    pressedIndex = selectedIndex;
+                    break;
+                case 3:
                     pressedIndex = int.MaxValue;
                     return MenuConstants.MAIN;   
             }
