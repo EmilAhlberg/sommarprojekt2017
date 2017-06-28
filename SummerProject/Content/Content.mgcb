@@ -257,6 +257,7 @@
 /processorParam:TextureFormat=Color
 /build:textures/dship1.png
 
+#begin textures/dship2.png
 #begin textures/healthpack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -267,8 +268,10 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:textures/dship2.png
 /build:textures/healthpack.png
 
+#begin textures/denemy1.png
 #begin textures/explosionDrop.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -279,6 +282,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:textures/denemy1.png
 /build:textures/explosionDrop.png
 
 #begin textures/energyDrop.png

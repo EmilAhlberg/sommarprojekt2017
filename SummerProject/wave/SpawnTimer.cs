@@ -16,7 +16,7 @@ namespace SummerProject.wave
         private const float TIMER1_CONSTANTMODE = 4f;
 
         private const float TIMER1_BURSTMODE = 8f;
-        private const float TIMER2_BURSTMODE = 3.0f;
+        private const float TIMER2_BURSTMODE = 5.0f;
         private const float TIMER3_BURSTMODE = 0.2f;
 
         private const float TIMER1_DEBUGMODE = 30f;
@@ -156,18 +156,14 @@ namespace SummerProject.wave
             {
                 if (timer3.IsFinished)
                     timer3.Reset();
-                timer3.CountDown(gameTime);
-
-                
-            } else
-            {
-                timer1.CountDown(gameTime);
+                timer3.CountDown(gameTime);          
+            }
                 if (timer1.IsFinished)
                 {
                     timer1.Reset();
                     timer2.Reset();
                 }
-            }           
+            timer1.CountDown(gameTime);
             timer2.CountDown(gameTime);
         }
     }
