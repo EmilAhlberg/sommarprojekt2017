@@ -119,12 +119,18 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            RectangularHull rectHull = new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player);
+            RectangularHull rectHull = new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player);
+            RectangularHull rectHull2 = new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player);
             player.AddPart(rectHull, 0);
-            player.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player), 2);
-            rectHull.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player), 0);
-            rectHull.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player), 1);
-            rectHull.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player), 3);
+            player.AddPart(rectHull2, 2);
+            rectHull.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 1);
+            rectHull.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 3);
+            rectHull2.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 1);
+            rectHull2.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 3);
+            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 1);
+            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
+            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
+            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
             //waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
