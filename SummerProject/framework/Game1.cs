@@ -27,6 +27,7 @@ namespace SummerProject
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
+        UnitBar healthBar;
         UnitBar energyBar;
         const bool SPAWN_ENEMIES = true;
 
@@ -105,7 +106,7 @@ namespace SummerProject
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
-            Texture2D unitBarBkgTex = Content.Load<Texture2D>("textures/unitBarBkg");
+            Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             #endregion
 
             #region Adding entity-sprites to list
@@ -136,8 +137,8 @@ namespace SummerProject
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
-            Sprite unitBarBkgSprite = new Sprite(unitBarBkgTex);
-            energyBar = new UnitBar(new Vector2(WindowSize.Width - 300, 150), unitBarBkgSprite, Color.Yellow, player.maxEnergy);
+            healthBar = new UnitBar(new Vector2(WindowSize.Width - 300, 100), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
+            energyBar = new UnitBar(new Vector2(WindowSize.Width - 300, 150), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
            
             #endregion
 
@@ -195,6 +196,7 @@ namespace SummerProject
             Particles.Update(gameTime);
             HandleAllCollisions();
             KeepPlayerInScreen();
+            healthBar.Update(player.Health, player.maxHealth);
             energyBar.Update(player.Energy, player.maxEnergy);   
             #endregion
         }
@@ -274,8 +276,6 @@ namespace SummerProject
 
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
-                spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(WindowSize.Width - 300, 100), Color.OrangeRed);
-             //   spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(WindowSize.Width - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (!player.IsActive)
@@ -290,8 +290,12 @@ namespace SummerProject
             DebugMode(spriteBatch, gameTime);
             spriteBatch.End();
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            if (eventOperator.GameState == EventOperator.GAME_STATE)
+                DrawSpecialTransparency(spriteBatch, gameTime);
+            spriteBatch.End();
             base.Draw(gameTime);
+
         }
 
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
@@ -301,9 +305,14 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
-            gameController.Draw(spriteBatch, gameTime, fullDraw);      
-            energyBar.Draw(spriteBatch, gameTime);    
+            gameController.Draw(spriteBatch, gameTime, fullDraw);
             #endregion
+        }
+
+        public void DrawSpecialTransparency(SpriteBatch spriteBatch, GameTime gameTime )
+        {
+            healthBar.Draw(spriteBatch, gameTime);
+            energyBar.Draw(spriteBatch, gameTime);
         }
 
         private void KeepPlayerInScreen()

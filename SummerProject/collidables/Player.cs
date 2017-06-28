@@ -16,7 +16,8 @@ namespace SummerProject.collidables
         private const float shieldDischargeRate = 3f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
         private const float startingEnergy = 100f;
-        public float maxEnergy;
+        public float maxEnergy { get; private set; }
+        public float maxHealth { get; private set; }
         private const float maxEnergyCap = 200;
         private const int shieldSize = 300;
         private bool shieldOn;
@@ -35,6 +36,7 @@ namespace SummerProject.collidables
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
             Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+            maxHealth = Health;
             Energy = maxEnergy;
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
             //Hull = new RectangularHull(position, sprite);
@@ -181,7 +183,10 @@ namespace SummerProject.collidables
             }
 
             if (c2 is HealthDrop)
+            {
+                maxHealth++;
                 Health += HealthDrop.heal;
+            }
             if (c2 is EnergyDrop)
             {
                 if (maxEnergy < maxEnergyCap)

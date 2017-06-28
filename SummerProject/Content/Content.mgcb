@@ -293,7 +293,7 @@
 /processorParam:TextureFormat=Color
 /build:textures/energyDrop.png
 
-#begin textures/unitBarBkg.png
+#begin textures/unitBarBorder.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -303,5 +303,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:textures/unitBarBkg.png
+/build:textures/unitBarBorder.png
 

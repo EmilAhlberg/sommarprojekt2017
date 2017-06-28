@@ -11,42 +11,47 @@ namespace SummerProject
 {
     class UnitBar : Drawable
     {
-        private float currentUnit;
-        private float currentMax;
-        private float startingUnit;
+        private float currentValue;
+        private float prevMax;
+        private float startingMax;
         private Sprite scaleSprite;
-        private Sprite bkgSprite;
-        Vector2 position;
-        public UnitBar(Vector2 position, Sprite bkgSprite, Color color, float startingUnit) : base(position, bkgSprite)
+        private Sprite borderSprite;
+        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax) : base(position, borderSprite)
         {
-            this.Position = position;
-            this.startingUnit = startingUnit;
+            Position = position;
+            this.startingMax = startingMax;
             scaleSprite = new Sprite();
             scaleSprite.MColor = color;
-            this.bkgSprite = bkgSprite;
-            this.bkgSprite.Origin = new Vector2(0, this.bkgSprite.SpriteRect.Height / 2);
-            scaleSprite.Origin = new Vector2(0, this.bkgSprite.SpriteRect.Height / 2);
-            scaleSprite.SpriteRect = bkgSprite.SpriteRect;
+            this.borderSprite = borderSprite;
+            this.borderSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
+            scaleSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
+            scaleSprite.SpriteRect = borderSprite.SpriteRect;
         }
 
-        public void Update(float currentUnit, float currentMax)
+        public void Update(float value, float max)
         {
-            if (this.currentMax != currentMax)
-                ScaleSprite(bkgSprite, currentMax);
-            if (this.currentUnit != currentUnit)
-                ScaleSprite(scaleSprite, currentUnit);
+            if (prevMax != max)
+            {
+                prevMax = max;
+                ScaleSprite(borderSprite, max);
+            }
+            if (currentValue != value)
+            {
+                ScaleSprite(scaleSprite, value);
+                currentValue = value;
+            }
         }
 
         private void ScaleSprite(Sprite sprite, float unit)
         {
-            sprite.Scale = new Vector2(unit / startingUnit, 1);
+            sprite.Scale = new Vector2(unit / startingMax, 1);
         }
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             scaleSprite.Position = Position;
-            bkgSprite.Position = Position;
+            borderSprite.Position = Position;
             scaleSprite.Draw(spriteBatch, gameTime);
-            bkgSprite.Draw(spriteBatch, gameTime);
+            borderSprite.Draw(spriteBatch, gameTime);
         }
     }
 }
