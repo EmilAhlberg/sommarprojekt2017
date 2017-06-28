@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace SummerProject.wave
         public GameMode(SpriteFont font)
         {
             this.font = font;
-            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
-            SpawnMode = BURST_WAVE;
+            TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
+            SpawnMode = RANDOM_SINGLE;
             BetweenLevelsTimer = new Timer(3); //!         
         }
 
@@ -74,13 +75,13 @@ namespace SummerProject.wave
         {
             if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
-                String s = "Wave: " + Level;
-                spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
+                string s = "Wave: " + Level;
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, WordLayoutPosition(s), Color.Gold);
             }
         }
 
         //duplicated in AnimatedEventHandler
-        private Vector2 WordLayoutPosition(String s)
+        private Vector2 WordLayoutPosition(string s)
         {
             Vector2 size = font.MeasureString(s);
             float width = 0;

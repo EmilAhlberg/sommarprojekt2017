@@ -51,7 +51,7 @@
                 if (i == pressedIndex)
                 {
                     tint = pressed;
-                    scale = 1.1f;
+                    scale = 1;
                 }
                 else if (i == selectedIndex)
                 {
@@ -63,7 +63,7 @@
                     tint = normal;
                     scale = 1;
                 }
-                DrawHelper.DrawOutlinedString(spriteBatch, 3, new Color(32, 32, 32), Font, MenuItems[i], location, tint, 0, Font.MeasureString(MenuItems[i]) / 2, scale);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), Font, MenuItems[i], location, tint, 0, Font.MeasureString(MenuItems[i]) / 2, scale);
                 location.Y += Font.LineSpacing + 5;
             }
         }
