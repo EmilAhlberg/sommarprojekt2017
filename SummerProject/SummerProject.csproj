@@ -115,7 +115,7 @@
     <Compile Include="util\Timer.cs" />
     <Compile Include="wave\SpawnPointGenerator.cs" />
     <Compile Include="wave\SpawnTimer.cs" />
-    <Compile Include="wave\WaveGenerator.cs" />
+    <Compile Include="wave\GameController.cs" />
     <Compile Include="WindowSize.cs" />
   </ItemGroup>
   <ItemGroup>

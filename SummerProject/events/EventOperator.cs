@@ -131,7 +131,7 @@ namespace SummerProject
             else
             {
                 if(GameState == PAUSE_STATE || GameState == UPGRADE_STATE)                    
-                  game.DrawGame(spriteBatch, gameTime);
+                  game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
                   upgradeView.Draw(spriteBatch, gameTime);
