@@ -17,6 +17,7 @@ namespace SummerProject.collidables
         private const float shieldRechargeRate = shieldDischargeRate / 10;
         private const float startingEnergy = 100f;
         private float maxEnergy;
+        private const float maxEnergyCap = 200;
         private const int shieldSize = 300;
         private bool shieldOn;
         private Projectiles projectiles;
@@ -74,7 +75,7 @@ namespace SummerProject.collidables
                         Energy += shieldRechargeRate;
                     }
                 }
-                if(Health <= 2)
+                if (Health <= 2)
                 {
                     Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, angle);
                 }
@@ -175,24 +176,25 @@ namespace SummerProject.collidables
         {
             if (!shieldOn && c2 is Enemy)
             {
-                    Enemy e = c2 as Enemy;
-                    //Health -= e.Damage;
+                Enemy e = c2 as Enemy;
+                Health -= e.Damage;
             }
 
-            if(c2 is HealthDrop)
+            if (c2 is HealthDrop)
                 Health += HealthDrop.heal;
             if (c2 is EnergyDrop)
             {
-                maxEnergy += EnergyDrop.charge;
+                if (maxEnergy < maxEnergyCap)
+                    maxEnergy += EnergyDrop.charge;
                 Energy = maxEnergy;
             }
 
-            if(!shieldOn && c2 is Projectile)
+            if (!shieldOn && c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
-                if(b.IsEvil)
+                if (b.IsEvil)
                 {
-                    //Health -= b.Damage;
+                    Health -= b.Damage;
                 }
             }
         }
