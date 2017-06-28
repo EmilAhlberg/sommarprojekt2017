@@ -89,7 +89,7 @@
     <Compile Include="events\menu\MenuComponent.cs" />
     <Compile Include="events\menu\MenuConstants.cs" />
     <Compile Include="events\menu\PauseMenu.cs" />
-    <Compile Include="events\menu\SettingsMenu.cs" />
+    <Compile Include="events\menu\ModeSelectionMenu.cs" />
     <Compile Include="events\menu\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
@@ -101,6 +101,7 @@
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
     <Compile Include="SRandom.cs" />
+    <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />

@@ -13,7 +13,7 @@ namespace SummerProject
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
-        public float Scale { get; set; }
+        public Vector2 Scale { get; set; }
         public SpriteEffects SpriteFX { get; set; }
         public float LayerDepth { get; set; }
         public Color MColor { get; set; }
@@ -41,7 +41,7 @@ namespace SummerProject
             this.fps = fps;
             SpriteRect = new Rectangle(0, 0, texture.Width / subimages, texture.Height);
             Rotation = 0;
-            Scale = 1f;
+            Scale = new Vector2(1,1);
             MColor = Color.White;
             SpriteFX = SpriteEffects.None;
             LayerDepth = 0;

@@ -84,7 +84,7 @@ namespace SummerProject
             Vector2 initialForce = Vector2.Zero;
             float angularVelocity = 0;
             Color color = Color.White;
-            float scale = 1;
+            Vector2 scale = new Vector2(1,1);
             float ttl = 1;
 
             switch (ID)
@@ -232,7 +232,8 @@ namespace SummerProject
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialForce = RandomVector2(spread, baseValue);
-                float scale = RandomFloat(scaleSpread, baseScale);
+                float randFloat = RandomFloat(scaleSpread, baseScale);
+                Vector2 scale = new Vector2(randFloat, randFloat);
                 CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, 0, angularVelocity, color, scale, ttl, 1); 
             }
         }
@@ -241,7 +242,8 @@ namespace SummerProject
         {
             Vector2 initialForce = -new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             initialForce *= RandomFloat(spread, baseValue);
-            float scale = RandomFloat(scaleSpread, baseScale);
+            float randFloat = RandomFloat(scaleSpread, baseScale);
+            Vector2 scale = new Vector2(randFloat, randFloat);
             CreateParticle(new Sprite(spriteList[spriteIndex]), position, initialForce, (float)Math.Atan2(initialForce.Y, initialForce.X), angularVelocity, color, scale, ttl, 1);
         }
 
@@ -250,7 +252,8 @@ namespace SummerProject
             for (int i = 0; i < nbrOfParticles; i++)
             {
                 Vector2 initialPosition = RandomVector2(spread, baseValue);
-                float scale = RandomFloat(scaleSpread, baseScale);
+                float randFloat = RandomFloat(scaleSpread, baseScale);
+                Vector2 scale = new Vector2(randFloat, randFloat);
                 CreateParticle(new Sprite(spriteList[spriteIndex]), position + initialPosition, Vector2.Zero, (float)Math.Atan2(initialPosition.Y, initialPosition.X), angularVelocity, color, scale, ttl, 1);
             }
         }
@@ -263,7 +266,7 @@ namespace SummerProject
             return v;
         }
 
-        private static void CreateParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID)
+        private static void CreateParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, int ID)
         {
             bool renewed = false;
             foreach (Particle p in particles)

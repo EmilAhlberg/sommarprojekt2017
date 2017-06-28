@@ -4,10 +4,11 @@ using SummerProject.wave;
 
 namespace SummerProject.menu
 {
-    class SettingsMenu : MenuComponent
+    class ModeSelectionMenu : MenuComponent
     {
-        public SettingsMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.SETTINGS])
+        public ModeSelectionMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.MODESELECTION])
         {
+            pressedIndex = 0; //! Change iff default mode is changed
         }
 
         public override int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler)
@@ -34,7 +35,9 @@ namespace SummerProject.menu
                     break;
                 case 3:
                     pressedIndex = int.MaxValue;
-                    return MenuConstants.MAIN;   
+                    handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.ResetGame(true);
+                    break;
             }
             return -1;
         }

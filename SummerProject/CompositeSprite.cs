@@ -9,7 +9,7 @@ namespace SummerProject
     {
         public List<ISprite> spriteList { get; }
 
-        public float Scale { get; set; } //!
+        public Vector2 Scale { get; set; } //!
         private float rotation;
         public float Rotation
         {

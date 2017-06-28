@@ -8,11 +8,11 @@ namespace SummerProject
         Timer currentTTL;
         float TTL;
         int ID;
-        float baseScale;
+        Vector2 baseScale;
         public bool IsActive { get; set; }
         private float angularVelocity;
 
-        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID) : base(position, sprite)
+        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, int ID) : base(position, sprite)
         {
             sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
@@ -29,7 +29,7 @@ namespace SummerProject
             Thrust = 0;
         }
 
-        public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, float scale, float TTL, int ID)
+        public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, int ID)
         {
 
             this.sprite = sprite;
