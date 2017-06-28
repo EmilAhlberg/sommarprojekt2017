@@ -138,8 +138,8 @@ namespace SummerProject
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
-            healthBar = new UnitBar(new Vector2(WindowSize.Width - 300, 100), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
-            energyBar = new UnitBar(new Vector2(WindowSize.Width - 300, 150), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
+            healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
+            energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
            
             #endregion
 
@@ -345,8 +345,8 @@ namespace SummerProject
                 usingControls = "WASD : AD = Rotate";
 
             //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 100), Color.Crimson);
-            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(0, 0), Color.Gold);
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 50), Color.Crimson);
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(50, WindowSize.Height - 50), Color.Gold);
 
         }
     }
