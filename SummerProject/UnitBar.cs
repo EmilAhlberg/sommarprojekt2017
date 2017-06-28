@@ -46,6 +46,8 @@ namespace SummerProject
         {
             prevMax = startingMax;
             currentValue = startingMax;
+            borderSprite.Scale = new Vector2(1, 1);
+            scaleSprite.Scale = new Vector2(1, 1);
         }
 
         private void ScaleSprite(Sprite sprite, float unit)
