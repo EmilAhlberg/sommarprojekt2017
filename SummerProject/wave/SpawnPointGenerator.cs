@@ -142,26 +142,21 @@ namespace SummerProject.wave
                 vs = RandomOffMapLocation();
             }
             return vs;
-        }    
+        }
 
         private Vector2[] BurstWaveMode()
         {
-            spawnSize = 12;
+            spawnSize = 13;
             Vector2[] vs = new Vector2[1];
-            if (tempPoints == null) {
-                tempPoints = RandomSideWave();
+            if (tempPoints == null || burstIndex >= tempPoints.Length)
+            {
+                tempPoints = RandomSideWave(); //should be changed
+                burstIndex = 0;
             }
 
-            if(burstIndex < tempPoints.Length)
-            {
-                vs[0] = tempPoints[burstIndex];
-                burstIndex++;                              
-            } else
-            {
-                burstIndex = 0;
-                tempPoints = null;
-            }
-          
+            vs[0] = tempPoints[burstIndex];
+            burstIndex++;
+
             return vs;
         }
 

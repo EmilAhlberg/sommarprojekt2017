@@ -176,7 +176,7 @@ namespace SummerProject.collidables
             if (!shieldOn && c2 is Enemy)
             {
                     Enemy e = c2 as Enemy;
-                    Health -= e.Damage;
+                    //Health -= e.Damage;
             }
 
             if(c2 is HealthDrop)
@@ -192,7 +192,7 @@ namespace SummerProject.collidables
                 Projectile b = c2 as Projectile;
                 if(b.IsEvil)
                 {
-                    Health -= b.Damage;
+                    //Health -= b.Damage;
                 }
             }
         }
