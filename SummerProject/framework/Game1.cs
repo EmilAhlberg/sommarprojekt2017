@@ -21,7 +21,7 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        WaveGenerator waveGenerator;
+        //WaveGenerator waveGenerator;
         //Enemies enemies;
         Projectiles projectiles;
         Sprite background;
@@ -119,7 +119,8 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            player.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, player),0);
+            //waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
@@ -172,7 +173,7 @@ namespace SummerProject
         {
             #region Update for game state
             player.Update(gameTime);
-            waveGenerator.Update(gameTime);         
+            //waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
             drops.Update(gameTime);
             Particles.Update(gameTime);
@@ -217,26 +218,26 @@ namespace SummerProject
             }
             projectiles.Reset();
             drops.Reset();           
-            waveGenerator.Reset();
+            //waveGenerator.Reset();
             ScoreHandler.Reset();
         }
 
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in waveGenerator.CollidableList())
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in projectiles.EntityList)
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in drops.EntityList)
-            {
-                collidableList.Add(c);
-            }
-            colhandl.CheckCollisions(collidableList.ToArray(), player ,wall);
+            //foreach (Collidable c in waveGenerator.CollidableList())
+            //{
+            //    collidableList.Add(c);
+            //}
+            //foreach (Collidable c in projectiles.EntityList)
+            //{
+            //    collidableList.Add(c);
+            //}
+            //foreach (Collidable c in drops.EntityList)
+            //{
+            //    collidableList.Add(c);
+            //}
+            //colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0] ,wall);
         }
 
         /// <summary>
@@ -257,7 +258,7 @@ namespace SummerProject
                 #region DrawString
                 spriteBatch.DrawString(scoreFont, "Score: " + ScoreHandler.Score, new Vector2(graphics.PreferredBackBufferWidth - 300, 50), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "Health: " + player.Health , new Vector2(graphics.PreferredBackBufferWidth - 300, 100), Color.OrangeRed);
-                spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
+                //spriteBatch.DrawString(scoreFont, "Energy: " + (int)player.Energy, new Vector2(graphics.PreferredBackBufferWidth - 300, 150), Color.Gold);
                 spriteBatch.DrawString(scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(graphics.PreferredBackBufferWidth / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(graphics.PreferredBackBufferWidth / 2 - bigFont.MeasureString("GAME OVER").X / 2, graphics.PreferredBackBufferHeight / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (player.IsDead)
@@ -283,7 +284,7 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
-            waveGenerator.Draw(spriteBatch, gameTime);
+            //waveGenerator.Draw(spriteBatch, gameTime);
             drops.Draw(spriteBatch, gameTime);
             #endregion
         }

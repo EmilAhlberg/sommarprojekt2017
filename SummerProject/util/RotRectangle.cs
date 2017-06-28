@@ -17,15 +17,11 @@ namespace SummerProject
         {
             set
             {
-                Vector2 DRUL = (DR - UL) / 2;
-                Vector2 URDL = (UR - DL) / 2;
-                UL = value + location - DRUL;
-                DR = value + location + DRUL;
-                DL = value + location - URDL;
-                UR = value + location + URDL;
+                Matrix rotation = Matrix.CreateRotationZ(angle);
+                origin = Vector2.Transform(value, rotation);
                 origin = value;
             }
-            get { return origin; }
+            private get { return origin; }
         }
         private float angle = 0;
         public float Angle
@@ -62,7 +58,7 @@ namespace SummerProject
             Width = rect.Width;
             Height = rect.Height;
             Rotate(angleRad);
-            origin = Vector2.Zero;
+            origin = new Vector2(rect.Width / 2, rect.Height / 2);
         }
 
         public void Rotate(float angleRad)

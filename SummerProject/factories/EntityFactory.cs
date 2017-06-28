@@ -7,7 +7,7 @@ namespace SummerProject.factories
     class EntityFactory
     {
         private const int standard = -5000;
-        public static AIEntity CreateEnemy(Sprite sprite, Player player)
+        public static  /**AIEntity*/ Enemy CreateEnemy(Sprite sprite, Player player)
         {
             return new Enemy(FarAway(), new Sprite(sprite), player);
 
@@ -18,7 +18,7 @@ namespace SummerProject.factories
             switch (type)
             {
                 case 0: return new Bullet(FarAway(), new Sprite(sprite));
-                case 1: return new HomingBullet(FarAway(), new Sprite(sprite));
+                //case 1: return new HomingBullet(FarAway(), new Sprite(sprite));
                 default:
                     throw new NotImplementedException();
             }

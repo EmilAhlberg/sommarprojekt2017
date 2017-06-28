@@ -51,7 +51,7 @@ namespace SummerProject
         {
             set
             {
-                BoundBoxes[0].Origin = value;
+                BoundBoxes[0].Origin = value; //FIX
                 sprite.Origin = value;
             }
             get{ return sprite.Origin; }

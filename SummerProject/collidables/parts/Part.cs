@@ -19,6 +19,10 @@ namespace SummerProject
             Carrier = carrier;
         }
 
+        public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
+
+        public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
+
         public virtual void Collission(Collidable c2)
         {
             Carrier.Collision(c2);

@@ -20,7 +20,8 @@ namespace SummerProject
             {
                 base.Color = value;
                 foreach (Link p in parts)
-                    p.Part.Color = value;
+                    if(p.Part != null)
+                        p.Part.Color = value;
             }
             get
             {
@@ -38,47 +39,56 @@ namespace SummerProject
                 return m;
             }
         }
-        
+        public List<Part> Parts
+        {
+            get
+            {
+                List<Part> totalParts = new List<Part>();
+                totalParts.Add(this);
+
+                foreach (Link p in parts)
+                {
+                    if (p.Part != null)
+                    {
+                        if (p.Part is CompositePart)
+                            totalParts.AddRange((p.Part as CompositePart).Parts);
+                        else
+                            totalParts.Add(p.Part);
+                    }
+                }
+                return totalParts;
+            }
+        }
+
         public CompositePart(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite, carrier)
         {
-            Mass = EntityConstants.MASS[EntityConstants.DEFAULT];
-            Thrust = EntityConstants.THRUST[EntityConstants.DEFAULT];
-            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
+            //BoundBoxes[0].Origin = Vector2.Zero;
             AddLinkPositions();
         }
 
-        public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
-
-        public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
         public bool AddPart(Part part, int pos) {
-            if (pos < parts.Length)
+            if (pos >= 0 && pos < parts.Length)
             {
                 part.Carrier = this;
-                SetPart(part, pos);
+                parts[pos].SetPart(part, this);
                 return true;
             }
             return false;
         }
 
-        private void SetPart(Part p, int pos)
+        protected void UpdatePartsPos(float dAngle)
         {
-            p.Position = Position;
-            parts[pos].SetPart(p);
-        }
-
-        protected void UpdatePartsPos(float angle)
-        {
-            Matrix rot = Matrix.CreateRotationZ(angle);
+            Matrix rot = Matrix.CreateRotationZ(dAngle);
             for (int i = 0; i < parts.Length; i++)
             {
                 if (parts[i].Part != null)
                 {
                     parts[i].RelativePos = Vector2.Transform(parts[i].RelativePos, rot);
-                    parts[i].Angle += angle;
-                    SetPart(parts[i].Part,i);
+                    parts[i].Angle += dAngle;
+                    parts[i].SetPart(parts[i].Part,this);
                     if(parts[i].Part is CompositePart)
-                    {
-                        ((CompositePart)parts[i].Part).UpdatePartsPos(angle);
+                    {   
+                        ((CompositePart)parts[i].Part).UpdatePartsPos(dAngle);
                     }
                 }
             }
@@ -101,43 +111,29 @@ namespace SummerProject
             }
 
         }
-
-        public List<Part> GetParts()
-        {
-            List<Part> totalParts = new List<Part>();
-            totalParts.Add(this);
-
-            foreach(Link p in parts)
-            {
-                if (p.Part != null) {
-                    if (p.Part is CompositePart)
-                        totalParts.AddRange(((CompositePart)p.Part).GetParts());
-                    else
-                        totalParts.Add(p.Part);
-                }
-            }
-            return totalParts;  
-        }
-
+         
         protected abstract void AddLinkPositions();
 
         protected class Link
         {
             public Vector2 RelativePos { set; get; }
-            public float Angle { set;get; }
+            public float Angle { set; get; }
             public Part Part { private set; get; } = null;
 
             public Link(Vector2 relativePos, float angle)
             {
                 RelativePos = relativePos;
+                Angle = angle;
             }
 
-            public void SetPart(Part p)
+            public void SetPart(Part p, CompositePart hull)
             {
-                p.Origin = -RelativePos - new Vector2((float)Math.Cos(Angle) * p.BoundBoxes[0].Width, (float)Math.Sin(Angle) * p.BoundBoxes[0].Height);
+                Vector2 linkToCenter = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)) * p.BoundBoxes[0].Width / 2;
+                p.Position = hull.Position + RelativePos + linkToCenter;
+                p.Origin = new Vector2(p.BoundBoxes[0].Width / 2, p.BoundBoxes[0].Height / 2) + (hull.Position - p.Position) - new Vector2(hull.BoundBoxes[0].Width / 2, hull.BoundBoxes[0].Height / 2) + hull.Origin;
                 p.angle = Angle;
                 Part = p;
-            }
+            }  
         }
     }
 }

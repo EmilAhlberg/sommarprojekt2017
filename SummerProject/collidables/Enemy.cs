@@ -36,8 +36,8 @@ namespace SummerProject
 
         protected override void CalculateAngle()
         {
-            float dX = Hull.Position.X - player.Hull.Position.X;
-            float dY = Hull.Position.Y - player.Hull.Position.Y;
+            float dX = Position.X - player.Position.X;
+            float dY = Position.Y - player.Position.Y;
             Hull.TurnTowardsVector(dX, dY);
         }
 
