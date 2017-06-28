@@ -21,7 +21,7 @@ namespace SummerProject.menu
             menues = new List<MenuComponent>();
             //order of added menues is important
             menues.Add(new MainMenu(position, spriteFont));
-            menues.Add(new SettingsMenu(position, spriteFont));
+            menues.Add(new ModeSelectionMenu(position, spriteFont));
             menues.Add(new GameOverMenu(position, spriteFont));
             menues.Add(new PauseMenu(position, spriteFont));
             menues.Add(new UpgradeMenu(position, spriteFont));

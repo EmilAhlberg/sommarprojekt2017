@@ -89,7 +89,7 @@
     <Compile Include="events\menu\MenuComponent.cs" />
     <Compile Include="events\menu\MenuConstants.cs" />
     <Compile Include="events\menu\PauseMenu.cs" />
-    <Compile Include="events\menu\SettingsMenu.cs" />
+    <Compile Include="events\menu\ModeSelectionMenu.cs" />
     <Compile Include="events\menu\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />

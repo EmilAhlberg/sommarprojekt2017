@@ -37,8 +37,8 @@ namespace SummerProject.wave
         public GameMode(SpriteFont font)
         {
             this.font = font;
-            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
-            SpawnMode = BURST_WAVE;
+            TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
+            SpawnMode = RANDOM_SINGLE;
             BetweenLevelsTimer = new Timer(3); //!         
         }
 

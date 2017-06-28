@@ -51,7 +51,7 @@
                 if (i == pressedIndex)
                 {
                     tint = pressed;
-                    scale = 1.1f;
+                    scale = 1;
                 }
                 else if (i == selectedIndex)
                 {

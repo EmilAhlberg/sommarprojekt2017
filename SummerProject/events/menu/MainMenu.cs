@@ -14,12 +14,8 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.NewGameState = EventOperator.GAME_STATE;
-                    handler.ResetGame(true);
-                    break;
+                    return MenuConstants.MODESELECTION;
                 case 1:
-                    return MenuConstants.SETTINGS;
-                case 2:
                     handler.NewGameState = EventOperator.EXIT;
                     break;
             }
