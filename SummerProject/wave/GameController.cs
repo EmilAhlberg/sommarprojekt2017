@@ -12,7 +12,7 @@ using SummerProject.wave;
 
 namespace SummerProject
 {
-    public class WaveGenerator
+    public class GameController
     {    
         private Enemies enemies;
         private Player player;
@@ -25,7 +25,7 @@ namespace SummerProject
         private bool isActive;
 
         //enemies as param insted of sprites?
-        public WaveGenerator(Player player, Drops drops, GameMode gameMode)
+        public GameController(Player player, Drops drops, GameMode gameMode)
         {
             this.player = player;
             Drops = drops;
@@ -62,16 +62,16 @@ namespace SummerProject
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
-                spawnTimer.JustSpawned();
+                
             }            
         }    
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
             enemies.Draw(spriteBatch, gameTime);
             Drops.Draw(spriteBatch, gameTime);
             if(isActive)
-                gameMode.Draw(spriteBatch, gameTime);
+                gameMode.Draw(spriteBatch, gameTime, fullDraw);
         }
 
         public void Reset(bool fullReset)

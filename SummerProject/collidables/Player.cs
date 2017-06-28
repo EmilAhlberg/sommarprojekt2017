@@ -16,7 +16,7 @@ namespace SummerProject.collidables
         private const float shieldDischargeRate = 3f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
         private const float startingEnergy = 100f;
-        private float maxEnergy;
+        public float maxEnergy;
         private const float maxEnergyCap = 200;
         private const int shieldSize = 300;
         private bool shieldOn;

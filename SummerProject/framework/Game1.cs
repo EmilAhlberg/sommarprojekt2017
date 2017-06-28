@@ -24,10 +24,11 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        WaveGenerator waveGenerator;    
+        GameController gameController;    
         Projectiles projectiles;
         Sprite background;
-        CollisionHandler colhandl;    
+        CollisionHandler colhandl;
+        UnitBar energyBar;
         const bool SPAWN_ENEMIES = true;
 
         public Game1()
@@ -105,6 +106,7 @@ namespace SummerProject
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
+            Texture2D unitBarBkgTex = Content.Load<Texture2D>("textures/unitBarBkg");
             #endregion
 
             #region Adding entity-sprites to list
@@ -132,9 +134,11 @@ namespace SummerProject
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), compSpr, projectiles);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
-            waveGenerator = new WaveGenerator(player, drops, gameMode);
+            gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
+            Sprite unitBarBkgSprite = new Sprite(unitBarBkgTex);
+            energyBar = new UnitBar(new Vector2(WindowSize.Width - 300, 150), unitBarBkgSprite, Color.Yellow, player.maxEnergy);
            
             #endregion
 
@@ -187,11 +191,12 @@ namespace SummerProject
             #region Update for game state
             player.Update(gameTime);
             if (SPAWN_ENEMIES)
-                waveGenerator.Update(gameTime);
+                gameController.Update(gameTime);
             projectiles.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
-            KeepPlayerInScreen();        
+            KeepPlayerInScreen();
+            energyBar.Update(player.Energy, player.maxEnergy);   
             #endregion
         }
 
@@ -232,13 +237,13 @@ namespace SummerProject
                 ScoreHandler.Reset();
             }
             projectiles.Reset();  
-            waveGenerator.Reset(fullReset);
+            gameController.Reset(fullReset);
         }
 
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in waveGenerator.CollidableList())
+            foreach (Collidable c in gameController.CollidableList())
             {
                 collidableList.Add(c);
             }
@@ -246,7 +251,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in waveGenerator.Drops.GetValues())
+            foreach (Collidable c in gameController.Drops.GetValues())
             {
                 collidableList.Add(c);
             }
@@ -265,13 +270,11 @@ namespace SummerProject
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 #region Draw for GameState
-                DrawGame(spriteBatch, gameTime);
+                DrawGame(spriteBatch, gameTime, true);
 
 
                 #region DrawString
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Health: " + player.Health, new Vector2(WindowSize.Width - 300, 100), Color.OrangeRed);
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Energy: " + (int)player.Energy, new Vector2(WindowSize.Width - 300, 150), Color.Gold);
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
                 if (!player.IsActive)
@@ -290,14 +293,15 @@ namespace SummerProject
             base.Draw(gameTime);
         }
 
-        public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
+        public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
             #region Draw Game
             Particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
-            waveGenerator.Draw(spriteBatch, gameTime);      
+            gameController.Draw(spriteBatch, gameTime, fullDraw);      
+            energyBar.Draw(spriteBatch, gameTime);    
             #endregion
         }
 

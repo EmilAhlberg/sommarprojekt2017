@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SummerProject.wave
 {
     public class GameMode
-    {
+    { 
         //Modes for the timer
         public const int DEBUG_TIME = 0;        
         public const int CONSTANT_TIME = 1;
@@ -20,13 +20,15 @@ namespace SummerProject.wave
 
         //Modes for the point generator
         public const int RANDOM_SINGLE = 10;
-        public const int RANDOM_WAVE = 11;       
+        public const int RANDOM_WAVE = 11;
+        public const int BURST_WAVE = 12;
+
+        public const int BURST_WAVE_INIT = 3;
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
-        private bool removeFrameFix; //hack solution to wave# + ready/go overlap
 
-        public bool ChangeLevel { get; private set; }
+        public bool IsChanged { get; set; }
         public int Level { get; private set; } 
         private SpriteFont font;     
         public Timer BetweenLevelsTimer { get; private set; }
@@ -35,57 +37,48 @@ namespace SummerProject.wave
         public GameMode(SpriteFont font)
         {
             this.font = font;
+            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
+            SpawnMode = BURST_WAVE;
             BetweenLevelsTimer = new Timer(3); //!         
         }
 
         public void Reset(bool fullReset)
-        {
-            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
-            SpawnMode = RANDOM_WAVE;
+        {           
             Level = 1; //!
-            ChangeLevel = true;
+            IsChanged = true;
             if (fullReset)
             {
                 BetweenLevelsTimer.Reset();
-                removeFrameFix = true;
             }
         }
 
         private void ProgressGame()
         {
-            int newLevel = ScoreHandler.Score / (Level * 500);
+            int newLevel = ScoreHandler.Score / (Level * 500); //!
             if (newLevel > Level)
             {
                 Level = newLevel;
-                ChangeLevel = true;
+                IsChanged = true;
                 BetweenLevelsTimer.Reset();           
-            }        
-            
+            }                        
         }
 
         public void Update(GameTime gameTime)
         {
-            ChangeLevel = false;
+            IsChanged = false;
             BetweenLevelsTimer.CountDown(gameTime);
-            UpdateMode();
             ProgressGame();
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            if (!BetweenLevelsTimer.IsFinished && !removeFrameFix)
+            if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
                 string s = "Wave: " + Level;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, WordLayoutPosition(s), Color.Gold);
             }
-            removeFrameFix = false;
         }
-
-        private void UpdateMode()
-        {
-        }
-
 
         //duplicated in AnimatedEventHandler
         private Vector2 WordLayoutPosition(string s)

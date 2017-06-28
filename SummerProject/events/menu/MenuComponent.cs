@@ -11,12 +11,15 @@
         public SpriteFont Font { get; private set; }
         private static readonly Color normal = Color.Gold;
         private static readonly Color hilite = Color.OrangeRed;
+        private static readonly Color pressed = Color.DarkRed;
         private float width;
         private float height;
+        protected int pressedIndex;
         public Vector2 Position { get; private set; }
 
         public MenuComponent(Vector2 position, SpriteFont spriteFont, string[] menuItems)
         {
+            pressedIndex = int.MaxValue;
             this.MenuItems = menuItems;
             this.Font = spriteFont;
             MeasureMenu();
@@ -42,10 +45,15 @@
         {
             Vector2 location = Position;
             Color tint;
-            float scale;
+            float scale = 0;
             for (int i = 0; i < MenuItems.Length; i++)
             {
-                if (i == selectedIndex)
+                if (i == pressedIndex)
+                {
+                    tint = pressed;
+                    scale = 1.1f;
+                }
+                else if (i == selectedIndex)
                 {
                     tint = hilite;
                     scale = 1.1f;
@@ -61,3 +69,4 @@
         }
     }
 }
+

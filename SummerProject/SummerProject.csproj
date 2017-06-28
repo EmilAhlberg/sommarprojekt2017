@@ -101,6 +101,7 @@
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
     <Compile Include="SRandom.cs" />
+    <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="util\Timer.cs" />
     <Compile Include="wave\SpawnPointGenerator.cs" />
     <Compile Include="wave\SpawnTimer.cs" />
-    <Compile Include="wave\WaveGenerator.cs" />
+    <Compile Include="wave\GameController.cs" />
     <Compile Include="WindowSize.cs" />
   </ItemGroup>
   <ItemGroup>
