@@ -66,6 +66,7 @@ namespace SummerProject.wave
                 }
                 timer1.Reset();
                 timer2.Reset();
+                timer3.Reset();
                 oldMode = gameMode.TimeMode;
             } 
         }
@@ -113,7 +114,7 @@ namespace SummerProject.wave
                 }
                 timer1.Reset();
                 timer2.Reset();
-                timer3.Reset();
+                timer3.Reset();              
             }
         }
 

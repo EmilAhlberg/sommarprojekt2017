@@ -23,13 +23,13 @@ namespace SummerProject
         private Menu menu;
         private UpgradeView upgradeView;
         private Game1 game;
-        private GameMode gameMode;
+        public GameMode GameMode { get; private set; }
 
         public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
-            this.gameMode = gameMode;
+            GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font);
             upgradeView = new UpgradeView(upgradeViewText);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
@@ -46,24 +46,7 @@ namespace SummerProject
                 ActivateEvent(gameTime);
                 UpdateState(gameTime);
             }         
-        }
-
-        public void ChangeGameMode(int mode)
-        {
-            if (mode == 0)
-            {
-                gameMode.TimeMode = GameMode.DECREASING_TIME;
-                gameMode.SpawnMode = GameMode.RANDOM_SINGLE;
-            }
-
-            else if (mode == 1)
-            {
-                gameMode.TimeMode = GameMode.RANDOM_WAVE;
-                gameMode.SpawnMode = GameMode.RANDOM_WAVE;
-            }
-            else
-                throw new NotImplementedException();
-        }
+        }    
 
         public void ActivateEvent(GameTime gameTime)
         {

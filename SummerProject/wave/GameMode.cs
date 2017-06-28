@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SummerProject.wave
 {
     public class GameMode
-    {
+    { 
         //Modes for the timer
         public const int DEBUG_TIME = 0;        
         public const int CONSTANT_TIME = 1;
@@ -28,7 +28,7 @@ namespace SummerProject.wave
         public int SpawnMode { get; set; }
         private bool removeFrameFix; //hack solution to wave# + ready/go overlap
 
-        public bool ChangeLevel { get; private set; }
+        public bool ChangeLevel { get; set; }
         public int Level { get; private set; } 
         private SpriteFont font;     
         public Timer BetweenLevelsTimer { get; private set; }
@@ -37,13 +37,13 @@ namespace SummerProject.wave
         public GameMode(SpriteFont font)
         {
             this.font = font;
+            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
+            SpawnMode = BURST_WAVE;
             BetweenLevelsTimer = new Timer(3); //!         
         }
 
         public void Reset(bool fullReset)
-        {
-            TimeMode = BURST_TIME;      //DEFAULT GAME MODE
-            SpawnMode = BURST_WAVE;
+        {           
             Level = 1; //!
             ChangeLevel = true;
             if (fullReset)
@@ -55,14 +55,13 @@ namespace SummerProject.wave
 
         private void ProgressGame()
         {
-            int newLevel = ScoreHandler.Score / (Level * 500);
+            int newLevel = ScoreHandler.Score / (Level * 500); //!
             if (newLevel > Level)
             {
                 Level = newLevel;
                 ChangeLevel = true;
                 BetweenLevelsTimer.Reset();           
-            }        
-            
+            }                        
         }
 
         public void Update(GameTime gameTime)
