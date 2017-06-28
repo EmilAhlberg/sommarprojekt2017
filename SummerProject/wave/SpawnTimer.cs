@@ -15,9 +15,10 @@ namespace SummerProject.wave
 
         private const float TIMER1_CONSTANTMODE = 4f;
 
-        private const float TIMER1_BURSTMODE = 8f;
-        private const float TIMER2_BURSTMODE = 5.0f;
-        private const float TIMER3_BURSTMODE = 0.2f;
+      
+        private const float BURSTMODE_SPAWN_INTERVAL = 0.2f;
+        private const float BURSTMODE_WAVE_INTERVAL = 5.0f;
+       
 
         private const float TIMER1_DEBUGMODE = 30f;
 
@@ -35,9 +36,9 @@ namespace SummerProject.wave
         {
             oldMode = gameMode.TimeMode;
             this.gameMode = gameMode;
-            timer1 = new Timer(TIMER1_BURSTMODE); //! changing time settings when game inits is bugged
-            timer2 = new Timer(TIMER2_BURSTMODE);
-            timer3 = new Timer(TIMER3_BURSTMODE);
+            timer1 = new Timer(0); //! changing time settings when game inits is bugged
+            timer2 = new Timer(0);
+            timer3 = new Timer(0);
         }
 
         private void UpdateMode()
@@ -54,9 +55,10 @@ namespace SummerProject.wave
                         timer1.maxTime = TIMER1_CONSTANTMODE;
                         break;
                     case GameMode.BURST_TIME:
-                        timer1.maxTime = TIMER1_BURSTMODE;
-                        timer2.maxTime = TIMER2_BURSTMODE;
-                        timer3.maxTime = TIMER3_BURSTMODE;
+                        float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level + (float)BURSTMODE_WAVE_INTERVAL;
+                        timer1.maxTime = upperBound;
+                        timer2.maxTime = upperBound - (BURSTMODE_SPAWN_INTERVAL * (float)(gameMode.Level + GameMode.BURST_WAVE_INIT + 1));
+                        timer3.maxTime = BURSTMODE_SPAWN_INTERVAL;
                         break;
                     case GameMode.DEBUG_TIME:
                         timer1.maxTime = TIMER1_DEBUGMODE;
@@ -74,8 +76,6 @@ namespace SummerProject.wave
             UpdateMode();
             ChangeLevel();
             return HandleGameMode(gameTime);
-
-           
         }
 
         private bool HandleGameMode(GameTime gameTime)
@@ -102,8 +102,18 @@ namespace SummerProject.wave
         {
             if (gameMode.ChangeLevel)
             {
+                switch (gameMode.TimeMode)
+                {
+                    case GameMode.BURST_TIME: //times must be modified carefully
+                        float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level + (float)BURSTMODE_WAVE_INTERVAL; //!
+                        timer1.maxTime = upperBound;
+                        timer2.maxTime = upperBound - (BURSTMODE_SPAWN_INTERVAL * (float)(gameMode.Level + GameMode.BURST_WAVE_INIT + 1));
+                        timer3.maxTime = BURSTMODE_SPAWN_INTERVAL;
+                        break;
+                }
                 timer1.Reset();
                 timer2.Reset();
+                timer3.Reset();
             }
         }
 

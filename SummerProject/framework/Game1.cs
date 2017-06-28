@@ -133,7 +133,7 @@ namespace SummerProject
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             waveGenerator = new WaveGenerator(player, drops, gameMode);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex)); //! wall location
+            wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
            
             #endregion
 
