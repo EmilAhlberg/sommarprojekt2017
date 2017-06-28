@@ -162,6 +162,7 @@ namespace SummerProject.wave
                 {
                     timer1.Reset();
                     timer2.Reset();
+                    timer3.Reset();
                 }
             timer1.CountDown(gameTime);
             timer2.CountDown(gameTime);
