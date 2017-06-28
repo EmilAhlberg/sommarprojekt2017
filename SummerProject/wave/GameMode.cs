@@ -37,8 +37,6 @@ namespace SummerProject.wave
         public GameMode(SpriteFont font)
         {
             this.font = font;
-          
-
             BetweenLevelsTimer = new Timer(3); //!         
         }
 
@@ -88,22 +86,6 @@ namespace SummerProject.wave
 
         private void UpdateMode()
         {
-            if (InputHandler.isJustPressed(Keys.F1))
-            {
-                TimeMode = GameMode.DECREASING_TIME;
-                SpawnMode = GameMode.RANDOM_SINGLE;        
-            }
-
-            if (InputHandler.isJustPressed(Keys.F2))
-            {
-                TimeMode = GameMode.RANDOM_WAVE;
-                SpawnMode = GameMode.RANDOM_WAVE;         
-            }
-
-            if (InputHandler.isJustPressed(Keys.F3))
-            {
-                TimeMode = GameMode.DEBUG_TIME;              
-            }
         }
 
 

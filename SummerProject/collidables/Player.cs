@@ -193,9 +193,7 @@ namespace SummerProject.collidables
             {
                 Projectile b = c2 as Projectile;
                 if (b.IsEvil)
-                {
                     Health -= b.Damage;
-                }
             }
         }
 

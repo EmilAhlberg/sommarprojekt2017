@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.framework;
 using SummerProject.menu;
+using SummerProject.wave;
 using System;
 
 namespace SummerProject
@@ -21,12 +22,14 @@ namespace SummerProject
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
         private UpgradeView upgradeView;
-        private Game1 game;      
+        private Game1 game;
+        private GameMode gameMode;
 
-        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText)
+        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
+            this.gameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font);
             upgradeView = new UpgradeView(upgradeViewText);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
@@ -43,6 +46,23 @@ namespace SummerProject
                 ActivateEvent(gameTime);
                 UpdateState(gameTime);
             }         
+        }
+
+        public void ChangeGameMode(int mode)
+        {
+            if (mode == 0)
+            {
+                gameMode.TimeMode = GameMode.DECREASING_TIME;
+                gameMode.SpawnMode = GameMode.RANDOM_SINGLE;
+            }
+
+            else if (mode == 1)
+            {
+                gameMode.TimeMode = GameMode.RANDOM_WAVE;
+                gameMode.SpawnMode = GameMode.RANDOM_WAVE;
+            }
+            else
+                throw new NotImplementedException();
         }
 
         public void ActivateEvent(GameTime gameTime)

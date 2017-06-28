@@ -25,11 +25,11 @@ namespace SummerProject
         private bool isActive;
 
         //enemies as param insted of sprites?
-        public WaveGenerator(Player player, SpriteFont font, Drops drops)
+        public WaveGenerator(Player player, Drops drops, GameMode gameMode)
         {
             this.player = player;
             Drops = drops;
-            gameMode = new GameMode(font);
+            this.gameMode = gameMode;
             spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(player, 30); //! nbrOfEnemies

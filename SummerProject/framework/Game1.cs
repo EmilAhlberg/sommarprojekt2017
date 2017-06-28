@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using SummerProject.factories;
 using SummerProject.collidables;
 using System;
+using SummerProject.wave;
 
 namespace SummerProject
 {
@@ -124,14 +125,15 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
-            eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
+            GameMode gameMode = new GameMode(scoreFont);
+            eventOperator = new EventOperator(bigFont, this, homingTex, gameMode); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), compSpr, projectiles);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
-            waveGenerator = new WaveGenerator(player, scoreFont, drops);
+            waveGenerator = new WaveGenerator(player, drops, gameMode);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(300, 300), new Sprite(wallTex)); //! wall location
+            wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
            
             #endregion
 

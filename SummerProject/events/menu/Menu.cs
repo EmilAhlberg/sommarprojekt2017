@@ -39,7 +39,8 @@ namespace SummerProject.menu
             {
                 Vector2 measuredString = menues[CurrentMenu].Font.MeasureString(MenuConstants.MENUITEMS[CurrentMenu][i]);
                 Point indexPosition = new Point((int)(menues[CurrentMenu].Position.X), (int)(menues[CurrentMenu].Position.Y + i * measuredString.Y)); //Might be inprecise for a large number of menuitems DUNNO
-                Rectangle boundBox = new Rectangle(indexPosition.X, indexPosition.Y, (int)measuredString.X, (int)measuredString.Y);
+                Point origin = new Point((int)measuredString.X / 2, (int)measuredString.Y/2);
+                Rectangle boundBox = new Rectangle(0, indexPosition.Y-origin.Y, WindowSize.Width, (int)measuredString.Y);
                 if (boundBox.Contains(InputHandler.mPosition))
                     selectedIndex = i;
             }

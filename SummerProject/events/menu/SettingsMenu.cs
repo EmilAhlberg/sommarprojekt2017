@@ -14,13 +14,13 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.IsMouseVisible(false);
+                    handler.ChangeGameMode(0);
                     break;
                 case 1:
-                    handler.IsMouseVisible(true);
+                    handler.ChangeGameMode(1);
                     break;
                 case 2:
-                    return MenuConstants.MAIN;
+                    return MenuConstants.MAIN;   
             }
             return -1;
         }
