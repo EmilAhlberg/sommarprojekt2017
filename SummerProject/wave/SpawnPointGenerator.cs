@@ -82,8 +82,7 @@ namespace SummerProject.wave
                 default:
                     vs = RandomWaveType();
                     break;
-            }    
-            vs = BurstWaveMode();
+            }              
             
 
             return vs;
