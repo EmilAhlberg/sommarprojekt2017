@@ -19,7 +19,10 @@ namespace SummerProject.wave
 
         //Modes for the point generator
         public const int RANDOM_SINGLE = 10;
-        public const int RANDOM_WAVE = 11;       
+        public const int RANDOM_WAVE = 11;
+        public const int BURST_WAVE = 12;
+
+        public const int BURST_WAVE_INIT = 3;
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
@@ -42,7 +45,7 @@ namespace SummerProject.wave
         public void Reset(bool fullReset)
         {
             TimeMode = BURST_TIME;      //DEFAULT GAME MODE
-            SpawnMode = RANDOM_WAVE;
+            SpawnMode = BURST_WAVE;
             Level = 1; //!
             ChangeLevel = true;
             if (fullReset)
