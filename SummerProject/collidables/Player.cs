@@ -184,7 +184,8 @@ namespace SummerProject.collidables
 
             if (c2 is HealthDrop)
             {
-                maxHealth++;
+                if (Health == maxHealth)
+                    maxHealth++;
                 Health += HealthDrop.heal;
             }
             if (c2 is EnergyDrop)
@@ -214,6 +215,7 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
             Position = startPosition;
             maxEnergy = startingEnergy;
+            maxHealth = Health;
             Energy = maxEnergy;
             angle = 0;
             Stop();
