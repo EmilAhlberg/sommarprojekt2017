@@ -21,10 +21,11 @@ namespace SummerProject
         private SpawnTimer spawnTimer;
         public Drops Drops { get; private set; }
         private DropSpawnPoints dropPoints;
+        private Timer levelTimer;
 
         private bool isActive;
 
-        //enemies as param insted of sprites?
+
         public GameController(Player player, Drops drops, GameMode gameMode)
         {
             this.player = player;
@@ -34,18 +35,29 @@ namespace SummerProject
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(player, 30); //! nbrOfEnemies
             dropPoints = new DropSpawnPoints();
+            levelTimer = new Timer(20);
         }
 
         public void Update(GameTime gameTime)
         {
             CheckActive();
-            if (isActive)            
+            if (isActive && !levelTimer.IsFinished)
                 UpdateSpawnHandlers(gameTime);
-            
+
             enemies.Update(gameTime);
             Drops.Update(gameTime);
-            gameMode.Update(gameTime);          
-        }       
+            gameMode.Update(gameTime);
+            ProgressGame(gameTime);      
+        }
+        // wave progression stuff
+        private void ProgressGame(GameTime gameTime)
+        {
+             levelTimer.CountDown(gameTime);
+            if (levelTimer.IsFinished) { 
+                gameMode.LevelFinished = true;
+                levelTimer.Reset();
+            }
+        }
 
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
@@ -95,6 +107,7 @@ namespace SummerProject
             }
         }        
 
+        //duh
         public List<AIEntity> CollidableList()
         {
             return enemies.GetValues();

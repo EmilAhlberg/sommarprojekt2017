@@ -10,7 +10,7 @@ namespace SummerProject.wave
     public class SpawnTimer
     {
         //!
-        private const float TIMER1_DECREASINGMODE = 3f;
+        private const float TIMER1_DECREASINGMODE = 1.8f; //3f;
         private const float TIMER2_DECREASINGMODE = 3f;
 
         private const float TIMER1_CONSTANTMODE = 4f;
@@ -18,7 +18,7 @@ namespace SummerProject.wave
         private const float BURSTMODE_SPAWN_INTERVAL = 0.2f;
         private const float BURSTMODE_WAVE_INTERVAL = 4.0f;
         //private const float TIMER1_DEBUGMODE = 30f;
-        private float decreasingModeTimeCap = 0.4f;
+        //private float decreasingModeTimeCap = 0.4f;
         //!
 
         private Timer timer3;
@@ -31,7 +31,7 @@ namespace SummerProject.wave
             this.gameMode = gameMode;
             timer1 = new Timer(0);
             timer2 = new Timer(0);
-            timer3 = new Timer(0);
+            timer3 = new Timer(0);            
         }       
 
         public bool Update(GameTime gameTime)
@@ -53,9 +53,9 @@ namespace SummerProject.wave
                 case GameMode.BURST_TIME:
                     BurstTimeMode(gameTime);
                     return timer3.IsFinished;
-                case GameMode.DEBUG_TIME:
-                    ConstantTimeMode(gameTime);
-                    return timer1.IsFinished;
+                //case GameMode.DEBUG_TIME:
+                //    ConstantTimeMode(gameTime);
+                //    return timer1.IsFinished;
             }
             return false;
         }
@@ -67,14 +67,15 @@ namespace SummerProject.wave
                 switch (gameMode.TimeMode)
                 {
                     case GameMode.DECREASING_TIME:
-                        timer1.maxTime = TIMER1_DECREASINGMODE;
-                        timer2.maxTime = TIMER2_DECREASINGMODE;
+                        //timer1.maxTime = TIMER1_DECREASINGMODE;
+                        //timer2.maxTime = TIMER2_DECREASINGMODE;
+                        timer1.maxTime = TIMER1_DECREASINGMODE * (1 - 0.05f * gameMode.Level);
                         break;
                     case GameMode.CONSTANT_TIME:
                         timer1.maxTime = TIMER1_CONSTANTMODE;
                         break;
                     case GameMode.BURST_TIME: //times must be modified carefully, has to fit exactly spawnSize as the # of timer pulses
-                        float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level + (float)BURSTMODE_WAVE_INTERVAL; //!
+                        float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level /2.0f + (float)BURSTMODE_WAVE_INTERVAL; //!
                         timer1.maxTime = upperBound;
                         timer2.maxTime = upperBound - (BURSTMODE_SPAWN_INTERVAL * (float)(gameMode.Level + GameMode.BURST_WAVE_INIT + 1));
                         timer3.maxTime = BURSTMODE_SPAWN_INTERVAL;
@@ -87,8 +88,8 @@ namespace SummerProject.wave
         }
 
         /*
-         *  MODES:                                                                                                                      Level dependant progression:
-         *          DecreasingTimeMode: Spawn frequency is continually increased, until it hits it's timeCap.                                       No
+         *  MODES:                                                                                                                      Level dependent progression:
+         *          DecreasingTimeMode: Spawn frequency is continually increased, until it hits it's timeCap.                                       Yes/No
          *          ConstantTimeMode: Spawn frequency is unchanged.                                                                                 Yes
          *          BurstTimeMode: Bursts of fixed short interval spawns occurs between longer, increasing 'pause' intervals.                       Yes
          */
@@ -98,15 +99,16 @@ namespace SummerProject.wave
         {
             if (timer1.IsFinished)
                 timer1.Reset();
-            timer2.CountDown(gameTime);
-            if (timer1.maxTime > decreasingModeTimeCap && timer2.IsFinished)
-            {
-                timer2.Reset();
-                if (timer1.maxTime > 1.5f)
-                    timer1.maxTime *= 0.75f;
-                else
-                    timer1.maxTime *= 0.97f;
-            }
+            // also this for non lvl-dependent progression
+            //timer2.CountDown(gameTime);
+            //if (timer1.maxTime > decreasingModeTimeCap && timer2.IsFinished)
+            //{
+            //    timer2.Reset();
+            //    if (timer1.maxTime > 1.5f)
+            //        timer1.maxTime *= 0.75f;
+            //    else
+            //        timer1.maxTime *= 0.97f;
+            //}
 
             timer1.CountDown(gameTime);
         }
