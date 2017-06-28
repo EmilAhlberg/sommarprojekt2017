@@ -23,7 +23,7 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        WaveGenerator waveGenerator;    
+        GameController gameController;    
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
@@ -133,7 +133,7 @@ namespace SummerProject
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), compSpr, projectiles);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
-            waveGenerator = new WaveGenerator(player, drops, gameMode);
+            gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
             Sprite unitBarBkgSprite = new Sprite(unitBarBkgTex);
@@ -190,7 +190,7 @@ namespace SummerProject
             #region Update for game state
             player.Update(gameTime);
             if (SPAWN_ENEMIES)
-                waveGenerator.Update(gameTime);
+                gameController.Update(gameTime);
             projectiles.Update(gameTime);
             Particles.Update(gameTime);
             HandleAllCollisions();
@@ -236,13 +236,13 @@ namespace SummerProject
                 ScoreHandler.Reset();
             }
             projectiles.Reset();  
-            waveGenerator.Reset(fullReset);
+            gameController.Reset(fullReset);
         }
 
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in waveGenerator.CollidableList())
+            foreach (Collidable c in gameController.CollidableList())
             {
                 collidableList.Add(c);
             }
@@ -250,7 +250,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            foreach (Collidable c in waveGenerator.Drops.GetValues())
+            foreach (Collidable c in gameController.Drops.GetValues())
             {
                 collidableList.Add(c);
             }
@@ -269,7 +269,7 @@ namespace SummerProject
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 #region Draw for GameState
-                DrawGame(spriteBatch, gameTime);
+                DrawGame(spriteBatch, gameTime, true);
 
 
                 #region DrawString
@@ -294,14 +294,14 @@ namespace SummerProject
             base.Draw(gameTime);
         }
 
-        public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime)
+        public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
             #region Draw Game
             Particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
-            waveGenerator.Draw(spriteBatch, gameTime);
+            gameController.Draw(spriteBatch, gameTime, fullDraw);      
             energyBar.Draw(spriteBatch, gameTime);    
             #endregion
         }

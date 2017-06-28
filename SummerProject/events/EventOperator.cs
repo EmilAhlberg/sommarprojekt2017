@@ -131,7 +131,7 @@ namespace SummerProject
             else
             {
                 if(GameState == PAUSE_STATE || GameState == UPGRADE_STATE)                    
-                  game.DrawGame(spriteBatch, gameTime);
+                  game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
                   upgradeView.Draw(spriteBatch, gameTime);
@@ -140,12 +140,6 @@ namespace SummerProject
                   menu.Draw(spriteBatch, gameTime);                      
             }
         }     
-
-        //super duper big-method
-        public void IsMouseVisible(bool mouseVisibility)
-        {
-            game.IsMouseVisible = mouseVisibility;
-        }
 
         public void ResetGame(bool fullReset)
         {

@@ -17,19 +17,19 @@ namespace SummerProject.menu
                 case 0:
                     handler.GameMode.TimeMode = GameMode.DECREASING_TIME;
                     handler.GameMode.SpawnMode = GameMode.RANDOM_SINGLE;
-                    handler.GameMode.ChangeLevel = true;             
+                    handler.GameMode.IsChanged = true;             
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
-                    handler.GameMode.TimeMode = GameMode.RANDOM_WAVE;
+                    handler.GameMode.TimeMode = GameMode.CONSTANT_TIME;
                     handler.GameMode.SpawnMode = GameMode.RANDOM_WAVE;
-                    handler.GameMode.ChangeLevel = true;
+                    handler.GameMode.IsChanged = true;
                     pressedIndex = selectedIndex;
                     break;
                 case 2:
                     handler.GameMode.TimeMode = GameMode.BURST_TIME;
                     handler.GameMode.SpawnMode = GameMode.BURST_WAVE;
-                    handler.GameMode.ChangeLevel = true;
+                    handler.GameMode.IsChanged = true;
                     pressedIndex = selectedIndex;
                     break;
                 case 3:

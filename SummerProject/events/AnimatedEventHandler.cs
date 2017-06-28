@@ -50,14 +50,14 @@ namespace SummerProject.framework
                 case EventOperator.MENU_STATE:
                     op.ResetGame(false);
                     game.UpdateGame(gameTime);
-                    game.DrawGame(spriteBatch, gameTime);
+                    game.DrawGame(spriteBatch, gameTime, false);
                     string s = "Mediocre!"; //!
                     spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
                     System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
                     break;
                 case EventOperator.GAME_STATE:
                     //op.ResetGame(true);
-                    game.DrawGame(spriteBatch, gameTime);
+                    game.DrawGame(spriteBatch, gameTime, false);
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:

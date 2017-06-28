@@ -26,9 +26,8 @@ namespace SummerProject.wave
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
-        private bool removeFrameFix; //hack solution to wave# + ready/go overlap
 
-        public bool ChangeLevel { get; set; }
+        public bool IsChanged { get; set; }
         public int Level { get; private set; } 
         private SpriteFont font;     
         public Timer BetweenLevelsTimer { get; private set; }
@@ -45,11 +44,10 @@ namespace SummerProject.wave
         public void Reset(bool fullReset)
         {           
             Level = 1; //!
-            ChangeLevel = true;
+            IsChanged = true;
             if (fullReset)
             {
                 BetweenLevelsTimer.Reset();
-                removeFrameFix = true;
             }
         }
 
@@ -59,34 +57,27 @@ namespace SummerProject.wave
             if (newLevel > Level)
             {
                 Level = newLevel;
-                ChangeLevel = true;
+                IsChanged = true;
                 BetweenLevelsTimer.Reset();           
             }                        
         }
 
         public void Update(GameTime gameTime)
         {
-            ChangeLevel = false;
+            IsChanged = false;
             BetweenLevelsTimer.CountDown(gameTime);
-            UpdateMode();
             ProgressGame();
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            if (!BetweenLevelsTimer.IsFinished && !removeFrameFix)
+            if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
                 String s = "Wave: " + Level;
                 spriteBatch.DrawString(font, s, WordLayoutPosition(s), Color.Gold);
             }
-            removeFrameFix = false;
         }
-
-        private void UpdateMode()
-        {
-        }
-
 
         //duplicated in AnimatedEventHandler
         private Vector2 WordLayoutPosition(String s)

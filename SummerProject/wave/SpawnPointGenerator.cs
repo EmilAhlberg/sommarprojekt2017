@@ -11,59 +11,35 @@ namespace SummerProject.wave
     {
         private GameMode gameMode;
         private int spawnSize;       
-        private int windowWidth;
-        private int windowHeight;
         private int mapOffset = -10; //!       
-        private int diagonalWaveSize = 600; //!
-        private int oldMode;
+        private int diagonalWaveSize = 600; //! needs improvements
         private Vector2[] tempPoints;
         private int burstIndex;
 
         public SpawnPointGenerator(GameMode gameMode)
         {
-            this.windowWidth = WindowSize.Width;
-            this.windowHeight = WindowSize.Height;
             this.gameMode = gameMode;
-            oldMode = gameMode.SpawnMode;
+        }    
 
+        public void Update(GameTime gameTime)
+        { 
+            UpdateMode();                
         }
 
-        public void UpdateMode()
+        private void UpdateMode()
         {
-            if (oldMode != gameMode.SpawnMode)
+            if (gameMode.IsChanged)
             {
-
                 switch (gameMode.SpawnMode)
                 {
                     case GameMode.RANDOM_SINGLE:
-                        spawnSize = 1; //! 
+                        spawnSize = 1;
                         break;
-                    case GameMode.RANDOM_WAVE:
-                        spawnSize = 2; //!                    
-                        break;
-                }
-                oldMode = gameMode.SpawnMode;
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            UpdateMode();
-            ChangeLevel();                
-        }
-
-        private void ChangeLevel()
-        {
-            if (gameMode.ChangeLevel)
-            {
-
-                switch (gameMode.SpawnMode)
-                {
                     case GameMode.RANDOM_WAVE:
                         spawnSize = gameMode.Level + 1;
                         break;
                     case GameMode.BURST_WAVE:
-                        spawnSize = gameMode.Level + GameMode.BURST_WAVE_INIT; // must be changed together with spawnTimer
+                        spawnSize = gameMode.Level + GameMode.BURST_WAVE_INIT;
                         tempPoints = null;
                         break;
                 }
@@ -73,32 +49,36 @@ namespace SummerProject.wave
         public Vector2[] GetSpawnPoints()
         {
             Vector2[] vs = new Vector2[spawnSize];
-
-            //vs = RandomWaveMode();
-            vs = BurstWaveMode();
-
-            
-
+            switch (gameMode.SpawnMode)
+            {
+                case GameMode.BURST_WAVE:
+                    vs = BurstWaveMode();
+                    break;
+                default:
+                    vs = RandomWaveType();
+                    break;
+            }              
             return vs;
         }
 
+        #region Point methods for wave generation
         private Vector2 SidePoint(int side, float spacing, float x, float y)
         {
-            Vector2 v = Vector2.Zero;          
+            Vector2 v = Vector2.Zero;
 
             switch (side)
             {
                 case 1: //bottom
-                    v = new Vector2(x + spacing, windowHeight - mapOffset);
+                    v = new Vector2(x + spacing, WindowSize.Height - mapOffset);
                     break;
                 case 2: // top
-                    v = new Vector2(x + spacing, mapOffset) ;
+                    v = new Vector2(x + spacing, mapOffset);
                     break;
                 case 3: //left
-                    v = new Vector2(mapOffset, y + spacing) ;
+                    v = new Vector2(mapOffset, y + spacing);
                     break;
                 case 4: //right
-                    v = new Vector2(windowWidth - mapOffset, y + spacing);
+                    v = new Vector2(WindowSize.Width - mapOffset, y + spacing);
                     break;
             }
             return v;
@@ -110,26 +90,27 @@ namespace SummerProject.wave
             switch (corner)
             {
                 case 1: //bottom left
-                    v = new Vector2(offset, windowHeight + offset);
+                    v = new Vector2(offset, WindowSize.Height + offset);
                     break;
                 case 2: // bottom right
-                    v = new Vector2(windowWidth + offset, windowHeight-offset);
+                    v = new Vector2(WindowSize.Width + offset, WindowSize.Height - offset);
                     break;
                 case 3: //top left
                     v = new Vector2(offset, -offset);
                     break;
                 case 4: //top right
-                    v = new Vector2(windowWidth + offset, offset);
+                    v = new Vector2(WindowSize.Width + offset, offset);
                     break;
             }
             return v;
         }
+        #endregion
 
         /*
          * MODES:
          * 
          */
-        private Vector2[] RandomWaveMode()
+        private Vector2[] RandomWaveType()
         {
             Vector2[] vs = new Vector2[spawnSize];
 
@@ -140,37 +121,30 @@ namespace SummerProject.wave
                 vs = RandomSideWave();
             else
             {
-                vs = RandomOffMapLocation();
+                vs = RandomLocation();
             }
             return vs;
         }
 
         private Vector2[] BurstWaveMode()
-        {
-            //spawnSize = 13;
+        {          
             Vector2[] vs = new Vector2[1];
             if (tempPoints == null || burstIndex >= tempPoints.Length)
             {
-                tempPoints = RandomSideWave(); //should be changed
+                tempPoints = RandomWaveType();
                 burstIndex = 0;
             }
-
             vs[0] = tempPoints[burstIndex];
             burstIndex++;
 
             return vs;
         }
 
-
-
-
-
-
         /*
          * WaveTypes:
          *      RandomSideWave: Spaces enemies evenly on a randomly selected side.
          *      RandomDiagonalWave: Spaces enemies evenly across the DiagonalWaveSize, corner is randomly selected.
-         *      RandomOffMapLocation: Spawns an enemy on a random location, just outside the map.
+         *      RandomLocation: Spawns an enemy on a random location.
          *      
          */
 
@@ -181,9 +155,9 @@ namespace SummerProject.wave
             int side = SRandom.Next(1, 5);
             float sideLength = 0;
             if (side < 3)
-                sideLength = windowWidth;
+                sideLength = WindowSize.Width;
             else
-                sideLength = windowHeight;
+                sideLength = WindowSize.Height;
 
             float gapLength = (sideLength / (float)spawnSize);
             float sum = gapLength/2;
@@ -210,7 +184,7 @@ namespace SummerProject.wave
             return vs;                            
         }
 
-        private Vector2[] RandomOffMapLocation()
+        private Vector2[] RandomLocation()
         {
             Vector2[] vs = new Vector2[spawnSize];
 
@@ -222,9 +196,9 @@ namespace SummerProject.wave
                 float y = 0;
 
                 if (side < 3)
-                    x = windowWidth * SRandom.NextFloat();
+                    x = WindowSize.Width * SRandom.NextFloat();
                 else
-                    y = windowHeight * SRandom.NextFloat();
+                    y = WindowSize.Height * SRandom.NextFloat();
 
                 v = SidePoint(side, 0, x, y);
                 vs[i] = v;
@@ -232,8 +206,4 @@ namespace SummerProject.wave
             return vs;
         }      
     }
-
-
-
-
 }

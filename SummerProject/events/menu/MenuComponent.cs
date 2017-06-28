@@ -45,7 +45,7 @@
         {
             Vector2 location = Position;
             Color tint;
-            float scale;
+            float scale = 0;
             for (int i = 0; i < MenuItems.Length; i++)
             {
                 if (i == pressedIndex)
@@ -63,9 +63,10 @@
                     tint = normal;
                     scale = 1;
                 }
-                DrawHelper.DrawOutlinedString(spriteBatch, 3, new Color(32, 32, 32), Font, MenuItems[i], location, tint, 0, Font.MeasureString(MenuItems[i]) /2, scale);
+                DrawHelper.DrawOutlinedString(spriteBatch, 3, new Color(32, 32, 32), Font, MenuItems[i], location, tint, 0, Font.MeasureString(MenuItems[i]) / 2, scale);
                 location.Y += Font.LineSpacing + 5;
             }
         }
     }
 }
+

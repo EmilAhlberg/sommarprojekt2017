@@ -14,15 +14,10 @@ namespace SummerProject.wave
         private const float TIMER2_DECREASINGMODE = 3f;
 
         private const float TIMER1_CONSTANTMODE = 4f;
-
       
         private const float BURSTMODE_SPAWN_INTERVAL = 0.2f;
-        private const float BURSTMODE_WAVE_INTERVAL = 5.0f;
-       
-
-        private const float TIMER1_DEBUGMODE = 30f;
-
-
+        private const float BURSTMODE_WAVE_INTERVAL = 4.0f;
+        //private const float TIMER1_DEBUGMODE = 30f;
         private float decreasingModeTimeCap = 0.4f;
         //!
 
@@ -30,52 +25,18 @@ namespace SummerProject.wave
         private Timer timer2;
         private Timer timer1;
         private GameMode gameMode;
-        private int oldMode;
 
         public SpawnTimer(GameMode gameMode)
         {
-            oldMode = gameMode.TimeMode;
             this.gameMode = gameMode;
-            timer1 = new Timer(0); //! changing time settings when game inits is bugged
+            timer1 = new Timer(0);
             timer2 = new Timer(0);
             timer3 = new Timer(0);
-        }
-
-        private void UpdateMode()
-        {
-            if (oldMode != gameMode.TimeMode)
-            {
-                switch (gameMode.TimeMode)
-                {
-                    case GameMode.DECREASING_TIME:
-                        timer1.maxTime = TIMER1_DECREASINGMODE;
-                        timer2.maxTime = TIMER2_DECREASINGMODE;
-                        break;
-                    case GameMode.CONSTANT_TIME:
-                        timer1.maxTime = TIMER1_CONSTANTMODE;
-                        break;
-                    case GameMode.BURST_TIME:
-                        float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level + (float)BURSTMODE_WAVE_INTERVAL;
-                        timer1.maxTime = upperBound;
-                        timer2.maxTime = upperBound - (BURSTMODE_SPAWN_INTERVAL * (float)(gameMode.Level + GameMode.BURST_WAVE_INIT + 1));
-                        timer3.maxTime = BURSTMODE_SPAWN_INTERVAL;
-                        break;
-                    case GameMode.DEBUG_TIME:
-                        timer1.maxTime = TIMER1_DEBUGMODE;
-                        break;
-                }
-                timer1.Reset();
-                timer2.Reset();
-                timer3.Reset();
-                oldMode = gameMode.TimeMode;
-            } 
-        }
-       
+        }       
 
         public bool Update(GameTime gameTime)
         {
             UpdateMode();
-            ChangeLevel();
             return HandleGameMode(gameTime);
         }
 
@@ -99,13 +60,20 @@ namespace SummerProject.wave
             return false;
         }
 
-        private void ChangeLevel()
+        private void UpdateMode()
         {
-            if (gameMode.ChangeLevel)
+            if (gameMode.IsChanged)
             {
                 switch (gameMode.TimeMode)
                 {
-                    case GameMode.BURST_TIME: //times must be modified carefully
+                    case GameMode.DECREASING_TIME:
+                        timer1.maxTime = TIMER1_DECREASINGMODE;
+                        timer2.maxTime = TIMER2_DECREASINGMODE;
+                        break;
+                    case GameMode.CONSTANT_TIME:
+                        timer1.maxTime = TIMER1_CONSTANTMODE;
+                        break;
+                    case GameMode.BURST_TIME: //times must be modified carefully, has to fit exactly spawnSize as the # of timer pulses
                         float upperBound = BURSTMODE_SPAWN_INTERVAL * gameMode.Level + (float)BURSTMODE_WAVE_INTERVAL; //!
                         timer1.maxTime = upperBound;
                         timer2.maxTime = upperBound - (BURSTMODE_SPAWN_INTERVAL * (float)(gameMode.Level + GameMode.BURST_WAVE_INIT + 1));
@@ -118,28 +86,18 @@ namespace SummerProject.wave
             }
         }
 
-        //refactor?
-        public void JustSpawned()
-        {
-            switch (gameMode.TimeMode)
-            {
-                case GameMode.DECREASING_TIME:
-                    timer1.Reset();
-                    break;
-            }
-        }
-
-
-       
         /*
-         *  MODES:
-         *          DecreasingTimeMode: Spawn frequency is continually increased.
-         *          ConstantTimeMode: Spawn frequency is unchanged.         
+         *  MODES:                                                                                                                      Level dependant progression:
+         *          DecreasingTimeMode: Spawn frequency is continually increased, until it hits it's timeCap.                                       No
+         *          ConstantTimeMode: Spawn frequency is unchanged.                                                                                 Yes
+         *          BurstTimeMode: Bursts of fixed short interval spawns occurs between longer, increasing 'pause' intervals.                       Yes
          */
 
 
         private void DecreasingTimeMode(GameTime gameTime)
         {
+            if (timer1.IsFinished)
+                timer1.Reset();
             timer2.CountDown(gameTime);
             if (timer1.maxTime > decreasingModeTimeCap && timer2.IsFinished)
             {
