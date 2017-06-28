@@ -34,7 +34,6 @@ namespace SummerProject.menu
                     pressedIndex = selectedIndex;
                     break;
                 case 3:
-                    pressedIndex = int.MaxValue;
                     handler.NewGameState = EventOperator.GAME_STATE;
                     handler.ResetGame(true);
                     break;

@@ -49,9 +49,8 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0)
-        {
-
+        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, Color color, float angle = 0)
+        { 
             switch (ID)
             {
                 #region Shield Visuals 7
@@ -64,7 +63,7 @@ namespace SummerProject
                     }
                     break;
                 #endregion
-                #region Blue Burning 13
+                #region Red Burning 13
                 case 13:
                     {
                         if (SRandom.NextFloat() < 0.2f)
@@ -76,6 +75,17 @@ namespace SummerProject
                         break;
                     }
                 #endregion
+                #region Yellow Bar 15
+                case 15:
+                    {
+                        if (SRandom.NextFloat() < 0.4f)
+                        {
+                            Vector2 currentEdge = edges[(int)(SRandom.NextFloat() * edges.Count)];
+                            CreateExplosion(1, currentEdge + position, 10, 40, 0.5f, color, 0.5f, 0.5f, 0.5f);
+                        }
+                        break;
+                    }
+                    #endregion
             }
         }
 
@@ -191,7 +201,8 @@ namespace SummerProject
                         break;
                     }
                 #endregion
-                #region Blue Burning 13
+
+                #region Red Burning 13
                 case 13:
                     {
                         CreateExplosion(1, position, 10, 40, 0.5f, Color.MonoGameOrange, 1, 0.5f, ttl);
@@ -205,7 +216,10 @@ namespace SummerProject
                         CreateTrail(angle, position, 5, 40, 0, Color.Green, 0, 2, 0.3f);
                         break;
                     }
-                    #endregion
+                #endregion
+
+                #region Yellow Bar 15
+                #endregion
             }
         }
 

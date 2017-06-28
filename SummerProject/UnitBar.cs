@@ -12,7 +12,7 @@ namespace SummerProject
     class UnitBar : Drawable
     {
         private float currentValue;
-        private float prevMax;
+        private float currentMax;
         private float startingMax;
         private Sprite scaleSprite;
         private Sprite borderSprite;
@@ -30,9 +30,9 @@ namespace SummerProject
 
         public void Update(float value, float max)
         {
-            if (prevMax != max)
+            if (currentMax != max)
             {
-                prevMax = max;
+                currentMax = max;
                 ScaleSprite(borderSprite, max);
             }
             if (currentValue != value)
@@ -40,11 +40,20 @@ namespace SummerProject
                 ScaleSprite(scaleSprite, value);
                 currentValue = value;
             }
+            if(currentValue < currentMax)
+            {
+                List<Vector2> listo = new List<Vector2>();
+                for (int i = 0; i < sprite.SpriteRect.Height; i++)
+                {
+                    listo.Add(new Vector2(scaleSprite.Scale.X * scaleSprite.SpriteRect.Width, i - sprite.SpriteRect.Height / 2));
+                }
+                Particles.GenerateParticles(listo, Position, Vector2.Zero, 15, scaleSprite.MColor);
+            }
         }
 
         private void ScaleSprite(Sprite sprite, float unit)
         {
-            sprite.Scale = new Vector2(unit / startingMax, 1);
+            sprite.Scale = new Vector2(unit / startingMax, 1);      
         }
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

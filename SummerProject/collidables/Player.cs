@@ -59,7 +59,7 @@ namespace SummerProject.collidables
                 {
                     if (Energy > 0)
                     {
-                        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, angle);
+                        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, Color.White, angle);
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
                     }
@@ -79,7 +79,7 @@ namespace SummerProject.collidables
                 }
                 if (Health <= 2)
                 {
-                    Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, angle);
+                    Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, Color.White, angle);
                 }
             }
         }

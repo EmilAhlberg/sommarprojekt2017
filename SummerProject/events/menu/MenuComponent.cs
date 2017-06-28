@@ -23,7 +23,7 @@
             this.MenuItems = menuItems;
             this.Font = spriteFont;
             MeasureMenu();
-            this.Position = position;
+            this.Position = position - new Vector2(0, height)/2;
         }
 
         private void MeasureMenu()
@@ -64,7 +64,7 @@
                     scale = 1;
                 }
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), Font, MenuItems[i], location, tint, 0, Font.MeasureString(MenuItems[i]) / 2, scale);
-                location.Y += Font.LineSpacing + 5;
+                location.Y += Font.LineSpacing ;
             }
         }
     }
