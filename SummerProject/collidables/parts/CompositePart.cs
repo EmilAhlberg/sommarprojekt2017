@@ -83,8 +83,8 @@ namespace SummerProject
             {
                 if (parts[i].Part != null)
                 {
-                    parts[i].RelativePos = Vector2.Transform(parts[i].RelativePos, rot);
-                    parts[i].Angle += dAngle;
+                    //parts[i].RelativePos = Vector2.Transform(parts[i].RelativePos, rot);
+                    parts[i].Angle = dAngle;
                     parts[i].SetPart(parts[i].Part,this);
                     if(parts[i].Part is CompositePart)
                     {   
@@ -96,9 +96,8 @@ namespace SummerProject
 
         public void Move()
         {
-            float prevAngle = angle;
             base.Move();
-            UpdatePartsPos(angle-prevAngle);
+            UpdatePartsPos(angle);
         }
 
         public override void Draw(SpriteBatch sb, GameTime gameTime)
@@ -129,8 +128,10 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Vector2 linkToCenter = new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)) * p.BoundBoxes[0].Width / 2;
-                p.Position = hull.Position + RelativePos + linkToCenter;
-                p.Origin = new Vector2(p.BoundBoxes[0].Width / 2, p.BoundBoxes[0].Height / 2) + (hull.Position - p.Position) - new Vector2(hull.BoundBoxes[0].Width / 2, hull.BoundBoxes[0].Height / 2) + hull.Origin;
+                p.Position = hull.Position;
+                Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
+                posChange.Normalize();
+                p.Origin = new Vector2(hull.BoundBoxes[0].Width / 2, hull.BoundBoxes[0].Height / 2) + (hull.Position - p.Position) - RelativePos - posChange* new Vector2(p.BoundBoxes[0].Width / 2, p.BoundBoxes[0].Height / 2);
                 p.angle = Angle;
                 Part = p;
             }  

@@ -118,8 +118,8 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, homingTex); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, projectiles);
-            player.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), compSpr, player),0);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
+            player.AddPart(new RectangularHull(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), player),0);
             //waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
@@ -177,7 +177,7 @@ namespace SummerProject
             projectiles.Update(gameTime);
             drops.Update(gameTime);
             Particles.Update(gameTime);
-            HandleAllCollisions();
+            //HandleAllCollisions();
             KeepPlayerInScreen();
             #endregion
         }
