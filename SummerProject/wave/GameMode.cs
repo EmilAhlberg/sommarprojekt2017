@@ -27,7 +27,7 @@ namespace SummerProject.wave
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
 
-        public bool ChangeLevel { get; set; }
+        public bool IsChanged { get; set; }
         public int Level { get; private set; } 
         private SpriteFont font;     
         public Timer BetweenLevelsTimer { get; private set; }
@@ -44,7 +44,7 @@ namespace SummerProject.wave
         public void Reset(bool fullReset)
         {           
             Level = 1; //!
-            ChangeLevel = true;
+            IsChanged = true;
             if (fullReset)
             {
                 BetweenLevelsTimer.Reset();
@@ -57,14 +57,14 @@ namespace SummerProject.wave
             if (newLevel > Level)
             {
                 Level = newLevel;
-                ChangeLevel = true;
+                IsChanged = true;
                 BetweenLevelsTimer.Reset();           
             }                        
         }
 
         public void Update(GameTime gameTime)
         {
-            ChangeLevel = false;
+            IsChanged = false;
             BetweenLevelsTimer.CountDown(gameTime);
             ProgressGame();
             

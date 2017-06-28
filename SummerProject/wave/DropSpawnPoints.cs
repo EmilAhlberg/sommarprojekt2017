@@ -18,7 +18,7 @@ namespace SummerProject.wave
             points.Add(source);
         }
 
-        //improvement needed
+        //improvement needed?
         public Vector2[] SpawnPositions()
         {
             for(int i =points.Count-1; i>=0; i--)
@@ -35,8 +35,6 @@ namespace SummerProject.wave
                    vs[i] = points[i];
                    points.RemoveAt(i);
                 }
-
-           
             return vs;            
         }
         public void Reset()

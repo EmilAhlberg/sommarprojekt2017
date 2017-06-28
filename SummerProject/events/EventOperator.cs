@@ -141,12 +141,6 @@ namespace SummerProject
             }
         }     
 
-        //super duper big-method
-        public void IsMouseVisible(bool mouseVisibility)
-        {
-            game.IsMouseVisible = mouseVisibility;
-        }
-
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);
