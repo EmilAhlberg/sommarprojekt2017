@@ -101,6 +101,7 @@
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
     <Compile Include="SRandom.cs" />
+    <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />
