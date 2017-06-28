@@ -40,7 +40,7 @@ namespace SummerProject.wave
             this.font = font;
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
-            BetweenLevelsTimer = new Timer(3); //!         
+            betweenLevelsTimer = new Timer(3); //!         
         }
 
         public void Reset(bool fullReset)
