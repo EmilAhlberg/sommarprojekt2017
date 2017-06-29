@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables.parts;
+using SummerProject.collidables;
 
 namespace SummerProject
 {
-    public abstract class Part : Collidable
+    public abstract class Part : ActivatableEntity
     {
         public IPartCarrier Carrier { set; get; }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }

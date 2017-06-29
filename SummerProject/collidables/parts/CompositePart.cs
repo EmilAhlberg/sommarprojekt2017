@@ -85,6 +85,7 @@ namespace SummerProject
                     //parts[i].SetPart(parts[i].Part, this);
                     parts[i].Part.angle = angle;
                     parts[i].Part.Position = Position;
+
    
                     if(parts[i].Part is CompositePart)
                     {   
@@ -145,8 +146,8 @@ namespace SummerProject
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + p.Origin + RelativePos + posChange * linkToCenter/2; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
-                p.angle = Angle;
+                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter/2; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
+                p.Angle = Angle;
             }
     
             public void UpdatePartOrigin(CompositePart Hull)

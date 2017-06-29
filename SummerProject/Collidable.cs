@@ -48,6 +48,16 @@ namespace SummerProject
             get { return base.Position; }
         }
 
+        public float Angle
+        {
+            set
+            {
+                base.angle = value;
+                BoundBoxes[0].Angle = value;
+            }
+            get { return angle; }
+        }
+
         public virtual Vector2 Origin
         {
             set

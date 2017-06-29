@@ -13,7 +13,7 @@ namespace SummerProject.factories
 
         }
 
-        public static AIEntity CreateProjectile(Sprite sprite, int type)
+        public static ActivatableEntity CreateProjectile(Sprite sprite, int type)
         {
             switch (type)
             {
@@ -24,7 +24,7 @@ namespace SummerProject.factories
             }
         }
 
-        public static AIEntity CreateDrop(Sprite sprite, int type)
+        public static ActivatableEntity CreateDrop(Sprite sprite, int type)
         {
             switch (type)
             {

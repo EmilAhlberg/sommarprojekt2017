@@ -8,7 +8,7 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables
 {
-    public class Player : Entity2, IPartCarrier
+    public class Player : PartController, IPartCarrier
     {
         private float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      

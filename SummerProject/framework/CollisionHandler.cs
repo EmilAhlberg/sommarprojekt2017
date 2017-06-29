@@ -17,10 +17,10 @@ namespace SummerProject
                     Collidable c2 = list[j];
                     if (c1 == c2)
                         continue;
-                    if (c1 is AIEntity && c2 is AIEntity)
+                    if (c1 is ActivatableEntity && c2 is ActivatableEntity)
                     {
-                        AIEntity e1 = c1 as AIEntity;
-                        AIEntity e2 = c2 as AIEntity;
+                        ActivatableEntity e1 = c1 as ActivatableEntity;
+                        ActivatableEntity e2 = c2 as ActivatableEntity;
                         if (e1.IsActive && e2.IsActive)
                         {
                             if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))

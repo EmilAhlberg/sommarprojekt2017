@@ -3,11 +3,11 @@ using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
-    public abstract class AIEntity : Entity
+    public abstract class ActivatableEntity : Entity
     {
         public bool IsActive { get; set; }       
 
-        public AIEntity(Vector2 position, ISprite sprite) : base (position, sprite)
+        public ActivatableEntity(Vector2 position, ISprite sprite) : base (position, sprite)
         {
         }
 

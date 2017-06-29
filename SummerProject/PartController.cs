@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public abstract class Entity2 : IPartCarrier
+    public abstract class PartController : IPartCarrier
     {
         public CompositePart Hull;
         public int Health { get; protected set; }
@@ -20,7 +20,7 @@ namespace SummerProject
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
 
-        public Entity2(ISprite sprite)
+        public PartController(ISprite sprite)
         {
             Hull = new RectangularHull(sprite);
             Hull.Carrier = this;

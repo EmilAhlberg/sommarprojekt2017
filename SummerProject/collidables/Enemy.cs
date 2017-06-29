@@ -6,7 +6,7 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
-    class Enemy : Entity2, IPartCarrier
+    class Enemy : PartController, IPartCarrier
     {        
         public int WorthScore {get; private set;}
         private Player player;

@@ -67,9 +67,9 @@ namespace SummerProject
             DR = new Vector2(rect.Right, rect.Bottom);
             UR = new Vector2(rect.Right, rect.Top);
             position = Vector2.Zero;
-            origin = new Vector2(rect.Width / 2, rect.Height / 2);
             Width = rect.Width;
             Height = rect.Height;
+            origin = new Vector2(Width / 2, Height / 2);
             CenterLocation = new Vector2(rect.Location.X, rect.Location.Y);
             Angle = angle;
         }
