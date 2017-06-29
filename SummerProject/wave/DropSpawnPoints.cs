@@ -23,7 +23,7 @@ namespace SummerProject.wave
         {
             for(int i =points.Count-1; i>=0; i--)
             {
-                if(SRandom.Next(0,6) <5)
+                if(SRandom.NextDouble() > Difficulty.DROP_RATE)
                 {
                     points.RemoveAt(i);                    
                 }
