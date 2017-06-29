@@ -8,19 +8,21 @@ using SummerProject.wave;
 namespace SummerProject
 {
     class Enemy : AIEntity, IPartCarrier
-    {        
-        public int WorthScore {get; protected set;}
+    {
+        public int WorthScore { get; protected set; }
         private Player player;
         public static Projectiles projectiles;
         private bool CanShoot { get; set; }
         private bool IsSpeedy { get; set; }
+        private bool IsAsteroid { get; set; }
         protected CompositePart Hull;
         private Timer rageTimer;
 
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
         {
-            this.player = player;            
+            this.player = player;
+
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -29,12 +31,15 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
-            CalculateAngle();
+            if (!IsAsteroid)
+                CalculateAngle();
             Move();
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
                 Enrage();
+                if (IsAsteroid)
+                    Death();
             }
             else
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
@@ -42,35 +47,39 @@ namespace SummerProject
             {
                 projectiles.EvilFire(Position, player.Position);
             }
-            
+
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
                 Death();
-            }    
+            }
         }
-        
+
 
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
             DecideType();
-          
-            if (CanShoot)
+            if (IsAsteroid)
+            {
+                sprite.MColor = Color.DarkGreen;
+                CalculateAngle();
+            }
+            else if (CanShoot)
             {
                 sprite.MColor = Color.Red;
             }
             else
-            if (IsSpeedy)
+             if (IsSpeedy)
             {
                 sprite.MColor = Color.Blue;
-                Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
+                Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
             }
-            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
         private void DecideType()
@@ -80,6 +89,8 @@ namespace SummerProject
                 CanShoot = true;
             else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
                 IsSpeedy = true;
+            else if (rnd < Difficulty.IS_ASTEROID_RISK)
+                IsAsteroid = true;
         }
 
         private void Enrage()
@@ -94,8 +105,8 @@ namespace SummerProject
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
             base.CalculateAngle(dX, dY);
-        }   
-       
+        }
+
         public override void Collision(Collidable c2)
         {
             if (c2 is Projectile)
@@ -119,6 +130,9 @@ namespace SummerProject
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             CanShoot = false;
+            IsAsteroid = false;
+            IsSpeedy = false;
+            sprite.Scale = new Vector2(1, 1);
             base.Death();
         }
 

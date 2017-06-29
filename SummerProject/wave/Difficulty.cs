@@ -30,6 +30,7 @@ namespace SummerProject.wave
         public static float ENEMY_FIRE_RISK;
         public static float CAN_SHOOT_RISK;
         public static float IS_SPEEDY_RISK;
+        public static float IS_ASTEROID_RISK;
 
 
         /*
@@ -81,8 +82,10 @@ namespace SummerProject.wave
         private const float IS_SPEEDY_RISK_NORMAL = 0.4f;
         private const float IS_SPEEDY_RISK_HARD = 0.45f;
 
-        
-
+        //Asteroid
+        private const float IS_ASTEROID_RISK_EASY = 0.8f; 
+        private const float IS_ASTEROID_RISK_NORMAL = 0.65f;
+        private const float IS_ASTEROID_RISK_HARD = 0.55f;
         // </tweakZone>
 
 
@@ -125,6 +128,7 @@ namespace SummerProject.wave
             ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_HARD;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_HARD;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_HARD;
+            IS_ASTEROID_RISK = IS_ASTEROID_RISK_HARD;
         }
 
         private void Normal()
@@ -143,6 +147,7 @@ namespace SummerProject.wave
             ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_NORMAL;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_NORMAL;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_NORMAL;
+            IS_ASTEROID_RISK = IS_ASTEROID_RISK_NORMAL;
         }
 
         private void EasyMode()
@@ -161,6 +166,7 @@ namespace SummerProject.wave
             ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_EASY;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_EASY;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_EASY;
+            IS_ASTEROID_RISK = IS_ASTEROID_RISK_EASY;
         }
     }
 }
