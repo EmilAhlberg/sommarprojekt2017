@@ -56,7 +56,7 @@ namespace SummerProject
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
-            Mouse.SetCursor(MouseCursor.Crosshair);  
+            //Mouse.SetCursor(MouseCursor.Crosshair);  
             deathTimer = new Timer(3); //!
             base.Initialize();
         }
@@ -184,8 +184,6 @@ namespace SummerProject
                 eventOperator.Update(gameTime);
 
             CheckGameStatus(gameTime);
-
-            //cursor.Update(gameTime);
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
         }
