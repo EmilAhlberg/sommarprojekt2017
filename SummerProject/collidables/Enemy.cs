@@ -11,7 +11,7 @@ namespace SummerProject
         public int WorthScore {get; private set;}
         private Player player;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player) : base(position, sprite)
+        public Enemy(Vector2 position, ISprite sprite, Player player) : base(sprite)
         {
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];

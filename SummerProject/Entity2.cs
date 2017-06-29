@@ -20,9 +20,10 @@ namespace SummerProject
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
 
-        public Entity2(Vector2 position, ISprite sprite)
+        public Entity2(ISprite sprite)
         {
-            Hull = new RectangularHull(position, sprite, this);
+            Hull = new RectangularHull(sprite);
+            Hull.Carrier = this;
         }
 
         public virtual void Update(GameTime gameTime)

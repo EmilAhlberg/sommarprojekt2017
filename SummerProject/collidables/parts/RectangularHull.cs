@@ -10,7 +10,7 @@ namespace SummerProject
 {
     class RectangularHull : CompositePart
     {
-        public RectangularHull(Vector2 position, ISprite sprite, IPartCarrier hull) : base(position, sprite, hull)
+        public RectangularHull(ISprite sprite) : base(sprite)
         {
         }
 

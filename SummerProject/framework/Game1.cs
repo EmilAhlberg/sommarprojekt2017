@@ -119,14 +119,14 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            RectangularHull rectHull = new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player);
-            RectangularHull rectHull2 = new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player);
+            RectangularHull rectHull = new RectangularHull(new Sprite(shotTex));
+            RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
             player.AddPart(rectHull, 0);
             player.AddPart(rectHull2, 2);
-            rectHull.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 1);
-            rectHull.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 3);
-            rectHull2.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 1);
-            rectHull2.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(healthPackTex), rectHull), 3);
+            rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
+            rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
+            rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
+            rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 1);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);

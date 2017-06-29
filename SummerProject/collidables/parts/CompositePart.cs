@@ -60,7 +60,7 @@ namespace SummerProject
             }
         }
 
-        public CompositePart(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite, carrier)
+        public CompositePart(ISprite sprite) : base(sprite)
         {
             //BoundBoxes[0].Origin = Vector2.Zero;
             AddLinkPositions();

@@ -21,7 +21,7 @@ namespace SummerProject.collidables
         //private const int shieldSize = 300;
         //private bool shieldOn;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(sprite)
         {
             startPosition = position;
             this.projectiles = projectiles;
@@ -31,6 +31,7 @@ namespace SummerProject.collidables
             Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
             Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Position = position;
         }
 
         public override void Update(GameTime gameTime) //NEEDS FIX

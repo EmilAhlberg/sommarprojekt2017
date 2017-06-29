@@ -13,10 +13,9 @@ namespace SummerProject
         public IPartCarrier Carrier { set; get; }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
         public virtual Color Color { set { sprite.MColor = value; } get { return sprite.MColor; } }
-        public Part(Vector2 position, ISprite sprite, IPartCarrier carrier) : base(position, sprite)
+        public Part(ISprite sprite) : base(Vector2.Zero, sprite)
         {
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
-            Carrier = carrier;
         }
 
         public void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
