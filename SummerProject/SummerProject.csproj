@@ -70,6 +70,7 @@
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
     <Compile Include="events\AnimatedEventHandler.cs" />
+    <Compile Include="events\menu\menuTypes\DifficultyMenu.cs" />
     <Compile Include="factories\Drops.cs" />
     <Compile Include="framework\CollisionHandler.cs" />
     <Compile Include="Collidable.cs" />
@@ -83,14 +84,14 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="ISprite.cs" />
-    <Compile Include="events\menu\GameOverMenu.cs" />
-    <Compile Include="events\menu\MainMenu.cs" />
+    <Compile Include="events\menu\menuTypes\GameOverMenu.cs" />
+    <Compile Include="events\menu\menuTypes\MainMenu.cs" />
     <Compile Include="events\menu\Menu.cs" />
     <Compile Include="events\menu\MenuComponent.cs" />
     <Compile Include="events\menu\MenuConstants.cs" />
-    <Compile Include="events\menu\PauseMenu.cs" />
-    <Compile Include="events\menu\ModeSelectionMenu.cs" />
-    <Compile Include="events\menu\UpgradeMenu.cs" />
+    <Compile Include="events\menu\menuTypes\PauseMenu.cs" />
+    <Compile Include="events\menu\menuTypes\ModeSelectionMenu.cs" />
+    <Compile Include="events\menu\menuTypes\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="SRandom.cs" />
     <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
+    <Compile Include="wave\Difficulty.cs" />
     <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />
     <Compile Include="util\RotRectangle.cs" />

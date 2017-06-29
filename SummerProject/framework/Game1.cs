@@ -56,6 +56,7 @@ namespace SummerProject
         {
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
+            //Mouse.SetCursor(MouseCursor.Crosshair);  
             deathTimer = new Timer(3); //!
             base.Initialize();
         }
@@ -108,6 +109,7 @@ namespace SummerProject
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
+            Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
             #endregion
 
             #region Adding entity-sprites to list
@@ -131,7 +133,7 @@ namespace SummerProject
             wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
-           
+            Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, 0, 0));
             #endregion
 
             #region Adding sprites to particles
@@ -173,7 +175,6 @@ namespace SummerProject
                 eventOperator.Update(gameTime);
 
             CheckGameStatus(gameTime);
-
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
         }
