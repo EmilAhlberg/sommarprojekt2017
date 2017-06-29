@@ -22,6 +22,7 @@ namespace SummerProject
             : base(position, sprite)
         {
             this.player = player;            
+
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -37,10 +38,12 @@ namespace SummerProject
             if (rageTimer.IsFinished)
             {
                 Enrage();
+                if (IsAsteroid)
+                    Death();
             }
             else
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
-            if (CanShoot && SRandom.Next(0, 100) < 1)
+            if (!IsAsteroid && CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
             }
@@ -57,6 +60,7 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
@@ -65,9 +69,8 @@ namespace SummerProject
             IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
             if (IsAsteroid)
             {
-                sprite.Scale = new Vector2(3, 3);
+                sprite.MColor = Color.DarkGreen;
                 CalculateAngle();
-                Health *= 2;
             }
            else if (CanShoot)
             {
@@ -79,7 +82,6 @@ namespace SummerProject
                 sprite.MColor = Color.Blue;
                 Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
             }
-            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
         private void Enrage()
@@ -120,6 +122,8 @@ namespace SummerProject
             DropSpawnPoints.DeathAt(Position);
             CanShoot = false;
             IsAsteroid = false;
+            IsSpeedy = false;
+            sprite.Scale = new Vector2(1, 1);
             base.Death();
         }
 
