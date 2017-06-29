@@ -34,7 +34,9 @@ namespace SummerProject.menu
                     pressedIndex = selectedIndex;
                     break;
                 case 3:
-                    return MenuConstants.MODESELECTION;               
+                    handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.ResetGame(true);
+                    break;
             }
             return -1;
         }
