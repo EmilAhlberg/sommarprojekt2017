@@ -57,8 +57,8 @@ namespace SummerProject
         {
             rageTimer.Reset();
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
-            CanShoot = SRandom.Next(0, 5) == 0; //! 1/5th chance of being able to shoot
-            IsSpeedy = SRandom.Next(0, 7) == 0; //! 1/7th chance of being shupeedo
+            CanShoot = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
+            IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
             if (CanShoot)
             {
                 sprite.MColor = Color.Red;
@@ -113,6 +113,7 @@ namespace SummerProject
         {
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
+            CanShoot = false;
             base.Death();
         }
 
