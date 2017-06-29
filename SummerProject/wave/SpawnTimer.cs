@@ -10,7 +10,7 @@ namespace SummerProject.wave
     public class SpawnTimer
     {
         //!
-        private const float TIMER1_DECREASINGMODE = 1.8f; //3f;
+        private const float TIMER1_DECREASINGMODE = 0.7f; //3f;
         private const float TIMER2_DECREASINGMODE = 3f;
 
         private const float TIMER1_CONSTANTMODE = 4f;
@@ -69,7 +69,7 @@ namespace SummerProject.wave
                     case GameMode.DECREASING_TIME:
                         //timer1.maxTime = TIMER1_DECREASINGMODE;
                         //timer2.maxTime = TIMER2_DECREASINGMODE;
-                        timer1.maxTime = TIMER1_DECREASINGMODE * (1 - 0.05f * gameMode.Level);
+                        timer1.maxTime = TIMER1_DECREASINGMODE * (1 - (float)Math.Log10((float)gameMode.Level / 10.0));// 0.05f * gameMode.Level);
                         break;
                     case GameMode.CONSTANT_TIME:
                         timer1.maxTime = TIMER1_CONSTANTMODE;
