@@ -18,7 +18,7 @@ namespace SummerProject.factories
             EntityList = new List<ActivatableEntity>();
         }
 
-        protected abstract /*ActivatableEntity*/ CreateEntity(int index);
+        protected abstract ActivatableEntity CreateEntity(int index);
         public abstract void Reset();
 
         protected void InitializeEntities(int index)
