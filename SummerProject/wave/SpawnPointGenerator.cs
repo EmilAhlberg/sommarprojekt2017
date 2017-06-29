@@ -12,7 +12,7 @@ namespace SummerProject.wave
         private GameMode gameMode;
         private int spawnSize;       
         private int mapOffset = -10; //!       
-        private int diagonalWaveSize = 600; //! needs improvements
+        private int diagonalSpacing = 40; //!
         private Vector2[] tempPoints;
         private int burstIndex;
 
@@ -33,10 +33,10 @@ namespace SummerProject.wave
                 switch (gameMode.SpawnMode)
                 {
                     case GameMode.RANDOM_SINGLE:
-                        spawnSize = 1; //move to difficulty
+                        spawnSize = 1; //move to difficulty ?
                         break;
                     case GameMode.RANDOM_WAVE:
-                        spawnSize = gameMode.Level + 1; //move to difficulty
+                        spawnSize = gameMode.Level + Difficulty.WAVESPAWN_INIT;
                         break;
                     case GameMode.BURST_WAVE:
                         spawnSize = gameMode.Level + Difficulty.BURST_WAVE_INIT;
@@ -173,12 +173,13 @@ namespace SummerProject.wave
       
         private Vector2[] RandomDiagonalWave()
         {
+            int diagonalWaveSize = spawnSize * diagonalSpacing; // alright?
             Vector2[] vs = new Vector2[spawnSize];
             int corner = SRandom.Next(1, 5);
             int offset = -spawnSize/2;
             for (int i = 0; i< spawnSize; i++)
             {
-                vs[i] = DiagonalPoint(corner, offset* diagonalWaveSize/spawnSize);
+                vs[i] = DiagonalPoint(corner, offset * diagonalWaveSize/spawnSize);
                 offset++;
             }
             return vs;                            
