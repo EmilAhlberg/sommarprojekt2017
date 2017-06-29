@@ -58,8 +58,8 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            CanShoot = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
-            IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
+            DecideType();
+          
             if (CanShoot)
             {
                 sprite.MColor = Color.Red;
@@ -71,6 +71,15 @@ namespace SummerProject
                 Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
             }
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
+        }
+
+        private void DecideType()
+        {
+            float rnd = SRandom.NextFloat();
+            if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
+                CanShoot = true;
+            else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
+                IsSpeedy = true;
         }
 
         private void Enrage()
