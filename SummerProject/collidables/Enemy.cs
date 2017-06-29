@@ -9,7 +9,7 @@ namespace SummerProject
 {
     class Enemy : AIEntity, IPartCarrier
     {        
-        public int WorthScore {get; private set;}
+        public int WorthScore {get; protected set;}
         private Player player;
         public static Projectiles projectiles;
         private bool CanShoot { get; set; }

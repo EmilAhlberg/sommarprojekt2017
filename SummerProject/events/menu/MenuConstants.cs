@@ -16,11 +16,11 @@ namespace SummerProject.menu
             new Dictionary<int, String[]>
             {
                 {MAIN, new string[] { "Start Game", "End Game" }},
-                {MODESELECTION, new string[] { "Time Mode", "Spawn Mode","Burst Mode", "Difficulty", "PLAY!"}},
+                {MODESELECTION, new string[] { "Time Mode", "Spawn Mode","Burst Mode", "Next"}},
                 {GAME_OVER, new string[] { "Play Again", "Main Menu" }},
                 {PAUSE, new string[] {"Resume", "GIVE UP!" }},
                 {UPGRADE, new string[] {"Resume"}},
-                {DIFFICULTY, new string[] {"Easy","Normal","Hard","Back"} }
+                {DIFFICULTY, new string[] {"Easy","Normal","Hard","PLAY!"} }
             };
               
     }

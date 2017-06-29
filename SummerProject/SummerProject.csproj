@@ -57,6 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="collidables\Asteroid.cs" />
     <Compile Include="collidables\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
