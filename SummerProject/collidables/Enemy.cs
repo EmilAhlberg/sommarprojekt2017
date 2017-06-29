@@ -8,12 +8,13 @@ using SummerProject.wave;
 namespace SummerProject
 {
     class Enemy : AIEntity, IPartCarrier
-    {        
-        public int WorthScore {get; protected set;}
+    {
+        public int WorthScore { get; protected set; }
         private Player player;
         public static Projectiles projectiles;
         private bool CanShoot { get; set; }
         private bool IsSpeedy { get; set; }
+        private bool IsAsteroid { get; set; }
         protected CompositePart Hull;
         private Timer rageTimer;
 
@@ -30,6 +31,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            if(!IsAsteroid)
             CalculateAngle();
             Move();
             rageTimer.CountDown(gameTime);
@@ -57,9 +59,16 @@ namespace SummerProject
         {
             rageTimer.Reset();
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            IsAsteroid = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
             CanShoot = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
             IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
-            if (CanShoot)
+            if (IsAsteroid)
+            {
+                sprite.Scale = new Vector2(3, 3);
+                CalculateAngle();
+                Health *= 2;
+            }
+           else if (CanShoot)
             {
                 sprite.MColor = Color.Red;
             }
@@ -114,6 +123,7 @@ namespace SummerProject
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             CanShoot = false;
+            IsAsteroid = false;
             base.Death();
         }
 
