@@ -12,7 +12,7 @@ namespace SummerProject
 {
     public abstract class Entity2 : IPartCarrier
     {
-        protected CompositePart Hull;
+        public CompositePart Hull;
         public int Health { get; protected set; }
         public int Damage { get; protected set; }
         public bool IsDead { get; set; }

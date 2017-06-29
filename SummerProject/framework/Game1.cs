@@ -119,14 +119,14 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            RectangularHull rectHull = new RectangularHull(new Sprite(shotTex));
-            RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
+            RectangularHull rectHull = new RectangularHull(new Sprite(shipTex));
+            //RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
             player.AddPart(rectHull, 0);
-            player.AddPart(rectHull2, 2);
-            rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
-            rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
-            rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
-            rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
+            //player.AddPart(rectHull2, 2);
+            //rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
+            //rectHull.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
+            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
+            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 1);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
@@ -325,13 +325,22 @@ namespace SummerProject
                 usingControls = "Absolute WASD";
             if (controlSheme == 3)
                 usingControls = "Mouse only";
-            if (controlSheme == 4)
+            if (controlSheme == 4) 
                 usingControls = "WASD : AD = Rotate";
 
             drops.Spawn(new Vector2(500, 500));
 
-            //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Part pos: " + player.Hull.Parts[0].BoundBoxes[0].Position, new Vector2(600, 200), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Player origin: " + player.Hull.Origin, new Vector2(600, 300), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Part origin: " + player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(600, 400), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Player pos: " + player.Position, new Vector2(600, 100), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Part pos: " + player.Hull.Parts[0].Position, new Vector2(600, 200), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
+            Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].CenterLocation.X), (int)(player.Hull.BoundBoxes[0].CenterLocation.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
+            Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].CenterLocation.X), (int)(player.Hull.Parts[0].BoundBoxes[0].CenterLocation.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
+            spriteBatch.Draw(Content.Load<Texture2D>("textures/lazor"),player.Hull.BoundBoxes[0].Position,cR, Color.Aqua, player.Hull.BoundBoxes[0].Angle, player.Hull.BoundBoxes[0].Origin, new Vector2(1,1),SpriteEffects.None,1);
+            spriteBatch.Draw(Content.Load<Texture2D>("textures/lazor"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Yellow, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
         }
     }
 }

@@ -12,64 +12,77 @@ namespace SummerProject
         private Vector2 UR { set; get; }
         public int Width { set; get; }
         public int Height { set; get; }
-        private Vector2 origin;
+        private Vector2 origin { set; get; }
         public Vector2 Origin
         {
             set
             {
-                Matrix rotation = Matrix.CreateRotationZ(angle);
-                origin = Vector2.Transform(value, rotation);
                 origin = value;
+                UpdateRotation();
             }
-            private get { return origin; }
+            get
+            {
+                return origin;
+            }
+        }
+        private Vector2 position;
+        public Vector2 Position
+        {
+            set
+            {
+                Vector2 change = value - position;
+                UL += change;
+                DL += change;
+                DR += change;
+                UR += change;
+                position = value;
+            }
+            get
+            {
+                return position;
+            }
         }
         private float angle = 0;
         public float Angle
         {
             set
             {
-                Rotate(value - angle);
+                angle = value;
+                UpdateRotation();
             }
             get { return angle; }
         }
-        private Vector2 location;
-        public Vector2 Location
+        public Vector2 CenterLocation
         {
             set
             {
-                Vector2 DRUL = (DR - UL) / 2;
-                Vector2 URDL = (UR - DL) / 2;
-                UL = value + origin - DRUL;
-                DR = value + origin + DRUL;
-                DL = value + origin - URDL;
-                UR = value + origin + URDL;
-                location = value;
+                Position += value - CenterLocation;
             }
-            get { return location; }
+            get { return Position-Origin + (DR - UL) / 2; }
         }
-
-        public RotRectangle(Rectangle rect, float angleRad)
+        public RotRectangle(Rectangle rect, float angle)
         {
-            this.UL = new Vector2(rect.Left, rect.Top);
-            this.DL = new Vector2(rect.Left, rect.Bottom);
-            this.DR = new Vector2(rect.Right, rect.Bottom);
-            this.UR = new Vector2(rect.Right, rect.Top);
-            Location = new Vector2(rect.Location.X, rect.Location.Y);
+            UL = new Vector2(rect.Left, rect.Top);
+            DL = new Vector2(rect.Left, rect.Bottom);
+            DR = new Vector2(rect.Right, rect.Bottom);
+            UR = new Vector2(rect.Right, rect.Top);
+            position = Vector2.Zero;
+            origin = new Vector2(rect.Width / 2, rect.Height / 2);
             Width = rect.Width;
             Height = rect.Height;
-            Rotate(angleRad);
-            origin = new Vector2(rect.Width / 2, rect.Height / 2);
+            CenterLocation = new Vector2(rect.Location.X, rect.Location.Y);
+            Angle = angle;
         }
 
-        public void Rotate(float angleRad)
+        private void UpdateRotation()
         {
-            angle = (angle + angleRad) % (float)(2 * Math.PI);
-            Matrix rotation = Matrix.CreateRotationZ(angleRad);
-            UL = Vector2.Add(location, Vector2.Transform(UL - location - origin, rotation));
-            DL = Vector2.Add(location, Vector2.Transform(DL - location - origin, rotation));
-            DR = Vector2.Add(location, Vector2.Transform(DR - location - origin, rotation));
-            UR = Vector2.Add(location, Vector2.Transform(UR - location - origin, rotation));
-            Location = Vector2.Transform(location, rotation);
+            Matrix rotation = Matrix.CreateRotationZ(angle);
+            Vector2 height = new Vector2(0, Height);
+            Vector2 width = new Vector2(Width, 0);
+            UL = Position + Vector2.Transform(-Origin, rotation);
+            DL = Position + Vector2.Transform(-Origin+height, rotation);
+            DR = Position + Vector2.Transform(-Origin+height+width, rotation);
+            UR = Position + Vector2.Transform(-Origin+width, rotation);
         }
 
         public bool Intersects(RotRectangle r)

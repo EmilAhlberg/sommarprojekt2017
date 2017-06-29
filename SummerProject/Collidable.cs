@@ -22,10 +22,11 @@ namespace SummerProject
             //}
             //else
             BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X - sprite.Origin.X), (int)Math.Round(position.Y - sprite.Origin.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
+            BoundBoxes[0].Origin = sprite.Origin;
         }
         public void AddBoundBox(RotRectangle rect)
         {
-            rect.Location = Position;
+            rect.Position = Position;
             BoundBoxes.Add(rect);
         }
         public void RemoveBoundBox(int index)
@@ -40,14 +41,14 @@ namespace SummerProject
                 base.Position = value;
                 for (int i = 0; i < BoundBoxes.Count; i++)
                 {
-                    BoundBoxes[i].Location = value;
+                    BoundBoxes[i].Position = value;
                     BoundBoxes[i].Angle = angle;
                 }
             }
             get { return base.Position; }
         }
 
-        public Vector2 Origin
+        public virtual Vector2 Origin
         {
             set
             {
@@ -62,7 +63,7 @@ namespace SummerProject
             base.Move();
             for (int i = 0; i < BoundBoxes.Count; i++)
             {
-                BoundBoxes[i].Location = Position;
+                BoundBoxes[i].Position = Position;
                 BoundBoxes[i].Angle = angle;
             }
         }

@@ -110,6 +110,18 @@ namespace SummerProject
             }
 
         }
+
+        public override Vector2 Origin
+        {
+            set
+            {
+                base.Origin = value;
+                foreach (Link p in parts)
+                    if(p.Part != null)
+                        p.Part.Origin = value;
+            }
+
+        }
          
         protected abstract void AddLinkPositions();
 
@@ -128,14 +140,20 @@ namespace SummerProject
 
             public void SetPart(Part p, CompositePart hull)
             {
+                Part = p;
                 Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height);
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
                 p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + p.Origin + RelativePos + posChange * linkToCenter/2; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
                 p.angle = Angle;
-                Part = p;
-            }  
+            }
+    
+            public void UpdatePartOrigin(CompositePart Hull)
+            {
+                //if(p != null)
+
+            }
         }
     }
 }
