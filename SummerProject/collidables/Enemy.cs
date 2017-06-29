@@ -23,7 +23,6 @@ namespace SummerProject
         {
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
-            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
             //Hull = new RectangularHull(position, sprite);                
@@ -58,7 +57,9 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
             IsAsteroid = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
             CanShoot = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
             IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
@@ -77,11 +78,6 @@ namespace SummerProject
             {
                 sprite.MColor = Color.Blue;
                 Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
-            }
-            else
-            {
-                sprite.MColor = Color.White;
-                Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             }
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }

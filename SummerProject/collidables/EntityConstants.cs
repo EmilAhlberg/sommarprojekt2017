@@ -55,7 +55,7 @@ namespace SummerProject.collidables
         {
                 {DEFAULT, 1000f * (float)Math.PI }, //! //rad per tick
                 {PLAYER, 0.05f * (float)Math.PI},
-                {ENEMY, 0},
+                {ENEMY, 1000f * (float)Math.PI},
                 {BULLET, 0},
                 {HOMINGBULLET, 0.07f * (float)Math.PI}
         };

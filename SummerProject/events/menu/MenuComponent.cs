@@ -37,6 +37,7 @@
                     width = size.X;
                 height += Font.LineSpacing;
             }
+            height -= Font.LineSpacing; //! why
         }
 
         public abstract int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler);
