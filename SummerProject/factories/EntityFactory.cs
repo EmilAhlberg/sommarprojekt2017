@@ -21,9 +21,10 @@ namespace SummerProject.factories
                 case 1: return new HomingBullet(FarAway(), new Sprite(sprite), false);
                 #endregion
                 #region Drops
-                case 50: return new HealthDrop(FarAway(), new Sprite(sprite));
+                case 50: return new HealthDrop(FarAway(), new Sprite(sprite),1);
                 case 51: return new ExplosionDrop(FarAway(), new Sprite(sprite));
                 case 52: return new EnergyDrop(FarAway(), new Sprite(sprite));
+                case 53: return new HealthDrop(FarAway(), new Sprite(sprite), 2);
                 #endregion
                 #region Enemy Bullets
                 case 100: return new Bullet(FarAway(), new Sprite(sprite), true);

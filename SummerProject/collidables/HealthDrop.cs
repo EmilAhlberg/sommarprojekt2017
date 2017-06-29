@@ -9,9 +9,13 @@ namespace SummerProject.collidables
 {
     class HealthDrop : Drop
     {
-        public const int heal = 1;
-        public HealthDrop(Vector2 position, ISprite sprite) : base(position, sprite)
+        public int Heal { get; private set; }
+        public HealthDrop(Vector2 position, ISprite sprite, int tier) : base(position, sprite)
         {
+            if (tier == 2)
+                Heal = 5;
+            else
+                Heal = 1;
         }
         public override void Collision(Collidable c2)
         {
