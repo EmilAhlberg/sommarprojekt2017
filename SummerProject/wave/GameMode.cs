@@ -12,8 +12,7 @@ namespace SummerProject.wave
 {
     public class GameMode
     { 
-        //Modes for the timer
-        //public const int DEBUG_TIME = 0;        
+        //Modes for the timer   
         public const int CONSTANT_TIME = 1;
         public const int DECREASING_TIME = 2;
         public const int BURST_TIME = 3;
@@ -22,15 +21,14 @@ namespace SummerProject.wave
         public const int RANDOM_SINGLE = 10;
         public const int RANDOM_WAVE = 11;
         public const int BURST_WAVE = 12;
-
-        public const int BURST_WAVE_INIT = 3;
+        
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
         public bool IsChanged { get; set; }
         public int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
-
+        private Difficulty difficulty;
         private SpriteFont font;
         private Timer betweenLevelsTimer;
       
@@ -40,6 +38,7 @@ namespace SummerProject.wave
             this.font = font;
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
+            difficulty = new Difficulty();
             betweenLevelsTimer = new Timer(3); //!         
         }
 
@@ -54,14 +53,7 @@ namespace SummerProject.wave
         }
 
         private void ProgressGame()
-        {
-            //int newLevel = ScoreHandler.Score / (Level * 500); //!
-            //if (newLevel > Level)
-            //{
-            //    Level = newLevel;
-            //    IsChanged = true;
-            //    betweenLevelsTimer.Reset();           
-            //}          
+        {         
             if (LevelFinished)
             {
                 Level += 1;
@@ -69,6 +61,11 @@ namespace SummerProject.wave
                 betweenLevelsTimer.Reset();
                 LevelFinished = false;
             }
+        }
+
+        public void ChangeDifficulty(int newDifficulty)
+        {
+            difficulty.ChangeDifficulty(newDifficulty);
         }
 
         public void Update(GameTime gameTime)
