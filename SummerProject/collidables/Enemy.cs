@@ -21,7 +21,7 @@ namespace SummerProject
         public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
         {
-            this.player = player;            
+            this.player = player;
 
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
@@ -31,8 +31,8 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
-            if(!IsAsteroid)
-            CalculateAngle();
+            if (!IsAsteroid)
+                CalculateAngle();
             Move();
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
@@ -47,14 +47,14 @@ namespace SummerProject
             {
                 projectiles.EvilFire(Position, player.Position);
             }
-            
+
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
                 Death();
-            }    
+            }
         }
-        
+
 
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -64,24 +64,21 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            IsAsteroid = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
-            CanShoot = SRandom.NextFloat() < Difficulty.CAN_SHOOT_RATE; //! chance of being able to shoot
-            IsSpeedy = SRandom.NextFloat() < Difficulty.IS_SPEEDY_RATE; //! chance of being shupeedo
             DecideType();
             if (IsAsteroid)
             {
                 sprite.MColor = Color.DarkGreen;
                 CalculateAngle();
             }
-           else if (CanShoot)
+            else if (CanShoot)
             {
                 sprite.MColor = Color.Red;
             }
             else
-            if (IsSpeedy)
+             if (IsSpeedy)
             {
                 sprite.MColor = Color.Blue;
-                Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
+                Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
             }
         }
 
@@ -92,6 +89,8 @@ namespace SummerProject
                 CanShoot = true;
             else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
                 IsSpeedy = true;
+            else if (rnd < Difficulty.IS_ASTEROID_RISK)
+                IsAsteroid = true;
         }
 
         private void Enrage()
@@ -106,8 +105,8 @@ namespace SummerProject
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
             base.CalculateAngle(dX, dY);
-        }   
-       
+        }
+
         public override void Collision(Collidable c2)
         {
             if (c2 is Projectile)
