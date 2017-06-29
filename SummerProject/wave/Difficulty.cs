@@ -37,24 +37,24 @@ namespace SummerProject.wave
          */
         // <tweakZone>
         //Timer:      
-        private const float T1_DECREASINGE_EASY = 1f;
+        private const float T1_DECREASINGE_EASY = 1f; // decreasing time mode spawn time
         private const float T1_DECREASING_NORMAL = 0.7f;
         private const float T1_DECREASING_HARD = 0.4f;
 
-        private const float T1_CONSTANT_EASY = 5f;
+        private const float T1_CONSTANT_EASY = 5f; //constant spawn time
         private const float T1_CONSTANT_NORMAL = 4f;
         private const float T1_CONSTANT_HARD = 3f;
 
-        private const float BURST_SPREE_EASY = 0.25f;
+        private const float BURST_SPREE_EASY = 0.25f; // the smaller interval within a burst spree, in which enemies are spawned
         private const float BURST_SPREE_NORMAL = 0.2f;
         private const float BURST_SPREE_HARD = 0.15f;
 
-        private const float BURST_INTERVAL_EASY = 4.5f;
+        private const float BURST_INTERVAL_EASY = 4.5f; // burst spree is initiated at this longer interval
         private const float BURST_INTERVAL_NORMAL = 4.0f;
         private const float BURST_INTERVAL_HARD = 3f;
 
         //SpawnPoint + Timer:
-        private const int BURST_SIZE_EASY = 2;
+        private const int BURST_SIZE_EASY = 2;  // - burstMode: spawnSize = BURST_SIZE + current Level (this affect timer as well, timing burst according to spawnSize)
         private const int BURST_SIZE_NORMAL = 3;
         private const int BURST_SIZE_HARD = 5;
 
