@@ -12,18 +12,24 @@ namespace SummerProject.factories
         public const int EXPLOSIONDROP = 51;
         public const int ENERGYDROP = 52;
         public const int ENEMY = 150;          // Enemy Range = 150-199
+        public const int ENEMYSHOOT = 151;
+        public const int ENEMYSPEED = 152;
+        public const int ENEMYASTER = 153;
 
         public static readonly Dictionary<int, int> SPRITE =
   new Dictionary<int, int>
   {
-                {BULLET, 0},
-                {HOMINGBULLET, 1},
-                {2,2},
-                {EVILBULLET, 0},
+                {BULLET, BULLET},
+                {HOMINGBULLET, HOMINGBULLET},
+                {EVILBULLET, BULLET},
                 {ENEMY, ENEMY},
-                {HEALTHDROP, 50},
-                {EXPLOSIONDROP, 51},
-                {ENERGYDROP, 52},
+                {ENEMYSHOOT, ENEMYSHOOT},
+                {ENEMYSPEED, ENEMYSPEED},
+                {ENEMYASTER, ENEMYASTER},
+                {HEALTHDROP, HEALTHDROP},
+                {EXPLOSIONDROP, EXPLOSIONDROP},
+                {ENERGYDROP, ENERGYDROP},
   };
+
     }
 }

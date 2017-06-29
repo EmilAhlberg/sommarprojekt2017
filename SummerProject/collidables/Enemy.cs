@@ -18,11 +18,16 @@ namespace SummerProject
         protected CompositePart Hull;
         private Timer rageTimer;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player)
+        public Enemy(Vector2 position, ISprite sprite, Player player, int type)
             : base(position, sprite)
         {
             this.player = player;
-
+            switch (type)
+            {
+                case 151: CanShoot = true; break;
+                case 152: IsSpeedy = true; break;
+                case 153: IsAsteroid = true; break;
+            }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -64,33 +69,15 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            DecideType();
             if (IsAsteroid)
             {
-                sprite.MColor = Color.DarkGreen;
                 CalculateAngle();
-            }
-            else if (CanShoot)
-            {
-                sprite.MColor = Color.Red;
             }
             else
              if (IsSpeedy)
             {
-                sprite.MColor = Color.Blue;
                 Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
             }
-        }
-
-        private void DecideType()
-        {
-            float rnd = SRandom.NextFloat();
-            if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
-                CanShoot = true;
-            else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
-                IsSpeedy = true;
-            else if (rnd < Difficulty.IS_ASTEROID_RISK)
-                IsAsteroid = true;
         }
 
         private void Enrage()
@@ -129,10 +116,6 @@ namespace SummerProject
         {
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
-            CanShoot = false;
-            IsAsteroid = false;
-            IsSpeedy = false;
-            sprite.Scale = new Vector2(1, 1);
             base.Death();
         }
 
