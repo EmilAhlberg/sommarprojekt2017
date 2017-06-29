@@ -49,7 +49,7 @@ namespace SummerProject.collidables
                 sprite.MColor = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
                     CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle);
+                Particles.GenerateParticles(Position, 4, angle, Color.MonoGameOrange);
                 Move();
                 HandleBulletType();
                 Fire();
@@ -59,7 +59,7 @@ namespace SummerProject.collidables
                 {
                     if (Energy > 0)
                     {
-                        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, Color.White, angle);
+                        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, angle);
                         Energy -= shieldDischargeRate;
                         shieldOn = true;
                     }
@@ -79,7 +79,7 @@ namespace SummerProject.collidables
                 }
                 if (Health <= 2)
                 {
-                    Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, Color.White, angle);
+                    Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, angle);
                 }
             }
         }

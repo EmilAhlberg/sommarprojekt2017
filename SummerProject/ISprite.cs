@@ -16,5 +16,6 @@ namespace SummerProject
         void Animate(GameTime gameTime);
         void Colorize(Color c);
         List<Vector2> Edges { get; }
+        Color PrimaryColor { get; }
     }
 }

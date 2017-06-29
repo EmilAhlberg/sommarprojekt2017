@@ -74,7 +74,7 @@ namespace SummerProject
                     }
                 case 2:
                     {
-                        sprite.MColor = new Color(1, 1, 1, (currentTTL.currentTime / TTL));
+                        sprite.MColor = new Color((float)sprite.MColor.R / 255, (float)sprite.MColor.G / 255, (float)sprite.MColor.B / 255, currentTTL.currentTime / TTL);
                         break;
                     }
                 default: throw new NotImplementedException();

@@ -47,13 +47,13 @@ namespace SummerProject
                 {
                     listo.Add(new Vector2(scaleSprite.Scale.X * scaleSprite.SpriteRect.Width, i - sprite.SpriteRect.Height / 2));
                 }
-                Particles.GenerateParticles(listo, Position, Vector2.Zero, 15, scaleSprite.MColor);
+                Particles.GenerateParticles(listo, Position, Vector2.Zero, 15, 0, scaleSprite.MColor);
             }
         }
 
         public void Reset()
         {
-            prevMax = startingMax;
+            currentMax = startingMax;
             currentValue = startingMax;
             borderSprite.Scale = new Vector2(1, 1);
             scaleSprite.Scale = new Vector2(1, 1);

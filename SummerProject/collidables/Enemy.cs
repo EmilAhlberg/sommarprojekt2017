@@ -12,7 +12,8 @@ namespace SummerProject
         public int WorthScore {get; private set;}
         private Player player;
         public static Projectiles projectiles;
-        public bool CanShoot { get; set; }
+        private bool CanShoot { get; set; }
+        private bool IsSpeedy { get; set; }
         protected CompositePart Hull;
         private Timer rageTimer;
 
@@ -37,7 +38,7 @@ namespace SummerProject
                 Enrage();
             }
             else
-                Particles.GenerateParticles(Position, 14, angle);
+                Particles.GenerateParticles(Position, 4, angle, Color.Green);
             if (CanShoot && SRandom.Next(0, 100) < 1)
             {
                 projectiles.EvilFire(Position, player.Position);
@@ -57,19 +58,29 @@ namespace SummerProject
             rageTimer.Reset();
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             CanShoot = SRandom.Next(0, 5) == 0; //! 1/5th chance of being able to shoot
+            IsSpeedy = SRandom.Next(0, 7) == 0; //! 1/7th chance of being shupeedo
             if (CanShoot)
             {
                 sprite.MColor = Color.Red;
             }
             else
+            if (IsSpeedy)
+            {
+                sprite.MColor = Color.Blue;
+                Thrust = 2.5f*EntityConstants.THRUST[EntityConstants.ENEMY];
+            }
+            else
+            {
                 sprite.MColor = Color.White;
+                Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            }
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
 
         private void Enrage()
         {
             Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
-            Particles.GenerateParticles(Position, 10, angle);
+            Particles.GenerateParticles(Position, 5, angle, Color.Red);
             sprite.MColor = Color.Black;
         }
 
@@ -100,7 +111,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 2, angle); //Death animation
+            Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             base.Death();
         }

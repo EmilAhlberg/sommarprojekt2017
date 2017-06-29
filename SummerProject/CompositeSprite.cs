@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject
 {
-    class CompositeSprite : ISprite
+    class CompositeSprite
     {
         public List<ISprite> spriteList { get; }
 

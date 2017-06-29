@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SummerProject
 {
@@ -24,6 +25,21 @@ namespace SummerProject
             {
                 return edges ?? CalculateEdges();
             }
+        }
+        private Color? primaryColor;
+        public Color PrimaryColor
+        {
+            get
+            {
+                if (MColor == Color.White)
+                    return primaryColor ?? CalcPrimaryColor();
+                return MColor;
+            }
+        }
+
+        private Color CalcPrimaryColor()
+        {
+            throw new NotImplementedException();
         }
 
         private int subimages;

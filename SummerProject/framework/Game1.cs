@@ -119,21 +119,12 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,8,6);
             #endregion
 
-            #region Testing composite sprite
-            CompositeSprite compSpr = new CompositeSprite();
-
-            compSpr.addSprite(new Sprite(shipTex), new Vector2(0, 0));
-            //compSpr.addSprite(new Sprite(partTex1), new Vector2(0, -16));
-            //compSpr.addSprite(new Sprite(partTex2), new Vector2(0, 16));
-
-            #endregion
-
             #region Initializing game objects etc.
             GameMode gameMode = new GameMode(scoreFont);
             eventOperator = new EventOperator(bigFont, this, homingTex, gameMode); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
-            player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), compSpr, projectiles);
+            player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), new Sprite(shipTex), projectiles);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();

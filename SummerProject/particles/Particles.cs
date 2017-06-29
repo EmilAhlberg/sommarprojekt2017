@@ -49,7 +49,7 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, Color color, float angle = 0)
+        public static void GenerateParticles(List<Vector2> edges, Vector2 position, Vector2 origin, int ID, float angle = 0, Color? color = null)
         { 
             switch (ID)
             {
@@ -78,10 +78,13 @@ namespace SummerProject
                 #region Yellow Bar 15
                 case 15:
                     {
-                        if (SRandom.NextFloat() < 0.4f)
+                        if (color.HasValue)
                         {
-                            Vector2 currentEdge = edges[(int)(SRandom.NextFloat() * edges.Count)];
-                            CreateExplosion(1, currentEdge + position, 10, 40, 0.5f, color, 0.5f, 0.5f, 0.5f);
+                            if (SRandom.NextFloat() < 0.4f)
+                            {
+                                Vector2 currentEdge = edges[(int)(SRandom.NextFloat() * edges.Count)];
+                                CreateExplosion(1, currentEdge + position, 10, 40, 0.5f, color.Value, 0.5f, 0.5f, 0.5f);
+                            }
                         }
                         break;
                     }
@@ -89,11 +92,12 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateParticles(Vector2 position, int ID, float angle = 0)
+        public static void GenerateParticles(Vector2 position, int ID, float angle = 0, Color? color = null)
         {
             Vector2 initialForce = Vector2.Zero;
             float angularVelocity = 0;
-            Color color = Color.White;
+            if (!color.HasValue)
+                color = Color.White;
             Vector2 scale = new Vector2(1,1);
             float ttl = 1;
 
@@ -102,7 +106,7 @@ namespace SummerProject
                 #region Nothing 1
                 case 1:
                     {
-                        CreateParticle(new Sprite(spriteList[0]), position, initialForce, angle, angularVelocity, color, scale, ttl, 1);
+                        CreateParticle(new Sprite(spriteList[0]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 1);
                         break;
                     }
                 #endregion
@@ -111,20 +115,21 @@ namespace SummerProject
                 case 2:
                     {
                         initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                        CreateParticle(new Sprite(spriteList[1]), position, initialForce, angle, angularVelocity, color, scale, ttl, 2);
-                        CreateParticle(new Sprite(spriteList[2]), position, -initialForce, angle, angularVelocity, color, scale, ttl, 2);
-                        CreateExplosion(10, position, 10, 80, 0.2f, Color.DarkViolet, 1, 1, ttl);
-                        CreateExplosion(1, position, 10, 80, 0.2f, Color.DarkGreen, 1, 1, ttl);
+                        CreateParticle(new Sprite(spriteList[1]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        CreateParticle(new Sprite(spriteList[2]), position, -initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        if (color == Color.White)
+                            color = Color.DarkViolet;
+                        CreateExplosion(10, position, 10, 80, 0.2f, color.Value, 1, 1, ttl);
                         break;
                     }
                 #endregion
 
                 #region Player Explosion 3
                 case 3:
-                    {
+                    {            
                         initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                        CreateParticle(new Sprite(spriteList[3]), position, initialForce, angle, angularVelocity, color, scale, ttl, 2);
-                        CreateParticle(new Sprite(spriteList[4]), position, -initialForce, angle, angularVelocity, color, scale, ttl, 2);
+                        CreateParticle(new Sprite(spriteList[3]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        CreateParticle(new Sprite(spriteList[4]), position, -initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
                         CreateExplosion(100, position, 40, 100, 0.2f, Color.CornflowerBlue, 1, 1, ttl);
                         break;
                     }
@@ -133,7 +138,7 @@ namespace SummerProject
                 #region Thruster Trail 4
                 case 4:
                     {
-                        CreateTrail(angle, position, 5, 40, 0, Color.MonoGameOrange, 0, 2, 0.3f);
+                        CreateTrail(angle, position, 5, 40, 0, color.Value, 0, 2, 0.3f);
                         break;
                     }
                 #endregion
@@ -141,7 +146,9 @@ namespace SummerProject
                 #region Bullet Explosion 5
                 case 5:
                     {
-                        CreateExplosion(10, position, 10, 40, 0.5f, Color.CornflowerBlue, 1, 0.5f, ttl);
+                        if (color == Color.White)
+                            color = Color.CornflowerBlue;
+                        CreateExplosion(10, position, 10, 40, 0.5f, color.Value, 1, 0.5f, ttl);
                         break;
                     }
                 #endregion
@@ -149,7 +156,9 @@ namespace SummerProject
                 #region Bullet Trail 6
                 case 6:
                     {
-                        CreateTrail(angle, position, 1, 20, 0, Color.CornflowerBlue, 0, 1, 0.3f);
+                        if (color == Color.White)
+                            color = Color.CornflowerBlue;
+                        CreateTrail(angle, position, 1, 20, 0, color.Value, 0, 1, 0.3f);
                         break;
                     }
                 #endregion
@@ -178,22 +187,6 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region EvilBullet Explosion 10
-                case 10:
-                    {
-                        CreateExplosion(10, position, 10, 40, 0.5f, Color.DarkRed, 1, 0.5f, ttl);
-                        break;
-                    }
-                #endregion
-
-                #region EvilBullet Trail 11
-                case 11:
-                    {
-                        CreateTrail(angle, position, 1, 20, 0, Color.DarkRed, 0, 1, 0.3f);
-                        break;
-                    }
-                #endregion
-
                 #region Energy Death 12
                 case 12:
                     {
@@ -206,14 +199,6 @@ namespace SummerProject
                 case 13:
                     {
                         CreateExplosion(1, position, 10, 40, 0.5f, Color.MonoGameOrange, 1, 0.5f, ttl);
-                        break;
-                    }
-                #endregion
-
-                #region Enemy Thruster Trail 14
-                case 14:
-                    {
-                        CreateTrail(angle, position, 5, 40, 0, Color.Green, 0, 2, 0.3f);
                         break;
                     }
                 #endregion
