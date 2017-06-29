@@ -35,10 +35,6 @@ namespace SummerProject.menu
                     break;
                 case 3:
                     return MenuConstants.DIFFICULTY;
-                case 4:
-                    handler.NewGameState = EventOperator.GAME_STATE;
-                    handler.ResetGame(true);
-                    break;
             }
             return -1;
         }
