@@ -16,20 +16,19 @@ namespace SummerProject.wave
          * Active difficulty parameters:
          */
         // Timer:
-        public static float TIMER1_DECREASINGMODE;
-        public static float TIMER1_CONSTANTMODE;
-        public static float BURSTMODE_SPAWN_INTERVAL;
-        public static float BURSTMODE_WAVE_INTERVAL;      
+        public static float T1_DECREASING;
+        public static float T1_CONSTANT;
+        public static float BURST_SPREE;
+        public static float BURST_INTERVAL;      
         //SpawnPoint + Timer:
-        public static int BURST_WAVE_INIT;
+        public static int BURST_SIZE;
         //SpawnPoint
-        public static int WAVESPAWN_INIT;
+        public static int WAVE_SIZE;
         //Drops
         public static double DROP_RATE;
-
         //Enemies
-        public static float CAN_SHOOT_RATE;
-        public static float IS_SPEEDY_RATE;
+        public static float CAN_SHOOT_RISK;
+        public static float IS_SPEEDY_RISK;
 
 
         /*
@@ -37,21 +36,21 @@ namespace SummerProject.wave
          */
         // <tweakZone>
         //Timer:      
-        private const float TIMER1_DECREASINGMODE_EASY = 1f;
-        private const float TIMER1_DECREASINGMODE_NORMAL = 0.7f;
-        private const float TIMER1_DECREASINGMODE_HARD = 0.4f;
+        private const float T1_DECREASINGE_EASY = 1f;
+        private const float T1_DECREASING_NORMAL = 0.7f;
+        private const float T1_DECREASING_HARD = 0.4f;
 
-        private const float TIMER1_CONSTANTMODE_EASY = 5f;
-        private const float TIMER1_CONSTANTMODE_NORMAL = 4f;
-        private const float TIMER1_CONSTANTMODE_HARD = 3f;
+        private const float T1_CONSTANT_EASY = 5f;
+        private const float T1_CONSTANT_NORMAL = 4f;
+        private const float T1_CONSTANT_HARD = 3f;
 
-        private const float BURSTMODE_SPAWN_INTERVAL_EASY = 0.25f;
-        private const float BURSTMODE_SPAWN_INTERVAL_NORMAL = 0.2f;
-        private const float BURSTMODE_SPAWN_INTERVAL_HARD = 0.15f;
+        private const float BURST_SPREE_EASY = 0.25f;
+        private const float BURST_SPREE_NORMAL = 0.2f;
+        private const float BURST_SPREE_HARD = 0.15f;
 
-        private const float BURSTMODE_WAVE_INTERVAL_EASY = 4.5f;
-        private const float BURSTMODE_WAVE_INTERVAL_NORMAL = 4.0f;
-        private const float BURSTMODE_WAVE_INTERVAL_HARD = 3f;
+        private const float BURST_INTERVAL_EASY = 4.5f;
+        private const float BURST_INTERVAL_NORMAL = 4.0f;
+        private const float BURST_INTERVAL_HARD = 3f;
 
         //SpawnPoint + Timer:
         private const int BURST_WAVE_INIT_EASY = 2;
@@ -59,9 +58,9 @@ namespace SummerProject.wave
         private const int BURST_WAVE_INIT_HARD = 5;
 
         //SpawnPoint:
-        private const int WAVESPAWN_INIT_EASY = 1; // - wavemode adds this value to spawnSize, every level 
-        private const int WAVESPAWN_INIT_NORMAL = 2;
-        private const int WAVESPAWN_INIT_HARD = 3;
+        private const int WAVE_SIZE_EASY = 1; // - waveMode: spawnSize = WAVE_SIZE + Level 
+        private const int WAVE_SIZE_NORMAL = 2;
+        private const int WAVE_SIZE_HARD = 3;
         
         //Drops:        
         private const float DROP_RATE_EASY = 0.4f; // - i.e. 40% chance of drop on death
@@ -69,13 +68,13 @@ namespace SummerProject.wave
         private const float DROP_RATE_HARD = 0.1f;
 
         //Enemies
-        private const float CAN_SHOOT_RATE_EASY = 0.2f; // - i.e. 20% 'chance' of shooting enemy spawning
-        private const float CAN_SHOOT_RATE_NORMAL = 0.4f;
-        private const float CAN_SHOOT_RATE_HARD = 0.6f;
+        private const float CAN_SHOOT_RISK_EASY = 0.2f; // - i.e. 20% 'chance' of shooting enemy spawning
+        private const float CAN_SHOOT_RISK_NORMAL = 0.25f;
+        private const float CAN_SHOOT_RISK_HARD = 0.3f;
 
-        private const float IS_SPEEDY_RATE_EASY = 0.05f; // - i.e. 5% 'chance' of shuupedo enemy spawning
-        private const float IS_SPEEDY_RATE_NORMAL = 0.15f;
-        private const float IS_SPEEDY_RATE_HARD = 0.25f;
+        private const float IS_SPEEDY_RISK_EASY = 0.3f; // - i.e. 10% 'chance' of shuupedo enemy spawning (real risk is canshootRisk - IsSpeedyRisk)
+        private const float IS_SPEEDY_RISK_NORMAL = 0.4f;
+        private const float IS_SPEEDY_RISK_HARD = 0.45f;
         // </tweakZone>
 
 
@@ -104,53 +103,53 @@ namespace SummerProject.wave
 
         private void Hard()
         {
-            TIMER1_DECREASINGMODE = TIMER1_DECREASINGMODE_HARD;
-            TIMER1_CONSTANTMODE = TIMER1_CONSTANTMODE_HARD;
-            BURSTMODE_SPAWN_INTERVAL = BURSTMODE_SPAWN_INTERVAL_HARD;
-            BURSTMODE_WAVE_INTERVAL = BURSTMODE_WAVE_INTERVAL_HARD;
+            T1_DECREASING = T1_DECREASING_HARD;
+            T1_CONSTANT = T1_CONSTANT_HARD;
+            BURST_SPREE = BURST_SPREE_HARD;
+            BURST_INTERVAL = BURST_INTERVAL_HARD;
 
-            BURST_WAVE_INIT = BURST_WAVE_INIT_HARD;
+            BURST_SIZE = BURST_WAVE_INIT_HARD;
 
-            WAVESPAWN_INIT = WAVESPAWN_INIT_HARD;
+            WAVE_SIZE = WAVE_SIZE_HARD;
 
             DROP_RATE = DROP_RATE_HARD;
 
-            CAN_SHOOT_RATE = CAN_SHOOT_RATE_HARD;
-            IS_SPEEDY_RATE = IS_SPEEDY_RATE_HARD;
+            CAN_SHOOT_RISK = CAN_SHOOT_RISK_HARD;
+            IS_SPEEDY_RISK = IS_SPEEDY_RISK_HARD;
         }
 
         private void Normal()
         {
-            TIMER1_DECREASINGMODE = TIMER1_DECREASINGMODE_NORMAL;
+            T1_DECREASING = T1_DECREASING_NORMAL;
 
-            TIMER1_CONSTANTMODE = TIMER1_CONSTANTMODE_NORMAL;
-            BURSTMODE_SPAWN_INTERVAL = BURSTMODE_SPAWN_INTERVAL_NORMAL;
-            BURSTMODE_WAVE_INTERVAL = BURSTMODE_WAVE_INTERVAL_NORMAL;
-            BURST_WAVE_INIT = BURST_WAVE_INIT_NORMAL;
+            T1_CONSTANT = T1_CONSTANT_NORMAL;
+            BURST_SPREE = BURST_SPREE_NORMAL;
+            BURST_INTERVAL = BURST_INTERVAL_NORMAL;
+            BURST_SIZE = BURST_WAVE_INIT_NORMAL;
 
-            WAVESPAWN_INIT = WAVESPAWN_INIT_NORMAL;
+            WAVE_SIZE = WAVE_SIZE_NORMAL;
 
             DROP_RATE = DROP_RATE_NORMAL;
 
-            CAN_SHOOT_RATE = CAN_SHOOT_RATE_NORMAL;
-            IS_SPEEDY_RATE = IS_SPEEDY_RATE_NORMAL;
+            CAN_SHOOT_RISK = CAN_SHOOT_RISK_NORMAL;
+            IS_SPEEDY_RISK = IS_SPEEDY_RISK_NORMAL;
         }
 
         private void EasyMode()
         {
-            TIMER1_DECREASINGMODE = TIMER1_DECREASINGMODE_EASY;
+            T1_DECREASING = T1_DECREASINGE_EASY;
 
-            TIMER1_CONSTANTMODE = TIMER1_CONSTANTMODE_EASY;
-            BURSTMODE_SPAWN_INTERVAL = BURSTMODE_SPAWN_INTERVAL_EASY;
-            BURSTMODE_WAVE_INTERVAL = BURSTMODE_WAVE_INTERVAL_EASY;
-            BURST_WAVE_INIT = BURST_WAVE_INIT_EASY;
+            T1_CONSTANT = T1_CONSTANT_EASY;
+            BURST_SPREE = BURST_SPREE_EASY;
+            BURST_INTERVAL = BURST_INTERVAL_EASY;
+            BURST_SIZE = BURST_WAVE_INIT_EASY;
 
-            WAVESPAWN_INIT = WAVESPAWN_INIT_NORMAL;
+            WAVE_SIZE = WAVE_SIZE_NORMAL;
 
             DROP_RATE = DROP_RATE_EASY;
 
-            CAN_SHOOT_RATE = CAN_SHOOT_RATE_EASY;
-            IS_SPEEDY_RATE = IS_SPEEDY_RATE_EASY;
+            CAN_SHOOT_RISK = CAN_SHOOT_RISK_EASY;
+            IS_SPEEDY_RISK = IS_SPEEDY_RISK_EASY;
         }
     }
 }

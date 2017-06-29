@@ -36,10 +36,10 @@ namespace SummerProject.wave
                         spawnSize = 1; //move to difficulty ?
                         break;
                     case GameMode.RANDOM_WAVE:
-                        spawnSize = gameMode.Level + Difficulty.WAVESPAWN_INIT;
+                        spawnSize = gameMode.Level + Difficulty.WAVE_SIZE;
                         break;
                     case GameMode.BURST_WAVE:
-                        spawnSize = gameMode.Level + Difficulty.BURST_WAVE_INIT;
+                        spawnSize = gameMode.Level + Difficulty.BURST_SIZE;
                         tempPoints = null;
                         break;
                 }

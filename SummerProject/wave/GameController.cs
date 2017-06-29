@@ -88,6 +88,7 @@ namespace SummerProject
 
         public void Reset(bool fullReset)
         {
+            levelTimer.Reset();
             enemies.Reset();
             gameMode.Reset(fullReset);
             Drops.Reset();
