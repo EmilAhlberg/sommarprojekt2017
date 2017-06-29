@@ -114,6 +114,9 @@ namespace SummerProject.wave
             WAVESPAWN_INIT = WAVESPAWN_INIT_HARD;
 
             DROP_RATE = DROP_RATE_HARD;
+
+            CAN_SHOOT_RATE = CAN_SHOOT_RATE_HARD;
+            IS_SPEEDY_RATE = IS_SPEEDY_RATE_HARD;
         }
 
         private void Normal()
@@ -128,6 +131,9 @@ namespace SummerProject.wave
             WAVESPAWN_INIT = WAVESPAWN_INIT_NORMAL;
 
             DROP_RATE = DROP_RATE_NORMAL;
+
+            CAN_SHOOT_RATE = CAN_SHOOT_RATE_NORMAL;
+            IS_SPEEDY_RATE = IS_SPEEDY_RATE_NORMAL;
         }
 
         private void EasyMode()
@@ -142,6 +148,9 @@ namespace SummerProject.wave
             WAVESPAWN_INIT = WAVESPAWN_INIT_NORMAL;
 
             DROP_RATE = DROP_RATE_EASY;
+
+            CAN_SHOOT_RATE = CAN_SHOOT_RATE_EASY;
+            IS_SPEEDY_RATE = IS_SPEEDY_RATE_EASY;
         }
     }
 }
