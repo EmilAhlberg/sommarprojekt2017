@@ -27,6 +27,7 @@ namespace SummerProject.wave
         //Drops
         public static double DROP_RATE;
         //Enemies
+        public static float ENEMY_FIRE_RISK;
         public static float CAN_SHOOT_RISK;
         public static float IS_SPEEDY_RISK;
         public static float IS_ASTEROID_RISK;
@@ -54,12 +55,12 @@ namespace SummerProject.wave
         private const float BURST_INTERVAL_HARD = 3f;
 
         //SpawnPoint + Timer:
-        private const int BURST_WAVE_INIT_EASY = 2;
-        private const int BURST_WAVE_INIT_NORMAL = 3;
-        private const int BURST_WAVE_INIT_HARD = 5;
+        private const int BURST_SIZE_EASY = 2;
+        private const int BURST_SIZE_NORMAL = 3;
+        private const int BURST_SIZE_HARD = 5;
 
         //SpawnPoint:
-        private const int WAVE_SIZE_EASY = 1; // - waveMode: spawnSize = WAVE_SIZE + Level 
+        private const int WAVE_SIZE_EASY = 1; // - waveMode: spawnSize = WAVE_SIZE + current Level 
         private const int WAVE_SIZE_NORMAL = 2;
         private const int WAVE_SIZE_HARD = 3;
         
@@ -69,6 +70,10 @@ namespace SummerProject.wave
         private const float DROP_RATE_HARD = 0.1f;
 
         //Enemies
+        private const float ENEMY_FIRE_RISK_EASY = 0.01f; // 1% risk of enemy shooting every game cycle of enemy shooting
+        private const float ENEMY_FIRE_RISK_NORMAL = 0.02f;
+        private const float ENEMY_FIRE_RISK_HARD = 0.03f;
+
         private const float CAN_SHOOT_RISK_EASY = 0.2f; // - i.e. 20% 'chance' of shooting enemy spawning
         private const float CAN_SHOOT_RISK_NORMAL = 0.25f;
         private const float CAN_SHOOT_RISK_HARD = 0.3f;
@@ -114,12 +119,13 @@ namespace SummerProject.wave
             BURST_SPREE = BURST_SPREE_HARD;
             BURST_INTERVAL = BURST_INTERVAL_HARD;
 
-            BURST_SIZE = BURST_WAVE_INIT_HARD;
+            BURST_SIZE = BURST_SIZE_HARD;
 
             WAVE_SIZE = WAVE_SIZE_HARD;
 
             DROP_RATE = DROP_RATE_HARD;
 
+            ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_HARD;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_HARD;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_HARD;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_HARD;
@@ -132,12 +138,13 @@ namespace SummerProject.wave
             T1_CONSTANT = T1_CONSTANT_NORMAL;
             BURST_SPREE = BURST_SPREE_NORMAL;
             BURST_INTERVAL = BURST_INTERVAL_NORMAL;
-            BURST_SIZE = BURST_WAVE_INIT_NORMAL;
+            BURST_SIZE = BURST_SIZE_NORMAL;
 
             WAVE_SIZE = WAVE_SIZE_NORMAL;
 
             DROP_RATE = DROP_RATE_NORMAL;
 
+            ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_NORMAL;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_NORMAL;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_NORMAL;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_NORMAL;
@@ -150,12 +157,13 @@ namespace SummerProject.wave
             T1_CONSTANT = T1_CONSTANT_EASY;
             BURST_SPREE = BURST_SPREE_EASY;
             BURST_INTERVAL = BURST_INTERVAL_EASY;
-            BURST_SIZE = BURST_WAVE_INIT_EASY;
+            BURST_SIZE = BURST_SIZE_EASY;
 
             WAVE_SIZE = WAVE_SIZE_NORMAL;
 
             DROP_RATE = DROP_RATE_EASY;
 
+            ENEMY_FIRE_RISK = ENEMY_FIRE_RISK_EASY;
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_EASY;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_EASY;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_EASY;

@@ -43,7 +43,7 @@ namespace SummerProject
             }
             else
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
-            if (!IsAsteroid && CanShoot && SRandom.Next(0, 100) < 1)
+            if (CanShoot && SRandom.NextFloat() < Difficulty.ENEMY_FIRE_RISK)
             {
                 projectiles.EvilFire(Position, player.Position);
             }
