@@ -281,18 +281,6 @@
 /processorParam:TextureFormat=Color
 /build:textures/explosionDrop.png
 
-#begin textures/energyDrop.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/energyDrop.png
-
 #begin textures/cursor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -316,4 +304,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/unitBarBorder.png
+
+#begin textures/healthDrop_TIER2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/healthDrop_TIER2.png
+
+#begin textures/energyDrop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/energyDrop.png
 

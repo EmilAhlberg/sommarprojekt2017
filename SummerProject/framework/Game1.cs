@@ -104,6 +104,7 @@ namespace SummerProject
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
+            Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
             Texture2D wrenchTex = Content.Load<Texture2D>("textures/wrench");
             Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
@@ -117,6 +118,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
+            Entities.Sprites[EntityTypes.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
             Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
             Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,8,6);
             #endregion

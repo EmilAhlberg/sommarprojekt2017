@@ -187,7 +187,11 @@ namespace SummerProject.collidables
             {
                 if (Health == maxHealth && maxHealth < maxHealthCap)
                     maxHealth++;
-                Health += HealthDrop.heal;
+                Health += ((HealthDrop)c2).Heal;
+                if (Health > maxHealthCap)
+                    Health = maxHealthCap;
+                if (Health > maxHealth)
+                    maxHealth = Health;
             }
             if (c2 is EnergyDrop)
             {
