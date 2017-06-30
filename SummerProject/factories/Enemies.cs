@@ -1,37 +1,37 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using Microsoft.Xna.Framework;
-//using SummerProject.collidables;
-//using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SummerProject.collidables;
+using Microsoft.Xna.Framework.Graphics;
 
-//namespace SummerProject.factories
-//{
-//    public class Enemies : Entities
-//    {
-//        private Player player;
+namespace SummerProject.factories
+{
+    public class Enemies : Entities
+    {
+        private Player player;
 
-//        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies) : base(sprites, NbrOfEnemies)
-//        {
-//            this.player = player;
-//            InitializeEntities(0);
-//        }
+        public Enemies(List<Sprite> sprites, Player player, int NbrOfEnemies) : base(sprites, NbrOfEnemies)
+        {
+            this.player = player;
+            InitializeEntities(0);
+        }
 
-//        public void Update(GameTime gameTime)
-//        {
-//            UpdateEntities(gameTime);
-//        }
+        public void Update(GameTime gameTime)
+        {
+            UpdateEntities(gameTime);
+        }
 
-//        public override void Reset()
-//        {
-//            ResetEntities();
-//        }
-//        public void Spawn(Vector2 source)
-//        {
-//            ActivateEntities(source, player.Position);
-//        }
-//        protected override Enemy CreateEntity(int index)
-//        {
-//            return EntityFactory.CreateEnemy(Sprites[index], player);
-//        }
-//    }
-//}
+        public override void Reset()
+        {
+            ResetEntities();
+        }
+        public void Spawn(Vector2 source)
+        {
+            ActivateEntities(source, player.Position);
+        }
+        protected override Enemy CreateEntity(int index)
+        {
+            return EntityFactory.CreateEnemy(Sprites[index], player);
+        }
+    }
+}

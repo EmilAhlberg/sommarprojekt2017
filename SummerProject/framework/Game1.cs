@@ -132,8 +132,8 @@ namespace SummerProject
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
-            //waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            //enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             drops = new Drops(dropSprites, 10);
@@ -185,11 +185,11 @@ namespace SummerProject
         {
             #region Update for game state
             player.Update(gameTime);
-            //waveGenerator.Update(gameTime);         
+            waveGenerator.Update(gameTime);         
             projectiles.Update(gameTime);
             drops.Update(gameTime);
             Particles.Update(gameTime);
-            //HandleAllCollisions();
+            HandleAllCollisions();
             KeepPlayerInScreen();
             #endregion
         }
@@ -337,6 +337,7 @@ namespace SummerProject
             spriteBatch.DrawString(debugFont, "Part origin: " + player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(600, 400), Color.Yellow);
             spriteBatch.DrawString(debugFont, "Player intersects wall: " + player.Hull.BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 500), Color.Yellow);
             spriteBatch.DrawString(debugFont, "Player part intersects wall: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 600), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Player intersects part: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(player.Hull.BoundBoxes[0]), new Vector2(600, 700), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
             Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].Position.X), (int)(player.Hull.BoundBoxes[0].Position.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
             Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].Position.X), (int)(player.Hull.Parts[0].BoundBoxes[0].Position.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
