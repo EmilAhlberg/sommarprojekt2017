@@ -4,6 +4,7 @@ using SummerProject.collidables;
 using SummerProject.collidables.parts;
 using SummerProject.factories;
 using SummerProject.wave;
+using SummerProject.achievements;
 
 namespace SummerProject
 {
@@ -51,6 +52,7 @@ namespace SummerProject
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
+                Traits.KillTrait.Counter++;
                 Death();
             }
         }
@@ -122,7 +124,11 @@ namespace SummerProject
                     Health -= ed.Damage;
             }
             if (c2 is Player)
+            {
+                //Traits.KillTrait.Counter++; //maybe not counted as a kill
                 Death();
+            }
+              
         }
 
         public override void Death()

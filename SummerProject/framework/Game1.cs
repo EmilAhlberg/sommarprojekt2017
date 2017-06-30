@@ -7,6 +7,7 @@ using SummerProject.collidables;
 using System;
 using SummerProject.wave;
 using SummerProject.util;
+using SummerProject.achievements;
 
 namespace SummerProject
 {
@@ -30,6 +31,7 @@ namespace SummerProject
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
+        AchievementController achController;
         const bool SPAWN_ENEMIES = true;
 
         public Game1()
@@ -136,6 +138,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+            achController = new AchievementController(bigFont);
             #endregion
 
             #region Adding sprites to particles
@@ -177,6 +180,7 @@ namespace SummerProject
                 eventOperator.Update(gameTime);
 
             CheckGameStatus(gameTime);
+            achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
         }
@@ -285,6 +289,7 @@ namespace SummerProject
                 eventOperator.Draw(spriteBatch, gameTime);
 
             DebugMode(spriteBatch, gameTime);
+            achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
