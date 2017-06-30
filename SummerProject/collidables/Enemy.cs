@@ -63,6 +63,7 @@ namespace SummerProject
                     reloadTimer.Reset();
                 }
                 sprite.Rotation += spriteRotSpeed;
+            }
             Move();
 
 
