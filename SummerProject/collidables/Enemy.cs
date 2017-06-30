@@ -35,6 +35,7 @@ namespace SummerProject
             }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
+            friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
             rageTimer = new Timer(15);
             reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
 
@@ -91,6 +92,9 @@ namespace SummerProject
                 Health *= 3;
                 spriteRotSpeed = 0.05f * SRandom.NextFloat();
                 angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
+                friction = 0;
+                Thrust = 0;
+                AddSpeed(5, angle);
             }
             else
              if (IsSpeedy)

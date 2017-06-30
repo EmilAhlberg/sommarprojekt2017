@@ -12,6 +12,7 @@ namespace SummerProject.collidables
             Health = EntityConstants.HEALTH[EntityConstants.BULLET];
             Mass = EntityConstants.MASS[EntityConstants.BULLET];
             Thrust = EntityConstants.THRUST[EntityConstants.BULLET];
+            friction = EntityConstants.FRICTION[EntityConstants.BULLET];
             if (isEvil)
             {
                 sprite.MColor = Color.Red; //LOL
