@@ -52,14 +52,6 @@ namespace SummerProject
             }
             get { return angle; }
         }
-        public Vector2 CenterLocation
-        {
-            set
-            {
-                Position += value - CenterLocation;
-            }
-            get { return Position-Origin + (DR - UL) / 2; }
-        }
         public RotRectangle(Rectangle rect, float angle)
         {
             UL = new Vector2(rect.Left, rect.Top);
@@ -70,7 +62,6 @@ namespace SummerProject
             Width = rect.Width;
             Height = rect.Height;
             origin = new Vector2(Width / 2, Height / 2);
-            CenterLocation = new Vector2(rect.Location.X, rect.Location.Y);
             Angle = angle;
         }
 

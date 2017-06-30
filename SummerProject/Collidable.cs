@@ -21,7 +21,7 @@ namespace SummerProject
             //    }
             //}
             //else
-            BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X - sprite.Origin.X), (int)Math.Round(position.Y - sprite.Origin.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
+            BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
             BoundBoxes[0].Origin = sprite.Origin;
         }
         public void AddBoundBox(RotRectangle rect)

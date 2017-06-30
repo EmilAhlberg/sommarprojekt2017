@@ -174,10 +174,9 @@ namespace SummerProject
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
+                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter;
                 p.Angle = hull.angle;
             }
         }
     }
 }
-

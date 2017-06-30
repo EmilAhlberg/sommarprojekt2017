@@ -121,10 +121,10 @@ namespace SummerProject
             projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             RectangularHull rectHull = new RectangularHull(new Sprite(shipTex));
-            RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
+            //RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
             player.AddPart(rectHull, 0);
             //player.AddPart(rectHull2, 2);
-            rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 1);
+            //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 1);
             //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 2);
             //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
             //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
@@ -336,10 +336,10 @@ namespace SummerProject
             spriteBatch.DrawString(debugFont, "Player origin: " + player.Hull.BoundBoxes[0].Origin, new Vector2(600, 300), Color.Yellow);
             spriteBatch.DrawString(debugFont, "Part origin: " + player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(600, 400), Color.Yellow);
             spriteBatch.DrawString(debugFont, "Player intersects wall: " + player.Hull.BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 500), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Player part intersects wall: " + player.Hull.Parts[0].BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 600), Color.Yellow);
+            spriteBatch.DrawString(debugFont, "Player part intersects wall: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 600), Color.Yellow);
             spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
-            Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].CenterLocation.X), (int)(player.Hull.BoundBoxes[0].CenterLocation.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
-            Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].CenterLocation.X), (int)(player.Hull.Parts[0].BoundBoxes[0].CenterLocation.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
+            Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].Position.X), (int)(player.Hull.BoundBoxes[0].Position.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
+            Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].Position.X), (int)(player.Hull.Parts[0].BoundBoxes[0].Position.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
             //spriteBatch.Draw(Content.Load<Texture2D>("textures/ship"),player.Hull.BoundBoxes[0].Position,cR, Color.Aqua, player.Hull.BoundBoxes[0].Angle, player.Hull.BoundBoxes[0].Origin, new Vector2(1,1),SpriteEffects.None,1);
             spriteBatch.Draw(Content.Load<Texture2D>("textures/plus"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Red, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
 
