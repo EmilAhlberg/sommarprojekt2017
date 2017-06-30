@@ -31,7 +31,7 @@ namespace SummerProject
                 case 151: CanShoot = true; break;
                 case 152: IsSpeedy = true; break;
                 case 153: IsAsteroid = true; break;
-            }  
+            }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -53,7 +53,7 @@ namespace SummerProject
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
             }
             else
-                Particles.GenerateParticles(Position, 4, angle, Color.Green);
+                sprite.Rotation += spriteRotSpeed;
             if (CanShoot)
             {
                 reloadTimer.CountDown(gameTime);
@@ -62,10 +62,8 @@ namespace SummerProject
                     projectiles.EvilFire(Position, player.Position);
                     reloadTimer.Reset();
                 }
-                sprite.Rotation += spriteRotSpeed;
+            }
             Move();
-
-
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
