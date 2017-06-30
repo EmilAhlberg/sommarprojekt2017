@@ -230,6 +230,18 @@ namespace SummerProject
                         CreateExplosion(10, position, 10, 80, 0.2f, color.Value, 1, 1, ttl);
                         break;
                     }
+                #endregion
+
+                #region Asteroid Explosion 17
+                case 18:
+                    {
+                        initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        //CreateParticle(new Sprite(spriteList[7]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        //CreateParticle(new Sprite(spriteList[8]), position, -initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        CreateExplosion(30, position, 40, 80, 0.2f, Color.SaddleBrown, 1.5f, 1, ttl);
+                        CreateExplosion(10, position, 40, 80, 0.2f, Color.Violet, 0.5f, 0.5f, ttl);
+                        break;
+                    }
                     #endregion
             }
         }
