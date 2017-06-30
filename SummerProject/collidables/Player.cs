@@ -10,7 +10,7 @@ namespace SummerProject.collidables
 {
     public class Player : Entity, IPartCarrier
     {
-        private const bool FRICTIONFREEACCELERATION = true;
+        private const bool FRICTIONFREEACCELERATION = false;
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
