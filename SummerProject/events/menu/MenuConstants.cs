@@ -16,7 +16,7 @@ namespace SummerProject.menu
             new Dictionary<int, String[]>
             {
                 {MAIN, new string[] { "Start Game", "End Game" }},
-                {MODESELECTION, new string[] { "Time Mode", "Spawn Mode","Burst Mode", "Next"}},
+                {MODESELECTION, new string[] { "Default Mode", "Wave Mode", "Zerg Mode", "Next"}},
                 {GAME_OVER, new string[] { "Play Again", "Main Menu" }},
                 {PAUSE, new string[] {"Resume", "GIVE UP!" }},
                 {UPGRADE, new string[] {"Resume"}},
