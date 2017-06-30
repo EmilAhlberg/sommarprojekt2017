@@ -62,7 +62,6 @@ namespace SummerProject
 
         public CompositePart(ISprite sprite) : base(sprite)
         {
-            //BoundBoxes[0].Origin = Vector2.Zero;
             AddLinkPositions();
         }
 
@@ -76,30 +75,52 @@ namespace SummerProject
             return false;
         }
 
-        protected void UpdatePartsPos()
+        public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < parts.Length; i++)
-            {
-                if (parts[i].Part != null)
-                {
-                    //parts[i].SetPart(parts[i].Part, this);
-                    parts[i].Part.angle = angle;
-                    parts[i].Part.Position = Position;
+            Move();
+        }
+
+        //protected void UpdatePartsPos()
+        //{
+        //    for (int i = 0; i < parts.Length; i++)
+        //    {
+        //        if (parts[i].Part != null)
+        //        {
+        //            //parts[i].SetPart(parts[i].Part, this);
+        //            parts[i].Part.angle = angle;
+        //            parts[i].Part.Position = Position;
 
    
-                    if(parts[i].Part is CompositePart)
-                    {   
-                        ((CompositePart)parts[i].Part).UpdatePartsPos();
+        //            if(parts[i].Part is CompositePart)
+        //            {   
+        //                ((CompositePart)parts[i].Part).UpdatePartsPos();
+        //            }
+        //        }
+        //    }
+        //}
+
+        public override Vector2 Position
+        {
+            set
+            {
+                base.Position = value;
+                foreach(Link p in parts)
+                {
+                    if(p.Part != null)
+                    {
+                        p.Part.Position = Position;
+                        p.Part.Angle = Angle;
                     }
                 }
+
             }
         }
 
-        public void Move()
-        {
-            base.Move();
-            UpdatePartsPos();
-        }
+        //public void Move()
+        //{
+        //    base.Move();
+        //    //UpdatePartsPos();
+        //}
 
         public override void Draw(SpriteBatch sb, GameTime gameTime)
         {
@@ -112,16 +133,23 @@ namespace SummerProject
 
         }
 
-        public override Vector2 Origin
-        {
-            set
-            {
-                base.Origin = value;
-                foreach (Link p in parts)
-                    if(p.Part != null)
-                        p.Part.Origin = value;
-            }
+        //public override Vector2 Origin
+        //{
+        //    set
+        //    {
+        //        base.Origin = value;
+        //        foreach (Link p in parts)
+        //            if(p.Part != null)
+        //                p.Part.Origin = value;
+        //    }
 
+        //}
+
+        public override void Death()
+        {
+            foreach (Link p in parts)
+                if (p.Part != null)
+                    p.Part.Death();
         }
          
         protected abstract void AddLinkPositions();
@@ -142,18 +170,12 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height);
+                Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height)/2;
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter/2; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
-                p.Angle = Angle;
-            }
-    
-            public void UpdatePartOrigin(CompositePart Hull)
-            {
-                //if(p != null)
-
+                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter; //plussa på hull.RelativePosition-hull.hull.origin-hull.hull.hull.origin osvosv FUCKED UP FAN JOHAN
+                p.Angle = hull.angle;
             }
         }
     }

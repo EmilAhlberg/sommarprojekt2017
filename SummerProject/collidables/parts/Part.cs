@@ -23,9 +23,14 @@ namespace SummerProject
 
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
 
-        public virtual void Collission(Collidable c2)
+        public override void Collision(Collidable c2)
         {
             Carrier.Collision(c2);
+        }
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            throw new NotImplementedException();
         }
     }
 }

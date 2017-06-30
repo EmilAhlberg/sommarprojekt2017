@@ -43,6 +43,7 @@ namespace SummerProject.collidables
                     CalculateAngle();
                 //Particles.GenerateParticles(Position, 4, angle);
                 Move();
+                Hull.Update(gameTime);
                 HandleBulletType();
                 Fire();
                 if (Health <= 0 && !IsDead)
@@ -152,12 +153,11 @@ namespace SummerProject.collidables
                 if (InputHandler.isPressed(Keys.D))
                     Hull.angle += 0.1f;
             }
-            Hull.Move();
         }
 
         public new void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
         {
-            if (/**!shieldOn && */c2 is Part)
+            if (/*!shieldOn && */c2 is Part)
             {
                 Part p = c2 as Part;
                 if (p.Carrier is Part)

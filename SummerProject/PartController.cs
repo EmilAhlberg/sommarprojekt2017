@@ -29,7 +29,7 @@ namespace SummerProject
         public virtual void Update(GameTime gameTime)
         {
             CalculateAngle();
-            Hull.Move();
+            Hull.Update(gameTime);
             if (Health <= 0 && !IsDead)
                 Death();
         }
@@ -43,6 +43,7 @@ namespace SummerProject
         public virtual void Death()
         {
             IsDead = true;
+            Hull.Death();
         }
 
         public void Collision(Collidable c2)
