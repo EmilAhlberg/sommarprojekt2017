@@ -174,7 +174,7 @@ namespace SummerProject
                 #region Health Death 8
                 case 8:
                     {
-                        CreateExplosion(8, position, 10, 40, 0.2f, Color.WhiteSmoke, 0, 0.5f, ttl, 7);
+                        CreateExplosion(8, position, 10, 40, 0.2f, Color.WhiteSmoke, 0, 0.5f, ttl, 9);
                         break;
                     }
                 #endregion
@@ -190,7 +190,7 @@ namespace SummerProject
                 #region Energy Death 12
                 case 12:
                     {
-                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Gold, 0, 1, ttl, 6);
+                        CreateNonRotExplosion(10, position, 10, 80, 0, Color.Gold, 0, 1, ttl, 10);
                         break;
                     }
                 #endregion
@@ -205,6 +205,32 @@ namespace SummerProject
 
                 #region Yellow Bar 15
                 #endregion
+
+                #region EnemyShoot Explosion 16
+                case 16:
+                    {
+                        initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        CreateParticle(new Sprite(spriteList[5]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        CreateParticle(new Sprite(spriteList[6]), position, -initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        if (color == Color.White)
+                            color = Color.DarkViolet;
+                        CreateExplosion(10, position, 10, 80, 0.2f, color.Value, 1, 1, ttl);
+                        break;
+                    }
+                #endregion
+
+                #region EnemySpeed Explosion 17
+                case 17:
+                    {
+                        initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                        CreateParticle(new Sprite(spriteList[7]), position, initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        CreateParticle(new Sprite(spriteList[8]), position, -initialForce, angle, angularVelocity, color.Value, scale, ttl, 2);
+                        if (color == Color.White)
+                            color = Color.DarkViolet;
+                        CreateExplosion(10, position, 10, 80, 0.2f, color.Value, 1, 1, ttl);
+                        break;
+                    }
+                    #endregion
             }
         }
 

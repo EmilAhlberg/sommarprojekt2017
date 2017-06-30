@@ -122,7 +122,14 @@ namespace SummerProject
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
+            if(CanShoot)
+                Particles.GenerateParticles(Position, 16, angle, sprite.MColor); //Death animation
+            else if(IsSpeedy)
+                Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
+            else if (IsAsteroid)
+                Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
+            else
+                Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             reloadTimer.Reset();
             base.Death();
