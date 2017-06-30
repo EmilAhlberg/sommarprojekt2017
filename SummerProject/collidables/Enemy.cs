@@ -15,6 +15,8 @@ namespace SummerProject
         private bool CanShoot { get; set; }
         private bool IsSpeedy { get; set; }
         private bool IsAsteroid { get; set; }
+        private float spriteRotSpeed;
+        private const float randomAngleOffsetMultiplier = .3f;
         protected CompositePart Hull;
         private Timer rageTimer;
         private Timer reloadTimer;
@@ -38,15 +40,17 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
-            if (!IsAsteroid)
-                CalculateAngle();
-            Move();
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
                 Enrage();
                 if (IsAsteroid)
                     Death();
+            }
+            if (!IsAsteroid)
+            {
+                CalculateAngle();
+                Particles.GenerateParticles(Position, 4, angle, Color.Green);
             }
             else
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
@@ -58,7 +62,9 @@ namespace SummerProject
                     projectiles.EvilFire(Position, player.Position);
                     reloadTimer.Reset();
                 }
-            }
+                sprite.Rotation += spriteRotSpeed;
+            Move();
+
 
             if (Health < 1)
             {
@@ -80,6 +86,9 @@ namespace SummerProject
             if (IsAsteroid)
             {
                 CalculateAngle();
+                Health *= 3;
+                spriteRotSpeed = 0.05f * SRandom.NextFloat();
+                angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             }
             else
              if (IsSpeedy)

@@ -12,7 +12,7 @@ namespace SummerProject.factories
         //private const float spawnTime = 1f;
         private int width;
         private int height;
-        private const float healthSpawnChance_tier2 = 0.05f;
+        private const float healthSpawnChance_tier2 = 0.02f;
         public Drops(int entityCap, int windowWidth, int windowHeight) : base(entityCap)
         {
             width = windowWidth - 100;
