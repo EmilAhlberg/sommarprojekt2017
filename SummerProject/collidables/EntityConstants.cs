@@ -60,6 +60,15 @@ namespace SummerProject.collidables
                 {HOMINGBULLET, 0.07f * (float)Math.PI}
         };
 
+        public static readonly Dictionary<int, int> FRICTION =
+          new Dictionary<int, int>
+          {
+                {DEFAULT, 10},
+                {PLAYER, 10},
+                {ENEMY, 10},
+                {BULLET, 10}
+          };
+
         public static readonly Dictionary<int, int> SCORE =
         new Dictionary<int, int>
         {             

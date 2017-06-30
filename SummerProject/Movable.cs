@@ -6,8 +6,8 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        private const float FRICTION = 10f; //!
-        private Vector2 Friction { get { return FRICTION * Velocity * Mass * Mass / 1000; } }
+        protected float friction = EntityConstants.FRICTION[EntityConstants.DEFAULT]; //!
+        private Vector2 Friction { get { return friction * Velocity * Mass * Mass / 1000; } }
         public Vector2 Velocity { set; get; } = Vector2.Zero; //-!
         protected float TurnSpeed { set; get; } = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
         protected float Mass { set; get; } = EntityConstants.MASS[EntityConstants.DEFAULT]; 
