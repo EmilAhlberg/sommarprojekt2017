@@ -142,7 +142,6 @@ namespace SummerProject
         //            if(p.Part != null)
         //                p.Part.Origin = value;
         //    }
-
         //}
 
         public override void Death()

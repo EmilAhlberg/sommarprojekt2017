@@ -10,23 +10,22 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    public abstract class PartController : IPartCarrier
+    public abstract class PartController : ActivatableEntity, IPartCarrier
     {
         public CompositePart Hull;
-        public int Health { get; protected set; }
-        public int Damage { get; protected set; }
         public bool IsDead { get; set; }
-        public Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
+        public override Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
 
-        public PartController(ISprite sprite)
+        public PartController(Vector2 position, ISprite sprite) : base(position,sprite)
         {
             Hull = new RectangularHull(sprite);
             Hull.Carrier = this;
+            Position = position;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             CalculateAngle();
             Hull.Update(gameTime);
@@ -34,21 +33,17 @@ namespace SummerProject
                 Death();
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Hull.Draw(spriteBatch, gameTime);
         }
+
         protected abstract void CalculateAngle();
 
-        public virtual void Death()
+        public override void Death()
         {
             IsDead = true;
             Hull.Death();
-        }
-
-        public void Collision(Collidable c2)
-        {
-            throw new NotImplementedException();
         }
 
         public bool AddPart(Part part, int pos)

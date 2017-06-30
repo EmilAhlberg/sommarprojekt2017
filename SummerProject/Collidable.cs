@@ -12,15 +12,6 @@ namespace SummerProject
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             BoundBoxes = new List<RotRectangle>();
-            //if (sprite is CompositeSprite)
-            //{
-            //    List<ISprite> spriteList = ((CompositeSprite)sprite).spriteList;
-            //    foreach (ISprite s in spriteList)
-            //    {
-            //        BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(s.Position.X - s.Origin.X), (int)Math.Round(s.Position.Y - s.Origin.Y), s.SpriteRect.Width, s.SpriteRect.Height), angle));
-            //    }
-            //}
-            //else
             BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
             BoundBoxes[0].Origin = sprite.Origin;
         }

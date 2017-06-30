@@ -9,13 +9,13 @@ namespace SummerProject.factories
     {
         public List<Sprite> Sprites { get; }
         protected int entityCap;
-        public List<ActivatableEntity> EntityList { get; private set; }       
+        public List<Collidable> EntityList { get; private set; }       
 
         public Entities(List<Sprite> sprites, int entityCap)
         {
             this.Sprites = sprites;
             this.entityCap = entityCap;            
-            EntityList = new List<ActivatableEntity>();
+            EntityList = new List<Collidable>();
         }
 
         protected abstract ActivatableEntity CreateEntity(int index);
@@ -51,16 +51,16 @@ namespace SummerProject.factories
 
         protected void RemoveInactiveType(ActivatableEntity type)
         {
-            int tempCap = entityCap;
-            for (int i = 0; i < tempCap; i++)
-            {
-                if (EntityList[i].GetType().Equals(type.GetType()) && !EntityList[i].IsActive)
-                {
-                    EntityList.Remove(EntityList[i]);
-                    i--;
-                    tempCap--;
-                }
-            }
+            //int tempCap = entityCap;
+            //for (int i = 0; i < tempCap; i++)
+            //{
+            //    if (EntityList[i].GetType().Equals(type.GetType()) && !EntityList[i].IsActive)
+            //    {
+            //        EntityList.Remove(EntityList[i]);
+            //        i--;
+            //        tempCap--;
+            //    }
+            //}
         }
 
         protected void UpdateEntities(GameTime gameTime)

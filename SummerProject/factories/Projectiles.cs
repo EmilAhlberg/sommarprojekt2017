@@ -48,13 +48,13 @@ namespace SummerProject.factories
 
         private void RemoveAbundantType()
         {
-            for (int i = EntityList.Count - 1; i >= entityCap; i--)
-            {
-                if (!EntityList[i].IsActive)
-                {
-                    EntityList.Remove(EntityList[i]);
-                }
-            }
+            //for (int i = EntityList.Count - 1; i >= entityCap; i--)
+            //{
+            //    if (!EntityList[i].IsActive)
+            //    {
+            //        EntityList.Remove(EntityList[i]);
+            //    }
+            //}
         }
 
         protected override ActivatableEntity CreateEntity(int index)

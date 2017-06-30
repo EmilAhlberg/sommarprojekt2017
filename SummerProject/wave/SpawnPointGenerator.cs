@@ -34,12 +34,12 @@ namespace SummerProject.wave
         {
             switch(modeType)
             {
-                //case WaveGenerator.INCREASING_PRESSURE:
-                //    spawnSize = 1;
-                //    break;
-                //case WaveGenerator.WAVESPAWN_MODE:
-                //    spawnSize = 5;
-                //    break;
+                case WaveGenerator.INCREASING_PRESSURE:
+                    spawnSize = 1;
+                    break;
+                case WaveGenerator.WAVESPAWN_MODE:
+                    spawnSize = 5;
+                    break;
             }
             mode = modeType;
         }

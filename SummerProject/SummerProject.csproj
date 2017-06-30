@@ -89,7 +89,6 @@
     <Compile Include="events\menu\PauseMenu.cs" />
     <Compile Include="events\menu\SettingsMenu.cs" />
     <Compile Include="events\menu\UpgradeMenu.cs" />
-    <Compile Include="IUpdate.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />

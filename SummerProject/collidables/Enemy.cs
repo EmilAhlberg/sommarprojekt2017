@@ -9,9 +9,10 @@ namespace SummerProject
     class Enemy : PartController, IPartCarrier
     {        
         public int WorthScore {get; private set;}
+
         private Player player;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player) : base(sprite)
+        public Enemy(Vector2 position, ISprite sprite, Player player) : base(position, sprite)
         {
             this.player = player;            
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
@@ -29,7 +30,7 @@ namespace SummerProject
             //Particles.GenerateParticles(Position, 4, angle);
         }
 
-        protected void SpecificActivation(Vector2 source, Vector2 target)
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
         }
@@ -41,7 +42,7 @@ namespace SummerProject
             Hull.TurnTowardsVector(dX, dY);
         }
 
-        public new void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
+        public override void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
         {
             if (c2 is Part)
             {

@@ -34,14 +34,14 @@ namespace SummerProject.wave
         {
             switch (modeType)
             {
-                //case WaveGenerator.INCREASING_PRESSURE:                  
-                //    timer1.maxTime = TIMER1_INCREASINGMODE; 
-                //    timer2.maxTime = TIMER2_INCREASINGMODE;                    
-                //    break;
-                //case WaveGenerator.WAVESPAWN_MODE:
-                //    timer1.maxTime = TIMER1_WAVESPAWNMODE;
-                //    //timer2.maxTime = TIMER2_WAVESPAWNMODE;                   
-                //    break;
+                case WaveGenerator.INCREASING_PRESSURE:
+                    timer1.maxTime = TIMER1_INCREASINGMODE;
+                    timer2.maxTime = TIMER2_INCREASINGMODE;
+                    break;
+                case WaveGenerator.WAVESPAWN_MODE:
+                    timer1.maxTime = TIMER1_WAVESPAWNMODE;
+                    //timer2.maxTime = TIMER2_WAVESPAWNMODE;                   
+                    break;
             }
             timer1.Reset();
             timer2.Reset();
@@ -53,12 +53,12 @@ namespace SummerProject.wave
         {            
             switch (mode)
             {
-                //case WaveGenerator.INCREASING_PRESSURE:
-                //    IncreasingPressureMode(gameTime);                   
-                //    return timer1.IsFinished;                    
-                //case WaveGenerator.WAVESPAWN_MODE:
-                //    WaveSpawnMode(gameTime);
-                //    return timer1.IsFinished;                    
+                case WaveGenerator.INCREASING_PRESSURE:
+                    IncreasingPressureMode(gameTime);
+                    return timer1.IsFinished;
+                case WaveGenerator.WAVESPAWN_MODE:
+                    WaveSpawnMode(gameTime);
+                    return timer1.IsFinished;
             }
 
             return false;
@@ -68,9 +68,9 @@ namespace SummerProject.wave
         {
             switch (mode)
             {
-                //case WaveGenerator.INCREASING_PRESSURE:
-                //    timer1.Reset();
-                //    break;
+                case WaveGenerator.INCREASING_PRESSURE:
+                    timer1.Reset();
+                    break;
             }
         }
 

@@ -22,8 +22,8 @@ namespace SummerProject
         Player player;
         Wall wall;
         Timer deathTimer;
-        //WaveGenerator waveGenerator;
-        //Enemies enemies;
+        WaveGenerator waveGenerator;
+        Enemies enemies;
         Projectiles projectiles;
         Sprite background;
         CollisionHandler colhandl;
@@ -133,7 +133,7 @@ namespace SummerProject
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
             waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            enemies = new Enemies(enemySprites, player, 30, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            enemies = new Enemies(enemySprites, player, 30/*, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight*/);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(300, 300), new Sprite(wallTex));
             drops = new Drops(dropSprites, 10);
@@ -229,27 +229,27 @@ namespace SummerProject
                 Particles.Reset();
             }
             projectiles.Reset();
-            drops.Reset();           
-            //waveGenerator.Reset();
+            drops.Reset();
+            waveGenerator.Reset();
             ScoreHandler.Reset();
         }
 
         private void HandleAllCollisions()
         {
             List<Collidable> collidableList = new List<Collidable>();
-            //foreach (Collidable c in waveGenerator.CollidableList())
-            //{
-            //    collidableList.Add(c);
-            //}
-            //foreach (Collidable c in projectiles.EntityList)
-            //{
-            //    collidableList.Add(c);
-            //}
-            //foreach (Collidable c in drops.EntityList)
-            //{
-            //    collidableList.Add(c);
-            //}
-            //colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0] ,wall);
+            foreach (Collidable c in waveGenerator.CollidableList())
+            {
+                collidableList.Add(c);
+            }
+            foreach (Collidable c in projectiles.EntityList)
+            {
+                collidableList.Add(c);
+            }
+            foreach (Collidable c in drops.EntityList)
+            {
+                collidableList.Add(c);
+            }
+            colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0], wall);
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace SummerProject
             projectiles.Draw(spriteBatch, gameTime);
             player.Draw(spriteBatch, gameTime);                 
             wall.Draw(spriteBatch, gameTime);
-            //waveGenerator.Draw(spriteBatch, gameTime);
+            waveGenerator.Draw(spriteBatch, gameTime);
             drops.Draw(spriteBatch, gameTime);
             #endregion
         }
@@ -331,24 +331,24 @@ namespace SummerProject
 
             drops.Spawn(new Vector2(500, 500));
 
-            spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Part pos: " + player.Hull.Parts[0].BoundBoxes[0].Position, new Vector2(600, 200), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Player origin: " + player.Hull.BoundBoxes[0].Origin, new Vector2(600, 300), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Part origin: " + player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(600, 400), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Player intersects wall: " + player.Hull.BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 500), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Player part intersects wall: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 600), Color.Yellow);
-            spriteBatch.DrawString(debugFont, "Player intersects part: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(player.Hull.BoundBoxes[0]), new Vector2(600, 700), Color.Yellow);
-            spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
-            Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].Position.X), (int)(player.Hull.BoundBoxes[0].Position.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
-            Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].Position.X), (int)(player.Hull.Parts[0].BoundBoxes[0].Position.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
+            //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Part pos: " + player.Hull.Parts[0].BoundBoxes[0].Position, new Vector2(600, 200), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Player origin: " + player.Hull.BoundBoxes[0].Origin, new Vector2(600, 300), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Part origin: " + player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(600, 400), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Player intersects wall: " + player.Hull.BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 500), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Player part intersects wall: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(wall.BoundBoxes[0]), new Vector2(600, 600), Color.Yellow);
+            //spriteBatch.DrawString(debugFont, "Player intersects part: " + player.Hull.Parts[1].BoundBoxes[0].Intersects(player.Hull.BoundBoxes[0]), new Vector2(600, 700), Color.Yellow);
+            //spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
+            //Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].Position.X), (int)(player.Hull.BoundBoxes[0].Position.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
+            //Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].Position.X), (int)(player.Hull.Parts[0].BoundBoxes[0].Position.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
             //spriteBatch.Draw(Content.Load<Texture2D>("textures/ship"),player.Hull.BoundBoxes[0].Position,cR, Color.Aqua, player.Hull.BoundBoxes[0].Angle, player.Hull.BoundBoxes[0].Origin, new Vector2(1,1),SpriteEffects.None,1);
-            spriteBatch.Draw(Content.Load<Texture2D>("textures/plus"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Red, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
+            //spriteBatch.Draw(Content.Load<Texture2D>("textures/plus"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Red, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
 
-            wall = new Wall(new Vector2(500, 500), new Sprite(Content.Load<Texture2D>("textures/wall")));
-            wall.Angle = (float)Math.PI / 3;
-            wall.Origin = new Vector2(-100, -100);
+            //wall = new Wall(new Vector2(500, 500), new Sprite(Content.Load<Texture2D>("textures/wall")));
+            //wall.Angle = (float)Math.PI / 3;
+            //wall.Origin = new Vector2(-100, -100);
             //wall.Angle = (float)Math.PI*3/2;
-            wall.Draw(spriteBatch, gameTime);
+            //wall.Draw(spriteBatch, gameTime);
             //spriteBatch.Draw(Content.Load<Texture2D>("textures/ship"), new Vector2(100,100), cR2, Color.Aqua, (float)Math.PI/2, new Vector2(cR2.Width/2,cR2.Height/2), new Vector2(1, 1), SpriteEffects.None, 1);
         }
     }

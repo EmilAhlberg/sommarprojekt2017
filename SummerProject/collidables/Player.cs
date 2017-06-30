@@ -10,7 +10,7 @@ namespace SummerProject.collidables
 {
     public class Player : PartController, IPartCarrier
     {
-        private float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+        //private float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 1; // 1-4      
         private Vector2 startPosition;
         private Projectiles projectiles;
@@ -21,7 +21,7 @@ namespace SummerProject.collidables
         //private const int shieldSize = 300;
         //private bool shieldOn;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(sprite)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
             startPosition = position;
             this.projectiles = projectiles;
@@ -91,7 +91,7 @@ namespace SummerProject.collidables
             Hull.TurnTowardsVector(dX, dY);
         }
 
-        protected void Move() //Change when adding engine
+        protected override void Move() //Change when adding engine
         {
             if (InputHandler.isPressed(Keys.D1))
                 ControlScheme = 1;
@@ -155,9 +155,9 @@ namespace SummerProject.collidables
             }
         }
 
-        public new void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
+        public override void Collision(Collidable c2) //Add support for Bullets, Healthdrops, shield etc
         {
-            if (/*!shieldOn && */c2 is Part)
+            if (/*!shieldOn && */c2 is Enemy)
             {
                 Part p = c2 as Part;
                 if (p.Carrier is Part)
@@ -189,6 +189,11 @@ namespace SummerProject.collidables
             Hull.Position = startPosition;
             Hull.Stop();
             IsDead = false;
+        }
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            throw new NotImplementedException();
         }
     }
 }

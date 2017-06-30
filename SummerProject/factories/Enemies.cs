@@ -29,7 +29,7 @@ namespace SummerProject.factories
         {
             ActivateEntities(source, player.Position);
         }
-        protected override Enemy CreateEntity(int index)
+        protected override ActivatableEntity CreateEntity(int index)
         {
             return EntityFactory.CreateEnemy(Sprites[index], player);
         }
