@@ -308,9 +308,8 @@ namespace SummerProject
                 eventOperator.Draw(spriteBatch, gameTime);
 
             DebugMode(spriteBatch, gameTime);
-            achController.Draw(spriteBatch, gameTime);
+            //achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
-            // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
                 DrawSpecialTransparency(spriteBatch, gameTime);
