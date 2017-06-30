@@ -7,10 +7,9 @@ namespace SummerProject.factories
     class EntityFactory
     {
         private const int standard = -5000;
-        public static AIEntity CreateEnemy(Sprite sprite, Player player)
+        public static AIEntity CreateEnemy(Sprite sprite, Player player, int type)
         {
-            return new Enemy(FarAway(), new Sprite(sprite), player);
-
+            return new Enemy(FarAway(), new Sprite(sprite), player, type);
         }
 
         public static AIEntity CreateEntity(Sprite sprite, int type)

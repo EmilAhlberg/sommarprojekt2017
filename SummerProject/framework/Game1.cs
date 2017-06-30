@@ -33,6 +33,7 @@ namespace SummerProject
         UnitBar energyBar;
         AchievementController achController;
         const bool SPAWN_ENEMIES = true;
+        bool slowmo = false;
 
         public Game1()
         {
@@ -93,7 +94,10 @@ namespace SummerProject
 
             #region Loading textures
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
-            Texture2D enemyTex = Content.Load<Texture2D>("textures/enemyShip");
+            Texture2D enemyTex1 = Content.Load<Texture2D>("textures/enemyShip");
+            Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
+            Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
+            Texture2D enemyTex4 = Content.Load<Texture2D>("textures/asteroid");
             Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
@@ -104,6 +108,10 @@ namespace SummerProject
             Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
+            Texture2D deadTex5 = Content.Load<Texture2D>("textures/denemyShoot1");
+            Texture2D deadTex6 = Content.Load<Texture2D>("textures/denemyShoot2");
+            Texture2D deadTex7 = Content.Load<Texture2D>("textures/denemySpeed1");
+            Texture2D deadTex8 = Content.Load<Texture2D>("textures/denemySpeed2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
@@ -116,7 +124,10 @@ namespace SummerProject
             #endregion
 
             #region Adding entity-sprites to list
-            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex, 2, 4);
+            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex1, 2, 4);
+            Entities.Sprites[EntityTypes.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
+            Entities.Sprites[EntityTypes.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
+            Entities.Sprites[EntityTypes.ENEMYASTER] = new Sprite(enemyTex4);
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
@@ -146,9 +157,12 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex1));
             Particles.AddSprite(new Sprite(deadTex4));
             Particles.AddSprite(new Sprite(deadTex3));
-            Particles.AddSprite(new Sprite(plusTex));
-            Particles.AddSprite(new Sprite(boltTex));
+            Particles.AddSprite(new Sprite(deadTex6));
+            Particles.AddSprite(new Sprite(deadTex5));
+            Particles.AddSprite(new Sprite(deadTex8));
+            Particles.AddSprite(new Sprite(deadTex7));
             Particles.AddSprite(new Sprite(wrenchTex));
+            Particles.AddSprite(new Sprite(boltTex));  
             #endregion
             // TODO: use this.Content to load your game content here
         }
@@ -171,6 +185,8 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -266,6 +282,7 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             background.Draw(spriteBatch, gameTime);

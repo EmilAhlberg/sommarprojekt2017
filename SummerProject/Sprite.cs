@@ -108,7 +108,6 @@ namespace SummerProject
 
         public void ColorRestore()
         {
-
         }
 
 

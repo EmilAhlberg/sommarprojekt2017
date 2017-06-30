@@ -16,14 +16,23 @@ namespace SummerProject
         private bool CanShoot { get; set; }
         private bool IsSpeedy { get; set; }
         private bool IsAsteroid { get; set; }
+        private float spriteRotSpeed;
+        private const float randomAngleOffsetMultiplier = .3f;
         protected CompositePart Hull;
         private Timer rageTimer;
+        private Timer reloadTimer;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player)
+
+        public Enemy(Vector2 position, ISprite sprite, Player player, int type)
             : base(position, sprite)
         {
             this.player = player;
-
+            switch (type)
+            {
+                case 151: CanShoot = true; break;
+                case 152: IsSpeedy = true; break;
+                case 153: IsAsteroid = true; break;
+            }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -32,9 +41,6 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
-            if (!IsAsteroid)
-                CalculateAngle();
-            Move();
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
@@ -42,13 +48,23 @@ namespace SummerProject
                 if (IsAsteroid)
                     Death();
             }
-            else
-                Particles.GenerateParticles(Position, 4, angle, Color.Green);
-            if (CanShoot && SRandom.NextFloat() < Difficulty.ENEMY_FIRE_RISK)
+            if (!IsAsteroid)
             {
-                projectiles.EvilFire(Position, player.Position);
+                CalculateAngle();
+                Particles.GenerateParticles(Position, 4, angle, Color.Green);
             }
-
+            else
+                sprite.Rotation += spriteRotSpeed;
+            if (CanShoot)
+            {
+                reloadTimer.CountDown(gameTime);
+                if (reloadTimer.IsFinished)
+                {
+                    projectiles.EvilFire(Position, player.Position);
+                    reloadTimer.Reset();
+                }
+            }
+            Move();
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
@@ -66,33 +82,19 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            DecideType();
+            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
             if (IsAsteroid)
             {
-                sprite.MColor = Color.DarkGreen;
                 CalculateAngle();
-            }
-            else if (CanShoot)
-            {
-                sprite.MColor = Color.Red;
+                Health *= 3;
+                spriteRotSpeed = 0.05f * SRandom.NextFloat();
+                angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             }
             else
              if (IsSpeedy)
             {
-                sprite.MColor = Color.Blue;
                 Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
             }
-        }
-
-        private void DecideType()
-        {
-            float rnd = SRandom.NextFloat();
-            if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
-                CanShoot = true;
-            else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
-                IsSpeedy = true;
-            else if (rnd < Difficulty.IS_ASTEROID_RISK)
-                IsAsteroid = true;
         }
 
         private void Enrage()
@@ -135,10 +137,7 @@ namespace SummerProject
         {
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
-            CanShoot = false;
-            IsAsteroid = false;
-            IsSpeedy = false;
-            sprite.Scale = new Vector2(1, 1);
+            reloadTimer.Reset();
             base.Death();
         }
 
