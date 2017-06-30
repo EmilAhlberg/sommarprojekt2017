@@ -10,6 +10,7 @@ namespace SummerProject.collidables
 {
     public class Player : Entity, IPartCarrier
     {
+        private const bool FRICTIONFREEACCELERATION = true;
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
@@ -173,7 +174,13 @@ namespace SummerProject.collidables
                     angle += 0.1f;
             }
             #endregion
+            if (FRICTIONFREEACCELERATION)
+            {
+                if (base.Thrust != 0)
+                    friction = 0;
+            }
             base.Move();
+            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
         }
 
         public override void Collision(Collidable c2)
