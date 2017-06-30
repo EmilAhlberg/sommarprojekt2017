@@ -36,6 +36,8 @@ namespace SummerProject
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
+            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
+
             //Hull = new RectangularHull(position, sprite);                
         }
 
