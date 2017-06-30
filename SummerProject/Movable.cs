@@ -23,10 +23,11 @@ namespace SummerProject
             TotalExteriorForce = new Vector2(0, 0);
         }
 
-        protected void AddSpeed(float speed)
+        protected void AddSpeed(float speed, float angle)
         {
-            AddForce(DirectionVector * speed*Mass);
+            AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
         }
+
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
         protected void AddForce(Vector2 appliedForce)
