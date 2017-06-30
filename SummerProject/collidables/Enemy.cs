@@ -4,6 +4,7 @@ using SummerProject.collidables;
 using SummerProject.collidables.parts;
 using SummerProject.factories;
 using SummerProject.wave;
+using SummerProject.achievements;
 
 namespace SummerProject
 {
@@ -67,6 +68,7 @@ namespace SummerProject
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
+                Traits.KillTrait.Counter++;
                 Death();
             }
         }
@@ -111,11 +113,16 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
+            
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
                 if (b.IsActive && !b.IsEvil)
+                {
                     Health -= b.Damage;
+                    AddForce(b.Velocity); //! remove lator
+                }
+                
             }
             if (c2 is ExplosionDrop)
             {
@@ -124,12 +131,23 @@ namespace SummerProject
                     Health -= ed.Damage;
             }
             if (c2 is Player)
+            {
+                //Traits.KillTrait.Counter++; //maybe not counted as a kill
                 Death();
+            }
+              
         }
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
+            if(CanShoot)
+                Particles.GenerateParticles(Position, 16, angle, sprite.MColor); //Death animation
+            else if (IsSpeedy)
+                Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
+            else if (IsAsteroid)
+                Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
+            else
+                Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             reloadTimer.Reset();
             base.Death();

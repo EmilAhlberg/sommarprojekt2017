@@ -7,6 +7,7 @@ using SummerProject.collidables;
 using System;
 using SummerProject.wave;
 using SummerProject.util;
+using SummerProject.achievements;
 
 namespace SummerProject
 {
@@ -30,6 +31,7 @@ namespace SummerProject
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
+        AchievementController achController;
         const bool SPAWN_ENEMIES = true;
         bool slowmo = false;
 
@@ -106,6 +108,10 @@ namespace SummerProject
             Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
             Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
             Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
+            Texture2D deadTex5 = Content.Load<Texture2D>("textures/denemyShoot1");
+            Texture2D deadTex6 = Content.Load<Texture2D>("textures/denemyShoot2");
+            Texture2D deadTex7 = Content.Load<Texture2D>("textures/denemySpeed1");
+            Texture2D deadTex8 = Content.Load<Texture2D>("textures/denemySpeed2");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
@@ -143,6 +149,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+            achController = new AchievementController(bigFont);
             #endregion
 
             #region Adding sprites to particles
@@ -150,9 +157,12 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex1));
             Particles.AddSprite(new Sprite(deadTex4));
             Particles.AddSprite(new Sprite(deadTex3));
-            Particles.AddSprite(new Sprite(plusTex));
-            Particles.AddSprite(new Sprite(boltTex));
+            Particles.AddSprite(new Sprite(deadTex6));
+            Particles.AddSprite(new Sprite(deadTex5));
+            Particles.AddSprite(new Sprite(deadTex8));
+            Particles.AddSprite(new Sprite(deadTex7));
             Particles.AddSprite(new Sprite(wrenchTex));
+            Particles.AddSprite(new Sprite(boltTex));  
             #endregion
             // TODO: use this.Content to load your game content here
         }
@@ -186,6 +196,7 @@ namespace SummerProject
                 eventOperator.Update(gameTime);
 
             CheckGameStatus(gameTime);
+            achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
         }
@@ -295,6 +306,7 @@ namespace SummerProject
                 eventOperator.Draw(spriteBatch, gameTime);
 
             DebugMode(spriteBatch, gameTime);
+            achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
