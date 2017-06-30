@@ -17,6 +17,8 @@ namespace SummerProject
         private bool IsAsteroid { get; set; }
         protected CompositePart Hull;
         private Timer rageTimer;
+        private Timer reloadTimer;
+
 
         public Enemy(Vector2 position, ISprite sprite, Player player, int type)
             : base(position, sprite)
@@ -27,7 +29,7 @@ namespace SummerProject
                 case 151: CanShoot = true; break;
                 case 152: IsSpeedy = true; break;
                 case 153: IsAsteroid = true; break;
-            }
+            }  
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             rageTimer = new Timer(15);
@@ -48,9 +50,14 @@ namespace SummerProject
             }
             else
                 Particles.GenerateParticles(Position, 4, angle, Color.Green);
-            if (CanShoot && SRandom.NextFloat() < Difficulty.ENEMY_FIRE_RISK)
+            if (CanShoot)
             {
-                projectiles.EvilFire(Position, player.Position);
+                reloadTimer.CountDown(gameTime);
+                if (reloadTimer.IsFinished)
+                {
+                    projectiles.EvilFire(Position, player.Position);
+                    reloadTimer.Reset();
+                }
             }
 
             if (Health < 1)
@@ -69,6 +76,7 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
+            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
             if (IsAsteroid)
             {
                 CalculateAngle();
@@ -116,6 +124,7 @@ namespace SummerProject
         {
             Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
+            reloadTimer.Reset();
             base.Death();
         }
 

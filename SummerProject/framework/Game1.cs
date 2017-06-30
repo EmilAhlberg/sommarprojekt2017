@@ -31,6 +31,7 @@ namespace SummerProject
         UnitBar healthBar;
         UnitBar energyBar;
         const bool SPAWN_ENEMIES = true;
+        bool slowmo = false;
 
         public Game1()
         {
@@ -174,6 +175,8 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -268,6 +271,7 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             background.Draw(spriteBatch, gameTime);
