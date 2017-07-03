@@ -14,6 +14,7 @@ namespace SummerProject
     {
         protected Link[] parts;
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
+        public new float fritction { set { base.friction = value; } get { return base.friction; } }
         public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
         public override Color Color {
             set
