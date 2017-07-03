@@ -33,7 +33,7 @@ namespace SummerProject.collidables.Enemies
             Health = 3 * EntityConstants.HEALTH[EntityConstants.ENEMY];
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
-            angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
+            Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             friction = 0;
             Thrust = 0;
             AddSpeed(5, angle);
