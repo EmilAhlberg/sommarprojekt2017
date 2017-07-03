@@ -150,10 +150,22 @@ namespace SummerProject
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            GunPart gunPart = new GunPart(new Sprite(gunTex1));
-            EnginePart engine = new EnginePart(new Sprite(engineTex1));
-            player.AddPart(gunPart, 3);
-            player.AddPart(engine, 1);
+            RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
+            RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
+            GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart2 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart3 = new GunPart(new Sprite(gunTex1));
+            EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
+            EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
+            EnginePart engine3 = new EnginePart(new Sprite(engineTex1));
+            player.AddPart(rectHull1, 0);
+            player.AddPart(rectHull2, 2);
+            player.AddPart(engine1, 1);
+            rectHull1.AddPart(engine2, 1);
+            rectHull2.AddPart(engine3, 1);
+            player.AddPart(gunPart1, 3);
+            rectHull1.AddPart(gunPart2, 3);
+            rectHull2.AddPart(gunPart3, 3);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
