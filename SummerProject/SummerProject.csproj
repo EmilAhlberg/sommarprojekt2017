@@ -73,7 +73,7 @@
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
-    <Compile Include="PartController.cs" />
+    <Compile Include="collidables\PartController.cs" />
     <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="events\menu\menuTypes\DifficultyMenu.cs" />
     <Compile Include="factories\Drops.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
-    <Compile Include="collidables\Enemy.cs" />
+    <Compile Include="collidables\Enemies\Enemy.cs" />
     <Compile Include="collidables\parts\Part.cs" />
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
