@@ -187,6 +187,7 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
+
             if (/*!shieldOn && */c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
