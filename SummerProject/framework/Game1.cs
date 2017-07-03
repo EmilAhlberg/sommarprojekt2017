@@ -99,7 +99,7 @@ namespace SummerProject
             Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
             Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
             Texture2D enemyTex4 = Content.Load<Texture2D>("textures/asteroid");
-            Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_1");
+            Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_3");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
