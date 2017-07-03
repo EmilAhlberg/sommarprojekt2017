@@ -32,8 +32,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width -100;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height-100;
             Content.RootDirectory = "Content";
         }
 
