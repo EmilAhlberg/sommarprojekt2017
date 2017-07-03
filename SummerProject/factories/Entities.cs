@@ -10,15 +10,15 @@ namespace SummerProject.factories
     {
         public static Sprite[] Sprites = new Sprite[EntityTypes.ARRAYSIZE]; //!
         protected int entityCap;
-        public Dictionary<int, List<AIEntity>> EntityDic { get; private set; }       
+        public Dictionary<int, List<Collidable>> EntityDic { get; private set; }       
 
         public Entities(int entityCap)
         {
             this.entityCap = entityCap;            
-            EntityDic = new Dictionary<int, List<AIEntity>>();
+            EntityDic = new Dictionary<int, List<Collidable>>();
         }
 
-        protected abstract AIEntity CreateEntity(int index);
+        protected abstract ActivatableEntity CreateEntity(int index);
         public abstract void Reset();
 
         protected void InitializeEntities(int type)
@@ -35,7 +35,7 @@ namespace SummerProject.factories
 
         protected void ResetEntities()
         {
-            foreach (AIEntity e in GetValues())
+            foreach (ActivatableEntity e in GetValues())
                 if (e.IsActive)
                     e.Death();
         }
@@ -47,7 +47,7 @@ namespace SummerProject.factories
 
         public bool ActivateEntities(Vector2 source, Vector2 target, int type)
         {
-            foreach (AIEntity e in EntityDic[type])
+            foreach (ActivatableEntity e in EntityDic[type])
             {
                 if (!e.IsActive)
                 {
@@ -74,7 +74,7 @@ namespace SummerProject.factories
 
         protected void UpdateEntities(GameTime gameTime)
         {
-            foreach (AIEntity e in GetValues())
+            foreach (ActivatableEntity e in GetValues())
             {
                 if (e.IsActive)
                     e.Update(gameTime);
@@ -83,7 +83,7 @@ namespace SummerProject.factories
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (AIEntity e in GetValues())
+            foreach (ActivatableEntity e in GetValues())
             {
                 if (e.IsActive)
                     e.Draw(spriteBatch, gameTime);
