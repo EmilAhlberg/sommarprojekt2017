@@ -8,6 +8,7 @@ using System;
 using SummerProject.wave;
 using SummerProject.util;
 using SummerProject.achievements;
+using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
@@ -98,7 +99,7 @@ namespace SummerProject
             Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
             Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
             Texture2D enemyTex4 = Content.Load<Texture2D>("textures/asteroid");
-            Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
+            Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_1");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
@@ -124,6 +125,8 @@ namespace SummerProject
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
+            Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
+            Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             #endregion
 
             #region Adding entity-sprites to list
@@ -146,19 +149,24 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, homingTex, gameMode, achController); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
+            GunPart.projectiles = projectiles;
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            RectangularHull rectHull = new RectangularHull(new Sprite(shipTex));
-            //RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
-            player.AddPart(rectHull, 0);
-            //player.AddPart(rectHull2, 2);
-            //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 1);
-            //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 2);
-            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
-            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 1);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
+            RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
+            RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
+            GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart2 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart3 = new GunPart(new Sprite(gunTex1));
+            EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
+            EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
+            EnginePart engine3 = new EnginePart(new Sprite(engineTex1));
+            player.AddPart(rectHull1, 0);
+            player.AddPart(rectHull2, 2);
+            player.AddPart(engine1, 1);
+            rectHull1.AddPart(engine2, 1);
+            rectHull2.AddPart(engine3, 1);
+            player.AddPart(gunPart1, 3);
+            rectHull1.AddPart(gunPart2, 3);
+            rectHull2.AddPart(gunPart3, 3);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
@@ -166,7 +174,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
-           
+
             #endregion
 
             #region Adding sprites to particles
@@ -281,12 +289,7 @@ namespace SummerProject
             List<Collidable> collidableList = new List<Collidable>();
             foreach (Collidable c in gameController.CollidableList())
             {
-                if(c is PartController)
-                {
-                    collidableList.AddRange((c as PartController).Parts);
-                }
-                else
-                    collidableList.Add(c);
+                collidableList.Add(c);
             }
             foreach (Collidable c in projectiles.GetValues())
             {
@@ -296,7 +299,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0], wall);
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
         }
 
         /// <summary>

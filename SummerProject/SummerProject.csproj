@@ -63,6 +63,10 @@
     <Compile Include="achievements\SaveHandler.cs" />
     <Compile Include="achievements\Trait.cs" />
     <Compile Include="achievements\Traits.cs" />
+    <Compile Include="collidables\enemies\Asteroid.cs" />
+    <Compile Include="collidables\enemies\Shooter.cs" />
+    <Compile Include="collidables\enemies\Speedy.cs" />
+    <Compile Include="collidables\enemies\StandardEnemy.cs" />
     <Compile Include="collidables\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
@@ -72,10 +76,12 @@
     <Compile Include="collidables\ActivatableEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Drop.cs" />
+    <Compile Include="collidables\parts\EnginePart.cs" />
+    <Compile Include="collidables\parts\GunPart.cs" />
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
-    <Compile Include="PartController.cs" />
+    <Compile Include="collidables\PartController.cs" />
     <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="events\menu\menuTypes\DifficultyMenu.cs" />
     <Compile Include="factories\Drops.cs" />
@@ -103,7 +109,7 @@
     <Compile Include="Movable.cs" />
     <Compile Include="factories\Projectiles.cs" />
     <Compile Include="Drawable.cs" />
-    <Compile Include="collidables\Enemy.cs" />
+    <Compile Include="collidables\enemies\Enemy.cs" />
     <Compile Include="collidables\parts\Part.cs" />
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />

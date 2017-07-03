@@ -12,7 +12,7 @@ namespace SummerProject
 {
     public abstract class PartController : ActivatableEntity, IPartCarrier
     {
-        public CompositePart Hull;
+        public CompositePart Hull { get; set; }
         public override Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
@@ -37,10 +37,14 @@ namespace SummerProject
 
         }
 
+        protected override float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }
+        protected override float Thrust { set { Hull.Thrust = value; } get { return Hull.Thrust; } }
+        public override float friction { set { Hull.friction = value; } get { return Hull.friction; } }
+
         public override void Update(GameTime gameTime)
         {
-            CalculateAngle();
             Hull.Update(gameTime);
+            CalculateAngle();
             if (Health <= 0 && IsActive)
                 Death();
         }
@@ -87,5 +91,7 @@ namespace SummerProject
         {
             Hull.Move();
         }
+
+        public void AddForce(float force, float angle) { Hull.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
     }
 }

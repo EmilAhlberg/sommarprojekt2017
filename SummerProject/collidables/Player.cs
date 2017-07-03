@@ -12,7 +12,7 @@ namespace SummerProject.collidables
     public class Player : PartController, IPartCarrier
     {
         private const bool FRICTIONFREEACCELERATION = true;
-        private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+        private new float Thrust { get; } = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
         private const float shieldDischargeRate = 3f;
@@ -51,37 +51,36 @@ namespace SummerProject.collidables
             if (IsActive)
             {
                 Hull.Color = Color.White; //Move to Respawn()
-                if (ControlScheme != 4)
-                    CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle, Color.MonoGameOrange);
+                //if (ControlScheme != 4)
+                //    CalculateAngle();
+                base.Update(gameTime);
                 Move();
-                Hull.Update(gameTime);
                 HandleBulletType();
                 Fire();
-                if (Health <= 0 && IsActive)
-                    Death();
-                if (InputHandler.isPressed(MouseButton.RIGHT))
-                {
-                    if (Energy > 0)
-                    {
-                        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, angle);
-                        Energy -= shieldDischargeRate;
-                        shieldOn = true;
-                    }
-                    else
-                    {
-                        Energy = 0;
-                        shieldOn = false;
-                    }
-                }
-                else
-                {
-                    shieldOn = false;
-                    if (maxEnergy > Energy)
-                    {
-                        Energy += shieldRechargeRate;
-                    }
-                }
+                //if (Health <= 0 && IsActive)
+                //    Death();
+                //if (InputHandler.isPressed(MouseButton.RIGHT))
+                //{
+                //    if (Energy > 0)
+                //    {
+                //        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, angle);
+                //        Energy -= shieldDischargeRate;
+                //        shieldOn = true;
+                //    }
+                //    else
+                //    {
+                //        Energy = 0;
+                //        shieldOn = false;
+                //    }
+                //}
+                //else
+                //{
+                //    shieldOn = false;
+                //    if (maxEnergy > Energy)
+                //    {
+                //        Energy += shieldRechargeRate;
+                //    }
+                //}
                 if (Health <= 2)
                 {
                     Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, angle);
@@ -101,7 +100,7 @@ namespace SummerProject.collidables
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Hull.Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
+                Hull.TakeAction(typeof(GunPart));
             }
         }
 
@@ -122,63 +121,63 @@ namespace SummerProject.collidables
             //    ControlScheme = 3;
             //if (InputHandler.isPressed(Keys.D4))
             //    ControlScheme = 4;
-            Hull.Thrust = 0;
+            base.Thrust = 0;
             #region Controls
             if (ControlScheme <= 1)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    Hull.Thrust = -Thrust;
+                    base.Thrust = -Thrust;
 
                 if (InputHandler.isPressed(Keys.W))
-                    Hull.Thrust += Thrust;
+                    base.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    Hull.AddForce(Thrust, Hull.angle - (float)Math.PI / 2);
+                    AddForce(Thrust, Angle - (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.D))
-                    Hull.AddForce(Thrust, Hull.angle + (float)Math.PI / 2);
+                    AddForce(Thrust, Angle + (float)Math.PI / 2);
             }
 
             else if (ControlScheme == 2)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    Hull.AddForce(Thrust, (float)Math.PI / 2);
+                    AddForce(Thrust, (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.W))
-                    Hull.AddForce(Thrust, -(float)Math.PI / 2);
+                    Hull.TakeAction(typeof(EnginePart));
 
                 if (InputHandler.isPressed(Keys.A))
-                    Hull.AddForce(Thrust, (float)Math.PI);
+                    AddForce(Thrust, (float)Math.PI);
 
                 if (InputHandler.isPressed(Keys.D))
-                    Hull.AddForce(Thrust, 0);
+                    AddForce(Thrust, 0);
             }
 
             else if (ControlScheme == 3)
             {
                 if (InputHandler.isPressed(MouseButton.RIGHT))
-                    Hull.Thrust = Thrust;
+                    base.Thrust = Thrust;
 
             }
-            else if (ControlScheme == 4)
-            {
-                Hull.Thrust = 0;
-                if (InputHandler.isPressed(Keys.S))
-                    Hull.Thrust = -Thrust;
+            //else if (ControlScheme == 4)
+            //{
+            //    base.Thrust = 0;
+            //    if (InputHandler.isPressed(Keys.S))
+            //        base.Thrust = -Thrust;
 
-                if (InputHandler.isPressed(Keys.W))
-                    Hull.Thrust += Thrust;
+            //    if (InputHandler.isPressed(Keys.W))
+            //        base.Thrust += Thrust;
 
-                if (InputHandler.isPressed(Keys.A))
-                    Hull.angle -= 0.1f;
+            //    if (InputHandler.isPressed(Keys.A))
+            //        Angle -= 0.1f;
 
-                if (InputHandler.isPressed(Keys.D))
-                    Hull.angle += 0.1f;
-            }
+            //    if (InputHandler.isPressed(Keys.D))
+            //        Angle += 0.1f;
+            //}
             #endregion
             if (FRICTIONFREEACCELERATION)
             {
-                if (Hull.Thrust != 0)
+                if (base.Thrust != 0)
                     friction = 0;
             }
             base.Move();
@@ -187,16 +186,12 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
+
             if (/*!shieldOn && */c2 is Enemy)
             {
-                Part p = c2 as Part;
-                if (p.Carrier is Part)
-                    Collision(p.Carrier as Part);
-                else
-                {
-                    if (p.Carrier is Enemy)
-                        Health -= (p.Carrier as Enemy).Damage;
-                }
+                Enemy e = c2 as Enemy;
+                Health -= e.Damage;
+            }
 
                 if (c2 is HealthDrop)
                 {
@@ -225,7 +220,7 @@ namespace SummerProject.collidables
                 //{
                 //    Health += HealthDrop.heal;
                 //}
-            }
+
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
