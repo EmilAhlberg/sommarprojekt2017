@@ -35,6 +35,7 @@ namespace SummerProject.menu
 
         public void Update(GameTime gameTime, EventOperator handler)
         {
+            menues[CurrentMenu].UpdateUnlocks(handler);
             
             for(int i = 0; i < MenuConstants.MENUITEMS[CurrentMenu].Length; i++)
             {
@@ -43,7 +44,7 @@ namespace SummerProject.menu
                 Point origin = new Point((int)measuredString.X / 2, (int)measuredString.Y/2);
                 Rectangle boundBox = new Rectangle(0, indexPosition.Y-origin.Y, WindowSize.Width, (int)measuredString.Y);
                 if (boundBox.Contains(InputHandler.mPosition))
-                    selectedIndex = i;
+                    selectedIndex = i;                        
             }
 
             if (InputHandler.isJustPressed(MouseButton.LEFT))

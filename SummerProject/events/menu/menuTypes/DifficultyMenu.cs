@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.wave;
+using SummerProject.achievements;
 
 namespace SummerProject.menu
 {
@@ -19,19 +20,25 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.GameMode.ChangeDifficulty(Difficulty.EASY);                   
+                    handler.GameMode.ChangeDifficulty(Difficulty.EASY);
                     //handler.GameMode.IsChanged = true;
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
-                    handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);
-                    //handler.GameMode.IsChanged = true;
-                    pressedIndex = selectedIndex;
+                    if (!isLocked[selectedIndex])
+                    {
+                        handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);
+                        //handler.GameMode.IsChanged = true;
+                        pressedIndex = selectedIndex;
+                    }                   
                     break;
                 case 2:
-                    handler.GameMode.ChangeDifficulty(Difficulty.HARD);
-                    //handler.GameMode.IsChanged = true;
-                    pressedIndex = selectedIndex;
+                    if (!isLocked[selectedIndex])
+                    {
+                        handler.GameMode.ChangeDifficulty(Difficulty.HARD);
+                        //handler.GameMode.IsChanged = true;
+                        pressedIndex = selectedIndex;
+                    }
                     break;
                 case 3:
                     handler.NewGameState = EventOperator.GAME_STATE;
@@ -39,6 +46,22 @@ namespace SummerProject.menu
                     break;
             }
             return -1;
+        }
+
+
+        public override void UpdateUnlocks(EventOperator handler)
+        {
+            if (handler.achControl.Achievements[Traits.NORMAL_DIFFICULTY].Unlocked)
+                isLocked[1] = false;
+            if (handler.achControl.Achievements[Traits.HARD_DIFFICULTY].Unlocked)
+                isLocked[2] = false;
+        }
+
+        protected override void SetLockedItems()
+        {
+            isLocked = new bool[menuItems.Length];
+            isLocked[1] = true;
+            isLocked[2] = true;
         }
     }
 }

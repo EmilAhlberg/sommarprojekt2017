@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
+using SummerProject.achievements;
 
 namespace SummerProject.framework
 {
@@ -62,7 +63,7 @@ namespace SummerProject.framework
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:
-                    string score = "Score: " + ScoreHandler.Score; //!
+                    string score = "Score: " + ScoreHandler.Score + "\nShots Fired: " + Traits.ShotsFiredTrait.Counter + "\nShots Hit: " + Traits.ShotsHitTrait.Counter + "\nTime Elapsed " + Traits.TimeTrait.Counter; //!
                     spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, score, WordLayoutPosition(score), Color.Gold);
                     break;
             }

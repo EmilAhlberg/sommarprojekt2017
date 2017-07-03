@@ -9,6 +9,7 @@ using SummerProject.collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.wave;
+using SummerProject.achievements;
 
 namespace SummerProject
 {
@@ -74,7 +75,7 @@ namespace SummerProject
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
-                                
+                Traits.EnemiesSpawnedTrait.Counter++;                                
             }            
         }    
 

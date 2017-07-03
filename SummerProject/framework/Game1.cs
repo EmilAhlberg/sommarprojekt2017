@@ -138,7 +138,8 @@ namespace SummerProject
 
             #region Initializing game objects etc.
             GameMode gameMode = new GameMode(scoreFont);
-            eventOperator = new EventOperator(bigFont, this, homingTex, gameMode); // fix new texture2d's!!
+            achController = new AchievementController(bigFont);
+            eventOperator = new EventOperator(bigFont, this, homingTex, gameMode, achController); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), new Sprite(shipTex), projectiles);
@@ -149,7 +150,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
-            achController = new AchievementController(bigFont);
+           
             #endregion
 
             #region Adding sprites to particles
@@ -212,7 +213,9 @@ namespace SummerProject
             HandleAllCollisions();
             KeepPlayerInScreen();
             healthBar.Update(player.Health, player.maxHealth);
-            energyBar.Update(player.Energy, player.maxEnergy);   
+            energyBar.Update(player.Energy, player.maxEnergy);
+            Traits.TimeTrait.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
+            float temp = Traits.TimeTrait.Counter;
             #endregion
         }
 

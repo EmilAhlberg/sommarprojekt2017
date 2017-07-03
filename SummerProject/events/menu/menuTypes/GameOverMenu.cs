@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SummerProject.menu
@@ -26,5 +27,16 @@ namespace SummerProject.menu
             }
             return -1;
         }
+
+        public override void UpdateUnlocks(EventOperator handler)
+        {           
+        }
+
+        protected override void SetLockedItems()
+        {
+            isLocked = new bool[menuItems.Length];
+        }
+
+
     }
 }

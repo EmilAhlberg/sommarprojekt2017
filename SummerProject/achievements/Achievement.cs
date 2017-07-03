@@ -10,12 +10,10 @@ namespace SummerProject.achievements
 {
     public class Achievement
     {
-        private bool unlocked;
+        public bool Unlocked { get; private set; }
         private String name;
         private Dictionary<int, Trait> traits;
         private Timer unlockTimer = new Timer(3);//!
-
-        public bool HasChanged { get; internal set; }
 
         public Achievement(String name, Dictionary<int, Trait> traits)
         {
@@ -26,11 +24,10 @@ namespace SummerProject.achievements
         public void Update(GameTime gameTime)
         {
             CheckUnlockCondition();
-            if (unlocked)
+            if (Unlocked)
             {
                 unlockTimer.CountDown(gameTime);
-            }
-                //trigger Achievement unlock                
+            }          
         }
 
         private void CheckUnlockCondition()
@@ -41,23 +38,22 @@ namespace SummerProject.achievements
 
                 if (trait.CheckCondition(i))
                 {
-                    unlocked = true;
+                    Unlocked = true;
                     traits.Remove(i); //remove trait to avoid redundant checks?  i tink så
                 }
                 else
                 {
-                    unlocked = false;
+                    Unlocked = false;
                     break;
-                }
-                    
+                }                    
             }            
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font)
         {
-            if (unlocked && !unlockTimer.IsFinished)
+            if (Unlocked && !unlockTimer.IsFinished)
             {
-                spriteBatch.DrawString(font, "unlock", new Vector2(400, 400), Color.PapayaWhip);
+                spriteBatch.DrawString(font, name + " unlocked!", new Vector2(400, 400), Color.PapayaWhip);
             }            
         }
     }

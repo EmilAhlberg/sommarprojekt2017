@@ -19,13 +19,17 @@ namespace SummerProject.factories
             Enemy.projectiles = this; //! Hmmmmm
         }
 
-        public void Fire(Vector2 source, Vector2 target)
+        public bool Fire(Vector2 source, Vector2 target)
         {
             if (reloadTimer.IsFinished)
             {
                 if (ActivateEntities(source, target, bulletType))
+                {
                     reloadTimer.Reset();
+                    return true; //bool type: only because of players shotsFiredTrait
+                }                
             }
+            return false;
         }
 
         public void EvilFire(Vector2 source, Vector2 target)

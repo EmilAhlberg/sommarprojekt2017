@@ -10,39 +10,51 @@ namespace SummerProject.achievements
 {
     public class AchievementController
     {
-        public List<Achievement> achievements;
+        public List<Achievement> Achievements { get; set; }
         private SpriteFont font;    
 
         public AchievementController(SpriteFont font)
         {
             this.font = font;
-            achievements = new List<Achievement>();
+            Achievements = new List<Achievement>();
             InitAchievements();
         }
 
         //different achievements and their links to traits are added here
         private void InitAchievements()
         {            
-            Dictionary<int, Trait> normalMode = new Dictionary<int, Trait>();
-            normalMode.Add(Traits.KILLTHRESHOLD[Traits.NORMAL], Traits.KillTrait);
-            normalMode.Add(Traits.SCORETHRESHOLD[Traits.NORMAL], Traits.ScoreTrait);
+            Dictionary<int, Trait> normalDifficulty = new Dictionary<int, Trait>();
+            normalDifficulty.Add(Traits.KILLTHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.KillTrait);
+            normalDifficulty.Add(Traits.SCORETHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.ScoreTrait);
 
-            Achievement normalAch = new Achievement("NormalMode", normalMode);
+           
 
-            Dictionary<int, Trait> hardMode = new Dictionary<int, Trait> ();
-            hardMode.Add(Traits.KILLTHRESHOLD[Traits.HARD], Traits.KillTrait);
-            hardMode.Add(Traits.SCORETHRESHOLD[Traits.HARD], Traits.ScoreTrait);
-            Achievement hardAch = new Achievement("HardMode", hardMode);
+            Dictionary<int, Trait> hardDifficulty = new Dictionary<int, Trait>();
+            hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KillTrait);
+            hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.ScoreTrait);
 
-            achievements.Add(normalAch);
-            achievements.Add(hardAch);
+            Dictionary<int, Trait> waveMode = new Dictionary<int, Trait>();
+            waveMode.Add(Traits.TIMETHRESHOLD[Traits.WAVE_MODE], Traits.TimeTrait);
+
+            Dictionary<int, Trait> burstMode = new Dictionary<int, Trait>();
+            burstMode.Add(Traits.LEVELTHRESHOLD[Traits.BURST_MODE], Traits.LevelTrait);
+
+            Achievement normalAch = new Achievement("Normal Difficulty", normalDifficulty);
+            Achievement hardAch = new Achievement("Hard Difficulty", hardDifficulty);
+            Achievement waveAch = new Achievement("Wave Mode", waveMode);
+            Achievement burstAch = new Achievement("Wave Mode", burstMode);
+
+            Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order 
+            Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);
+            Achievements.Insert(Traits.WAVE_MODE, waveAch);
+            Achievements.Insert(Traits.BURST_MODE, burstAch);
         }
 
         public void Update(GameTime gameTime)
         {
             Traits.ScoreTrait.Counter = ScoreHandler.Score;
             
-            foreach(Achievement a in achievements)
+            foreach(Achievement a in Achievements)
             {
                 a.Update(gameTime);
             }
@@ -50,11 +62,18 @@ namespace SummerProject.achievements
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (Achievement a in achievements)
+            foreach (Achievement a in Achievements)
             {                                
-                    a.Draw(spriteBatch, gameTime, font); //! font
-                               
+                    a.Draw(spriteBatch, gameTime, font); //! font                               
             }
+        }
+        //??
+        public void Reset()
+        {
+            Traits.ShotsFiredTrait.Counter = 0;
+            Traits.ShotsHitTrait.Counter = 0;
+            Traits.KillTrait.Counter = 0;
+            Traits.EnemiesSpawnedTrait.Counter = 0;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.achievements;
 using SummerProject.util;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace SummerProject.wave
             if (LevelFinished)
             {
                 Level += 1;
+                Traits.LevelTrait.Counter++;
                 IsChanged = true;
                 betweenLevelsTimer.Reset();
                 LevelFinished = false;
@@ -72,8 +74,7 @@ namespace SummerProject.wave
         {
             IsChanged = false;
             betweenLevelsTimer.CountDown(gameTime);
-            ProgressGame();
-            
+            ProgressGame();            
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)

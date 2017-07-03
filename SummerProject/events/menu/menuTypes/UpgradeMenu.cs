@@ -6,8 +6,6 @@ namespace SummerProject.menu
 {
     public class UpgradeMenu : MenuComponent
     {
-
-
         public UpgradeMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.UPGRADE])
         {
         }
@@ -21,7 +19,16 @@ namespace SummerProject.menu
                     break;
             }
             return -1;
+        }
 
+        public override void UpdateUnlocks(EventOperator handler)
+        {
+        }
+
+        protected override void SetLockedItems()
+        {
+            isLocked = new bool[menuItems.Length];
         }
     }
+
 }

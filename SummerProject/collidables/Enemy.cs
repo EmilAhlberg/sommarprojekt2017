@@ -117,7 +117,11 @@ namespace SummerProject
             {
                 Projectile b = c2 as Projectile;
                 if (b.IsActive && !b.IsEvil)
+                {
                     Health -= b.Damage;
+                    Traits.ShotsHitTrait.Counter++;
+                }
+                  
             }
             if (c2 is ExplosionDrop)
             {

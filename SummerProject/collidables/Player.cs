@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SummerProject.factories;
 using System.Collections.Generic;
 using SummerProject.collidables.parts;
+using SummerProject.achievements;
 
 namespace SummerProject.collidables
 {
@@ -97,7 +98,8 @@ namespace SummerProject.collidables
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
+                if (projectiles.Fire(Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y)))
+                    Traits.ShotsFiredTrait.Counter++;
             }
         }
 

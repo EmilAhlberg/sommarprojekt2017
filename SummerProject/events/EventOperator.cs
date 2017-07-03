@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.achievements;
 using SummerProject.framework;
 using SummerProject.menu;
 using SummerProject.wave;
@@ -23,9 +24,10 @@ namespace SummerProject
         private Menu menu;
         private UpgradeView upgradeView;
         private Game1 game;
+        public AchievementController achControl { get; private set; }
         public GameMode GameMode { get; private set; }
 
-        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode)
+        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
@@ -35,6 +37,7 @@ namespace SummerProject
             menu = new Menu(new Vector2(WindowSize.Width / 2,
                     WindowSize.Height / 2), font);
             this.game = game;
+            this.achControl = achControl;
         }
 
         public void Update(GameTime gameTime)
