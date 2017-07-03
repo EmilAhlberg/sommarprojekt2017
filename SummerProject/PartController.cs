@@ -28,7 +28,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Hull.Update(gameTime);
-            if (Health <= 0 && !IsActive)
+            if (Health <= 0 && IsActive)
                 Death();
         }
 
@@ -41,7 +41,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            IsActive = true;
+            IsActive = false;
             Hull.Death();
         }
 
