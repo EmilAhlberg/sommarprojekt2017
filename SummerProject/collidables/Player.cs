@@ -101,7 +101,7 @@ namespace SummerProject.collidables
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Hull.Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
+                Hull.TakeAction(typeof(GunPart));
             }
         }
 

@@ -71,6 +71,7 @@
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Drop.cs" />
     <Compile Include="collidables\parts\EnginePart.cs" />
+    <Compile Include="collidables\parts\GunPart.cs" />
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
