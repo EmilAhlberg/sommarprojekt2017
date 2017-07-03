@@ -16,12 +16,13 @@ namespace SummerProject
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
         public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
-        public override Color Color {
+        public override Color Color
+        {
             set
             {
                 base.Color = value;
                 foreach (Link p in parts)
-                    if(p.Part != null)
+                    if (p.Part != null)
                         p.Part.Color = value;
             }
             get
@@ -66,7 +67,8 @@ namespace SummerProject
             AddLinkPositions();
         }
 
-        public bool AddPart(Part part, int pos) {
+        public bool AddPart(Part part, int pos)
+        {
             if (pos >= 0 && pos < parts.Length)
             {
                 part.Carrier = this;
@@ -78,6 +80,13 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            foreach (Link p in parts)
+            {
+                if (p.Part != null)
+                {
+                    p.Part.Update(gameTime);
+                }
+            }
             Move();
         }
 
@@ -91,7 +100,7 @@ namespace SummerProject
         //            parts[i].Part.angle = angle;
         //            parts[i].Part.Position = Position;
 
-   
+
         //            if(parts[i].Part is CompositePart)
         //            {   
         //                ((CompositePart)parts[i].Part).UpdatePartsPos();
@@ -100,14 +109,23 @@ namespace SummerProject
         //    }
         //}
 
+        public override void AddForce(float force, float angle)
+        {
+            if (Carrier is CompositePart)
+                (Carrier as CompositePart).AddForce(force, angle);
+            else
+                base.AddForce(force, angle);
+        }
+
+
         public override Vector2 Position
         {
             set
             {
                 base.Position = value;
-                foreach(Link p in parts)
+                foreach (Link p in parts)
                 {
-                    if(p.Part != null)
+                    if (p.Part != null)
                     {
                         p.Part.Position = Position;
                         p.Part.Angle = Angle;
@@ -126,7 +144,7 @@ namespace SummerProject
         public override void Draw(SpriteBatch sb, GameTime gameTime)
         {
             base.Draw(sb, gameTime);
-            foreach(Link p in parts)
+            foreach (Link p in parts)
             {
                 if (p.Part != null)
                     p.Part.Draw(sb, gameTime);
@@ -151,7 +169,20 @@ namespace SummerProject
                 if (p.Part != null)
                     p.Part.Death();
         }
-         
+
+        public override void TakeAction(Type type)
+        {
+            foreach (Link p in parts)
+            {
+                if (p.Part != null)
+                    if (p.Part.GetType() == type || p.Part is CompositePart)
+                    {
+                        p.Part.TakeAction(type);
+                    }
+            }
+        }
+
+
         protected abstract void AddLinkPositions();
 
         protected class Link
@@ -170,11 +201,11 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height)/2;
+                Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height) / 2;
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width/2, hull.BoundBoxes[0].Height/2)) + new Vector2(p.BoundBoxes[0].Width/2, p.BoundBoxes[0].Height/2) + RelativePos + posChange * linkToCenter;
+                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width / 2, hull.BoundBoxes[0].Height / 2)) + new Vector2(p.BoundBoxes[0].Width / 2, p.BoundBoxes[0].Height / 2) + RelativePos + posChange * linkToCenter;
                 p.Angle = hull.angle;
             }
         }

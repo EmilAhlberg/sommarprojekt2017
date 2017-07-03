@@ -53,7 +53,6 @@ namespace SummerProject.collidables
                 Hull.Color = Color.White; //Move to Respawn()
                 //if (ControlScheme != 4)
                 //    CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle, Color.MonoGameOrange);
                 base.Update(gameTime);
                 Move();
                 HandleBulletType();
@@ -101,7 +100,7 @@ namespace SummerProject.collidables
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                projectiles.Fire(Hull.Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
+                Hull.TakeAction(typeof(GunPart));
             }
         }
 
@@ -145,7 +144,7 @@ namespace SummerProject.collidables
                     AddForce(Thrust, (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.W))
-                    AddForce(Thrust, -(float)Math.PI / 2);
+                    Hull.TakeAction(typeof(EnginePart));
 
                 if (InputHandler.isPressed(Keys.A))
                     AddForce(Thrust, (float)Math.PI);
@@ -192,6 +191,7 @@ namespace SummerProject.collidables
             {
                 Enemy e = c2 as Enemy;
                 Health -= e.Damage;
+            }
 
                 if (c2 is HealthDrop)
                 {
@@ -220,7 +220,7 @@ namespace SummerProject.collidables
                 //{
                 //    Health += HealthDrop.heal;
                 //}
-            }
+
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
