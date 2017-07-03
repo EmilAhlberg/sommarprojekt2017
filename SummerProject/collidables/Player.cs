@@ -189,14 +189,8 @@ namespace SummerProject.collidables
         {
             if (/*!shieldOn && */c2 is Enemy)
             {
-                Part p = c2 as Part;
-                if (p.Carrier is Part)
-                    Collision(p.Carrier as Part);
-                else
-                {
-                    if (p.Carrier is Enemy)
-                        Health -= (p.Carrier as Enemy).Damage;
-                }
+                Enemy e = c2 as Enemy;
+                Health -= e.Damage;
 
                 if (c2 is HealthDrop)
                 {

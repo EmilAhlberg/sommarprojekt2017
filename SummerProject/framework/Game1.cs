@@ -124,6 +124,7 @@ namespace SummerProject
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
+            Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             #endregion
 
             #region Adding entity-sprites to list
@@ -146,18 +147,9 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
-            RectangularHull rectHull = new RectangularHull(new Sprite(shipTex));
-            //RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
-            player.AddPart(rectHull, 0);
-            //player.AddPart(rectHull2, 2);
-            //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 1);
-            //rectHull.AddPart(new RectangularHull(new Sprite(shipTex)), 2);
-            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 1);
-            //rectHull2.AddPart(new RectangularHull(new Sprite(healthPackTex)), 3);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 1);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
-            //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
+            RectangularHull rectHull = new RectangularHull(new Sprite(gunTex1));
+            //RectangularHull rectHull2 = new RectangularHull(new Sprite(healthDropTex, 4, 6));
+            player.AddPart(rectHull, 3);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
@@ -280,12 +272,7 @@ namespace SummerProject
             List<Collidable> collidableList = new List<Collidable>();
             foreach (Collidable c in gameController.CollidableList())
             {
-                if(c is PartController)
-                {
-                    collidableList.AddRange((c as PartController).Parts);
-                }
-                else
-                    collidableList.Add(c);
+                collidableList.Add(c);
             }
             foreach (Collidable c in projectiles.GetValues())
             {
@@ -295,7 +282,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0], wall);
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
         }
 
         /// <summary>

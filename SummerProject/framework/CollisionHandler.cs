@@ -18,31 +18,27 @@ namespace SummerProject
                     Collidable c2 = list[j];
                     if (c1 == c2)
                         continue;
-                    if (c1 is ActivatableEntity && c2 is ActivatableEntity)
+                    
+                    if (c1 is PartController && c2 is PartController)
                     {
-                        ActivatableEntity e1 = c1 as ActivatableEntity;
-                        ActivatableEntity e2 = c2 as ActivatableEntity;
+                        PartController e1 = c1 as PartController;
+                        PartController e2 = c2 as PartController;      
                         if (e1.IsActive && e2.IsActive)
                         {
-                            if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                                HandleCollision(c1, c2);
-                            for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
-                            {
-                                if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
-                                    HandleDetectionCollision(c1, c2);
-                            }
+                            if (e1.Parts[0].BoundBoxes[0].Intersects(e2.Parts[0].BoundBoxes[0]))
+                                HandleCollision(e1, e2);
                         }
                     }
-                    else
-                    {
-                        if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                            HandleCollision(c1, c2);
-                        for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
-                        {
-                            if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
-                                HandleDetectionCollision(c1, c2);
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+                    //        HandleCollision(c1, c2);
+                    //    for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
+                    //    {
+                    //        if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
+                    //            HandleDetectionCollision(c1, c2);
+                    //    }
+                    //}
                 }
             }
             foreach (Collidable c in list)

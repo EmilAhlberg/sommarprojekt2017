@@ -12,7 +12,7 @@ namespace SummerProject
 {
     public abstract class PartController : ActivatableEntity, IPartCarrier
     {
-        public CompositePart Hull;
+        public CompositePart Hull { get; set; }
         public override Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
