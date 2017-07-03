@@ -144,7 +144,7 @@ namespace SummerProject
             achController = new AchievementController(bigFont);
             eventOperator = new EventOperator(bigFont, this, homingTex, gameMode, achController); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(bulletSprites, 30); //! bulletCap hardcoded
+            projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             RectangularHull rectHull = new RectangularHull(new Sprite(shipTex));
             //RectangularHull rectHull2 = new RectangularHull(new Sprite(shotTex));
@@ -158,8 +158,6 @@ namespace SummerProject
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 2);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shotTex), player), 3);
             //player.AddPart(new RectangularHull(new Vector2(0, 0), new Sprite(shipTex), player), 3);
-            waveGenerator = new WaveGenerator(enemySprites, player, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            enemies = new Enemies(enemySprites, player, 30/*, 3, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight*/);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
