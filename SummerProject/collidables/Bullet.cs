@@ -28,8 +28,8 @@ namespace SummerProject.collidables
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            float dX = source.X - target.X;
-            float dY = source.Y - target.Y;
+            float dX = -target.X;
+            float dY = -target.Y;
             base.CalculateAngle(dX, dY);
             Stop();
             if (!IsEvil)

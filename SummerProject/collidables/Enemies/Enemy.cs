@@ -64,7 +64,7 @@ namespace SummerProject
                 reloadTimer.CountDown(gameTime);
                 if (reloadTimer.IsFinished)
                 {
-                    projectiles.EvilFire(Position, player.Position);
+                    projectiles.EvilFire(Position, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)));
                     reloadTimer.Reset();
                 }
             }
