@@ -38,7 +38,7 @@ namespace SummerProject.collidables
                 {DEFAULT, 10},
                 {PLAYER, 5},
                 {ENEMY, 10},
-                {BULLET, 0.05f}
+                {BULLET, 10f}
           };
 
         public static readonly Dictionary<int, int> THRUST =
@@ -59,6 +59,15 @@ namespace SummerProject.collidables
                 {BULLET, 0},
                 {HOMINGBULLET, 0.07f * (float)Math.PI}
         };
+
+        public static readonly Dictionary<int, float> FRICTION =
+          new Dictionary<int, float>
+          {
+                {DEFAULT, 100},
+                {PLAYER, 25},
+                {ENEMY, 100},
+                {BULLET, 0f}
+          };
 
         public static readonly Dictionary<int, int> SCORE =
         new Dictionary<int, int>

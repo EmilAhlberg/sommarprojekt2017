@@ -35,7 +35,10 @@ namespace SummerProject
             }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
+            friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
             rageTimer = new Timer(15);
+            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
+
             //Hull = new RectangularHull(position, sprite);                
         }
 
@@ -89,6 +92,9 @@ namespace SummerProject
                 Health *= 3;
                 spriteRotSpeed = 0.05f * SRandom.NextFloat();
                 angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
+                friction = 0;
+                Thrust = 0;
+                AddSpeed(5, angle);
             }
             else
              if (IsSpeedy)
@@ -113,15 +119,17 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
+            
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
                 if (b.IsActive && !b.IsEvil)
                 {
                     Health -= b.Damage;
+                    AddForce(b.Velocity); //! remove lator
                     Traits.ShotsHitTrait.Counter++;
                 }
-                  
+                
             }
             if (c2 is ExplosionDrop)
             {
@@ -139,7 +147,14 @@ namespace SummerProject
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
+            if(CanShoot)
+                Particles.GenerateParticles(Position, 16, angle, sprite.MColor); //Death animation
+            else if (IsSpeedy)
+                Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
+            else if (IsAsteroid)
+                Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
+            else
+                Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
             reloadTimer.Reset();
             base.Death();

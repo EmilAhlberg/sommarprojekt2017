@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SummerProject.achievements;
 using SummerProject.framework;
 using SummerProject.menu;
@@ -98,7 +99,9 @@ namespace SummerProject
                     break;
                 case PAUSE_STATE:
                     if (NewGameState != EventOperator.MENU_STATE)
-                        menu.CurrentMenu = MenuConstants.PAUSE;             
+                        menu.CurrentMenu = MenuConstants.PAUSE;
+                    if (InputHandler.isJustPressed(Keys.Escape))
+                        NewGameState = EventOperator.GAME_STATE;
                     break;
                 case UPGRADE_STATE:
                     menu.CurrentMenu = MenuConstants.UPGRADE;

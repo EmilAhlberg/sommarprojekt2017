@@ -112,6 +112,9 @@ namespace SummerProject
             Texture2D deadTex6 = Content.Load<Texture2D>("textures/denemyShoot2");
             Texture2D deadTex7 = Content.Load<Texture2D>("textures/denemySpeed1");
             Texture2D deadTex8 = Content.Load<Texture2D>("textures/denemySpeed2");
+            Texture2D deadTex9 = Content.Load<Texture2D>("textures/dasteroid1");
+            Texture2D deadTex10 = Content.Load<Texture2D>("textures/dasteroid2");
+            Texture2D deadTex11 = Content.Load<Texture2D>("textures/dasteroid3");
             Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
@@ -163,7 +166,10 @@ namespace SummerProject
             Particles.AddSprite(new Sprite(deadTex8));
             Particles.AddSprite(new Sprite(deadTex7));
             Particles.AddSprite(new Sprite(wrenchTex));
-            Particles.AddSprite(new Sprite(boltTex));  
+            Particles.AddSprite(new Sprite(boltTex));
+            Particles.AddSprite(new Sprite(deadTex9));
+            Particles.AddSprite(new Sprite(deadTex10));
+            Particles.AddSprite(new Sprite(deadTex11));
             #endregion
             // TODO: use this.Content to load your game content here
         }
@@ -186,10 +192,6 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
                 UpdateGame(gameTime);
@@ -234,7 +236,7 @@ namespace SummerProject
             }
             #endregion
             #region Pause
-            if (InputHandler.isPressed(Keys.P) && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (InputHandler.isJustPressed(Keys.Escape) && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
@@ -309,9 +311,8 @@ namespace SummerProject
                 eventOperator.Draw(spriteBatch, gameTime);
 
             DebugMode(spriteBatch, gameTime);
-            achController.Draw(spriteBatch, gameTime);
+            //achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
-            // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
                 DrawSpecialTransparency(spriteBatch, gameTime);

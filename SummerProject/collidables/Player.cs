@@ -11,6 +11,7 @@ namespace SummerProject.collidables
 {
     public class Player : Entity, IPartCarrier
     {
+        private const bool FRICTIONFREEACCELERATION = false;
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
@@ -38,6 +39,7 @@ namespace SummerProject.collidables
             Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
             Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
             maxHealth = Health;
             maxEnergy = Energy;
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
@@ -174,7 +176,13 @@ namespace SummerProject.collidables
                     angle += 0.1f;
             }
             #endregion
+            if (FRICTIONFREEACCELERATION)
+            {
+                if (base.Thrust != 0)
+                    friction = 0;
+            }
             base.Move();
+            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
         }
 
         public override void Collision(Collidable c2)
