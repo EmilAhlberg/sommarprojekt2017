@@ -12,20 +12,12 @@ namespace SummerProject
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             BoundBoxes = new List<RotRectangle>();
-            //if (sprite is CompositeSprite)
-            //{
-            //    List<ISprite> spriteList = ((CompositeSprite)sprite).spriteList;
-            //    foreach (ISprite s in spriteList)
-            //    {
-            //        BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(s.Position.X - s.Origin.X), (int)Math.Round(s.Position.Y - s.Origin.Y), s.SpriteRect.Width, s.SpriteRect.Height), angle));
-            //    }
-            //}
-            //else
-            BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X - sprite.Origin.X), (int)Math.Round(position.Y - sprite.Origin.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
+            BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
+            BoundBoxes[0].Origin = sprite.Origin;
         }
         public void AddBoundBox(RotRectangle rect)
         {
-            rect.Location = Position;
+            rect.Position = Position;
             BoundBoxes.Add(rect);
         }
         public void RemoveBoundBox(int index)
@@ -40,18 +32,28 @@ namespace SummerProject
                 base.Position = value;
                 for (int i = 0; i < BoundBoxes.Count; i++)
                 {
-                    BoundBoxes[i].Location = value;
+                    BoundBoxes[i].Position = value;
                     BoundBoxes[i].Angle = angle;
                 }
             }
             get { return base.Position; }
         }
 
-        public Vector2 Origin
+        public float Angle
         {
             set
             {
-                BoundBoxes[0].Origin = value;
+                base.angle = value;
+                BoundBoxes[0].Angle = value;
+            }
+            get { return angle; }
+        }
+
+        public virtual Vector2 Origin
+        {
+            set
+            {
+                BoundBoxes[0].Origin = value; //FIX
                 sprite.Origin = value;
             }
             get{ return sprite.Origin; }
@@ -62,7 +64,7 @@ namespace SummerProject
             base.Move();
             for (int i = 0; i < BoundBoxes.Count; i++)
             {
-                BoundBoxes[i].Location = Position;
+                BoundBoxes[i].Position = Position;
                 BoundBoxes[i].Angle = angle;
             }
         }
