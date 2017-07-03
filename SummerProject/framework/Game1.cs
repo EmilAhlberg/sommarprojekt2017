@@ -272,12 +272,7 @@ namespace SummerProject
             List<Collidable> collidableList = new List<Collidable>();
             foreach (Collidable c in gameController.CollidableList())
             {
-                if(c is PartController)
-                {
-                    collidableList.AddRange((c as PartController).Parts);
-                }
-                else
-                    collidableList.Add(c);
+                collidableList.Add(c);
             }
             foreach (Collidable c in projectiles.GetValues())
             {
@@ -287,7 +282,7 @@ namespace SummerProject
             {
                 collidableList.Add(c);
             }
-            colhandl.CheckCollisions(collidableList.ToArray(), player.Parts[0], wall);
+            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
         }
 
         /// <summary>
