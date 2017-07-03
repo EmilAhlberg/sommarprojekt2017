@@ -13,7 +13,6 @@ namespace SummerProject
     public abstract class PartController : ActivatableEntity, IPartCarrier
     {
         public CompositePart Hull;
-        public bool IsDead { get; set; }
         public override Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
@@ -29,7 +28,7 @@ namespace SummerProject
         {
             CalculateAngle();
             Hull.Update(gameTime);
-            if (Health <= 0 && !IsDead)
+            if (Health <= 0 && !IsActive)
                 Death();
         }
 
@@ -42,7 +41,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            IsDead = true;
+            IsActive = true;
             Hull.Death();
         }
 
