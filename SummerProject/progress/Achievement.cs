@@ -59,12 +59,23 @@ namespace SummerProject.achievements
                 Unlocked = unlocked;     
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font) 
         {
             if (Unlocked && !unlockTimer.IsFinished)
             {
-                spriteBatch.DrawString(font, name + " unlocked!", new Vector2(400, 400), Color.PapayaWhip); //!
+                string s = name + " unlocked!";
+                spriteBatch.DrawString(font, s, WordLayoutPosition(s, font), Color.PapayaWhip); //!
             }            
+        }
+
+        //duplicated in animatedeventhandler, + gamemode?
+        private Vector2 WordLayoutPosition(string s, SpriteFont font)
+        {
+            Vector2 size = font.MeasureString(s);
+            float width = 0;
+            if (size.X > width)
+                width = size.X;
+            return new Vector2((WindowSize.Width - width) / 2, (WindowSize.Height - 200) / 2); //! 200
         }
     }
 }
