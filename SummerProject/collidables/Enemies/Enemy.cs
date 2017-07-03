@@ -12,7 +12,6 @@ namespace SummerProject
     class Enemy : PartController, IPartCarrier
     {        
         public int WorthScore {get; private set;}
-
         private Player player;
         public static Projectiles projectiles;
         private bool CanShoot { get; set; }
