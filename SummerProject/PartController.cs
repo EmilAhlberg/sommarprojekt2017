@@ -65,27 +65,23 @@ namespace SummerProject
 
         public override void Stop()
         {
-            foreach (Part p in Parts)
-                p.Stop();
+            Hull.Stop();
         }
 
         public override void AddSpeed(float speed, float angle)
         {
-            foreach (Part p in Parts)
-                p.AddSpeed(speed, angle);
+            Hull.AddSpeed(speed, angle);
         }
 
 
         public override void AddForce(Vector2 appliedForce)
         {
-            foreach(Part p in Parts)
-                p.AddForce(appliedForce);
+            Hull.AddForce(appliedForce);
         }
 
-        public virtual void CalculateAngle(float dX, float dY)
+        public override void CalculateAngle(float dX, float dY)
         {
-            foreach (Part p in Parts)
-                p.CalculateAngle(dX, dY);
+            Hull.CalculateAngle(dX, dY);
         }
 
         public override void Move()
