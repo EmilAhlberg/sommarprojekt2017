@@ -67,12 +67,13 @@
     <Compile Include="collidables\ExplosionDrop.cs" />
     <Compile Include="collidables\HealthDrop.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
-    <Compile Include="collidables\AIEntity.cs" />
+    <Compile Include="collidables\ActivatableEntity.cs" />
     <Compile Include="collidables\Bullet.cs" />
     <Compile Include="collidables\Drop.cs" />
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />
+    <Compile Include="PartController.cs" />
     <Compile Include="events\AnimatedEventHandler.cs" />
     <Compile Include="events\menu\menuTypes\DifficultyMenu.cs" />
     <Compile Include="factories\Drops.cs" />

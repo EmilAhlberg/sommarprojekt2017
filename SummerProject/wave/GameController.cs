@@ -107,7 +107,7 @@ namespace SummerProject
             {
                 isActive = false;
             }
-        }        
+        }
 
         //duh
         public List<AIEntity> CollidableList()
