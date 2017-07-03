@@ -9,31 +9,17 @@ using SummerProject.achievements;
 
 namespace SummerProject
 {
-    class Enemy : PartController, IPartCarrier
+    abstract class Enemy : PartController, IPartCarrier
     {        
         public int WorthScore {get; private set;}
         private Player player;
-        public static Projectiles projectiles;
-        private bool CanShoot { get; set; }
-        private bool IsSpeedy { get; set; }
-        private bool IsAsteroid { get; set; }
-        private float spriteRotSpeed;
-        private const float randomAngleOffsetMultiplier = .3f;
         private Timer rageTimer;
-        private Timer reloadTimer;
-
 
         public Enemy(Vector2 position, ISprite sprite, Player player, int type)
             : base(position, sprite)
         {
             this.player = player;
-            rageTimer = new Timer(15);
-            switch (type)
-            {
-                case 151: CanShoot = true; break;
-                case 152: IsSpeedy = true; break;
-                case 153: IsAsteroid = true; break;
-            }      
+            rageTimer = new Timer(15); //!!    
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
@@ -44,30 +30,14 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            if (Health < 1 && IsActive)
-            rageTimer.CountDown(gameTime);
+            base.Update(gameTime);
+            if (Health > 1 && IsActive)
+                rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
                 Enrage();
-                if (IsAsteroid)
-                    Death();
             }
-            if (!IsAsteroid)
-            {
-                CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle, Color.Green);
-            }
-            else
-                sprite.Rotation += spriteRotSpeed;
-            if (CanShoot)
-            {
-                reloadTimer.CountDown(gameTime);
-                if (reloadTimer.IsFinished)
-                {
-                    projectiles.EvilFire(Position, player.Position);
-                    reloadTimer.Reset();
-                }
-            }
+            Particles.GenerateParticles(Position, 4, angle, Color.Green);
             Move();
             if (Health < 1)
             {
@@ -75,8 +45,6 @@ namespace SummerProject
                 Death();
             }    
         }
-
-
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
@@ -86,25 +54,9 @@ namespace SummerProject
             sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
-            if (IsAsteroid)
-            {
-                CalculateAngle();
-                Health *= 3;
-                spriteRotSpeed = 0.05f * SRandom.NextFloat();
-                angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
-                friction = 0;
-                Thrust = 0;
-                AddSpeed(5, angle);
-            }
-            else
-             if (IsSpeedy)
-            {
-                Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
-            }
         }
 
-        private void Enrage()
+        protected virtual void Enrage()
         {
             Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
             Particles.GenerateParticles(Position, 5, angle, Color.Red);
@@ -148,16 +100,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            if(CanShoot)
-                Particles.GenerateParticles(Position, 16, angle, sprite.MColor); //Death animation
-            else if (IsSpeedy)
-                Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
-            else if (IsAsteroid)
-                Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
-            else
-                Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
             DropSpawnPoints.DeathAt(Position);
-            reloadTimer.Reset();
             base.Death();
         }
     }

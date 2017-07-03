@@ -61,6 +61,10 @@
     <Compile Include="achievements\Achievement.cs" />
     <Compile Include="achievements\Trait.cs" />
     <Compile Include="achievements\Traits.cs" />
+    <Compile Include="collidables\Enemies\Asteroid.cs" />
+    <Compile Include="collidables\Enemies\Shooter.cs" />
+    <Compile Include="collidables\Enemies\Speedy.cs" />
+    <Compile Include="collidables\Enemies\StandardEnemy.cs" />
     <Compile Include="collidables\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />

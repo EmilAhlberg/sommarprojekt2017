@@ -16,7 +16,7 @@ namespace SummerProject.factories
             reloadTimer = new Timer(reloadTime);
             InitializeEntities(0);
             InitializeEntities(EntityTypes.EVILBULLET);
-            Enemy.projectiles = this; //! Hmmmmm
+            //Enemy.projectiles = this; //! Hmmmmm
         }
 
         public bool Fire(Vector2 source, Vector2 target)
