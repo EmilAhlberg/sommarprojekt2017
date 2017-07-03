@@ -107,10 +107,10 @@ namespace SummerProject
             {
                 isActive = false;
             }
-        }
+        }        
 
         //duh
-        public List<AIEntity> CollidableList()
+        public List<ActivatableEntity> CollidableList()
         {
             return enemies.GetValues();
         }       

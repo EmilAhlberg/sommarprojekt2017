@@ -25,7 +25,7 @@ namespace SummerProject.factories
         {
             if (!EntityDic.ContainsKey(type))
             {
-                EntityDic[type] = new List<AIEntity>();
+                EntityDic[type] = new List<ActivatableEntity>();
                 for (int i = 0; i < entityCap; i++)
                 {
                     EntityDic[type].Insert(0, CreateEntity(type));
@@ -40,7 +40,7 @@ namespace SummerProject.factories
                     e.Death();
         }
 
-        public List<AIEntity> GetValues()
+        public List<ActivatableEntity> GetValues()
         {
             return EntityDic.Values.SelectMany(e => e).ToList();
         }
