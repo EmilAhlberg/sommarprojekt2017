@@ -20,7 +20,6 @@ namespace SummerProject
         private bool IsAsteroid { get; set; }
         private float spriteRotSpeed;
         private const float randomAngleOffsetMultiplier = .3f;
-        protected CompositePart Hull;
         private Timer rageTimer;
         private Timer reloadTimer;
 
