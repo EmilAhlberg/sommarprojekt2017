@@ -9,7 +9,7 @@ using SummerProject.achievements;
 
 namespace SummerProject.collidables
 {
-    public class Player : Entity, IPartCarrier
+    public class Player : PartController, IPartCarrier
     {
         private const bool FRICTIONFREEACCELERATION = false;
         private new float Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
@@ -28,10 +28,8 @@ namespace SummerProject.collidables
         private Vector2 startPosition;
         protected CompositePart Hull;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles)
-            : base(position, sprite)
+        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
-            Position = position;
             startPosition = position;
             Energy = startingEnergy;
             this.projectiles = projectiles;
@@ -43,18 +41,22 @@ namespace SummerProject.collidables
             maxHealth = Health;
             maxEnergy = Energy;
             AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            //Hull = new RectangularHull(position, sprite);
+            Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
+            Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Position = position;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime) //NEEDS FIX
         {
             if (IsActive)
             {
-                sprite.MColor = Color.White; //Move to Respawn()
+                Hull.Color = Color.White; //Move to Respawn()
                 if (ControlScheme != 4)
                     CalculateAngle();
                 Particles.GenerateParticles(Position, 4, angle, Color.MonoGameOrange);
                 Move();
+                Hull.Update(gameTime);
                 HandleBulletType();
                 Fire();
                 if (Health <= 0 && IsActive)
@@ -88,7 +90,7 @@ namespace SummerProject.collidables
             }
         }
 
-        private void HandleBulletType()
+        private void HandleBulletType() //Change when adding gun
         {
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
                 projectiles.SwitchBullets(EntityTypes.BULLET);
@@ -96,23 +98,22 @@ namespace SummerProject.collidables
                 projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
         }
 
-        private void Fire()
+        private void Fire() //Change when adding gun
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                if (projectiles.Fire(Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y)))
-                    Traits.ShotsFiredTrait.Counter++;
+                projectiles.Fire(Hull.Position, new Vector2(InputHandler.mPosition.X, InputHandler.mPosition.Y));
             }
         }
 
-        private void CalculateAngle()
+        protected override void CalculateAngle()
         {
-            float dX = Position.X - Mouse.GetState().X;
-            float dY = Position.Y - Mouse.GetState().Y;
-            base.CalculateAngle(dX, dY);
+            float dX = Hull.Position.X - Mouse.GetState().X;
+            float dY = Hull.Position.Y - Mouse.GetState().Y;
+            Hull.TurnTowardsVector(dX, dY);
         }
 
-        protected override void Move()
+        protected override void Move() //Change when adding engine
         {
             //if (InputHandler.isPressed(Keys.D1))
             //    ControlScheme = 1;
@@ -122,58 +123,58 @@ namespace SummerProject.collidables
             //    ControlScheme = 3;
             //if (InputHandler.isPressed(Keys.D4))
             //    ControlScheme = 4;
-            base.Thrust = 0;
+            Hull.Thrust = 0;
             #region Controls
             if (ControlScheme <= 1)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    base.Thrust = -Thrust;
+                    Hull.Thrust = -Thrust;
 
                 if (InputHandler.isPressed(Keys.W))
-                    base.Thrust += Thrust;
+                    Hull.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle - Math.PI / 2), (float)Math.Sin(angle - Math.PI / 2))));
+                    Hull.AddForce(Thrust, Hull.angle - (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(angle + Math.PI / 2), (float)Math.Sin(angle + Math.PI / 2))));
+                    Hull.AddForce(Thrust, Hull.angle + (float)Math.PI / 2);
             }
 
             else if (ControlScheme == 2)
             {
                 if (InputHandler.isPressed(Keys.S))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2))));
+                    Hull.AddForce(Thrust, (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.W))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2))));
+                    Hull.AddForce(Thrust, -(float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI))));
+                    Hull.AddForce(Thrust, (float)Math.PI);
 
                 if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust * (new Vector2((float)Math.Cos(0), (float)Math.Sin(0))));
+                    Hull.AddForce(Thrust, 0);
             }
 
             else if (ControlScheme == 3)
             {
                 if (InputHandler.isPressed(MouseButton.RIGHT))
-                    base.Thrust = Thrust;
+                    Hull.Thrust = Thrust;
 
             }
             else if (ControlScheme == 4)
             {
-                base.Thrust = 0;
+                Hull.Thrust = 0;
                 if (InputHandler.isPressed(Keys.S))
-                    base.Thrust = -Thrust;
+                    Hull.Thrust = -Thrust;
 
                 if (InputHandler.isPressed(Keys.W))
-                    base.Thrust += Thrust;
+                    Hull.Thrust += Thrust;
 
                 if (InputHandler.isPressed(Keys.A))
-                    angle -= 0.1f;
+                    Hull.angle -= 0.1f;
 
                 if (InputHandler.isPressed(Keys.D))
-                    angle += 0.1f;
+                    Hull.angle += 0.1f;
             }
             #endregion
             if (FRICTIONFREEACCELERATION)
@@ -187,13 +188,18 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
-            if (!shieldOn && c2 is Enemy)
+            if (/*!shieldOn && */c2 is Enemy)
             {
-                Enemy e = c2 as Enemy;
-                Health -= e.Damage;
-            }
+                Part p = c2 as Part;
+                if (p.Carrier is Part)
+                    Collision(p.Carrier as Part);
+                else
+                {
+                    if (p.Carrier is Enemy)
+                        Health -= (p.Carrier as Enemy).Damage;
+                }
 
-            if (c2 is HealthDrop)
+                if (c2 is HealthDrop)
             {
                 if (Health == maxHealth && maxHealth < maxHealthCap)
                     maxHealth++;
@@ -216,29 +222,34 @@ namespace SummerProject.collidables
                 if (b.IsEvil)
                     Health -= b.Damage;
             }
+            //if (c2 is HealthDrop)
+            //{
+            //    Health += HealthDrop.heal;
+            //}
         }
 
-        public override void Death()
+        public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             IsActive = false;
+            base.Death();
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            sprite.MColor = Color.Transparent;
+            Hull.MColor = Color.Transparent;
         }
 
-        public void Reset()
+        public void Reset() //NEEDS FIX
         {
             Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
-            Position = startPosition;
             maxEnergy = startingEnergy;
             maxHealth = Health;
             Energy = maxEnergy;
-            angle = 0;
-            Stop();
-            sprite.MColor = Color.White;
+            Hull.MColor = Color.White;
             IsActive = true;
+            Hull.angle = 0;
+            Hull.Position = startPosition;
+            Hull.Stop();
         }
 
-        public bool AddPart(Part part, int pos)
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             throw new NotImplementedException();
         }

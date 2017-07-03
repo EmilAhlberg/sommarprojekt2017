@@ -26,7 +26,7 @@ namespace SummerProject.factories
         }
 
         public override void Reset()
-        {           
+        {
             ResetEntities();
         }
         public void Spawn(Vector2 source)
