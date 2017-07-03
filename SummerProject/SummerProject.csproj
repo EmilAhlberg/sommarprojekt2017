@@ -57,12 +57,12 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="achievements\AchievementController.cs" />
-    <Compile Include="achievements\Achievement.cs" />
-    <Compile Include="achievements\SaveData.cs" />
-    <Compile Include="achievements\SaveHandler.cs" />
-    <Compile Include="achievements\Trait.cs" />
-    <Compile Include="achievements\Traits.cs" />
+    <Compile Include="progress\AchievementController.cs" />
+    <Compile Include="progress\Achievement.cs" />
+    <Compile Include="progress\SaveData.cs" />
+    <Compile Include="progress\SaveHandler.cs" />
+    <Compile Include="progress\Trait.cs" />
+    <Compile Include="progress\Traits.cs" />
     <Compile Include="collidables\enemies\Asteroid.cs" />
     <Compile Include="collidables\enemies\Shooter.cs" />
     <Compile Include="collidables\enemies\Speedy.cs" />

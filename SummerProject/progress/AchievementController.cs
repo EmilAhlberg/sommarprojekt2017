@@ -21,7 +21,17 @@ namespace SummerProject.achievements
             InitAchievements();
         }
 
-        //different achievements and their links to traits are added here
+        /*
+         * Achievements for dummies:
+         *      An achievement is created with an achievement name and a dictionary param. The dictionary has to 
+         *      be created in the init method below. The dictionary's keys are specific ints which constitutes thresholds for
+         *      the corresponding dictionary value. When all thresholds for an achievement have been reached, the achievement is unlocked.
+         *      
+         *      Example:
+         *          dic.Add(10, Traits.SomeTrait);    <--- when SomeTrait reaches above 10, this specific condition for some achievement is fulfilled.
+         *          
+         *      
+         */
         private void InitAchievements()
         {            
             Dictionary<int, Trait> normalDifficulty = new Dictionary<int, Trait>();
@@ -73,10 +83,13 @@ namespace SummerProject.achievements
         //??
         public void Reset()
         {
-            //Traits.ShotsFiredTrait.Counter = 0;
-            //Traits.ShotsHitTrait.Counter = 0;
-            //Traits.KillTrait.Counter = 0;
-            //Traits.EnemiesSpawnedTrait.Counter = 0;
+            Traits.TimeTrait.Counter = 0;
+            Traits.ScoreTrait.Counter = 0;
+            Traits.ShotsFiredTrait.Counter = 0;
+            Traits.ShotsHitTrait.Counter = 0;
+            Traits.KillTrait.Counter = 0;
+            Traits.EnemiesSpawnedTrait.Counter = 0;
+            Traits.LevelTrait.Counter = 0;
         }
     }
 }

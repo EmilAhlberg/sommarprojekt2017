@@ -42,7 +42,7 @@ namespace SummerProject.achievements
 
 
         }
-        //load precis fixad
+        // load method if traits are to be changed
         //public bool[] LoadProgress(AchievementController ac)
         //{
 
