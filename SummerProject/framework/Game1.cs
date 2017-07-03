@@ -239,7 +239,12 @@ namespace SummerProject
             List<Collidable> collidableList = new List<Collidable>();
             foreach (Collidable c in waveGenerator.CollidableList())
             {
-                collidableList.Add(c);
+                if(c is PartController)
+                {
+                    collidableList.AddRange((c as PartController).Parts);
+                }
+                else
+                    collidableList.Add(c);
             }
             foreach (Collidable c in projectiles.EntityList)
             {
