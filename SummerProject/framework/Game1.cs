@@ -8,6 +8,7 @@ using System;
 using SummerProject.wave;
 using SummerProject.util;
 using SummerProject.achievements;
+using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
@@ -149,9 +150,9 @@ namespace SummerProject
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             RectangularHull rectHull = new RectangularHull(new Sprite(gunTex1));
-            RectangularHull rectHull2 = new RectangularHull(new Sprite(engineTex1));
+            EnginePart engine = new EnginePart(new Sprite(engineTex1));
             player.AddPart(rectHull, 3);
-            player.AddPart(rectHull2,1);
+            player.AddPart(engine, 1);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();

@@ -106,6 +106,8 @@ namespace SummerProject
         {
             if (Carrier is CompositePart)
                 (Carrier as CompositePart).AddForce(force, angle);
+            else
+                base.AddForce(force, angle);
         }
 
 
