@@ -12,6 +12,7 @@ namespace SummerProject
     public abstract class Part : ActivatableEntity
     {
         public IPartCarrier Carrier { set; get; }
+        public Vector2 AbsolutePosition { get { return BoundBoxes[0].AbsolutePosition; } }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
         public virtual Color Color { set { sprite.MColor = value; } get { return sprite.MColor; } }
         public Part(ISprite sprite) : base(Vector2.Zero, sprite)

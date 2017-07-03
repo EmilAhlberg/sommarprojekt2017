@@ -41,11 +41,11 @@ namespace SummerProject.collidables
                 {BULLET, 10f}
           };
 
-        public static readonly Dictionary<int, int> THRUST =
-         new Dictionary<int, int>
+        public static readonly Dictionary<int, float> THRUST =
+         new Dictionary<int, float>
          {
                 {DEFAULT, 10},
-                {PLAYER, 5}, 
+                {PLAYER, 5/3f}, 
                 {ENEMY, 7},
                 {BULLET, 0}
          };

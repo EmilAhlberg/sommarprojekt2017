@@ -12,6 +12,7 @@ namespace SummerProject
         private Vector2 UR { set; get; }
         public int Width { set; get; }
         public int Height { set; get; }
+        public Vector2 AbsolutePosition { get { return (UL + DR) / 2; } }
         private Vector2 origin { set; get; }
         public Vector2 Origin
         {
