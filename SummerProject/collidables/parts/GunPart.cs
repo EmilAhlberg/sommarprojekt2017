@@ -11,9 +11,13 @@ namespace SummerProject.collidables.parts
     class GunPart : Part
     {
         public static Projectiles projectiles;
+        private const float RELOADTIME = 0.3f;
+        private Timer reloadTimer;
+
         public GunPart(ISprite sprite) : base(sprite)
         {
             this.sprite = sprite;
+            reloadTimer = new Timer(RELOADTIME);
         }
 
         public void SwitchBullets(int type)
@@ -22,12 +26,17 @@ namespace SummerProject.collidables.parts
         }
         public override void TakeAction(Type type)
         {
-            Console.WriteLine(Angle);
-            projectiles.Fire(Position, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle))); //!
+            if (reloadTimer.IsFinished)
+            {
+                Console.WriteLine(Angle);
+                projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle))); //!
+                reloadTimer.Reset();
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            reloadTimer.CountDown(gameTime);
         }
     }
 }

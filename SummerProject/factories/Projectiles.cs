@@ -8,12 +8,10 @@ namespace SummerProject.factories
     {
         private const float reloadTime = 0.3f;
         private int bulletType;
-        private Timer reloadTimer;
 
         public Projectiles(int ammoCap) : base(ammoCap)
         {
             bulletType = EntityTypes.BULLET;
-            reloadTimer = new Timer(reloadTime);
             InitializeEntities(0);
             InitializeEntities(EntityTypes.EVILBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
@@ -21,15 +19,13 @@ namespace SummerProject.factories
 
         public bool Fire(Vector2 source, Vector2 target)
         {
-            if (reloadTimer.IsFinished)
-            {
+
                 if (ActivateEntities(source, target, bulletType))
                 {
-                    reloadTimer.Reset();
                     return true; //bool type: only because of players shotsFiredTrait
-                }                
-            }
+                }
             return false;
+
         }
 
         public void EvilFire(Vector2 source, Vector2 target)
@@ -46,7 +42,6 @@ namespace SummerProject.factories
 
         public override void Reset()
         {
-            reloadTimer.Reset();
             ResetEntities();
         }
 
@@ -54,7 +49,6 @@ namespace SummerProject.factories
         {
             UpdateEntities(gameTime);
             //RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
-            reloadTimer.CountDown(gameTime);
         }
 
         //private void RemoveAbundantType()

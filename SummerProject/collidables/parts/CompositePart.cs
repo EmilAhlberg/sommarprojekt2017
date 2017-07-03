@@ -131,7 +131,21 @@ namespace SummerProject
                         p.Part.Angle = Angle;
                     }
                 }
+            }
+        }
 
+        public override float Angle
+        {
+            set
+            {
+                base.Angle = value;
+                foreach (Link p in parts)
+                {
+                    if (p.Part != null)
+                    {
+                        p.Part.Angle = Angle;
+                    }
+                }
             }
         }
 
@@ -149,7 +163,6 @@ namespace SummerProject
                 if (p.Part != null)
                     p.Part.Draw(sb, gameTime);
             }
-
         }
 
         //public override Vector2 Origin
