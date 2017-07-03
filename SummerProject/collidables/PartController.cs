@@ -77,7 +77,6 @@ namespace SummerProject
             Hull.AddSpeed(speed, angle);
         }
 
-
         public override void AddForce(Vector2 appliedForce)
         {
             Hull.AddForce(appliedForce);

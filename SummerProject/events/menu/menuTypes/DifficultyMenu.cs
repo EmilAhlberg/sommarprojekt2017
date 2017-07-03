@@ -25,20 +25,20 @@ namespace SummerProject.menu
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
-                    //if (!isLocked[selectedIndex])
-                    //{
+                    if (!isLocked[selectedIndex])
+                    {
                         handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);
                         //handler.GameMode.IsChanged = true;
                         pressedIndex = selectedIndex;
-                    //}                   
+                    }                   
                     break;
                 case 2:
-                    //if (!isLocked[selectedIndex])
-                    //{
+                    if (!isLocked[selectedIndex])
+                    {
                         handler.GameMode.ChangeDifficulty(Difficulty.HARD);
                         //handler.GameMode.IsChanged = true;
                         pressedIndex = selectedIndex;
-                    //}
+                    }
                     break;
                 case 3:
                     handler.NewGameState = EventOperator.GAME_STATE;
@@ -60,8 +60,8 @@ namespace SummerProject.menu
         protected override void SetLockedItems()
         {
             isLocked = new bool[menuItems.Length];
-            //isLocked[1] = true;
-            //isLocked[2] = true;
+            isLocked[1] = true;
+            isLocked[2] = true;
         }
     }
 }

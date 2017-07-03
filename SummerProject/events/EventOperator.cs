@@ -20,13 +20,13 @@ namespace SummerProject
        
                 
         public int GameState { get; set; } 
-        public int NewGameState { get; set; }
+        public int NewGameState { get; set; }      
+        public AchievementController achControl { get; private set; }
+        public GameMode GameMode { get; private set; }
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
         private UpgradeView upgradeView;
         private Game1 game;
-        public AchievementController achControl { get; private set; }
-        public GameMode GameMode { get; private set; }
 
         public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl)
         {            
@@ -87,7 +87,7 @@ namespace SummerProject
             switch (GameState)
             {
                 case EXIT:
-                    game.Exit();
+                    ExitGame();                    
                     break;
                 case MENU_STATE:
                     break;
@@ -110,7 +110,15 @@ namespace SummerProject
             }
             menu.Update(gameTime, this);
         }
-     
+
+        private void ExitGame()
+        {
+            SaveData data = new SaveData();
+            data.SaveProgress(achControl);
+            SaveHandler.Save(data, "save_file");
+            game.Exit();
+        }
+
         private void FinishEvent()
         {
             switch (NewGameState)

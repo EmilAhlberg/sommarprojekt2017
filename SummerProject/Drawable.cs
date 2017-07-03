@@ -21,7 +21,7 @@ namespace SummerProject
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             sprite.Position = Position;
-            if (prevAngle != angle) // for changing sprite rotation independently (asteroid)
+            //if (prevAngle != angle) // for changing sprite rotation independently (asteroid)
                   sprite.Rotation = angle;
             sprite.Draw(spriteBatch, gameTime);
             prevAngle = angle;

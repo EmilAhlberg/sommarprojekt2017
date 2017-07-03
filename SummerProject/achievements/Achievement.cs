@@ -30,30 +30,40 @@ namespace SummerProject.achievements
             }          
         }
 
+        public void AlreadyUnlocked()
+        {
+            Unlocked = true;
+            unlockTimer = new Timer(0);
+            unlockTimer.CountDown(new GameTime());
+        }
+
         private void CheckUnlockCondition()
         {
             var itemsToRemove = traits.Keys.ToArray();
+            bool unlocked = false; ;
             foreach (int i in itemsToRemove) {
                 Trait trait = traits[i];
 
                 if (trait.CheckCondition(i))
                 {
-                    Unlocked = true;
+                    unlocked = true;
                     traits.Remove(i); //remove trait to avoid redundant checks?  i tink så
                 }
                 else
                 {
-                    Unlocked = false;
+                    unlocked = false;
                     break;
                 }                    
-            }            
+            }
+            if (!Unlocked)
+                Unlocked = unlocked;     
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, SpriteFont font)
         {
             if (Unlocked && !unlockTimer.IsFinished)
             {
-                spriteBatch.DrawString(font, name + " unlocked!", new Vector2(400, 400), Color.PapayaWhip);
+                spriteBatch.DrawString(font, name + " unlocked!", new Vector2(400, 400), Color.PapayaWhip); //!
             }            
         }
     }
