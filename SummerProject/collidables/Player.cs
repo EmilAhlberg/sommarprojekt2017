@@ -26,7 +26,6 @@ namespace SummerProject.collidables
         private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
-        protected CompositePart Hull;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
