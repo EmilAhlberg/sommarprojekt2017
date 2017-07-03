@@ -39,7 +39,7 @@ namespace SummerProject
             get { return base.Position; }
         }
 
-        public float Angle
+        public virtual float Angle
         {
             set
             {
