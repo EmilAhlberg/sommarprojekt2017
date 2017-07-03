@@ -45,7 +45,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            if (Health < 1 && IsDead==false)
+            if (Health < 1 && IsActive)
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
