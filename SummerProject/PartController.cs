@@ -62,5 +62,36 @@ namespace SummerProject
         {
             return Hull.AddPart(part, pos);
         }
+
+        public override void Stop()
+        {
+            foreach (Part p in Parts)
+                p.Stop();
+        }
+
+        public override void AddSpeed(float speed, float angle)
+        {
+            foreach (Part p in Parts)
+                p.AddSpeed(speed, angle);
+        }
+
+
+        public override void AddForce(Vector2 appliedForce)
+        {
+            foreach(Part p in Parts)
+                p.AddForce(appliedForce);
+        }
+
+        public virtual void CalculateAngle(float dX, float dY)
+        {
+            foreach (Part p in Parts)
+                p.CalculateAngle(dX, dY);
+        }
+
+        public override void Move()
+        {
+            foreach (Part p in Parts)
+                p.Move();
+        }
     }
 }

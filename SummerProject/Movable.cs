@@ -17,25 +17,25 @@ namespace SummerProject
         private Vector2 TotalExteriorForce { set; get; }
         protected Vector2 DirectionVector { set { angle = (float)Math.Atan(value.Y / value.X); } get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }
 
-        public void Stop()
+        public virtual void Stop()
         {
             Velocity = new Vector2(0, 0);   
             TotalExteriorForce = new Vector2(0, 0);
         }
 
-        public void AddSpeed(float speed, float angle)
+        public virtual void AddSpeed(float speed, float angle)
         {
             AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
         }
 
         public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
 
-        protected void AddForce(Vector2 appliedForce)
+        public virtual void AddForce(Vector2 appliedForce)
         {
             TotalExteriorForce = TotalExteriorForce + appliedForce;
         }
 
-        public void CalculateAngle(float dX, float dY)
+        public virtual void CalculateAngle(float dX, float dY)
         {
             float addedAngle = 0;
             if (dX != 0)
@@ -64,7 +64,7 @@ namespace SummerProject
             angle = angle % (2 * (float)Math.PI);
         }
 
-        protected virtual void Move()
+        public virtual void Move()
         {
             Velocity += Acceleration;
             Position += Velocity;
