@@ -24,6 +24,19 @@ namespace SummerProject
             Position = position;
         }
 
+        public override float Angle
+        {
+            set
+            {
+                Hull.Angle = value;
+            }
+            get
+            {
+                return Hull.Angle;
+            }
+
+        }
+
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();

@@ -23,7 +23,7 @@ namespace SummerProject
             TotalExteriorForce = new Vector2(0, 0);
         }
 
-        protected void AddSpeed(float speed, float angle)
+        public void AddSpeed(float speed, float angle)
         {
             AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
         }
@@ -35,7 +35,7 @@ namespace SummerProject
             TotalExteriorForce = TotalExteriorForce + appliedForce;
         }
 
-        protected void CalculateAngle(float dX, float dY)
+        public void CalculateAngle(float dX, float dY)
         {
             float addedAngle = 0;
             if (dX != 0)
