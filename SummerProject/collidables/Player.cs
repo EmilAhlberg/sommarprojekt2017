@@ -145,7 +145,7 @@ namespace SummerProject.collidables
                     AddForce(Thrust, (float)Math.PI / 2);
 
                 if (InputHandler.isPressed(Keys.W))
-                    AddForce(Thrust, -(float)Math.PI / 2);
+                    Hull.TakeAction(typeof(EnginePart));
 
                 if (InputHandler.isPressed(Keys.A))
                     AddForce(Thrust, (float)Math.PI);
