@@ -112,7 +112,7 @@ namespace SummerProject.collidables
             Hull.TurnTowardsVector(dX, dY);
         }
 
-        protected override void Move() //Change when adding engine
+        public override void Move() //Change when adding engine
         {
             //if (InputHandler.isPressed(Keys.D1))
             //    ControlScheme = 1;

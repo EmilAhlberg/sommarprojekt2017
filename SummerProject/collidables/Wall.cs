@@ -36,7 +36,7 @@ namespace SummerProject.collidables
             //    c1.Position = new Vector2(c1.Position.X, collidedPos.Y);
         }
 
-        protected override void Move()
+        public override void Move()
         {
             throw new NotImplementedException();
         }

@@ -59,7 +59,7 @@ namespace SummerProject
             get{ return sprite.Origin; }
         }
 
-        protected override void Move()
+        public override void Move()
         {
             base.Move();
             for (int i = 0; i < BoundBoxes.Count; i++)
