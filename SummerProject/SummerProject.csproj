@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="achievements\AchievementController.cs" />
     <Compile Include="achievements\Achievement.cs" />
+    <Compile Include="achievements\SaveData.cs" />
+    <Compile Include="achievements\SaveHandler.cs" />
     <Compile Include="achievements\Trait.cs" />
     <Compile Include="achievements\Traits.cs" />
     <Compile Include="collidables\EnergyDrop.cs" />
@@ -187,6 +189,8 @@
     </None>
     <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

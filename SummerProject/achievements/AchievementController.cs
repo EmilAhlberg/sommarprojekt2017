@@ -11,12 +11,13 @@ namespace SummerProject.achievements
     public class AchievementController
     {
         public List<Achievement> Achievements { get; set; }
-        private SpriteFont font;    
+      
+        private SpriteFont font;
 
         public AchievementController(SpriteFont font)
         {
             this.font = font;
-            Achievements = new List<Achievement>();
+            Achievements = new List<Achievement>();      
             InitAchievements();
         }
 
@@ -42,7 +43,7 @@ namespace SummerProject.achievements
             Achievement normalAch = new Achievement("Normal Difficulty", normalDifficulty);
             Achievement hardAch = new Achievement("Hard Difficulty", hardDifficulty);
             Achievement waveAch = new Achievement("Wave Mode", waveMode);
-            Achievement burstAch = new Achievement("Wave Mode", burstMode);
+            Achievement burstAch = new Achievement("Burst Mode", burstMode);
 
             Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order 
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);
@@ -56,6 +57,7 @@ namespace SummerProject.achievements
             
             foreach(Achievement a in Achievements)
             {
+                //dont have to update already unlocked achievements
                 a.Update(gameTime);
             }
         }
@@ -67,13 +69,14 @@ namespace SummerProject.achievements
                     a.Draw(spriteBatch, gameTime, font); //! font                               
             }
         }
+
         //??
         public void Reset()
         {
-            Traits.ShotsFiredTrait.Counter = 0;
-            Traits.ShotsHitTrait.Counter = 0;
-            Traits.KillTrait.Counter = 0;
-            Traits.EnemiesSpawnedTrait.Counter = 0;
+            //Traits.ShotsFiredTrait.Counter = 0;
+            //Traits.ShotsHitTrait.Counter = 0;
+            //Traits.KillTrait.Counter = 0;
+            //Traits.EnemiesSpawnedTrait.Counter = 0;
         }
     }
 }

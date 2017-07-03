@@ -140,8 +140,9 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
-            GameMode gameMode = new GameMode(scoreFont);
             achController = new AchievementController(bigFont);
+            SaveHandler.InitializeGame(achController);
+            GameMode gameMode = new GameMode(scoreFont);          
             eventOperator = new EventOperator(bigFont, this, homingTex, gameMode, achController); // fix new texture2d's!!
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
@@ -328,7 +329,7 @@ namespace SummerProject
                 eventOperator.Draw(spriteBatch, gameTime);
 
             DebugMode(spriteBatch, gameTime);
-            //achController.Draw(spriteBatch, gameTime);
+            achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
@@ -381,8 +382,7 @@ namespace SummerProject
             if (controlSheme == 3)
                 usingControls = "Mouse only";
             if (controlSheme == 4) 
-                usingControls = "WASD : AD = Rotate";
-
+                usingControls = "WASD : AD = Rotate";            
             //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 50), Color.Crimson);
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(50, WindowSize.Height - 50), Color.Gold);

@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="SummerProject.Collidable" Collapsed="true">
+    <Position X="11.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAggAAAAAAAIAAAAAAAAAFAAAAgAAKA=</HashCode>
+      <FileName>Collidable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Enemy" Collapsed="true">
+    <Position X="14.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgABIAAAAACAABAAAoAIgAABQChAABAAAAAAAA=</HashCode>
+      <FileName>collidables\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SummerProject.CompositePart" Collapsed="true">
+    <Position X="3.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAEgAgARAAAAAAAAAAAAAgQQAAgACBAAA=</HashCode>
+      <FileName>collidables\parts\CompositePart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SummerProject.Part" Collapsed="true">
+    <Position X="3.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAIAAAAACAAAAAAAAAAAAAAAAAAAAgACCAAE=</HashCode>
+      <FileName>collidables\parts\Part.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.RectangularHull" Collapsed="true">
+    <Position X="3.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\parts\RectangularHull.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.CompositeSprite" Collapsed="true">
+    <Position X="31" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAACAAAAoAgAAKAIAQAAAAAAADAAAACAAiAABA=</HashCode>
+      <FileName>CompositeSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Drawable" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAgAAAAAAAAABAAAAAAAAAAAABAAAQ=</HashCode>
+      <FileName>Drawable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.EventOperator" Collapsed="true">
+    <Position X="32.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQBEAABAAAAgEAAAAACAgAAAAACAAIAgEiBAAAIEE=</HashCode>
+      <FileName>events\EventOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.CollisionHandler" Collapsed="true">
+    <Position X="29.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAACAAAA=</HashCode>
+      <FileName>framework\CollisionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Game1" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAwIEFAEAABBAykQAQAAAgAAAAMAAAgRABBEAAQQIgQ=</HashCode>
+      <FileName>framework\Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Program" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>framework\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.ScoreHandler" Collapsed="true">
+    <Position X="31" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAgAAAAgAAAIAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>framework\ScoreHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.InputHandler" Collapsed="true">
+    <Position X="29.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAACAgAQAAAEAAAAgAAAAAAgAAAAAAACIAAAgA=</HashCode>
+      <FileName>InputHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Inventory" Collapsed="true">
+    <Position X="31" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAQAAAAAAAAgCAAAQAAAAAAAAA=</HashCode>
+      <FileName>Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Movable" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAEAAAAACAAAA4AAAAEAYAAEAACFAIE=</HashCode>
+      <FileName>Movable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.PartController" Collapsed="true">
+    <Position X="15.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAQAAAIAAAgAgABAACAAAAgAAAAAgIUAAAAAAAAE=</HashCode>
+      <FileName>PartController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SummerProject.Particle" Collapsed="true">
+    <Position X="21.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAEAgAAAEAAAAAgEAAAAAQAAAAAAAAAAAAQ=</HashCode>
+      <FileName>particles\Particle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Particles" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgAAABgABgAgAAAAAIEAASAAAICAAAACAAAA=</HashCode>
+      <FileName>particles\Particles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Sprite" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAiYAABoggAAIAAAQAAIAAAgBAARACAAwAAhA=</HashCode>
+      <FileName>Sprite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SummerProject.SRandom" Collapsed="true">
+    <Position X="27.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>SRandom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.UnitBar" Collapsed="true">
+    <Position X="1.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABgAAAAAAQAAAAEAAAAEAACAAAEAAAQA=</HashCode>
+      <FileName>UnitBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.RotRectangle" Collapsed="true">
+    <Position X="29.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAgABAAAgAAgAAAAIEAAACAAEAAAAEAAAChAAIA=</HashCode>
+      <FileName>util\RotRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.Timer" Collapsed="true">
+    <Position X="29.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAABAAAAAAQAAAAAAAAAACARAAAAAAAAAA=</HashCode>
+      <FileName>util\Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.GameController" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAACwABgIAAAAAABAAAAACAQAhgAEAAAIAAAA=</HashCode>
+      <FileName>wave\GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.WindowSize" Collapsed="true">
+    <Position X="25.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>WindowSize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.achievements.Achievement" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAABAAIAACAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>achievements\Achievement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.achievements.AchievementController" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAABgAAAAEAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>achievements\AchievementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.achievements.Trait" Collapsed="true">
+    <Position X="31" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAQBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>achievements\Trait.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.achievements.Traits" Collapsed="true">
+    <Position X="32.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAYEAAEAAAAAKAgAAAgEAAoAAAAAAAAEAAAAAAAAAE=</HashCode>
+      <FileName>achievements\Traits.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.ActivatableEntity" Collapsed="true">
+    <Position X="10.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABCAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\ActivatableEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.Bullet" Collapsed="true">
+    <Position X="5.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.Drop" Collapsed="true">
+    <Position X="10.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAAAAABAAACAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\Drop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.EnergyDrop" Collapsed="true">
+    <Position X="12.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\EnergyDrop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.Entity" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACACAAAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.EntityConstants" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAMAAAIAAAABAAggAAAAAAAAIAAABABBEgA=</HashCode>
+      <FileName>collidables\EntityConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.ExplosionDrop" Collapsed="true">
+    <Position X="8" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIUAAAAAAIAAgwAAAAAAAAgAAAAAQAAgAAAAAAACAAA=</HashCode>
+      <FileName>collidables\ExplosionDrop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.HealthDrop" Collapsed="true">
+    <Position X="10.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAACAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>collidables\HealthDrop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.Player" Collapsed="true">
+    <Position X="17" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAICICABBACAAAEAAGAAgAEAAAiQCBKAAAAAAE=</HashCode>
+      <FileName>collidables\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SummerProject.collidables.Projectile" Collapsed="true">
+    <Position X="9" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAEAAACAABAAAAAAAAAA=</HashCode>
+      <FileName>collidables\Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.collidables.Wall" Collapsed="true">
+    <Position X="19.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAA=</HashCode>
+      <FileName>collidables\Wall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.framework.AnimatedEventHandler" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAEIAAAAAABgAIAEAAAAAAAAAAAAAIgAAIAAAQAAA=</HashCode>
+      <FileName>events\AnimatedEventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.framework.UpgradeView" Collapsed="true">
+    <Position X="24" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAABAAACAAAAAAAAACIAAAAAAAAAAA=</HashCode>
+      <FileName>events\UpgradeView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.Menu" Collapsed="true">
+    <Position X="32.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAggAAAAAAAAAAIAAggAAAAABAAAAAAAA=</HashCode>
+      <FileName>events\menu\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.MenuComponent" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAgAgAgQgQEAQAAgAAAAABAAAAAAAAAASAAg=</HashCode>
+      <FileName>events\menu\MenuComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.MenuConstants" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAQIAAAAAASQAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>events\menu\MenuConstants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.DifficultyMenu" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\DifficultyMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.GameOverMenu" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\GameOverMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.MainMenu" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\MainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.ModeSelectionMenu" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\ModeSelectionMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.PauseMenu" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\PauseMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.menu.UpgradeMenu" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
+      <FileName>events\menu\menuTypes\UpgradeMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.Drops" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAhAABAQAQAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>factories\Drops.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.Enemies" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAAAAAEAAAAAAAAAAQABAAAAAAAAAAA=</HashCode>
+      <FileName>factories\Enemies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.Entities" Collapsed="true">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAYAAABgAAAQAAAAAAAAAAAQABAYEAAAAAAAA=</HashCode>
+      <FileName>factories\Entities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.EntityFactory" Collapsed="true">
+    <Position X="29.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAgAAAAAAAAQgAAAAAAAAAAAA=</HashCode>
+      <FileName>factories\EntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.EntityTypes" Collapsed="true">
+    <Position X="31" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAIQAAAAAAAACAAAAUAAIAAAEAAAEEBEEAA=</HashCode>
+      <FileName>factories\EntityTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.factories.Projectiles" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAQAAAQAAAAAIAAEAQIQAAAAAAAAAAA=</HashCode>
+      <FileName>factories\Projectiles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.util.DrawHelper" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>util\DrawHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.wave.Difficulty" Collapsed="true">
+    <Position X="32.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAEIgIAHAIGAwwGhAQAAgABAQOAgAIFgJYBABEEDE=</HashCode>
+      <FileName>wave\Difficulty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.wave.DropSpawnPoints" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAABAAAAAAEAAAAAAAAEgAAAAAAAAAAAAA=</HashCode>
+      <FileName>wave\DropSpawnPoints.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.wave.GameMode" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAYAMAABgBAABoAAEAAAEIAAAAIEAACBgAAAAAAAAAA=</HashCode>
+      <FileName>wave\GameMode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.wave.SpawnPointGenerator" Collapsed="true">
+    <Position X="32.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIQAIAICAEAEAAIAAAAAAAAAAAEAQAAEACAQAgIAAAA=</HashCode>
+      <FileName>wave\SpawnPointGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SummerProject.wave.SpawnTimer" Collapsed="true">
+    <Position X="24" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAIAAAAAAAAAAAAAQAAAAAAAAAAAACAQAAIAAAA=</HashCode>
+      <FileName>wave\SpawnTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SummerProject.ISprite" Collapsed="true">
+    <Position X="25.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAACAAAAoAgAAIAAAQAAAAAAAAAAAACAAgAAhA=</HashCode>
+      <FileName>ISprite.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SummerProject.collidables.parts.IPartCarrier" Collapsed="true">
+    <Position X="24" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAABAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>collidables\parts\IPartCarrier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SummerProject.MouseButton" Collapsed="true">
+    <Position X="24" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAABAgAAAAAAAAAAA=</HashCode>
+      <FileName>MouseButton.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

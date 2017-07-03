@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace SummerProject.menu
 {
@@ -13,10 +14,13 @@ namespace SummerProject.menu
         {
             switch (selectedIndex)
             {
-                case 0:
+                case 0:              
                     return MenuConstants.MODESELECTION;
                 case 1:
                     handler.NewGameState = EventOperator.EXIT;
+                    //achievements.SaveHandler s1 = new achievements.SaveHandler();
+                    //achievements.SaveData d1 = new achievements.SaveData();
+                    //s1.Save(d1, "save_file");
                     break;
             }
             return -1;
