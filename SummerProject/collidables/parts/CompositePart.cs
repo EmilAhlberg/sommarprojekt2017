@@ -151,7 +151,19 @@ namespace SummerProject
                 if (p.Part != null)
                     p.Part.Death();
         }
-         
+
+        public override void TakeAction(Type type)
+        {
+            foreach(Link p in parts)
+            {
+                if(p.Part.GetType() == type || p.Part is CompositePart)
+                {
+                    p.Part.TakeAction(type);
+                }
+            }
+        }
+
+
         protected abstract void AddLinkPositions();
 
         protected class Link
