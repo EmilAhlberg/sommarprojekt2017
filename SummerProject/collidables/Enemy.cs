@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.parts;
@@ -8,9 +9,10 @@ using SummerProject.achievements;
 
 namespace SummerProject
 {
-    class Enemy : AIEntity, IPartCarrier
-    {
-        public int WorthScore { get; protected set; }
+    class Enemy : PartController, IPartCarrier
+    {        
+        public int WorthScore {get; private set;}
+
         private Player player;
         public static Projectiles projectiles;
         private bool CanShoot { get; set; }
@@ -35,15 +37,15 @@ namespace SummerProject
             }
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
-            rageTimer = new Timer(15);
-            reloadTimer = new Timer(Difficulty.ENEMY_FIRE_RATE);
-
-            //Hull = new RectangularHull(position, sprite);                
+            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
+            Hull.Mass = EntityConstants.MASS[EntityConstants.ENEMY];
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
+            Hull.friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
+            if (Health < 1 && IsDead==false)
             rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
@@ -71,9 +73,8 @@ namespace SummerProject
             if (Health < 1)
             {
                 ScoreHandler.AddScore(WorthScore);
-                Traits.KillTrait.Counter++;
                 Death();
-            }
+            }    
         }
 
 
@@ -110,7 +111,7 @@ namespace SummerProject
             sprite.MColor = Color.Black;
         }
 
-        private void CalculateAngle()
+        protected override void CalculateAngle()
         {
             float dX = Position.X - player.Position.X;
             float dY = Position.Y - player.Position.Y;
@@ -158,11 +159,6 @@ namespace SummerProject
             DropSpawnPoints.DeathAt(Position);
             reloadTimer.Reset();
             base.Death();
-        }
-
-        public bool AddPart(Part part, int pos)
-        {
-            throw new NotImplementedException();
         }
     }
 }
