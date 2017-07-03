@@ -28,12 +28,13 @@ namespace SummerProject
             : base(position, sprite)
         {
             this.player = player;
+            rageTimer = new Timer(15);
             switch (type)
             {
                 case 151: CanShoot = true; break;
                 case 152: IsSpeedy = true; break;
                 case 153: IsAsteroid = true; break;
-            }
+            }      
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
             Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
@@ -80,6 +81,7 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
+
             rageTimer.Reset();
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
             sprite.MColor = Color.White;
