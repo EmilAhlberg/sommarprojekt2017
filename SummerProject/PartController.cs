@@ -86,8 +86,7 @@ namespace SummerProject
 
         public override void Move()
         {
-            foreach (Part p in Parts)
-                p.Move();
+            Hull.Move();
         }
     }
 }
