@@ -28,7 +28,6 @@ namespace SummerProject.collidables.parts
         {
             if (reloadTimer.IsFinished)
             {
-                Console.WriteLine(Angle);
                 projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle))); //!
                 reloadTimer.Reset();
             }

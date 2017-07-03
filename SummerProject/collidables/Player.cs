@@ -39,7 +39,7 @@ namespace SummerProject.collidables
             friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
             maxHealth = Health;
             maxEnergy = Energy;
-            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
+            //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
             Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
             Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];

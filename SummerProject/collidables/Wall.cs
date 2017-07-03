@@ -26,7 +26,7 @@ namespace SummerProject.collidables
             backVect *= 0.2f;
             float dotProd = Vector2.Dot(backVect, c1.Velocity);
             Vector2 result = dotProd / backVect.LengthSquared() * backVect;
-            while (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
+            while (c1.BoundBox.Intersects(c2.BoundBox))
                 c1.Position += backVect;
             c1.Velocity -= result;
 

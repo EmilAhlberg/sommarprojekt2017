@@ -7,22 +7,12 @@ namespace SummerProject
     public abstract class Collidable : Movable
     {
         public Vector2 PrevPos { get; set; }
-        public List<RotRectangle> BoundBoxes { get; set; }
+        public RotRectangle BoundBox { get; set; }
         public bool IsStatic { get; set; }
         public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
         {
-            BoundBoxes = new List<RotRectangle>();
-            BoundBoxes.Add(new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle));
-            BoundBoxes[0].Origin = sprite.Origin;
-        }
-        public void AddBoundBox(RotRectangle rect)
-        {
-            rect.Position = Position;
-            BoundBoxes.Add(rect);
-        }
-        public void RemoveBoundBox(int index)
-        {
-            BoundBoxes.RemoveAt(index);
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle);
+            BoundBox.Origin = sprite.Origin;
         }
 
         public override Vector2 Position
@@ -30,11 +20,8 @@ namespace SummerProject
             set
             {
                 base.Position = value;
-                for (int i = 0; i < BoundBoxes.Count; i++)
-                {
-                    BoundBoxes[i].Position = value;
-                    BoundBoxes[i].Angle = angle;
-                }
+                BoundBox.Position = value;
+                BoundBox.Angle = angle;
             }
             get { return base.Position; }
         }
@@ -44,7 +31,7 @@ namespace SummerProject
             set
             {
                 base.angle = value;
-                BoundBoxes[0].Angle = value;
+                Angle = value;
             }
             get { return angle; }
         }
@@ -53,7 +40,7 @@ namespace SummerProject
         {
             set
             {
-                BoundBoxes[0].Origin = value; //FIX
+                Origin = value; //FIX
                 sprite.Origin = value;
             }
             get{ return sprite.Origin; }
@@ -62,11 +49,9 @@ namespace SummerProject
         public override void Move()
         {
             base.Move();
-            for (int i = 0; i < BoundBoxes.Count; i++)
-            {
-                BoundBoxes[i].Position = Position;
-                BoundBoxes[i].Angle = angle;
-            }
+
+                BoundBox.Position = Position;
+                BoundBox.Angle = angle;
         }
         public abstract void Collision(Collidable c2);
     }
