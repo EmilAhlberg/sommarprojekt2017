@@ -19,7 +19,7 @@ namespace SummerProject.collidables
         public ExplosionDrop(Vector2 position, ISprite sprite) : base(position, sprite)
         {
             explosionTimer = new Timer(explosionTime);
-            originalBoundBox = BoundBoxes[0];
+            originalBoundBox = BoundBox;
         }
         public override void Collision(Collidable c2)
         {
@@ -42,7 +42,7 @@ namespace SummerProject.collidables
         {
             exploding = true;
             Damage = damage;
-            BoundBoxes[0] = new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, explosionSize, explosionSize), 0);
+            BoundBox = new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, explosionSize, explosionSize), 0);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -55,7 +55,7 @@ namespace SummerProject.collidables
         {
             exploding = false;
             explosionTimer.Reset();
-            BoundBoxes[0] = originalBoundBox;
+            BoundBox = originalBoundBox;
             // Particles.GenerateParticles(Position, 8); //Death animation
             Damage = 0;
             base.Death();

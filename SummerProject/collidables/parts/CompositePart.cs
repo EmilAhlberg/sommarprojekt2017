@@ -214,11 +214,11 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                Vector2 linkToCenter = new Vector2(p.BoundBoxes[0].Width, p.BoundBoxes[0].Height) / 2;
+                Vector2 linkToCenter = new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2;
                 p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBoxes[0].Width / 2, hull.BoundBoxes[0].Height / 2)) + new Vector2(p.BoundBoxes[0].Width / 2, p.BoundBoxes[0].Height / 2) + RelativePos + posChange * linkToCenter;
+                p.Origin = (hull.Origin - new Vector2(hull.BoundBox.Width / 2, hull.BoundBox.Height / 2)) + new Vector2(p.BoundBox.Width / 2, p.BoundBox.Height / 2) + RelativePos + posChange * linkToCenter;
                 p.Angle = hull.angle;
             }
         }

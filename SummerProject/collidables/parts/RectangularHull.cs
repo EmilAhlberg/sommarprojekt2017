@@ -18,13 +18,13 @@ namespace SummerProject
         {
             parts = new Link[4];
             float tempAngle = -(float)Math.PI/2;
-            parts[0] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBoxes[0].Width, BoundBoxes[0].Height) / 2, tempAngle);
+            parts[0] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
             tempAngle += (float)Math.PI/2;
-            parts[1] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBoxes[0].Width, BoundBoxes[0].Height) / 2, tempAngle);
+            parts[1] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
             tempAngle += (float)Math.PI/2;
-            parts[2] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBoxes[0].Width, BoundBoxes[0].Height) / 2, tempAngle);
+            parts[2] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
             tempAngle += (float)Math.PI/2;
-            parts[3] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBoxes[0].Width, BoundBoxes[0].Height) / 2, tempAngle);
+            parts[3] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
         }
     }
 }
