@@ -43,6 +43,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            Hull.Update(gameTime);
             CalculateAngle();
             if (Health <= 0 && IsActive)
                 Death();

@@ -15,14 +15,14 @@ namespace SummerProject.collidables.parts
         }
 
         public override void TakeAction(Type type)
-        {
-            if(Carrier is CompositePart)
-                (Carrier as CompositePart).AddForce(10, Angle);
+        {        
+            if (Carrier is CompositePart)
+                (Carrier as CompositePart).AddForce(EntityConstants.THRUST[EntityConstants.PLAYER], Angle);
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            Particles.GenerateParticles(Position, 4, Angle, Color.MonoGameOrange);
         }
     }
 }

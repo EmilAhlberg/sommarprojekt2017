@@ -80,6 +80,13 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            foreach (Link p in parts)
+            {
+                if (p.Part != null)
+                {
+                    p.Part.Update(gameTime);
+                }
+            }
             Move();
         }
 

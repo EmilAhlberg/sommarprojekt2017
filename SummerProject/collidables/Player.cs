@@ -53,7 +53,6 @@ namespace SummerProject.collidables
                 Hull.Color = Color.White; //Move to Respawn()
                 //if (ControlScheme != 4)
                 //    CalculateAngle();
-                Particles.GenerateParticles(Position, 4, angle, Color.MonoGameOrange);
                 base.Update(gameTime);
                 Move();
                 HandleBulletType();
