@@ -26,7 +26,6 @@ namespace SummerProject.collidables
         private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
-        protected CompositePart Hull;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
@@ -200,32 +199,33 @@ namespace SummerProject.collidables
                 }
 
                 if (c2 is HealthDrop)
-            {
-                if (Health == maxHealth && maxHealth < maxHealthCap)
-                    maxHealth++;
-                Health += ((HealthDrop)c2).Heal;
-                if (Health > maxHealthCap)
-                    Health = maxHealthCap;
-                if (Health > maxHealth)
-                    maxHealth = Health;
-            }
-            if (c2 is EnergyDrop)
-            {
-                if (maxEnergy < maxEnergyCap)
-                    maxEnergy += EnergyDrop.charge;
-                Energy = maxEnergy;
-            }
+                {
+                    if (Health == maxHealth && maxHealth < maxHealthCap)
+                        maxHealth++;
+                    Health += ((HealthDrop)c2).Heal;
+                    if (Health > maxHealthCap)
+                        Health = maxHealthCap;
+                    if (Health > maxHealth)
+                        maxHealth = Health;
+                }
+                if (c2 is EnergyDrop)
+                {
+                    if (maxEnergy < maxEnergyCap)
+                        maxEnergy += EnergyDrop.charge;
+                    Energy = maxEnergy;
+                }
 
-            if (!shieldOn && c2 is Projectile)
-            {
-                Projectile b = c2 as Projectile;
-                if (b.IsEvil)
-                    Health -= b.Damage;
+                if (!shieldOn && c2 is Projectile)
+                {
+                    Projectile b = c2 as Projectile;
+                    if (b.IsEvil)
+                        Health -= b.Damage;
+                }
+                //if (c2 is HealthDrop)
+                //{
+                //    Health += HealthDrop.heal;
+                //}
             }
-            //if (c2 is HealthDrop)
-            //{
-            //    Health += HealthDrop.heal;
-            //}
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
@@ -233,7 +233,7 @@ namespace SummerProject.collidables
             IsActive = false;
             base.Death();
             Particles.GenerateParticles(Position, 3, angle); //Death animation
-            Hull.MColor = Color.Transparent;
+            Hull.Color = Color.Transparent;
         }
 
         public void Reset() //NEEDS FIX
@@ -242,7 +242,7 @@ namespace SummerProject.collidables
             maxEnergy = startingEnergy;
             maxHealth = Health;
             Energy = maxEnergy;
-            Hull.MColor = Color.White;
+            Hull.Color = Color.White;
             IsActive = true;
             Hull.angle = 0;
             Hull.Position = startPosition;
