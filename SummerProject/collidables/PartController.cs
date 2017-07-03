@@ -60,6 +60,7 @@ namespace SummerProject
         {
             IsActive = false;
             Hull.Death();
+            Stop();
         }
 
         public bool AddPart(Part part, int pos)

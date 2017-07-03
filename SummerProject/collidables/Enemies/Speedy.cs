@@ -21,8 +21,8 @@ namespace SummerProject.collidables.Enemies
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            Thrust = 2.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
             base.SpecificActivation(source, target);
+            Thrust = 1.5f * EntityConstants.THRUST[EntityConstants.ENEMY];
         }
 
         public override void Death()

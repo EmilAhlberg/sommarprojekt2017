@@ -47,7 +47,6 @@ namespace SummerProject
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-
             rageTimer.Reset();
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
             sprite.MColor = Color.White;
