@@ -38,11 +38,7 @@ namespace SummerProject
                 Enrage();
             }
             Move();
-            if (Health < 1)
-            {
-                ScoreHandler.AddScore(WorthScore);
-                Death();
-            }    
+
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -100,6 +96,7 @@ namespace SummerProject
         public override void Death()
         {
             DropSpawnPoints.DeathAt(Position);
+            ScoreHandler.AddScore(WorthScore);
             base.Death();
         }
     }
