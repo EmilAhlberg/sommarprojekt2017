@@ -98,7 +98,7 @@ namespace SummerProject
             Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
             Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
             Texture2D enemyTex4 = Content.Load<Texture2D>("textures/asteroid");
-            Texture2D shipTex = Content.Load<Texture2D>("textures/ship");
+            Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_1");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
@@ -125,6 +125,7 @@ namespace SummerProject
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
+            Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             #endregion
 
             #region Adding entity-sprites to list
@@ -148,8 +149,9 @@ namespace SummerProject
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             RectangularHull rectHull = new RectangularHull(new Sprite(gunTex1));
-            //RectangularHull rectHull2 = new RectangularHull(new Sprite(healthDropTex, 4, 6));
+            RectangularHull rectHull2 = new RectangularHull(new Sprite(engineTex1));
             player.AddPart(rectHull, 3);
+            player.AddPart(rectHull2,1);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();

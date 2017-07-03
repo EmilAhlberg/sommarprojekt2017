@@ -192,6 +192,7 @@ namespace SummerProject.collidables
             {
                 Enemy e = c2 as Enemy;
                 Health -= e.Damage;
+            }
 
                 if (c2 is HealthDrop)
                 {
@@ -220,7 +221,7 @@ namespace SummerProject.collidables
                 //{
                 //    Health += HealthDrop.heal;
                 //}
-            }
+
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
