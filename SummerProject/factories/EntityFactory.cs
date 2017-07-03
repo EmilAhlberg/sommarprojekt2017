@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using SummerProject.collidables.Enemies;
 
 namespace SummerProject.factories
 {
@@ -9,7 +10,13 @@ namespace SummerProject.factories
         private const int standard = -5000;
         public static ActivatableEntity CreateEnemy(Sprite sprite, Player player, int type)
         {
-            return new Enemy(FarAway(), new Sprite(sprite), player, type);
+            switch (type)
+            {
+                case 151: return new Shooter(FarAway(), new Sprite(sprite), player);
+                case 152: return new Speedy(FarAway(), new Sprite(sprite), player);
+                case 153: return new Asteroid(FarAway(), new Sprite(sprite), player);
+            }
+            return new StandardEnemy(FarAway(), new Sprite(sprite), player);
         }
 
         public static ActivatableEntity CreateEntity(Sprite sprite, int type)

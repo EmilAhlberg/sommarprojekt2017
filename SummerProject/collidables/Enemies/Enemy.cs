@@ -15,7 +15,7 @@ namespace SummerProject
         private Player player;
         private Timer rageTimer;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player, int type)
+        public Enemy(Vector2 position, ISprite sprite, Player player)
             : base(position, sprite)
         {
             this.player = player;
@@ -37,7 +37,6 @@ namespace SummerProject
             {
                 Enrage();
             }
-            Particles.GenerateParticles(Position, 4, angle, Color.Green);
             Move();
             if (Health < 1)
             {

@@ -12,19 +12,14 @@ namespace SummerProject.collidables.Enemies
         private float spriteRotSpeed;
         private const float randomAngleOffsetMultiplier = .3f;
 
-        public Asteroid(Vector2 position, ISprite sprite, Player player, int type) : base(position, sprite, player, type)
+        public Asteroid(Vector2 position, ISprite sprite, Player player) : base(position, sprite, player)
         {
             
         }
 
-        public override void CalculateAngle(float dX, float dY)
-        {
-        }
-
-        public override void Update(GameTime gameTime)
+        protected override void CalculateAngle()
         {
             Angle += spriteRotSpeed;
-            base.Update(gameTime);
         }
 
         protected override void Enrage()

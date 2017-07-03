@@ -9,8 +9,14 @@ namespace SummerProject.collidables.Enemies
 {
     class Shooter : Enemy
     {
-        public Shooter(Vector2 position, ISprite sprite, Player player, int type) : base(position, sprite, player, type)
+        public Shooter(Vector2 position, ISprite sprite, Player player) : base(position, sprite, player)
         {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            Particles.GenerateParticles(Position, 4, angle, Color.Green);
+            base.Update(gameTime);
         }
 
         public override void Death()
