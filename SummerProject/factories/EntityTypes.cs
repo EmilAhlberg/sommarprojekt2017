@@ -23,7 +23,7 @@ namespace SummerProject.factories
   {
                 {BULLET, BULLET},
                 {HOMINGBULLET, HOMINGBULLET},
-                {SPRAYBULLET,BULLET },
+                {SPRAYBULLET,SPRAYBULLET },
                 {EVILBULLET, BULLET},
                 {ENEMY, ENEMY},
                 {HEALTHDROP, 50},
