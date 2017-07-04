@@ -24,7 +24,7 @@ namespace SummerProject.collidables.parts
         {
             projectiles.SwitchBullets(type);
         }
-        public override void TakeAction(Type type)
+        public override void TakeAction()
         {
             if (reloadTimer.IsFinished)
             {

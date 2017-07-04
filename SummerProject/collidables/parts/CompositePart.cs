@@ -117,7 +117,6 @@ namespace SummerProject
                 base.AddForce(force, angle);
         }
 
-
         public override Vector2 Position
         {
             set
@@ -183,18 +182,26 @@ namespace SummerProject
                     p.Part.Death();
         }
 
-        public override void TakeAction(Type type)
+        public void TakeAction(Type type)
         {
             foreach (Link p in parts)
             {
                 if (p.Part != null)
-                    if (p.Part.GetType() == type || p.Part is CompositePart)
+                    if(p.Part is CompositePart)
                     {
-                        p.Part.TakeAction(type);
+                        (p.Part as CompositePart).TakeAction(type);
                     }
+                    else if (p.Part.GetType() == type)
+                    {
+                        p.Part.TakeAction();
+                    }
+                TakeAction();
             }
         }
 
+        public override void TakeAction()
+        {
+        }
 
         protected abstract void AddLinkPositions();
 

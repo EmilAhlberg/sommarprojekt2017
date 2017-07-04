@@ -32,6 +32,6 @@ namespace SummerProject
             throw new NotImplementedException();
         }
 
-        public abstract void TakeAction(Type type);
+        public abstract void TakeAction();
     }
 }
