@@ -20,8 +20,6 @@ namespace SummerProject
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
         }
 
-        public virtual void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
-
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
 
         public override void Collision(Collidable c2)
