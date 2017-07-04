@@ -13,9 +13,9 @@ namespace SummerProject
         protected virtual float Mass { set; get; } = EntityConstants.MASS[EntityConstants.DEFAULT]; 
         protected virtual float Thrust { set; get; } = EntityConstants.THRUST[EntityConstants.DEFAULT];
         private Vector2 Acceleration{ get { return (ThrusterForce + TotalExteriorForce - Friction) / Mass; } }
-        private Vector2 ThrusterForce { get { return DirectionVector * Thrust;}}
+        private Vector2 ThrusterForce { get { return new Vector2((float)Math.Cos(ThrusterAngle), (float)Math.Sin(ThrusterAngle)); } }
         private Vector2 TotalExteriorForce { set; get; }
-        protected Vector2 DirectionVector { set { angle = (float)Math.Atan(value.Y / value.X); } get { return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)); } }
+        public virtual float ThrusterAngle { set; get; }
 
         public virtual void Stop()
         {
@@ -71,6 +71,7 @@ namespace SummerProject
             Velocity += Acceleration;
             Position += Velocity;
             TotalExteriorForce = new Vector2(0, 0);
+            ThrusterAngle = angle;
         }
     }
 }

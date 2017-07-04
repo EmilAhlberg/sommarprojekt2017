@@ -90,6 +90,7 @@ namespace SummerProject
 
         public override void Move()
         {
+            Hull.TakeAction(typeof(EnginePart));
             Hull.Move();
         }
 

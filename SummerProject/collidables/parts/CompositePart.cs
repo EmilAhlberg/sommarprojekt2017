@@ -61,6 +61,20 @@ namespace SummerProject
                 return totalParts;
             }
         }
+        public override float ThrusterAngle
+        {
+            set
+            {
+                base.ThrusterAngle = value;
+                foreach (Link p in parts)
+                {
+                    if (p.Part != null)
+                    {
+                        p.Part.ThrusterAngle = value;
+                    }
+                }
+            }
+        }
 
         public CompositePart(ISprite sprite) : base(sprite)
         {
@@ -87,7 +101,6 @@ namespace SummerProject
                     p.Part.Update(gameTime);
                 }
             }
-            Move();
         }
 
         //protected void UpdatePartsPos()

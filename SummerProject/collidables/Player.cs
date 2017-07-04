@@ -140,17 +140,26 @@ namespace SummerProject.collidables
 
             else if (ControlScheme == 2)
             {
+                Vector2 directionVector = Vector2.Zero;
                 if (InputHandler.isPressed(Keys.S))
-                    AddForce(Thrust, (float)Math.PI / 2);
+                    directionVector += new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.W))
-                    Hull.TakeAction(typeof(EnginePart));
+                    directionVector += new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust, (float)Math.PI);
+                    directionVector += new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI));
 
                 if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust, 0);
+                    directionVector += new Vector2((float)Math.Cos(0), (float)Math.Sin(0));
+
+                if(directionVector != Vector2.Zero)
+                {
+                    Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y,directionVector.X);
+                    base.Move();
+                }
+                //if (InputHandler.isPressed(Keys.S) || InputHandler.isPressed(Keys.W) || InputHandler.isPressed(Keys.A) || InputHandler.isPressed(Keys.D))
+                //    base.Move();
             }
 
             else if (ControlScheme == 3)
@@ -159,6 +168,42 @@ namespace SummerProject.collidables
                     base.Thrust = Thrust;
 
             }
+            //if (ControlScheme <= 1)
+            //{
+            //    if (InputHandler.isPressed(Keys.S))
+            //        base.Thrust = -Thrust;
+
+            //    if (InputHandler.isPressed(Keys.W))
+            //        base.Thrust += Thrust;
+
+            //    if (InputHandler.isPressed(Keys.A))
+            //        AddForce(Thrust, Angle - (float)Math.PI / 2);
+
+            //    if (InputHandler.isPressed(Keys.D))
+            //        AddForce(Thrust, Angle + (float)Math.PI / 2);
+            //}
+
+            //else if (ControlScheme == 2)
+            //{
+            //    if (InputHandler.isPressed(Keys.S))
+            //        AddForce(Thrust, (float)Math.PI / 2);
+
+            //    if (InputHandler.isPressed(Keys.W))
+            //        Hull.TakeAction(typeof(EnginePart));
+
+            //    if (InputHandler.isPressed(Keys.A))
+            //        AddForce(Thrust, (float)Math.PI);
+
+            //    if (InputHandler.isPressed(Keys.D))
+            //        AddForce(Thrust, 0);
+            //}
+
+            //else if (ControlScheme == 3)
+            //{
+            //    if (InputHandler.isPressed(MouseButton.RIGHT))
+            //        base.Thrust = Thrust;
+
+            //}
             //else if (ControlScheme == 4)
             //{
             //    base.Thrust = 0;
@@ -180,7 +225,7 @@ namespace SummerProject.collidables
                 if (base.Thrust != 0)
                     friction = 0;
             }
-            base.Move();
+            //base.Move();
             friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
         }
 
