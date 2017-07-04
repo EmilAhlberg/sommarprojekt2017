@@ -6,18 +6,17 @@ namespace SummerProject.factories
 {
     public class Projectiles : Entities
     {
-        private const float reloadTime = 0.3f;
-        private int bulletType;
 
         public Projectiles(int ammoCap) : base(ammoCap)
         {
-            bulletType = EntityTypes.BULLET;
             InitializeEntities(EntityTypes.BULLET);
+            InitializeEntities(EntityTypes.HOMINGBULLET);
+            InitializeEntities(EntityTypes.SPRAYBULLET);
             InitializeEntities(EntityTypes.EVILBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 
-        public bool Fire(Vector2 source, Vector2 target)
+        public bool Fire(Vector2 source, Vector2 target, int bulletType)
         {
 
                 if (ActivateEntities(source, target, bulletType))
@@ -33,13 +32,6 @@ namespace SummerProject.factories
             ActivateEntities(source, target, EntityTypes.EVILBULLET);
         }
 
-        public void SwitchBullets(int newType)
-        {
-            //RemoveInactiveType(CreateEntity(bulletType));
-            bulletType = newType;
-            InitializeEntities(newType);
-        }
-
         public override void Reset()
         {
             ResetEntities();
@@ -48,20 +40,7 @@ namespace SummerProject.factories
         public void Update(GameTime gameTime)
         {
             UpdateEntities(gameTime);
-            //RemoveAbundantType(); //cleans the entityList from eventual bullets of 'old type'
         }
-
-        //private void RemoveAbundantType()
-        //{
-        //    for (int i = EntityDic.Count - 1; i >= entityCap; i--)
-        //    {
-        //        if (!EntityDic[i].IsActive)
-        //        {
-        //            EntityDic.Remove(EntityDic[i]);
-        //        }
-        //    }
-        //}
-
         protected override ActivatableEntity CreateEntity(int type)
         {
             return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type); //! LOL

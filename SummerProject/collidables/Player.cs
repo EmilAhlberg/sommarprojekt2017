@@ -19,9 +19,9 @@ namespace SummerProject.collidables
         private const float shieldRechargeRate = shieldDischargeRate / 10;
         private const float startingEnergy = 100f;
         public float maxEnergy { get; private set; }
-        public int maxHealth { get; private set; }
+        public float maxHealth { get; private set; }
         private const float maxEnergyCap = 300;
-        private const int maxHealthCap = 15;
+        private const float maxHealthCap = 15;
         private const int shieldSize = 300;
         private bool shieldOn;
         private Projectiles projectiles;
@@ -90,17 +90,19 @@ namespace SummerProject.collidables
 
         private void HandleBulletType() //Change when adding gun
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
-                projectiles.SwitchBullets(EntityTypes.BULLET);
-            if (Keyboard.GetState().IsKeyDown(Keys.D2))
-                projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D1))
+            //    projectiles.SwitchBullets(EntityTypes.BULLET);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D2))
+            //    projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
+            //if (Keyboard.GetState().IsKeyDown(Keys.D3))
+            //    projectiles.SwitchBullets(EntityTypes.SPRAYBULLET);
         }
 
         private void Fire() //Change when adding gun
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                Hull.TakeAction(typeof(GunPart));
+                Hull.TakeAction(typeof(SprayGunPart));
             }
         }
 
