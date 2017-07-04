@@ -22,7 +22,7 @@ namespace SummerProject
         {
             sprite.Position = Position;
             //if (prevAngle != angle) // for changing sprite rotation independently (asteroid)
-                  sprite.Rotation = angle;
+            sprite.Rotation = angle;
             sprite.Draw(spriteBatch, gameTime);
             prevAngle = angle;
             //Color c = Color.White;
