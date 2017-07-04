@@ -18,7 +18,6 @@ namespace SummerProject
         List<Vector2> Edges { get; }
         Color PrimaryColor { get; }
         List<Sprite> SplitSprites { get; }
-
-
+        List<Color> Colors { get; }
     }
 }

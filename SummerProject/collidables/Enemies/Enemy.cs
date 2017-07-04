@@ -53,7 +53,7 @@ namespace SummerProject
         protected virtual void Enrage()
         {
             Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
-            Particles.GenerateParticles(Position, 5, angle, Color.Red);
+            Particles.GenerateParticles(Position, 5, Angle, Color.Red);
             Sprite.MColor = Color.Black;
         }
 
