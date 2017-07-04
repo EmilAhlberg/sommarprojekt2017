@@ -180,7 +180,6 @@ namespace SummerProject
             foreach (Link p in parts)
                 if (p.Part != null)
                     p.Part.Death();
-            base.Death();
         }
 
         public void TakeAction(Type type)
@@ -199,6 +198,11 @@ namespace SummerProject
 
         public override void TakeAction()
         {
+        }
+
+        public override bool CollidesWith(Collidable c2)
+        {
+
         }
 
         protected abstract void AddLinkPositions();
@@ -224,7 +228,7 @@ namespace SummerProject
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
                 p.Origin = (hull.Origin - new Vector2(hull.BoundBox.Width / 2, hull.BoundBox.Height / 2)) + new Vector2(p.BoundBox.Width / 2, p.BoundBox.Height / 2) + RelativePos + posChange * linkToCenter;
-                p.Angle = hull.Angle;
+                p.Angle = hull.angle;
             }
         }
     }
