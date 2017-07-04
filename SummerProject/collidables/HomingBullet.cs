@@ -27,7 +27,7 @@ namespace SummerProject.collidables
         {
             if (c2 is Enemy || c2 is Wall)
             {
-                Particles.GenerateParticles(Position, 5, 0, sprite.MColor);
+                Particles.GenerateParticles(Position, 5, 0, Sprite.MColor);
                 Death();
             }
         }
@@ -45,16 +45,20 @@ namespace SummerProject.collidables
             float dX = -target.Position.X;
             float dY = -target.Position.Y;
             base.CalculateAngle(dX, dY);
-        //    AddForce(angle, 1);
+            AddForce(5, Angle);
         }
-
+        public override void Death()
+        {
+            Detector.Death();
+            base.Death();
+        }
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             float dX = -target.X;
             float dY = -target.Y;
           base.CalculateAngle(dX, dY);
             Stop();
-            AddSpeed(6, angle);
+            AddSpeed(6, Angle);
             ResetSpawnTime();
             Detector.Position = Position;
         }

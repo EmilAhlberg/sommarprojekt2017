@@ -26,13 +26,8 @@ namespace SummerProject
                         ActivatableEntity e2 = c2 as ActivatableEntity;
                         if (e1.IsActive && e2.IsActive) //! PLS REFACTOR ;)
                         {
-                            if (e1 is ITargeting)
-                            {
-                                ITargeting targeting = e1 as ITargeting;
-                                if (targeting.Detector.BoundBox.Intersects(c2.BoundBox))
-                                    HandleCollision(targeting.Detector, c2);
-                            }
-                            else if (e1 is PartController && e2 is PartController)
+
+                            if (e1 is PartController && e2 is PartController)
                             {
                                 PartController pc1 = c1 as PartController;
                                 PartController pc2 = c2 as PartController;
@@ -61,7 +56,14 @@ namespace SummerProject
                                 PartController pc2 = c2 as PartController;
                                 foreach (Part p2 in pc2.Parts)
                                 {
-                                    if (c1.BoundBox.Intersects(p2.BoundBox))
+                                    if (e1 is ITargeting)
+                                    {
+                                        ITargeting targeting = e1 as ITargeting;
+                                        if (targeting.Detector.BoundBox.Intersects(p2.BoundBox))
+                                            HandleCollision(targeting.Detector, e2);
+                                    }
+                                    else
+                                        if (c1.BoundBox.Intersects(p2.BoundBox))
                                     {
                                         HandleCollision(c1, c2);
                                     }
@@ -73,6 +75,7 @@ namespace SummerProject
                                 HandleCollision(c1, c2);
                             }
                         }
+
 
                         //else
                         //{

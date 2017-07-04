@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.factories;
 
 namespace SummerProject.collidables.parts
 {
@@ -17,7 +18,9 @@ namespace SummerProject.collidables.parts
         private bool detected;
         public DetectorPart(int detectionWidth, int detectionHeight, Type type, ITargeting parent) : base(new Sprite())
         {
+            RotRectangle temp = BoundBox;
             BoundBox = new RotRectangle(new Rectangle((int) Position.X, (int) Position.Y, detectionWidth, detectionHeight), angle);
+            BoundBox.Origin = temp.Origin;
             this.parent = parent;
             this.type = type;
         }
@@ -35,13 +38,18 @@ namespace SummerProject.collidables.parts
 
         public override void Collision(Collidable c2)
         {
-        //    if (c2.GetType() == type)
+   //       if (c2.GetType() == type)
         if (c2 is Enemy)
             {
                 //   target = (Entity)Convert.ChangeType(c2, type);
                 target = ((Enemy)c2);
                 detected = true;
             }
+        }
+        public override void Death()
+        {
+            detected = false;
+            target = null;
         }
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
