@@ -43,9 +43,9 @@ namespace SummerProject
             if(currentValue < currentMax)
             {
                 List<Vector2> listo = new List<Vector2>();
-                for (int i = 0; i < sprite.SpriteRect.Height; i++)
+                for (int i = 0; i < Sprite.SpriteRect.Height; i++)
                 {
-                    listo.Add(new Vector2(scaleSprite.Scale.X * scaleSprite.SpriteRect.Width, i - sprite.SpriteRect.Height / 2));
+                    listo.Add(new Vector2(scaleSprite.Scale.X * scaleSprite.SpriteRect.Width, i - Sprite.SpriteRect.Height / 2));
                 }
                 Particles.GenerateParticles(listo, Position, Vector2.Zero, 15, 0, scaleSprite.MColor);
             }

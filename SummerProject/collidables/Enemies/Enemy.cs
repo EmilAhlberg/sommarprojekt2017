@@ -45,7 +45,7 @@ namespace SummerProject
         {
             rageTimer.Reset();
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
-            sprite.MColor = Color.White;
+            Sprite.MColor = Color.White;
             Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
         }
@@ -53,8 +53,8 @@ namespace SummerProject
         protected virtual void Enrage()
         {
             Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
-            Particles.GenerateParticles(Position, 5, angle, Color.Red);
-            sprite.MColor = Color.Black;
+            Particles.GenerateParticles(Position, 5, Angle, Color.Red);
+            Sprite.MColor = Color.Black;
         }
 
         protected override void CalculateAngle()
@@ -93,7 +93,7 @@ namespace SummerProject
         }
 
         public override void Death()
-        {
+        { 
             DropSpawnPoints.DeathAt(Position);
             ScoreHandler.AddScore(WorthScore);
             base.Death();

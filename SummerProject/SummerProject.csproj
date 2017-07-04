@@ -117,6 +117,7 @@
     <Compile Include="SRandom.cs" />
     <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
+    <Compile Include="util\TextureHelper.cs" />
     <Compile Include="wave\Difficulty.cs" />
     <Compile Include="wave\DropSpawnPoints.cs" />
     <Compile Include="wave\GameMode.cs" />

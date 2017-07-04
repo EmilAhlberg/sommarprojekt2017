@@ -16,7 +16,7 @@ namespace SummerProject.collidables.parts
 
         public GunPart(ISprite sprite) : base(sprite)
         {
-            this.sprite = sprite;
+            this.Sprite = sprite;
             reloadTimer = new Timer(RELOADTIME);
         }
 
