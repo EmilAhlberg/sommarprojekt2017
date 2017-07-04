@@ -58,7 +58,7 @@ namespace SummerProject.wave
             if (LevelFinished)
             {
                 Level += 1;
-                Traits.LevelTrait.Counter++;
+                Traits.LEVEL.Counter++;
                 IsChanged = true;
                 betweenLevelsTimer.Reset();
                 LevelFinished = false;

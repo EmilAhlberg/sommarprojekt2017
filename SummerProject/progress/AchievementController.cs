@@ -23,7 +23,7 @@ namespace SummerProject.achievements
 
         /*
          * Achievements for dummies:
-         *      An achievement is created with an achievement name and a dictionary param. The dictionary has to 
+         *      An achievement is created with a name and a dictionary param. The dictionary has to 
          *      be created in the init method below. The dictionary's keys are specific ints which constitutes thresholds for
          *      the corresponding dictionary value. When all thresholds for an achievement have been reached, the achievement is unlocked.
          *      
@@ -35,20 +35,20 @@ namespace SummerProject.achievements
         private void InitAchievements()
         {            
             Dictionary<int, Trait> normalDifficulty = new Dictionary<int, Trait>();
-            normalDifficulty.Add(Traits.KILLTHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.KillTrait);
-            normalDifficulty.Add(Traits.SCORETHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.ScoreTrait);
+            normalDifficulty.Add(Traits.KILLTHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.KILLS);
+            normalDifficulty.Add(Traits.SCORETHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.SCORE);
 
            
 
             Dictionary<int, Trait> hardDifficulty = new Dictionary<int, Trait>();
-            hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KillTrait);
-            hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.ScoreTrait);
+            hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KILLS);
+            hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.SCORE);
 
             Dictionary<int, Trait> waveMode = new Dictionary<int, Trait>();
-            waveMode.Add(Traits.TIMETHRESHOLD[Traits.WAVE_MODE], Traits.TimeTrait);
+            waveMode.Add(Traits.TIMETHRESHOLD[Traits.WAVE_MODE], Traits.TIME);
 
             Dictionary<int, Trait> burstMode = new Dictionary<int, Trait>();
-            burstMode.Add(Traits.LEVELTHRESHOLD[Traits.BURST_MODE], Traits.LevelTrait);
+            burstMode.Add(Traits.LEVELTHRESHOLD[Traits.BURST_MODE], Traits.LEVEL);
 
             Achievement normalAch = new Achievement("Normal Difficulty", normalDifficulty);
             Achievement hardAch = new Achievement("Hard Difficulty", hardDifficulty);
@@ -63,7 +63,7 @@ namespace SummerProject.achievements
 
         public void Update(GameTime gameTime)
         {
-            Traits.ScoreTrait.Counter = ScoreHandler.Score;
+            Traits.SCORE.Counter = ScoreHandler.Score;
             
             foreach(Achievement a in Achievements)
             {
@@ -83,13 +83,13 @@ namespace SummerProject.achievements
         //??
         public void Reset()
         {
-            Traits.TimeTrait.Counter = 0;
-            Traits.ScoreTrait.Counter = 0;
-            Traits.ShotsFiredTrait.Counter = 0;
-            Traits.ShotsHitTrait.Counter = 0;
-            Traits.KillTrait.Counter = 0;
-            Traits.EnemiesSpawnedTrait.Counter = 0;
-            Traits.LevelTrait.Counter = 0;
+            Traits.TIME.Counter = 0;
+            Traits.SCORE.Counter = 0;
+            Traits.SHOTSFIRED.Counter = 0;
+            Traits.SHOTSHIT.Counter = 0;
+            Traits.KILLS.Counter = 0;
+            Traits.ENEMIESSPAWNED.Counter = 0;
+            Traits.LEVEL.Counter = 0;
         }
     }
 }

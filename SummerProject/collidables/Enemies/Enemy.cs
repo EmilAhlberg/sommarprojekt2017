@@ -74,7 +74,7 @@ namespace SummerProject
                 {
                     Health -= b.Damage;
                     AddForce(b.Velocity); //! remove lator
-                    Traits.ShotsHitTrait.Counter++;
+                    Traits.SHOTSHIT.Counter++;
                 }
                 
             }
