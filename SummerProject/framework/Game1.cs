@@ -127,7 +127,10 @@ namespace SummerProject
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
-            Texture2D[] allUpgradeParts = { engineTex1, gunTex1 };
+            List<Texture2D> allUpgradeParts = new List<Texture2D>();
+            allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
+            allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
+            allUpgradeParts.Insert(PartTypes.GUNPART, gunTex1);
             #endregion
 
             #region Adding entity-sprites to list

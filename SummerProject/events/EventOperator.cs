@@ -7,6 +7,7 @@ using SummerProject.framework;
 using SummerProject.menu;
 using SummerProject.wave;
 using System;
+using System.Collections.Generic;
 
 namespace SummerProject
 {
@@ -29,7 +30,7 @@ namespace SummerProject
         private UpgradeView upgradeView;
         private Game1 game;
 
-        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, Texture2D[] upgradeParts)
+        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<Texture2D> upgradeParts)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
