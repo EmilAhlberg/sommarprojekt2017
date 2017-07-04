@@ -158,9 +158,9 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
-            SprayGunPart gunPart1 = new SprayGunPart(new Sprite(gunTex1));
-            GunPart gunPart2 = new GunPart(new Sprite(gunTex1));
-            GunPart gunPart3 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
+            GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine3 = new EnginePart(new Sprite(engineTex1));
@@ -170,7 +170,7 @@ namespace SummerProject
             rectHull1.AddPart(engine2, 1);
             rectHull2.AddPart(engine3, 1);
             player.AddPart(gunPart1, 3);
-           rectHull1.AddPart(gunPart2, 3);
+            rectHull1.AddPart(gunPart2, 3);
             rectHull2.AddPart(gunPart3, 3);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
