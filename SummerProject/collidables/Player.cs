@@ -106,8 +106,8 @@ namespace SummerProject.collidables
 
         protected override void CalculateAngle()
         {
-            float dX = Hull.Position.X - Mouse.GetState().X;
-            float dY = Hull.Position.Y - Mouse.GetState().Y;
+            float dX = Hull.Position.X - InputHandler.mPosition.X;
+            float dY = Hull.Position.Y - InputHandler.mPosition.Y;
             Hull.TurnTowardsVector(dX, dY);
         }
 

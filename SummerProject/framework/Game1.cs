@@ -174,6 +174,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+            Camera.Player = player;
 
             #endregion
 
@@ -310,7 +311,7 @@ namespace SummerProject
         {
 
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             background.Draw(spriteBatch, gameTime);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
@@ -334,7 +335,7 @@ namespace SummerProject
             DebugMode(spriteBatch, gameTime);
             achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
                 DrawSpecialTransparency(spriteBatch, gameTime);
             spriteBatch.End();

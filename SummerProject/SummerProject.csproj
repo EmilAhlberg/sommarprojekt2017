@@ -57,6 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="progress\AchievementController.cs" />
     <Compile Include="progress\Achievement.cs" />
     <Compile Include="progress\SaveData.cs" />

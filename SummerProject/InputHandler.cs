@@ -10,7 +10,7 @@ namespace SummerProject
 {
     public static class InputHandler
     {
-        public static Point mPosition { get { return Mouse.GetState().Position; } }
+        public static Point mPosition { get { return Mouse.GetState().Position + new Point((int)Camera.CameraPosition.X, (int)Camera.CameraPosition.Y); } }
         static KeyboardState kState;
         static KeyboardState pKState;
         static MouseState mState;
