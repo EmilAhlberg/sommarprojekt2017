@@ -65,7 +65,7 @@ namespace SummerProject
             Dictionary<Color, int> colorDic = new Dictionary<Color, int>();
             foreach(Color c in colors1D)
             {
-                if(c.A != 0 && !c.Equals(new Color(32, 32, 32)))
+                if(c.A != 0)
                 {
                     if(!colorDic.Keys.Contains(c))
                         colorDic.Add(c, 0);
@@ -81,6 +81,24 @@ namespace SummerProject
             primaryColor = returnColor;
             return returnColor;
         }
+
+        private List<Color> colors;
+        public List<Color> Colors
+        {
+            get
+            {
+                    return colors ?? CalcColors();
+            }
+        }
+
+        private List<Color> CalcColors()
+        {
+            Color[] colors1D = new Color[texture.Width * texture.Height];
+            texture.GetData(colors1D);
+            return colors1D.Where(c => c.A != 0).ToList();
+           
+        }
+
 
         private int subimages;
         private float currentFrame;

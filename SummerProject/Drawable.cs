@@ -7,7 +7,7 @@ namespace SummerProject
     {
         public virtual Vector2 Position { get; set; }
         public ISprite Sprite { get; protected set; }
-        public float angle = 0;
+        protected float angle = 0;
         private float prevAngle;
 
         public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
