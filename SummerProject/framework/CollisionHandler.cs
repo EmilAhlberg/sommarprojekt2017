@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SummerProject.collidables;
+using SummerProject.collidables.parts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,13 @@ namespace SummerProject
                         ActivatableEntity e2 = c2 as ActivatableEntity;
                         if (e1.IsActive && e2.IsActive) //! PLS REFACTOR ;)
                         {
-                            if (e1 is PartController && e2 is PartController)
+                            if (e1 is ITargeting)
+                            {
+                                ITargeting targeting = e1 as ITargeting;
+                                if (targeting.Detector.BoundBox.Intersects(c2.BoundBox))
+                                    HandleCollision(targeting.Detector, c2);
+                            }
+                            else if (e1 is PartController && e2 is PartController)
                             {
                                 PartController pc1 = c1 as PartController;
                                 PartController pc2 = c2 as PartController;
