@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,25 @@ namespace SummerProject
                 return edges ?? CalculateEdges();
             }
         }
+        private List<Sprite> splitSprites;
+        public List<Sprite> SplitSprites
+        {
+            get
+            {
+                return splitSprites ?? CalculateSplitSprites();
+            }
+        }
+
+        private List<Sprite> CalculateSplitSprites()
+        {
+            List<Sprite> spriteList = new List<Sprite>();
+            foreach (Texture2D t in texture.GetSplitTexture(subimages))
+            {
+                spriteList.Add(new Sprite(t));
+            }
+            return spriteList;
+        }
+
         private Color? primaryColor;
         public Color PrimaryColor
         {
@@ -39,7 +60,26 @@ namespace SummerProject
 
         private Color CalcPrimaryColor()
         {
-            throw new NotImplementedException();
+            Color[] colors1D = new Color[texture.Width * texture.Height];
+            texture.GetData(colors1D);
+            Dictionary<Color, int> colorDic = new Dictionary<Color, int>();
+            foreach(Color c in colors1D)
+            {
+                if(c.A != 0 && !c.Equals(new Color(32, 32, 32)))
+                {
+                    if(!colorDic.Keys.Contains(c))
+                        colorDic.Add(c, 0);
+                    colorDic[c]++;
+                }
+            }
+            Color returnColor = colorDic.Keys.First();
+            foreach (Color c in colorDic.Keys)
+            {
+                if (colorDic[c] > colorDic[returnColor])
+                    returnColor = c;
+            }
+            primaryColor = returnColor;
+            return returnColor;
         }
 
         private int subimages;
@@ -111,6 +151,7 @@ namespace SummerProject
         }
 
 
+
         /// <summary>
         /// Slow as fuck, just so that you know. Use only once per sprite, at most.
         /// </summary>
@@ -153,5 +194,6 @@ namespace SummerProject
             edges = edgeList;
             return edgeList;
         }
+
     }
 }

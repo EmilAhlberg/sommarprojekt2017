@@ -41,5 +41,14 @@ namespace SummerProject.util
             sb.DrawString(font, text, position + new Vector2(-outlineSize, -outlineSize), Color.White, rotation, origin, scale, SpriteEffects.None, 1);
             sb.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.None, 1);
         }
+
+        public static Vector2 CenteredWordPosition(string s, SpriteFont font)
+        {
+            Vector2 size = font.MeasureString(s);
+            float width = 0;
+            if (size.X > width)
+                width = size.X;
+            return new Vector2((WindowSize.Width - width) / 2, (WindowSize.Height) / 2);
+        }
     }
 }

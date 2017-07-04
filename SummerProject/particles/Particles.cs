@@ -247,6 +247,15 @@ namespace SummerProject
             }
         }
 
+        public static void GenerateParticles(ISprite sprite, Vector2 position, int ID, float angle = 0, Color? color = null)
+        {
+            List<Sprite> sList = sprite.SplitSprites;
+            Vector2 initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+            CreateParticle(sList[0], position, -initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
+            CreateParticle(sList[1], position, initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
+            CreateExplosion(10, position, 10, 80, 0.2f, sprite.PrimaryColor, 1, 1, 1);
+        }
+
         public static void Draw(SpriteBatch sb, GameTime gameTime)
         {
             foreach (Particle p in particles)

@@ -36,12 +36,12 @@ namespace SummerProject.collidables.Enemies
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             friction = 0;
             Thrust = 0;
-            AddSpeed(5, angle);
+            AddSpeed(5, Angle);
         }
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
+            //Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
             base.Death();
         }
     }

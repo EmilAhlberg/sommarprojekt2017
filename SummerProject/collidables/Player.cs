@@ -83,7 +83,7 @@ namespace SummerProject.collidables
                 //}
                 if (Health <= 2)
                 {
-                    Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 13, angle);
+                    Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, angle);
                 }
             }
         }
@@ -227,7 +227,6 @@ namespace SummerProject.collidables
         {
             IsActive = false;
             base.Death();
-            Particles.GenerateParticles(Position, 3, angle); //Death animation
             Hull.Color = Color.Transparent;
         }
 

@@ -17,5 +17,8 @@ namespace SummerProject
         void Colorize(Color c);
         List<Vector2> Edges { get; }
         Color PrimaryColor { get; }
+        List<Sprite> SplitSprites { get; }
+
+
     }
 }

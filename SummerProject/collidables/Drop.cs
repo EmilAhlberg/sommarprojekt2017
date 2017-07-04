@@ -17,9 +17,9 @@ namespace SummerProject.collidables
         public override void Update(GameTime gameTime)
         {
             if (despawnTimer.currentTime < blinkTimer && (despawnTimer.currentTime * blinkSpeed) % 2 < 1)
-                sprite.MColor = new Color(1, 1, 1, 0.4f);
+                Sprite.MColor = new Color(1, 1, 1, 0.4f);
             else
-                sprite.MColor = Color.White;
+                Sprite.MColor = Color.White;
             UpdateTimer(gameTime);
         }
 

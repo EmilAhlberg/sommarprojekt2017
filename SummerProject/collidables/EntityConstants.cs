@@ -54,7 +54,7 @@ namespace SummerProject.collidables
         new Dictionary<int, float>
         {
                 {DEFAULT, 1000f * (float)Math.PI }, //! //rad per tick
-                {PLAYER, 0.05f * (float)Math.PI},
+                {PLAYER, 0.1f * (float)Math.PI},
                 {ENEMY, 1000f * (float)Math.PI},
                 {BULLET, 0},
                 {HOMINGBULLET, 0.07f * (float)Math.PI}
