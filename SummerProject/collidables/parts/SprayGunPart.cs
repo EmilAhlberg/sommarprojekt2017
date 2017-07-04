@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using SummerProject.factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +15,10 @@ namespace SummerProject.collidables.parts
         {
             RELOADTIME = 0.1f;
             reloadTimer = new Timer(RELOADTIME);
+        }
+        protected override void Fire()
+        {
+            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), EntityTypes.SPRAYBULLET);
         }
     }
 }

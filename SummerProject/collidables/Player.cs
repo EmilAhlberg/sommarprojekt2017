@@ -26,6 +26,8 @@ namespace SummerProject.collidables
         private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
+        private bool toggleGun;
+        private bool toggleSprayGun;
 
         public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
         {
@@ -44,6 +46,8 @@ namespace SummerProject.collidables
             Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
             Position = position;
+            toggleGun = true;
+            toggleSprayGun = true;
         }
 
         public override void Update(GameTime gameTime) //NEEDS FIX
@@ -55,7 +59,6 @@ namespace SummerProject.collidables
                 //    CalculateAngle();
                 base.Update(gameTime);
                 Move();
-                HandleBulletType();
                 Fire();
                 //if (Health <= 0 && IsActive)
                 //    Death();
@@ -85,24 +88,18 @@ namespace SummerProject.collidables
                 {
                     Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, Angle);
                 }
+                HandleBulletToggle();
             }
-        }
-
-        private void HandleBulletType() //Change when adding gun
-        {
-            //if (Keyboard.GetState().IsKeyDown(Keys.D1))
-            //    projectiles.SwitchBullets(EntityTypes.BULLET);
-            //if (Keyboard.GetState().IsKeyDown(Keys.D2))
-            //    projectiles.SwitchBullets(EntityTypes.HOMINGBULLET);
-            //if (Keyboard.GetState().IsKeyDown(Keys.D3))
-            //    projectiles.SwitchBullets(EntityTypes.SPRAYBULLET);
         }
 
         private void Fire() //Change when adding gun
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                Hull.TakeAction(typeof(SprayGunPart));
+                if (toggleGun)
+                    Hull.TakeAction(typeof(GunPart));
+                if (toggleSprayGun)
+                    Hull.TakeAction(typeof(SprayGunPart));
             }
         }
 
@@ -184,6 +181,14 @@ namespace SummerProject.collidables
             }
             base.Move();
             friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
+        }
+
+        private void HandleBulletToggle()
+        {
+            if (InputHandler.isJustPressed(Keys.D1))
+                toggleGun = !toggleGun;
+            if (InputHandler.isJustPressed(Keys.D2))
+                toggleSprayGun = !toggleSprayGun;
         }
 
         public override void Collision(Collidable c2)

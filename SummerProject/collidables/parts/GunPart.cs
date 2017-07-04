@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.factories;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.collidables.parts
 {
@@ -24,9 +25,13 @@ namespace SummerProject.collidables.parts
         {
             if (reloadTimer.IsFinished)
             {
-                projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), EntityTypes.BULLET); //!
+                Fire();
                 reloadTimer.Reset();
             }
+        }
+        protected virtual void Fire()
+        {
+            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), EntityTypes.BULLET);
         }
 
         public override void Update(GameTime gameTime)
