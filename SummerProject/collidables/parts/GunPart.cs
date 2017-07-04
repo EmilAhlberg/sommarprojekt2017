@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.factories;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.collidables.parts
 {
     class GunPart : Part
     {
         public static Projectiles projectiles;
-        private const float RELOADTIME = 0.3f;
-        private Timer reloadTimer;
+        protected float RELOADTIME = 0.3f; //!
+        protected Timer reloadTimer;
 
         public GunPart(ISprite sprite) : base(sprite)
         {
@@ -20,17 +21,17 @@ namespace SummerProject.collidables.parts
             reloadTimer = new Timer(RELOADTIME);
         }
 
-        public void SwitchBullets(int type)
-        {
-            projectiles.SwitchBullets(type);
-        }
         public override void TakeAction()
         {
             if (reloadTimer.IsFinished)
             {
-                projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle))); //!
+                Fire();
                 reloadTimer.Reset();
             }
+        }
+        protected virtual void Fire()
+        {
+            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), EntityTypes.BULLET);
         }
 
         public override void Update(GameTime gameTime)

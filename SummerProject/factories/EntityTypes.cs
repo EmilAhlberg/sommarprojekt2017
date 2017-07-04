@@ -7,6 +7,7 @@ namespace SummerProject.factories
         public const int ARRAYSIZE = 200;
         public const int BULLET = 0;            // Bullet range = 0-49
         public const int HOMINGBULLET = 1;
+        public const int SPRAYBULLET = 2;
         public const int EVILBULLET = 100;        // Enemy Bullet Range = 100 - 149
         public const int HEALTHDROP = 50;        // Drop Range = 50-99
         public const int HEALTHDROP_TIER2 = 53;
@@ -22,6 +23,7 @@ namespace SummerProject.factories
   {
                 {BULLET, BULLET},
                 {HOMINGBULLET, HOMINGBULLET},
+                {SPRAYBULLET,BULLET },
                 {EVILBULLET, BULLET},
                 {ENEMY, ENEMY},
                 {HEALTHDROP, 50},
