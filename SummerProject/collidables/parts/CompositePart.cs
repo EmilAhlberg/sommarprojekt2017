@@ -184,18 +184,15 @@ namespace SummerProject
 
         public void TakeAction(Type type)
         {
+            if (type == GetType())
+                TakeAction();
             foreach (Link p in parts)
             {
                 if (p.Part != null)
                     if(p.Part is CompositePart)
-                    {
                         (p.Part as CompositePart).TakeAction(type);
-                    }
                     else if (p.Part.GetType() == type)
-                    {
                         p.Part.TakeAction();
-                    }
-                TakeAction();
             }
         }
 
