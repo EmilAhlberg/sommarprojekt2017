@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.util;
 
 namespace SummerProject.achievements
 {
@@ -64,18 +65,8 @@ namespace SummerProject.achievements
             if (Unlocked && !unlockTimer.IsFinished)
             {
                 string s = name + " unlocked!";
-                spriteBatch.DrawString(font, s, WordLayoutPosition(s, font), Color.PapayaWhip); //!
+                spriteBatch.DrawString(font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0,-200), Color.PapayaWhip); //! vector + font
             }            
-        }
-
-        //duplicated in animatedeventhandler, + gamemode?
-        private Vector2 WordLayoutPosition(string s, SpriteFont font)
-        {
-            Vector2 size = font.MeasureString(s);
-            float width = 0;
-            if (size.X > width)
-                width = size.X;
-            return new Vector2((WindowSize.Width - width) / 2, (WindowSize.Height - 200) / 2); //! 200
-        }
+        }      
     }
 }
