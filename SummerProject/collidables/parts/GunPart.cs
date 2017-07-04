@@ -20,7 +20,7 @@ namespace SummerProject.collidables.parts
             reloadTimer = new Timer(RELOADTIME);
         }
 
-        public override void TakeAction(Type type)
+        public override void TakeAction()
         {
             if (reloadTimer.IsFinished)
             {

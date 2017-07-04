@@ -14,7 +14,7 @@ namespace SummerProject.menu
         {
             switch (selectedIndex)
             {
-                case 0:
+                case 1:
                     handler.NewGameState = EventOperator.GAME_STATE;
                     break;
             }

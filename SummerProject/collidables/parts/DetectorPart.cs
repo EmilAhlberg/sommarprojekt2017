@@ -25,7 +25,7 @@ namespace SummerProject.collidables.parts
             this.type = type;
         }
 
-        public override void TakeAction(Type type)
+        public override void TakeAction()
         {
             throw new NotImplementedException();
         }
