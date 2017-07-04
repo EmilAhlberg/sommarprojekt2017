@@ -56,19 +56,23 @@ namespace SummerProject
         {
             if (NewGameState != GameState)
             {
-                animatedHandler.Reset(); //May want to set this differently in different cases.
+                float eventTime = 0;
+                //animatedHandler.Reset(); //May want to set this differently in different cases.
                 switch (NewGameState)
                 {
                     case EXIT:
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
+                        eventTime = AnimatedEventHandler.EVENTTIME;
                         animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
+                        eventTime = AnimatedEventHandler.EVENTTIME;
                         animatedHandler.AnimatedEvent = true;
                         break;
                     case GAME_OVER_STATE:
+                        eventTime = AnimatedEventHandler.STATSTIME;
                         animatedHandler.AnimatedEvent = true;
                         GameState = NewGameState;
                         break;
@@ -79,6 +83,7 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                 }
+                animatedHandler.eventTimer = new Timer(eventTime);
             }
         }
         
@@ -115,7 +120,7 @@ namespace SummerProject
         {
             SaveData data = new SaveData();
             data.SaveProgress(achControl);
-            SaveHandler.Save(data, "save_file");
+            SaveHandler.Save(data, "save_file"); //!
             game.Exit();
         }
 

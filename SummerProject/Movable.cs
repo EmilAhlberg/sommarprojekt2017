@@ -32,8 +32,10 @@ namespace SummerProject
 
         public virtual void AddForce(Vector2 appliedForce)
         {
-            TotalExteriorForce = TotalExteriorForce + appliedForce;
+            TotalExteriorForce += appliedForce;
         }
+
+        public virtual void AddForce(float force, float angle) { AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
 
         public virtual void CalculateAngle(float dX, float dY)
         {
