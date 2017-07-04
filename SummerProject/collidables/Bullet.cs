@@ -5,7 +5,6 @@ namespace SummerProject.collidables
 {
     class Bullet : Projectile
     {
-
         public Bullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
             Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
