@@ -180,6 +180,7 @@ namespace SummerProject
             foreach (Link p in parts)
                 if (p.Part != null)
                     p.Part.Death();
+            base.Death();
         }
 
         public void TakeAction(Type type)
