@@ -43,13 +43,13 @@ namespace SummerProject.achievements
 
 
 
-        public static Trait KillTrait = new Trait("Kills");
-        public static Trait ScoreTrait = new Trait("Score");
-        public static Trait ShotsFiredTrait = new Trait("Shots Fired");
-        public static Trait ShotsHitTrait = new Trait("Shots Hit");
-        public static Trait EnemiesSpawnedTrait = new Trait("Enemies Spawned");
-        public static Trait TimeTrait = new Trait("Time Elapsed");
-        public static Trait LevelTrait = new Trait("Time Elapsed");
+        public static Trait KILLS = new Trait("Kills");
+        public static Trait SCORE = new Trait("Score");
+        public static Trait SHOTSFIRED = new Trait("Shots Fired");
+        public static Trait SHOTSHIT = new Trait("Shots Hit");
+        public static Trait ENEMIESSPAWNED = new Trait("Enemies Spawned");
+        public static Trait TIME = new Trait("Time Elapsed");
+        public static Trait LEVEL = new Trait("Time Elapsed");
 
     }
 }

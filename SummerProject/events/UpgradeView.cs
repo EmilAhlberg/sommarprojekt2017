@@ -5,61 +5,140 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
+using SummerProject.util;
+using SummerProject.achievements;
 
 namespace SummerProject.framework
 {
     public class UpgradeView
     {
-        private Texture2D text;
-        private List<Color> colors;
-        private List<Rectangle> rects;
+        private Color markedColor = Color.Beige;
+        private Color defaultColor = Color.Wheat;
+        private int slotSize;
+        private Texture2D text;     
+        private List<Rectangle> slotBoxes;
+        private List<Rectangle> itemBoxes;
+        private int totalResource;
+        private int spentResource;
+        private int activeSelection;
+        private SpriteFont font;
+        private Player player;
+        private Texture2D[] upgradeParts;
 
-        public UpgradeView(Texture2D text)
+        public UpgradeView(Texture2D text, SpriteFont font, Player player, Texture2D[] upgradeParts)
         {
+            activeSelection = -1;
+            this.font = font;
             this.text = text;
+            this.upgradeParts = upgradeParts;
+            itemBoxes = new List<Rectangle>();
+            slotSize = 200;
+            spentResource = 0;
+            totalResource = 0;
             ShitInit();
         }
 
         private void ShitInit()
         {
-            rects = new List<Rectangle>();
-            Rectangle r1 = new Rectangle(150, 150, 200, 200);
-            Rectangle r2 = new Rectangle(150, 1000, 200, 200);
-            Rectangle r3 = new Rectangle(900, 150, 200, 200);
-            Rectangle r4 = new Rectangle(900, 1000, 200, 200);
-            Rectangle r5 = new Rectangle(1400, 150, 200, 200);
-            Rectangle r6 = new Rectangle(1400, 1000, 200, 200);
-            rects.Add(r1);
-            rects.Add(r2);
-            rects.Add(r3);
-            rects.Add(r4);
-            rects.Add(r5);
-            rects.Add(r6);
+            int counter = 6; //! # of slots
+            int widthGap = (WindowSize.Width - slotSize) / counter;
 
-            colors = new List<Color>();
-            for (int i = 0; i<6; i++)
+            slotBoxes = new List<Rectangle>();
+            for (int i = 0; i < counter; i++)
             {
-                colors.Add(Color.White);
-            }
+                slotBoxes.Add(new Rectangle(slotSize / 2 + widthGap * i, slotSize, slotSize, slotSize));
+            }       
         }
 
-        internal void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            for (int i = 0; i<6; i++)
+            totalResource = (int)Traits.SCORE.Counter; //?
+            CheckActions();
+        }
+
+        private void CheckActions()
+        {
+            for (int i = 0; i < slotBoxes.Count; i++)
             {
-                if (rects[i].Contains(InputHandler.mPosition))
-                    colors[i] = Color.Black;
-                else
-                    colors[i] = Color.White;
-            }            
+                if (slotBoxes[i].Contains(InputHandler.mPosition)&& InputHandler.isJustPressed(MouseButton.LEFT))
+                {
+                    int oldActive = activeSelection;
+                    activeSelection = i;
+                    if (oldActive != i && activeSelection >= 0)
+                        CreateItemBoxes();
+                    else if (oldActive == activeSelection)
+                        activeSelection = -1;   
+                    //Buy(100); //!
+                }
+            }        
+
+        }
+
+        private void CreateItemBoxes()
+        {
+            itemBoxes = new List<Rectangle>();
+            Rectangle background = CreateSubFrame();
+            float width = background.Width;
+            float height = background.Height;
+            int boxWidth = (int)width / upgradeParts.Length;
+            for (int i = 0; i < upgradeParts.Length; i++)
+            {
+                itemBoxes.Insert(i, new Rectangle(i*boxWidth + background.X, background.Y, boxWidth, boxWidth));
+            }
+
+
+
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            //currency
+            float resource = Traits.SCORE.Counter - spentResource;
+            string word = "Currency: " + resource;
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
+                                        DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, 200), Color.AntiqueWhite); //! vector
+            //slots         
             for (int i = 0; i < 6; i++)
             {
-                spriteBatch.Draw(text, rects[i], colors[i]);
-            }           
+                if (i == activeSelection)                   
+                    spriteBatch.Draw(text, slotBoxes[i], markedColor);
+                else
+                    spriteBatch.Draw(text, slotBoxes[i], defaultColor);
+            }
+            //submenu
+            if (activeSelection >= 0)
+                DrawSelection(spriteBatch);
+        }
+
+        private void DrawSelection(SpriteBatch spriteBatch)
+        {
+            Rectangle background = CreateSubFrame();
+            spriteBatch.Draw(text, background, Color.White);
+
+
+            for (int i = 0; i < upgradeParts.Length; i++)
+            {
+                spriteBatch.Draw(upgradeParts[i], itemBoxes[i], Color.Blue);
+            }
+
+        }
+
+        private void Buy(int price)
+        {
+            if (totalResource - spentResource >= price)
+            {
+                spentResource += price;
+                //player.dosomething typ addpart(location)
+            }
+        }
+
+        private Rectangle CreateSubFrame()
+        {
+            int frameAddition = 20;
+            Rectangle activeSlot = slotBoxes[activeSelection];
+            return new Rectangle(activeSlot.Location.X, activeSlot.Location.Y + slotSize, slotSize, slotSize / 2);
+            //return new Rectangle(activeSlot.Location.X, activeSlot.Location.Y + size, size + frameAddition, size / 2 + frameAddition);
         }
     }
 }

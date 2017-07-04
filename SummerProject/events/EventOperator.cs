@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.achievements;
+using SummerProject.collidables;
 using SummerProject.framework;
 using SummerProject.menu;
 using SummerProject.wave;
@@ -28,13 +29,13 @@ namespace SummerProject
         private UpgradeView upgradeView;
         private Game1 game;
 
-        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl)
+        public EventOperator(SpriteFont font, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, Texture2D[] upgradeParts)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
             GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font);
-            upgradeView = new UpgradeView(upgradeViewText);            
+            upgradeView = new UpgradeView(upgradeViewText, font, player, upgradeParts);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
                     WindowSize.Height / 2), font);
             this.game = game;

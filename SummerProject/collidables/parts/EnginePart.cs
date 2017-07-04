@@ -11,10 +11,9 @@ namespace SummerProject.collidables.parts
     {
         public EnginePart(ISprite sprite) : base(sprite)
         {
-
         }
 
-        public override void TakeAction(Type type)
+        public override void TakeAction()
         {        
             if (Carrier is CompositePart)
                 (Carrier as CompositePart).AddForce(EntityConstants.THRUST[EntityConstants.PLAYER], Angle);

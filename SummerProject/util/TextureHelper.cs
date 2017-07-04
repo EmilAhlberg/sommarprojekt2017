@@ -12,8 +12,16 @@ namespace SummerProject.util
     {
         public static List<Texture2D> GetSplitTexture(this Texture2D tex, int subimages)
         {
-            const int largestSplit = 3;
-            const int pixelSize = 2;
+            int largestSplit = 3;
+            if(largestSplit > tex.Width)
+            {
+                largestSplit = tex.Width / 2;
+            }
+            int pixelSize = 2;
+            if (pixelSize > tex.Width)
+            {
+                pixelSize = tex.Width / 2-1;
+            }
 
             int width = tex.Width / subimages;
             int height = tex.Height;
@@ -34,16 +42,6 @@ namespace SummerProject.util
                     {
                         colorsTex1[x + y * width] = colors[x + y * tex.Width];
                         colorsTex2[x + y * width] = Color.Transparent;
-                    }
-                    else if(x == breakPoint && colors[x + y * tex.Width].A != 0)
-                    {
-                        for (int i = 0; i < pixelSize; i++)
-                        {
-                            colorsTex1[x + y * width] = new Color(32, 32, 32);
-                            colorsTex2[x + y * width] = new Color(32, 32, 32);
-                            x++;
-                        }
-                        x--;
                     }
                     else
                     {

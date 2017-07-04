@@ -75,7 +75,7 @@ namespace SummerProject
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
-                Traits.EnemiesSpawnedTrait.Counter++;                                
+                Traits.ENEMIESSPAWNED.Counter++;                                
             }            
         }    
 

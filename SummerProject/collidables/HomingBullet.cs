@@ -1,84 +1,66 @@
-﻿////using System;
-////using System.Collections.Generic;
-////using System.Linq;
-////using System.Text;
-////using System.Threading.Tasks;
-////using Microsoft.Xna.Framework;
-////using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
 
-////namespace SummerProject.collidables
-////{
-////    class HomingBullet : Projectile
-////    {
-////        private Enemy enemy;
-////        private bool lockedOn;
-////        private const int homingDamage = 10;
+namespace SummerProject.collidables
+{
+    class HomingBullet : Projectile, ITargeting
+    {
+        public DetectorPart Detector { get; private set; }
 
-//        public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
-//        {
-            
-//            InitDetection();
-//        }
-//        private void InitDetection()
-//        {
-//            AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, 300, 300), angle));
-//            Damage = 0; //!   big box must do 0 dmg bcuz detection
-//            lockedOn = false;
-//            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
-//        }
-//        private void InitLockOn()
-//        {
-//            lockedOn = true;
-//            Damage = homingDamage;
-//            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.HOMINGBULLET]; 
-//        }
+        public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
+        {
+            Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
+            Health = EntityConstants.HEALTH[EntityConstants.BULLET];
+            Mass = EntityConstants.MASS[EntityConstants.BULLET];
+            Thrust = EntityConstants.THRUST[EntityConstants.BULLET];
+            friction = EntityConstants.FRICTION[EntityConstants.BULLET];
+            Detector = new DetectorPart(750, 750, typeof(Enemy), this);
+        }
 
-//        private void CalculateAngle()
-//        {
-//            float dX = Position.X - target.Position.X;
-//            float dY = Position.Y - target.Position.Y;
-//            base.CalculateAngle(dX, dY);
-//        }
 
-//        public override void Collision(Collidable c2)
-//        {
-//            if (!lockedOn)
-//            {
-//                if (c2 is Enemy && !IsEvil || c2 is Player && IsEvil)
-//                {
-//                    target = c2 as Entity;
-//                    InitLockOn();
-//                    RemoveBoundBox(1);
-//                }
-//                else if (c2 is Wall)
-//                    Death();
-//            }
-//            else if (lockedOn && (c2 is Enemy || c2 is Wall) )
-//            {
-//                Death();
-//                InitDetection();
-//            }
-//        }
-//        public override void Update(GameTime gameTime)
-//        {
-//            if (lockedOn)
-//            {
-//                if (target.IsActive)
-//                    CalculateAngle();
-//               else
-//                    InitDetection();
-//            }
-//            UpdateTimer(gameTime);
-//            Move();
-//        }
+        public override void Collision(Collidable c2)
+        {
+            if (c2 is Enemy || c2 is Wall)
+            {
+                Particles.GenerateParticles(Position, 5, 0, Sprite.MColor);
+                Death();
+            }
+        }
 
-////        protected override void SpecificActivation(Vector2 source, Vector2 target)
-////        {
-////            IsActive = true;
-////            float dX = source.X - target.X;
-////            float dY = source.Y - target.Y;
-////            base.CalculateAngle(dX, dY);
-////            ResetSpawnTime();
-////        }
-////    }
-////}
+        public override void Update(GameTime gameTime)
+        {
+            Detector.Update(gameTime);
+            UpdateTimer(gameTime);  
+            base.Move();
+            Detector.Position = Position;
+        }
+
+        public void UpdateTarget(Entity target)
+        {
+            float dX = -target.Position.X;
+            float dY = -target.Position.Y;
+            base.CalculateAngle(dX, dY);
+            AddForce(5, Angle);
+        }
+        public override void Death()
+        {
+            Detector.Death();
+            base.Death();
+        }
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            float dX = -target.X;
+            float dY = -target.Y;
+          base.CalculateAngle(dX, dY);
+            Stop();
+            AddSpeed(6, Angle);
+            ResetSpawnTime();
+            Detector.Position = Position;
+        }
+    }
+}
