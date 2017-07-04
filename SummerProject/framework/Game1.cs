@@ -144,6 +144,8 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
+            //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
             GameMode gameMode = new GameMode(scoreFont);          
@@ -151,7 +153,6 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
@@ -176,7 +177,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
-            Camera.Player = player;
+
 
             
 

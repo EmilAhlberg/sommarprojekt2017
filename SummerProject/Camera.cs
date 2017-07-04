@@ -13,11 +13,10 @@ namespace SummerProject
         public static Matrix CameraMatrix {
             get
             {
-                return Matrix.CreateTranslation(-new Vector3(Player.Position, 0)) *
-              Matrix.CreateTranslation(new Vector3(WindowSize.Width * 0.5f, WindowSize.Height * 0.5f, 0));
+                return Matrix.CreateTranslation(new Vector3(-CameraPosition, 0));
             }
         }
-        public static Vector2 CameraPosition { get { return Player.Position - new Vector2(WindowSize.Width * 0.5f, WindowSize.Height * 0.5f); } }
+        public static Vector2 CameraPosition { get { if (Player != null) return Player.Position - new Vector2(WindowSize.Width * 0.5f, WindowSize.Height * 0.5f); else return Vector2.Zero; } }
         public static Player Player { private get; set; }
 
     }
