@@ -32,6 +32,8 @@ namespace SummerProject
             throw new NotImplementedException();
         }
 
+        public abstract void TakeAction(Type type);
+
         public override void Death()
         {
             Particles.GenerateParticles(Sprite, AbsolutePosition, 2, Angle);
