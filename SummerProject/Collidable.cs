@@ -41,9 +41,9 @@ namespace SummerProject
             set
             {
                 BoundBox.Origin = value; //FIX
-                sprite.Origin = value;
+                Sprite.Origin = value;
             }
-            get{ return sprite.Origin; }
+            get{ return Sprite.Origin; }
         }
 
         public override void Move()
