@@ -12,7 +12,7 @@ namespace SummerProject.factories
         public Projectiles(int ammoCap) : base(ammoCap)
         {
             bulletType = EntityTypes.BULLET;
-            InitializeEntities(0);
+            InitializeEntities(EntityTypes.BULLET);
             InitializeEntities(EntityTypes.EVILBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }

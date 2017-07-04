@@ -53,6 +53,12 @@ namespace SummerProject
                 BoundBox.Position = Position;
                 BoundBox.Angle = angle;
         }
+
+        public virtual bool CollidesWith(Collidable c2)
+        {
+            return BoundBox.Intersects(c2.BoundBox);
+        }
+
         public abstract void Collision(Collidable c2);
     }
 }
