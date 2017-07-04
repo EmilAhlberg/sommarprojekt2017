@@ -127,6 +127,7 @@ namespace SummerProject
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
+            Texture2D[] allUpgradeParts = { engineTex1, gunTex1 };
             #endregion
 
             #region Adding entity-sprites to list
@@ -146,11 +147,12 @@ namespace SummerProject
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
             GameMode gameMode = new GameMode(scoreFont);          
-            eventOperator = new EventOperator(bigFont, this, homingTex, gameMode, achController); // fix new texture2d's!!
+           
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
+            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
             GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
@@ -174,6 +176,8 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+
+            
 
             #endregion
 
@@ -237,8 +241,8 @@ namespace SummerProject
             KeepPlayerInScreen();
             healthBar.Update(player.Health, player.maxHealth);
             energyBar.Update(player.Energy, player.maxEnergy);
-            Traits.TimeTrait.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
-            float temp = Traits.TimeTrait.Counter;
+            Traits.TIME.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
+            float temp = Traits.TIME.Counter;
             #endregion
         }
 
