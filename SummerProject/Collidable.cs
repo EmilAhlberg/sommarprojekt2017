@@ -31,7 +31,7 @@ namespace SummerProject
             set
             {
                 base.angle = value;
-                Angle = value;
+                BoundBox.Angle = value;
             }
             get { return angle; }
         }
@@ -40,7 +40,7 @@ namespace SummerProject
         {
             set
             {
-                Origin = value; //FIX
+                BoundBox.Origin = value; //FIX
                 sprite.Origin = value;
             }
             get{ return sprite.Origin; }
