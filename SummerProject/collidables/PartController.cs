@@ -93,6 +93,6 @@ namespace SummerProject
             Hull.Move();
         }
 
-        public void AddForce(float force, float angle) { Hull.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
+        public override void AddForce(float force, float angle) { Hull.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
     }
 }

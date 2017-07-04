@@ -41,9 +41,9 @@ namespace SummerProject
             set
             {
                 BoundBox.Origin = value; //FIX
-                sprite.Origin = value;
+                Sprite.Origin = value;
             }
-            get{ return sprite.Origin; }
+            get{ return Sprite.Origin; }
         }
 
         public override void Move()
@@ -53,6 +53,12 @@ namespace SummerProject
                 BoundBox.Position = Position;
                 BoundBox.Angle = angle;
         }
+
+        public virtual bool CollidesWith(Collidable c2)
+        {
+            return BoundBox.Intersects(c2.BoundBox);
+        }
+
         public abstract void Collision(Collidable c2);
     }
 }

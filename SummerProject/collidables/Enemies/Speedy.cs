@@ -15,7 +15,7 @@ namespace SummerProject.collidables.Enemies
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 4, angle, Color.Green);
+            Particles.GenerateParticles(Position, 4, Angle, Color.Green);
             base.Update(gameTime);
         }
 
@@ -27,7 +27,7 @@ namespace SummerProject.collidables.Enemies
 
         public override void Death()
         {
-            Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
+            //Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
             base.Death();
         }
     }

@@ -14,13 +14,11 @@ namespace SummerProject
         public IPartCarrier Carrier { set; get; }
         public Vector2 AbsolutePosition { get { return BoundBox.AbsolutePosition; } }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
-        public virtual Color Color { set { sprite.MColor = value; } get { return sprite.MColor; } }
+        public virtual Color Color { set { Sprite.MColor = value; } get { return Sprite.MColor; } }
         public Part(ISprite sprite) : base(Vector2.Zero, sprite)
         {
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
         }
-
-        public virtual void AddForce(float force, float angle) { base.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
 
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
 
@@ -35,5 +33,12 @@ namespace SummerProject
         }
 
         public abstract void TakeAction(Type type);
+
+        public override void Death()
+        {
+            Particles.GenerateParticles(Sprite, AbsolutePosition, 2, Angle);
+            base.Death();
+        }
+        public abstract void TakeAction();
     }
 }

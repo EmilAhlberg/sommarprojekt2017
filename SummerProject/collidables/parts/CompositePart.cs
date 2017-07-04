@@ -117,7 +117,6 @@ namespace SummerProject
                 base.AddForce(force, angle);
         }
 
-
         public override Vector2 Position
         {
             set
@@ -181,20 +180,26 @@ namespace SummerProject
             foreach (Link p in parts)
                 if (p.Part != null)
                     p.Part.Death();
+            base.Death();
         }
 
-        public override void TakeAction(Type type)
+        public void TakeAction(Type type)
         {
+            if (type == GetType())
+                TakeAction();
             foreach (Link p in parts)
             {
                 if (p.Part != null)
-                    if (p.Part.GetType() == type || p.Part is CompositePart)
-                    {
-                        p.Part.TakeAction(type);
-                    }
+                    if(p.Part is CompositePart)
+                        (p.Part as CompositePart).TakeAction(type);
+                    else if (p.Part.GetType() == type)
+                        p.Part.TakeAction();
             }
         }
 
+        public override void TakeAction()
+        {
+        }
 
         protected abstract void AddLinkPositions();
 
@@ -219,7 +224,7 @@ namespace SummerProject
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
                 p.Origin = (hull.Origin - new Vector2(hull.BoundBox.Width / 2, hull.BoundBox.Height / 2)) + new Vector2(p.BoundBox.Width / 2, p.BoundBox.Height / 2) + RelativePos + posChange * linkToCenter;
-                p.Angle = hull.angle;
+                p.Angle = hull.Angle;
             }
         }
     }
