@@ -180,6 +180,7 @@ namespace SummerProject
             foreach (Link p in parts)
                 if (p.Part != null)
                     p.Part.Death();
+            base.Death();
         }
 
         public void TakeAction(Type type)
@@ -189,7 +190,7 @@ namespace SummerProject
             foreach (Link p in parts)
             {
                 if (p.Part != null)
-                    if(p.Part is CompositePart)
+                    if (p.Part is CompositePart)
                         (p.Part as CompositePart).TakeAction(type);
                     else if (p.Part.GetType() == type)
                         p.Part.TakeAction();

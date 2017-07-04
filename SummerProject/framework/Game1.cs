@@ -102,6 +102,7 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_3");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
+            Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
@@ -139,6 +140,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             Entities.Sprites[EntityTypes.ENEMYASTER] = new Sprite(enemyTex4);
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
+            Entities.Sprites[EntityTypes.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
             Entities.Sprites[EntityTypes.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
@@ -147,6 +149,8 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
+            //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
             GameMode gameMode = new GameMode(scoreFont);          
@@ -154,13 +158,12 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
             GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
-            GunPart gunPart2 = new GunPart(new Sprite(gunTex1));
-            GunPart gunPart3 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
+            GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine3 = new EnginePart(new Sprite(engineTex1));
@@ -179,6 +182,7 @@ namespace SummerProject
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+
 
             
 
@@ -317,7 +321,7 @@ namespace SummerProject
         {
 
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             background.Draw(spriteBatch, gameTime);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
@@ -341,7 +345,7 @@ namespace SummerProject
             DebugMode(spriteBatch, gameTime);
             achController.Draw(spriteBatch, gameTime);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
                 DrawSpecialTransparency(spriteBatch, gameTime);
             spriteBatch.End();

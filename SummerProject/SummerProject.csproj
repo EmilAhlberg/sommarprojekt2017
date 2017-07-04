@@ -61,6 +61,9 @@
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
     <Compile Include="collidables\parts\PartTypes.cs" />
+    <Compile Include="collidables\parts\SprayGunPart.cs" />
+    <Compile Include="collidables\SprayBullet.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="progress\AchievementController.cs" />
     <Compile Include="progress\Achievement.cs" />
     <Compile Include="progress\SaveData.cs" />
