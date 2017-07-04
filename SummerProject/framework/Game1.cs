@@ -102,6 +102,7 @@ namespace SummerProject
             Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_3");
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
+            Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
@@ -136,6 +137,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             Entities.Sprites[EntityTypes.ENEMYASTER] = new Sprite(enemyTex4);
             Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
+            Entities.Sprites[EntityTypes.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
             Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
             Entities.Sprites[EntityTypes.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
