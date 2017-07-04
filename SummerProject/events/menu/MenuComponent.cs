@@ -25,7 +25,10 @@
             this.menuItems = menuItems;
             this.Font = spriteFont;
             MeasureMenu();
-            this.Position = position - new Vector2(0, height)/2;
+            if (menuItems[0] == "Resume" && menuItems.Length == 1) //HACK!
+                this.Position = position + new Vector2(WindowSize.Width / 3, WindowSize.Height / 3);
+            else
+                this.Position = position - new Vector2(0, height)/2;
             SetLockedItems();
         }
 
