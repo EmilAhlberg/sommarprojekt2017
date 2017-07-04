@@ -82,18 +82,8 @@ namespace SummerProject.wave
             if (!betweenLevelsTimer.IsFinished && fullDraw)
             {
                 string s = "Wave: " + Level;
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, WordLayoutPosition(s), Color.Gold);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
             }
-        }
-
-        //duplicated in AnimatedEventHandler
-        private Vector2 WordLayoutPosition(string s)
-        {
-            Vector2 size = font.MeasureString(s);
-            float width = 0;
-            if (size.X > width)
-                width = size.X;
-            return new Vector2((WindowSize.Width - width) / 2, WindowSize.Height / 2);
-        }
+        }      
     }
 }
