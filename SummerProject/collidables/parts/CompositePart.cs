@@ -200,10 +200,10 @@ namespace SummerProject
         {
         }
 
-        public override bool CollidesWith(Collidable c2)
-        {
+        //public override bool CollidesWith(Collidable c2)
+        //{
 
-        }
+        //}
 
         protected abstract void AddLinkPositions();
 
