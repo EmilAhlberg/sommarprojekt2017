@@ -5,7 +5,6 @@ namespace SummerProject.collidables
 {
     class Bullet : Projectile
     {
-
         public Bullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
             Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
@@ -20,7 +19,7 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 6, Angle, Sprite.MColor);
+            Particles.GenerateParticles(Position, 6, Angle, Sprite.PrimaryColor);
             UpdateTimer(gameTime);
             Move();
         }
@@ -42,7 +41,7 @@ namespace SummerProject.collidables
         {
             if(c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
             {
-                Particles.GenerateParticles(Position, 5, 0, Sprite.MColor);
+                Particles.GenerateParticles(Position, 5, 0, Sprite.PrimaryColor);
                 Death();
             }
         }

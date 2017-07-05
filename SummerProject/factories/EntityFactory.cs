@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.Enemies;
+using SummerProject.collidables.bullets;
 
 namespace SummerProject.factories
 {
@@ -26,6 +27,8 @@ namespace SummerProject.factories
                 #region Bullets
                 case 0: return new Bullet(FarAway(), new Sprite(sprite), false);
                 case 1: return new HomingBullet(FarAway(), new Sprite(sprite), false);
+                case 2: return new SprayBullet(FarAway(), new Sprite(sprite), false);
+                case 3: return new MineBullet(FarAway(), new Sprite(sprite), false);
                 #endregion
                 #region Drops
                 case 50: return new HealthDrop(FarAway(), new Sprite(sprite),1);

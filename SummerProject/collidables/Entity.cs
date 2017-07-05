@@ -4,8 +4,8 @@ namespace SummerProject.collidables
 {
     public abstract class Entity : Collidable
     {
-        public int Damage { get; set; }
-        public int Health { get; set; }
+        public float Damage { get; set; }
+        public float Health { get; set; }
         public bool IsActive { get; set; }
 
 
