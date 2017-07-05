@@ -13,6 +13,7 @@ namespace SummerProject.factories
             InitializeEntities(EntityTypes.HOMINGBULLET);
             InitializeEntities(EntityTypes.SPRAYBULLET);
             InitializeEntities(EntityTypes.EVILBULLET);
+            InitializeEntities(EntityTypes.CHARGINGBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 
@@ -26,6 +27,13 @@ namespace SummerProject.factories
             return false;
 
         }
+
+        public void FireSpecificBullet (Vector2 source, Vector2 target, Projectile bullet)
+        {
+            EntityDic[EntityTypes.CHARGINGBULLET].Add(bullet);
+            bullet.Activate(source, target);
+        }
+
 
         public void EvilFire(Vector2 source, Vector2 target)
         {
@@ -41,7 +49,7 @@ namespace SummerProject.factories
         {
             UpdateEntities(gameTime);
         }
-        protected override ActivatableEntity CreateEntity(int type)
+        public override ActivatableEntity CreateEntity(int type)
         {
             return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type); //! LOL
         }

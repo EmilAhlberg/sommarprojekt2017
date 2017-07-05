@@ -18,7 +18,7 @@ namespace SummerProject.factories
             EntityDic = new Dictionary<int, List<Collidable>>();
         }
 
-        protected abstract ActivatableEntity CreateEntity(int index);
+        public abstract ActivatableEntity CreateEntity(int index);
         public abstract void Reset();
 
         protected void InitializeEntities(int type)

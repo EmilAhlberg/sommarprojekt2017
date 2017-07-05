@@ -6,7 +6,7 @@ namespace SummerProject
     public class Drawable
     {
         public virtual Vector2 Position { get; set; }
-        public ISprite Sprite { get; protected set; }
+        public ISprite Sprite { get;  set; }
         protected float angle = 0;
         private float prevAngle;
 

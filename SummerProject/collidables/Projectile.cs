@@ -2,7 +2,7 @@
 
 namespace SummerProject.collidables
 {
-    abstract class Projectile : ActivatableEntity
+   public abstract class Projectile : ActivatableEntity
     {
         protected Timer despawnTimer;
         protected float despawnTime = 7f; //!!

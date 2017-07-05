@@ -162,7 +162,7 @@ namespace SummerProject
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
             GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
-            GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
+            GunPart gunPart2 = new ChargingGunPart(new Sprite(gunTex1));
             GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine2 = new EnginePart(new Sprite(engineTex1));

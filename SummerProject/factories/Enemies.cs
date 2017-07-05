@@ -41,7 +41,7 @@ namespace SummerProject.factories
                 type = EntityTypes.ENEMYASTER;
             ActivateEntities(source, player.Position, type);
         }
-        protected override ActivatableEntity CreateEntity(int type)
+        public override ActivatableEntity CreateEntity(int type)
         {
             return EntityFactory.CreateEnemy(Sprites[EntityTypes.SPRITE[type]], player, type);
         }
