@@ -35,7 +35,6 @@ namespace SummerProject.collidables.Enemies
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             friction = 0;
-            Thrust = 0;
             AddSpeed(5, Angle);
         }
 

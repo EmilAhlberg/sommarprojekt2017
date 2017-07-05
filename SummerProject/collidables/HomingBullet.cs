@@ -17,7 +17,6 @@ namespace SummerProject.collidables
             Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
             Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
             Mass = EntityConstants.MASS[(int)IDs.DEFAULT_BULLET];
-            Thrust = EntityConstants.THRUST[(int)IDs.DEFAULT_BULLET];
             friction = EntityConstants.FRICTION[(int)IDs.DEFAULT_BULLET];
             Detector = new DetectorPart(750, 750, typeof(Enemy), this);
         }
