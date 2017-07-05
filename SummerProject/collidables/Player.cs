@@ -150,52 +150,14 @@ namespace SummerProject.collidables
 
                 if (InputHandler.isPressed(Keys.D))
                     directionVector += new Vector2((float)Math.Cos(0), (float)Math.Sin(0));
-                //if (InputHandler.isPressed(Keys.S) || InputHandler.isPressed(Keys.W) || InputHandler.isPressed(Keys.A) || InputHandler.isPressed(Keys.D))
-                //    base.Move();
             }
 
             else if (ControlScheme == 3)
             {
-                if (InputHandler.isPressed(MouseButton.RIGHT)) ;
-                    //base.Thrust = Thrust;
+                if (InputHandler.isPressed(MouseButton.LEFT))
+                    directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
             }
-            //if (ControlScheme <= 1)
-            //{
-            //    if (InputHandler.isPressed(Keys.S))
-            //        base.Thrust = -Thrust;
-
-            //    if (InputHandler.isPressed(Keys.W))
-            //        base.Thrust += Thrust;
-
-            //    if (InputHandler.isPressed(Keys.A))
-            //        AddForce(Thrust, Angle - (float)Math.PI / 2);
-
-            //    if (InputHandler.isPressed(Keys.D))
-            //        AddForce(Thrust, Angle + (float)Math.PI / 2);
-            //}
-
-            //else if (ControlScheme == 2)
-            //{
-            //    if (InputHandler.isPressed(Keys.S))
-            //        AddForce(Thrust, (float)Math.PI / 2);
-
-            //    if (InputHandler.isPressed(Keys.W))
-            //        Hull.TakeAction(typeof(EnginePart));
-
-            //    if (InputHandler.isPressed(Keys.A))
-            //        AddForce(Thrust, (float)Math.PI);
-
-            //    if (InputHandler.isPressed(Keys.D))
-            //        AddForce(Thrust, 0);
-            //}
-
-            //else if (ControlScheme == 3)
-            //{
-            //    if (InputHandler.isPressed(MouseButton.RIGHT))
-            //        base.Thrust = Thrust;
-
-            //}
             //else if (ControlScheme == 4)
             //{
             //    base.Thrust = 0;
