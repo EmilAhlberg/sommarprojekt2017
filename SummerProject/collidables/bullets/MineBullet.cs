@@ -11,7 +11,7 @@ namespace SummerProject.collidables.bullets
     {
         public MineBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
-            friction = EntityConstants.FRICTION[EntityConstants.MINEBULLET];
+            friction = EntityConstants.FRICTION[(int)IDs.MINEBULLET];
         }
     }
 }

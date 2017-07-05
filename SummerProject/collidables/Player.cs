@@ -12,7 +12,7 @@ namespace SummerProject.collidables
     public class Player : PartController, IPartCarrier
     {
         private const bool FRICTIONFREEACCELERATION = true;
-        private new float Thrust { get; } = EntityConstants.THRUST[EntityConstants.PLAYER];
+        private new float Thrust { get; } = EntityConstants.THRUST[(int)IDs.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
         private const float shieldDischargeRate = 3f;
@@ -34,17 +34,17 @@ namespace SummerProject.collidables
             startPosition = position;
             Energy = startingEnergy;
             this.projectiles = projectiles;
-            Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
-            Damage = EntityConstants.DAMAGE[EntityConstants.PLAYER];
-            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
-            Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
+            Health = EntityConstants.HEALTH[(int)IDs.PLAYER];
+            Damage = EntityConstants.DAMAGE[(int)IDs.PLAYER];
+            TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.PLAYER];
+            Mass = EntityConstants.MASS[(int)IDs.PLAYER];
+            friction = EntityConstants.FRICTION[(int)IDs.PLAYER];
             maxHealth = Health;
             maxEnergy = Energy;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
-            Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
-            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
+            Hull.Thrust = EntityConstants.THRUST[(int)IDs.PLAYER];
+            Hull.Mass = EntityConstants.MASS[(int)IDs.PLAYER];
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.PLAYER];
             Position = position;
             toggleGun = true;
             toggleSprayGun = true;
@@ -181,7 +181,7 @@ namespace SummerProject.collidables
                     friction = 0;
             }
             base.Move();
-            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
+            friction = EntityConstants.FRICTION[(int)IDs.PLAYER];
         }
 
         private void HandleBulletToggle()
@@ -240,7 +240,7 @@ namespace SummerProject.collidables
 
         public void Reset() //NEEDS FIX
         {
-            Health = EntityConstants.HEALTH[EntityConstants.PLAYER];
+            Health = EntityConstants.HEALTH[(int)IDs.PLAYER];
             maxEnergy = startingEnergy;
             maxHealth = Health;
             Energy = maxEnergy;

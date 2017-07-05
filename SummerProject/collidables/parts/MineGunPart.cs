@@ -18,7 +18,7 @@ namespace SummerProject.collidables.parts
         }
         protected override void Fire()
         {
-            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), EntityTypes.MINEBULLET);
+            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), (int)IDs.MINEBULLET);
         }
     }
 }
