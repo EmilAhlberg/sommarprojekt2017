@@ -57,12 +57,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
     <Compile Include="collidables\parts\PartTypes.cs" />
+    <Compile Include="collidables\parts\MineGunPart.cs" />
     <Compile Include="collidables\parts\SprayGunPart.cs" />
-    <Compile Include="collidables\SprayBullet.cs" />
+    <Compile Include="collidables\bullets\SprayBullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="progress\AchievementController.cs" />
     <Compile Include="progress\Achievement.cs" />
@@ -80,7 +82,7 @@
     <Compile Include="collidables\ExplosionDrop.cs" />
     <Compile Include="collidables\HealthDrop.cs" />
     <Compile Include="collidables\ActivatableEntity.cs" />
-    <Compile Include="collidables\Bullet.cs" />
+    <Compile Include="collidables\bullets\Bullet.cs" />
     <Compile Include="collidables\Drop.cs" />
     <Compile Include="collidables\parts\EnginePart.cs" />
     <Compile Include="collidables\parts\GunPart.cs" />

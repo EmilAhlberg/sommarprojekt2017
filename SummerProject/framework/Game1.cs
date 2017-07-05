@@ -103,6 +103,7 @@ namespace SummerProject
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
             Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
+            Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
@@ -146,6 +147,7 @@ namespace SummerProject
             Entities.Sprites[EntityTypes.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
             Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
             Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,8,6);
+            Entities.Sprites[EntityTypes.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
             #endregion
 
             #region Initializing game objects etc.
@@ -163,7 +165,7 @@ namespace SummerProject
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
             GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
             GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
-            GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
+            GunPart gunPart3 = new MineGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
             EnginePart engine3 = new EnginePart(new Sprite(engineTex1));

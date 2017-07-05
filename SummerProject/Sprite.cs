@@ -65,7 +65,7 @@ namespace SummerProject
             Dictionary<Color, int> colorDic = new Dictionary<Color, int>();
             foreach(Color c in colors1D)
             {
-                if(c.A != 0)
+                if(c.A != 0 && !c.Equals(new Color(32, 32, 32)))
                 {
                     if(!colorDic.Keys.Contains(c))
                         colorDic.Add(c, 0);

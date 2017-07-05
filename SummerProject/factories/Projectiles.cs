@@ -13,6 +13,7 @@ namespace SummerProject.factories
             InitializeEntities(EntityTypes.HOMINGBULLET);
             InitializeEntities(EntityTypes.SPRAYBULLET);
             InitializeEntities(EntityTypes.EVILBULLET);
+            InitializeEntities(EntityTypes.MINEBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 
