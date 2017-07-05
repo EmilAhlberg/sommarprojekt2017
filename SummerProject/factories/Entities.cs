@@ -7,8 +7,7 @@ using System.Linq;
 namespace SummerProject.factories
 {
     public abstract class Entities
-    {
-        public static Sprite[] Sprites = new Sprite[EntityTypes.ARRAYSIZE]; //!
+    {   
         protected int entityCap;
         public Dictionary<int, List<Collidable>> EntityDic { get; private set; }       
 

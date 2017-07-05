@@ -103,6 +103,7 @@ namespace SummerProject
             Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
             Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
             Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
+            Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
@@ -135,17 +136,18 @@ namespace SummerProject
             #endregion
 
             #region Adding entity-sprites to list
-            Entities.Sprites[EntityTypes.ENEMY] = new Sprite(enemyTex1, 2, 4);
-            Entities.Sprites[EntityTypes.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
-            Entities.Sprites[EntityTypes.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
-            Entities.Sprites[EntityTypes.ENEMYASTER] = new Sprite(enemyTex4);
-            Entities.Sprites[EntityTypes.BULLET] = new Sprite(shotTex,4);
-            Entities.Sprites[EntityTypes.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
-            Entities.Sprites[EntityTypes.HOMINGBULLET] = new Sprite(homingTex);
-            Entities.Sprites[EntityTypes.HEALTHDROP] = new Sprite(healthDropTex,4,6);
-            Entities.Sprites[EntityTypes.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
-            Entities.Sprites[EntityTypes.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
-            Entities.Sprites[EntityTypes.ENERGYDROP] = new Sprite(energyDropTex,8,6);
+            SpriteHandler.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
+            SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
+            SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
+            SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
+            SpriteHandler.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
+            SpriteHandler.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,8,6);
+            SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
             #endregion
 
             #region Initializing game objects etc.
@@ -161,7 +163,7 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
-            GunPart gunPart1 = new GunPart(new Sprite(gunTex1));
+            GunPart gunPart1 = new MineGunPart(new Sprite(gunTex1));
             GunPart gunPart2 = new ChargingGunPart(new Sprite(gunTex1));
             GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));

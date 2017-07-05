@@ -12,10 +12,9 @@ namespace SummerProject
 {
     public abstract class CompositePart : Part, IPartCarrier
     {
-        protected Link[] parts;
+        protected Link[] parts;        
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
-        public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
         public override Color Color
         {
             set
@@ -61,6 +60,20 @@ namespace SummerProject
                 return totalParts;
             }
         }
+        public override float ThrusterAngle
+        {
+            set
+            {
+                base.ThrusterAngle = value;
+                foreach (Link p in parts)
+                {
+                    if (p.Part != null)
+                    {
+                        p.Part.ThrusterAngle = value;
+                    }
+                }
+            }
+        }
 
         public CompositePart(ISprite sprite) : base(sprite)
         {
@@ -69,6 +82,7 @@ namespace SummerProject
 
         public bool AddPart(Part part, int pos)
         {
+            part.LinkPosition = pos; //!!! change
             if (pos >= 0 && pos < parts.Length)
             {
                 part.Carrier = this;
@@ -80,6 +94,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            Move();
             foreach (Link p in parts)
             {
                 if (p.Part != null)
@@ -87,7 +102,6 @@ namespace SummerProject
                     p.Part.Update(gameTime);
                 }
             }
-            Move();
         }
 
         //protected void UpdatePartsPos()

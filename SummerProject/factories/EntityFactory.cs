@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.Enemies;
+using SummerProject.collidables.bullets;
 
 namespace SummerProject.factories
 {
@@ -12,9 +13,9 @@ namespace SummerProject.factories
         {
             switch (type)
             {
-                case 151: return new Shooter(FarAway(), new Sprite(sprite), player);
-                case 152: return new Speedy(FarAway(), new Sprite(sprite), player);
-                case 153: return new Asteroid(FarAway(), new Sprite(sprite), player);
+                case (int)IDs.ENEMYSHOOT: return new Shooter(FarAway(), new Sprite(sprite), player);
+                case (int)IDs.ENEMYSPEED: return new Speedy(FarAway(), new Sprite(sprite), player);
+                case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(), new Sprite(sprite), player);
             }
             return new StandardEnemy(FarAway(), new Sprite(sprite), player);
         }
@@ -24,19 +25,20 @@ namespace SummerProject.factories
             switch (type)
             {
                 #region Bullets
-                case 0: return new Bullet(FarAway(), new Sprite(sprite), false);
-                case 1: return new HomingBullet(FarAway(), new Sprite(sprite), false);
-                case 2: return new SprayBullet(FarAway(), new Sprite(sprite), false);
-                case 4: return new Bullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.DEFAULT_BULLET: return new Bullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.HOMINGBULLET: return new HomingBullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.SPRAYBULLET: return new SprayBullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.MINEBULLET: return new MineBullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.MINEBULLET: return new ChargingBullet(FarAway(), new Sprite(sprite), false);
                 #endregion
                 #region Drops
-                case 50: return new HealthDrop(FarAway(), new Sprite(sprite),1);
-                case 51: return new ExplosionDrop(FarAway(), new Sprite(sprite));
-                case 52: return new EnergyDrop(FarAway(), new Sprite(sprite));
-                case 53: return new HealthDrop(FarAway(), new Sprite(sprite), 2);
+                case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway(), new Sprite(sprite),1);
+                case (int)IDs.EXPLOSIONDROP: return new ExplosionDrop(FarAway(), new Sprite(sprite));
+                case (int)IDs.ENERGYDROP: return new EnergyDrop(FarAway(), new Sprite(sprite));
+                case (int)IDs.HEALTHDROP_TIER2: return new HealthDrop(FarAway(), new Sprite(sprite), 2);
                 #endregion
                 #region Enemy Bullets
-                case 100: return new Bullet(FarAway(), new Sprite(sprite), true);
+                case (int)IDs.EVILBULLET: return new Bullet(FarAway(), new Sprite(sprite), true);
                 #endregion
                 default:
                     throw new NotImplementedException();

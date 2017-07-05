@@ -14,10 +14,10 @@ namespace SummerProject.factories
         public Enemies(Player player, int NbrOfEnemies) : base(NbrOfEnemies)
         {
             this.player = player;
-            InitializeEntities(EntityTypes.ENEMY);
-            InitializeEntities(EntityTypes.ENEMYSHOOT);
-            InitializeEntities(EntityTypes.ENEMYSPEED);
-            InitializeEntities(EntityTypes.ENEMYASTER);
+            InitializeEntities((int)IDs.DEFAULT_ENEMY);
+            InitializeEntities((int)IDs.ENEMYSHOOT);
+            InitializeEntities((int)IDs.ENEMYSPEED);
+            InitializeEntities((int)IDs.ENEMYASTER);
         }
 
         public void Update(GameTime gameTime)
@@ -32,18 +32,18 @@ namespace SummerProject.factories
         public void Spawn(Vector2 source)
         {
             float rnd = SRandom.NextFloat();
-            int type = EntityTypes.ENEMY;
+            int type = (int)IDs.DEFAULT_ENEMY;
             if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
-                type = EntityTypes.ENEMYSHOOT;
+                type = (int)IDs.ENEMYSHOOT;
             else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
-                type = EntityTypes.ENEMYSPEED;
+                type = (int)IDs.ENEMYSPEED;
             else if (rnd < Difficulty.IS_ASTEROID_RISK) //! chance of being ASTEROIIIID
-                type = EntityTypes.ENEMYASTER;
+                type = (int)IDs.ENEMYASTER;
             ActivateEntities(source, player.Position, type);
         }
         public override ActivatableEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateEnemy(Sprites[EntityTypes.SPRITE[type]], player, type);
+            return EntityFactory.CreateEnemy(SpriteHandler.Sprites[SpriteHandler.SPRITE[type]], player, type);
         }
     }
 }

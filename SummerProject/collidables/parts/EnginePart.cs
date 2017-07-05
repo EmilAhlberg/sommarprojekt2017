@@ -14,9 +14,9 @@ namespace SummerProject.collidables.parts
         }
 
         public override void TakeAction()
-        {        
+        {
             if (Carrier is CompositePart)
-                (Carrier as CompositePart).AddForce(EntityConstants.THRUST[EntityConstants.PLAYER], Angle);
+                (Carrier as CompositePart).AddForce(EntityConstants.THRUST[(int)IDs.PLAYER], ThrusterAngle);
         }
 
         public override void Update(GameTime gameTime)

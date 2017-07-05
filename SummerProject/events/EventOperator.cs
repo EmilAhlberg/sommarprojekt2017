@@ -82,6 +82,7 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case UPGRADE_STATE:
+                        upgradeView.Initialize();
                         GameState = NewGameState;
                         break;
                 }

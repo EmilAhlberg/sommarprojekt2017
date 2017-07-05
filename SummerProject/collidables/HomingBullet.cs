@@ -14,11 +14,10 @@ namespace SummerProject.collidables
 
         public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
         {
-            Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
-            Health = EntityConstants.HEALTH[EntityConstants.BULLET];
-            Mass = EntityConstants.MASS[EntityConstants.BULLET];
-            Thrust = EntityConstants.THRUST[EntityConstants.BULLET];
-            friction = EntityConstants.FRICTION[EntityConstants.BULLET];
+            Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
+            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
+            Mass = EntityConstants.MASS[(int)IDs.DEFAULT_BULLET];
+            friction = EntityConstants.FRICTION[(int)IDs.DEFAULT_BULLET];
             Detector = new DetectorPart(750, 750, typeof(Enemy), this);
         }
 
