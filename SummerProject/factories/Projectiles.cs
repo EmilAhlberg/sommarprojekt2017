@@ -31,7 +31,7 @@ namespace SummerProject.factories
 
         public void FireSpecificBullet (Vector2 source, Vector2 target, Projectile bullet)
         {
-            EntityDic[EntityTypes.CHARGINGBULLET].Add(bullet);
+            EntityDic[(int)IDs.CHARGINGBULLET].Add(bullet);
             bullet.Activate(source, target);
         }
 
