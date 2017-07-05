@@ -99,6 +99,7 @@ namespace SummerProject.collidables
                 if (toggleSprayGun)
                     Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
+                Hull.TakeAction(typeof(ChargingGunPart));
             }
         }
 
