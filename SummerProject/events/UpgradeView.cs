@@ -19,13 +19,13 @@ namespace SummerProject.framework
         private int slotSize;
         private Texture2D text;     
         private List<Rectangle> slotBoxes;
+        private List<Texture2D> textures;
         private List<Rectangle> itemBoxes;
         private int totalResource;
         private int spentResource;
         private int activeSelection;
         private SpriteFont font;
         private Player player;
-        private RectangularHull hull;
         private List<Texture2D> upgradeParts;
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts)
@@ -39,53 +39,80 @@ namespace SummerProject.framework
             slotSize = 200;
             spentResource = 0;
             totalResource = 0;
-            ShitInit();
+            //ShitInit();
         }
+
+        internal void Initialize()
+        {
+            if (slotBoxes == null)
+            {
+                slotBoxes = new List<Rectangle>();
+                textures = new List<Texture2D>();
+                List<Part> parts = player.Parts;
+                               
+                int activeBoxIndex = 0;
+                slotBoxes.Add(new Rectangle((WindowSize.Width - slotSize) / 2, (WindowSize.Height - slotSize) / 2, slotSize, slotSize));
+                textures.Add(upgradeParts[PartTypes.RECTANGULARHULL]);
+                RectangularHull currentHull = (RectangularHull)parts[0];
+
+
+                for (int i = 1; i < parts.Count; i++)
+                {
+                    Part currentPart = parts[i];
+                    RectangularHull carrier = (RectangularHull) currentPart.Carrier;
+                    if (currentHull != carrier)
+                    {
+                        activeBoxIndex = parts.IndexOf(carrier);
+                        currentHull = carrier;
+                    }
+                    Vector2 center = (new Vector2(slotBoxes[activeBoxIndex].Center.X, slotBoxes[activeBoxIndex].Center.Y));
+                    Vector2 v = LinkPosition(currentPart.LinkPosition, center);
+                    slotBoxes.Add(new Rectangle((int)v.X, (int)v.Y, slotSize, slotSize));
+                    if (currentPart is RectangularHull)
+                        textures.Add(upgradeParts[PartTypes.RECTANGULARHULL]);
+                    else if (currentPart is GunPart)
+                        textures.Add(upgradeParts[PartTypes.GUNPART]);
+                    else if (currentPart is EnginePart)
+                        textures.Add(upgradeParts[PartTypes.ENGINEPART]);
+                }
+            }
+        }
+
+        private void AddParts()
+        {
+
+        }
+
+
+
 
         private void ShitInit()
         {
             int widthGap = (WindowSize.Width - slotSize);
-            slotBoxes = new List<Rectangle>();
-            slotBoxes.Add(new Rectangle((WindowSize.Width - slotSize) / 2, (WindowSize.Height - slotSize) / 2, slotSize, slotSize)); //always hull at 0
-
-            List<Part> parts = player.Parts;
-            Point center = slotBoxes[0].Center;
-            for (int i = 1; i < parts.Count; i++)
-            {
-                if (parts[i] is RectangularHull)
-                {
-                    Vector2 v = LinkPosition(i % 4, center);
-                    slotBoxes.Add(new Rectangle((int)v.X, (int)v.Y, slotSize, slotSize));
-                }
-                else if (parts[i] is GunPart)
-                {
-                    Vector2 v = LinkPosition(i % 4, center);
-                    slotBoxes.Add(new Rectangle((int)v.X, (int)v.Y, slotSize, slotSize));
-                }
-            }
-          
-            if (hull is RectangularHull) { }              
+            //if (hull is RectangularHull) { }              
             
         }
 
-        private Vector2 LinkPosition(int pos, Point center)
+        private Vector2 LinkPosition(int pos, Vector2 center)
         {
             switch (pos)
             {
                 case 0:
-                    return new Vector2(center.X + slotSize / 2, center.Y - slotSize / 2);
+                    return center + new Vector2(slotSize / 2, -slotSize / 2);
                     break;
                 case 1:
-                    return new Vector2(center.X - slotSize / 2, center.Y + slotSize / 2);
+                    return center + new Vector2(- slotSize / 2, + slotSize / 2);
                     break;
                 case 2:
-                    return new Vector2(center.X - slotSize / 2, center.Y - slotSize / 2);
+                    return center + new Vector2(- 3*slotSize / 2,- slotSize / 2);
                     break;
                 case 3:
-                    return new Vector2(center.X + slotSize / 2, center.Y - slotSize);
-                    break;                
+                    return center + new Vector2(-slotSize / 2, - 3*slotSize/2);
+                    break;
+                default:
+                    return center + new Vector2(-slotSize/2, -slotSize/2);
             }
-            return Vector2.Zero;
+            //return Vector2.Zero;
         }
 
         public void Update(GameTime gameTime)
@@ -111,6 +138,8 @@ namespace SummerProject.framework
             }        
 
         }
+
+      
 
         private void CreateItemBoxes()
         {
@@ -139,9 +168,13 @@ namespace SummerProject.framework
             for (int i = 0; i < slotBoxes.Count; i++)
             {
                 if (i == activeSelection)                   
-                    spriteBatch.Draw(text, slotBoxes[i], markedColor);
+                    spriteBatch.Draw(textures[i], slotBoxes[i], markedColor);
                 else
-                    spriteBatch.Draw(text, slotBoxes[i], defaultColor);
+                {
+                    spriteBatch.Draw(textures[i], slotBoxes[i], defaultColor);
+                }
+
+
             }
             //submenu
             if (activeSelection >= 0)
@@ -152,7 +185,6 @@ namespace SummerProject.framework
         {
             Rectangle background = CreateSubFrame();
             spriteBatch.Draw(text, background, Color.White);
-
 
             for (int i = 0; i < upgradeParts.Count; i++)
             {
