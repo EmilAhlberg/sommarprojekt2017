@@ -142,7 +142,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 6);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);

@@ -29,7 +29,7 @@ namespace SummerProject.factories
                 case (int)IDs.HOMINGBULLET: return new HomingBullet(FarAway(), new Sprite(sprite), false);
                 case (int)IDs.SPRAYBULLET: return new SprayBullet(FarAway(), new Sprite(sprite), false);
                 case (int)IDs.MINEBULLET: return new MineBullet(FarAway(), new Sprite(sprite), false);
-                case (int)IDs.CHARGINGBULLET: return new Bullet(FarAway(), new Sprite(sprite), false);
+                case (int)IDs.CHARGINGBULLET: return new ChargingBullet(FarAway(), new Sprite(sprite), false);
                 #endregion
                 #region Drops
                 case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway(), new Sprite(sprite),1);

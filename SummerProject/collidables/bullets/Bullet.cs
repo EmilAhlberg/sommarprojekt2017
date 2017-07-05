@@ -21,9 +21,14 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 6, Angle, Sprite.PrimaryColor);
+            TrailParticles();
             UpdateTimer(gameTime);
             Move();
+        }
+
+        protected virtual void TrailParticles()
+        {
+            Particles.GenerateParticles(Position, 6, Angle, Sprite.PrimaryColor);
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)

@@ -247,9 +247,9 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateAfterImageParticles(ISprite sprite, Vector2 position, int ID, float angle)
+        public static void GenerateAfterImageParticles(ISprite sprite, Vector2 position, int ID, float angle, Vector2 scale)
         {
-            CreateParticle(new Sprite((Sprite)sprite), position, Vector2.Zero, angle, 0, Color.White, Vector2.One, 1, 2);
+            CreateParticle(new Sprite((Sprite)sprite), position, Vector2.Zero, angle, 0, Color.White, scale, 0.1f, 3);
         }
 
         public static void GenerateDeathParticles(ISprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
