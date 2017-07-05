@@ -27,7 +27,7 @@ namespace SummerProject.collidables.parts
             buttonReleased = false;
             if (!charging)
             {
-                bullet = (Bullet)projectiles.CreateEntity((int)IDs.DEFAULT_BULLET);
+                bullet = (Bullet)projectiles.CreateEntity((int)IDs.CHARGINGBULLET);
                 charging = true;
             }
         }

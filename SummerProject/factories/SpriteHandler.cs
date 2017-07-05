@@ -13,7 +13,7 @@ namespace SummerProject.factories
                 {(int)IDs.HOMINGBULLET, (int)IDs.HOMINGBULLET},
                 {(int)IDs.SPRAYBULLET, (int)IDs.SPRAYBULLET},
                 {(int)IDs.MINEBULLET, (int)IDs.MINEBULLET},
-                {(int)IDs.CHARGINGBULLET, (int)IDs.DEFAULT_BULLET},
+                {(int)IDs.CHARGINGBULLET, (int)IDs.CHARGINGBULLET},
                 {(int)IDs.EVILBULLET, (int)IDs.DEFAULT_BULLET},
                 {(int)IDs.DEFAULT_ENEMY, (int)IDs.DEFAULT_ENEMY},
                 {(int)IDs.HEALTHDROP, (int)IDs.HEALTHDROP},
