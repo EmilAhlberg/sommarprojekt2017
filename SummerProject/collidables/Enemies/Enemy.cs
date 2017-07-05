@@ -20,39 +20,40 @@ namespace SummerProject
         {
             this.player = player;
             rageTimer = new Timer(15); //!!    
-            Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
-            WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
-            Hull.Mass = EntityConstants.MASS[EntityConstants.ENEMY];
-            Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
-            Hull.friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
+            Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
+            WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY];
+            Hull.Mass = EntityConstants.MASS[(int)IDs.DEFAULT_ENEMY];
+            Hull.TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.DEFAULT_ENEMY];
+            Hull.friction = EntityConstants.FRICTION[(int)IDs.DEFAULT];
         }
 
         public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            base.Update(gameTime);
+            CalculateAngle();
+            ThrusterAngle = Angle;
+            Move();
+            AddForce(10, Angle);
+            Hull.Update(gameTime);
+            if (Health <= 0 && IsActive)
+                Death();
             if (Health > 1 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
                 Enrage();
             }
-            Move();
-
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
-            Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
+            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_ENEMY];
             Sprite.MColor = Color.White;
-            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
-            TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
+            TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.DEFAULT_ENEMY];
         }
 
         protected virtual void Enrage()
         {
-            Thrust = 5 * EntityConstants.THRUST[EntityConstants.ENEMY];
             Particles.GenerateParticles(Position, 5, Angle, Color.Red);
             Sprite.MColor = Color.Black;
         }

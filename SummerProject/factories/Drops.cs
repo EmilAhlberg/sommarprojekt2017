@@ -18,10 +18,10 @@ namespace SummerProject.factories
             width = windowWidth - 100;
             height = windowHeight - 100;
             //spawnTimer = new Timer(spawnTime);
-            InitializeEntities(EntityTypes.HEALTHDROP);
-            InitializeEntities(EntityTypes.EXPLOSIONDROP);
-            InitializeEntities(EntityTypes.ENERGYDROP);
-            InitializeEntities(EntityTypes.HEALTHDROP_TIER2);
+            InitializeEntities((int)IDs.HEALTHDROP);
+            InitializeEntities((int)IDs.EXPLOSIONDROP);
+            InitializeEntities((int)IDs.ENERGYDROP);
+            InitializeEntities((int)IDs.HEALTHDROP_TIER2);
         }
 
         //public void Spawn()
@@ -33,7 +33,7 @@ namespace SummerProject.factories
         //{
         //    if (spawnTimer.IsFinished)
         //    {
-        //        if (ActivateEntities(source, source, SRandom.Next(EntityTypes.HEALTHDROP,EntityTypes.ENERGYDROP + 1)))
+        //        if (ActivateEntities(source, source, SRandom.Next((int)IDs.HEALTHDROP,(int)IDs.ENERGYDROP + 1)))
         //            spawnTimer.Reset();
         //    }
         //}
@@ -42,9 +42,9 @@ namespace SummerProject.factories
         {
             foreach (Vector2 v in source)
             {
-                int dropType = SRandom.Next(EntityTypes.HEALTHDROP, EntityTypes.ENERGYDROP + 1);
-                if (dropType == EntityTypes.HEALTHDROP && SRandom.NextFloat() < healthSpawnChance_tier2)
-                    dropType = EntityTypes.HEALTHDROP_TIER2;
+                int dropType = SRandom.Next((int)IDs.HEALTHDROP, (int)IDs.ENERGYDROP + 1);
+                if (dropType == (int)IDs.HEALTHDROP && SRandom.NextFloat() < healthSpawnChance_tier2)
+                    dropType = (int)IDs.HEALTHDROP_TIER2;
                 ActivateEntities(v, v, dropType);                    
             }
         }
@@ -63,7 +63,7 @@ namespace SummerProject.factories
 
         protected override ActivatableEntity CreateEntity(int type) 
         {
-            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type);
+            return EntityFactory.CreateEntity(SpriteHandler.Sprites[SpriteHandler.SPRITE[type]], type);
         }
     }
 }

@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace SummerProject.collidables.parts
 {
-    class SprayGunPart : GunPart
+    class MineGunPart : GunPart
     {
-        public SprayGunPart(ISprite sprite) : base(sprite)
+        public MineGunPart(ISprite sprite) : base(sprite)
         {
             RELOADTIME = 0.1f;
             reloadTimer = new Timer(RELOADTIME);
         }
         protected override void Fire()
         {
-            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), (int)IDs.SPRAYBULLET);
+            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), (int)IDs.MINEBULLET);
         }
     }
 }

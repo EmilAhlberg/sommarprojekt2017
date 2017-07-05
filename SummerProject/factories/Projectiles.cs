@@ -9,10 +9,11 @@ namespace SummerProject.factories
 
         public Projectiles(int ammoCap) : base(ammoCap)
         {
-            InitializeEntities(EntityTypes.BULLET);
-            InitializeEntities(EntityTypes.HOMINGBULLET);
-            InitializeEntities(EntityTypes.SPRAYBULLET);
-            InitializeEntities(EntityTypes.EVILBULLET);
+            InitializeEntities((int)IDs.DEFAULT_BULLET);
+            InitializeEntities((int)IDs.HOMINGBULLET);
+            InitializeEntities((int)IDs.SPRAYBULLET);
+            InitializeEntities((int)IDs.EVILBULLET);
+            InitializeEntities((int)IDs.MINEBULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 
@@ -29,7 +30,7 @@ namespace SummerProject.factories
 
         public void EvilFire(Vector2 source, Vector2 target)
         {
-            ActivateEntities(source, target, EntityTypes.EVILBULLET);
+            ActivateEntities(source, target, (int)IDs.EVILBULLET);
         }
 
         public override void Reset()
@@ -43,7 +44,7 @@ namespace SummerProject.factories
         }
         protected override ActivatableEntity CreateEntity(int type)
         {
-            return EntityFactory.CreateEntity(Sprites[EntityTypes.SPRITE[type]], type); //! LOL
+            return EntityFactory.CreateEntity(SpriteHandler.Sprites[SpriteHandler.SPRITE[type]], type); //! LOL
         }
     }
 }

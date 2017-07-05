@@ -30,12 +30,11 @@ namespace SummerProject.collidables.Enemies
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
-            Health = 3 * EntityConstants.HEALTH[EntityConstants.ENEMY];
+            Health = 3 * EntityConstants.HEALTH[(int)IDs.DEFAULT_ENEMY];
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
             friction = 0;
-            Thrust = 0;
             AddSpeed(5, Angle);
         }
 

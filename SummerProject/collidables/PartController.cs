@@ -38,13 +38,12 @@ namespace SummerProject
         }
 
         protected override float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }
-        protected override float Thrust { set { Hull.Thrust = value; } get { return Hull.Thrust; } }
         public override float friction { set { Hull.friction = value; } get { return Hull.friction; } }
 
         public override void Update(GameTime gameTime)
         {
-            Hull.Update(gameTime);
             CalculateAngle();
+            Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
                 Death();
         }
@@ -90,7 +89,7 @@ namespace SummerProject
 
         public override void Move()
         {
-            Hull.Move();
+            Hull.TakeAction(typeof(EnginePart));
         }
 
         public override void AddForce(float force, float angle) { Hull.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }

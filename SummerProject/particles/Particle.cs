@@ -26,7 +26,6 @@ namespace SummerProject
             this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
-            Thrust = 0;
         }
 
         public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, int ID)
@@ -48,7 +47,6 @@ namespace SummerProject
             this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
-            Thrust = 0;
         }
 
         public void Update(GameTime gameTime)
