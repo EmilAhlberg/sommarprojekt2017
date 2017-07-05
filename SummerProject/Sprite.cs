@@ -95,7 +95,7 @@ namespace SummerProject
         {
             Color[] colors1D = new Color[texture.Width * texture.Height];
             texture.GetData(colors1D);
-            return colors1D.Where(c => c.A != 0).ToList();
+            return colors1D.Where(c => c.A != 0 && !c.Equals(new Color(32, 32, 32))).ToList();
            
         }
 
