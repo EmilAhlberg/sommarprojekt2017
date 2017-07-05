@@ -27,7 +27,7 @@ namespace SummerProject
             Hull.friction = EntityConstants.FRICTION[(int)IDs.DEFAULT];
         }
 
-        public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
+        public override void Update(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
@@ -67,7 +67,7 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
-            
+            base.Collision(c2);
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
