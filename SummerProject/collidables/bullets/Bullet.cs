@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace SummerProject.collidables
 {
@@ -39,9 +40,9 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
-            if(c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
+            if (c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
             {
-                Particles.GenerateParticles(Position, 5, 0, Sprite.PrimaryColor);
+                Particles.GenerateDeathParticles(Sprite, Position, 2, Angle, false);
                 Death();
             }
         }

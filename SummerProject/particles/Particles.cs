@@ -247,15 +247,24 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateParticles(ISprite sprite, Vector2 position, int ID, float angle = 0, Color? color = null)
+        public static void GenerateAfterImageParticles(ISprite sprite, Vector2 position, int ID, float angle)
         {
-            List<Sprite> sList = sprite.SplitSprites;
+            CreateParticle(new Sprite((Sprite)sprite), position, Vector2.Zero, angle, 0, Color.White, Vector2.One, 1, 2);
+        }
+
+        public static void GenerateDeathParticles(ISprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
+        {
+            
             List<Color> colors = sprite.Colors;
-            Vector2 initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-            CreateParticle(sList[0], position, -initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
-            CreateParticle(sList[1], position, initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
+            if (showDeathParticles)
+            {
+                List<Sprite> sList = sprite.SplitSprites;
+                Vector2 initialForce = 50 * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                CreateParticle(sList[0], position, -initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
+                CreateParticle(sList[1], position, initialForce, angle, 0, Color.White, Vector2.One, 1, 2);
+            }
             for(int i = 0; i < 20; i++)
-                CreateExplosion(1, position, 20, 80, 0.2f, colors[SRandom.Next(0, colors.Count)], 1, 1, 1);
+                CreateExplosion(1, position, 20, 80, 0.5f, colors[SRandom.Next(0, colors.Count)], 1, 1, 1);
         }
 
         public static void Draw(SpriteBatch sb, GameTime gameTime)

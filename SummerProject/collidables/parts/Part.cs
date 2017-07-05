@@ -36,7 +36,7 @@ namespace SummerProject
 
         public override void Death()
         {
-            Particles.GenerateParticles(Sprite, AbsolutePosition, 2, Angle);
+            Particles.GenerateDeathParticles(Sprite, AbsolutePosition, 2, Angle, true);
             base.Death();
         }
     }
