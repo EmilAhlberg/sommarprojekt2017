@@ -32,6 +32,7 @@ namespace SummerProject
             CalculateAngle();
             ThrusterAngle = Angle;
             Move();
+            AddForce(10, Angle);
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
                 Death();

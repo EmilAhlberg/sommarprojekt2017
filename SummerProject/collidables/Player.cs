@@ -12,7 +12,6 @@ namespace SummerProject.collidables
     public class Player : PartController, IPartCarrier
     {
         //private const bool FRICTIONFREEACCELERATION = true;
-        private new float Thrust { get; } = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
         private const float shieldDischargeRate = 3f;
