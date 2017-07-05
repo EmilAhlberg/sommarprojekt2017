@@ -11,7 +11,6 @@ namespace SummerProject.collidables
             Damage = EntityConstants.DAMAGE[EntityConstants.BULLET];
             Health = EntityConstants.HEALTH[EntityConstants.BULLET];
             Mass = EntityConstants.MASS[EntityConstants.BULLET];
-            Thrust = EntityConstants.THRUST[EntityConstants.BULLET];
             friction = EntityConstants.FRICTION[EntityConstants.BULLET];
             if (isEvil)
             {

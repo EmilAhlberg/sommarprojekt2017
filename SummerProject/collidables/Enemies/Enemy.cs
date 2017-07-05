@@ -22,7 +22,6 @@ namespace SummerProject
             rageTimer = new Timer(15); //!!    
             Damage = EntityConstants.DAMAGE[EntityConstants.ENEMY];
             WorthScore = EntityConstants.SCORE[EntityConstants.ENEMY];
-            Hull.Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             Hull.Mass = EntityConstants.MASS[EntityConstants.ENEMY];
             Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
             Hull.friction = EntityConstants.FRICTION[EntityConstants.DEFAULT];
@@ -30,15 +29,18 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
-            base.Update(gameTime);
+            CalculateAngle();
+            ThrusterAngle = Angle;
+            Move();
+            Hull.Update(gameTime);
+            if (Health <= 0 && IsActive)
+                Death();
             if (Health > 1 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
                 Enrage();
             }
-            Move();
-
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -46,7 +48,6 @@ namespace SummerProject
             rageTimer.Reset();
             Health = EntityConstants.HEALTH[EntityConstants.ENEMY];
             Sprite.MColor = Color.White;
-            Thrust = EntityConstants.THRUST[EntityConstants.ENEMY];
             TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.ENEMY];
         }
 

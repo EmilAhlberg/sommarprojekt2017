@@ -11,9 +11,7 @@ namespace SummerProject
         public Vector2 Velocity { set; get; } = Vector2.Zero; //-!
         protected virtual float TurnSpeed { set; get; } = EntityConstants.TURNSPEED[EntityConstants.DEFAULT];
         protected virtual float Mass { set; get; } = EntityConstants.MASS[EntityConstants.DEFAULT]; 
-        protected virtual float Thrust { set; get; } = EntityConstants.THRUST[EntityConstants.DEFAULT];
-        private Vector2 Acceleration{ get { return (ThrusterForce + TotalExteriorForce - Friction) / Mass; } }
-        private Vector2 ThrusterForce { get { return new Vector2((float)Math.Cos(ThrusterAngle), (float)Math.Sin(ThrusterAngle)); } }
+        private Vector2 Acceleration{ get { return (TotalExteriorForce - Friction) / Mass; } }
         private Vector2 TotalExteriorForce { set; get; }
         public virtual float ThrusterAngle { set; get; }
 

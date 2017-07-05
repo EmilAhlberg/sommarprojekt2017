@@ -11,7 +11,7 @@ namespace SummerProject.collidables
 {
     public class Player : PartController, IPartCarrier
     {
-        private const bool FRICTIONFREEACCELERATION = true;
+        //private const bool FRICTIONFREEACCELERATION = true;
         private new float Thrust { get; } = EntityConstants.THRUST[EntityConstants.PLAYER];
         public int ControlScheme { get; set; } = 2; // 1-4      
         public float Energy { get; set; }
@@ -23,7 +23,7 @@ namespace SummerProject.collidables
         private const float maxEnergyCap = 300;
         private const int maxHealthCap = 15;
         private const int shieldSize = 300;
-        private bool shieldOn;
+        //private bool shieldOn;
         private Projectiles projectiles;
         private Vector2 startPosition;
 
@@ -40,7 +40,6 @@ namespace SummerProject.collidables
             maxHealth = Health;
             maxEnergy = Energy;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            Hull.Thrust = EntityConstants.THRUST[EntityConstants.PLAYER];
             Hull.Mass = EntityConstants.MASS[EntityConstants.PLAYER];
             Hull.TurnSpeed = EntityConstants.TURNSPEED[EntityConstants.PLAYER];
             Position = position;
@@ -53,8 +52,8 @@ namespace SummerProject.collidables
                 Hull.Color = Color.White; //Move to Respawn()
                 //if (ControlScheme != 4)
                 //    CalculateAngle();
-                base.Update(gameTime);
                 Move();
+                base.Update(gameTime);
                 HandleBulletType();
                 Fire();
                 //if (Health <= 0 && IsActive)
@@ -121,31 +120,31 @@ namespace SummerProject.collidables
             //    ControlScheme = 3;
             //if (InputHandler.isPressed(Keys.D4))
             //    ControlScheme = 4;
-            base.Thrust = 0;
             #region Controls
             if (ControlScheme <= 1)
             {
-                if (InputHandler.isPressed(Keys.S))
-                    base.Thrust = -Thrust;
+                //if (InputHandler.isPressed(Keys.S))
+                //    base.Thrust = -Thrust;
 
-                if (InputHandler.isPressed(Keys.W))
-                    base.Thrust += Thrust;
+                //if (InputHandler.isPressed(Keys.W))
+                //    base.Thrust += Thrust;
 
-                if (InputHandler.isPressed(Keys.A))
-                    AddForce(Thrust, Angle - (float)Math.PI / 2);
+                //if (InputHandler.isPressed(Keys.A))
+                //    AddForce(Thrust, Angle - (float)Math.PI / 2);
 
-                if (InputHandler.isPressed(Keys.D))
-                    AddForce(Thrust, Angle + (float)Math.PI / 2);
+                //if (InputHandler.isPressed(Keys.D))
+                //    AddForce(Thrust, Angle + (float)Math.PI / 2);
             }
 
             else if (ControlScheme == 2)
             {
+
                 Vector2 directionVector = Vector2.Zero;
                 if (InputHandler.isPressed(Keys.S))
-                    directionVector += new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2));
+                    directionVector += new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.W))
-                    directionVector += new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2));
+                    directionVector += new Vector2((float)Math.Cos(-Math.PI / 2), (float)Math.Sin(-Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.A))
                     directionVector += new Vector2((float)Math.Cos(Math.PI), (float)Math.Sin(Math.PI));
@@ -164,8 +163,8 @@ namespace SummerProject.collidables
 
             else if (ControlScheme == 3)
             {
-                if (InputHandler.isPressed(MouseButton.RIGHT))
-                    base.Thrust = Thrust;
+                if (InputHandler.isPressed(MouseButton.RIGHT)) ;
+                    //base.Thrust = Thrust;
 
             }
             //if (ControlScheme <= 1)
@@ -220,13 +219,13 @@ namespace SummerProject.collidables
             //        Angle += 0.1f;
             //}
             #endregion
-            if (FRICTIONFREEACCELERATION)
-            {
-                if (base.Thrust != 0)
-                    friction = 0;
-            }
+            //if (FRICTIONFREEACCELERATION)
+            //{
+            //    if (base.Thrust != 0)
+            //        friction = 0;
+            //}
             //base.Move();
-            friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
+            //friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
         }
 
         public override void Collision(Collidable c2)
@@ -255,7 +254,7 @@ namespace SummerProject.collidables
                     Energy = maxEnergy;
                 }
 
-                if (!shieldOn && c2 is Projectile)
+                if (/*!shieldOn && */c2 is Projectile)
                 {
                     Projectile b = c2 as Projectile;
                     if (b.IsEvil)

@@ -15,7 +15,6 @@ namespace SummerProject
         protected Link[] parts;
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
-        public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
         public override Color Color
         {
             set
@@ -94,6 +93,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            Move();
             foreach (Link p in parts)
             {
                 if (p.Part != null)
