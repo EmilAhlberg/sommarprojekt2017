@@ -2,12 +2,13 @@
 
 namespace SummerProject.factories
 {
-    class EntityTypes
+    class SpriteHandler
     {
-
+        private const int ARRAYSIZE = 200;
+        public static Sprite[] Sprites = new Sprite[ARRAYSIZE];
         public static readonly Dictionary<int, int> SPRITE =
-  new Dictionary<int, int>
-  {
+            new Dictionary<int, int>
+            {
                 {(int)IDs.DEFAULT_BULLET, (int)IDs.DEFAULT_BULLET},
                 {(int)IDs.HOMINGBULLET, (int)IDs.HOMINGBULLET},
                 {(int)IDs.SPRAYBULLET, (int)IDs.SPRAYBULLET},
@@ -22,8 +23,8 @@ namespace SummerProject.factories
                 {(int)IDs.ENEMYSPEED, (int)IDs.ENEMYSPEED},
                 {(int)IDs.ENEMYASTER, (int)IDs.ENEMYASTER},
 
-  };
+            };
 
-        public const int ARRAYSIZE = 200;
+
     }
 }

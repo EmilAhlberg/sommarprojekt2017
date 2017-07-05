@@ -136,18 +136,18 @@ namespace SummerProject
             #endregion
 
             #region Adding entity-sprites to list
-            Entities.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
-            Entities.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
-            Entities.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
-            Entities.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
-            Entities.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            Entities.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
-            Entities.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
-            Entities.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
-            Entities.Sprites[(int)IDs.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
-            Entities.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
-            Entities.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,8,6);
-            Entities.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
+            SpriteHandler.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
+            SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
+            SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
+            SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
+            SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
+            SpriteHandler.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
+            SpriteHandler.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,8,6);
+            SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
             #endregion
 
             #region Initializing game objects etc.
