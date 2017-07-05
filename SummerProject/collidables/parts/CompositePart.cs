@@ -12,7 +12,7 @@ namespace SummerProject
 {
     public abstract class CompositePart : Part, IPartCarrier
     {
-        protected Link[] parts;
+        protected Link[] parts;        
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
         public new float Thrust { set { base.Thrust = value; } get { return base.Thrust; } }
@@ -69,6 +69,7 @@ namespace SummerProject
 
         public bool AddPart(Part part, int pos)
         {
+            part.LinkPosition = pos; //!!! change
             if (pos >= 0 && pos < parts.Length)
             {
                 part.Carrier = this;

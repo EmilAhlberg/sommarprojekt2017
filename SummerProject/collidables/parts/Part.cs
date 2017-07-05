@@ -15,6 +15,9 @@ namespace SummerProject
         public Vector2 AbsolutePosition { get { return BoundBox.AbsolutePosition; } }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
         public virtual Color Color { set { Sprite.MColor = value; } get { return Sprite.MColor; } }
+
+        public int LinkPosition { get; internal set; } = -1;
+
         public Part(ISprite sprite) : base(Vector2.Zero, sprite)
         {
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
