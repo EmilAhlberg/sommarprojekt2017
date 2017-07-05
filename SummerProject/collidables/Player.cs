@@ -58,7 +58,6 @@ namespace SummerProject.collidables
                 //    CalculateAngle();
                 Move();
                 base.Update(gameTime);
-                HandleBulletType();
                 Fire();
                 //if (Health <= 0 && IsActive)
                 //    Death();
@@ -122,25 +121,24 @@ namespace SummerProject.collidables
             //if (InputHandler.isPressed(Keys.D4))
             //    ControlScheme = 4;
             #region Controls
+            Vector2 directionVector = Vector2.Zero;
             if (ControlScheme <= 1)
             {
-                //if (InputHandler.isPressed(Keys.S))
-                //    base.Thrust = -Thrust;
+                if (InputHandler.isPressed(Keys.S))
+                    directionVector += new Vector2((float)Math.Cos(-Angle), (float)Math.Sin(-Angle));
 
-                //if (InputHandler.isPressed(Keys.W))
-                //    base.Thrust += Thrust;
+                if (InputHandler.isPressed(Keys.W))
+                    directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
-                //if (InputHandler.isPressed(Keys.A))
-                //    AddForce(Thrust, Angle - (float)Math.PI / 2);
+                if (InputHandler.isPressed(Keys.A))
+                    directionVector += new Vector2((float)Math.Cos(Angle-Math.PI/2), (float)Math.Sin(Angle-Math.PI/2));
 
-                //if (InputHandler.isPressed(Keys.D))
-                //    AddForce(Thrust, Angle + (float)Math.PI / 2);
+                if (InputHandler.isPressed(Keys.D))
+                    directionVector += new Vector2((float)Math.Cos(Angle+Math.PI/2), (float)Math.Sin(Angle+Math.PI/2));
             }
 
             else if (ControlScheme == 2)
             {
-
-                Vector2 directionVector = Vector2.Zero;
                 if (InputHandler.isPressed(Keys.S))
                     directionVector += new Vector2((float)Math.Cos(Math.PI / 2), (float)Math.Sin(Math.PI / 2));
 
@@ -152,12 +150,6 @@ namespace SummerProject.collidables
 
                 if (InputHandler.isPressed(Keys.D))
                     directionVector += new Vector2((float)Math.Cos(0), (float)Math.Sin(0));
-
-                if(directionVector != Vector2.Zero)
-                {
-                    Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y,directionVector.X);
-                    base.Move();
-                }
                 //if (InputHandler.isPressed(Keys.S) || InputHandler.isPressed(Keys.W) || InputHandler.isPressed(Keys.A) || InputHandler.isPressed(Keys.D))
                 //    base.Move();
             }
@@ -227,6 +219,11 @@ namespace SummerProject.collidables
             //}
             //base.Move();
             //friction = EntityConstants.FRICTION[EntityConstants.PLAYER];
+            if (directionVector != Vector2.Zero)
+            {
+                Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y, directionVector.X);
+                base.Move();
+            }
         }
 
         private void HandleBulletToggle()
