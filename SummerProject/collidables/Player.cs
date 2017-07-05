@@ -112,14 +112,6 @@ namespace SummerProject.collidables
 
         public override void Move() //Change when adding engine
         {
-            //if (InputHandler.isPressed(Keys.D1))
-            //    ControlScheme = 1;
-            //if (InputHandler.isPressed(Keys.D2))
-            //    ControlScheme = 2;
-            //if (InputHandler.isPressed(Keys.D3))
-            //    ControlScheme = 3;
-            //if (InputHandler.isPressed(Keys.D4))
-            //    ControlScheme = 4;
             #region Controls
             Vector2 directionVector = Vector2.Zero;
             if (ControlScheme <= 1)
@@ -160,18 +152,17 @@ namespace SummerProject.collidables
             }
             //else if (ControlScheme == 4)
             //{
-            //    base.Thrust = 0;
             //    if (InputHandler.isPressed(Keys.S))
-            //        base.Thrust = -Thrust;
+            //        directionVector += new Vector2((float)Math.Cos(-Angle), (float)Math.Sin(-Angle));
 
             //    if (InputHandler.isPressed(Keys.W))
-            //        base.Thrust += Thrust;
+            //        directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
             //    if (InputHandler.isPressed(Keys.A))
-            //        Angle -= 0.1f;
+            //        Angle -= 0.15f;
 
             //    if (InputHandler.isPressed(Keys.D))
-            //        Angle += 0.1f;
+            //        Angle += 0.15f;
             //}
             #endregion
             //if (FRICTIONFREEACCELERATION)
