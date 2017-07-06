@@ -134,6 +134,7 @@ namespace SummerProject
             allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
             allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
             allUpgradeParts.Insert(PartTypes.GUNPART, gunTex1);
+            //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
             #region Adding entity-sprites to list

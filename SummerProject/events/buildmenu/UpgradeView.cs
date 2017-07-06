@@ -15,14 +15,13 @@ namespace SummerProject.framework
 {
     public class UpgradeView
     {
-        private List<ShipItem> shipItems;
-        private List<Texture2D> textures;          
+        private List<ShipItem> shipItems;     
         private int activeSelection;
         private Player player;
         private List<Texture2D> upgradeParts;
         private UpgradeBar upgradeBar;
 
-        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts)
+        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts) //remove text param
         {
             activeSelection = -1;
             this.upgradeParts = upgradeParts;
@@ -35,7 +34,7 @@ namespace SummerProject.framework
             if (shipItems == null)
             {
                 shipItems = new List<ShipItem>();
-                textures = new List<Texture2D>();
+
                 List<Part> parts = player.Parts;                               
                 int activeBoxIndex = 0;
                 Sprite s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);      
@@ -50,25 +49,34 @@ namespace SummerProject.framework
                     {
                         activeBoxIndex = parts.IndexOf(carrier);
                         currentHull = carrier;
+                        AddEmptyParts(currentHull, activeBoxIndex);
                     }
                     Vector2 itemPos =shipItems[activeBoxIndex].Position;
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
                    
-                    if (currentPart is RectangularHull)
-                        s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
+                    if (currentPart is RectangularHull)                    
+                        s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);                                        
                     else if (currentPart is GunPart)
                         s = new Sprite(upgradeParts[PartTypes.GUNPART]);
                     else if (currentPart is EnginePart)
                         s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition));
+                    shipItems.Insert(i,new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition));
                 }
-
             }
         }
 
-        private void AddParts()
+        private void AddEmptyParts(RectangularHull hull, int activeBoxIndex)
         {
-
+            bool[] taken = hull.TakenPositions;
+            for (int j = 0; j < taken.Length; j++)
+            {
+                if (!taken[j])
+                {
+                    Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
+                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]), j));
+                }
+                  
+            }
         }
 
 
@@ -117,12 +125,12 @@ namespace SummerProject.framework
                         upgradeBar.Active = false;
                     //Buy(100); //!
                 }
-            }
+            }          
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {         
-                upgradeBar.Draw(spriteBatch, gameTime);
+            upgradeBar.Draw(spriteBatch, gameTime);
 
             //slots         
             for (int i = 0; i < shipItems.Count; i++)
@@ -134,8 +142,8 @@ namespace SummerProject.framework
                     shipItems[i].Active = false;
 
                 shipItems[i].Draw(spriteBatch, gameTime);
+            }
 
-            }           
         }
 
         private void Buy(int price)
