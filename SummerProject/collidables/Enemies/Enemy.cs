@@ -35,7 +35,10 @@ namespace SummerProject
             AddForce(10, Angle);
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
+            {
+                Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
+            }
             if (Health > 1 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
@@ -86,8 +89,7 @@ namespace SummerProject
                     Health -= ed.Damage;
             }
             if (c2 is Player)
-            {
-                //Traits.KillTrait.Counter++; //maybe not counted as a kill
+            {  
                 Death();
             }
               
