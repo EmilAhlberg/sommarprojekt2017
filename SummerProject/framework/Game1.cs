@@ -131,6 +131,7 @@ namespace SummerProject
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
+            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
             List<Texture2D> allUpgradeParts = new List<Texture2D>();
             allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
             allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
