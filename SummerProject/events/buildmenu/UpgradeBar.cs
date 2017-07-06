@@ -73,16 +73,16 @@ namespace SummerProject.events.buildmenu
         {
 
             itemBoxes = new List<ShipItem>();
-            Rectangle background = new Rectangle(0, 0, 200, upgradeParts.Count * 100); //hard coded #2
             //float width = background.Width;
             //float height = background.Height;         
             //int boxHeight = (int)height / upgradeParts.Count;
+            Vector2 tempVect = new Vector2(100, 100);
             for (int i = 0; i < upgradeParts.Count; i++)
             {
-                Sprite s = new Sprite(upgradeParts[i]);
-                float height = s.SpriteRect.Height*ShipItem.SCALEFACTOR;
-                int boxHeight = (int)height / upgradeParts.Count;
-                itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));
+                ShipItem si = new ShipItem (tempVect, new Sprite(upgradeParts[i]), 0, i);
+                itemBoxes.Insert(i, si);
+                tempVect.Y += 175;
+                //  itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));
             }
         }
     }
