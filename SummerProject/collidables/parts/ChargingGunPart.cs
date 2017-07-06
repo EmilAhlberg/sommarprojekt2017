@@ -28,6 +28,8 @@ namespace SummerProject.collidables.parts
             if (!charging)
             {
                 bullet = (Bullet)projectiles.CreateEntity((int)IDs.CHARGINGBULLET);
+                bullet.Sprite.Scale = Vector2.One;
+                ScaleBoundBox();
                 charging = true;
             }
         }
@@ -43,6 +45,7 @@ namespace SummerProject.collidables.parts
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
                     charging = false;
                     chargeTimer.Reset();
+                    ResetForNextShot();
                 }
             }
             buttonReleased = true;
@@ -59,14 +62,11 @@ namespace SummerProject.collidables.parts
             bullet.Damage *= damageModifier;
         }
 
-        public override void Death()
+        public void ResetForNextShot()
         {
-            bullet.Sprite.Scale = Vector2.One;
-            ScaleBoundBox();
             buttonReleased = false;
             charging = false;
             bullet = null;
-            base.Death();
         }
     }
 }
