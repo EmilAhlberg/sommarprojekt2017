@@ -13,7 +13,7 @@ namespace SummerProject
     public abstract class CompositePart : Part, IPartCarrier
     {
         protected Link[] parts;
-        public bool[] TakenPositions = new bool[4]; // fix
+        public bool[] TakenPositions = new bool[4]; //! fix
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
         public override Color Color

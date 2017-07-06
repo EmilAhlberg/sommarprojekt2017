@@ -14,29 +14,37 @@ namespace SummerProject
         public const int SCALEFACTOR = 6;
         private Color markedColor = Color.Beige;
         private Color defaultColor = Color.Wheat;
-        private int partType;
+        public int PartType;
         public bool Active;
         public Rectangle BoundBox;
         public float Width;
         public float Height;
-        public float itemPosition;
-        public float itemCenter;
+        //public float itemPosition;
+        //public float itemCenter;
+        public int LinkPosition;
+        public RectangularHull Hull;
 
         public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType) : base(position, sprite)
         {
             angle = -(float)Math.PI / 2 * linkPosition;
             Width = sprite.SpriteRect.Width * SCALEFACTOR;
             Height = sprite.SpriteRect.Height * SCALEFACTOR;
+            LinkPosition = linkPosition;
 
             sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
             Position = position;
-            this.partType = partType;
+            this.PartType = partType;
             BoundBox = new Rectangle((int)(position.X - sprite.Origin.X * SCALEFACTOR), (int)(position.Y - sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
+        }
+
+        public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType, RectangularHull hull) : this(position, sprite, linkPosition, partType)
+        {
+            Hull = hull;
         }
 
         public Part ReturnPart()
         {
-            switch (partType)
+            switch (PartType)
             {
                 case PartTypes.GUNPART:
                     return new GunPart(new Sprite((Sprite) Sprite));
@@ -49,6 +57,8 @@ namespace SummerProject
                 case PartTypes.MINEGUNPART:
                     return new GunPart(new Sprite((Sprite)Sprite));
                 case PartTypes.CHARGINGGUNPART:
+                    return new GunPart(new Sprite((Sprite)Sprite));
+                case PartTypes.EMPTYPART:
                     return new GunPart(new Sprite((Sprite)Sprite));
                 default: return new EnginePart(new Sprite((Sprite)Sprite));
 

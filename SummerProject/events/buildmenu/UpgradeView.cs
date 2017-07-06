@@ -54,22 +54,9 @@ namespace SummerProject.framework
                     Vector2 itemPos = shipItems[activeBoxIndex].Position;
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
 
-                    if (currentPart is RectangularHull)
-                    {
-                        s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
-                        type = PartTypes.RECTANGULARHULL;
-                    }
-                    else if (currentPart is GunPart)
-                    {
-                        s = new Sprite(upgradeParts[PartTypes.GUNPART]);
-                        type = PartTypes.GUNPART;
-                    }
-                    else if (currentPart is EnginePart)
-                    {
-                        s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
-                        type = PartTypes.ENGINEPART;
-                    }
-                    shipItems.Insert(i, new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition, type));
+                    ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v);
+                  
+                    shipItems.Insert(i, shipItem);
                 }
             }
         }
@@ -83,21 +70,59 @@ namespace SummerProject.framework
                 if (!taken[j])
                 {
                     Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]), j, PartTypes.RECTANGULARHULL));
+                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
                 }
 
             }
         }
+
         private void AddPart(Part newPart)
         {
-            if (!(player.Parts[activeSelection] is CompositePart))
+            IPartCarrier hull = null;
+            if (shipItems[activeSelection].PartType == PartTypes.EMPTYPART)
             {
-                IPartCarrier hull = player.Parts[activeSelection].Carrier;
+                hull = shipItems[activeSelection].Hull;
+                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
+                player.Parts.Insert(activeSelection, newPart);
+                
+            }
+            else if(!(shipItems[activeSelection].PartType == PartTypes.RECTANGULARHULL))
+            {
+                hull = player.Parts[activeSelection].Carrier;
                 hull.AddPart(newPart, player.Parts[activeSelection].LinkPosition);
                 player.Parts[activeSelection] = newPart;
             }
+
+
+            int hullIndex = player.Parts.IndexOf((Part)hull);
+
+            Vector2 v = LinkPosition(shipItems[activeSelection].LinkPosition, shipItems[hullIndex].Position, shipItems[hullIndex]);
+            ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v);
+            shipItems[activeSelection] = s;
         }
 
+        private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v)
+        {
+            int type = 0;
+            Sprite s = null;
+            if (part is RectangularHull)
+            {
+                s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
+                type = PartTypes.RECTANGULARHULL;
+            }
+            else if (part is GunPart)
+            {
+                s = new Sprite(upgradeParts[PartTypes.GUNPART]);
+                type = PartTypes.GUNPART;
+            }
+            else if (part is EnginePart)
+            {
+                s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
+                type = PartTypes.ENGINEPART;
+            }
+
+            return new ShipItem(new Vector2(v.X, v.Y), s, part.LinkPosition, type);
+        }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
         {
