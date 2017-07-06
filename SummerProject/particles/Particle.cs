@@ -58,7 +58,7 @@ namespace SummerProject
         {
             Behaviour(ID);
             currentTTL.CountDown(gameTime);
-            if (currentTTL.IsFinished)
+            if (currentTTL.IsFinished || WindowSize.IsOutOfBounds(Position))
             {
                 IsActive = false;
             }

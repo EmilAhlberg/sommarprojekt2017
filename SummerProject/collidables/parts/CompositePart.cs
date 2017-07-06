@@ -243,7 +243,7 @@ namespace SummerProject
                 Matrix rot = Matrix.CreateRotationZ(hull.Angle);
                 p.Position = hull.Position + Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
                 p.Angle = hull.angle;
-                if (!(p is CompositePart))
+                if (!(p is RectangularHull))
                     p.Angle += RelativeAngle;
             }
         }

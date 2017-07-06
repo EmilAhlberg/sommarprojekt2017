@@ -15,6 +15,13 @@ namespace SummerProject
             BoundBox.Origin = sprite.Origin;
         }
 
+        public override void ChangeSprite(ISprite sprite)
+        {
+            base.ChangeSprite(sprite);
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height), angle);
+            BoundBox.Origin = Sprite.Origin;
+        }
+
         public override Vector2 Position
         {
             set

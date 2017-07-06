@@ -19,5 +19,6 @@ namespace SummerProject
         Color PrimaryColor { get; }
         List<Sprite> SplitSprites { get; }
         List<Color> Colors { get; }
+        Sprite GetRotatedSprite(float rads);
     }
 }
