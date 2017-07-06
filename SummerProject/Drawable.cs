@@ -18,6 +18,13 @@ namespace SummerProject
                 sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
         }
 
+        public virtual void ChangeSprite(ISprite sprite)
+        {
+            //Sprite = sprite;
+            //if (sprite is Sprite)
+            //    sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Sprite.Position = Position;

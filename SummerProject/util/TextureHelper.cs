@@ -56,5 +56,59 @@ namespace SummerProject.util
             texList.Add(tex2);
             return texList;
         }
+
+        /// <summary>
+        /// Only works for cardinal directions!
+        /// </summary>
+
+        public static Texture2D GetRotatedTexture(this Texture2D tex, float rads)
+        {
+            Texture2D newTex;
+            Color[] colors = new Color[tex.Width * tex.Height];
+            tex.GetData(colors);
+            Color[] newColors = new Color[tex.Width * tex.Height];
+
+            if (rads == (float)Math.PI / 2)
+            {
+                newTex = new Texture2D(tex.GraphicsDevice, tex.Height, tex.Width);
+                for (int x = 0; x < tex.Width; x++)
+                {
+                    for (int y = 0; y < tex.Height; y++)
+                    {
+                        newColors[y + x * tex.Height] = colors[x + y * tex.Width];
+                    }
+                }
+            }
+            else
+            if (rads == (float)Math.PI)
+            {
+                newTex = new Texture2D(tex.GraphicsDevice, tex.Width, tex.Height);
+                for (int x = 0; x < tex.Width; x++)
+                {
+                    for (int y = 0; y < tex.Height; y++)
+                    {
+                        newColors[(tex.Width-1)-x + ((tex.Height - 1) * tex.Width) - (y * tex.Width)] = colors[x + y * tex.Width];
+                    }
+                }
+            }
+            else
+            if (rads == 3*(float)Math.PI / 2)
+            {
+                newTex = new Texture2D(tex.GraphicsDevice, tex.Height, tex.Width);
+                for (int x = 0; x < tex.Width; x++)
+                {
+                    for (int y = 0; y < tex.Height; y++)
+                    {
+                        newColors[(tex.Height-1)-y + (tex.Height*(tex.Width-1))-(x * tex.Height)] = colors[x + y * tex.Width];
+                    }
+                }
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+            newTex.SetData(newColors);
+            return newTex;
+        }
     }
 }

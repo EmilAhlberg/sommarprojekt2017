@@ -121,6 +121,11 @@ namespace SummerProject
             LayerDepth = 0;
         }
 
+        public Sprite GetRotatedSprite(float rads)
+        {
+            return new Sprite(texture.GetRotatedTexture(rads));
+        }
+
         public Sprite() : this(baseTexture, 1, 1)
         {
             Origin = new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); //! HMM
@@ -146,11 +151,12 @@ namespace SummerProject
             }
             SpriteRect = new Rectangle((int)currentFrame * SpriteRect.Width, 0, SpriteRect.Width, SpriteRect.Height);
         }
-
+ 
         /// <summary>
         /// Don't use this either. Needs to have a way to restore the texture. Colors the grays in the texture. 
         /// </summary>
         /// <param name="c"></param>
+
         public void Colorize(Color c)
         {
             Color[] cArray = new Color[texture.Width * texture.Height];
@@ -167,8 +173,6 @@ namespace SummerProject
         public void ColorRestore()
         {
         }
-
-
 
         /// <summary>
         /// Slow as fuck, just so that you know. Use only once per sprite, at most.
