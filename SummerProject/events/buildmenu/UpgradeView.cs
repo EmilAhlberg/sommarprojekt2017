@@ -38,13 +38,14 @@ namespace SummerProject.framework
                 List<Part> parts = player.Parts;                               
                 int activeBoxIndex = 0;
                 Sprite s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);      
-                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0)); //not 100% centered
+                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0, PartTypes.RECTANGULARHULL)); //not 100% centered
                 RectangularHull currentHull = (RectangularHull)parts[0];
 
                 for (int i = 1; i < parts.Count; i++)
                 {
                     Part currentPart = parts[i];
                     RectangularHull carrier = (RectangularHull) currentPart.Carrier;
+                    int type = 0;
                     if (currentHull != carrier)
                     {
                         activeBoxIndex = parts.IndexOf(carrier);
@@ -56,11 +57,19 @@ namespace SummerProject.framework
                    
                     if (currentPart is RectangularHull)                    
                         s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);                                        
+                        type = PartTypes.RECTANGULARHULL;
+                    }
                     else if (currentPart is GunPart)
+                    {
                         s = new Sprite(upgradeParts[PartTypes.GUNPART]);
+                        type = PartTypes.GUNPART;
+                    }
                     else if (currentPart is EnginePart)
+                    {
                         s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
-                    shipItems.Insert(i,new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition));
+                        type = PartTypes.ENGINEPART;
+                    }
+                    shipItems.Insert(i, new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition,type));
                 }
             }
         }
@@ -78,6 +87,15 @@ namespace SummerProject.framework
                   
             }
         }
+        private void AddPart(Part newPart)
+        {
+            if (!(player.Parts[activeSelection] is CompositePart))
+            {
+                IPartCarrier hull = player.Parts[activeSelection].Carrier;
+                hull.AddPart(newPart, player.Parts[activeSelection].LinkPosition);
+                player.Parts[activeSelection] = newPart;
+            }
+        }
 
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
@@ -86,16 +104,12 @@ namespace SummerProject.framework
             {
                 case 0:
                     return itemPos + new Vector2(activeBox.Width, 0);
-                    break;
                 case 1:
-                    return itemPos + new Vector2(0, activeBox.Height);
-                    break;
+                    return itemPos + new Vector2(0, -activeBox.Height);
                 case 2:
                     return itemPos + new Vector2(-activeBox.Width, 0);
-                    break;
                 case 3:
-                    return itemPos + new Vector2(0, -activeBox.Height);
-                    break;
+                    return itemPos + new Vector2(0, activeBox.Height);
                 default:
                     return itemPos;
             }
@@ -116,7 +130,9 @@ namespace SummerProject.framework
                     int oldActive = activeSelection;
                     activeSelection = i;
                     if (oldActive != i && activeSelection >= 0)
+                    {
                         upgradeBar.CreateItemBoxes();
+                    }
                     else if (oldActive == activeSelection)
                         activeSelection = -1;
                     if (activeSelection >= 0)
@@ -125,7 +141,9 @@ namespace SummerProject.framework
                         upgradeBar.Active = false;
                     //Buy(100); //!
                 }
-            }          
+            }
+            if (upgradeBar.Active && upgradeBar.Action)
+                AddPart(upgradeBar.SelectedPart);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
