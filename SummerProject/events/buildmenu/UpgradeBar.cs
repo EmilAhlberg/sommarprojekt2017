@@ -39,8 +39,8 @@ namespace SummerProject.events.buildmenu
                                             DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
 
                 //menubar             
-                Rectangle background = new Rectangle(0, 0, 200, upgradeParts.Count * 100); //hard coded #1
-                spriteBatch.Draw(upgradeParts[0], background, Color.SaddleBrown);
+           //     Rectangle background = new Rectangle(0, 0, 500, upgradeParts.Count * 100); //hard coded #1
+             //   spriteBatch.Draw(upgradeParts[0], background, Color.SaddleBrown);
 
                 for (int i = 0; i < itemBoxes.Count; i++)
                 {
