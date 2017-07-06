@@ -27,7 +27,6 @@ namespace SummerProject.framework
             activeSelection = -1;
             this.upgradeParts = upgradeParts;
             this.player = player;
-            //itemBoxes = new List<Rectangle>();
             upgradeBar = new UpgradeBar(upgradeParts, font);
         }
 
@@ -112,33 +111,19 @@ namespace SummerProject.framework
                         upgradeBar.CreateItemBoxes();
                     else if (oldActive == activeSelection)
                         activeSelection = -1;
+                    if (activeSelection >= 0)
+                        upgradeBar.Active = true;
+                    else
+                        upgradeBar.Active = false;
                     //Buy(100); //!
                 }
             }
         }
 
-
-
-        private void CreateItemBoxes()
-        {
-            //itemBoxes = new List<Rectangle>();
-            Rectangle background = CreateSubFrame();
-            float width = background.Width;
-            float height = background.Height;
-            int interPartSpace = 20;
-            int boxHeight = (int)height / upgradeParts.Count;
-            for (int i = 0; i < upgradeParts.Count; i++)
-            {
-                //itemBoxes.Insert(i, new Rectangle(background.X + interPartSpace, background.Y * boxHeight*i + interPartSpace, boxHeight, boxHeight));
-            }
-
-
-
-        }
-
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            upgradeBar.Draw(spriteBatch, gameTime);
+        {         
+                upgradeBar.Draw(spriteBatch, gameTime);
+
             //slots         
             for (int i = 0; i < shipItems.Count; i++)
             {
@@ -150,22 +135,7 @@ namespace SummerProject.framework
 
                 shipItems[i].Draw(spriteBatch, gameTime);
 
-            }
-            //submenu
-            if (activeSelection >= 0)
-                DrawSelection(spriteBatch);
-        }
-
-        private void DrawSelection(SpriteBatch spriteBatch)
-        {
-            Rectangle background = CreateSubFrame();
-            //spriteBatch.Draw(text, background, Color.White);
-
-            for (int i = 0; i < upgradeParts.Count; i++)
-            {
-//                spriteBatch.Draw(upgradeParts[i], itemBoxes[i], Color.LightBlue);
-            }
-
+            }           
         }
 
         private void Buy(int price)
@@ -175,14 +145,6 @@ namespace SummerProject.framework
             //    spentResource += price;
             //    //player.dosomething typ addpart(location)
             //}
-        }
-
-        private Rectangle CreateSubFrame()
-        {
-            Rectangle activeSlot = new Rectangle(0, 0, 200, upgradeParts.Count*100);//slotBoxes[activeSelection];
-            return activeSlot;
-            //return new Rectangle(activeSlot.Location.X, activeSlot.Location.Y + slotSize, slotSize, slotSize / 2);
-            //return new Rectangle(activeSlot.Location.X, activeSlot.Location.Y + size, size + frameAddition, size / 2 + frameAddition);
         }
     }
 }
