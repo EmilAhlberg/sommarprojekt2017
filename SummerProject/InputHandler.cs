@@ -36,6 +36,11 @@ namespace SummerProject
             mState = Mouse.GetState();
         }
 
+        public static Point MousePosition()
+        {
+            return mState.Position;
+        }
+
         public static bool isPressed(Keys key)
         {
             return kState.IsKeyDown(key);
