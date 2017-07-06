@@ -105,6 +105,7 @@ namespace SummerProject
             Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
             Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
             Texture2D chargingBulletTex = Content.Load<Texture2D>("textures/ChargingBullet");
+            Texture2D gravityBulletTex = Content.Load<Texture2D>("textures/GravityBullet");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
             Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
@@ -146,7 +147,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(gravityBulletTex, 6, 24); // change to chargingBulletTex l8er
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
@@ -170,7 +171,7 @@ namespace SummerProject
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
             RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
-            GunPart gunPart1 = new SprayGunPart(new Sprite(gunTex1));
+            GunPart gunPart1 = new ChargingGunPart(new Sprite(gunTex1));
             GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
             GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
             EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
