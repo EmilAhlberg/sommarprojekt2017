@@ -66,6 +66,7 @@
     <Compile Include="collidables\parts\SprayGunPart.cs" />
     <Compile Include="collidables\bullets\SprayBullet.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="events\buildmenu\UpgradeBar.cs" />
     <Compile Include="IDs.cs" />
     <Compile Include="progress\AchievementController.cs" />
     <Compile Include="progress\Achievement.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="factories\Entities.cs" />
     <Compile Include="factories\EntityFactory.cs" />
     <Compile Include="factories\SpriteHandler.cs" />
-    <Compile Include="events\UpgradeView.cs" />
+    <Compile Include="events\buildmenu\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="ISprite.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="particles\Particle.cs" />
     <Compile Include="particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
+    <Compile Include="events\buildmenu\ShipItem.cs" />
     <Compile Include="SRandom.cs" />
     <Compile Include="UnitBar.cs" />
     <Compile Include="util\DrawHelper.cs" />
