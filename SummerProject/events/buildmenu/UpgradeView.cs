@@ -54,7 +54,7 @@ namespace SummerProject.framework
                     Vector2 itemPos = shipItems[activeBoxIndex].Position;
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
 
-                    ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v);
+                    ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v, currentHull);
                   
                     shipItems.Insert(i, shipItem);
                 }
@@ -84,24 +84,27 @@ namespace SummerProject.framework
                 hull = shipItems[activeSelection].Hull;
                 hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
                 player.Parts.Insert(activeSelection, newPart);
-                
+                //   player.Parts.Insert(activeSelection, newPart);
+
             }
             else if(!(shipItems[activeSelection].PartType == PartTypes.RECTANGULARHULL))
             {
-                hull = player.Parts[activeSelection].Carrier;
-                hull.AddPart(newPart, player.Parts[activeSelection].LinkPosition);
-                player.Parts[activeSelection] = newPart;
+                hull = shipItems[activeSelection].Hull;
+                //hull = player.Parts[activeSelection].Carrier; //?
+                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
+                player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
             }
+            newPart.Carrier = hull;
 
 
             int hullIndex = player.Parts.IndexOf((Part)hull);
 
             Vector2 v = LinkPosition(shipItems[activeSelection].LinkPosition, shipItems[hullIndex].Position, shipItems[hullIndex]);
-            ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v);
+            ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull) hull);
             shipItems[activeSelection] = s;
         }
 
-        private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v)
+        private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
             int type = 0;
             Sprite s = null;
@@ -121,14 +124,14 @@ namespace SummerProject.framework
                 type = PartTypes.ENGINEPART;
             }
 
-            return new ShipItem(new Vector2(v.X, v.Y), s, part.LinkPosition, type);
+            return new ShipItem(new Vector2(v.X, v.Y), s, part.LinkPosition, type, hull);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
         {
             switch (pos)
             {
-                case 0:
+                case 0: // mirrored
                     return itemPos + new Vector2(-activeBox.Width, 0);
                 case 1:
                     return itemPos + new Vector2(0, -activeBox.Height);
