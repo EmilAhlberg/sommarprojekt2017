@@ -70,7 +70,7 @@ namespace SummerProject.framework
                 if (!taken[j])
                 {
                     Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
+                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.EMPTYPART]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
                 }
 
             }
