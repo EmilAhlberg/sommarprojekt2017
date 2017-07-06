@@ -140,8 +140,7 @@ namespace SummerProject
                 {
                     if (p.Part != null)
                     {
-                        p.Part.Position = Position;
-                        p.Part.Angle = Angle;
+                        p.SetPart(p.Part, this);
                     }
                 }
             }
@@ -156,7 +155,7 @@ namespace SummerProject
                 {
                     if (p.Part != null)
                     {
-                        p.Part.Angle = Angle;
+                        p.SetPart(p.Part, this);
                     }
                 }
             }
@@ -226,24 +225,26 @@ namespace SummerProject
         {
 
             public Vector2 RelativePos { set; get; }
-            public float Angle { set; get; }
+            public float RelativeAngle { set; get; }
             public Part Part { private set; get; } = null;
 
             public Link(Vector2 relativePos, float angle)
             {
                 RelativePos = relativePos;
-                Angle = angle;
+                RelativeAngle = angle;
             }
 
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
                 Vector2 linkToCenter = new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2;
-                p.Position = hull.Position;
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                p.Origin = (hull.Origin - new Vector2(hull.BoundBox.Width / 2, hull.BoundBox.Height / 2)) + new Vector2(p.BoundBox.Width / 2, p.BoundBox.Height / 2) + RelativePos + posChange * linkToCenter;
+                Matrix rot = Matrix.CreateRotationZ(hull.Angle);
+                p.Position = hull.Position + Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
                 p.Angle = hull.angle;
+                if (!(p is CompositePart))
+                    p.Angle += RelativeAngle;
             }
         }
     }
