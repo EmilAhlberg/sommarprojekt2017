@@ -49,17 +49,17 @@ namespace SummerProject
                 case PartTypes.GUNPART:
                     return new GunPart(new Sprite((Sprite) Sprite));
                 case PartTypes.ENGINEPART:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new EnginePart(new Sprite((Sprite)Sprite));
                 case PartTypes.RECTANGULARHULL:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new RectangularHull(new Sprite((Sprite)Sprite));
                 case PartTypes.SPRAYGUNPART:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new SprayGunPart(new Sprite((Sprite)Sprite));
                 case PartTypes.MINEGUNPART:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new MineGunPart(new Sprite((Sprite)Sprite));
                 case PartTypes.CHARGINGGUNPART:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new ChargingGunPart(new Sprite((Sprite)Sprite));
                 case PartTypes.EMPTYPART:
-                    return new GunPart(new Sprite((Sprite)Sprite));
+                    return new GunPart(new Sprite((Sprite)Sprite)); //!!
                 default: return new EnginePart(new Sprite((Sprite)Sprite));
 
             }
