@@ -24,7 +24,7 @@ namespace SummerProject
 
         public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType) : base(position, sprite)
         {
-            angle = (float)Math.PI / 2 * linkPosition;
+            angle = -(float)Math.PI / 2 * linkPosition;
             Width = sprite.SpriteRect.Width * SCALEFACTOR;
             Height = sprite.SpriteRect.Height * SCALEFACTOR;
 
