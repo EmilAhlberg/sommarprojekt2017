@@ -27,7 +27,7 @@ namespace SummerProject
             Hull.friction = EntityConstants.FRICTION[(int)IDs.DEFAULT];
         }
 
-        public override void Update(GameTime gameTime) //NEEDS FIX !!!TODO!!! Fix particles for parts
+        public override void Update(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
@@ -35,7 +35,10 @@ namespace SummerProject
             AddForce(10, Angle);
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
+            {
+                Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
+            }
             if (Health > 1 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
@@ -67,7 +70,7 @@ namespace SummerProject
 
         public override void Collision(Collidable c2)
         {
-            
+            base.Collision(c2);
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;
@@ -86,8 +89,7 @@ namespace SummerProject
                     Health -= ed.Damage;
             }
             if (c2 is Player)
-            {
-                //Traits.KillTrait.Counter++; //maybe not counted as a kill
+            {  
                 Death();
             }
               

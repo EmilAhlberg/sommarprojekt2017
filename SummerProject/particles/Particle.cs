@@ -26,6 +26,9 @@ namespace SummerProject
             this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
+            Behaviour(ID);
+            if (ID == 3)
+                currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
         public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, int ID)
@@ -47,6 +50,8 @@ namespace SummerProject
             this.TTL = TTL;
             this.ID = ID;
             IsActive = true;
+            if (ID == 3)
+                currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
         public void Update(GameTime gameTime)
@@ -65,7 +70,7 @@ namespace SummerProject
             {
                 case 1:
                     {
-                        Sprite.Scale = 4 * baseScale * currentTTL.currentTime / TTL;
+                        Sprite.Scale = 4*baseScale * currentTTL.currentTime / TTL;
                         Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
                         angle += angularVelocity;
                         break;
@@ -75,6 +80,12 @@ namespace SummerProject
                         Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
                         angle += angularVelocity * currentTTL.currentTime / TTL;
 
+                        break;
+                    }
+                case 3:
+                    {
+                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
+                        angle += angularVelocity;
                         break;
                     }
                 default: throw new NotImplementedException();

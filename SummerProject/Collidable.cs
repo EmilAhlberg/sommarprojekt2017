@@ -59,6 +59,22 @@ namespace SummerProject
             return BoundBox.Intersects(c2.BoundBox);
         }
 
-        public abstract void Collision(Collidable c2);
+        public virtual void Collision(Collidable c2)
+        {
+            ////VILKEN SIDA BESKÄRS AV AVSTÅNDET MELLAN POSITIONERNA?
+            ////
+
+
+            //Matrix rot = Matrix.CreateRotationZ((float)Math.PI / 2);
+            //Vector2 axis1 = Position - c2.Position; axis1.Normalize();
+            //Vector2 axis2 = Vector2.Transform(axis1, rot);
+            //Vector2 momentum1 = Velocity * Mass;
+            //Vector2 momentum2 = c2.Velocity * c2.Mass;
+            //Vector2 vProj11 = Vector2.Dot(Velocity, axis1) * axis1;
+            //Vector2 vProj12 = Vector2.Dot(Velocity, axis2) * axis2;
+            //Vector2 vProj21 = Vector2.Dot(c2.Velocity, axis1) * axis1;
+            //Vector2 vProj22 = Vector2.Dot(c2.Velocity, axis2) * axis2;
+            //AddForce((vProj11 - vProj21) / (Mass + c2.Mass));
+        }
     }
 }

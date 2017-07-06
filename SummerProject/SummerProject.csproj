@@ -57,6 +57,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="collidables\bullets\ChargingBullet.cs" />
+    <Compile Include="collidables\parts\ChargingGunPart.cs" />
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
     <Compile Include="collidables\HomingBullet.cs" />

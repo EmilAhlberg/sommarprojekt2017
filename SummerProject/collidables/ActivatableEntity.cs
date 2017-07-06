@@ -15,7 +15,7 @@ namespace SummerProject.collidables
 
         protected abstract void SpecificActivation(Vector2 source, Vector2 target);
 
-        public void Activate(Vector2 source, Vector2 target)
+        public virtual void Activate(Vector2 source, Vector2 target)
         {
             Position = source;          
             IsActive = true;

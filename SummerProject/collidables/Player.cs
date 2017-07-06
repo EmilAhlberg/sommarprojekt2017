@@ -99,6 +99,7 @@ namespace SummerProject.collidables
                 if (toggleSprayGun)
                     Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
+                Hull.TakeAction(typeof(ChargingGunPart));
             }
         }
 
@@ -188,7 +189,7 @@ namespace SummerProject.collidables
 
         public override void Collision(Collidable c2)
         {
-
+            base.Collision(c2);
             if (/*!shieldOn && */c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;

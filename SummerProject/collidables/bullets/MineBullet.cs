@@ -13,5 +13,9 @@ namespace SummerProject.collidables.bullets
         {
             friction = EntityConstants.FRICTION[(int)IDs.MINEBULLET];
         }
+
+        protected override void TrailParticles()
+        {
+        }
     }
 }
