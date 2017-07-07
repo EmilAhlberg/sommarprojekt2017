@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SummerProject
@@ -96,6 +97,12 @@ namespace SummerProject
                     return false;
             }
             return true;
+        }
+
+        public bool Contains(Point point) {
+            List<float> xVals = new List<float>(new float[] { UL.X, DL.X, DR.X, UR.X });
+            List<float> yVals = new List<float>(new float[] { UL.Y, DL.Y, DR.Y, UR.Y });
+            return xVals.Max() > point.X && xVals.Min() < point.X && yVals.Max() > point.Y && yVals.Min() < point.Y;
         }
 
         private Vector2[] GenerateAxes(RotRectangle r)

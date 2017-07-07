@@ -17,13 +17,12 @@ namespace SummerProject.framework
     public class UpgradeView
     {
         private List<ShipItem> shipItems;
-        private List<Texture2D> textures;          
         private int activeSelection;
         private Player player;
         private List<Texture2D> upgradeParts;
         private UpgradeBar upgradeBar;
 
-        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts)
+        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts) //remove text param
         {
             activeSelection = -1;
             this.upgradeParts = upgradeParts;
@@ -36,8 +35,7 @@ namespace SummerProject.framework
             if (shipItems == null)
             {
                 shipItems = new List<ShipItem>();
-                textures = new List<Texture2D>();
-                List<Part> parts = player.Parts;                               
+                List<Part> parts = player.Parts;
                 int activeBoxIndex = 0;
                 IDs id = IDs.RECTHULLPART;      
                 shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), 0, id)); //not 100% centered
@@ -46,49 +44,102 @@ namespace SummerProject.framework
                 for (int i = 1; i < parts.Count; i++)
                 {
                     Part currentPart = parts[i];
-                    RectangularHull carrier = (RectangularHull) currentPart.Carrier;
+                    RectangularHull carrier = (RectangularHull)currentPart.Carrier;
+                    int type = 0;
                     if (currentHull != carrier)
                     {
                         activeBoxIndex = parts.IndexOf(carrier);
                         currentHull = carrier;
+                        AddEmptyParts(currentHull, activeBoxIndex);
                     }
-                    Vector2 itemPos =shipItems[activeBoxIndex].Position;
+                    Vector2 itemPos = shipItems[activeBoxIndex].Position;
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
-                   
-                    if (currentPart is RectangularHull)
-                        id = IDs.RECTHULLPART;
-                    else if (currentPart is GunPart)
-                        id = IDs.GUNPART;
-                    else if (currentPart is EnginePart)
-                        id = IDs.ENGINEPART;
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), currentPart.LinkPosition, id));
+
+                    ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v, currentHull);
+                  
+                    shipItems.Insert(i, shipItem);
+                }
+            }
+        }
+
+
+        private void AddEmptyParts(RectangularHull hull, int activeBoxIndex)
+        {
+            bool[] taken = hull.TakenPositions;
+            for (int j = 0; j < taken.Length; j++)
+            {
+                if (!taken[j])
+                {
+                    Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
+                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.EMPTYPART]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
                 }
 
             }
         }
 
-        private void AddParts()
+        private void AddPart(Part newPart)
         {
+            IPartCarrier hull = null;
+            if (shipItems[activeSelection].PartType == PartTypes.EMPTYPART)
+            {
+                hull = shipItems[activeSelection].Hull;
+                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
+                player.Parts.Insert(activeSelection, newPart);
+                //   player.Parts.Insert(activeSelection, newPart);
 
+            }
+            else if(!(shipItems[activeSelection].PartType == PartTypes.RECTANGULARHULL))
+            {
+                hull = shipItems[activeSelection].Hull;
+                //hull = player.Parts[activeSelection].Carrier; //?
+                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
+                player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
+            }
+            newPart.Carrier = hull;
+
+
+            int hullIndex = player.Parts.IndexOf((Part)hull);
+
+            Vector2 v = LinkPosition(shipItems[activeSelection].LinkPosition, shipItems[hullIndex].Position, shipItems[hullIndex]);
+            ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull) hull);
+            shipItems[activeSelection] = s;
         }
 
+        private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
+        {
+            int type = 0;
+            Sprite s = null;
+            if (part is RectangularHull)
+            {
+                s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
+                type = PartTypes.RECTANGULARHULL;
+            }
+            else if (part is GunPart)
+            {
+                s = new Sprite(upgradeParts[PartTypes.GUNPART]);
+                type = PartTypes.GUNPART;
+            }
+            else if (part is EnginePart)
+            {
+                s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
+                type = PartTypes.ENGINEPART;
+            }
+
+            return new ShipItem(new Vector2(v.X, v.Y), s, part.LinkPosition, type, hull);
+        }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
         {
             switch (pos)
             {
-                case 0:
-                    return itemPos + new Vector2(activeBox.Width, 0);
-                    break;
-                case 1:
-                    return itemPos + new Vector2(0, activeBox.Height);
-                    break;
-                case 2:
+                case 0: // mirrored
                     return itemPos + new Vector2(-activeBox.Width, 0);
-                    break;
-                case 3:
+                case 1:
                     return itemPos + new Vector2(0, -activeBox.Height);
-                    break;
+                case 2:
+                    return itemPos + new Vector2(activeBox.Width, 0);
+                case 3:
+                    return itemPos + new Vector2(0, activeBox.Height);
                 default:
                     return itemPos;
             }
@@ -109,7 +160,9 @@ namespace SummerProject.framework
                     int oldActive = activeSelection;
                     activeSelection = i;
                     if (oldActive != i && activeSelection >= 0)
+                    {
                         upgradeBar.CreateItemBoxes();
+                    }
                     else if (oldActive == activeSelection)
                         activeSelection = -1;
                     if (activeSelection >= 0)
@@ -119,11 +172,13 @@ namespace SummerProject.framework
                     //Buy(100); //!
                 }
             }
+            if (upgradeBar.Active && upgradeBar.Action)
+                AddPart(upgradeBar.SelectedPart);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {         
-                upgradeBar.Draw(spriteBatch, gameTime);
+        {
+            upgradeBar.Draw(spriteBatch, gameTime);
 
             //slots         
             for (int i = 0; i < shipItems.Count; i++)
@@ -135,8 +190,8 @@ namespace SummerProject.framework
                     shipItems[i].Active = false;
 
                 shipItems[i].Draw(spriteBatch, gameTime);
+            }
 
-            }           
         }
 
         private void Buy(int price)

@@ -110,6 +110,7 @@ namespace SummerProject
             Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
             Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
             Texture2D chargingBulletTex = Content.Load<Texture2D>("textures/ChargingBullet");
+            Texture2D gravityBulletTex = Content.Load<Texture2D>("textures/GravityBullet");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
@@ -120,10 +121,14 @@ namespace SummerProject
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
+            Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
+            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
             List<Texture2D> allUpgradeParts = new List<Texture2D>();
             allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
             allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
             allUpgradeParts.Insert(PartTypes.GUNPART, gunTex1);
+            allUpgradeParts.Insert(PartTypes.EMPTYPART, selectionBoxTex);
+            //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
@@ -135,7 +140,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(gravityBulletTex, 6, 24); // change to chargingBulletTex l8er
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);

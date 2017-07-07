@@ -16,9 +16,11 @@ namespace SummerProject.events.buildmenu
         private List<Texture2D> upgradeParts;
         private float spentResource;
         private float resource;
-        private List<Rectangle> itemBoxes;
+        private List<ShipItem> itemBoxes;
 
         public bool Active { get; internal set; }
+        public bool Action { get; internal set; }
+        public Part SelectedPart { get; internal set; }
 
         public UpgradeBar(List<Texture2D> upgradeParts, SpriteFont font)
         {
@@ -37,12 +39,12 @@ namespace SummerProject.events.buildmenu
                                             DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
 
                 //menubar             
-                Rectangle background = new Rectangle(0, 0, 200, upgradeParts.Count * 100); //hard coded #1
-                spriteBatch.Draw(upgradeParts[0], background, Color.SaddleBrown);
+           //     Rectangle background = new Rectangle(0, 0, 500, upgradeParts.Count * 100); //hard coded #1
+             //   spriteBatch.Draw(upgradeParts[0], background, Color.SaddleBrown);
 
-                for (int i = 0; i < upgradeParts.Count; i++)
+                for (int i = 0; i < itemBoxes.Count; i++)
                 {
-                    spriteBatch.Draw(upgradeParts[i], itemBoxes[i], Color.LightBlue);
+                    itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
             }
           
@@ -50,20 +52,37 @@ namespace SummerProject.events.buildmenu
 
         internal void Update(GameTime gameTime)
         {
+            Action = false;
+            CheckAction();
             float resource = Traits.SCORE.Counter - spentResource; //not here         
         }
 
+        private void CheckAction()
+        {
+            if (itemBoxes != null)
+            {
+                foreach (ShipItem shipItem in itemBoxes)
+                    if (shipItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+                    {
+                        Action = true;
+                        SelectedPart = shipItem.ReturnPart();
+                    }
+            }
+        }
         internal void CreateItemBoxes()
         {
 
-            itemBoxes = new List<Rectangle>();
-            Rectangle background = new Rectangle(0, 0, 200, upgradeParts.Count * 100); //hard coded #2
-            float width = background.Width;
-            float height = background.Height;         
-            int boxHeight = (int)height / upgradeParts.Count;
+            itemBoxes = new List<ShipItem>();
+            //float width = background.Width;
+            //float height = background.Height;         
+            //int boxHeight = (int)height / upgradeParts.Count;
+            Vector2 tempVect = new Vector2(100, 100);
             for (int i = 0; i < upgradeParts.Count; i++)
             {
-                itemBoxes.Insert(i, new Rectangle(background.X, background.Y + boxHeight * i, boxHeight, boxHeight));
+                ShipItem si = new ShipItem (tempVect, new Sprite(upgradeParts[i]), 0, i);
+                itemBoxes.Insert(i, si);
+                tempVect.Y += 175;
+                //  itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));
             }
         }
     }

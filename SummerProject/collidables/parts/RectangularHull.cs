@@ -8,7 +8,7 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject
 {
-    class RectangularHull : CompositePart
+    public class RectangularHull : CompositePart
     {
         public RectangularHull(IDs id = IDs.DEFAULT) : base(id)
         {
