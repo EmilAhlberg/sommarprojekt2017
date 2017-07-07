@@ -6,27 +6,36 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        public virtual float friction { set; get; } = EntityConstants.FRICTION[(int)IDs.DEFAULT]; //!
+        public virtual float friction { set; get; }
         private Vector2 Friction { get { return friction * Velocity / 100; } }
         public Vector2 Velocity { set; get; } = Vector2.Zero; //-!
-        protected virtual float TurnSpeed { set; get; } = EntityConstants.TURNSPEED[(int)IDs.DEFAULT];
-        protected virtual float Mass { set; get; } = EntityConstants.MASS[(int)IDs.DEFAULT]; 
+        protected virtual float TurnSpeed { set; get; } 
+        protected virtual float Mass { set; get; } 
         private Vector2 Acceleration{ get { return (TotalExteriorForce - Friction) / Mass; } }
         private Vector2 TotalExteriorForce { set; get; }
         public virtual float ThrusterAngle { set; get; }
 
+        public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
+
+        public override void SetStats(IDs id)
+        {
+            friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, id);
+            TurnSpeed = EntityConstants.GetStatsFromID(EntityConstants.TURNSPEED, id);
+            Mass = EntityConstants.GetStatsFromID(EntityConstants.MASS, id);
+            base.SetStats(id);
+        }
+
         public virtual void Stop()
         {
-            Velocity = new Vector2(0, 0);   
+            Velocity = new Vector2(0, 0);
             TotalExteriorForce = new Vector2(0, 0);
         }
 
         public virtual void AddSpeed(float speed, float angle)
         {
-            AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
+            AddForce(new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Mass);
         }
 
-        public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
 
         public virtual void AddForce(Vector2 appliedForce)
         {
@@ -38,10 +47,11 @@ namespace SummerProject
         public virtual void CalculateAngle(float dX, float dY)
         {
             float addedAngle = 0;
-            if (dX != 0)
+            if (dX == 0)
             {
-                addedAngle = (float)Math.Atan(dY / dX);
+                dX = 0.00001f;
             }
+            addedAngle = (float)Math.Atan(dY / dX);
             if (dX > 0)
                 addedAngle += (float)Math.PI;
 

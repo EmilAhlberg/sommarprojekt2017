@@ -120,6 +120,9 @@ namespace SummerProject
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
+            Texture2D mineGunTex = Content.Load<Texture2D>("parts/MineGun");
+            Texture2D sprayGunTex = Content.Load<Texture2D>("parts/SprayGun");
+            Texture2D chargingGunTex = Content.Load<Texture2D>("parts/ChargingGun");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
             Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
@@ -136,7 +139,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(gravityBulletTex, 6, 24); // change to chargingBulletTex l8er
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
@@ -146,6 +149,9 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
             SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
             SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
+            SpriteHandler.Sprites[(int)IDs.MINEGUNPART] = new Sprite(mineGunTex);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGGUNPART] = new Sprite(chargingGunTex);
+            SpriteHandler.Sprites[(int)IDs.SPRAYGUNPART] = new Sprite(sprayGunTex);
             SpriteHandler.Sprites[(int)IDs.ENGINEPART] = new Sprite(engineTex1);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_PARTICLE] = new Sprite();
             SpriteHandler.Sprites[(int)IDs.WALL] = new Sprite(wallTex);
@@ -169,7 +175,7 @@ namespace SummerProject
             GameMode gameMode = new GameMode(scoreFont);          
            
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(30); //! bulletCap hardcoded
+            projectiles = new Projectiles(60); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
@@ -286,7 +292,7 @@ namespace SummerProject
         {
             if (fullReset)
             {
-                player.Reset();
+                player.Activate(player.StartPosition, Vector2.Zero);
                 Particles.Reset();
                 ScoreHandler.Reset();
                 healthBar.Reset();

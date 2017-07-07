@@ -5,7 +5,7 @@ namespace SummerProject.collidables
 {
     public abstract class ActivatableEntity : Entity
     {
-  
+        public bool IsBusy { get; set; }
 
         public ActivatableEntity(Vector2 position, IDs id = IDs.DEFAULT) : base (position, id)
         {
@@ -17,14 +17,16 @@ namespace SummerProject.collidables
 
         public virtual void Activate(Vector2 source, Vector2 target)
         {
-            Position = source;          
+            SetStats(id);
+            Position = source;
             IsActive = true;
             SpecificActivation(source, target);
         }       
 
         public override void Death()
-        {            
+        {
             IsActive = false;
+            IsBusy = false;
             Stop();
             Position = EntityFactory.FarAway();
         }

@@ -11,7 +11,7 @@ namespace SummerProject
 {
     abstract class Enemy : PartController, IPartCarrier
     {        
-        public int WorthScore {get; private set;}
+        public float WorthScore {get; private set;}
         private Player player;
         private Timer rageTimer;
 
@@ -20,11 +20,17 @@ namespace SummerProject
         {
             this.player = player;
             rageTimer = new Timer(15); //!!    
-            Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
-            WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY];
-            Hull.Mass = EntityConstants.MASS[(int)IDs.DEFAULT_ENEMY];
-            Hull.TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.DEFAULT_ENEMY];
-            Hull.friction = EntityConstants.FRICTION[(int)IDs.DEFAULT];
+            //Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
+            //WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY]; 
+            Hull.Mass = EntityConstants.GetStatsFromID(EntityConstants.MASS, IDs.DEFAULT_ENEMY); //!
+            Hull.TurnSpeed = EntityConstants.GetStatsFromID(EntityConstants.TURNSPEED, IDs.DEFAULT_ENEMY); 
+            Hull.friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, IDs.DEFAULT_ENEMY);
+        }
+
+        public override void SetStats(IDs id)
+        {
+            WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
+            base.SetStats(id);
         }
 
         public override void Update(GameTime gameTime)
@@ -32,14 +38,14 @@ namespace SummerProject
             CalculateAngle();
             ThrusterAngle = Angle;
             Move();
-            AddForce(10, Angle);
+            AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
                 Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
             }
-            if (Health > 1 && IsActive)
+            if (Health > 0 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
@@ -50,9 +56,7 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
-            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_ENEMY];
             Sprite.MColor = Color.White;
-            TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.DEFAULT_ENEMY];
         }
 
         protected virtual void Enrage()
@@ -79,8 +83,9 @@ namespace SummerProject
                     Health -= b.Damage;
                     AddForce(b.Velocity); //! remove lator
                     Traits.SHOTSHIT.Counter++;
+                    ScoreHandler.AddScore((int)WorthScore);
                 }
-                
+
             }
             if (c2 is ExplosionDrop)
             {
@@ -98,7 +103,6 @@ namespace SummerProject
         public override void Death()
         { 
             DropSpawnPoints.DeathAt(Position);
-            ScoreHandler.AddScore(WorthScore);
             base.Death();
         }
     }

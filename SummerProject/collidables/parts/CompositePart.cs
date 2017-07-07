@@ -89,10 +89,13 @@ namespace SummerProject
                 part.Carrier = this;
                 //
                 //
+                if (TakenPositions[pos] == true)                 
+                    Parts.Remove(parts[pos].Part);//removes old part from parts
+                
                 TakenPositions[pos] = true;
                 if (part is CompositePart)
                 {
-                    ((CompositePart)part).TakenPositions[(pos+2)%4] = true;
+                    ((CompositePart)part).TakenPositions[(pos+2)%4] = true; // reserves the new part's hull position
                 }
                 //
                 //

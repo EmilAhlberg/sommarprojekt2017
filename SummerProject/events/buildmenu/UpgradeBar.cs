@@ -16,17 +16,21 @@ namespace SummerProject.events.buildmenu
         private List<IDs> upgradePartsIDs;
         private float spentResource;
         private float resource;
-        private List<ShipItem> itemBoxes;
+        private List<UpgradeBarItem> itemBoxes;
 
         public bool Active { get; internal set; }
         public bool Action { get; internal set; }
         public Part SelectedPart { get; internal set; }
+        private Rectangle background;
+        private int nbrOfItems = 5;
+        private int itemOffset = (int)ClickableItem.Width;
 
         public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font)
         {
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
             this.spentResource = 0;
+            Rectangle background = new Rectangle(0, 0, WindowSize.Height, upgradePartsIDs.Count/nbrOfItems * itemOffset);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -38,9 +42,8 @@ namespace SummerProject.events.buildmenu
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
                                             DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
 
-                //menubar             
-           //     Rectangle background = new Rectangle(0, 0, 500, upgradeParts.Count * 100); //hard coded #1
-             //   spriteBatch.Draw(upgradeParts[0], background, Color.SaddleBrown);
+             //menubar                            
+                //spriteBatch.Draw(upgradePartsIDs[0], background, Color.SaddleBrown);
 
                 for (int i = 0; i < itemBoxes.Count; i++)
                 {
@@ -61,27 +64,27 @@ namespace SummerProject.events.buildmenu
         {
             if (itemBoxes != null)
             {
-                foreach (ShipItem shipItem in itemBoxes)
-                    if (shipItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+                foreach (UpgradeBarItem barItem in itemBoxes)
+                    if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
+                        barItem.Active = true;
                         Action = true;
-                        SelectedPart = shipItem.ReturnPart();
+                        SelectedPart = barItem.ReturnPart();
                     }
             }
         }
         internal void CreateItemBoxes()
         {
-
-            itemBoxes = new List<ShipItem>();
-            //float width = background.Width;
-            //float height = background.Height;         
-            //int boxHeight = (int)height / upgradeParts.Count;
-            Vector2 tempVect = new Vector2(100, 100);
+            itemBoxes = new List<UpgradeBarItem>();
+            //! 6 items per column
+            //!
+            int boxHeight = (WindowSize.Height - itemOffset) / nbrOfItems ; 
+            Vector2 tempVect = new Vector2(itemOffset, itemOffset);
             for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
-                ShipItem si = new ShipItem (tempVect, 0, upgradePartsIDs[i]);
+                UpgradeBarItem si = new UpgradeBarItem (tempVect + new Vector2((i/nbrOfItems) * itemOffset, i * boxHeight - i/nbrOfItems * (WindowSize.Height- itemOffset)), upgradePartsIDs[i]);
                 itemBoxes.Insert(i, si);
-                tempVect.Y += 175;
+                //tempVect.Y += 175;
                 //  itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));
             }
         }

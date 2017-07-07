@@ -19,7 +19,7 @@ namespace SummerProject.collidables.Enemies
 
         protected override void CalculateAngle()
         {
-            Angle += spriteRotSpeed;
+            //  Angle += spriteRotSpeed;
         }
 
         protected override void Enrage()
@@ -27,14 +27,18 @@ namespace SummerProject.collidables.Enemies
             Death();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);       
+        }
+
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
-            Health = 3 * EntityConstants.HEALTH[(int)IDs.DEFAULT_ENEMY];
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
-            friction = 0;
+            friction = 100;
             AddSpeed(5, Angle);
         }
 
