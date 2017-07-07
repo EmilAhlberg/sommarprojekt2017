@@ -176,7 +176,7 @@ namespace SummerProject
             GameMode gameMode = new GameMode(scoreFont);          
            
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(30); //! bulletCap hardcoded
+            projectiles = new Projectiles(60); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
@@ -293,7 +293,7 @@ namespace SummerProject
         {
             if (fullReset)
             {
-                player.Reset();
+                player.Activate(player.StartPosition, Vector2.Zero);
                 Particles.Reset();
                 ScoreHandler.Reset();
                 healthBar.Reset();

@@ -10,14 +10,19 @@ namespace SummerProject
         public virtual Vector2 Position { get; set; }
         public ISprite Sprite { get;  set; }
         protected float angle = 0;
-        private float prevAngle;
+        protected IDs id;
 
         public Drawable(Vector2 position, IDs id = IDs.DEFAULT) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
             if (id == IDs.DEFAULT)
                 id = EntityConstants.TypeToID(GetType());
-            Sprite = SpriteHandler.GetSprite((int) id);
-            prevAngle = angle;
+            this.id = id;
+            SetStats(id);
+        }
+
+        public virtual void SetStats(IDs id)
+        {
+            Sprite = SpriteHandler.GetSprite((int)id);
             if (Sprite is Sprite)
                 Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2);
         }
@@ -35,7 +40,6 @@ namespace SummerProject
             //if (prevAngle != angle) // for changing sprite rotation independently (asteroid)
             Sprite.Rotation = angle;
             Sprite.Draw(spriteBatch, gameTime);
-            prevAngle = angle;
             //Color c = Color.White;
             //Microsoft.Xna.Framework.Graphics.DrawLine(new Pen(c),new Point((int)Position.X,(int)Position.Y), new Point((int)Position.X+(int)sprite.Origin.X, (int)Position.Y+(int)sprite.Origin.Y));
         }

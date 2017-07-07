@@ -12,6 +12,13 @@ namespace SummerProject.collidables
         {
         }
 
+        public override void SetStats(IDs id)
+        {
+            Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);
+            Health = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
+            base.SetStats(id);
+        }
+
         public abstract void Death();
         
     }

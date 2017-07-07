@@ -24,25 +24,20 @@ namespace SummerProject.collidables
         private const int shieldSize = 300;
         //private bool shieldOn;
         private Projectiles projectiles;
-        private Vector2 startPosition;
+        public Vector2 StartPosition { get; private set; }
         private bool toggleGun;
         private bool toggleSprayGun;
 
         public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            startPosition = position;
+            StartPosition = position;
             Energy = startingEnergy;
             this.projectiles = projectiles;
-            Health = EntityConstants.HEALTH[(int)IDs.PLAYER];
-            Damage = EntityConstants.DAMAGE[(int)IDs.PLAYER];
-            TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.PLAYER];
-            Mass = EntityConstants.MASS[(int)IDs.PLAYER];
-            friction = EntityConstants.FRICTION[(int)IDs.PLAYER];
             maxHealth = Health;
             maxEnergy = Energy;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            Hull.Mass = EntityConstants.MASS[(int)IDs.PLAYER];
-            Hull.TurnSpeed = EntityConstants.TURNSPEED[(int)IDs.PLAYER];
+            Hull.Mass = Mass;
+            Hull.TurnSpeed = TurnSpeed;
             Position = position;
             toggleGun = true;
             toggleSprayGun = true;
@@ -233,22 +228,16 @@ namespace SummerProject.collidables
             Hull.Color = Color.Transparent;
         }
 
-        public void Reset() //NEEDS FIX
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            Health = EntityConstants.HEALTH[(int)IDs.PLAYER];
             maxEnergy = startingEnergy;
             maxHealth = Health;
             Energy = maxEnergy;
             Hull.Color = Color.White;
-            IsActive = true;
             Hull.Angle = 0;
-            Hull.Position = startPosition;
+            Hull.Position = Position;
             Hull.Stop();
-        }
-
-        protected override void SpecificActivation(Vector2 source, Vector2 target)
-        {
-            throw new NotImplementedException();
         }
     }
 }

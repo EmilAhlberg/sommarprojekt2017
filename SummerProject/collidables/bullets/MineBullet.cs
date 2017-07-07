@@ -11,7 +11,6 @@ namespace SummerProject.collidables.bullets
     {
         public MineBullet(Vector2 position, bool isEvil) : base(position, isEvil)
         {
-            friction = EntityConstants.FRICTION[(int)IDs.MINEBULLET];
         }
 
         protected override void TrailParticles()
