@@ -44,8 +44,15 @@ namespace SummerProject.util
 
         public static Vector2 CenteredWordPosition(string s, SpriteFont font)
         {
-            Vector2 size = font.MeasureString(s);
+            Vector2 size = font.MeasureString(s);            
             return new Vector2((WindowSize.Width - size.X) / 2, (WindowSize.Height - size.Y) / 2);
         }
+
+        public static Vector2 CenteredWordPosition(string s, SpriteFont font, Vector2 target)
+        {
+            Vector2 size = font.MeasureString(s);
+            return new Vector2(target.X - size.X / 2, target.Y - size.Y / 2);
+        }
+
     }
 }
