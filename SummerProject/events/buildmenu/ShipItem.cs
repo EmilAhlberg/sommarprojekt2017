@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables.parts;
+using SummerProject.factories;
 
 namespace SummerProject
 {
@@ -17,8 +18,8 @@ namespace SummerProject
         public IDs id;
         public bool Active;
         public Rectangle BoundBox;
-        public float Width;
-        public float Height;
+        public static float Width = SpriteHandler.GetSprite((int)IDs.RECTHULLPART).SpriteRect.Width * SCALEFACTOR;
+        public static float Height = SpriteHandler.GetSprite((int)IDs.RECTHULLPART).SpriteRect.Height * SCALEFACTOR;
         public int LinkPosition;
         public Part Part;
         public RectangularHull Hull;
@@ -28,8 +29,8 @@ namespace SummerProject
             angle = -(float)Math.PI / 2 * linkPosition;
             if (linkPosition % 2 == 0)
                 angle += (float)Math.PI;
-            Width = Sprite.SpriteRect.Width * SCALEFACTOR;
-            Height = Sprite.SpriteRect.Height * SCALEFACTOR;
+            //Width = Sprite.SpriteRect.Width * SCALEFACTOR;
+            //Height = Sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
 
             Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);

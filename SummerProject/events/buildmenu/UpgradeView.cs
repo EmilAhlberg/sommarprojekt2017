@@ -154,13 +154,13 @@ namespace SummerProject.framework
             switch (pos)
             {
                 case 0: // mirrored
-                    return itemPos + new Vector2(-activeBox.Width, 0);
+                    return itemPos + new Vector2(-ShipItem.Width, 0);
                 case 1:
-                    return itemPos + new Vector2(0, -activeBox.Height);
+                    return itemPos + new Vector2(0, -ShipItem.Height);
                 case 2:
-                    return itemPos + new Vector2(activeBox.Width, 0);
+                    return itemPos + new Vector2(ShipItem.Width, 0);
                 case 3:
-                    return itemPos + new Vector2(0, activeBox.Height);
+                    return itemPos + new Vector2(0, ShipItem.Height);
                 default:
                     return itemPos;
             }
