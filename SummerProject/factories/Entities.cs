@@ -49,6 +49,8 @@ namespace SummerProject.factories
         {
             List<Collidable> colList = new List<Collidable>();
             EntityDic.TryGetValue(id, out colList);
+            if (colList.Count == 0)
+                throw new NotImplementedException();
             foreach (Collidable c in colList)
             {
                 if (c is ActivatableEntity)
@@ -61,7 +63,7 @@ namespace SummerProject.factories
                     }
                 }
             }
-            throw new NotImplementedException();
+            return null;
         }
 
         public bool ActivateEntities(Vector2 source, Vector2 target, int type)
