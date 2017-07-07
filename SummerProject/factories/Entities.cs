@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables;
 using System.Linq;
+using System;
 
 namespace SummerProject.factories
 {
@@ -42,6 +43,22 @@ namespace SummerProject.factories
         public List<Collidable> GetValues()
         {
             return EntityDic.Values.SelectMany(e => e).ToList();
+        }
+
+        public Entity GetEntity(int id)
+        {
+            List<Collidable> colList = new List<Collidable>();
+            EntityDic.TryGetValue(id, out colList);
+            foreach (Collidable c in colList)
+            {
+                if (c is Entity)
+                {
+                    Entity e = c as Entity;
+                    if (!e.IsActive)
+                        return e;
+                }
+            }
+            throw new NotImplementedException();
         }
 
         public bool ActivateEntities(Vector2 source, Vector2 target, int type)

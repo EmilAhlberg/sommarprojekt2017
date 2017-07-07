@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SummerProject.collidables.bullets;
 using SummerProject.factories;
 using System;
 using System.Collections.Generic;
@@ -27,25 +28,25 @@ namespace SummerProject.collidables.parts
             buttonReleased = false;
             if (!charging)
             {
-                bullet = (Bullet)projectiles.CreateEntity((int)IDs.CHARGINGBULLET);
-                bullet.Sprite.Scale = Vector2.One;
-                ScaleBoundBox();
+                bullet = (ChargingBullet) projectiles.GetEntity((int) IDs.CHARGINGBULLET);
                 charging = true;
             }
         }
 
         public override void Update(GameTime gameTime)
         {
+            reloadTimer.CountDown(gameTime);
             if (charging) { 
                 chargeTimer.CountDown(gameTime);
             
-                if (buttonReleased == true && bullet != null)
+                if (buttonReleased == true && bullet != null &&  reloadTimer.IsFinished)
                 {
                     ScaleBoundBox();
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
                     charging = false;
                     chargeTimer.Reset();
                     ResetForNextShot();
+                    reloadTimer.Reset();
                 }
             }
             buttonReleased = true;

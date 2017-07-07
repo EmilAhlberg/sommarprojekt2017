@@ -17,6 +17,13 @@ namespace SummerProject.collidables.bullets
         {
             Particles.GenerateAfterImageParticles(Sprite, Position, 6, Angle, Sprite.Scale);
         }
+        public override void Death()
+        {
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height), angle);
+            BoundBox.Origin = Sprite.Origin;
+            Sprite.Scale = Vector2.One;
+            base.Death();
+        }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
