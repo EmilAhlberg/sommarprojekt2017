@@ -152,6 +152,19 @@ namespace SummerProject.framework
             {
                 newID = IDs.RECTHULLPART;
             }
+            else if (part is SprayGunPart)
+            {
+                newID = IDs.SPRAYGUNPART;
+            }
+            else if (part is MineGunPart)
+            {
+                newID = IDs.MINEGUNPART;
+            }
+            else if (part is ChargingGunPart)
+            {
+                newID = IDs.CHARGINGGUNPART;
+            }
+
             else if (part is GunPart)
             {
                 newID = IDs.GUNPART;

@@ -33,7 +33,7 @@ namespace SummerProject
             //Height = Sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
 
-            Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
+            Sprite.Scale *= SCALEFACTOR;
             Position = position;
             this.id = id;
           
@@ -58,7 +58,7 @@ namespace SummerProject
                     return new RectangularHull();
                 case IDs.SPRAYGUNPART:
                     return new SprayGunPart();
-                case IDs.MINEGUNPART:
+                case IDs.MINEGUNPART: 
                     return new MineGunPart();
                 case IDs.CHARGINGGUNPART:
                     return new ChargingGunPart();
