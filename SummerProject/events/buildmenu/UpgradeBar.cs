@@ -25,22 +25,32 @@ namespace SummerProject.events.buildmenu
         private Rectangle background;
         private int nbrOfItems = 5;
         private int itemOffset = (int)ClickableItem.Width;
+        private Texture2D backgroundText;
 
-        public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font)
+        public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
         {
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
+            this.backgroundText = backgroundText;
             this.spentResource = 0;
-            Rectangle background = new Rectangle(0, 0, WindowSize.Height, upgradePartsIDs.Count/nbrOfItems * itemOffset);
+            background = new Rectangle(0, 0, (upgradePartsIDs.Count / nbrOfItems +2) * itemOffset,  WindowSize.Height);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Active)
             {
+                //menubar                            
+                spriteBatch.Draw(backgroundText, background, Color.SaddleBrown);
+
                 //currency           
                 string word = "Currency: " + resource;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
+                                            DrawHelper.CenteredWordPosition(word, font, 
+                                            new Vector2(itemOffset + (int)(((float)(upgradePartsIDs.Count/nbrOfItems) - 0.5) * (float)itemOffset), itemOffset/3)), 
+                                            Color.AntiqueWhite); 
+
+            
                                             DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
 
                 //menubar     
@@ -80,17 +90,13 @@ namespace SummerProject.events.buildmenu
         }
         internal void CreateItemBoxes()
         {
-            itemBoxes = new List<UpgradeBarItem>();
-            //! 6 items per column
-            //!
+            itemBoxes = new List<UpgradeBarItem>();          
             int boxHeight = (WindowSize.Height - itemOffset) / nbrOfItems ; 
             Vector2 tempVect = new Vector2(itemOffset, itemOffset);
             for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
                 UpgradeBarItem si = new UpgradeBarItem (tempVect + new Vector2((i/nbrOfItems) * itemOffset, i * boxHeight - i/nbrOfItems * (WindowSize.Height- itemOffset)), upgradePartsIDs[i]);
                 itemBoxes.Insert(i, si);
-                //tempVect.Y += 175;
-                //  itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));
             }
         }
     }

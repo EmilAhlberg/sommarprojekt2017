@@ -92,10 +92,11 @@ namespace SummerProject
             debugFont = Content.Load<SpriteFont>("fonts/debugfont");
             scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
             bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
+            SpriteFont upgradeFont = Content.Load<SpriteFont>("fonts/currencyFont");
             #endregion
 
             #region Loading textures
-            
+
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
 
@@ -178,7 +179,7 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(60); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
+            eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();

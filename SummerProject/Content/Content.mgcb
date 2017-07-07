@@ -629,3 +629,10 @@
 /processorParam:TextureFormat=Color
 /build:Parts/UpgradeBarBkg.png
 
+#begin fonts/currencyFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fonts/currencyFont.spritefont
+
