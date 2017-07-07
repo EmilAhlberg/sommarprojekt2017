@@ -78,6 +78,14 @@ namespace SummerProject
             UR = Position + Vector2.Transform(-Origin+width, rotation);
         }
 
+        public bool Contains(Point point)
+        {
+            List<float> xVals = new List<float>(new float[] { UL.X, DL.X, DR.X, UR.X });
+            List<float> yVals = new List<float>(new float[] { UL.Y, DL.Y, DR.Y, UR.Y });
+            return xVals.Max() > point.X && xVals.Min() < point.X && yVals.Max() > point.Y && yVals.Min() < point.Y;
+        }
+
+
         public bool Intersects(RotRectangle r)
         {
             Vector2[] axes = GenerateAxes(r);
@@ -98,13 +106,6 @@ namespace SummerProject
             }
             return true;
         }
-
-        public bool Contains(Point point) {
-            List<float> xVals = new List<float>(new float[] { UL.X, DL.X, DR.X, UR.X });
-            List<float> yVals = new List<float>(new float[] { UL.Y, DL.Y, DR.Y, UR.Y });
-            return xVals.Max() > point.X && xVals.Min() < point.X && yVals.Max() > point.Y && yVals.Min() < point.Y;
-        }
-
         private Vector2[] GenerateAxes(RotRectangle r)
         {
             Vector2[] axes = new Vector2[4];
@@ -114,5 +115,23 @@ namespace SummerProject
             axes[3] = new Vector2(r.UL.X - r.UR.X, r.UL.Y - r.UR.Y);
             return axes;
         }
+
+       public Vector2 MiddleToDirectionSideIntersections(Vector2 direction)
+        {
+            
+            ////Vector2 kRay = direction - AbsolutePosition; kRay.Normalize();
+            ////Vector2 k1 = UR-DR; k1.Normalize();
+            ////Vector2 k22 = UR - UL; k22.Normalize();
+            ////Vector2
+            //Vector2 v = direction - AbsolutePosition; v.Normalize();
+            //Vector2 u1 = UR - DL; u1.Normalize();
+            //Matrix m = new Matrix( v.X, u1.X,
+            //                       v.Y, u1.Y);
+            //Matrix.Invert()
+            //float d = v.X * (UR.Y - UL.Y) - v.Y * (UR.X - UL.X);
+            //return Position + v * Matrix.Transform(UL,Matrix.Invert(new Matrix(v.X,u1.X,v.Y,u1.Y));
+            return Vector2.Zero;
+        }
+
     }
 }

@@ -69,6 +69,7 @@
     <Compile Include="collidables\bullets\SprayBullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="events\buildmenu\UpgradeBar.cs" />
+    <Compile Include="ICollidable.cs" />
     <Compile Include="IDs.cs" />
     <Compile Include="progress\AchievementController.cs" />
     <Compile Include="progress\Achievement.cs" />
