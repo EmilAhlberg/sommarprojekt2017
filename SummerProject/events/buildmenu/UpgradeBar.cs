@@ -40,25 +40,24 @@ namespace SummerProject.events.buildmenu
         {
             if (Active)
             {
-                //menubar                            
-                spriteBatch.Draw(backgroundText, background, Color.SaddleBrown);
+         //menubar     
+              //  Texture2D outlineBkg = new Texture2D()     
+                Sprite bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+                Sprite outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+                outlineBkg.MColor = Color.DarkGray;
+                outlineBkg.Position = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), 0);
+                outlineBkg.Scale = new Vector2(4, WindowSize.Height / 3);
+                bkgSprite.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), WindowSize.Height/3); // original sprite is 3x3  //! hardcoded width
+                bkgSprite.Draw(spriteBatch,gameTime);
+                outlineBkg.Draw(spriteBatch, gameTime);
+
 
                 //currency           
                 string word = "Currency: " + resource;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
-                                            DrawHelper.CenteredWordPosition(word, font, 
-                                            new Vector2(itemOffset + (int)(((float)(upgradePartsIDs.Count/nbrOfItems) - 0.5) * (float)itemOffset), itemOffset/3)), 
-                                            Color.AntiqueWhite); 
-
-            
-                                            DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
-
-                //menubar     
-              //  Texture2D outlineBkg = new Texture2D()     
-                Sprite bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
-                bkgSprite.Scale = new Vector2(ClickableItem.SCALEFACTOR * 32, WindowSize.Height/3); // original sprite is 3x3  //! hardcoded width
-                bkgSprite.Draw(spriteBatch,gameTime);
-
+                                            DrawHelper.CenteredWordPosition(word, font,
+                                            new Vector2(itemOffset + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemOffset), itemOffset / 3)),
+                                            Color.AntiqueWhite);
 
                 for (int i = 0; i < itemBoxes.Count; i++)
                 {
