@@ -11,7 +11,7 @@ namespace SummerProject.collidables.parts
 {
     class MineGunPart : GunPart
     {
-        public MineGunPart(ISprite sprite) : base(sprite)
+        public MineGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             RELOADTIME = 0.1f;
             reloadTimer = new Timer(RELOADTIME);

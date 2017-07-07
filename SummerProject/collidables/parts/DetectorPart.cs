@@ -16,7 +16,7 @@ namespace SummerProject.collidables.parts
         private ITargeting parent;
         private Type type;
         private bool detected;
-        public DetectorPart(int detectionWidth, int detectionHeight, Type type, ITargeting parent) : base(new Sprite())
+        public DetectorPart(int detectionWidth, int detectionHeight, Type type, ITargeting parent, IDs id = IDs.DEFAULT) : base(id)
         {
             RotRectangle temp = BoundBox;
             BoundBox = new RotRectangle(new Rectangle((int) Position.X, (int) Position.Y, detectionWidth, detectionHeight), angle);

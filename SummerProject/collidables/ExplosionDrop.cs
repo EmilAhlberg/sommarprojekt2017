@@ -16,7 +16,7 @@ namespace SummerProject.collidables
         private Timer explosionTimer;
         private const float explosionTime = .13f;
         private const int explosionSize = 750;
-        public ExplosionDrop(Vector2 position, ISprite sprite) : base(position, sprite)
+        public ExplosionDrop(Vector2 position) : base(position)
         {
             explosionTimer = new Timer(explosionTime);
             originalBoundBox = BoundBox;

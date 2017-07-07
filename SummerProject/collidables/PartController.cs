@@ -17,9 +17,9 @@ namespace SummerProject
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
 
-        public PartController(Vector2 position, ISprite sprite) : base(position,sprite)
+        public PartController(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            Hull = new RectangularHull(sprite);
+            Hull = new RectangularHull();
             Hull.Carrier = this;
             Position = position;
         }

@@ -12,7 +12,8 @@ namespace SummerProject
 {
     public abstract class CompositePart : Part, IPartCarrier
     {
-        protected Link[] parts;        
+        protected Link[] parts;
+        public bool[] TakenPositions = new bool[4]; //! fix
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
         public new float friction { set { base.friction = value; } get { return base.friction; } }
         public override Color Color
@@ -75,7 +76,7 @@ namespace SummerProject
             }
         }
 
-        public CompositePart(ISprite sprite) : base(sprite)
+        public CompositePart(IDs id = IDs.DEFAULT) : base(id)
         {
             AddLinkPositions();
         }
@@ -86,6 +87,15 @@ namespace SummerProject
             if (pos >= 0 && pos < parts.Length)
             {
                 part.Carrier = this;
+                //
+                //
+                TakenPositions[pos] = true;
+                if (part is CompositePart)
+                {
+                    ((CompositePart)part).TakenPositions[(pos+2)%4] = true;
+                }
+                //
+                //
                 parts[pos].SetPart(part, this);
                 return true;
             }
@@ -245,6 +255,7 @@ namespace SummerProject
                 p.Angle = hull.angle;
                 if (!(p is RectangularHull))
                     p.Angle += RelativeAngle;
+
             }
         }
     }

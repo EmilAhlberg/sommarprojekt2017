@@ -8,7 +8,7 @@ namespace SummerProject.collidables
         protected float despawnTime = 7f; //!!
         public bool IsEvil;
 
-        public Projectile(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite)
+        public Projectile(Vector2 position, bool isEvil, IDs id = IDs.DEFAULT) : base(position, id)
         {
             this.IsEvil = isEvil;
             despawnTimer = new Timer(despawnTime);

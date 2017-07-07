@@ -9,6 +9,7 @@ using SummerProject.wave;
 using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.collidables.parts;
+using System.IO;
 
 namespace SummerProject
 {
@@ -94,7 +95,11 @@ namespace SummerProject
             #endregion
 
             #region Loading textures
+            
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
+            Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
+
+            Texture2D errorTex = Content.Load<Texture2D>("textures/noTexture");
             Texture2D enemyTex1 = Content.Load<Texture2D>("textures/enemyShip");
             Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
             Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
@@ -105,21 +110,8 @@ namespace SummerProject
             Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
             Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
             Texture2D chargingBulletTex = Content.Load<Texture2D>("textures/ChargingBullet");
+            Texture2D gravityBulletTex = Content.Load<Texture2D>("textures/GravityBullet");
             Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
-            Texture2D partTex1 = Content.Load<Texture2D>("textures/shipPart1");
-            Texture2D partTex2 = Content.Load<Texture2D>("textures/shipPart2");
-            Texture2D deadTex1 = Content.Load<Texture2D>("textures/denemy1");
-            Texture2D deadTex2 = Content.Load<Texture2D>("textures/denemy2");
-            Texture2D deadTex3 = Content.Load<Texture2D>("textures/dship1");
-            Texture2D deadTex4 = Content.Load<Texture2D>("textures/dship2");
-            Texture2D deadTex5 = Content.Load<Texture2D>("textures/denemyShoot1");
-            Texture2D deadTex6 = Content.Load<Texture2D>("textures/denemyShoot2");
-            Texture2D deadTex7 = Content.Load<Texture2D>("textures/denemySpeed1");
-            Texture2D deadTex8 = Content.Load<Texture2D>("textures/denemySpeed2");
-            Texture2D deadTex9 = Content.Load<Texture2D>("textures/dasteroid1");
-            Texture2D deadTex10 = Content.Load<Texture2D>("textures/dasteroid2");
-            Texture2D deadTex11 = Content.Load<Texture2D>("textures/dasteroid3");
-            Texture2D plusTex = Content.Load<Texture2D>("textures/plus");
             Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
             Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
             Texture2D wrenchTex = Content.Load<Texture2D>("textures/wrench");
@@ -127,22 +119,24 @@ namespace SummerProject
             Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
             Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
             Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
-            Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
             Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
-            List<Texture2D> allUpgradeParts = new List<Texture2D>();
-            allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
-            allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
-            allUpgradeParts.Insert(PartTypes.GUNPART, gunTex1);
+            Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
+            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
+            
+            //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
+            //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
+
             #region Adding entity-sprites to list
+            SpriteHandler.Sprites[(int)IDs.DEFAULT] = new Sprite(errorTex);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(gravityBulletTex, 6, 24); // change to chargingBulletTex l8er
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
@@ -150,11 +144,25 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
             SpriteHandler.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,8,6);
             SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
+            SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
+            SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
+            SpriteHandler.Sprites[(int)IDs.ENGINEPART] = new Sprite(engineTex1);
+            SpriteHandler.Sprites[(int)IDs.DEFAULT_PARTICLE] = new Sprite();
+            SpriteHandler.Sprites[(int)IDs.WALL] = new Sprite(wallTex);
+            SpriteHandler.Sprites[(int)IDs.WRENCH] = new Sprite(wrenchTex);
+            SpriteHandler.Sprites[(int)IDs.BOLT] = new Sprite(boltTex);
+            SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
 
             #endregion
 
+            #region Adding partIDs to list
+            List<IDs> ids = new List<IDs>();
+            for (int i = (int)IDs.DEFAULT_PART+1; i <= (int)IDs.EMPTYPART; i++)
+                ids.Add((IDs)i);
+            #endregion
+
             #region Initializing game objects etc.
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), new Sprite(shipTex), projectiles);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), projectiles);
             //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
@@ -163,15 +171,15 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
-            RectangularHull rectHull1 = new RectangularHull(new Sprite(shipTex));
-            RectangularHull rectHull2 = new RectangularHull(new Sprite(shipTex));
-            GunPart gunPart1 = new SprayGunPart(new Sprite(gunTex1));
-            GunPart gunPart2 = new SprayGunPart(new Sprite(gunTex1));
-            GunPart gunPart3 = new SprayGunPart(new Sprite(gunTex1));
-            EnginePart engine1 = new EnginePart(new Sprite(engineTex1));
-            EnginePart engine2 = new EnginePart(new Sprite(engineTex1));
-            EnginePart engine3 = new EnginePart(new Sprite(engineTex1));
+            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
+            RectangularHull rectHull1 = new RectangularHull();
+            RectangularHull rectHull2 = new RectangularHull();
+            GunPart gunPart1 = new ChargingGunPart();
+            GunPart gunPart2 = new ChargingGunPart();
+            GunPart gunPart3 = new ChargingGunPart();
+            EnginePart engine1 = new EnginePart();
+            EnginePart engine2 = new EnginePart();
+            EnginePart engine3 = new EnginePart();
             player.AddPart(rectHull1, 0);
             player.AddPart(rectHull2, 2);
             player.AddPart(engine1, 3);
@@ -183,7 +191,7 @@ namespace SummerProject
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(-4000, -4000), new Sprite(wallTex)); //! wall location
+            wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
@@ -194,19 +202,7 @@ namespace SummerProject
             #endregion
 
             #region Adding sprites to particles
-            Particles.AddSprite(new Sprite(deadTex2));
-            Particles.AddSprite(new Sprite(deadTex1));
-            Particles.AddSprite(new Sprite(deadTex4));
-            Particles.AddSprite(new Sprite(deadTex3));
-            Particles.AddSprite(new Sprite(deadTex6));
-            Particles.AddSprite(new Sprite(deadTex5));
-            Particles.AddSprite(new Sprite(deadTex8));
-            Particles.AddSprite(new Sprite(deadTex7));
-            Particles.AddSprite(new Sprite(wrenchTex));
-            Particles.AddSprite(new Sprite(boltTex));
-            Particles.AddSprite(new Sprite(deadTex9));
-            Particles.AddSprite(new Sprite(deadTex10));
-            Particles.AddSprite(new Sprite(deadTex11));
+
             #endregion
             // TODO: use this.Content to load your game content here
         }

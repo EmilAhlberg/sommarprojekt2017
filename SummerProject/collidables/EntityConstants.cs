@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SummerProject.collidables.bullets;
+using SummerProject.collidables.parts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,44 @@ namespace SummerProject.collidables
 {
     class EntityConstants
     {
+        public static IDs TypeToID(Type t)
+        {
+            while (!TYPETOID.Keys.Contains(t))
+            {
+                if (t == typeof(object))
+                    return IDs.DEFAULT;
+                t = t.BaseType;
+            }
+            return TYPETOID[t];
+        }
+
+        public static readonly Dictionary<Type, IDs> TYPETOID =
+            new Dictionary<Type, IDs>
+            {
+               {typeof(Player), IDs.PLAYER },
+               {typeof(Enemy), IDs.DEFAULT_ENEMY },
+                {typeof(Wall), IDs.WALL },
+               #region Bullets
+               {typeof(Bullet), IDs.DEFAULT_BULLET },
+               {typeof(SprayBullet), IDs.SPRAYBULLET },
+               {typeof(MineBullet), IDs.MINEBULLET },
+               {typeof(ChargingBullet), IDs.CHARGINGBULLET },
+                #endregion
+                #region Particles
+               {typeof(Particle), IDs.DEFAULT_PARTICLE },
+                #endregion
+                #region Drops
+                {typeof(HealthDrop), IDs.HEALTHDROP},
+                {typeof(ExplosionDrop), IDs.EXPLOSIONDROP },
+                {typeof(EnergyDrop), IDs.ENERGYDROP },
+                #endregion 
+                #region Parts
+                {typeof(RectangularHull), IDs.RECTHULLPART },
+               {typeof(GunPart), IDs.GUNPART },
+               {typeof(EnginePart), IDs.ENGINEPART },
+               {typeof(Collidable), IDs.DEFAULT }
+               #endregion
+            };
 
         public static readonly Dictionary<int, int> HEALTH =
           new Dictionary<int, int>
@@ -70,5 +110,7 @@ namespace SummerProject.collidables
         {
                 {(int)IDs.DEFAULT_ENEMY, 100},
         };
+
+
     }
 }

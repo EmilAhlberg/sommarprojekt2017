@@ -15,9 +15,8 @@ namespace SummerProject.collidables.parts
         protected float RELOADTIME = 0.3f; //!
         protected Timer reloadTimer;
 
-        public GunPart(ISprite sprite) : base(sprite)
+        public GunPart(IDs id = IDs.DEFAULT) : base(id)
         {
-            this.Sprite = sprite;
             reloadTimer = new Timer(RELOADTIME);
         }
 
