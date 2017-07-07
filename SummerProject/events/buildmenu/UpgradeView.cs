@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using SummerProject.collidables;
 using SummerProject.util;
 using SummerProject.achievements;
@@ -15,11 +16,12 @@ namespace SummerProject.framework
 {
     public class UpgradeView
     {
-        private List<ShipItem> shipItems;
+        private Dictionary<int, ShipItem> shipItems;
         private int activeSelection;
         private Player player;
         private List<Texture2D> upgradeParts;
         private UpgradeBar upgradeBar;
+        private int emptyPartIndex = 100;
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts) //remove text param
         {
@@ -33,12 +35,13 @@ namespace SummerProject.framework
         {
             if (shipItems == null)
             {
-                shipItems = new List<ShipItem>();
+                //shipItems = new List<ShipItem>();
+                shipItems = new Dictionary<int, ShipItem>();
                 List<Part> parts = player.Parts;
                 int activeBoxIndex = 0;
                 Sprite s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
-                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0, PartTypes.RECTANGULARHULL)); //not 100% centered
-                RectangularHull currentHull = (RectangularHull)parts[0];
+                shipItems.Add(0, new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0, PartTypes.RECTANGULARHULL)); //not 100% centered
+                RectangularHull currentHull = (RectangularHull)parts[0];             
 
                 for (int i = 1; i < parts.Count; i++)
                 {
@@ -55,8 +58,8 @@ namespace SummerProject.framework
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
 
                     ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v, currentHull);
-                  
-                    shipItems.Insert(i, shipItem);
+                    shipItems.Add(i, shipItem);
+                    //shipItems.Insert(i, shipItem);
                 }
             }
         }
@@ -69,8 +72,9 @@ namespace SummerProject.framework
             {
                 if (!taken[j])
                 {
+                    //!shipitems.Count
                     Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.EMPTYPART]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
+                    shipItems.Add(emptyPartIndex++,new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.EMPTYPART]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
                 }
 
             }
@@ -79,27 +83,26 @@ namespace SummerProject.framework
         private void AddPart(Part newPart)
         {
             IPartCarrier hull = null;
-            if (shipItems[activeSelection].PartType == PartTypes.EMPTYPART)
+            ShipItem current = shipItems[activeSelection];
+            if (current.PartType == PartTypes.EMPTYPART)
             {
-                hull = shipItems[activeSelection].Hull;
-                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
-                player.Parts.Insert(activeSelection, newPart);
+                hull = current.Hull;
+                hull.AddPart(newPart, current.LinkPosition);
+                player.Parts.Add(newPart);
                 //   player.Parts.Insert(activeSelection, newPart);
 
             }
-            else if(!(shipItems[activeSelection].PartType == PartTypes.RECTANGULARHULL))
+            else if(!(current.PartType == PartTypes.RECTANGULARHULL))
             {
-                hull = shipItems[activeSelection].Hull;
+                hull = current.Hull;
                 //hull = player.Parts[activeSelection].Carrier; //?
-                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
-                player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
+                hull.AddPart(newPart, current.LinkPosition);
+                player.Parts.Add(newPart);
+                //player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
             }
             newPart.Carrier = hull;
 
-
-            int hullIndex = player.Parts.IndexOf((Part)hull);
-
-            Vector2 v = LinkPosition(shipItems[activeSelection].LinkPosition, shipItems[hullIndex].Position, shipItems[hullIndex]);
+            Vector2 v = current.Position;
             ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull) hull);
             shipItems[activeSelection] = s;
         }
@@ -152,13 +155,13 @@ namespace SummerProject.framework
 
         private void CheckActions()
         {
-            for (int i = 0; i < shipItems.Count; i++)
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-                if (shipItems[i].BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+                if (item.Value.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                 {
                     int oldActive = activeSelection;
-                    activeSelection = i;
-                    if (oldActive != i && activeSelection >= 0)
+                    activeSelection = item.Key;
+                    if (oldActive != activeSelection && activeSelection >= 0)
                     {
                         upgradeBar.CreateItemBoxes();
                     }
@@ -173,6 +176,27 @@ namespace SummerProject.framework
             }
             if (upgradeBar.Active && upgradeBar.Action)
                 AddPart(upgradeBar.SelectedPart);
+            //for (int i = 0; i < shipItems.Count; i++)
+            //{
+            //    if (shipItems[i].BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+            //    {
+            //        int oldActive = activeSelection;
+            //        activeSelection = i;
+            //        if (oldActive != i && activeSelection >= 0)
+            //        {
+            //            upgradeBar.CreateItemBoxes();
+            //        }
+            //        else if (oldActive == activeSelection)
+            //            activeSelection = -1;
+            //        if (activeSelection >= 0)
+            //            upgradeBar.Active = true;
+            //        else
+            //            upgradeBar.Active = false;
+            //        //Buy(100); //!
+            //    }
+            //}
+            //if (upgradeBar.Active && upgradeBar.Action)
+            //    AddPart(upgradeBar.SelectedPart);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -180,18 +204,28 @@ namespace SummerProject.framework
             upgradeBar.Draw(spriteBatch, gameTime);
 
             //slots         
-            for (int i = 0; i < shipItems.Count; i++)
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-
-                if (i == activeSelection)
-                    shipItems[i].Active = true;
+                if (item.Key == activeSelection)
+                    item.Value.Active = true;
                 else
-                    shipItems[i].Active = false;
+                    item.Value.Active = false;
 
-                shipItems[i].Draw(spriteBatch, gameTime);
+                item.Value.Draw(spriteBatch, gameTime);
             }
-
         }
+            //for (int i = 0; i < shipItems.Count; i++)
+            //{
+
+            //    if (i == activeSelection)
+            //        shipItems[i].Active = true;
+            //    else
+            //        shipItems[i].Active = false;
+
+            //    shipItems[i].Draw(spriteBatch, gameTime);
+            //}
+
+        
 
         private void Buy(int price)
         {
