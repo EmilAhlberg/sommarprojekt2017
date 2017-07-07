@@ -16,11 +16,12 @@ namespace SummerProject.framework
 {
     public class UpgradeView
     {
-        private List<ShipItem> shipItems;
+        private Dictionary<int, ShipItem> shipItems;
         private int activeSelection;
         private Player player;
         private List<IDs> upgradePartsIDs;
         private UpgradeBar upgradeBar;
+        private int emptyPartIndex = 100;
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
         {
@@ -34,75 +35,105 @@ namespace SummerProject.framework
         {
             if (shipItems == null)
             {
-                shipItems = new List<ShipItem>();
+                //shipItems = new List<ShipItem>();
+                shipItems = new Dictionary<int, ShipItem>();
                 List<Part> parts = player.Parts;
                 int activeBoxIndex = 0;
                 IDs id = IDs.RECTHULLPART;      
-                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), 0, id)); //not 100% centered
+                shipItems.Add(0, new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), 0, id)); //not 100% centered
                 RectangularHull currentHull = (RectangularHull)parts[0];
 
                 for (int i = 1; i < parts.Count; i++)
                 {
                     Part currentPart = parts[i];
-                    RectangularHull carrier = (RectangularHull)currentPart.Carrier;
-                    int type = 0;
+                    RectangularHull carrier = (RectangularHull)currentPart.Carrier;                
                     if (currentHull != carrier)
                     {
                         activeBoxIndex = parts.IndexOf(carrier);
                         currentHull = carrier;
-                        AddEmptyParts(currentHull, activeBoxIndex);
+                        AddEmptyParts(currentHull, shipItems[activeBoxIndex], false);
                     }
                     Vector2 itemPos = shipItems[activeBoxIndex].Position;
-                    Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
+                    Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos);
 
                     ShipItem shipItem = CreateShipItem(currentPart, currentPart.LinkPosition,  v, currentHull);
-                  
-                    shipItems.Insert(i, shipItem);
+                    shipItems.Add(i, shipItem);
+                    //shipItems.Insert(i, shipItem);
                 }
             }
         }
 
 
-        private void AddEmptyParts(RectangularHull hull, int activeBoxIndex)
+        private void AddEmptyParts(RectangularHull hull, ShipItem current, bool inMenu)
         {
             bool[] taken = hull.TakenPositions;
             for (int j = 0; j < taken.Length; j++)
             {
                 if (!taken[j])
                 {
-                    Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), j, hull, IDs.EMPTYPART)); //secondary constructor for empty parts
+                    if (inMenu)
+                    {
+                        Vector2 v = LinkPosition(j, current.Position);
+                        if (PositionIsFree(v))
+                            shipItems.Add(emptyPartIndex++, new ShipItem(new Vector2(v.X, v.Y), j, hull, null, IDs.EMPTYPART)); //secondary constructor for empty parts /!!! null
+                    }
+                    else
+                    {
+                        //!shipitems.Count
+                        Vector2 v = LinkPosition(j, current.Position);
+                        shipItems.Add(emptyPartIndex++, new ShipItem(new Vector2(v.X, v.Y), j, hull, null, IDs.EMPTYPART)); //secondary constructor for empty parts /!!! null
+                    }
                 }
-
+                
             }
+        }
+
+        private bool PositionIsFree(Vector2 probe)
+        {
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            {
+                if (item.Value.BoundBox.Contains(probe))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void AddPart(Part newPart)
         {
             IPartCarrier hull = null;
-            if (shipItems[activeSelection].id == IDs.EMPTYPART)
-            {
-                hull = shipItems[activeSelection].Hull;
-                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
-                player.Parts.Insert(activeSelection, newPart);
-                //   player.Parts.Insert(activeSelection, newPart);
+            ShipItem pressedItem = shipItems[activeSelection];
 
-            }
-            else if(!(shipItems[activeSelection].id == IDs.RECTHULLPART))
+            hull = pressedItem.Hull;
+            hull.AddPart(newPart, pressedItem.LinkPosition);
+            player.Parts.Add(newPart);
+                        
+            if (pressedItem.id == IDs.RECTHULLPART && activeSelection != 0)
             {
-                hull = shipItems[activeSelection].Hull;
-                //hull = player.Parts[activeSelection].Carrier; //?
-                hull.AddPart(newPart, shipItems[activeSelection].LinkPosition);
-                player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
+                RemoveShipItems(pressedItem);
+            }
+
+            if (newPart is RectangularHull)
+            {
+                AddEmptyParts((RectangularHull)newPart, pressedItem, true);
             }
             newPart.Carrier = hull;
 
-
-            int hullIndex = player.Parts.IndexOf((Part)hull);
-
-            Vector2 v = LinkPosition(shipItems[activeSelection].LinkPosition, shipItems[hullIndex].Position, shipItems[hullIndex]);
+            Vector2 v = pressedItem.Position;
             ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull) hull);
             shipItems[activeSelection] = s;
+        }
+
+        private void RemoveShipItems(ShipItem current)
+        {
+           List<int> temp = new List<int>();
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)            
+                if (item.Value.Hull == current.Part)                
+                    temp.Add(item.Key);                       
+            
+            foreach (int i in temp)
+                shipItems.Remove(i);
         }
 
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
@@ -112,6 +143,19 @@ namespace SummerProject.framework
             {
                 newID = IDs.RECTHULLPART;
             }
+            else if (part is SprayGunPart)
+            {
+                newID = IDs.SPRAYGUNPART;
+            }
+            else if (part is MineGunPart)
+            {
+                newID = IDs.MINEGUNPART;
+            }
+            else if (part is ChargingGunPart)
+            {
+                newID = IDs.CHARGINGGUNPART;
+            }
+
             else if (part is GunPart)
             {
                 newID = IDs.GUNPART;
@@ -121,21 +165,21 @@ namespace SummerProject.framework
                 newID = IDs.ENGINEPART;
             }
 
-            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, newID);
+            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
-        private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
+        private Vector2 LinkPosition(int pos, Vector2 itemPos)
         {
             switch (pos)
             {
                 case 0: // mirrored
-                    return itemPos + new Vector2(-activeBox.Width, 0);
+                    return itemPos + new Vector2(-ShipItem.Width, 0);
                 case 1:
-                    return itemPos + new Vector2(0, -activeBox.Height);
+                    return itemPos + new Vector2(0, -ShipItem.Height);
                 case 2:
-                    return itemPos + new Vector2(activeBox.Width, 0);
+                    return itemPos + new Vector2(ShipItem.Width, 0);
                 case 3:
-                    return itemPos + new Vector2(0, activeBox.Height);
+                    return itemPos + new Vector2(0, ShipItem.Height);
                 default:
                     return itemPos;
             }
@@ -149,13 +193,13 @@ namespace SummerProject.framework
 
         private void CheckActions()
         {
-            for (int i = 0; i < shipItems.Count; i++)
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-                if (shipItems[i].BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+                if (item.Value.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                 {
                     int oldActive = activeSelection;
-                    activeSelection = i;
-                    if (oldActive != i && activeSelection >= 0)
+                    activeSelection = item.Key;
+                    if (oldActive != activeSelection && activeSelection >= 0)
                     {
                         upgradeBar.CreateItemBoxes();
                     }
@@ -170,6 +214,27 @@ namespace SummerProject.framework
             }
             if (upgradeBar.Active && upgradeBar.Action)
                 AddPart(upgradeBar.SelectedPart);
+            //for (int i = 0; i < shipItems.Count; i++)
+            //{
+            //    if (shipItems[i].BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+            //    {
+            //        int oldActive = activeSelection;
+            //        activeSelection = i;
+            //        if (oldActive != i && activeSelection >= 0)
+            //        {
+            //            upgradeBar.CreateItemBoxes();
+            //        }
+            //        else if (oldActive == activeSelection)
+            //            activeSelection = -1;
+            //        if (activeSelection >= 0)
+            //            upgradeBar.Active = true;
+            //        else
+            //            upgradeBar.Active = false;
+            //        //Buy(100); //!
+            //    }
+            //}
+            //if (upgradeBar.Active && upgradeBar.Action)
+            //    AddPart(upgradeBar.SelectedPart);
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -177,18 +242,28 @@ namespace SummerProject.framework
             upgradeBar.Draw(spriteBatch, gameTime);
 
             //slots         
-            for (int i = 0; i < shipItems.Count; i++)
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-
-                if (i == activeSelection)
-                    shipItems[i].Active = true;
+                if (item.Key == activeSelection)
+                    item.Value.Active = true;
                 else
-                    shipItems[i].Active = false;
+                    item.Value.Active = false;
 
-                shipItems[i].Draw(spriteBatch, gameTime);
+                item.Value.Draw(spriteBatch, gameTime);
             }
-
         }
+            //for (int i = 0; i < shipItems.Count; i++)
+            //{
+
+            //    if (i == activeSelection)
+            //        shipItems[i].Active = true;
+            //    else
+            //        shipItems[i].Active = false;
+
+            //    shipItems[i].Draw(spriteBatch, gameTime);
+            //}
+
+        
 
         private void Buy(int price)
         {

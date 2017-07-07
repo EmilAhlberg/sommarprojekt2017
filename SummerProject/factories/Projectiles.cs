@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 
@@ -31,7 +32,6 @@ namespace SummerProject.factories
 
         public void FireSpecificBullet (Vector2 source, Vector2 target, Projectile bullet)
         {
-            EntityDic[(int)IDs.CHARGINGBULLET].Add(bullet);
             bullet.Activate(source, target);
         }
 

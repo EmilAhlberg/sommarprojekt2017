@@ -27,13 +27,13 @@ namespace SummerProject
 
         public virtual void Stop()
         {
-            Velocity = new Vector2(0, 0);   
+            Velocity = new Vector2(0, 0);
             TotalExteriorForce = new Vector2(0, 0);
         }
 
         public virtual void AddSpeed(float speed, float angle)
         {
-            AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
+            AddForce(new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed * Mass);
         }
 
 
@@ -47,10 +47,11 @@ namespace SummerProject
         public virtual void CalculateAngle(float dX, float dY)
         {
             float addedAngle = 0;
-            if (dX != 0)
+            if (dX == 0)
             {
-                addedAngle = (float)Math.Atan(dY / dX);
+                dX = 0.00001f;
             }
+            addedAngle = (float)Math.Atan(dY / dX);
             if (dX > 0)
                 addedAngle += (float)Math.PI;
 

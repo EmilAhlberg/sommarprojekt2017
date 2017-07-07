@@ -47,6 +47,9 @@ namespace SummerProject.collidables
                 #region Parts
                 {typeof(RectangularHull), IDs.RECTHULLPART },
                {typeof(GunPart), IDs.GUNPART },
+               {typeof(SprayGunPart), IDs.SPRAYGUNPART },
+               {typeof(MineGunPart), IDs.MINEGUNPART },
+               {typeof(ChargingGunPart), IDs.CHARGINGGUNPART },
                {typeof(EnginePart), IDs.ENGINEPART },
                {typeof(Collidable), IDs.DEFAULT }
                #endregion

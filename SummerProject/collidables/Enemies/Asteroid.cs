@@ -19,7 +19,7 @@ namespace SummerProject.collidables.Enemies
 
         protected override void CalculateAngle()
         {
-            //Angle += spriteRotSpeed;
+            //  Angle += spriteRotSpeed;
         }
 
         protected override void Enrage()
@@ -38,7 +38,7 @@ namespace SummerProject.collidables.Enemies
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
-            friction = 150; //!
+            friction = 100;
             AddSpeed(5, Angle);
         }
 

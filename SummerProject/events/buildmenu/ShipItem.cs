@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables.parts;
+using SummerProject.factories;
 
 namespace SummerProject
 {
@@ -17,11 +18,10 @@ namespace SummerProject
         public IDs id;
         public bool Active;
         public Rectangle BoundBox;
-        public float Width;
-        public float Height;
-        //public float itemPosition;
-        //public float itemCenter;
+        public static float Width = SpriteHandler.GetSprite((int)IDs.RECTHULLPART).SpriteRect.Width * SCALEFACTOR;
+        public static float Height = SpriteHandler.GetSprite((int)IDs.RECTHULLPART).SpriteRect.Height * SCALEFACTOR;
         public int LinkPosition;
+        public Part Part;
         public RectangularHull Hull;
 
         public ShipItem(Vector2 position, int linkPosition, IDs id = IDs.DEFAULT) : base(position, id)
@@ -29,19 +29,21 @@ namespace SummerProject
             angle = -(float)Math.PI / 2 * linkPosition;
             if (linkPosition % 2 == 0)
                 angle += (float)Math.PI;
-            Width = Sprite.SpriteRect.Width * SCALEFACTOR;
-            Height = Sprite.SpriteRect.Height * SCALEFACTOR;
+            //Width = Sprite.SpriteRect.Width * SCALEFACTOR;
+            //Height = Sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
 
-            Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
+            Sprite.Scale *= SCALEFACTOR;
             Position = position;
             this.id = id;
+          
             BoundBox = new Rectangle((int)(position.X - Sprite.Origin.X * SCALEFACTOR), (int)(position.Y - Sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
         }
 
-        public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, IDs id = IDs.DEFAULT) : this(position, linkPosition, id)
+        public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, Part part, IDs id = IDs.DEFAULT) : this(position, linkPosition, id)
         {
             Hull = hull;
+            Part = part;
         }
 
         public Part ReturnPart()
@@ -56,7 +58,7 @@ namespace SummerProject
                     return new RectangularHull();
                 case IDs.SPRAYGUNPART:
                     return new SprayGunPart();
-                case IDs.MINEGUNPART:
+                case IDs.MINEGUNPART: 
                     return new MineGunPart();
                 case IDs.CHARGINGGUNPART:
                     return new ChargingGunPart();

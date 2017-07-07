@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SummerProject.collidables.bullets;
 using SummerProject.factories;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace SummerProject.collidables.parts
         private bool buttonReleased;
         private Bullet bullet;
         private  float maxDamageScale = 6; // damage = maxDamageScale * initialDamage
-        private const float maxScale = 5;
+        private const float maxScale = 5f;
         private const float initialDamage = 0.5f;
         private Timer chargeTimer;
         public ChargingGunPart(IDs id = IDs.DEFAULT) : base(id)
@@ -27,25 +28,23 @@ namespace SummerProject.collidables.parts
             buttonReleased = false;
             if (!charging)
             {
-                bullet = (Bullet)projectiles.CreateEntity((int)IDs.CHARGINGBULLET);
-                bullet.Sprite.Scale = Vector2.One;
-                ScaleBoundBox();
+                bullet = (ChargingBullet) projectiles.GetEntity((int) IDs.CHARGINGBULLET);
                 charging = true;
             }
         }
 
         public override void Update(GameTime gameTime)
         {
+            reloadTimer.CountDown(gameTime);
             if (charging) { 
                 chargeTimer.CountDown(gameTime);
-            
-                if (buttonReleased == true && bullet != null)
+                if (buttonReleased && bullet != null &&  reloadTimer.IsFinished)
                 {
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
                     ScaleBoundBox();
-                    charging = false;
                     chargeTimer.Reset();
                     ResetForNextShot();
+                    reloadTimer.Reset();
                 }
             }
             buttonReleased = true;
@@ -53,6 +52,7 @@ namespace SummerProject.collidables.parts
 
         private void ScaleBoundBox()
         {
+           // bullet.Sprite.Scale = Vector2.One;
             float timeRatio = (1 - chargeTimer.currentTime / chargeTimer.maxTime);
             float scaleModifier = 1 + ((maxScale-1) * timeRatio);
             float damageModifier = 1 + ((maxDamageScale - 1) * timeRatio);
