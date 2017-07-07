@@ -194,8 +194,8 @@ namespace SummerProject
             rectHull1.AddPart(engine2, 3);
             rectHull2.AddPart(engine3, 3);
             player.AddPart(gunPart1, 1);
-            rectHull1.AddPart(gunPart2, 1);
-            rectHull2.AddPart(gunPart3, 1);
+            rectHull1.AddPart(gunPart2, 0);
+            rectHull2.AddPart(gunPart3, 2);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();

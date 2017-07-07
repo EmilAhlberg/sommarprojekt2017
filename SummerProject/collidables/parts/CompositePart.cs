@@ -250,7 +250,11 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                Vector2 linkToCenter = new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2;
+                Vector2 linkToCenter;
+                if (RelativeAngle == (float)Math.PI/2 || RelativeAngle == 0) //! only works for recthull
+                    linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle));
+                else
+                    linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle + (float)Math.PI));
                 Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
                 Matrix rot = Matrix.CreateRotationZ(hull.Angle);
