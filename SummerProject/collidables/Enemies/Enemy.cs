@@ -15,8 +15,8 @@ namespace SummerProject
         private Player player;
         private Timer rageTimer;
 
-        public Enemy(Vector2 position, ISprite sprite, Player player)
-            : base(position, sprite)
+        public Enemy(Vector2 position, Player player, IDs id = IDs.DEFAULT)
+            : base(position, id)
         {
             this.player = player;
             rageTimer = new Timer(15); //!!    

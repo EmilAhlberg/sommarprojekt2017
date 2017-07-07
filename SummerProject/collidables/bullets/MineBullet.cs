@@ -9,7 +9,7 @@ namespace SummerProject.collidables.bullets
 {
     class MineBullet : Bullet
     {
-        public MineBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
+        public MineBullet(Vector2 position, bool isEvil) : base(position, isEvil)
         {
             friction = EntityConstants.FRICTION[(int)IDs.MINEBULLET];
         }

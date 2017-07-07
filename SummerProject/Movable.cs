@@ -26,7 +26,7 @@ namespace SummerProject
             AddForce(new Vector2((float)Math.Cos(angle),(float)Math.Sin(angle)) * speed*Mass);
         }
 
-        public Movable(Vector2 position, ISprite sprite) : base(position, sprite) { }
+        public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
 
         public virtual void AddForce(Vector2 appliedForce)
         {

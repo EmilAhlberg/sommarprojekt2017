@@ -9,10 +9,10 @@ namespace SummerProject
         public Vector2 PrevPos { get; set; }
         public RotRectangle BoundBox { get; set; }
         public bool IsStatic { get; set; }
-        public Collidable(Vector2 position, ISprite sprite) : base(position, sprite)
+        public Collidable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), sprite.SpriteRect.Width, sprite.SpriteRect.Height), angle);
-            BoundBox.Origin = sprite.Origin;
+            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height), angle);
+            BoundBox.Origin = Sprite.Origin;
         }
 
         public override void ChangeSprite(ISprite sprite)

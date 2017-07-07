@@ -16,7 +16,7 @@ namespace SummerProject
         private float startingMax;
         private Sprite scaleSprite;
         private Sprite borderSprite;
-        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax) : base(position, borderSprite)
+        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax, IDs id = IDs.DEFAULT) : base(position, id)
         {
             Position = position;
             this.startingMax = startingMax;

@@ -9,7 +9,7 @@ namespace SummerProject.collidables.parts
 {
     class EnginePart : Part
     {
-        public EnginePart(ISprite sprite) : base(sprite)
+        public EnginePart(IDs id = IDs.DEFAULT) : base(id)
         {
         }
 
@@ -21,7 +21,7 @@ namespace SummerProject.collidables.parts
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(AbsolutePosition, 4, Angle, Color.MonoGameOrange);
+            Particles.GenerateParticles(Position, 4, Angle+(float)Math.PI, Color.MonoGameOrange);
         }
     }
 }

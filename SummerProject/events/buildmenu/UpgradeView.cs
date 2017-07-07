@@ -11,6 +11,7 @@ using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using SummerProject.events.buildmenu;
+using SummerProject.factories;
 
 namespace SummerProject.framework
 {
@@ -19,16 +20,16 @@ namespace SummerProject.framework
         private Dictionary<int, ShipItem> shipItems;
         private int activeSelection;
         private Player player;
-        private List<Texture2D> upgradeParts;
+        private List<IDs> upgradePartsIDs;
         private UpgradeBar upgradeBar;
         private int emptyPartIndex = 100;
 
-        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<Texture2D> upgradeParts) //remove text param
+        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
         {
             activeSelection = -1;
-            this.upgradeParts = upgradeParts;
+            this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
-            upgradeBar = new UpgradeBar(upgradeParts, font);
+            upgradeBar = new UpgradeBar(upgradePartsIDs, font);
         }
 
         internal void Initialize()
@@ -39,9 +40,9 @@ namespace SummerProject.framework
                 shipItems = new Dictionary<int, ShipItem>();
                 List<Part> parts = player.Parts;
                 int activeBoxIndex = 0;
-                Sprite s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
-                shipItems.Add(0, new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0, PartTypes.RECTANGULARHULL)); //not 100% centered
-                RectangularHull currentHull = (RectangularHull)parts[0];             
+                IDs id = IDs.RECTHULLPART;      
+                shipItems.Add(0, new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), 0, id)); //not 100% centered
+                RectangularHull currentHull = (RectangularHull)parts[0];
 
                 for (int i = 1; i < parts.Count; i++)
                 {
@@ -74,7 +75,7 @@ namespace SummerProject.framework
                 {
                     //!shipitems.Count
                     Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(emptyPartIndex++,new ShipItem(new Vector2(v.X, v.Y), new Sprite(upgradeParts[PartTypes.EMPTYPART]), j, PartTypes.EMPTYPART, hull)); //secondary constructor for empty parts
+                    shipItems.Add(emptyPartIndex++,new ShipItem(new Vector2(v.X, v.Y), j, hull, IDs.EMPTYPART)); //secondary constructor for empty parts
                 }
 
             }
@@ -84,7 +85,7 @@ namespace SummerProject.framework
         {
             IPartCarrier hull = null;
             ShipItem current = shipItems[activeSelection];
-            if (current.PartType == PartTypes.EMPTYPART)
+            if (current.id == IDs.EMPTYPART)
             {
                 hull = current.Hull;
                 hull.AddPart(newPart, current.LinkPosition);
@@ -92,7 +93,7 @@ namespace SummerProject.framework
                 //   player.Parts.Insert(activeSelection, newPart);
 
             }
-            else if(!(current.PartType == PartTypes.RECTANGULARHULL))
+            else if(!(current.id == IDs.RECTHULLPART))
             {
                 hull = current.Hull;
                 //hull = player.Parts[activeSelection].Carrier; //?
@@ -109,25 +110,21 @@ namespace SummerProject.framework
 
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
-            int type = 0;
-            Sprite s = null;
+            IDs newID = 0;
             if (part is RectangularHull)
             {
-                s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
-                type = PartTypes.RECTANGULARHULL;
+                newID = IDs.RECTHULLPART;
             }
             else if (part is GunPart)
             {
-                s = new Sprite(upgradeParts[PartTypes.GUNPART]);
-                type = PartTypes.GUNPART;
+                newID = IDs.GUNPART;
             }
             else if (part is EnginePart)
             {
-                s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
-                type = PartTypes.ENGINEPART;
+                newID = IDs.ENGINEPART;
             }
 
-            return new ShipItem(new Vector2(v.X, v.Y), s, part.LinkPosition, type, hull);
+            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
