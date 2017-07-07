@@ -41,8 +41,8 @@ namespace SummerProject.collidables.parts
             
                 if (buttonReleased == true && bullet != null)
                 {
-                    ScaleBoundBox();
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
+                    ScaleBoundBox();
                     charging = false;
                     chargeTimer.Reset();
                     ResetForNextShot();

@@ -8,10 +8,6 @@ namespace SummerProject.collidables
     {
         public Bullet(Vector2 position, bool isEvil) : base(position, isEvil)
         {
-            Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
-            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
-            Mass = EntityConstants.MASS[(int)IDs.DEFAULT_BULLET];
-            friction = EntityConstants.FRICTION[(int)IDs.DEFAULT_BULLET];
             if (isEvil)
             {
                 Sprite.MColor = Color.Red; //LOL

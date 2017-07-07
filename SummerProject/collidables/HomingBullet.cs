@@ -14,10 +14,6 @@ namespace SummerProject.collidables
 
         public HomingBullet(Vector2 position, bool isEvil, IDs id = IDs.DEFAULT) : base(position, isEvil, id)
         {
-            Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
-            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
-            Mass = EntityConstants.MASS[(int)IDs.DEFAULT_BULLET];
-            friction = EntityConstants.FRICTION[(int)IDs.DEFAULT_BULLET];
             Detector = new DetectorPart(750, 750, typeof(Enemy), this);
         }
 
