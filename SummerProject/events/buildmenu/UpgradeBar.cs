@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
+using SummerProject.factories;
 
 namespace SummerProject.events.buildmenu
 {
@@ -42,8 +43,12 @@ namespace SummerProject.events.buildmenu
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
                                             DrawHelper.CenteredWordPosition(word, font) + new Vector2(0, -300), Color.AntiqueWhite); //! vector
 
-             //menubar                            
-                //spriteBatch.Draw(upgradePartsIDs[0], background, Color.SaddleBrown);
+                //menubar     
+              //  Texture2D outlineBkg = new Texture2D()     
+                Sprite bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+                bkgSprite.Scale = new Vector2(ClickableItem.SCALEFACTOR * 32, WindowSize.Height/3); // original sprite is 3x3  //! hardcoded width
+                bkgSprite.Draw(spriteBatch,gameTime);
+
 
                 for (int i = 0; i < itemBoxes.Count; i++)
                 {

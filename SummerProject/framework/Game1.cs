@@ -125,7 +125,7 @@ namespace SummerProject
             Texture2D chargingGunTex = Content.Load<Texture2D>("parts/ChargingGun");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
-            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
+            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); 
             
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -158,6 +158,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.WRENCH] = new Sprite(wrenchTex);
             SpriteHandler.Sprites[(int)IDs.BOLT] = new Sprite(boltTex);
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
+            SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
 
             #endregion
 
