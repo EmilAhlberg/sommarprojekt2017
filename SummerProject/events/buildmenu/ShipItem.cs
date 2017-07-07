@@ -29,17 +29,17 @@ namespace SummerProject
             angle = -(float)Math.PI / 2 * linkPosition;
             if (linkPosition % 2 == 0)
                 angle += (float)Math.PI;
-            Width = Sprite.SpriteRect.Width * SCALEFACTOR;
-            Height = Sprite.SpriteRect.Height * SCALEFACTOR;
+            Width = sprite.SpriteRect.Width * SCALEFACTOR;
+            Height = sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
 
-            Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
+            sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
             Position = position;
             this.PartType = partType;
-            BoundBox = new Rectangle((int)(position.X - Sprite.Origin.X * SCALEFACTOR), (int)(position.Y - Sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
+            BoundBox = new Rectangle((int)(position.X - sprite.Origin.X * SCALEFACTOR), (int)(position.Y - sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
         }
 
-        public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType, RectangularHull hull) : this(position, sprite, linkPosition, partType)
+        public ShipItem(Vector2 position, int linkPosition, int partType, RectangularHull hull, IDs id = IDs.DEFAULT) : this(position, linkPosition, partType, id)
         {
             Hull = hull;
         }
