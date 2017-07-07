@@ -15,7 +15,7 @@ namespace SummerProject.collidables.parts
         private bool buttonReleased;
         private Bullet bullet;
         private  float maxDamageScale = 6; // damage = maxDamageScale * initialDamage
-        private const float maxScale = 5;
+        private const float maxScale = 5f;
         private const float initialDamage = 0.5f;
         private Timer chargeTimer;
         public ChargingGunPart(IDs id = IDs.DEFAULT) : base(id)
@@ -38,12 +38,10 @@ namespace SummerProject.collidables.parts
             reloadTimer.CountDown(gameTime);
             if (charging) { 
                 chargeTimer.CountDown(gameTime);
-            
-                if (buttonReleased == true && bullet != null &&  reloadTimer.IsFinished)
+                if (buttonReleased && bullet != null &&  reloadTimer.IsFinished)
                 {
                     ScaleBoundBox();
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
-                    charging = false;
                     chargeTimer.Reset();
                     ResetForNextShot();
                     reloadTimer.Reset();
@@ -54,6 +52,7 @@ namespace SummerProject.collidables.parts
 
         private void ScaleBoundBox()
         {
+           // bullet.Sprite.Scale = Vector2.One;
             float timeRatio = (1 - chargeTimer.currentTime / chargeTimer.maxTime);
             float scaleModifier = 1 + ((maxScale-1) * timeRatio);
             float damageModifier = 1 + ((maxDamageScale - 1) * timeRatio);

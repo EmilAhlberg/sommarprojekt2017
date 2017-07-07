@@ -51,11 +51,14 @@ namespace SummerProject.factories
             EntityDic.TryGetValue(id, out colList);
             foreach (Collidable c in colList)
             {
-                if (c is Entity)
+                if (c is ActivatableEntity)
                 {
-                    Entity e = c as Entity;
-                    if (!e.IsActive)
+                    ActivatableEntity e = c as ActivatableEntity;
+                    if (!e.IsActive && !e.IsBusy)
+                    {
+                        e.IsBusy = true;
                         return e;
+                    }
                 }
             }
             throw new NotImplementedException();

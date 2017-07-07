@@ -8,7 +8,6 @@ namespace SummerProject.collidables
         public float Health { get; set; }
         public bool IsActive { get; set; }
 
-
         public Entity(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
         }
