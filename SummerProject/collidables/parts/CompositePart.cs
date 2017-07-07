@@ -75,7 +75,7 @@ namespace SummerProject
             }
         }
 
-        public CompositePart(ISprite sprite) : base(sprite)
+        public CompositePart(IDs id = IDs.DEFAULT) : base(id)
         {
             AddLinkPositions();
         }
@@ -245,6 +245,7 @@ namespace SummerProject
                 p.Angle = hull.angle;
                 if (!(p is CompositePart))
                     p.Angle += RelativeAngle;
+
             }
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.collidables;
+using SummerProject.factories;
 
 namespace SummerProject
 {
@@ -10,12 +12,14 @@ namespace SummerProject
         protected float angle = 0;
         private float prevAngle;
 
-        public Drawable(Vector2 position, ISprite sprite) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
+        public Drawable(Vector2 position, IDs id = IDs.DEFAULT) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
-            this.Sprite = sprite;
+            if (id == IDs.DEFAULT)
+                id = EntityConstants.TypeToID(GetType());
+            Sprite = SpriteHandler.GetSprite((int) id);
             prevAngle = angle;
-            if (sprite is Sprite)
-                sprite.Origin = new Vector2(sprite.SpriteRect.Width / 2, sprite.SpriteRect.Height / 2);
+            if (Sprite is Sprite)
+                Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2);
         }
 
         public virtual void ChangeSprite(ISprite sprite)

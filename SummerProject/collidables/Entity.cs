@@ -9,7 +9,7 @@ namespace SummerProject.collidables
         public bool IsActive { get; set; }
 
 
-        public Entity(Vector2 position, ISprite sprite) : base(position, sprite)
+        public Entity(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
         }
 

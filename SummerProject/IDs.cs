@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SummerProject
 {
-    enum IDs
+    public enum IDs
     {
-        DEFAULT,
+        DEFAULT = 1,
         PLAYER,
 
         #region Enemies
@@ -33,6 +33,22 @@ namespace SummerProject
         HEALTHDROP_TIER2,
         EXPLOSIONDROP,
         ENERGYDROP,
+        #endregion
+
+        #region Particles
+        DEFAULT_PARTICLE,
+        WRENCH,
+        BOLT,
+        AFTERIMAGE,
+        DEATH,
+        #endregion 
+
+        #region Parts
+        DEFAULT_PART,
+        RECTHULLPART,
+        GUNPART,
+        ENGINEPART,
+        WALL
         #endregion
     }
 }

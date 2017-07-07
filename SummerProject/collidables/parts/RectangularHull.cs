@@ -10,7 +10,7 @@ namespace SummerProject
 {
     class RectangularHull : CompositePart
     {
-        public RectangularHull(ISprite sprite) : base(sprite)
+        public RectangularHull(IDs id = IDs.DEFAULT) : base(id)
         {
         }
 

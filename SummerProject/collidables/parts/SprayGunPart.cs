@@ -11,7 +11,7 @@ namespace SummerProject.collidables.parts
 {
     class SprayGunPart : GunPart
     {
-        public SprayGunPart(ISprite sprite) : base(sprite)
+        public SprayGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             RELOADTIME = 0.1f;
             reloadTimer = new Timer(RELOADTIME);

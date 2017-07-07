@@ -20,16 +20,16 @@ namespace SummerProject
         public float itemPosition;
         public float itemCenter;
 
-        public ShipItem(Vector2 position, ISprite sprite, int linkPosition) : base(position, sprite)
+        public ShipItem(Vector2 position, int linkPosition, IDs id = IDs.DEFAULT) : base(position, id)
         {
             angle = (float) Math.PI/2 * linkPosition;
-            Width = sprite.SpriteRect.Width * SCALEFACTOR;
-            Height = sprite.SpriteRect.Height * SCALEFACTOR;
+            Width = Sprite.SpriteRect.Width * SCALEFACTOR;
+            Height = Sprite.SpriteRect.Height * SCALEFACTOR;
                       
-            sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);            
+            Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);            
             Position = position;
 
-            BoundBox = new Rectangle((int)(position.X -sprite.Origin.X*SCALEFACTOR), (int)(position.Y - sprite.Origin.Y * SCALEFACTOR) , (int)Width, (int)Height);
+            BoundBox = new Rectangle((int)(position.X -Sprite.Origin.X*SCALEFACTOR), (int)(position.Y - Sprite.Origin.Y * SCALEFACTOR) , (int)Width, (int)Height);
         }
 
         public override void  Draw(SpriteBatch spriteBatch, GameTime gameTime)

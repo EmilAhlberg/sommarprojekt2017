@@ -10,6 +10,7 @@ using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using SummerProject.events.buildmenu;
+using SummerProject.factories;
 
 namespace SummerProject.framework
 {
@@ -38,8 +39,8 @@ namespace SummerProject.framework
                 textures = new List<Texture2D>();
                 List<Part> parts = player.Parts;                               
                 int activeBoxIndex = 0;
-                Sprite s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);      
-                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), s, 0)); //not 100% centered
+                IDs id = IDs.RECTHULLPART;      
+                shipItems.Add(new ShipItem(new Vector2(WindowSize.Width / 2, WindowSize.Height / 2), 0, id)); //not 100% centered
                 RectangularHull currentHull = (RectangularHull)parts[0];
 
                 for (int i = 1; i < parts.Count; i++)
@@ -55,12 +56,12 @@ namespace SummerProject.framework
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
                    
                     if (currentPart is RectangularHull)
-                        s = new Sprite(upgradeParts[PartTypes.RECTANGULARHULL]);
+                        id = IDs.RECTHULLPART;
                     else if (currentPart is GunPart)
-                        s = new Sprite(upgradeParts[PartTypes.GUNPART]);
+                        id = IDs.GUNPART;
                     else if (currentPart is EnginePart)
-                        s = new Sprite(upgradeParts[PartTypes.ENGINEPART]);
-                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), s, currentPart.LinkPosition));
+                        id = IDs.ENGINEPART;
+                    shipItems.Add(new ShipItem(new Vector2(v.X, v.Y), currentPart.LinkPosition, id));
                 }
 
             }
