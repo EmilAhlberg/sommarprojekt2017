@@ -47,13 +47,12 @@ namespace SummerProject.framework
                 for (int i = 1; i < parts.Count; i++)
                 {
                     Part currentPart = parts[i];
-                    RectangularHull carrier = (RectangularHull)currentPart.Carrier;
-                    int type = 0;
+                    RectangularHull carrier = (RectangularHull)currentPart.Carrier;                
                     if (currentHull != carrier)
                     {
                         activeBoxIndex = parts.IndexOf(carrier);
                         currentHull = carrier;
-                        AddEmptyParts(currentHull, activeBoxIndex);
+                        AddEmptyParts(currentHull, shipItems[activeBoxIndex]);
                     }
                     Vector2 itemPos = shipItems[activeBoxIndex].Position;
                     Vector2 v = LinkPosition(currentPart.LinkPosition, itemPos, shipItems[activeBoxIndex]);
@@ -66,7 +65,7 @@ namespace SummerProject.framework
         }
 
 
-        private void AddEmptyParts(RectangularHull hull, int activeBoxIndex)
+        private void AddEmptyParts(RectangularHull hull, ShipItem current)
         {
             bool[] taken = hull.TakenPositions;
             for (int j = 0; j < taken.Length; j++)
@@ -74,38 +73,61 @@ namespace SummerProject.framework
                 if (!taken[j])
                 {
                     //!shipitems.Count
-                    Vector2 v = LinkPosition(j, shipItems[activeBoxIndex].Position, shipItems[activeBoxIndex]);
-                    shipItems.Add(emptyPartIndex++,new ShipItem(new Vector2(v.X, v.Y), j, hull, IDs.EMPTYPART)); //secondary constructor for empty parts
+                    Vector2 v = LinkPosition(j, current.Position, current);
+                    shipItems.Add(emptyPartIndex++,new ShipItem(new Vector2(v.X, v.Y), j, hull, null, IDs.EMPTYPART)); //secondary constructor for empty parts /!!! null
                 }
-
             }
         }
 
         private void AddPart(Part newPart)
         {
             IPartCarrier hull = null;
-            ShipItem current = shipItems[activeSelection];
-            if (current.id == IDs.EMPTYPART)
+            ShipItem pressedItem = shipItems[activeSelection];
+            if (pressedItem.id == IDs.EMPTYPART)
             {
-                hull = current.Hull;
-                hull.AddPart(newPart, current.LinkPosition);
+                hull = pressedItem.Hull;
+                hull.AddPart(newPart, pressedItem.LinkPosition);
                 player.Parts.Add(newPart);
                 //   player.Parts.Insert(activeSelection, newPart);
 
             }
-            else if(!(current.id == IDs.RECTHULLPART))
+            else if(!(pressedItem.id == IDs.RECTHULLPART))
             {
-                hull = current.Hull;
+                hull = pressedItem.Hull;
                 //hull = player.Parts[activeSelection].Carrier; //?
-                hull.AddPart(newPart, current.LinkPosition);
+                hull.AddPart(newPart, pressedItem.LinkPosition);
                 player.Parts.Add(newPart);
                 //player.Parts. Insert(activeSelection, newPart); // insert or part[activeselection] = newPart ??
+            } else
+            {
+                if (activeSelection != 0) //main hull 
+                {
+                    hull = pressedItem.Hull;
+                    hull.AddPart(newPart, pressedItem.LinkPosition);
+                    player.Parts.Add(newPart);                    
+                    RemoveShipItems(pressedItem);                    
+                }
+            }
+            if (newPart is RectangularHull)
+            {
+                AddEmptyParts((RectangularHull)newPart, pressedItem);
             }
             newPart.Carrier = hull;
 
-            Vector2 v = current.Position;
+            Vector2 v = pressedItem.Position;
             ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull) hull);
             shipItems[activeSelection] = s;
+        }
+
+        private void RemoveShipItems(ShipItem current)
+        {
+           List<int> temp = new List<int>();
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)            
+                if (item.Value.Hull == current.Part)                
+                    temp.Add(item.Key);                       
+            
+            foreach (int i in temp)
+                shipItems.Remove(i);
         }
 
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
@@ -124,7 +146,7 @@ namespace SummerProject.framework
                 newID = IDs.ENGINEPART;
             }
 
-            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, newID);
+            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos, ShipItem activeBox)
