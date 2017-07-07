@@ -26,6 +26,8 @@ namespace SummerProject.events.buildmenu
         private int nbrOfItems = 5;
         private int itemOffset = (int)ClickableItem.Width;
         private Texture2D backgroundText;
+        private Sprite bkgSprite;
+        private Sprite outlineBkg;
 
         public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
         {
@@ -33,7 +35,14 @@ namespace SummerProject.events.buildmenu
             this.font = font;
             this.backgroundText = backgroundText;
             this.spentResource = 0;
-            background = new Rectangle(0, 0, (upgradePartsIDs.Count / nbrOfItems +2) * itemOffset,  WindowSize.Height);
+            bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+            outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+            outlineBkg.MColor = Color.DarkGray;
+            outlineBkg.Position = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), 0);
+            int yScaleFactorForBkg = WindowSize.Height / 3;                     // original sprite is 1x3
+            outlineBkg.Scale = new Vector2(4, yScaleFactorForBkg);
+            bkgSprite.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), yScaleFactorForBkg); 
+            bkgSprite.LayerDepth = 0; // background should be in background
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -42,16 +51,8 @@ namespace SummerProject.events.buildmenu
             {
          //menubar     
               //  Texture2D outlineBkg = new Texture2D()     
-                Sprite bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
-                Sprite outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
-                outlineBkg.MColor = Color.DarkGray;
-                outlineBkg.Position = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), 0);
-                outlineBkg.Scale = new Vector2(4, WindowSize.Height / 3);
-                bkgSprite.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), WindowSize.Height/3); // original sprite is 3x3  //! hardcoded width
                 bkgSprite.Draw(spriteBatch,gameTime);
                 outlineBkg.Draw(spriteBatch, gameTime);
-
-
                 //currency           
                 string word = "Currency: " + resource;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
