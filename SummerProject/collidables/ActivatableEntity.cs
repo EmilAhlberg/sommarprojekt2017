@@ -17,13 +17,14 @@ namespace SummerProject.collidables
 
         public virtual void Activate(Vector2 source, Vector2 target)
         {
-            Position = source;          
+            SetStats(id);
+            Position = source;
             IsActive = true;
             SpecificActivation(source, target);
         }       
 
         public override void Death()
-        {            
+        {
             IsActive = false;
             IsBusy = false;
             Stop();

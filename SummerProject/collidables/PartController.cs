@@ -12,14 +12,13 @@ namespace SummerProject
 {
     public abstract class PartController : ActivatableEntity, IPartCarrier
     {
-        public CompositePart Hull { get; set; }
+        public CompositePart Hull { get; set; } = new RectangularHull(); //!
         public override Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
 
         public PartController(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            Hull = new RectangularHull();
             Hull.Carrier = this;
             Position = position;
         }
@@ -34,7 +33,6 @@ namespace SummerProject
             {
                 return Hull.Angle;
             }
-
         }
 
         protected override float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }

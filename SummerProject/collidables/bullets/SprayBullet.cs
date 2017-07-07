@@ -11,9 +11,7 @@ namespace SummerProject.collidables
     {
         private const float randomAngleOffset = .3f;
         public SprayBullet(Vector2 position, bool isEvil) : base(position, isEvil)
-        {
-            Damage = 0.2f;
-            
+        {            
         }
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {

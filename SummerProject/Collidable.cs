@@ -15,6 +15,8 @@ namespace SummerProject
             BoundBox.Origin = Sprite.Origin;
         }
 
+
+
         public override void ChangeSprite(ISprite sprite)
         {
             base.ChangeSprite(sprite);

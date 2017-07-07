@@ -40,8 +40,8 @@ namespace SummerProject.collidables.parts
                 chargeTimer.CountDown(gameTime);
                 if (buttonReleased && bullet != null &&  reloadTimer.IsFinished)
                 {
-                    ScaleBoundBox();
                     projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
+                    ScaleBoundBox();
                     chargeTimer.Reset();
                     ResetForNextShot();
                     reloadTimer.Reset();

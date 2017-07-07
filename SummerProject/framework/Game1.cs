@@ -292,7 +292,7 @@ namespace SummerProject
         {
             if (fullReset)
             {
-                player.Reset();
+                player.Activate(player.StartPosition, Vector2.Zero);
                 Particles.Reset();
                 ScoreHandler.Reset();
                 healthBar.Reset();
