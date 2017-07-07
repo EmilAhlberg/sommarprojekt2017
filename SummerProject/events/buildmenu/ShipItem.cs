@@ -19,9 +19,8 @@ namespace SummerProject
         public Rectangle BoundBox;
         public float Width;
         public float Height;
-        //public float itemPosition;
-        //public float itemCenter;
         public int LinkPosition;
+        public Part Part;
         public RectangularHull Hull;
 
         public ShipItem(Vector2 position, int linkPosition, IDs id = IDs.DEFAULT) : base(position, id)
@@ -36,12 +35,14 @@ namespace SummerProject
             Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
             Position = position;
             this.id = id;
+          
             BoundBox = new Rectangle((int)(position.X - Sprite.Origin.X * SCALEFACTOR), (int)(position.Y - Sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
         }
 
-        public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, IDs id = IDs.DEFAULT) : this(position, linkPosition, id)
+        public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, Part part, IDs id = IDs.DEFAULT) : this(position, linkPosition, id)
         {
             Hull = hull;
+            Part = part;
         }
 
         public Part ReturnPart()
