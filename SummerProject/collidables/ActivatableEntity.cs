@@ -7,7 +7,7 @@ namespace SummerProject.collidables
     {
   
 
-        public ActivatableEntity(Vector2 position, ISprite sprite) : base (position, sprite)
+        public ActivatableEntity(Vector2 position, IDs id = IDs.DEFAULT) : base (position, id)
         {
         }
 

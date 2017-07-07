@@ -6,26 +6,20 @@ namespace SummerProject.factories
     {
         private const int ARRAYSIZE = 200;
         public static Sprite[] Sprites = new Sprite[ARRAYSIZE];
-        public static readonly Dictionary<int, int> SPRITE =
-            new Dictionary<int, int>
+        public static Sprite GetSprite(int ID) {
+            if(Sprites[ID] != null)
             {
-                {(int)IDs.DEFAULT_BULLET, (int)IDs.DEFAULT_BULLET},
-                {(int)IDs.HOMINGBULLET, (int)IDs.HOMINGBULLET},
-                {(int)IDs.SPRAYBULLET, (int)IDs.SPRAYBULLET},
-                {(int)IDs.MINEBULLET, (int)IDs.MINEBULLET},
-                {(int)IDs.CHARGINGBULLET, (int)IDs.CHARGINGBULLET},
-                {(int)IDs.EVILBULLET, (int)IDs.DEFAULT_BULLET},
-                {(int)IDs.DEFAULT_ENEMY, (int)IDs.DEFAULT_ENEMY},
-                {(int)IDs.HEALTHDROP, (int)IDs.HEALTHDROP},
-                {(int)IDs.EXPLOSIONDROP, (int)IDs.EXPLOSIONDROP},
-                {(int)IDs.ENERGYDROP, (int)IDs.ENERGYDROP},
-                {(int)IDs.HEALTHDROP_TIER2, (int)IDs.HEALTHDROP_TIER2},
-                {(int)IDs.ENEMYSHOOT, (int)IDs.ENEMYSHOOT},
-                {(int)IDs.ENEMYSPEED, (int)IDs.ENEMYSPEED},
-                {(int)IDs.ENEMYASTER, (int)IDs.ENEMYASTER},
-
-            };
-
-
+                return new Sprite(Sprites[ID]);
+            }
+            else
+            switch (ID)
+            {
+                    case (int)IDs.EVILBULLET: return new Sprite(Sprites[(int)IDs.DEFAULT_BULLET]);
+                    case (int)IDs.CHARGINGGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    case (int)IDs.MINEGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    case (int)IDs.SPRAYGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    default: return new Sprite(Sprites[(int)IDs.DEFAULT]);
+            }
+        }
     }
 }

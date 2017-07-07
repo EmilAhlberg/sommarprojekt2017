@@ -12,7 +12,7 @@ namespace SummerProject.collidables
     {
         public DetectorPart Detector { get; private set; }
 
-        public HomingBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
+        public HomingBullet(Vector2 position, bool isEvil, IDs id = IDs.DEFAULT) : base(position, isEvil, id)
         {
             Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
             Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];

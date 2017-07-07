@@ -28,7 +28,7 @@ namespace SummerProject.collidables
         private bool toggleGun;
         private bool toggleSprayGun;
 
-        public Player(Vector2 position, ISprite sprite, Projectiles projectiles) : base(position, sprite)
+        public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, id)
         {
             startPosition = position;
             Energy = startingEnergy;

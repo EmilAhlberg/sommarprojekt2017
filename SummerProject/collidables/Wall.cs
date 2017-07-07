@@ -6,8 +6,8 @@ namespace SummerProject.collidables
     class Wall : Entity
     {
 
-        public Wall(Vector2 position, ISprite sprite)
-             : base(position, sprite)
+        public Wall(Vector2 position, IDs id = IDs.DEFAULT)
+             : base(position, id)
         {
             Position = position;
             IsStatic = true;

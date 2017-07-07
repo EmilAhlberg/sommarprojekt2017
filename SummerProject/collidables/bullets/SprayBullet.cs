@@ -10,7 +10,7 @@ namespace SummerProject.collidables
     class SprayBullet : Bullet
     {
         private const float randomAngleOffset = .3f;
-        public SprayBullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
+        public SprayBullet(Vector2 position, bool isEvil) : base(position, isEvil)
         {
             Damage = 0.2f;
             

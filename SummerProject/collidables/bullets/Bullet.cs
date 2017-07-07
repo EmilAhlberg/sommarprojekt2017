@@ -6,7 +6,7 @@ namespace SummerProject.collidables
 {
     class Bullet : Projectile
     {
-        public Bullet(Vector2 position, ISprite sprite, bool isEvil) : base(position, sprite, isEvil)
+        public Bullet(Vector2 position, bool isEvil) : base(position, isEvil)
         {
             Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_BULLET];
             Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
@@ -14,7 +14,7 @@ namespace SummerProject.collidables
             friction = EntityConstants.FRICTION[(int)IDs.DEFAULT_BULLET];
             if (isEvil)
             {
-                sprite.MColor = Color.Red; //LOL
+                Sprite.MColor = Color.Red; //LOL
             }
 
         }

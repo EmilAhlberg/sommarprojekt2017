@@ -10,7 +10,7 @@ namespace SummerProject.collidables
     class EnergyDrop : Drop
     {
         public const int charge = 10;
-        public EnergyDrop(Vector2 position, ISprite sprite) : base(position, sprite)
+        public EnergyDrop(Vector2 position) : base(position)
         {
         }
         public override void Collision(Collidable c2)

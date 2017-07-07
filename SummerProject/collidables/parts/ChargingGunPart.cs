@@ -18,7 +18,7 @@ namespace SummerProject.collidables.parts
         private const float maxScale = 5;
         private const float initialDamage = 0.5f;
         private Timer chargeTimer;
-        public ChargingGunPart(ISprite sprite) : base(sprite)
+        public ChargingGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             chargeTimer = new Timer(3);
         }

@@ -12,7 +12,7 @@ namespace SummerProject.collidables.Enemies
         private float spriteRotSpeed;
         private const float randomAngleOffsetMultiplier = .3f;
 
-        public Asteroid(Vector2 position, ISprite sprite, Player player) : base(position, sprite, player)
+        public Asteroid(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
             
         }

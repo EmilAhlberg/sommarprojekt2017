@@ -14,7 +14,7 @@ namespace SummerProject
         public const int SCALEFACTOR = 6;
         private Color markedColor = Color.Beige;
         private Color defaultColor = Color.Wheat;
-        public int PartType;
+        public IDs id;
         public bool Active;
         public Rectangle BoundBox;
         public float Width;
@@ -24,45 +24,45 @@ namespace SummerProject
         public int LinkPosition;
         public RectangularHull Hull;
 
-        public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType) : base(position, sprite)
+        public ShipItem(Vector2 position, int linkPosition, IDs id = IDs.DEFAULT) : base(position, id)
         {
             angle = -(float)Math.PI / 2 * linkPosition;
             if (linkPosition % 2 == 0)
                 angle += (float)Math.PI;
-            Width = sprite.SpriteRect.Width * SCALEFACTOR;
-            Height = sprite.SpriteRect.Height * SCALEFACTOR;
+            Width = Sprite.SpriteRect.Width * SCALEFACTOR;
+            Height = Sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
 
-            sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
+            Sprite.Scale = new Vector2(SCALEFACTOR, SCALEFACTOR);
             Position = position;
-            this.PartType = partType;
-            BoundBox = new Rectangle((int)(position.X - sprite.Origin.X * SCALEFACTOR), (int)(position.Y - sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
+            this.id = id;
+            BoundBox = new Rectangle((int)(position.X - Sprite.Origin.X * SCALEFACTOR), (int)(position.Y - Sprite.Origin.Y * SCALEFACTOR), (int)Width, (int)Height);
         }
 
-        public ShipItem(Vector2 position, ISprite sprite, int linkPosition, int partType, RectangularHull hull) : this(position, sprite, linkPosition, partType)
+        public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, IDs id = IDs.DEFAULT) : this(position, linkPosition, id)
         {
             Hull = hull;
         }
 
         public Part ReturnPart()
         {
-            switch (PartType)
+            switch (id)
             {
-                case PartTypes.GUNPART:
-                    return new GunPart(new Sprite((Sprite) Sprite));
-                case PartTypes.ENGINEPART:
-                    return new EnginePart(new Sprite((Sprite)Sprite));
-                case PartTypes.RECTANGULARHULL:
-                    return new RectangularHull(new Sprite((Sprite)Sprite));
-                case PartTypes.SPRAYGUNPART:
-                    return new SprayGunPart(new Sprite((Sprite)Sprite));
-                case PartTypes.MINEGUNPART:
-                    return new MineGunPart(new Sprite((Sprite)Sprite));
-                case PartTypes.CHARGINGGUNPART:
-                    return new ChargingGunPart(new Sprite((Sprite)Sprite));
-                case PartTypes.EMPTYPART:
-                    return new GunPart(new Sprite((Sprite)Sprite)); //!!
-                default: return new EnginePart(new Sprite((Sprite)Sprite));
+                case IDs.GUNPART:
+                    return new GunPart();
+                case IDs.ENGINEPART:
+                    return new EnginePart();
+                case IDs.RECTHULLPART:
+                    return new RectangularHull();
+                case IDs.SPRAYGUNPART:
+                    return new SprayGunPart();
+                case IDs.MINEGUNPART:
+                    return new MineGunPart();
+                case IDs.CHARGINGGUNPART:
+                    return new ChargingGunPart();
+                case IDs.EMPTYPART:
+                    return new GunPart(); //!!
+                default: return new EnginePart();
 
             }
         }

@@ -13,7 +13,7 @@ namespace SummerProject.events.buildmenu
     class UpgradeBar
     {
         private SpriteFont font;
-        private List<Texture2D> upgradeParts;
+        private List<IDs> upgradePartsIDs;
         private float spentResource;
         private float resource;
         private List<ShipItem> itemBoxes;
@@ -22,9 +22,9 @@ namespace SummerProject.events.buildmenu
         public bool Action { get; internal set; }
         public Part SelectedPart { get; internal set; }
 
-        public UpgradeBar(List<Texture2D> upgradeParts, SpriteFont font)
+        public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font)
         {
-            this.upgradeParts = upgradeParts;
+            this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
             this.spentResource = 0;
         }
@@ -77,9 +77,9 @@ namespace SummerProject.events.buildmenu
             //float height = background.Height;         
             //int boxHeight = (int)height / upgradeParts.Count;
             Vector2 tempVect = new Vector2(100, 100);
-            for (int i = 0; i < upgradeParts.Count; i++)
+            for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
-                ShipItem si = new ShipItem (tempVect, new Sprite(upgradeParts[i]), 0, i);
+                ShipItem si = new ShipItem (tempVect, 0, upgradePartsIDs[i]);
                 itemBoxes.Insert(i, si);
                 tempVect.Y += 175;
                 //  itemBoxes.Insert(i, new ShipItem(new Vector2 (background.X, background.Y + boxHeight * i), s, 0, i));

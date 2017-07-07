@@ -9,7 +9,7 @@ namespace SummerProject.collidables.Enemies
 {
     class Speedy : Enemy
     {
-        public Speedy(Vector2 position, ISprite sprite, Player player) : base(position, sprite, player)
+        public Speedy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
         }
 
