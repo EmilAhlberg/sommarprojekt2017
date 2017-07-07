@@ -14,8 +14,11 @@ namespace SummerProject.factories
             else
             switch (ID)
             {
-                case (int)IDs.EVILBULLET: return new Sprite(Sprites[(int)IDs.DEFAULT_BULLET]);
-                default: return new Sprite(Sprites[(int)IDs.DEFAULT]);
+                    case (int)IDs.EVILBULLET: return new Sprite(Sprites[(int)IDs.DEFAULT_BULLET]);
+                    case (int)IDs.CHARGINGGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    case (int)IDs.MINEGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    case (int)IDs.SPRAYGUNPART: return new Sprite(Sprites[(int)IDs.GUNPART]);
+                    default: return new Sprite(Sprites[(int)IDs.DEFAULT]);
             }
         }
     }

@@ -123,11 +123,7 @@ namespace SummerProject
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
             Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
-            List<Texture2D> allUpgradeParts = new List<Texture2D>();
-            allUpgradeParts.Insert(PartTypes.RECTANGULARHULL, shipTex);         
-            allUpgradeParts.Insert(PartTypes.ENGINEPART, engineTex1);
-            allUpgradeParts.Insert(PartTypes.GUNPART, gunTex1);
-            allUpgradeParts.Insert(PartTypes.EMPTYPART, selectionBoxTex);
+            
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
@@ -155,7 +151,14 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.WALL] = new Sprite(wallTex);
             SpriteHandler.Sprites[(int)IDs.WRENCH] = new Sprite(wrenchTex);
             SpriteHandler.Sprites[(int)IDs.BOLT] = new Sprite(boltTex);
+            SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
 
+            #endregion
+
+            #region Adding partIDs to list
+            List<IDs> ids = new List<IDs>();
+            for (int i = (int)IDs.DEFAULT_PART+1; i <= (int)IDs.EMPTYPART; i++)
+                ids.Add((IDs)i);
             #endregion
 
             #region Initializing game objects etc.
@@ -168,7 +171,7 @@ namespace SummerProject
             background = new Sprite(backgroundTex);
             projectiles = new Projectiles(30); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, allUpgradeParts); // fix new texture2d's!!
+            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();

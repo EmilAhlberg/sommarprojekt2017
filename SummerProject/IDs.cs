@@ -10,6 +10,7 @@ namespace SummerProject
     {
         DEFAULT = 1,
         PLAYER,
+        WALL,
 
         #region Enemies
         DEFAULT_ENEMY,
@@ -48,7 +49,10 @@ namespace SummerProject
         RECTHULLPART,
         GUNPART,
         ENGINEPART,
-        WALL
+        SPRAYGUNPART,
+        MINEGUNPART,
+        CHARGINGGUNPART,
+        EMPTYPART
         #endregion
     }
 }
