@@ -175,7 +175,7 @@ namespace SummerProject
             GameMode gameMode = new GameMode(scoreFont);          
            
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(30); //! bulletCap hardcoded
+            projectiles = new Projectiles(60); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
