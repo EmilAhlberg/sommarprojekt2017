@@ -249,19 +249,19 @@ namespace SummerProject.framework
         private bool RotatePart(ShipItem current)
         {
             for (int i = 1; i < 4; i++)
-            {
-                int newPos = (current.LinkPosition +i) %4;
-                //if (newPos % 2 == 0)
-                //    newPos = (newPos + 2) % 4;
-                Vector2 v = LinkPosition(newPos, new Vector2(current.BoundBox.Left, current.BoundBox.Top));// + new Vector2(ClickableItem.Width/2, ClickableItem.Height / 2); //"center" of box   VECTOR2 IS RIGHT/WRONG?
-                ShipItem s = HullPresent(v);
-                if (s != null)//&& current.id !=IDs.EMPTYPART) ///current?
-                {
-                    ((RectangularHull)s.Part).AddPart(current.Part, (newPos + 2)%4 );
-                    current.Hull = (RectangularHull)s.Part;
-                    current.LinkPosition = newPos;
-                    current.UpdateRotation();                      
-                    return true;
+            {                
+                    int newPos = (current.LinkPosition + i) % 4;
+                    Vector2 v = LinkPosition(newPos, new Vector2(current.BoundBox.Left, current.BoundBox.Top));
+                    ShipItem s = HullPresent(v);
+                    if (s != null && current.Hull != s.Part )//&& current.id !=IDs.EMPTYPART) ///current?
+                    {
+                        ((RectangularHull)s.Part).AddPart(current.Part, (newPos + 2) % 4);
+                        current.Hull.RemovePart(current.Part);
+                        current.Hull = (RectangularHull)s.Part;
+                        current.LinkPosition = newPos;
+                        current.UpdateRotation();
+                        return true;
+                    
                 }
             }
             return false;
