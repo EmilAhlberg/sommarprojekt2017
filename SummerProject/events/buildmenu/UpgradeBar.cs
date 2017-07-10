@@ -61,7 +61,6 @@ namespace SummerProject.events.buildmenu
             {
                 //menubar     
                 //  Texture2D outlineBkg = new Texture2D()     
-                screenBkg.Position = new Vector2(outlineBkg.Position.X, 0); // moved to not affect color of upgradebar
                 upgradeBarBkg.Draw(spriteBatch, gameTime);
                 outlineBkg.Draw(spriteBatch, gameTime);
                 //currency           
@@ -76,9 +75,6 @@ namespace SummerProject.events.buildmenu
                     itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
             }
-            else
-                screenBkg.Position = Vector2.Zero;
-
         }
 
         internal void Update(GameTime gameTime)
