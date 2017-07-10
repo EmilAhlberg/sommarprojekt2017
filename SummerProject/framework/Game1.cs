@@ -85,8 +85,8 @@ namespace SummerProject
             c[2] = Color.White;
             c[3] = Color.White;
             baseTex.SetData(c);
-            Sprite.addBaseTexture(baseTex);
-
+            Texture2DPlus baseTexPlus = new Texture2DPlus(baseTex);
+            Sprite.addBaseTexture(baseTexPlus);
             #endregion
 
             #region Loading fonts
@@ -99,37 +99,37 @@ namespace SummerProject
 
             #region Loading textures
 
-            Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
-            Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
+            Texture2DPlus backgroundTex = new Texture2DPlus(Content.Load<Texture2D>("textures/background1"));
+            Texture2DPlus cursorTex = new Texture2DPlus(Content.Load<Texture2D>("textures/cursor"));
 
-            Texture2D errorTex = Content.Load<Texture2D>("textures/noTexture");
-            Texture2D enemyTex1 = Content.Load<Texture2D>("textures/enemyShip");
-            Texture2D enemyTex2 = Content.Load<Texture2D>("textures/enemyShoot");
-            Texture2D enemyTex3 = Content.Load<Texture2D>("textures/enemySpeed");
-            Texture2D enemyTex4 = Content.Load<Texture2D>("textures/asteroid");
-            Texture2D shipTex = Content.Load<Texture2D>("parts/Hull_3");
-            Texture2D wallTex = Content.Load<Texture2D>("textures/wall");
-            Texture2D shotTex = Content.Load<Texture2D>("textures/lazor");
-            Texture2D sprayBulletTex = Content.Load<Texture2D>("textures/SprayBullet");
-            Texture2D mineBulletTex = Content.Load<Texture2D>("textures/mineBullet_1");
-            Texture2D chargingBulletTex = Content.Load<Texture2D>("textures/ChargingBullet");
-            Texture2D gravityBulletTex = Content.Load<Texture2D>("textures/GravityBullet");
-            Texture2D homingTex = Content.Load<Texture2D>("textures/homing");
-            Texture2D healthDropTex = Content.Load<Texture2D>("textures/healthPack");
-            Texture2D healthDrop_TIER2_Tex = Content.Load<Texture2D>("textures/healthDrop_TIER2");
-            Texture2D wrenchTex = Content.Load<Texture2D>("textures/wrench");
-            Texture2D explosionDropTex = Content.Load<Texture2D>("textures/explosionDrop");
-            Texture2D boltTex = Content.Load<Texture2D>("textures/bolt");
-            Texture2D energyDropTex = Content.Load<Texture2D>("textures/energyDrop");
-            Texture2D unitBarBorderTex = Content.Load<Texture2D>("textures/unitBarBorder");
-            Texture2D gunTex1 = Content.Load<Texture2D>("parts/Gun_1");
-            Texture2D mineGunTex = Content.Load<Texture2D>("parts/MineGun");
-            Texture2D sprayGunTex = Content.Load<Texture2D>("parts/SprayGun");
-            Texture2D chargingGunTex = Content.Load<Texture2D>("parts/ChargingGun");
-            Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
-            Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
-            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg");
-            Texture2D menuScreenBkg = Content.Load<Texture2D>("parts/MenuScreenBkg");
+            Texture2DPlus errorTex = new Texture2DPlus(Content.Load<Texture2D>("textures/noTexture"));
+            Texture2DPlus enemyTex1 = new Texture2DPlus(Content.Load<Texture2D>("textures/enemyShip"), 2);
+            Texture2DPlus enemyTex2 = new Texture2DPlus(Content.Load<Texture2D>("textures/enemyShoot"), 2);
+            Texture2DPlus enemyTex3 = new Texture2DPlus(Content.Load<Texture2D>("textures/enemySpeed"), 2);
+            Texture2DPlus enemyTex4 = new Texture2DPlus(Content.Load<Texture2D>("textures/asteroid"));
+            Texture2DPlus shipTex = new Texture2DPlus(Content.Load<Texture2D>("parts/Hull_3"));
+            Texture2DPlus wallTex = new Texture2DPlus(Content.Load<Texture2D>("textures/wall"));
+            Texture2DPlus shotTex = new Texture2DPlus(Content.Load<Texture2D>("textures/lazor"), 4);
+            Texture2DPlus sprayBulletTex = new Texture2DPlus(Content.Load<Texture2D>("textures/SprayBullet"), 2);
+            Texture2DPlus mineBulletTex = new Texture2DPlus(Content.Load<Texture2D>("textures/mineBullet_1"), 9);
+            Texture2DPlus chargingBulletTex = new Texture2DPlus(Content.Load<Texture2D>("textures/ChargingBullet"), 6);
+            Texture2DPlus gravityBulletTex = new Texture2DPlus(Content.Load<Texture2D>("textures/GravityBullet"), 6);
+            Texture2DPlus homingTex = new Texture2DPlus(Content.Load<Texture2D>("textures/homing"));
+            Texture2DPlus healthDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/healthPack"),4);
+            Texture2DPlus healthDrop_TIER2_Tex = new Texture2DPlus(Content.Load<Texture2D>("textures/healthDrop_TIER2"),4);
+            Texture2DPlus wrenchTex = new Texture2DPlus(Content.Load<Texture2D>("textures/wrench"));
+            Texture2DPlus explosionDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/explosionDrop"),8);
+            Texture2DPlus boltTex = new Texture2DPlus(Content.Load<Texture2D>("textures/bolt"));
+            Texture2DPlus energyDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/energyDrop"),8);
+            Texture2DPlus unitBarBorderTex = new Texture2DPlus(Content.Load<Texture2D>("textures/unitBarBorder"));
+            Texture2DPlus gunTex1 = new Texture2DPlus(Content.Load<Texture2D>("parts/Gun_1"));
+            Texture2DPlus mineGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/MineGun"));
+            Texture2DPlus sprayGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SprayGun"));
+            Texture2DPlus chargingGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/ChargingGun"));
+            Texture2DPlus engineTex1 = new Texture2DPlus(Content.Load<Texture2D>("parts/Engine_1"));
+            Texture2DPlus selectionBoxTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SelectionBox"));
+            Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
+            Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -143,14 +143,14 @@ namespace SummerProject
             //SpriteHandler.Sprites[(int)IDs.ENEMYSPEED] = new Sprite(enemyTex3, 2, 4);
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
-            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 6, 24);
+            SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 24);
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
-            SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,4,6);
-            SpriteHandler.Sprites[(int)IDs.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 4, 6);
-            SpriteHandler.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,8,6);
-            SpriteHandler.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,8,6);
-            SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 9, 6);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,6);
+            SpriteHandler.Sprites[(int)IDs.HEALTHDROP_TIER2] = new Sprite(healthDrop_TIER2_Tex, 6);
+            SpriteHandler.Sprites[(int)IDs.EXPLOSIONDROP] = new Sprite(explosionDropTex,6);
+            SpriteHandler.Sprites[(int)IDs.ENERGYDROP] = new Sprite(energyDropTex,6);
+            SpriteHandler.Sprites[(int)IDs.MINEBULLET] = new Sprite(mineBulletTex, 6);
             SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
             SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.MINEGUNPART] = new Sprite(mineGunTex);
@@ -206,7 +206,7 @@ namespace SummerProject
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
-            Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex, cursorTex.Width/2, cursorTex.Height/2));
+            Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
 
 
             
@@ -419,15 +419,15 @@ namespace SummerProject
             //spriteBatch.DrawString(scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(graphics.PreferredBackBufferWidth-700, graphics.PreferredBackBufferHeight -100), Color.Crimson);
             //Rectangle cR = new Rectangle((int)(player.Hull.BoundBoxes[0].Position.X), (int)(player.Hull.BoundBoxes[0].Position.Y), (int)(player.Hull.BoundBoxes[0].Width), (int)(player.Hull.BoundBoxes[0].Height));
             //Rectangle cR2 = new Rectangle((int)(player.Hull.Parts[0].BoundBoxes[0].Position.X), (int)(player.Hull.Parts[0].BoundBoxes[0].Position.Y), (int)(player.Hull.Parts[0].BoundBoxes[0].Width), (int)(player.Hull.Parts[0].BoundBoxes[0].Height));
-            //spriteBatch.Draw(Content.Load<Texture2D>("textures/ship"),player.Hull.BoundBoxes[0].Position,cR, Color.Aqua, player.Hull.BoundBoxes[0].Angle, player.Hull.BoundBoxes[0].Origin, new Vector2(1,1),SpriteEffects.None,1);
-            //spriteBatch.Draw(Content.Load<Texture2D>("textures/plus"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Red, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
+            //spriteBatch.Draw(new Texture2DPlus(Content.Load<Texture2D>("textures/ship"),player.Hull.BoundBoxes[0].Position,cR, Color.Aqua, player.Hull.BoundBoxes[0].Angle, player.Hull.BoundBoxes[0].Origin, new Vector2(1,1),SpriteEffects.None,1);
+            //spriteBatch.Draw(new Texture2DPlus(Content.Load<Texture2D>("textures/plus"), player.Hull.Parts[0].BoundBoxes[0].Position, cR2, Color.Red, player.Hull.Parts[0].BoundBoxes[0].Angle, player.Hull.Parts[0].BoundBoxes[0].Origin, new Vector2(1, 1), SpriteEffects.None, 1);
 
-            //wall = new Wall(new Vector2(500, 500), new Sprite(Content.Load<Texture2D>("textures/wall")));
+            //wall = new Wall(new Vector2(500, 500), new Sprite(new Texture2DPlus(Content.Load<Texture2D>("textures/wall")));
             //wall.Angle = (float)Math.PI / 3;
             //wall.Origin = new Vector2(-100, -100);
             //wall.Angle = (float)Math.PI*3/2;
             //wall.Draw(spriteBatch, gameTime);
-            //spriteBatch.Draw(Content.Load<Texture2D>("textures/ship"), new Vector2(100,100), cR2, Color.Aqua, (float)Math.PI/2, new Vector2(cR2.Width/2,cR2.Height/2), new Vector2(1, 1), SpriteEffects.None, 1);
+            //spriteBatch.Draw(new Texture2DPlus(Content.Load<Texture2D>("textures/ship"), new Vector2(100,100), cR2, Color.Aqua, (float)Math.PI/2, new Vector2(cR2.Width/2,cR2.Height/2), new Vector2(1, 1), SpriteEffects.None, 1);
         }
     }
 }

@@ -446,11 +446,11 @@
       <FileName>wave\SpawnTimer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="SummerProject.ISprite" Collapsed="true">
+  <Interface Name="SummerProject.Sprite" Collapsed="true">
     <Position X="25.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAACAAAAoAgAAIAAAQAAAAAAAAAAAACAAgAAhA=</HashCode>
-      <FileName>ISprite.cs</FileName>
+      <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="SummerProject.collidables.parts.IPartCarrier" Collapsed="true">

@@ -29,10 +29,13 @@ namespace SummerProject
             //Width = Sprite.SpriteRect.Width * SCALEFACTOR;
             //Height = Sprite.SpriteRect.Height * SCALEFACTOR;
             LinkPosition = linkPosition;
+        }
 
-            
-          
-           
+        public void UpdateRotation()
+        {
+            angle = -(float)Math.PI / 2 * LinkPosition;
+            if (LinkPosition % 2 == 1)
+                angle += (float)Math.PI;
         }
     }
 }

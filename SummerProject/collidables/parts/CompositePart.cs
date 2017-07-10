@@ -96,6 +96,7 @@ namespace SummerProject
         {
             AddLinkPositions();
         }
+ 
 
         public bool AddPart(Part part, int pos)
         {

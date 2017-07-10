@@ -27,16 +27,16 @@ namespace SummerProject
         public GameMode GameMode { get; private set; }
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
-        private UpgradeView upgradeView;
+        public UpgradeView upgradeView;
         private Game1 game;
 
-        public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2D upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
+        public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
         {            
             GameState = MENU_STATE;
             NewGameState = GameState;
             GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font);
-            upgradeView = new UpgradeView(upgradeViewText, upgradeFont, player, upgradePartsIDs);            
+            upgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
                     WindowSize.Height / 2), font);
             this.game = game;

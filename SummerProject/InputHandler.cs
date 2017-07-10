@@ -93,9 +93,9 @@ namespace SummerProject
                 case MouseButton.LEFT:
                     return mState.LeftButton == ButtonState.Pressed && pMState.LeftButton != ButtonState.Pressed;
                 case MouseButton.RIGHT:
-                    return mState.RightButton == ButtonState.Pressed && pMState.LeftButton != ButtonState.Pressed;
+                    return mState.RightButton == ButtonState.Pressed && pMState.RightButton != ButtonState.Pressed;
                 case MouseButton.MIDDLE:
-                    return mState.MiddleButton == ButtonState.Pressed && pMState.LeftButton != ButtonState.Pressed;
+                    return mState.MiddleButton == ButtonState.Pressed && pMState.MiddleButton != ButtonState.Pressed;
                 default:
                     throw new NotImplementedException();
             }
