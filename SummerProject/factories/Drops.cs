@@ -61,7 +61,7 @@ namespace SummerProject.factories
             ResetEntities();
         }
 
-        public override ActivatableEntity CreateEntity(int type)
+        public override IActivatable CreateEntity(int type)
         {
             return EntityFactory.CreateEntity(SpriteHandler.GetSprite(type), type);
         }

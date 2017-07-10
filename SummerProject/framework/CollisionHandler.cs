@@ -18,13 +18,13 @@ namespace SummerProject
                     if (c1.CollidesWith(c2))
 
                         if (c1 is Part && c2 is Part)
-                            HandleCollision((Collidable)((Part)c1).GetController(), (Collidable)((Part)c2).GetController());
+                            HandleCollision((ICollidable)((Part)c1).GetController(), (ICollidable)((Part)c2).GetController());
                         else
                         if (c1 is Part)
-                            HandleCollision((Collidable)((Part)c1).GetController(), c2);
+                            HandleCollision((ICollidable)((Part)c1).GetController(), c2);
                         else
                         if (c2 is Part)
-                            HandleCollision((Collidable)((Part)c2).GetController(), c1);
+                            HandleCollision((ICollidable)((Part)c2).GetController(), c1);
                         else
                             HandleCollision(c1, c2);
 
@@ -41,12 +41,12 @@ namespace SummerProject
             }
         }
 
-        private void HandleDetectionCollision(Collidable c1, Collidable c2)
-        {
-            if (!(c1 is Player || c2 is Player || c1 is Wall || c2 is Wall))
-                c1.Collision(c2);
-        }
-        private void HandleCollision(Collidable c1, Collidable c2)
+        //private void HandleDetectionCollision(Collidable c1, Collidable c2)
+        //{
+        //    if (!(c1 is Player || c2 is Player || c1 is Wall || c2 is Wall))
+        //        c1.Collision(c2);
+        //}
+        private void HandleCollision(ICollidable c1, ICollidable c2)
         {
             c1.Collision(c2);
             c2.Collision(c1);

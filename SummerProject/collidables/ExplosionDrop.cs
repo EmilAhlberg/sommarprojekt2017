@@ -21,7 +21,7 @@ namespace SummerProject.collidables
             explosionTimer = new Timer(explosionTime);
             originalBoundBox = BoundBox;
         }
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             if (c2 is Player)
                 Explode();

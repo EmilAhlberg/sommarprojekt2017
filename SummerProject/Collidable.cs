@@ -73,11 +73,11 @@ namespace SummerProject
         public virtual bool CollidesWith(ICollidable c2)
         {
             if (c2 is PartController)
-                c2 = c2.Hull as Collidable;
+                c2 = (c2 as PartController).Hull;
             if (c2 is Collidable)
             {
-                if (BoundCircle.Intersects(c2.BoundCircle))
-                    return BoundBox.Intersects(c2.BoundBox);
+                if (BoundCircle.Intersects((c2 as Collidable).BoundCircle))
+                    return BoundBox.Intersects((c2 as Collidable).BoundBox);
             }
             return false;
         }

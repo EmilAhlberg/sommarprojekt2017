@@ -110,7 +110,7 @@ namespace SummerProject
         }        
 
         //duh
-        public List<Collidable> CollidableList()
+        public List<IActivatable> CollidableList()
         {
             return enemies.GetValues();
         }       

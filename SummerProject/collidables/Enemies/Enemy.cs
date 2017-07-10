@@ -27,8 +27,8 @@ namespace SummerProject
 
         public override void SetStats(IDs id)
         {
+            base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
-            //base.SetStats(id);
         }
 
         public override void Update(GameTime gameTime)

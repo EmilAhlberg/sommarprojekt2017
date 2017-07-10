@@ -8,7 +8,7 @@ namespace SummerProject
 {
     public interface ICollidable
     {
-        bool CollidesWith(ICollidable c2);
+        //bool CollidesWith(ICollidable c2);
         void Collision(ICollidable c2);
     }
 }

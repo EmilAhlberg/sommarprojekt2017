@@ -22,7 +22,7 @@ namespace SummerProject.factories
             return new StandardEnemy(FarAway(),  player);
         }
 
-        public static ActivatableEntity CreateEntity(Sprite sprite, int type)
+        public static IActivatable CreateEntity(Sprite sprite, int type)
         {
             switch (type)
             {
