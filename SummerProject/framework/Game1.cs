@@ -10,6 +10,7 @@ using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using System.IO;
+using System.Linq;
 
 namespace SummerProject
 {
@@ -33,6 +34,7 @@ namespace SummerProject
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
+        Drops drops;
         AchievementController achController;
         const bool SPAWN_ENEMIES = true;
         bool slowmo = false;
@@ -177,7 +179,7 @@ namespace SummerProject
             GameMode gameMode = new GameMode(scoreFont);          
            
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(20); //! bulletCap hardcoded
+            projectiles = new Projectiles(200); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
@@ -196,7 +198,7 @@ namespace SummerProject
             player.AddPart(gunPart1, 1);
             rectHull1.AddPart(gunPart2, 0);
             rectHull2.AddPart(gunPart3, 2);
-            Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
+            drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location
@@ -306,20 +308,15 @@ namespace SummerProject
 
         private void HandleAllCollisions()
         {
-            List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in gameController.CollidableList())
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in projectiles.GetValues())
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in gameController.Drops.GetValues())
-            {
-                collidableList.Add(c);
-            }
-            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
+            List<Collidable> pParts = player.Parts.ConvertAll(p => (Collidable)p);
+            List<Collidable> eParts = gameController.CollidableList().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList();
+            List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList();
+            List<Collidable> eDrops = drops.GetValues().Where(d => ((Drop)d).IsActive).ToList();
+            colhandl.CheckCollisions(pParts, eParts);
+            colhandl.CheckCollisions(pParts, eBullets);
+            colhandl.CheckCollisions(pParts, eDrops);
+            colhandl.CheckCollisions(eParts, pBullets);
         }
 
         /// <summary>

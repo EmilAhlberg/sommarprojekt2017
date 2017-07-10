@@ -9,88 +9,33 @@ namespace SummerProject
 {
     class CollisionHandler
     {
-        public void CheckCollisions(Collidable[] list1, params Collidable[] list2)
+        public void CheckCollisions(List<Collidable> list1, List<Collidable> list2)
         {
-            Collidable[] list = list1.Concat(list2).ToArray();
-            for (int i = 0; i < list.Length; i++)
+            foreach (Collidable c1 in list1)
             {
-                for (int j = 0; j < list.Length; j++)     // can optimize
+                foreach (Collidable c2 in list2)     // can optimize
                 {
-                    Collidable c1 = list[i];
-                    Collidable c2 = list[j];
-                    if (c1 == c2)
-                        continue;
-                    if (c1 is ActivatableEntity && c2 is ActivatableEntity)
-                    {
-                        ActivatableEntity e1 = c1 as ActivatableEntity;
-                        ActivatableEntity e2 = c2 as ActivatableEntity;
-                        if (e1.IsActive && e2.IsActive) //! PLS REFACTOR ;)
-                        {
+                    if (c1.BoundBox.Intersects(c2.BoundBox))
 
-                            if (e1 is PartController && e2 is PartController)
-                            {
-                                PartController pc1 = c1 as PartController;
-                                PartController pc2 = c2 as PartController;
-                                foreach (Part p1 in pc1.Parts)
-                                    foreach (Part p2 in pc2.Parts)
-                                    {
-                                        if (p1.BoundBox.Intersects(p2.BoundBox))
-                                        {
-                                            HandleCollision(c1, c2);
-                                        }
-                                    }
-                            }
-                            else if (e1 is PartController)
-                            {
-                                PartController pc1 = c1 as PartController;
-                                foreach (Part p1 in pc1.Parts)
-                                {
-                                    if (p1.BoundBox.Intersects(c2.BoundBox))
-                                    {
-                                        HandleCollision(c1, c2);
-                                    }
-                                }
-                            }
-                            else if (e2 is PartController)
-                            {
-                                PartController pc2 = c2 as PartController;
-                                foreach (Part p2 in pc2.Parts)
-                                {
-                                    if (e1 is ITargeting)
-                                    {
-                                        ITargeting targeting = e1 as ITargeting;
-                                        if (targeting.Detector.BoundBox.Intersects(p2.BoundBox))
-                                            HandleCollision(targeting.Detector, e2);
-                                    }
-                                    else
-                                        if (c1.BoundBox.Intersects(p2.BoundBox))
-                                    {
-                                        HandleCollision(c1, c2);
-                                    }
-                                }
-                            }
-                            else
-                                if (c1.BoundBox.Intersects(c2.BoundBox))
-                            {
-                                HandleCollision(c1, c2);
-                            }
-                        }
+                        if (c1 is Part && c2 is Part)
+                            HandleCollision((Collidable)((Part)c1).GetController(), (Collidable)((Part)c2).GetController());
+                        else
+                        if (c1 is Part)
+                            HandleCollision((Collidable)((Part)c1).GetController(), c2);
+                        else
+                        if (c2 is Part)
+                            HandleCollision((Collidable)((Part)c2).GetController(), c1);
+                        else
+                            HandleCollision(c1, c2);
 
-
-                        //else
-                        //{
-                        //    if (c1.BoundBoxes[0].Intersects(c2.BoundBoxes[0]))
-                        //        HandleCollision(c1, c2);
-                        //    for (int k = 1; k < c1.BoundBoxes.Count; k++) // assumes index 0 is always what collides with walls
-                        //    {
-                        //        if (c1.BoundBoxes[k].Intersects(c2.BoundBoxes[0]))
-                        //            HandleDetectionCollision(c1, c2);
-                        //    }
-                        //}
-                    }
                 }
             }
-            foreach (Collidable c in list)
+
+            foreach (Collidable c in list1)
+            {
+                c.PrevPos = c.Position;
+            }
+            foreach (Collidable c in list2)
             {
                 c.PrevPos = c.Position;
             }
