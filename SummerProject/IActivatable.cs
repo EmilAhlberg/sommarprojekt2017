@@ -11,6 +11,7 @@ namespace SummerProject
     public interface IActivatable
     {
         bool IsActive { set; get; }
+        bool IsBusy { set; get; }
         void Activate(Vector2 source, Vector2 target);
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);

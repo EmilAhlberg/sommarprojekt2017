@@ -53,9 +53,9 @@ namespace SummerProject.factories
                 throw new NotImplementedException();
             foreach (IActivatable e in colList)
             {
-                if (!e.IsActive/* && !e.IsBusy*/)
+                if (!e.IsActive && !e.IsBusy)
                 {
-                    /*e.IsBusy = true;*/
+                    e.IsBusy = true;
                     return e;
                 }
             }

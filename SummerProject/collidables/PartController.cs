@@ -14,6 +14,7 @@ namespace SummerProject
     public abstract class PartController : IPartCarrier, IActivatable, ICollidable
     {
         public CompositePart Hull { get; set; } //!
+        public bool IsBusy { get; set; }
         public Vector2 Position { get { return Hull.Position; } set { Hull.Position = value; } }
         public IEnumerable<Collidable> Collidables { get { return Parts; } }
         public List<Part> Parts { get { return Hull.Parts; } }
