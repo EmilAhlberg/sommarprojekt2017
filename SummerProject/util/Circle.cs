@@ -19,9 +19,7 @@ namespace SummerProject.util
 
         public bool Intersects(Circle c)
         {
-            if ((c.Position - Position).Length() <= Radius + c.Radius)
-                return true;
-            return false;
+            return (c.Position - Position).Length() <= Radius + c.Radius;
         }
 
     }

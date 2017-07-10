@@ -15,7 +15,7 @@ namespace SummerProject
             {
                 foreach (Collidable c2 in list2)     // can optimize
                 {
-                    if (c1.BoundBox.Intersects(c2.BoundBox))
+                    if (c1.CollidesWith(c2))
 
                         if (c1 is Part && c2 is Part)
                             HandleCollision((Collidable)((Part)c1).GetController(), (Collidable)((Part)c2).GetController());

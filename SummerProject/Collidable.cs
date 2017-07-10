@@ -58,7 +58,6 @@ namespace SummerProject
             {
                 BoundBox.Origin = value; //FIX
                 Sprite.Origin = value;
-                BoundCircle.Origin = value;
             }
             get{ return Sprite.Origin; }
         }
