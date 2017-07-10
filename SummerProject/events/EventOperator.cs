@@ -27,7 +27,7 @@ namespace SummerProject
         public GameMode GameMode { get; private set; }
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
-        private UpgradeView upgradeView;
+        public UpgradeView upgradeView;
         private Game1 game;
 
         public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
