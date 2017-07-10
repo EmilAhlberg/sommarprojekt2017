@@ -28,7 +28,7 @@ namespace SummerProject.framework
             activeSelection = -1;
             this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
-            upgradeBar = new UpgradeBar(upgradePartsIDs, font);
+            upgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
         }
 
         internal void Initialize()

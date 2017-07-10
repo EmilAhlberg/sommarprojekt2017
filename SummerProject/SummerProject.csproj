@@ -63,7 +63,6 @@
     <Compile Include="collidables\parts\DetectorPart.cs" />
     <Compile Include="collidables\HomingBullet.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
-    <Compile Include="collidables\parts\PartTypes.cs" />
     <Compile Include="collidables\parts\MineGunPart.cs" />
     <Compile Include="collidables\parts\SprayGunPart.cs" />
     <Compile Include="collidables\bullets\SprayBullet.cs" />
@@ -133,6 +132,7 @@
     <Compile Include="events\buildmenu\ShipItem.cs" />
     <Compile Include="SRandom.cs" />
     <Compile Include="UnitBar.cs" />
+    <Compile Include="util\Circle.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="util\TextureHelper.cs" />
     <Compile Include="wave\Difficulty.cs" />

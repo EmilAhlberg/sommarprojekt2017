@@ -10,6 +10,7 @@ using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using System.IO;
+using System.Linq;
 
 namespace SummerProject
 {
@@ -33,6 +34,7 @@ namespace SummerProject
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
+        Drops drops;
         AchievementController achController;
         const bool SPAWN_ENEMIES = true;
         bool slowmo = false;
@@ -92,10 +94,11 @@ namespace SummerProject
             debugFont = Content.Load<SpriteFont>("fonts/debugfont");
             scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
             bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
+            SpriteFont upgradeFont = Content.Load<SpriteFont>("fonts/currencyFont");
             #endregion
 
             #region Loading textures
-            
+
             Texture2D backgroundTex = Content.Load<Texture2D>("textures/background1");
             Texture2D cursorTex = Content.Load<Texture2D>("textures/cursor");
 
@@ -125,8 +128,9 @@ namespace SummerProject
             Texture2D chargingGunTex = Content.Load<Texture2D>("parts/ChargingGun");
             Texture2D engineTex1 = Content.Load<Texture2D>("parts/Engine_1");
             Texture2D selectionBoxTex = Content.Load<Texture2D>("parts/SelectionBox");
-            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg"); // use this as bkg for upgradepartbar
-            
+            Texture2D upgradeBkg = Content.Load<Texture2D>("parts/UpgradeBarBkg");
+            Texture2D menuScreenBkg = Content.Load<Texture2D>("parts/MenuScreenBkg");
+
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
@@ -158,6 +162,8 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.WRENCH] = new Sprite(wrenchTex);
             SpriteHandler.Sprites[(int)IDs.BOLT] = new Sprite(boltTex);
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
+            SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
+            SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
 
             #endregion
 
@@ -175,9 +181,9 @@ namespace SummerProject
             GameMode gameMode = new GameMode(scoreFont);          
            
             background = new Sprite(backgroundTex);
-            projectiles = new Projectiles(60); //! bulletCap hardcoded
+            projectiles = new Projectiles(200); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
+            eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
@@ -192,9 +198,9 @@ namespace SummerProject
             //rectHull1.AddPart(engine2, 3);
             //rectHull2.AddPart(engine3, 3);
             player.AddPart(gunPart1, 1);
-            //rectHull1.AddPart(gunPart2, 1);
-            //rectHull2.AddPart(gunPart3, 1);
-            Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
+            //rectHull1.AddPart(gunPart2, 0);
+            //rectHull2.AddPart(gunPart3, 2);
+            drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location
@@ -304,20 +310,15 @@ namespace SummerProject
 
         private void HandleAllCollisions()
         {
-            List<Collidable> collidableList = new List<Collidable>();
-            foreach (Collidable c in gameController.CollidableList())
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in projectiles.GetValues())
-            {
-                collidableList.Add(c);
-            }
-            foreach (Collidable c in gameController.Drops.GetValues())
-            {
-                collidableList.Add(c);
-            }
-            colhandl.CheckCollisions(collidableList.ToArray(), player, wall);
+            List<Collidable> pParts = player.Parts.ConvertAll(p => (Collidable)p);
+            List<Collidable> eParts = gameController.CollidableList().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList();
+            List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList();
+            List<Collidable> eDrops = drops.GetValues().Where(d => ((Drop)d).IsActive).ToList();
+            colhandl.CheckCollisions(pParts, eParts);
+            colhandl.CheckCollisions(pParts, eBullets);
+            colhandl.CheckCollisions(pParts, eDrops);
+            colhandl.CheckCollisions(eParts, pBullets);
         }
 
         /// <summary>

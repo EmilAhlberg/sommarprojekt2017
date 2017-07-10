@@ -167,14 +167,15 @@ namespace SummerProject
         {
             set
             {
-                base.Position = value;
+                
                 foreach (Link p in parts)
                 {
                     if (p.Part != null)
                     {
-                        p.SetPart(p.Part, this);
+                        p.Part.Position += value - Position;
                     }
                 }
+                base.Position = value;
             }
         }
 
@@ -187,7 +188,7 @@ namespace SummerProject
                 {
                     if (p.Part != null)
                     {
-                        p.SetPart(p.Part, this);
+                        p.UpdatePart(this);
                     }
                 }
             }
@@ -259,6 +260,8 @@ namespace SummerProject
             public Vector2 RelativePos { set; get; }
             public float RelativeAngle { set; get; }
             public Part Part { private set; get; } = null;
+            private Vector2 linkToCenter;
+            private Vector2 posChange;
 
             public Link(Vector2 relativePos, float angle)
             {
@@ -269,15 +272,22 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                Vector2 linkToCenter = new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2;
-                Vector2 posChange = new Vector2(RelativePos.X, RelativePos.Y);
+                if (RelativeAngle == (float)Math.PI / 2 || RelativeAngle == 0) //! only works for recthull
+                    linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle));
+                else
+                    linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle + (float)Math.PI));
+                posChange = new Vector2(RelativePos.X, RelativePos.Y);
                 posChange.Normalize();
-                Matrix rot = Matrix.CreateRotationZ(hull.Angle);
-                p.Position = hull.Position + Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
-                p.Angle = hull.angle;
-                if (!(p is RectangularHull))
-                    p.Angle += RelativeAngle;
+                UpdatePart(hull);
+            }
 
+            public void UpdatePart(CompositePart hull)
+            {
+                Matrix rot = Matrix.CreateRotationZ(hull.Angle);
+                Part.Position = hull.Position + Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
+                Part.Angle = hull.angle;
+                if (!(Part is RectangularHull))
+                    Part.Angle += RelativeAngle;
             }
         }
     }
