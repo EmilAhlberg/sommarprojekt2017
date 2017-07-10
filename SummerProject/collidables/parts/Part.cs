@@ -13,7 +13,6 @@ namespace SummerProject
     {
         public IPartCarrier Carrier { set; get; }
         public Vector2 AbsolutePosition { get { return BoundBox.AbsolutePosition; } }
-        public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
         public virtual Color Color { set { Sprite.MColor = value; } get { return Sprite.MColor; } }
 
         public int LinkPosition { get; internal set; } = -1;
@@ -25,7 +24,7 @@ namespace SummerProject
 
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             Carrier.Collision(c2);
         }

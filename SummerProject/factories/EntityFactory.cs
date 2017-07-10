@@ -3,18 +3,20 @@ using Microsoft.Xna.Framework;
 using SummerProject.collidables;
 using SummerProject.collidables.Enemies;
 using SummerProject.collidables.bullets;
+using SummerProject.collidables.parts;
 
 namespace SummerProject.factories
 {
     class EntityFactory
     {
         private const int standard = -5000;
-        public static ActivatableEntity CreateEnemy(Sprite sprite, Player player, int type)
+        public static IActivatable CreateEnemy(Sprite sprite, Player player, int type)
         {
+            Enemy e;
             switch (type)
             {
-                case (int)IDs.ENEMYSHOOT: return new Shooter(FarAway(), player);
-                case (int)IDs.ENEMYSPEED: return new Speedy(FarAway(),  player);
+                case (int)IDs.ENEMYSHOOT: e = new StandardEnemy(FarAway(), player); e.AddPart(new SprayGunPart(),1); e.AddPart(new EnginePart(), 3); return e;
+                case (int)IDs.ENEMYSPEED: e = new StandardEnemy(FarAway(), player); /*e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 2);*/ e.AddPart(new EnginePart(), 3); return e;
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }
             return new StandardEnemy(FarAway(),  player);

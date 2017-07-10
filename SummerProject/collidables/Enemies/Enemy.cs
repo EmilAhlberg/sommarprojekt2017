@@ -12,6 +12,7 @@ namespace SummerProject
     abstract class Enemy : PartController, IPartCarrier
     {        
         public float WorthScore {get; private set;}
+
         private Player player;
         private Timer rageTimer;
 
@@ -22,23 +23,23 @@ namespace SummerProject
             rageTimer = new Timer(15); //!!    
             //Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
             //WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY]; 
-            Hull.Mass = EntityConstants.GetStatsFromID(EntityConstants.MASS, IDs.DEFAULT_ENEMY); //!
-            Hull.TurnSpeed = EntityConstants.GetStatsFromID(EntityConstants.TURNSPEED, IDs.DEFAULT_ENEMY); 
-            Hull.friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, IDs.DEFAULT_ENEMY);
         }
 
         public override void SetStats(IDs id)
         {
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
-            base.SetStats(id);
+            //base.SetStats(id);
         }
 
         public override void Update(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
+            //Hull.TakeAction(typeof(EnginePart));
             Move();
-            AddForce(10, Angle); //!
+            Hull.TakeAction(typeof(ChargingGunPart));
+            Hull.TakeAction(typeof(SprayGunPart));
+            //AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
@@ -49,20 +50,20 @@ namespace SummerProject
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
             {
-                Enrage();
+                //Enrage();
             }
         }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
-            Sprite.MColor = Color.White;
+            Hull.Color = Color.White;
         }
 
         protected virtual void Enrage()
         {
             Particles.GenerateParticles(Position, 5, Angle, Color.Red);
-            Sprite.MColor = Color.Black;
+            Hull.Color = Color.Black;
         }
 
         protected override void CalculateAngle()
@@ -72,9 +73,8 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
-            base.Collision(c2);
             if (c2 is Projectile)
             {
                 Projectile b = c2 as Projectile;

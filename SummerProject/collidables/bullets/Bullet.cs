@@ -45,7 +45,7 @@ namespace SummerProject.collidables
             base.Death();
         }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             if (c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
             {

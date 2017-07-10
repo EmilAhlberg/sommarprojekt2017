@@ -52,7 +52,8 @@ namespace SummerProject
         SPRAYGUNPART,
         MINEGUNPART,
         CHARGINGGUNPART,
-        EMPTYPART
+        EMPTYPART,
+        PART
         #endregion
     }
 }

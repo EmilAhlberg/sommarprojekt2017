@@ -3,7 +3,7 @@ using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
-    public abstract class ActivatableEntity : Entity
+    public abstract class ActivatableEntity : Entity, IActivatable
     {
         public bool IsBusy { get; set; }
 

@@ -13,7 +13,7 @@ namespace SummerProject.collidables
         public EnergyDrop(Vector2 position) : base(position)
         {
         }
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             if (c2 is Player)
                 Death();

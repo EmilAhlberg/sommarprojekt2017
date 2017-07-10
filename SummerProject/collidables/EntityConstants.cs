@@ -103,18 +103,19 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 10},
+                {(int)IDs.PART, 1},
                 {(int)IDs.PLAYER, 5},
                 {(int)IDs.DEFAULT_ENEMY, 10},
-                {(int)IDs.DEFAULT_BULLET, 10f}
+                {(int)IDs.DEFAULT_BULLET, 10f},
+                {(int)IDs.RECTHULLPART, 4f}
           };
 
         public static readonly Dictionary<int, float> THRUST =
          new Dictionary<int, float>
          {
                 {(int)IDs.DEFAULT, 10},
-                {(int)IDs.PLAYER, 5/3f},
-                {(int)IDs.DEFAULT_ENEMY, 3},
-                {(int)IDs.DEFAULT_BULLET, 0}
+                {(int)IDs.DEFAULT_BULLET, 0},
+                {(int)IDs.ENGINEPART, 20f}
          };
 
         public static readonly Dictionary<int, float> TURNSPEED =
@@ -134,7 +135,9 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_ENEMY, 100},
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
-                {(int)IDs.MINEBULLET, 200}
+                {(int)IDs.MINEBULLET, 200},
+                {(int)IDs.PART, 1},
+                {(int)IDs.RECTHULLPART, 20f}
           };
 
         public static readonly Dictionary<int, float> SCORE =

@@ -15,7 +15,7 @@ namespace SummerProject.collidables.Enemies
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 4, Angle, Color.Green);
+            //Particles.GenerateParticles(Position, 4, Angle, Color.Green);
             base.Update(gameTime);
         }
 

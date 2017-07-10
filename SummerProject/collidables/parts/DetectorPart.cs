@@ -32,11 +32,11 @@ namespace SummerProject.collidables.parts
 
         public override void Update(GameTime gameTime)
         {
-            if (detected && target.IsActive)
-                parent.UpdateTarget(target);
+            if (detected && target.IsActive) ;
+                //parent.UpdateTarget(target);
         }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
    //       if (c2.GetType() == type)
         if (c2 is Enemy)

@@ -18,7 +18,7 @@ namespace SummerProject.collidables
         }
 
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             if (c2 is Enemy || c2 is Wall)
             {

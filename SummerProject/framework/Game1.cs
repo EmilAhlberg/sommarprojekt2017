@@ -186,14 +186,14 @@ namespace SummerProject
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();
-            player.AddPart(rectHull1, 0);
-            player.AddPart(rectHull2, 2);
+            //player.AddPart(rectHull1, 0);
+            //player.AddPart(rectHull2, 2);
             player.AddPart(engine1, 3);
-            rectHull1.AddPart(engine2, 3);
-            rectHull2.AddPart(engine3, 3);
+            //rectHull1.AddPart(engine2, 3);
+            //rectHull2.AddPart(engine3, 3);
             player.AddPart(gunPart1, 1);
-            rectHull1.AddPart(gunPart2, 1);
-            rectHull2.AddPart(gunPart3, 1);
+            //rectHull1.AddPart(gunPart2, 1);
+            //rectHull2.AddPart(gunPart3, 1);
             Drops drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();

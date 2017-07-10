@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SummerProject
 {
-    public abstract class Collidable : Movable
+    public abstract class Collidable : Movable, ICollidable
     {
         public Vector2 PrevPos { get; set; }
         public RotRectangle BoundBox { get; set; }
@@ -63,12 +63,21 @@ namespace SummerProject
                 BoundBox.Angle = angle;
         }
 
-        public virtual bool CollidesWith(Collidable c2)
+        public virtual bool CollidesWith(ICollidable c2)
         {
-            return BoundBox.Intersects(c2.BoundBox);
+            if (c2 is Collidable)
+            {
+                return BoundBox.Intersects((c2 as Collidable).BoundBox);
+            }
+
+            if (c2 is PartController)
+            {
+                return BoundBox.Intersects((c2 as PartController).Hull.BoundBox);
+            }
+            return false;
         }
 
-        public virtual void Collision(Collidable c2)
+        public virtual void Collision(ICollidable c2)
         {
             ////VILKEN SIDA BESKÄRS AV AVSTÅNDET MELLAN POSITIONERNA?
             //Vector2 axis1 = c2.BoundBox.AbsolutePosition - BoundBox.AbsolutePosition;

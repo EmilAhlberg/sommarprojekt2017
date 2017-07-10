@@ -14,12 +14,11 @@ namespace SummerProject.collidables.Enemies
 
         public Asteroid(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
-            
         }
 
         protected override void CalculateAngle()
         {
-            //  Angle += spriteRotSpeed;
+              Angle += spriteRotSpeed;
         }
 
         protected override void Enrage()
@@ -38,7 +37,7 @@ namespace SummerProject.collidables.Enemies
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
-            friction = 100;
+            friction = 0;
             AddSpeed(5, Angle);
         }
 

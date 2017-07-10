@@ -10,25 +10,27 @@ namespace SummerProject.factories
     public abstract class Entities
     {   
         protected int entityCap;
-        public Dictionary<int, List<Collidable>> EntityDic { get; private set; }       
+        public Dictionary<int, List<ICollidable>> EntityDic { get; private set; }       
 
         public Entities(int entityCap)
         {
             this.entityCap = entityCap;            
-            EntityDic = new Dictionary<int, List<Collidable>>();
+            EntityDic = new Dictionary<int, List<ICollidable>>();
         }
 
-        public abstract ActivatableEntity CreateEntity(int index);
+        public abstract IActivatable CreateEntity(int index);
         public abstract void Reset();
 
         protected void InitializeEntities(int type)
         {
             if (!EntityDic.ContainsKey(type))
             {
-                EntityDic[type] = new List<Collidable>();
+                EntityDic[type] = new List<ICollidable>();
                 for (int i = 0; i < entityCap; i++)
                 {
-                    EntityDic[type].Insert(0, CreateEntity(type));
+                    IActivatable c = CreateEntity(type);
+                    if (c is ICollidable)
+                        EntityDic[type].Insert(0, c as ICollidable);
                 }
             }
         }
@@ -40,18 +42,18 @@ namespace SummerProject.factories
                     e.Death();
         }
 
-        public List<Collidable> GetValues()
+        public List<ICollidable> GetValues()
         {
             return EntityDic.Values.SelectMany(e => e).ToList();
         }
 
         public Entity GetEntity(int id)
         {
-            List<Collidable> colList = new List<Collidable>();
+            List<ICollidable> colList = new List<ICollidable>();
             EntityDic.TryGetValue(id, out colList);
             if (colList.Count == 0)
                 throw new NotImplementedException();
-            foreach (Collidable c in colList)
+            foreach (ICollidable c in colList)
             {
                 if (c is ActivatableEntity)
                 {

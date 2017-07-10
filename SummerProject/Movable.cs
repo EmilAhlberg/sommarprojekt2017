@@ -10,7 +10,7 @@ namespace SummerProject
         private Vector2 Friction { get { return friction * Velocity / 100; } }
         public Vector2 Velocity { set; get; } = Vector2.Zero; //-!
         protected virtual float TurnSpeed { set; get; } 
-        protected virtual float Mass { set; get; } 
+        public virtual float Mass { set; get; } 
         private Vector2 Acceleration{ get { return (TotalExteriorForce - Friction) / Mass; } }
         private Vector2 TotalExteriorForce { set; get; }
         public virtual float ThrusterAngle { set; get; }
