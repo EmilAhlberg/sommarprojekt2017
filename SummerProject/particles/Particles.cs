@@ -170,13 +170,13 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateAfterImageParticles(ISprite sprite, Vector2 position, int ID, float angle, Vector2 scale)
+        public static void GenerateAfterImageParticles(Sprite sprite, Vector2 position, int ID, float angle, Vector2 scale)
         {
             CreateParticle(sprite, position, Vector2.Zero, angle, 0, Color.White, scale, 0.1f, IDs.AFTERIMAGE);
         }
 
 
-        public static void GenerateDeathParticles(ISprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
+        public static void GenerateDeathParticles(Sprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
         {
             
             List<Color> colors = sprite.Colors;
@@ -265,7 +265,7 @@ namespace SummerProject
                 particles.Add(new Particle( position, initialForce, angle, angularVelocity, color, scale, TTL, ID));
             }
         }
-        private static void CreateParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs ID = IDs.DEFAULT_PARTICLE)
+        private static void CreateParticle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs ID = IDs.DEFAULT_PARTICLE)
         {
             bool renewed = false;
             foreach (Particle p in particles)

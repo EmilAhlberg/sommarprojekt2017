@@ -8,7 +8,7 @@ namespace SummerProject
     public class Drawable
     {
         public virtual Vector2 Position { get; set; }
-        public ISprite Sprite { get;  set; }
+        public Sprite Sprite { get;  set; }
         protected float angle = 0;
         protected IDs id;
 
@@ -27,7 +27,7 @@ namespace SummerProject
                 Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2);
         }
 
-        public virtual void ChangeSprite(ISprite sprite)
+        public virtual void ChangeSprite(Sprite sprite)
         {
             //Sprite = sprite;
             //if (sprite is Sprite)

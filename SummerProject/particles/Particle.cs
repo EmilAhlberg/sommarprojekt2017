@@ -32,9 +32,9 @@ namespace SummerProject
                 currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
-        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id = IDs.DEFAULT) : base(position, id)
+        public Particle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            Sprite = new Sprite((Sprite)sprite);
+            Sprite = new Sprite(sprite);
             Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
             AddForce(initialForce);
@@ -52,7 +52,7 @@ namespace SummerProject
                 currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
-        public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id)
+        public void RenewParticle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id)
         {
             Sprite = new Sprite((Sprite)sprite);
             if (Sprite is Sprite)

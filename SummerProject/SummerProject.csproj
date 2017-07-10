@@ -109,7 +109,6 @@
     <Compile Include="events\buildmenu\UpgradeView.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Inventory.cs" />
-    <Compile Include="ISprite.cs" />
     <Compile Include="events\menu\menuTypes\GameOverMenu.cs" />
     <Compile Include="events\menu\menuTypes\MainMenu.cs" />
     <Compile Include="events\menu\Menu.cs" />
@@ -129,6 +128,7 @@
     <Compile Include="collidables\parts\RectangularHull.cs" />
     <Compile Include="events\buildmenu\ShipItem.cs" />
     <Compile Include="SRandom.cs" />
+    <Compile Include="Texture2DPlus.cs" />
     <Compile Include="UnitBar.cs" />
     <Compile Include="util\Circle.cs" />
     <Compile Include="util\DrawHelper.cs" />
