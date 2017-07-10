@@ -12,6 +12,13 @@ namespace SummerProject
     {
         public Texture2D Texture { get; private set; }
         public int Subimages { get; private set; }
+
+        public Texture2DPlus(Texture2D texture, int subimages = 1)
+        {
+            Texture = texture;
+            Subimages = subimages;
+        }
+
         private List<Texture2D> splitTextures;
         public List<Texture2D> SplitTextures
         {
@@ -20,13 +27,6 @@ namespace SummerProject
                 return splitTextures ?? GetSplitTexture();
             }
         }
-
-        public Texture2DPlus(Texture2D texture, int subimages = 1)
-        {
-            Texture = texture;
-            Subimages = subimages;
-        }
-
         private List<Texture2D> GetSplitTexture()
         {
             int largestSplit = 3;
@@ -132,7 +132,6 @@ namespace SummerProject
 
         private Color? primaryColor;
         public Color PrimaryColor { get { return primaryColor ?? CalcPrimaryColor(); } }
-
         public Color CalcPrimaryColor()
         {
             Color[] colors1D = new Color[Texture.Width * Texture.Height];
@@ -165,7 +164,6 @@ namespace SummerProject
                 return colors ?? CalcColors();
             }
         }
-
         private List<Color> CalcColors()
         {
             Color[] colors1D = new Color[Texture.Width * Texture.Height];
