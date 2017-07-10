@@ -23,6 +23,18 @@ namespace SummerProject.framework
         private UpgradeBar upgradeBar;
         private int emptyPartIndex = 100;
 
+        //maybe not
+        internal void Reset()
+        {
+            ShipItem motherBoard = shipItems[0];
+            ((RectangularHull)motherBoard.Part).ResetLinks();
+            shipItems = new Dictionary<int, ShipItem>();
+            shipItems.Add(0, motherBoard);            
+            AddEmptyParts((RectangularHull)motherBoard.Part, shipItems[0], false);
+        }
+
+     
+
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
         {
             activeSelection = -1;
@@ -79,8 +91,7 @@ namespace SummerProject.framework
                         Vector2 v = LinkPosition(j, current.Position);
                         shipItems.Add(emptyPartIndex++, new ShipItem(new Vector2(v.X, v.Y), j, hull, null, IDs.EMPTYPART)); //secondary constructor for empty parts /!!! null
                     }
-                }
-                
+                }                
             }
         }
 
@@ -108,7 +119,7 @@ namespace SummerProject.framework
                 player.Parts.Add(newPart);
 
                 if (pressedItem.id == IDs.RECTHULLPART)
-                {
+                {                
                     RemoveShipItems(pressedItem);
                 }
 
@@ -119,10 +130,12 @@ namespace SummerProject.framework
                 newPart.Carrier = hull;
 
                 Vector2 v = pressedItem.Position;
-                ShipItem s = CreateShipItem(newPart, shipItems[activeSelection].LinkPosition, v, (RectangularHull)hull);
+                ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
                 shipItems[activeSelection] = s;
+                //parts.remove(stuff) ?
             }
         }
+       
 
         private void RemoveShipItems(ShipItem pressedItem)
         {
@@ -164,7 +177,6 @@ namespace SummerProject.framework
             {
                 newID = IDs.CHARGINGGUNPART;
             }
-
             else if (part is GunPart)
             {
                 newID = IDs.GUNPART;
@@ -204,25 +216,67 @@ namespace SummerProject.framework
         {
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-                if (item.Value.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
+                if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
-                    int oldActive = activeSelection;
-                    activeSelection = item.Key;
-                    if (oldActive != activeSelection && activeSelection >= 0)
-                    {
-                        upgradeBar.CreateItemBoxes();
+                    if (InputHandler.isJustPressed(MouseButton.LEFT)) {
+                        int oldActive = activeSelection;
+                        activeSelection = item.Key;
+                        if (oldActive != activeSelection && activeSelection >= 0)
+                        {
+                            upgradeBar.CreateItemBoxes();
+                        }
+                        else if (oldActive == activeSelection)
+                            activeSelection = -1;
+                        if (activeSelection >= 0)
+                            upgradeBar.Active = true;
+                        else
+                            upgradeBar.Active = false;
+                        //Buy(100); //!
                     }
-                    else if (oldActive == activeSelection)
-                        activeSelection = -1;
-                    if (activeSelection >= 0)
-                        upgradeBar.Active = true;
-                    else
-                        upgradeBar.Active = false;
-                    //Buy(100); //!
+                    else if (InputHandler.isJustPressed(MouseButton.RIGHT) && item.Value.id != IDs.EMPTYPART)
+                    {
+                        if (RotatePart(item.Value))
+                        {
+
+                        }
+                    }
                 }
             }
             if (upgradeBar.Active && upgradeBar.Action)
                 AddPart(upgradeBar.SelectedPart);
+        }
+
+        private bool RotatePart(ShipItem current)
+        {
+            for (int i = 1; i < 4; i++)
+            {
+                int newPos = (current.LinkPosition +i) %4;
+                //if (newPos % 2 == 0)
+                //    newPos = (newPos + 2) % 4;
+                Vector2 v = LinkPosition(newPos, new Vector2(current.BoundBox.Left, current.BoundBox.Top));// + new Vector2(ClickableItem.Width/2, ClickableItem.Height / 2); //"center" of box   VECTOR2 IS RIGHT/WRONG?
+                ShipItem s = HullPresent(v);
+                if (s != null)//&& current.id !=IDs.EMPTYPART) ///current?
+                {
+                    ((RectangularHull)s.Part).AddPart(current.Part, (newPos + 2)%4 );
+                    current.Hull = (RectangularHull)s.Part;
+                    current.LinkPosition = newPos;
+                    current.UpdateRotation();                      
+                    return true;
+                }
+            }
+            return false;
+        }
+        private ShipItem HullPresent(Vector2 v)
+        {
+
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            {
+                if (item.Value.BoundBox.Contains(v) && item.Value.id == IDs.RECTHULLPART)
+                {
+                    return item.Value;
+                }
+            }
+            return null;
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -240,17 +294,6 @@ namespace SummerProject.framework
                 item.Value.Draw(spriteBatch, gameTime);
             }
         }
-            //for (int i = 0; i < shipItems.Count; i++)
-            //{
-
-            //    if (i == activeSelection)
-            //        shipItems[i].Active = true;
-            //    else
-            //        shipItems[i].Active = false;
-
-            //    shipItems[i].Draw(spriteBatch, gameTime);
-            //}
-
         
 
         private void Buy(int price)
@@ -263,3 +306,80 @@ namespace SummerProject.framework
         }
     }
 }
+
+//crap for
+//private void FixDependencies(ShipItem pressedItem)
+//{
+//    List<ShipItem> dependables = new List<ShipItem>();
+//    GetDependencies(pressedItem, dependables);
+//    //
+//    int size = dependables.Count;
+//    while (dependables.Count != 0)
+//    {
+//        TryFindNewPart(pressedItem, dependables);
+//        if (size == dependables.Count)
+//            break;
+//        size = dependables.Count;
+//    }
+
+
+//}
+
+//private void TryFindNewPart(ShipItem pressedItem, List<ShipItem> dependables)
+//{
+//    List<ShipItem> savedItems = new List<ShipItem>();
+//    foreach (ShipItem s in dependables)
+//    {
+//        ShipItem adjacent = AdjacentToHull(s, pressedItem); //works, but also empty boxes     DO NOT TRUST
+//        if (adjacent != null)
+//        {
+//            GetDependencies(adjacent, savedItems); 
+//            break;
+//        }
+//    }
+
+//    foreach(ShipItem item in savedItems)
+//    {
+//        dependables.Remove(item);
+//    }
+//}
+
+//private ShipItem AdjacentToHull(ShipItem current, ShipItem hull)
+//{
+//    for (int i = 0; i < 4; i++)
+//    {
+//        Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top));// + new Vector2(ClickableItem.Width/2, ClickableItem.Height / 2); //"center" of box   VECTOR2 IS RIGHT/WRONG?
+//        ShipItem s = HullPresent(v, hull);
+//        if (s != null)//&& current.id !=IDs.EMPTYPART) ///current?
+//        {
+//            s.Hull.AddPart(current.Part, (i + 2) % 4);
+//            current.Hull = (RectangularHull)s.Part;
+//            return s;
+//        }
+//    }
+//    return null;          
+//}
+
+//private ShipItem HullPresent(Vector2 v, ShipItem hull)
+//{
+//    foreach(KeyValuePair<int, ShipItem> item in shipItems)
+//    {
+//        if (item.Value.BoundBox.Contains(v) && item.Value != hull && item.Value.id == IDs.RECTHULLPART)
+//        {
+//            return item.Value;
+//        }
+//    }
+//    return null;
+//}
+
+//private void GetDependencies(ShipItem current, List<ShipItem> dependables)
+//{
+//    foreach (KeyValuePair<int, ShipItem> item in shipItems)
+//    {
+//        if (item.Value.Hull == current.Part && !dependables.Contains(current))
+//        {
+//            dependables.Add(item.Value);
+//            GetDependencies(item.Value, dependables);
+//        }
+//    }
+//}

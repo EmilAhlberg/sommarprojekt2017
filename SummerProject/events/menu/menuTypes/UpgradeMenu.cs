@@ -17,6 +17,8 @@ namespace SummerProject.menu
                 case 0:
                     handler.NewGameState = EventOperator.GAME_STATE;
                     break;
+                case 1: handler.upgradeView.Reset();
+                    break;
             }
             return -1;
         }
