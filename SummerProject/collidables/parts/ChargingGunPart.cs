@@ -31,6 +31,7 @@ namespace SummerProject.collidables.parts
                 bullet = (ChargingBullet) projectiles.GetEntity((int) IDs.CHARGINGBULLET);
                 charging = true;
             }
+            Particles.GenerateParticles(Position, 3, angle, new Color(1, 0.15f + 0.85f * (1 - chargeTimer.currentTime / chargeTimer.maxTime), (1 - chargeTimer.currentTime / chargeTimer.maxTime), 0.5f + 0.5f*(1 - chargeTimer.currentTime / chargeTimer.maxTime)));
         }
 
         public override void Update(GameTime gameTime)
@@ -60,6 +61,7 @@ namespace SummerProject.collidables.parts
             bullet.BoundBox = new RotRectangle(new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, (int)(bullet.BoundBox.Width * scaleModifier), (int)(bullet.BoundBox.Height * scaleModifier)), bullet.Angle);
             bullet.Sprite.Scale *= scaleModifier;
             bullet.Damage *= damageModifier;
+            bullet.AddSpeed(3 * (maxScale*2+1 - scaleModifier*2), Angle); //!
         }
 
         public void ResetForNextShot()
