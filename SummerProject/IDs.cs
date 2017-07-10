@@ -53,7 +53,8 @@ namespace SummerProject
         MINEGUNPART,
         CHARGINGGUNPART,
         EMPTYPART,
-        UPGRADEBAR
+        UPGRADEBAR,
+        MENUSCREENBKG
         #endregion
     }
 }
