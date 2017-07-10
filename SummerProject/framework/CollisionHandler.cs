@@ -34,7 +34,7 @@ namespace SummerProject
                                 foreach (Part p1 in pc1.Parts)
                                     foreach (Part p2 in pc2.Parts)
                                     {
-                                        if (p1.BoundBox.Intersects(p2.BoundBox))
+                                        if (p1.CollidesWith(p2))
                                         {
                                             HandleCollision(c1, c2);
                                         }
@@ -45,7 +45,7 @@ namespace SummerProject
                                 PartController pc1 = c1 as PartController;
                                 foreach (Part p1 in pc1.Parts)
                                 {
-                                    if (p1.BoundBox.Intersects(c2.BoundBox))
+                                    if (p1.CollidesWith(c2))
                                     {
                                         HandleCollision(c1, c2);
                                     }
@@ -63,14 +63,14 @@ namespace SummerProject
                                             HandleCollision(targeting.Detector, e2);
                                     }
                                     else
-                                        if (c1.BoundBox.Intersects(p2.BoundBox))
+                                        if (c1.CollidesWith(p2))
                                     {
                                         HandleCollision(c1, c2);
                                     }
                                 }
                             }
                             else
-                                if (c1.BoundBox.Intersects(c2.BoundBox))
+                                if (c1.CollidesWith(c2))
                             {
                                 HandleCollision(c1, c2);
                             }
