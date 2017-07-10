@@ -16,10 +16,10 @@ namespace SummerProject.factories
             switch (type)
             {
                 case (int)IDs.ENEMYSHOOT: e = new StandardEnemy(FarAway(), player); e.AddPart(new SprayGunPart(),1); e.AddPart(new EnginePart(), 3); return e;
-                case (int)IDs.ENEMYSPEED: e = new StandardEnemy(FarAway(), player); /*e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 2);*/ e.AddPart(new EnginePart(), 3); return e;
+                case (int)IDs.ENEMYSPEED: e = new StandardEnemy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }
-            return new StandardEnemy(FarAway(),  player);
+            e = new StandardEnemy(FarAway(),  player);e.AddPart(new EnginePart(), 3); return e;
         }
 
         public static IActivatable CreateEntity(Sprite sprite, int type)
