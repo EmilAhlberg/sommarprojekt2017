@@ -11,7 +11,7 @@ namespace SummerProject.events.buildmenu
 {
     public abstract class ClickableItem : Drawable
     {
-        protected Color markedColor = Color.DarkGray;
+        protected Color markedColor = Color.IndianRed;
         protected Color defaultColor = Color.White;
         public const int SCALEFACTOR = 4;
         public IDs id;
