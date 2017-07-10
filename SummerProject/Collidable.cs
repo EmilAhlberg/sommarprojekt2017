@@ -36,7 +36,6 @@ namespace SummerProject
             {
                 base.Position = value;
                 BoundBox.Position = value;
-                BoundBox.Angle = angle;
                 BoundCircle.Position = value;
             }
             get { return base.Position; }
@@ -59,16 +58,16 @@ namespace SummerProject
                 BoundBox.Origin = value; //FIX
                 Sprite.Origin = value;
             }
-            get{ return Sprite.Origin; }
+            get { return Sprite.Origin; }
         }
 
         public override void Move()
         {
             base.Move();
 
-                BoundBox.Position = Position;
+            BoundBox.Position = Position;
             BoundCircle.Position = Position;
-                BoundBox.Angle = angle;
+            Angle = angle;
         }
 
         public virtual bool CollidesWith(Collidable c2)
