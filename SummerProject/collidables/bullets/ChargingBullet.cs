@@ -31,7 +31,6 @@ namespace SummerProject.collidables.bullets
             float dY = -target.Y;
             base.CalculateAngle(dX, dY);
             Stop();
-            AddSpeed(3*(10-Sprite.Scale.Length()), Angle); //!
             ResetSpawnTime();
         }
     }
