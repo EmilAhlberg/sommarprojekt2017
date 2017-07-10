@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SummerProject.util;
 using System;
 using System.Collections.Generic;
 
@@ -8,20 +9,25 @@ namespace SummerProject
     {
         public Vector2 PrevPos { get; set; }
         public RotRectangle BoundBox { get; set; }
+        public Circle BoundCircle { get; set; }
         public bool IsStatic { get; set; }
         public Collidable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height), angle);
-            BoundBox.Origin = Sprite.Origin;
+            InitBoundBoxes(position);
         }
 
-
+        private void InitBoundBoxes(Vector2 position)
+        {
+            Rectangle rect = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height);
+            BoundBox = new RotRectangle(rect, angle);
+            BoundCircle = new Circle(rect.Width / 2 + rect.Height / 2); // approx size, can optimize with a get corner from rotrect
+            BoundBox.Origin = Sprite.Origin;
+        }
 
         public override void ChangeSprite(ISprite sprite)
         {
             base.ChangeSprite(sprite);
-            BoundBox = new RotRectangle(new Rectangle((int)Math.Round(Position.X), (int)Math.Round(Position.Y), Sprite.SpriteRect.Width, Sprite.SpriteRect.Height), angle);
-            BoundBox.Origin = Sprite.Origin;
+            InitBoundBoxes(Position);
         }
 
         public override Vector2 Position
@@ -30,7 +36,7 @@ namespace SummerProject
             {
                 base.Position = value;
                 BoundBox.Position = value;
-                BoundBox.Angle = angle;
+                BoundCircle.Position = value;
             }
             get { return base.Position; }
         }
@@ -52,20 +58,24 @@ namespace SummerProject
                 BoundBox.Origin = value; //FIX
                 Sprite.Origin = value;
             }
-            get{ return Sprite.Origin; }
+            get { return Sprite.Origin; }
         }
 
         public override void Move()
         {
             base.Move();
 
-                BoundBox.Position = Position;
-                BoundBox.Angle = angle;
+            BoundBox.Position = Position;
+            BoundCircle.Position = Position;
+            Angle = angle;
         }
 
         public virtual bool CollidesWith(Collidable c2)
         {
-            return BoundBox.Intersects(c2.BoundBox);
+            if (BoundCircle.Intersects(c2.BoundCircle))
+                return BoundBox.Intersects(c2.BoundBox);
+            else
+                return false;
         }
 
         public virtual void Collision(Collidable c2)

@@ -22,12 +22,13 @@ namespace SummerProject.events.buildmenu
         public bool Active { get; internal set; }
         public bool Action { get; internal set; }
         public Part SelectedPart { get; internal set; }
-        private Rectangle background;
         private int nbrOfItems = 5;
         private int itemOffset = (int)ClickableItem.Width;
         private Texture2D backgroundText;
-        private Sprite bkgSprite;
+        private Sprite upgradeBarBkg;
         private Sprite outlineBkg;
+        private Sprite screenBkg;
+        private bool screenBkgMoved;
 
         public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
         {
@@ -35,23 +36,32 @@ namespace SummerProject.events.buildmenu
             this.font = font;
             this.backgroundText = backgroundText;
             this.spentResource = 0;
-            bkgSprite = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+            InitBackgrounds();
+        }
+
+        private void InitBackgrounds()
+        {
+            upgradeBarBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
+            screenBkg = SpriteHandler.GetSprite((int)IDs.MENUSCREENBKG);
             outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
             outlineBkg.MColor = Color.DarkGray;
             outlineBkg.Position = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), 0);
             int yScaleFactorForBkg = WindowSize.Height / 3;                     // original sprite is 1x3
             outlineBkg.Scale = new Vector2(4, yScaleFactorForBkg);
-            bkgSprite.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), yScaleFactorForBkg); 
-            bkgSprite.LayerDepth = 0; // background should be in background
+            screenBkg.Scale = new Vector2(WindowSize.Width, WindowSize.Height);
+            upgradeBarBkg.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), yScaleFactorForBkg);
+            upgradeBarBkg.LayerDepth = 1; // background should be in background
+            screenBkg.LayerDepth = 0;
         }
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            screenBkg.Draw(spriteBatch, gameTime);
             if (Active)
             {
-         //menubar     
-              //  Texture2D outlineBkg = new Texture2D()     
-                bkgSprite.Draw(spriteBatch,gameTime);
+                //menubar     
+                //  Texture2D outlineBkg = new Texture2D()     
+                upgradeBarBkg.Draw(spriteBatch, gameTime);
                 outlineBkg.Draw(spriteBatch, gameTime);
                 //currency           
                 string word = "Currency: " + resource;
@@ -65,7 +75,6 @@ namespace SummerProject.events.buildmenu
                     itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
             }
-          
         }
 
         internal void Update(GameTime gameTime)
@@ -90,12 +99,12 @@ namespace SummerProject.events.buildmenu
         }
         internal void CreateItemBoxes()
         {
-            itemBoxes = new List<UpgradeBarItem>();          
-            int boxHeight = (WindowSize.Height - itemOffset) / nbrOfItems ; 
+            itemBoxes = new List<UpgradeBarItem>();
+            int boxHeight = (WindowSize.Height - itemOffset) / nbrOfItems;
             Vector2 tempVect = new Vector2(itemOffset, itemOffset);
             for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
-                UpgradeBarItem si = new UpgradeBarItem (tempVect + new Vector2((i/nbrOfItems) * itemOffset, i * boxHeight - i/nbrOfItems * (WindowSize.Height- itemOffset)), upgradePartsIDs[i]);
+                UpgradeBarItem si = new UpgradeBarItem(tempVect + new Vector2((i / nbrOfItems) * itemOffset, i * boxHeight - i / nbrOfItems * (WindowSize.Height - itemOffset)), upgradePartsIDs[i]);
                 itemBoxes.Insert(i, si);
             }
         }

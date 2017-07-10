@@ -11,7 +11,7 @@ namespace SummerProject
 {
     public abstract class Part : ActivatableEntity
     {
-        public IPartCarrier Carrier { set; get; }
+        public IPartCarrier Carrier { get; set; }
         public Vector2 AbsolutePosition { get { return BoundBox.AbsolutePosition; } }
         public new float Mass { set { base.Mass = value; } get { return base.Mass; } }
         public virtual Color Color { set { Sprite.MColor = value; } get { return Sprite.MColor; } }
@@ -20,6 +20,7 @@ namespace SummerProject
 
         public Part(IDs id = IDs.DEFAULT) : base(Vector2.Zero, id)
         {
+            IsActive = true;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
         }
 
@@ -36,6 +37,13 @@ namespace SummerProject
         }
 
         public abstract void TakeAction();
+        
+        public IPartCarrier GetController()
+        {
+            if (Carrier is Part)
+                return ((Part)Carrier).GetController();
+            return Carrier;
+        }
 
         public override void Death()
         {
