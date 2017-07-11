@@ -169,7 +169,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
             SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
             SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
-            SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 12);
+            SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             #endregion
 

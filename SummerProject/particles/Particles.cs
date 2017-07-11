@@ -116,7 +116,7 @@ namespace SummerProject
                 #region Money Drop 5
                 case 5:
                     {
-                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Green, 0, 0.5f, ttl, IDs.MONEY);
+                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.LightCyan, 0, 0.5f, ttl, IDs.MONEY);
                         break;
                     }
                 #endregion

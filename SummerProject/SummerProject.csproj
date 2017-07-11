@@ -59,15 +59,15 @@
   <ItemGroup>
     <Compile Include="collidables\bullets\ChargingBullet.cs" />
     <Compile Include="collidables\enemies\Attacker.cs" />
-    <Compile Include="collidables\MoneyDrop.cs" />
+    <Compile Include="collidables\drops\MoneyDrop.cs" />
     <Compile Include="collidables\enemies\RandomEnemy.cs" />
-    <Compile Include="collidables\parts\ChargingGunPart.cs" />
+    <Compile Include="collidables\parts\guns\ChargingGunPart.cs" />
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
-    <Compile Include="collidables\HomingBullet.cs" />
+    <Compile Include="collidables\bullets\HomingBullet.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
-    <Compile Include="collidables\parts\MineGunPart.cs" />
-    <Compile Include="collidables\parts\SprayGunPart.cs" />
+    <Compile Include="collidables\parts\guns\MineGunPart.cs" />
+    <Compile Include="collidables\parts\guns\SprayGunPart.cs" />
     <Compile Include="collidables\bullets\SprayBullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="events\buildmenu\ClickableItem.cs" />
@@ -83,9 +83,8 @@
     <Compile Include="progress\Trait.cs" />
     <Compile Include="progress\Traits.cs" />
     <Compile Include="collidables\enemies\Asteroid.cs" />
-	<Compile Include="collidables\enemies\Shooter.cs" />
+    <Compile Include="collidables\enemies\Shooter.cs" />
     <Compile Include="collidables\enemies\Speedy.cs" />
-
     <Compile Include="collidables\enemies\StandardEnemy.cs" />
     <Compile Include="collidables\drops\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
@@ -96,7 +95,7 @@
     <Compile Include="collidables\bullets\Bullet.cs" />
     <Compile Include="collidables\drops\Drop.cs" />
     <Compile Include="collidables\parts\EnginePart.cs" />
-    <Compile Include="collidables\parts\GunPart.cs" />
+    <Compile Include="collidables\parts\guns\GunPart.cs" />
     <Compile Include="collidables\parts\IPartCarrier.cs" />
     <Compile Include="collidables\Projectile.cs" />
     <Compile Include="collidables\parts\CompositePart.cs" />

@@ -199,7 +199,7 @@ namespace SummerProject.framework
                     if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part)  // && current.Hull != s.Part)//&& current.id !=IDs.EMPTYPART) ///current?
                     {
                         //dependables[i] not removable    //newHull is a hull not contained in dependables, removable is "current"    
-                        dependables[j].LinkPosition = i; //!!!!!!!!!!!!!!!!!!                   
+                        //dependables[j].LinkPosition = (i + 2) % 4; //!!!!!!!!!!!!!!!!!!                   
                         return ReverseDependency(newHull, dependables[j], dependables); ; // stop method functionality
                     }
                 }
@@ -216,7 +216,7 @@ namespace SummerProject.framework
                 //((RectangularHull)((RectangularHull)removable.Part).Carrier).RemovePart(removable.Part); // remove removable.part from old carrier      OKLART!
                 //((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
                 
-                //removable.LinkPosition = removable.LinkPosition; //?
+                //removable.LinkPosition = (removable.LinkPosition + 2) % 4; //? !!!!!!!!!!!!!
 
                 //probably all  done, --> reset
                 newHull = removable;
@@ -242,8 +242,7 @@ namespace SummerProject.framework
                         ((RectangularHull)dependable.Part).RemovePart(newHull.Part); ////! RIGHT?
                         return dependable;                      
                     }
-                }
-                return null;
+                }               
             }
             
 
@@ -321,7 +320,7 @@ namespace SummerProject.framework
             hull.AddPart(removable.Part, (linkPosition + 2) % 4); //!         //add part to new hull in part structure                   
             removable.Hull = hull;                      //set hull to new hull
             ((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
-            removable.LinkPosition = linkPosition; //?
+            removable.LinkPosition = (linkPosition + 2 % 4); //?
         }
 
         private void RemoveSetup(ShipItem pressedItem, List<ShipItem> removable)
