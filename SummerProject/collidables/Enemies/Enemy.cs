@@ -74,24 +74,20 @@ namespace SummerProject
 
         protected override void HandleCollision(ICollidable c2)
         {
-            if (c2 is Projectile)
-            {
-                Projectile b = c2 as Projectile;
-                if (b.IsActive && !b.IsEvil)
-                {
-                    Health -= b.Damage;
-                    AddForce(b.Velocity); //! remove lator
-                    Traits.SHOTSHIT.Counter++;
-                }
-            }
             if (c2 is Player)
+            {
+                (c2 as Player).Health -= Damage;
                 Death();
+            }
+            //if (Health <= 0) //REPLACE THIS WITH GOOD COLISSIONHANDLING
+            //    Death();
         }
 
 
         public override void Death()
         {
             DropSpawnPoints.DeathAt(Position);
+            ScoreHandler.AddScore((int)WorthScore);
             base.Death();
         }
     }

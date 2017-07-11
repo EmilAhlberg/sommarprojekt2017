@@ -87,14 +87,14 @@
     <Compile Include="collidables\enemies\Speedy.cs" />
 
     <Compile Include="collidables\enemies\StandardEnemy.cs" />
-    <Compile Include="collidables\EnergyDrop.cs" />
+    <Compile Include="collidables\drops\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
     <Compile Include="collidables\EntityConstants.cs" />
-    <Compile Include="collidables\ExplosionDrop.cs" />
-    <Compile Include="collidables\HealthDrop.cs" />
+    <Compile Include="collidables\drops\ExplosionDrop.cs" />
+    <Compile Include="collidables\drops\HealthDrop.cs" />
     <Compile Include="collidables\ActivatableEntity.cs" />
     <Compile Include="collidables\bullets\Bullet.cs" />
-    <Compile Include="collidables\Drop.cs" />
+    <Compile Include="collidables\drops\Drop.cs" />
     <Compile Include="collidables\parts\EnginePart.cs" />
     <Compile Include="collidables\parts\GunPart.cs" />
     <Compile Include="collidables\parts\IPartCarrier.cs" />

@@ -48,7 +48,6 @@ namespace SummerProject
 
         #region Parts
         DEFAULT_PART,
-        PART,
         RECTHULLPART,
         GUNPART,
         ENGINEPART,
@@ -58,6 +57,7 @@ namespace SummerProject
         EMPTYPART,
         #endregion
 
+        PART,
         UPGRADEBAR,
         MENUSCREENBKG,
 
