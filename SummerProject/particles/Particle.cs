@@ -10,6 +10,7 @@ namespace SummerProject
         float TTL;
         IDs id;
         Vector2 baseScale;
+        Color baseColor;
         public bool IsActive { get; set; }
         private float angularVelocity;
 
@@ -20,6 +21,7 @@ namespace SummerProject
             AddForce(initialForce);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
+            baseColor = color;
             this.Sprite.MColor = color;
             baseScale = scale;
             this.Sprite.Scale = baseScale;
@@ -32,14 +34,15 @@ namespace SummerProject
                 currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
-        public Particle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id = IDs.DEFAULT) : base(position, id)
+        public Particle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            Sprite = new Sprite((Sprite)sprite);
+            Sprite = new Sprite(sprite);
             Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2); //! hmmm
             Position = position;
             AddForce(initialForce);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
+            baseColor = color;
             this.Sprite.MColor = color;
             baseScale = scale;
             this.Sprite.Scale = baseScale;
@@ -52,9 +55,9 @@ namespace SummerProject
                 currentTTL.AddTime(-currentTTL.currentTime / 2);
         }
 
-        public void RenewParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id)
+        public void RenewParticle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs id)
         {
-            Sprite = new Sprite((Sprite)sprite);
+            Sprite = new Sprite(sprite);
             if (Sprite is Sprite)
                 Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2); //! If drawables constructor changes, so must this
             Stop();
@@ -63,6 +66,7 @@ namespace SummerProject
             AddForce(initialForce);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
+            baseColor = color;
             this.Sprite.MColor = color;
             baseScale = scale;
             this.Sprite.Scale = baseScale;
@@ -86,6 +90,7 @@ namespace SummerProject
             AddForce(initialForce);
             this.angle = angle;
             this.angularVelocity = angularVelocity;
+            baseColor = color;
             this.Sprite.MColor = color;
             baseScale = scale;
             this.Sprite.Scale = baseScale;
@@ -117,20 +122,20 @@ namespace SummerProject
                 case IDs.WRENCH:
                     {
                         Sprite.Scale = 4*baseScale * currentTTL.currentTime / TTL;
-                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
+                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, (float)baseColor.A / 255 * currentTTL.currentTime / TTL);
                         angle += angularVelocity;
                         break;
                     }
                 case IDs.DEATH:
                     {
-                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
+                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, (float)baseColor.A / 255 * currentTTL.currentTime / TTL);
                         angle += angularVelocity * currentTTL.currentTime / TTL;
 
                         break;
                     }
                 case IDs.AFTERIMAGE:
                     {
-                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, currentTTL.currentTime / TTL);
+                        Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, (float)baseColor.A / 255 * currentTTL.currentTime / TTL);
                         angle += angularVelocity;
                         break;
                     }

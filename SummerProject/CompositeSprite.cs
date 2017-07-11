@@ -7,7 +7,7 @@ namespace SummerProject
 {
     class CompositeSprite
     {
-        public List<ISprite> spriteList { get; }
+        public List<Sprite> spriteList { get; }
 
         public Vector2 Scale { get; set; } //!
         private float rotation;
@@ -16,7 +16,7 @@ namespace SummerProject
             get { return rotation; }
             set
             {
-                foreach (ISprite s in spriteList)
+                foreach (Sprite s in spriteList)
                 {
                     s.Rotation = value; //All sprites have the same rotation as the CompositeSprite.
                 }
@@ -29,7 +29,7 @@ namespace SummerProject
             get { return position; }
             set
             {
-                foreach (ISprite s in spriteList)
+                foreach (Sprite s in spriteList)
                 {
                     s.Position = value; //All sprites have positions relative to the CompositeSprite.
                 }
@@ -44,7 +44,7 @@ namespace SummerProject
             get { return origin; }
             set
             {
-                foreach (ISprite s in spriteList)
+                foreach (Sprite s in spriteList)
                 {
                     s.Origin = s.Origin + value; //All sprites have origins relative to the CompositeSprite.
                 }
@@ -57,7 +57,7 @@ namespace SummerProject
             get { return color; }
             set
             {
-                foreach (ISprite s in spriteList)
+                foreach (Sprite s in spriteList)
                 {
                     s.MColor = value; //All sprites have the same color as CompositeSprite.
                 }
@@ -75,7 +75,7 @@ namespace SummerProject
 
         public CompositeSprite()
         {
-            spriteList = new List<ISprite>();
+            spriteList = new List<Sprite>();
         }
 
         public void addSprite(Sprite s, Vector2 relativePos)
@@ -92,7 +92,7 @@ namespace SummerProject
 
         public void Animate(GameTime gameTime)
         {
-            foreach (ISprite s in spriteList)
+            foreach (Sprite s in spriteList)
             {
                 s.Animate(gameTime);
             }
@@ -100,7 +100,7 @@ namespace SummerProject
 
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
-            foreach (ISprite s in spriteList)
+            foreach (Sprite s in spriteList)
             {
                 s.Draw(sb, gameTime);
             }
@@ -111,12 +111,12 @@ namespace SummerProject
             return spriteList[0].Edges; //!
         }
 
-        public void Colorize(Color c)
-        {
-            foreach(ISprite s in spriteList)
-            {
-                s.Colorize(c);
-            }
-        }
+        //public void Colorize(Color c)
+        //{
+        //    foreach(Sprite s in spriteList)
+        //    {
+        //        s.Colorize(c);
+        //    }
+        //}
     }
 }

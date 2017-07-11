@@ -41,10 +41,10 @@ namespace SummerProject.collidables
             throw new NotImplementedException();
         }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
-            if (!(c2 is ExplosionDrop))
-                MoveObject(c2, this);
+            if (!(c2 is ExplosionDrop) && c2 is Collidable)
+                MoveObject(c2 as Collidable, this);
         }
 
         public override void Death()

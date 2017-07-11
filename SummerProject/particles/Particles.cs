@@ -95,6 +95,13 @@ namespace SummerProject
 
             switch (ID)
             {
+                case 3:
+                    {
+                        if (color == Color.White)
+                            color = new Color(255, 230, 100);
+                        CreateImplosion(1, position, 0, 30, (float)Math.PI*(3- 2.236f), color.Value, 0.5f, 0.5f, ttl);
+                        break;
+                    }
 
                 #region Thruster Trail 4
                 case 4:
@@ -170,13 +177,13 @@ namespace SummerProject
             }
         }
 
-        public static void GenerateAfterImageParticles(ISprite sprite, Vector2 position, int ID, float angle, Vector2 scale)
+        public static void GenerateAfterImageParticles(Sprite sprite, Vector2 position, int ID, float angle, Vector2 scale)
         {
             CreateParticle(sprite, position, Vector2.Zero, angle, 0, Color.White, scale, 0.1f, IDs.AFTERIMAGE);
         }
 
 
-        public static void GenerateDeathParticles(ISprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
+        public static void GenerateDeathParticles(Sprite sprite, Vector2 position, int ID, float angle, bool showDeathParticles)
         {
             
             List<Color> colors = sprite.Colors;
@@ -240,6 +247,16 @@ namespace SummerProject
             }
         }
 
+        private static void CreateImplosion(int nbrOfParticles, Vector2 position, float spread, float baseValue, float angularVelocity, Color color, float scaleSpread, float baseScale, float ttl, IDs ID = IDs.DEFAULT_PARTICLE)
+        {
+            for (int i = 0; i < nbrOfParticles; i++)
+            {
+                Vector2 initialPosition = RandomVector2(spread, baseValue);
+                
+                CreateTrail((float)Math.Atan2(initialPosition.Y, initialPosition.X), position + initialPosition, spread, baseValue, angularVelocity, color, scaleSpread, baseScale, ttl, ID);
+            }
+        }
+
         private static Vector2 RandomVector2(float spread, float baseValue)
         {
             Vector2 v = new Vector2(2 * SRandom.NextFloat() - 1, 2 * SRandom.NextFloat() - 1);
@@ -251,8 +268,9 @@ namespace SummerProject
         private static void CreateParticle(Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs ID = IDs.DEFAULT_PARTICLE)
         {
             bool renewed = false;
-            foreach (Particle p in particles)
+            for (int i = 0; i < particles.Count; i++)
             {
+                Particle p = particles[i];
                 if (!p.IsActive)
                 {
                     p.RenewParticle(position, initialForce, angle, angularVelocity, color, scale, TTL, ID);
@@ -265,7 +283,7 @@ namespace SummerProject
                 particles.Add(new Particle( position, initialForce, angle, angularVelocity, color, scale, TTL, ID));
             }
         }
-        private static void CreateParticle(ISprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs ID = IDs.DEFAULT_PARTICLE)
+        private static void CreateParticle(Sprite sprite, Vector2 position, Vector2 initialForce, float angle, float angularVelocity, Color color, Vector2 scale, float TTL, IDs ID = IDs.DEFAULT_PARTICLE)
         {
             bool renewed = false;
             foreach (Particle p in particles)

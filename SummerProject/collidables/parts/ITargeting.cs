@@ -10,6 +10,6 @@ namespace SummerProject.collidables.parts
     interface ITargeting
     {
         DetectorPart Detector { get; }
-        void UpdateTarget(Entity target);
+        //void UpdateTarget(Entity target);
     }
 }

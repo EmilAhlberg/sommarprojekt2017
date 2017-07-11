@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SummerProject
 {
-    public abstract class Collidable : Movable
+    public abstract class Collidable : Movable, ICollidable
     {
         public Vector2 PrevPos { get; set; }
         public RotRectangle BoundBox { get; set; }
@@ -24,7 +24,7 @@ namespace SummerProject
             BoundBox.Origin = Sprite.Origin;
         }
 
-        public override void ChangeSprite(ISprite sprite)
+        public override void ChangeSprite(Sprite sprite)
         {
             base.ChangeSprite(sprite);
             InitBoundBoxes(Position);
@@ -70,15 +70,19 @@ namespace SummerProject
             Angle = angle;
         }
 
-        public virtual bool CollidesWith(Collidable c2)
+        public virtual bool CollidesWith(ICollidable c2)
         {
-            if (BoundCircle.Intersects(c2.BoundCircle))
-                return BoundBox.Intersects(c2.BoundBox);
-            else
-                return false;
+            if (c2 is PartController)
+                c2 = (c2 as PartController).Hull;
+            if (c2 is Collidable)
+            {
+                if (BoundCircle.Intersects((c2 as Collidable).BoundCircle))
+                    return BoundBox.Intersects((c2 as Collidable).BoundBox);
+            }
+            return false;
         }
 
-        public virtual void Collision(Collidable c2)
+        public virtual void Collision(ICollidable c2)
         {
             ////VILKEN SIDA BESKÄRS AV AVSTÅNDET MELLAN POSITIONERNA?
             //Vector2 axis1 = c2.BoundBox.AbsolutePosition - BoundBox.AbsolutePosition;

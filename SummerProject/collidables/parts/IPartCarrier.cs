@@ -11,7 +11,7 @@ namespace SummerProject.collidables.parts
     {
         void Update(GameTime gameTime);
         List<Part> Parts { get; }
-        void Collision(Collidable c2);
-        bool AddPart(Part part, int pos);     
+        bool AddPart(Part part, int pos);
+        void Collision(ICollidable c2);
     }
 }

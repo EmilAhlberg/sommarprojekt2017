@@ -26,5 +26,22 @@ namespace SummerProject
             tempAngle += (float)Math.PI/2;
             parts[3] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
         }
+        public void ResetLinks()
+        {
+            AddLinkPositions();
+            TakenPositions = new bool[4];
+        }
+
+        internal void RemovePart(Part part)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                if (parts[i].Part == part)
+                {
+                    float tempAngle = -(float)Math.PI / 2 + i*(float)Math.PI/2;
+                    parts[i] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
+                }
+            }
+        }
     }
 }

@@ -15,7 +15,22 @@ namespace SummerProject
         protected Link[] parts;
         public bool[] TakenPositions = new bool[4]; //! fix
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
-        public new float friction { set { base.friction = value; } get { return base.friction; } }
+        public override float friction
+        {
+            set
+            {
+                base.friction = value;
+            }
+            get
+            {
+                float f = base.friction;
+                foreach (Link p in parts)
+                    if (p.Part != null)
+                        f += p.Part.friction;
+                return f;
+            }
+        }
+
         public override Color Color
         {
             set
@@ -30,14 +45,15 @@ namespace SummerProject
                 return base.Color;
             }
         }
-        public new float Mass
+        public override float Mass
         {
             set { base.Mass = value; }
             get
             {
                 float m = base.Mass;
                 foreach (Link p in parts)
-                    m += p.Part.Mass;
+                    if (p.Part != null)
+                        m += p.Part.Mass;
                 return m;
             }
         }
@@ -80,6 +96,7 @@ namespace SummerProject
         {
             AddLinkPositions();
         }
+ 
 
         public bool AddPart(Part part, int pos)
         {
@@ -89,9 +106,12 @@ namespace SummerProject
                 part.Carrier = this;
                 //
                 //
-                if (TakenPositions[pos] == true)                 
+                if (TakenPositions[pos] == true)
+                {
+
                     Parts.Remove(parts[pos].Part);//removes old part from parts
-                
+                }
+
                 TakenPositions[pos] = true;
                 if (part is CompositePart)
                 {

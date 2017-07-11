@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace SummerProject
 {
-    public class Sprite : ISprite
+    public class Sprite
     {
-        static Texture2D baseTexture;
-        Texture2D texture;
+        static Texture2DPlus baseTexture;
+        Texture2DPlus texture;
         public Rectangle SpriteRect { get; set; }
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
@@ -20,100 +20,57 @@ namespace SummerProject
         public SpriteEffects SpriteFX { get; set; }
         public float LayerDepth { get; set; }
         public Color MColor { get; set; }
-        private List<Vector2> edges;
         public List<Vector2> Edges
         {
             get
             {
-                return edges ?? CalculateEdges();
+                return texture.Edges;
             }
         }
-        private List<Sprite> splitSprites;
         public List<Sprite> SplitSprites
         {
             get
             {
-                return splitSprites ?? CalculateSplitSprites();
+                return texture.SplitTextures.ConvertAll(t => new Sprite(new Texture2DPlus(t)));
             }
         }
 
-        private List<Sprite> CalculateSplitSprites()
-        {
-            List<Sprite> spriteList = new List<Sprite>();
-            foreach (Texture2D t in texture.GetSplitTexture(subimages))
-            {
-                spriteList.Add(new Sprite(t));
-            }
-            return spriteList;
-        }
 
-        private Color? primaryColor;
         public Color PrimaryColor
         {
             get
             {
                 if (MColor == Color.White)
-                    return primaryColor ?? CalcPrimaryColor();
+                    return texture.PrimaryColor;
                 return MColor;
             }
         }
 
-        private Color CalcPrimaryColor()
-        {
-            Color[] colors1D = new Color[texture.Width * texture.Height];
-            texture.GetData(colors1D);
-            Dictionary<Color, int> colorDic = new Dictionary<Color, int>();
-            foreach(Color c in colors1D)
-            {
-                if(c.A != 0 && !c.Equals(new Color(32, 32, 32)))
-                {
-                    if(!colorDic.Keys.Contains(c))
-                        colorDic.Add(c, 0);
-                    colorDic[c]++;
-                }
-            }
-            Color returnColor = colorDic.Keys.First();
-            foreach (Color c in colorDic.Keys)
-            {
-                if (colorDic[c] > colorDic[returnColor])
-                    returnColor = c;
-            }
-            primaryColor = returnColor;
-            return returnColor;
-        }
 
-        private List<Color> colors;
         public List<Color> Colors
         {
             get
             {
-                    return colors ?? CalcColors();
+                    return texture.Colors;
             }
         }
 
-        private List<Color> CalcColors()
-        {
-            Color[] colors1D = new Color[texture.Width * texture.Height];
-            texture.GetData(colors1D);
-            return colors1D.Where(c => c.A != 0 && !c.Equals(new Color(32, 32, 32))).ToList();
-           
-        }
 
 
         private int subimages;
         private float currentFrame;
         private int fps;
 
-        public Sprite(Sprite sprite) : this(sprite.texture, sprite.subimages, sprite.fps)
+        public Sprite(Sprite sprite) : this(sprite.texture, sprite.fps)
         {
         }
 
-        public Sprite(Texture2D texture, int subimages = 1, int fps = 4)
+        public Sprite(Texture2DPlus texture, int fps = 4)
         {
             this.texture = texture;
-            this.subimages = subimages;
+            this.subimages = texture.Subimages;
             this.fps = fps;
-            SpriteRect = new Rectangle(0, 0, texture.Width / subimages, texture.Height);
+            SpriteRect = new Rectangle(0, 0, texture.Texture.Width / subimages, texture.Texture.Height);
             Rotation = 0;
             Scale = new Vector2(1,1);
             MColor = Color.White;
@@ -121,17 +78,17 @@ namespace SummerProject
             LayerDepth = 0;
         }
 
-        public Sprite GetRotatedSprite(float rads)
-        {
-            return new Sprite(texture.GetRotatedTexture(rads));
-        }
+        //public Sprite GetRotatedSprite(float rads)
+        //{
+        //    return new Sprite(texture.GetRotatedTexture(rads));
+        //}
 
-        public Sprite() : this(baseTexture, 1, 1)
+        public Sprite() : this(baseTexture, 1)
         {
             Origin = new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); //! HMM
         }
 
-        public static void addBaseTexture(Texture2D t)
+        public static void addBaseTexture(Texture2DPlus t)
         {
             baseTexture = t;
         }
@@ -139,7 +96,7 @@ namespace SummerProject
         public void Draw(SpriteBatch sb, GameTime gameTime)
         {
             Animate(gameTime);
-            sb.Draw(texture, Position, SpriteRect, MColor, Rotation, Origin, Scale, SpriteFX, LayerDepth);
+            sb.Draw(texture.Texture, Position, SpriteRect, MColor, Rotation, Origin, Scale, SpriteFX, LayerDepth);
         }
 
         public void Animate(GameTime gameTime)
@@ -157,65 +114,22 @@ namespace SummerProject
         /// </summary>
         /// <param name="c"></param>
 
-        public void Colorize(Color c)
-        {
-            Color[] cArray = new Color[texture.Width * texture.Height];
-            texture.GetData(cArray);
-            for (int i = 0; i < cArray.Length; i++)
-            {
-                Color currentColor = cArray[i];
-                if (currentColor.R == currentColor.G && currentColor.G == currentColor.B && currentColor.A != 0)
-                    cArray[i] = new Color(currentColor.R * c.R / 255, currentColor.G * c.G / 255, currentColor.B * c.B / 255, currentColor.A * c.A / 255);
-            }
-            texture.SetData(cArray);
-        }
+        //public void Colorize(Color c)
+        //{
+        //    Color[] cArray = new Color[texture.Width * texture.Height];
+        //    texture.GetData(cArray);
+        //    for (int i = 0; i < cArray.Length; i++)
+        //    {
+        //        Color currentColor = cArray[i];
+        //        if (currentColor.R == currentColor.G && currentColor.G == currentColor.B && currentColor.A != 0)
+        //            cArray[i] = new Color(currentColor.R * c.R / 255, currentColor.G * c.G / 255, currentColor.B * c.B / 255, currentColor.A * c.A / 255);
+        //    }
+        //    texture.SetData(cArray);
+        //}
 
-        public void ColorRestore()
-        {
-        }
-
-        /// <summary>
-        /// Slow as fuck, just so that you know. Use only once per sprite, at most.
-        /// </summary>
-        /// <returns></returns>
-        private List<Vector2> CalculateEdges() 
-        {
-            Color[] colors1D = new Color[texture.Width*texture.Height];
-            texture.GetData(colors1D);
-            Color[,] colors2D = new Color[texture.Width, texture.Height];
-            for(int x = 0; x < texture.Width; x++)
-                for(int y = 0; y < texture.Height; y++)
-                {
-                    colors2D[x, y] = colors1D[x + y * texture.Width];
-                }
-            
-            List<Vector2> edgeList = new List<Vector2>();
-            for (int x = 0; x < texture.Width; x++)
-                for (int y = 0; y < texture.Height; y++)
-                {
-                    if (colors2D[x, y].A != 0)
-                    {
-                        if (x == 0 || x == texture.Width - 1 || y == 0 || y == texture.Height - 1)
-                        {
-                             edgeList.Add(new Vector2(x - Origin.X, y - Origin.Y));
-                        }
-                        else
-                            for (int i = -1; i <= 1; i++)
-                                for (int j = -1; j <= 1; j++)
-                                    if (!(i == j))
-                                    {
-                                        if (colors2D[x + i, y + j].A == 0)
-                                        {
-                                            edgeList.Add(new Vector2(x - Origin.X, y - Origin.Y));
-                                            break;
-                                        }
-                                    }
-                    }
-                }
-
-            edges = edgeList;
-            return edgeList;
-        }
+        //public void ColorRestore()
+        //{
+        //}
 
     }
 }

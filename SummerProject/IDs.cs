@@ -54,7 +54,8 @@ namespace SummerProject
         CHARGINGGUNPART,
         EMPTYPART,
         UPGRADEBAR,
-        MENUSCREENBKG
+        MENUSCREENBKG,
+        PART
         #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace SummerProject.collidables
             else
                 Heal = 1;
         }
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
             if (c2 is Player)  
                 Death();

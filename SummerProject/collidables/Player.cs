@@ -36,8 +36,6 @@ namespace SummerProject.collidables
             maxHealth = Health;
             maxEnergy = Energy;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
-            Hull.Mass = Mass;
-            Hull.TurnSpeed = TurnSpeed;
             Position = position;
             toggleGun = true;
             toggleSprayGun = true;
@@ -50,7 +48,6 @@ namespace SummerProject.collidables
                 Hull.Color = Color.White; //Move to Respawn()
                 //if (ControlScheme != 4)
                 //    CalculateAngle();
-                Move();
                 base.Update(gameTime);
                 Fire();
                 //if (Health <= 0 && IsActive)
@@ -79,7 +76,7 @@ namespace SummerProject.collidables
                 //}
                 if (Health <= 2)
                 {
-                    Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, Angle);
+                    //Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, Angle);
                 }
                 HandleBulletToggle();
             }
@@ -182,9 +179,9 @@ namespace SummerProject.collidables
                 toggleSprayGun = !toggleSprayGun;
         }
 
-        public override void Collision(Collidable c2)
+        public override void Collision(ICollidable c2)
         {
-            base.Collision(c2);
+            //base.Collision(c2);
             if (/*!shieldOn && */c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
