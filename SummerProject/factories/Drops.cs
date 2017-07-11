@@ -46,8 +46,15 @@ namespace SummerProject.factories
                 int dropType = SRandom.Next((int)IDs.HEALTHDROP, (int)IDs.ENERGYDROP + 1);
                 if (dropType == (int)IDs.HEALTHDROP && SRandom.NextFloat() < healthSpawnChance_tier2)
                     dropType = (int)IDs.HEALTHDROP_TIER2;
-                dropType = (int)IDs.MONEYDROP;
                 ActivateEntities(v, v, dropType);                    
+            }
+        }
+
+        public void SpawnMoneyAt(Vector2[] source)
+        {
+            foreach (Vector2 v in source)
+            {              
+                ActivateEntities(v, v, (int)IDs.MONEYDROP);
             }
         }
 

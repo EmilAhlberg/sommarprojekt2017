@@ -62,8 +62,8 @@ namespace SummerProject
 
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
-            Drops.SpawnAt(dropPoints.SpawnPositions());           
-
+            Drops.SpawnAt(dropPoints.SpawnPositions());
+            Drops.SpawnMoneyAt(dropPoints.MoneySpawnPositions());
             spawnPointGen.Update(gameTime);
             if (spawnTimer.Update(gameTime))
                 SpawnWave();                

@@ -11,7 +11,7 @@ namespace SummerProject.wave
     {
         private Random SRandom = new Random();
         public static List<Vector2> points = new List<Vector2>();
-        
+        public static List<Vector2> moneyPoints = new List<Vector2>();
 
         public static void DeathAt(Vector2 source)
         {
@@ -23,9 +23,11 @@ namespace SummerProject.wave
         {
             for(int i =points.Count-1; i>=0; i--)
             {
-                if(SRandom.NextDouble() > Difficulty.DROP_RATE)
-                {
-                    points.RemoveAt(i);                    
+                if (SRandom.NextDouble() > Difficulty.DROP_RATE)
+                { 
+                    Vector2 point = points[i];
+                    points.Remove(point);
+                    moneyPoints.Add(point);
                 }
             }
 
@@ -37,6 +39,18 @@ namespace SummerProject.wave
                 }
             return vs;            
         }
+
+        public Vector2[] MoneySpawnPositions()
+        {
+            Vector2[] vs = new Vector2[moneyPoints.Count];
+            for (int i = vs.Length - 1; i >= 0; i--)
+            {
+                vs[i] = moneyPoints[i];
+                moneyPoints.RemoveAt(i);
+            }
+            return vs;
+        }
+
         public void Reset()
         {
             points = new List<Vector2>();
