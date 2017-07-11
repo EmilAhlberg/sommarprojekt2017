@@ -21,11 +21,18 @@ namespace SummerProject.collidables
             explosionTimer = new Timer(explosionTime);
             originalBoundBox = BoundBox;
         }
-        public override void Collision(ICollidable c2)
+        protected override void HandleCollision(ICollidable c2)
         {
             if (c2 is Player)
                 Explode();
+
+            if (c2 is Enemy)
+            {
+                if (exploding)
+                    (c2 as Enemy).Health -= Damage;
+            }
         }
+
         public override void Update(GameTime gameTime)
         {
             if (exploding)

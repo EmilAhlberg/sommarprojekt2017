@@ -23,7 +23,35 @@ namespace SummerProject
         protected float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }
         public float friction { set { Hull.friction = value; } get { return Hull.friction; } }
         public bool IsActive { get; set; }
-        public float Health { get; set; }
+        private const float startingEnergy = 100f;//!
+        public float maxEnergy { get; protected set; }
+        protected const float maxEnergyCap = 300; //!
+        private float energy;
+        public float Energy
+        {
+            get { return energy; }
+            set
+            {
+                if (maxEnergy < maxEnergyCap)
+                    maxEnergy += value - energy;
+                energy = maxEnergy;
+            }
+        }
+        public float maxHealth { get; protected set; }
+        protected const float maxHealthCap = 15; //!
+        private float health;
+        public float Health { get { return health; }
+            set
+            {
+                if (health == maxHealth && maxHealth < maxHealthCap)
+                    maxHealth++;
+                health += value-health;
+                if (health > maxHealthCap)
+                    health = maxHealthCap;
+                if (health > maxHealth)
+                    maxHealth = Health;
+            }
+        }
         public float Damage { get; set; }
         private IDs id;
 
@@ -38,9 +66,20 @@ namespace SummerProject
             SetStats(id);
         }
 
+        public void Collision(ICollidable c2)
+        {
+            if (IsActive)
+                HandleCollision(c2);
+        }
+
+        protected abstract void HandleCollision(ICollidable c2);
+
         public virtual void SetStats(IDs id)
         {
+            Energy = startingEnergy;
+            maxEnergy = Energy;
             Health = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
+            maxHealth = Health;
             Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);
         }
 
@@ -105,10 +144,12 @@ namespace SummerProject
             SetStats(id);
             Position = source;
             IsActive = true;
+            maxEnergy = startingEnergy;
+            maxHealth = Health;
+            Energy = maxEnergy;
             SpecificActivation(source, target);
         }
 
-        public abstract void Collision(ICollidable c2);
         protected virtual void SpecificActivation(Vector2 scource, Vector2 target) { }
     }
 }

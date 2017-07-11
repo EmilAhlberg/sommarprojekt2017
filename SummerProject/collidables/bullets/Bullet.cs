@@ -44,14 +44,14 @@ namespace SummerProject.collidables
             base.Death();
         }
 
-        public override void Collision(ICollidable c2)
+        protected override void HandleCollision(ICollidable c2)
         {
             if (c2 is Enemy && !IsEvil || c2 is Player && IsEvil || c2 is Wall)
             {
                 Particles.GenerateDeathParticles(Sprite, Position, 2, Angle, false);
-             //   Health -= 1;
-               // if (Health <= 0)
-                    Death();
+                //   Health -= 1;
+                // if (Health <= 0)
+                Death();
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.achievements;
 
 namespace SummerProject.collidables
 {
@@ -23,6 +24,13 @@ namespace SummerProject.collidables
         {
             Particles.GenerateParticles(Position, 5); //Death animation
             base.Death();
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (c2 is Player)
+                Traits.CURRENCY.Counter += value;
+            base.HandleCollision(c2);
         }
     }
 }

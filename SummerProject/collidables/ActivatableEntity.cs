@@ -15,6 +15,14 @@ namespace SummerProject.collidables
 
         protected abstract void SpecificActivation(Vector2 source, Vector2 target);
 
+        public override void Collision(ICollidable c2)
+        {
+            if (IsActive)
+                HandleCollision(c2);
+        }
+
+        protected abstract void HandleCollision(ICollidable c2);
+
         public virtual void Activate(Vector2 source, Vector2 target)
         {
             SetStats(id);

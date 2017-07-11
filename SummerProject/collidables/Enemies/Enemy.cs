@@ -10,9 +10,8 @@ using SummerProject.achievements;
 namespace SummerProject
 {
     public abstract class Enemy : PartController, IPartCarrier
-    {        
-        public float WorthScore {get; private set;}
-
+    {
+        public float WorthScore { get; private set; }
         private Player player;
         private Timer rageTimer;
 
@@ -21,8 +20,6 @@ namespace SummerProject
         {
             this.player = player;
             rageTimer = new Timer(15); //!!    
-            //Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
-            //WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY]; 
         }
 
         public override void SetStats(IDs id)
@@ -75,7 +72,7 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        public override void Collision(ICollidable c2)
+        protected override void HandleCollision(ICollidable c2)
         {
             if (c2 is Projectile)
             {
@@ -86,22 +83,14 @@ namespace SummerProject
                     AddForce(b.Velocity); //! remove lator
                     Traits.SHOTSHIT.Counter++;
                 }
-
-            }
-            if (c2 is ExplosionDrop)
-            {
-                ExplosionDrop ed = c2 as ExplosionDrop;
-                if (ed.IsActive)
-                    Health -= ed.Damage;
             }
             if (c2 is Player)
-            {  
                 Death();
-            }
         }
 
+
         public override void Death()
-        { 
+        {
             DropSpawnPoints.DeathAt(Position);
             base.Death();
         }
