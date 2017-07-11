@@ -252,6 +252,7 @@ namespace SummerProject
             achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
+            background.Update(gameTime);
         }
 
         public void UpdateGame(GameTime gameTime)
@@ -268,7 +269,6 @@ namespace SummerProject
             energyBar.Update(player.Energy, player.maxEnergy);
             Traits.TIME.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
             float temp = Traits.TIME.Counter;
-            background.Update(gameTime);
             #endregion
         }
 
