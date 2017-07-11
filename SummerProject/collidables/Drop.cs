@@ -35,5 +35,10 @@ namespace SummerProject.collidables
             ResetSpawnTime();
         }
 
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (c2 is Player)
+                Death();
+        }
     }
 }

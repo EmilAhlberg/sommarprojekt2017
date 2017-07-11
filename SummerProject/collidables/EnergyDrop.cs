@@ -13,16 +13,18 @@ namespace SummerProject.collidables
         public EnergyDrop(Vector2 position) : base(position)
         {
         }
-        public override void Collision(ICollidable c2)
-        {
-            if (c2 is Player)
-                Death();
-        }
 
         public override void Death()
         {
             Particles.GenerateParticles(Position, 12); //Death animation
             base.Death();
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (c2 is Player)
+                (c2 as Player).Energy += charge;
+            base.HandleCollision(c2);
         }
     }
 }

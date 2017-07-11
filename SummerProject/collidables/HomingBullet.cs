@@ -17,16 +17,6 @@ namespace SummerProject.collidables
             Detector = new DetectorPart(750, 750, typeof(Enemy), this);
         }
 
-
-        public override void Collision(ICollidable c2)
-        {
-            if (c2 is Enemy || c2 is Wall)
-            {
-                Particles.GenerateParticles(Position, 5, 0, Sprite.MColor);
-                Death();
-            }
-        }
-
         public override void Update(GameTime gameTime)
         {
             Detector.Update(gameTime);
@@ -56,6 +46,15 @@ namespace SummerProject.collidables
             AddSpeed(6, Angle);
             ResetSpawnTime();
             Detector.Position = Position;
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (c2 is Enemy || c2 is Wall)
+            {
+                Particles.GenerateParticles(Position, 5, 0, Sprite.MColor);
+                Death();
+            }
         }
     }
 }

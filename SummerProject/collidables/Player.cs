@@ -13,14 +13,8 @@ namespace SummerProject.collidables
     {
         //private const bool FRICTIONFREEACCELERATION = true;
         public int ControlScheme { get; set; } = 2; // 1-4      
-        public float Energy { get; set; }
         private const float shieldDischargeRate = 3f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
-        private const float startingEnergy = 100f;
-        public float maxEnergy { get; private set; }
-        public float maxHealth { get; private set; }
-        private const float maxEnergyCap = 300;
-        private const float maxHealthCap = 15;
         private const int shieldSize = 300;
         //private bool shieldOn;
         private Projectiles projectiles;
@@ -31,10 +25,7 @@ namespace SummerProject.collidables
         public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, id)
         {
             StartPosition = position;
-            Energy = startingEnergy;
             this.projectiles = projectiles;
-            maxHealth = Health;
-            maxEnergy = Energy;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
             Position = position;
             toggleGun = true;
@@ -187,24 +178,6 @@ namespace SummerProject.collidables
                 Enemy e = c2 as Enemy;
                 Health -= e.Damage;
             }
-
-                if (c2 is HealthDrop)
-                {
-                    if (Health == maxHealth && maxHealth < maxHealthCap)
-                        maxHealth++;
-                    Health += ((HealthDrop)c2).Heal;
-                    if (Health > maxHealthCap)
-                        Health = maxHealthCap;
-                    if (Health > maxHealth)
-                        maxHealth = Health;
-                }
-                if (c2 is EnergyDrop)
-                {
-                    if (maxEnergy < maxEnergyCap)
-                        maxEnergy += EnergyDrop.charge;
-                    Energy = maxEnergy;
-                }
-
                 if (/*!shieldOn && */c2 is Projectile)
                 {
                     Projectile b = c2 as Projectile;
@@ -228,9 +201,6 @@ namespace SummerProject.collidables
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
-            maxEnergy = startingEnergy;
-            maxHealth = Health;
-            Energy = maxEnergy;
             Hull.Color = Color.White;
             Hull.Angle = 0;
             Hull.Position = Position;
