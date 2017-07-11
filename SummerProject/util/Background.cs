@@ -17,7 +17,7 @@ namespace SummerProject.util
         private AnimatedBackgroundObject smallRed;
 
         private const int boundOffsetForSize = 1000;
-        private const int speedMultiplier = 20;
+        private const int speedMultiplier = 15;
 
         private Vector2 blueStartingPos = new Vector2(150, 230);
         private Vector2 blueDirection = new Vector2(-1, 0.1f);
@@ -32,7 +32,7 @@ namespace SummerProject.util
 
         private Vector2 smallRedStartingPos = new Vector2(1200, 200);
         private Vector2 smallRedDirection = new Vector2(-1, 0.05f);
-        private float smallRedSpeed = 0.01f * speedMultiplier;
+        private float smallRedSpeed = 0.003f * speedMultiplier;
         private Vector2 smallRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, WindowSize.Height / 16);
         private const int smallRedRespawnDelay = 10;
 
