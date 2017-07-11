@@ -242,8 +242,7 @@ namespace SummerProject.framework
                         ((RectangularHull)dependable.Part).RemovePart(newHull.Part); ////! RIGHT?
                         return dependable;                      
                     }
-                }
-                return null;
+                }               
             }
             
 
