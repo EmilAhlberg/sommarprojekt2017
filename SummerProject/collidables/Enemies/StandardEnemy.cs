@@ -13,16 +13,10 @@ namespace SummerProject.collidables.Enemies
         {
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void AI(GameTime gameTime)
         {
-            //Particles.GenerateParticles(Position, 4, Angle, Color.Green);
-            base.Update(gameTime);
-        }
-
-        public override void Death()
-        {
-            base.Death();
-            //Particles.GenerateParticles(Position, 2, angle, sprite.MColor); //Death animation
+            base.AI(gameTime);
+            Move();
         }
     }
 }

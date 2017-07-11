@@ -119,6 +119,7 @@ namespace SummerProject
             {
                 case IDs.DEFAULT_PARTICLE:
                 case IDs.BOLT:
+                case IDs.MONEY:
                 case IDs.WRENCH:
                     {
                         Sprite.Scale = 4*baseScale * currentTTL.currentTime / TTL;

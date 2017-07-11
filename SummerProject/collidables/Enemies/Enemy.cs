@@ -9,10 +9,9 @@ using SummerProject.achievements;
 
 namespace SummerProject
 {
-    abstract class Enemy : PartController, IPartCarrier
-    {        
-        public float WorthScore {get; private set;}
-
+    public abstract class Enemy : PartController, IPartCarrier
+    {
+        public float WorthScore { get; private set; }
         private Player player;
         private Timer rageTimer;
 
@@ -21,8 +20,6 @@ namespace SummerProject
         {
             this.player = player;
             rageTimer = new Timer(15); //!!    
-            //Damage = EntityConstants.DAMAGE[(int)IDs.DEFAULT_ENEMY];
-            //WorthScore = EntityConstants.SCORE[(int)IDs.DEFAULT_ENEMY]; 
         }
 
         public override void SetStats(IDs id)
@@ -31,19 +28,20 @@ namespace SummerProject
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
         }
 
-        public override void Update(GameTime gameTime)
+        protected virtual void AI(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
-            //Hull.TakeAction(typeof(EnginePart));
-            Move();
-            Hull.TakeAction(typeof(ChargingGunPart));
-            Hull.TakeAction(typeof(SprayGunPart));
-            Hull.TakeAction(typeof(MineGunPart));
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            AI(gameTime);
             //AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
+                ScoreHandler.AddScore((int)WorthScore);
                 Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
             }
@@ -74,36 +72,22 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        public override void Collision(ICollidable c2)
+        protected override void HandleCollision(ICollidable c2)
         {
-            if (c2 is Projectile)
-            {
-                Projectile b = c2 as Projectile;
-                if (b.IsActive && !b.IsEvil)
-                {
-                    Health -= b.Damage;
-                    AddForce(b.Velocity); //! remove lator
-                    Traits.SHOTSHIT.Counter++;
-                    ScoreHandler.AddScore((int)WorthScore);
-                }
-
-            }
-            if (c2 is ExplosionDrop)
-            {
-                ExplosionDrop ed = c2 as ExplosionDrop;
-                if (ed.IsActive)
-                    Health -= ed.Damage;
-            }
             if (c2 is Player)
-            {  
+            {
+                (c2 as Player).Health -= Damage;
                 Death();
             }
-              
+            //if (Health <= 0) //REPLACE THIS WITH GOOD COLISSIONHANDLING
+            //    Death();
         }
 
+
         public override void Death()
-        { 
+        {
             DropSpawnPoints.DeathAt(Position);
+            ScoreHandler.AddScore((int)WorthScore);
             base.Death();
         }
     }

@@ -43,5 +43,28 @@ namespace SummerProject
                 }
             }
         }
+        internal List<RectangularHull> GetHulls()
+        {
+            List<RectangularHull> hulls = new List<RectangularHull>();
+            foreach(Link l in parts)
+            {
+                if (l.Part is RectangularHull)
+                {
+                    hulls.Add((RectangularHull)l.Part);
+                }
+            }
+            return hulls;
+        }
+
+        internal int Carries(RectangularHull part)
+        {
+            int pos = -1;
+            for (int i = 0; i < 4; i ++)
+            {
+                if (parts[i].Part == part)
+                    return i;
+            }
+            return pos;
+        }
     }
 }

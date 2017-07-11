@@ -37,5 +37,10 @@ namespace SummerProject.collidables.parts
         {
             reloadTimer.CountDown(gameTime);
         }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            base.HandleCollision(c2);
+        }
     }
 }

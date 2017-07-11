@@ -285,6 +285,9 @@ namespace SummerProject
             public void UpdatePart(CompositePart hull)
             {
                 Matrix rot = Matrix.CreateRotationZ(hull.Angle);
+                Vector2 debug1 = hull.Position;
+                Vector2 debug2 = Part.Position;
+                Vector2 debug3 = Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
                 Part.Position = hull.Position + Vector2.Transform(RelativePos + posChange * linkToCenter, rot);
                 Part.Angle = hull.angle;
                 if (!(Part is RectangularHull))

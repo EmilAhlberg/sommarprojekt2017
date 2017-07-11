@@ -36,16 +36,6 @@ namespace SummerProject.collidables.parts
                 //parent.UpdateTarget(target);
         }
 
-        public override void Collision(ICollidable c2)
-        {
-   //       if (c2.GetType() == type)
-        if (c2 is Enemy)
-            {
-                //   target = (Entity)Convert.ChangeType(c2, type);
-                target = ((Enemy)c2);
-                detected = true;
-            }
-        }
         public override void Death()
         {
             detected = false;
@@ -53,6 +43,17 @@ namespace SummerProject.collidables.parts
         }
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            //       if (c2.GetType() == type)
+            if (c2 is Enemy)
+            {
+                //   target = (Entity)Convert.ChangeType(c2, type);
+                target = ((Enemy)c2);
+                detected = true;
+            }
         }
     }
 }

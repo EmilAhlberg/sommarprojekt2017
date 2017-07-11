@@ -22,6 +22,7 @@ namespace SummerProject.factories
             InitializeEntities((int)IDs.EXPLOSIONDROP);
             InitializeEntities((int)IDs.ENERGYDROP);
             InitializeEntities((int)IDs.HEALTHDROP_TIER2);
+            InitializeEntities((int)IDs.MONEYDROP);
         }
 
         //public void Spawn()
@@ -46,6 +47,14 @@ namespace SummerProject.factories
                 if (dropType == (int)IDs.HEALTHDROP && SRandom.NextFloat() < healthSpawnChance_tier2)
                     dropType = (int)IDs.HEALTHDROP_TIER2;
                 ActivateEntities(v, v, dropType);                    
+            }
+        }
+
+        public void SpawnMoneyAt(Vector2[] source)
+        {
+            foreach (Vector2 v in source)
+            {              
+                ActivateEntities(v, v, (int)IDs.MONEYDROP);
             }
         }
 

@@ -95,6 +95,7 @@ namespace SummerProject
 
             switch (ID)
             {
+                #region Charging 3
                 case 3:
                     {
                         if (color == Color.White)
@@ -102,6 +103,7 @@ namespace SummerProject
                         CreateImplosion(1, position, 0, 30, (float)Math.PI*(3- 2.236f), color.Value, 0.5f, 0.5f, ttl);
                         break;
                     }
+                #endregion
 
                 #region Thruster Trail 4
                 case 4:
@@ -111,12 +113,10 @@ namespace SummerProject
                     }
                 #endregion
 
-                #region Bullet Explosion 5
+                #region Money Drop 5
                 case 5:
                     {
-                        if (color == Color.White)
-                            color = Color.CornflowerBlue;
-                        CreateExplosion(10, position, 10, 40, 0.5f, color.Value, 1, 0.5f, ttl);
+                        CreateNonRotExplosion(10, position, 10, 40, 0, Color.Green, 0, 0.5f, ttl, IDs.MONEY);
                         break;
                     }
                 #endregion
