@@ -32,7 +32,7 @@ namespace SummerProject.util
 
         private Vector2 smallRedStartingPos = new Vector2(1200, 200);
         private Vector2 smallRedDirection = new Vector2(-1, 0.15f);
-        private float smallRedSpeed = 0.07f * speedMultiplier;
+        private float smallRedSpeed = 0.1f * speedMultiplier;
         private Vector2 smallRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, 0);
         private const int smallRedRespawnDelay = (int)(10 / speedMultiplier);
 
