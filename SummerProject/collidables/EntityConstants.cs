@@ -141,9 +141,20 @@ namespace SummerProject.collidables
         new Dictionary<int, float>
         {
                 {(int)IDs.DEFAULT, 1},
-                {(int)IDs.DEFAULT_ENEMY, 100},
+                {(int)IDs.DEFAULT_ENEMY, 100}
         };
 
-
+        public static readonly Dictionary<int, float> PRICE =
+        new Dictionary<int, float>
+        {
+                {(int)IDs.GUNPART, 10000},
+                {(int)IDs.EMPTYPART, 0},
+                {(int)IDs.SPRAYGUNPART, 12000},
+                {(int)IDs.MINEGUNPART, 20000},
+                {(int)IDs.CHARGINGGUNPART, 15000},
+                {(int)IDs.RECTHULLPART, 8000},
+                {(int)IDs.ENGINEPART, 14000},
+                {(int)IDs.DEFAULT_PART, 15000}
+        };
     }
 }

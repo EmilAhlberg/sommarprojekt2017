@@ -29,6 +29,12 @@ namespace SummerProject.events.buildmenu
         private Sprite outlineBkg;
         private Sprite screenBkg;
         private bool screenBkgMoved;
+        #region Bar item positioning
+        private const int rows = 5;
+        private const int spacing = 50;
+        private const int offsetX = 60;
+        private const int offsetY = 150;
+        #endregion
 
         public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
         {
@@ -68,7 +74,7 @@ namespace SummerProject.events.buildmenu
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
                                             DrawHelper.CenteredWordPosition(word, font,
                                             new Vector2(itemOffset + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemOffset), itemOffset / 3)),
-                                            Color.AntiqueWhite);
+                                            Color.Gold);
 
                 for (int i = 0; i < itemBoxes.Count; i++)
                 {
@@ -89,23 +95,32 @@ namespace SummerProject.events.buildmenu
             if (itemBoxes != null)
             {
                 foreach (UpgradeBarItem barItem in itemBoxes)
+                {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
                         barItem.Active = true;
                         Action = true;
                         SelectedPart = barItem.ReturnPart();
+                        foreach (UpgradeBarItem otherItem in itemBoxes)
+                            if (otherItem != barItem)
+                                otherItem.Active = false;
+                        break;
                     }
+                }
             }
         }
         internal void CreateItemBoxes()
         {
             itemBoxes = new List<UpgradeBarItem>();
-            int boxHeight = (WindowSize.Height - itemOffset) / nbrOfItems;
-            Vector2 tempVect = new Vector2(itemOffset, itemOffset);
+            int cols = (int) Math.Ceiling((double)(itemBoxes.Count / rows));
+            int currentCol = 0;
+            int scaleFactor = 32 * ClickableItem.SCALEFACTOR;
             for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
-                UpgradeBarItem si = new UpgradeBarItem(tempVect + new Vector2((i / nbrOfItems) * itemOffset, i * boxHeight - i / nbrOfItems * (WindowSize.Height - itemOffset)), upgradePartsIDs[i]);
-                itemBoxes.Insert(i, si);
+                if (i % (rows) == 0 && i != 0)
+                    currentCol++;
+                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, upgradePartsIDs[i]);
+                itemBoxes.Insert(i, u);
             }
         }
     }
