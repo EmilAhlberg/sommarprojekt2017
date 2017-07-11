@@ -59,12 +59,12 @@
   <ItemGroup>
     <Compile Include="collidables\bullets\ChargingBullet.cs" />
     <Compile Include="collidables\enemies\Attacker.cs" />
-    <Compile Include="collidables\MoneyDrop.cs" />
+    <Compile Include="collidables\drops\MoneyDrop.cs" />
     <Compile Include="collidables\enemies\RandomEnemy.cs" />
     <Compile Include="collidables\parts\ChargingGunPart.cs" />
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
-    <Compile Include="collidables\HomingBullet.cs" />
+    <Compile Include="collidables\bullets\HomingBullet.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
     <Compile Include="collidables\parts\MineGunPart.cs" />
     <Compile Include="collidables\parts\SprayGunPart.cs" />
@@ -83,9 +83,8 @@
     <Compile Include="progress\Trait.cs" />
     <Compile Include="progress\Traits.cs" />
     <Compile Include="collidables\enemies\Asteroid.cs" />
-	<Compile Include="collidables\enemies\Shooter.cs" />
+    <Compile Include="collidables\enemies\Shooter.cs" />
     <Compile Include="collidables\enemies\Speedy.cs" />
-
     <Compile Include="collidables\enemies\StandardEnemy.cs" />
     <Compile Include="collidables\drops\EnergyDrop.cs" />
     <Compile Include="collidables\Entity.cs" />
@@ -136,6 +135,8 @@
     <Compile Include="SRandom.cs" />
     <Compile Include="Texture2DPlus.cs" />
     <Compile Include="UnitBar.cs" />
+    <Compile Include="util\AnimatedBackgroundObject.cs" />
+    <Compile Include="util\Background.cs" />
     <Compile Include="util\Circle.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="util\TextureHelper.cs" />

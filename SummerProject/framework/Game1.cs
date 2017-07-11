@@ -30,7 +30,7 @@ namespace SummerProject
         Timer deathTimer;
         GameController gameController;    
         Projectiles projectiles;
-        Sprite background;
+        Background background;
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
@@ -99,7 +99,10 @@ namespace SummerProject
 
             #region Loading textures
 
-            Texture2DPlus backgroundTex = new Texture2DPlus(Content.Load<Texture2D>("textures/background1"));
+            Texture2DPlus backgroundTex = new Texture2DPlus(Content.Load<Texture2D>("background/Background"));
+            Texture2DPlus bluePlanetTex = new Texture2DPlus(Content.Load<Texture2D>("background/BluePlanet"));
+            Texture2DPlus smallRedTex = new Texture2DPlus(Content.Load<Texture2D>("background/LittleRedPlanet"));
+            Texture2DPlus bigRedTex = new Texture2DPlus(Content.Load<Texture2D>("background/RedBigPlanet"));
             Texture2DPlus cursorTex = new Texture2DPlus(Content.Load<Texture2D>("textures/cursor"));
 
             Texture2DPlus errorTex = new Texture2DPlus(Content.Load<Texture2D>("textures/noTexture"));
@@ -177,13 +180,13 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
+            background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);
             player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), projectiles);
             //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
             GameMode gameMode = new GameMode(scoreFont);          
            
-            background = new Sprite(backgroundTex);
             projectiles = new Projectiles(200); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
@@ -245,7 +248,6 @@ namespace SummerProject
                 UpdateGame(gameTime);
             else
                 eventOperator.Update(gameTime);
-
             CheckGameStatus(gameTime);
             achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
@@ -266,6 +268,7 @@ namespace SummerProject
             energyBar.Update(player.Energy, player.maxEnergy);
             Traits.TIME.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
             float temp = Traits.TIME.Counter;
+            background.Update(gameTime);
             #endregion
         }
 
@@ -330,10 +333,11 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, Camera.CameraMatrix);
             background.Draw(spriteBatch, gameTime);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             if (eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 #region Draw for GameState
