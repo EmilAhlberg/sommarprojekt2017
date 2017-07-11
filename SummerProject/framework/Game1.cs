@@ -116,10 +116,12 @@ namespace SummerProject
             Texture2DPlus gravityBulletTex = new Texture2DPlus(Content.Load<Texture2D>("textures/GravityBullet"), 6);
             Texture2DPlus homingTex = new Texture2DPlus(Content.Load<Texture2D>("textures/homing"));
             Texture2DPlus healthDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/healthPack"),4);
+            Texture2DPlus moneyDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/MoneyDrop"), 7);
             Texture2DPlus healthDrop_TIER2_Tex = new Texture2DPlus(Content.Load<Texture2D>("textures/healthDrop_TIER2"),4);
             Texture2DPlus wrenchTex = new Texture2DPlus(Content.Load<Texture2D>("textures/wrench"));
             Texture2DPlus explosionDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/explosionDrop"),8);
             Texture2DPlus boltTex = new Texture2DPlus(Content.Load<Texture2D>("textures/bolt"));
+            Texture2DPlus moneyTex = new Texture2DPlus(Content.Load<Texture2D>("textures/money"));
             Texture2DPlus energyDropTex = new Texture2DPlus(Content.Load<Texture2D>("textures/energyDrop"),8);
             Texture2DPlus unitBarBorderTex = new Texture2DPlus(Content.Load<Texture2D>("textures/unitBarBorder"));
             Texture2DPlus gunTex1 = new Texture2DPlus(Content.Load<Texture2D>("parts/Gun_1"));
@@ -164,7 +166,8 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
             SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
             SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
-
+            SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 12);
+            SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             #endregion
 
             #region Adding partIDs to list

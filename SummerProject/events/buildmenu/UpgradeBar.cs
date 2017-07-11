@@ -87,7 +87,7 @@ namespace SummerProject.events.buildmenu
         {
             Action = false;
             CheckAction();
-            float resource = Traits.SCORE.Counter - spentResource; //not here         
+            resource = Traits.CURRENCY.Counter; //not here         
         }
 
         private void CheckAction()

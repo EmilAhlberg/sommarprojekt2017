@@ -106,10 +106,10 @@ namespace SummerProject.collidables
                     directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
                 if (InputHandler.isPressed(Keys.A))
-                    directionVector += new Vector2((float)Math.Cos(Angle-Math.PI/2), (float)Math.Sin(Angle-Math.PI/2));
+                    directionVector += new Vector2((float)Math.Cos(Angle - Math.PI / 2), (float)Math.Sin(Angle - Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.D))
-                    directionVector += new Vector2((float)Math.Cos(Angle+Math.PI/2), (float)Math.Sin(Angle+Math.PI/2));
+                    directionVector += new Vector2((float)Math.Cos(Angle + Math.PI / 2), (float)Math.Sin(Angle + Math.PI / 2));
             }
 
             else if (ControlScheme == 2)
@@ -193,6 +193,9 @@ namespace SummerProject.collidables
                 Enemy e = c2 as Enemy;
                 e.Health -= Damage;
             }
+
+            if (c2 is MoneyDrop)
+                Traits.CURRENCY.Counter += MoneyDrop.value;
         }
     }
 }

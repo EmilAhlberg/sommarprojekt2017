@@ -8,35 +8,70 @@ using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables.enemies
 {
-    class RandomEnemy : Enemy
+    class RandomEnemy : Attacker
     {
         public RandomEnemy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
-            fillParts(Hull);
+            FillParts(Hull);
         }
 
-        public void fillParts(CompositePart p)
+        public void FillParts(CompositePart p)
         {
-            Random random = new Random();
             int randomNumber;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
-                randomNumber = random.Next(1, 5);
+                Part part1;
+                Part part2;
+                randomNumber = SRandom.Next(1, 4);
                 switch (randomNumber)
                 {
-                    case 1: p.AddPart(new MineGunPart(), i); break;
-                    case 2: p.AddPart(new SprayGunPart(), i); break;
-                    case 3: p.AddPart(new EnginePart(), i); break;
-                    default: p.AddPart(new EnginePart(), i); break;
+                    case 1: part1 = new MineGunPart(); part2 = new MineGunPart(); break;
+                    case 2: part1 = new SprayGunPart(); part2 = new SprayGunPart(); break;
+                    default: part1 = new EnginePart(); part2 = new EnginePart(); break;
+                }
+                if (i == 0)
+                {
+                    p.AddPart(part1, 0);
+                    p.AddPart(part2, 2);
+                }
+                else
+                {
+                    if (part1 is EnginePart)
+                    {
+                        p.AddPart(new SprayGunPart(), 1);
+                    }
+                    else
+                        p.AddPart(part1, 1);
                 }
             }
             p.AddPart(new EnginePart(), 3);
         }
 
+
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
-            fillParts(Hull);
+            FillParts(Hull);
         }
+
+        protected override void AI(GameTime gameTime)
+        {
+            CalculateAngle();
+            ThrusterAngle = Angle;
+            Move();
+            base.AI(gameTime);
+        }
+
+        protected override void Attack(GameTime gameTime)
+        {
+            Hull.TakeAction(typeof(SprayGunPart));
+            Hull.TakeAction(typeof(MineGunPart));
+            Hull.TakeAction(typeof(GunPart));
+        }
+
+        protected override void Wait(GameTime gameTime)
+        {
+        }
+
     }
 }

@@ -9,9 +9,9 @@ using SummerProject.achievements;
 
 namespace SummerProject
 {
-    abstract class Enemy : PartController, IPartCarrier
-    {        
-        public float WorthScore {get; private set;}
+    public abstract class Enemy : PartController, IPartCarrier
+    {
+        public float WorthScore { get; private set; }
         private Player player;
         private Timer rageTimer;
 
@@ -28,17 +28,20 @@ namespace SummerProject
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
         }
 
-        public override void Update(GameTime gameTime)
+        protected virtual void AI(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
-            Move();
-            Hull.TakeAction(typeof(ChargingGunPart));
-            Hull.TakeAction(typeof(SprayGunPart));
-            Hull.TakeAction(typeof(MineGunPart));
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            AI(gameTime);
+            //AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
+                ScoreHandler.AddScore((int)WorthScore);
                 Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
             }
@@ -80,8 +83,9 @@ namespace SummerProject
             //    Death();
         }
 
+
         public override void Death()
-        { 
+        {
             DropSpawnPoints.DeathAt(Position);
             ScoreHandler.AddScore((int)WorthScore);
             base.Death();

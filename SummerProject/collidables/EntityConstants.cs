@@ -29,6 +29,7 @@ namespace SummerProject.collidables
                {typeof(Player), IDs.PLAYER },
                {typeof(Enemy), IDs.DEFAULT_ENEMY },
                {typeof(Asteroid), IDs.ENEMYASTER },
+               {typeof(Shooter), IDs.ENEMYSHOOT },
                {typeof(Wall), IDs.WALL },
                #region Bullets
                {typeof(Bullet), IDs.DEFAULT_BULLET },
@@ -43,6 +44,7 @@ namespace SummerProject.collidables
                 {typeof(HealthDrop), IDs.HEALTHDROP},
                 {typeof(ExplosionDrop), IDs.EXPLOSIONDROP },
                 {typeof(EnergyDrop), IDs.ENERGYDROP },
+                {typeof(MoneyDrop), IDs.MONEYDROP },
                 #endregion 
                 #region Parts
                 {typeof(RectangularHull), IDs.RECTHULLPART },
@@ -105,6 +107,7 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.PART, 1},
                 {(int)IDs.DEFAULT_BULLET, 1f},
+                {(int)IDs.ENGINEPART, 0},
                 {(int)IDs.SPRAYBULLET, 0.2f},
                 {(int)IDs.CHARGINGBULLET, 2f},
                 {(int)IDs.MINEBULLET, 5f},
@@ -126,6 +129,7 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT, 1000f * (float)Math.PI }, //! //rad per tick
                 {(int)IDs.PLAYER, 0.1f * (float)Math.PI},
                 {(int)IDs.DEFAULT_ENEMY, 1000f * (float)Math.PI},
+                {(int)IDs.ENEMYSHOOT, 0.01f * (float)Math.PI},
                 {(int)IDs.HOMINGBULLET, 0.07f * (float)Math.PI}
         };
 
