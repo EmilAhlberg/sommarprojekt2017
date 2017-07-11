@@ -66,6 +66,14 @@ namespace SummerProject
             SetStats(id);
         }
 
+        public void Collision(ICollidable c2)
+        {
+            if (IsActive)
+                HandleCollision(c2);
+        }
+
+        protected abstract void HandleCollision(ICollidable c2);
+
         public virtual void SetStats(IDs id)
         {
             Energy = startingEnergy;
@@ -142,7 +150,6 @@ namespace SummerProject
             SpecificActivation(source, target);
         }
 
-        public abstract void Collision(ICollidable c2);
         protected virtual void SpecificActivation(Vector2 scource, Vector2 target) { }
     }
 }

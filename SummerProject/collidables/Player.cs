@@ -170,27 +170,6 @@ namespace SummerProject.collidables
                 toggleSprayGun = !toggleSprayGun;
         }
 
-        public override void Collision(ICollidable c2)
-        {
-            //base.Collision(c2);
-            if (/*!shieldOn && */c2 is Enemy)
-            {
-                Enemy e = c2 as Enemy;
-                Health -= e.Damage;
-            }
-                if (/*!shieldOn && */c2 is Projectile)
-                {
-                    Projectile b = c2 as Projectile;
-                    if (b.IsEvil)
-                        Health -= b.Damage;
-                }
-                //if (c2 is HealthDrop)
-                //{
-                //    Health += HealthDrop.heal;
-                //}
-
-        }
-
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             IsActive = false;
@@ -205,6 +184,21 @@ namespace SummerProject.collidables
             Hull.Angle = 0;
             Hull.Position = Position;
             Hull.Stop();
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (/*!shieldOn && */c2 is Enemy)
+            {
+                Enemy e = c2 as Enemy;
+                Health -= e.Damage;
+            }
+            if (/*!shieldOn && */c2 is Projectile)
+            {
+                Projectile b = c2 as Projectile;
+                if (b.IsEvil)
+                    Health -= b.Damage;
+            }
         }
     }
 }

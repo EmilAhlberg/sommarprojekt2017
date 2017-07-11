@@ -74,7 +74,7 @@ namespace SummerProject
             base.CalculateAngle(dX, dY);
         }
 
-        public override void Collision(ICollidable c2)
+        protected override void HandleCollision(ICollidable c2)
         {
             if (c2 is Projectile)
             {
@@ -88,12 +88,7 @@ namespace SummerProject
                 }
 
             }
-            if (c2 is ExplosionDrop)
-            {
-                ExplosionDrop ed = c2 as ExplosionDrop;
-                if (ed.IsActive)
-                    Health -= ed.Damage;
-            }
+
             if (c2 is Player)
             {  
                 Death();

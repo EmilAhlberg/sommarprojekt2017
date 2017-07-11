@@ -25,6 +25,12 @@ namespace SummerProject.collidables
         {
             if (c2 is Player)
                 Explode();
+
+            if (c2 is Enemy)
+            {
+                if (exploding)
+                    (c2 as Enemy).Health -= Damage;
+            }
         }
 
         public override void Update(GameTime gameTime)
