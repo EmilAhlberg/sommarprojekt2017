@@ -41,6 +41,7 @@ namespace SummerProject.collidables.parts
             detected = false;
             target = null;
         }
+
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
         }

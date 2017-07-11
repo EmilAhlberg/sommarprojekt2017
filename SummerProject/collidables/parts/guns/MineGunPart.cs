@@ -13,7 +13,7 @@ namespace SummerProject.collidables.parts
     {
         public MineGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
-            RELOADTIME = 0.1f;
+            RELOADTIME = 0.4f;
             reloadTimer = new Timer(RELOADTIME);
         }
         protected override void Fire()
