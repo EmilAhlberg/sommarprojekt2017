@@ -4,25 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
+using SummerProject.collidables.enemies;
 
 namespace SummerProject.collidables.Enemies
 {
-    class Shooter : Enemy
+    class Shooter : Attacker
     {
         public Shooter(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
+            attackTimer = new Timer(0.4f); //!
+            waitTimer = new Timer(1f);
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void AI(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 4, Angle, Color.Green);
-            base.Update(gameTime);
+            CalculateAngle();
+            ThrusterAngle = Angle;
+            base.AI(gameTime);
         }
 
-        public override void Death()
+        protected override void Attack(GameTime gameTime)
         {
-            //Particles.GenerateParticles(Position, 16, angle, sprite.MColor); //Death animation
-            base.Death();
+            Hull.TakeAction(typeof(SprayGunPart));
+        }
+
+        protected override void Wait(GameTime gameTime)
+        {   
+            Move();
         }
     }
 }

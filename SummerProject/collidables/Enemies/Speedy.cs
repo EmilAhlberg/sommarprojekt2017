@@ -4,31 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.enemies;
 
 namespace SummerProject.collidables.Enemies
 {
-    class Speedy : Enemy
+    class Speedy : Attacker
     {
+
         public Speedy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Attack(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 4, Angle, Color.Green);
-            base.Update(gameTime);
+            Move();
         }
 
-        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        protected override void Wait(GameTime gameTime)
         {
-            base.SpecificActivation(source, target);
-            //Thrust = 1.5f * EntityConstants.THRUST[(int)IDs.DEFAULT_ENEMY];
-        }
-
-        public override void Death()
-        {
-            //Particles.GenerateParticles(Position, 17, angle, sprite.MColor); //Death animation
-            base.Death();
+            CalculateAngle();
+            ThrusterAngle = Angle;
         }
     }
 }

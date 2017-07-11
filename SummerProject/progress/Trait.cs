@@ -8,11 +8,11 @@ namespace SummerProject.achievements
 {
     public class Trait
     {
-        public String TraitName { get; set; }
+        public string TraitName { get; set; }
         public float Counter { get; set; }          
 
 
-        public Trait(String traitName)
+        public Trait(string traitName)
         {
             TraitName = traitName;
             Counter = 0;       

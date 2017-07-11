@@ -9,7 +9,7 @@ using SummerProject.achievements;
 
 namespace SummerProject
 {
-    abstract class Enemy : PartController, IPartCarrier
+    public abstract class Enemy : PartController, IPartCarrier
     {        
         public float WorthScore {get; private set;}
 
@@ -31,18 +31,20 @@ namespace SummerProject
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
         }
 
-        public override void Update(GameTime gameTime)
+        protected virtual void AI(GameTime gameTime)
         {
             CalculateAngle();
             ThrusterAngle = Angle;
-            //Hull.TakeAction(typeof(EnginePart));
-            Move();
-            Hull.TakeAction(typeof(ChargingGunPart));
-            Hull.TakeAction(typeof(SprayGunPart));
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            AI(gameTime);
             //AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
+                ScoreHandler.AddScore((int)WorthScore);
                 Traits.KILLS.Counter++; //maybe not counted as a kill
                 Death();
             }
@@ -83,7 +85,6 @@ namespace SummerProject
                     Health -= b.Damage;
                     AddForce(b.Velocity); //! remove lator
                     Traits.SHOTSHIT.Counter++;
-                    ScoreHandler.AddScore((int)WorthScore);
                 }
 
             }
@@ -97,7 +98,6 @@ namespace SummerProject
             {  
                 Death();
             }
-              
         }
 
         public override void Death()

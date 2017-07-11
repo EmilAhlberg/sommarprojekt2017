@@ -12,7 +12,6 @@ namespace SummerProject.collidables
             {
                 Sprite.MColor = Color.Red; //LOL
             }
-
         }
 
         public override void Update(GameTime gameTime)

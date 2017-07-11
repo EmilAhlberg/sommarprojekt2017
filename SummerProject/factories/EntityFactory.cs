@@ -15,8 +15,8 @@ namespace SummerProject.factories
             Enemy e;
             switch (type)
             {
-                case (int)IDs.ENEMYSHOOT: e = new StandardEnemy(FarAway(), player); e.AddPart(new SprayGunPart(),1); e.AddPart(new EnginePart(), 3); return e;
-                case (int)IDs.ENEMYSPEED: e = new StandardEnemy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
+                case (int)IDs.ENEMYSHOOT: e = new Shooter(FarAway(), player); e.AddPart(new SprayGunPart(),1); e.AddPart(new EnginePart(), 3); return e;
+                case (int)IDs.ENEMYSPEED: e = new Speedy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 3); return e;
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }
             e = new StandardEnemy(FarAway(),  player);e.AddPart(new EnginePart(), 3); return e;
@@ -38,6 +38,7 @@ namespace SummerProject.factories
                 case (int)IDs.EXPLOSIONDROP: return new ExplosionDrop(FarAway());
                 case (int)IDs.ENERGYDROP: return new EnergyDrop(FarAway());
                 case (int)IDs.HEALTHDROP_TIER2: return new HealthDrop(FarAway(), 2);
+                case (int)IDs.MONEYDROP: return new MoneyDrop(FarAway());
                 #endregion
                 #region Enemy Bullets
                 case (int)IDs.EVILBULLET: return new Bullet(FarAway(), true);

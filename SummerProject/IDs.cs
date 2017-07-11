@@ -33,19 +33,22 @@ namespace SummerProject
         HEALTHDROP,
         HEALTHDROP_TIER2,
         EXPLOSIONDROP,
-        ENERGYDROP,
+        MONEYDROP,
+        ENERGYDROP, //ENERGYDROP has to be the last drop in this enum
         #endregion
 
         #region Particles
         DEFAULT_PARTICLE,
         WRENCH,
         BOLT,
+        MONEY,
         AFTERIMAGE,
         DEATH,
-        #endregion 
+        #endregion
 
         #region Parts
         DEFAULT_PART,
+        PART,
         RECTHULLPART,
         GUNPART,
         ENGINEPART,
@@ -53,9 +56,11 @@ namespace SummerProject
         MINEGUNPART,
         CHARGINGGUNPART,
         EMPTYPART,
+        #endregion
+
         UPGRADEBAR,
         MENUSCREENBKG,
-        PART
-        #endregion
+
+
     }
 }

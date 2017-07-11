@@ -18,6 +18,7 @@ namespace SummerProject.factories
                     case (int)IDs.DEFAULT_ENEMY: return new Sprite(Sprites[(int)IDs.RECTHULLPART]);
                     case (int)IDs.PLAYER: return new Sprite(Sprites[(int)IDs.RECTHULLPART]);
                     case (int)IDs.ENEMYASTER: return new Sprite(Sprites[(int)IDs.ENEMYASTER]);
+                    case (int)IDs.ENEMYSHOOT: return new Sprite(Sprites[(int)IDs.RECTHULLPART]);
                     default: return new Sprite(Sprites[(int)IDs.DEFAULT]);
             }
         }

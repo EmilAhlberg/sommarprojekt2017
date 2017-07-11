@@ -58,6 +58,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="collidables\bullets\ChargingBullet.cs" />
+    <Compile Include="collidables\enemies\Attacker.cs" />
+    <Compile Include="collidables\MoneyDrop.cs" />
     <Compile Include="collidables\parts\ChargingGunPart.cs" />
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />

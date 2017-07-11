@@ -45,6 +45,7 @@ namespace SummerProject.achievements
 
         public static Trait KILLS = new Trait("Kills");
         public static Trait SCORE = new Trait("Score");
+        public static Trait CURRENCY = new Trait("Currency");
         public static Trait SHOTSFIRED = new Trait("Shots Fired");
         public static Trait SHOTSHIT = new Trait("Shots Hit");
         public static Trait ENEMIESSPAWNED = new Trait("Enemies Spawned");

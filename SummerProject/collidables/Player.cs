@@ -115,10 +115,10 @@ namespace SummerProject.collidables
                     directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
 
                 if (InputHandler.isPressed(Keys.A))
-                    directionVector += new Vector2((float)Math.Cos(Angle-Math.PI/2), (float)Math.Sin(Angle-Math.PI/2));
+                    directionVector += new Vector2((float)Math.Cos(Angle - Math.PI / 2), (float)Math.Sin(Angle - Math.PI / 2));
 
                 if (InputHandler.isPressed(Keys.D))
-                    directionVector += new Vector2((float)Math.Cos(Angle+Math.PI/2), (float)Math.Sin(Angle+Math.PI/2));
+                    directionVector += new Vector2((float)Math.Cos(Angle + Math.PI / 2), (float)Math.Sin(Angle + Math.PI / 2));
             }
 
             else if (ControlScheme == 2)
@@ -188,33 +188,37 @@ namespace SummerProject.collidables
                 Health -= e.Damage;
             }
 
-                if (c2 is HealthDrop)
-                {
-                    if (Health == maxHealth && maxHealth < maxHealthCap)
-                        maxHealth++;
-                    Health += ((HealthDrop)c2).Heal;
-                    if (Health > maxHealthCap)
-                        Health = maxHealthCap;
-                    if (Health > maxHealth)
-                        maxHealth = Health;
-                }
-                if (c2 is EnergyDrop)
-                {
-                    if (maxEnergy < maxEnergyCap)
-                        maxEnergy += EnergyDrop.charge;
-                    Energy = maxEnergy;
-                }
+            if (c2 is HealthDrop)
+            {
+                if (Health == maxHealth && maxHealth < maxHealthCap)
+                    maxHealth++;
+                Health += ((HealthDrop)c2).Heal;
+                if (Health > maxHealthCap)
+                    Health = maxHealthCap;
+                if (Health > maxHealth)
+                    maxHealth = Health;
+            }
+            if (c2 is EnergyDrop)
+            {
+                if (maxEnergy < maxEnergyCap)
+                    maxEnergy += EnergyDrop.charge;
+                Energy = maxEnergy;
+            }
+            if (c2 is MoneyDrop)
+            {
+                Traits.CURRENCY.Counter += MoneyDrop.value;
+            }
 
-                if (/*!shieldOn && */c2 is Projectile)
-                {
-                    Projectile b = c2 as Projectile;
-                    if (b.IsEvil)
-                        Health -= b.Damage;
-                }
-                //if (c2 is HealthDrop)
-                //{
-                //    Health += HealthDrop.heal;
-                //}
+            if (/*!shieldOn && */c2 is Projectile)
+            {
+                Projectile b = c2 as Projectile;
+                if (b.IsEvil)
+                    Health -= b.Damage;
+            }
+            //if (c2 is HealthDrop)
+            //{
+            //    Health += HealthDrop.heal;
+            //}
 
         }
 
