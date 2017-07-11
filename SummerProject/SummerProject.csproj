@@ -131,6 +131,8 @@
     <Compile Include="SRandom.cs" />
     <Compile Include="Texture2DPlus.cs" />
     <Compile Include="UnitBar.cs" />
+    <Compile Include="util\AnimatedBackgroundObject.cs" />
+    <Compile Include="util\Background.cs" />
     <Compile Include="util\Circle.cs" />
     <Compile Include="util\DrawHelper.cs" />
     <Compile Include="util\TextureHelper.cs" />
