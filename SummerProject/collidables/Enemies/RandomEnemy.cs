@@ -17,17 +17,31 @@ namespace SummerProject.collidables.enemies
 
         public void FillParts(CompositePart p)
         {
-            Random random = new Random();
             int randomNumber;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
-                randomNumber = random.Next(1, 5);
+                Part part1;
+                Part part2;
+                randomNumber = SRandom.Next(1, 4);
                 switch (randomNumber)
                 {
-                    case 1: p.AddPart(new MineGunPart(), i); break;
-                    case 2: p.AddPart(new SprayGunPart(), i); break;
-                    case 3: p.AddPart(new EnginePart(), i); break;
-                    default: p.AddPart(new EnginePart(), i); break;
+                    case 1: part1 = new MineGunPart(); part2 = new MineGunPart(); break;
+                    case 2: part1 = new SprayGunPart(); part2 = new SprayGunPart(); break;
+                    default: part1 = new EnginePart(); part2 = new EnginePart(); break;
+                }
+                if (i == 0)
+                {
+                    p.AddPart(part1, 0);
+                    p.AddPart(part2, 2);
+                }
+                else
+                {
+                    if (part1 is EnginePart)
+                    {
+                        p.AddPart(new SprayGunPart(), 1);
+                    }
+                    else
+                        p.AddPart(part1, 1);
                 }
             }
             p.AddPart(new EnginePart(), 3);
@@ -56,8 +70,8 @@ namespace SummerProject.collidables.enemies
         }
 
         protected override void Wait(GameTime gameTime)
-        { 
-        }        
+        {
+        }
 
     }
 }
