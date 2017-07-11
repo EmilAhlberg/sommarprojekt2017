@@ -191,13 +191,7 @@ namespace SummerProject.collidables
             if (/*!shieldOn && */c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
-                Health -= e.Damage;
-            }
-            if (/*!shieldOn && */c2 is Projectile)
-            {
-                Projectile b = c2 as Projectile;
-                if (b.IsEvil)
-                    Health -= b.Damage;
+                e.Health -= Damage;
             }
         }
     }
