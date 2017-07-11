@@ -39,6 +39,7 @@ namespace SummerProject
             Move();
             Hull.TakeAction(typeof(ChargingGunPart));
             Hull.TakeAction(typeof(SprayGunPart));
+            Hull.TakeAction(typeof(MineGunPart));
             //AddForce(10, Angle); //!
             Hull.Update(gameTime);
             if (Health <= 0 && IsActive)

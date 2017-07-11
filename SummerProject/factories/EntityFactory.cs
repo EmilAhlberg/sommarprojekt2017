@@ -4,6 +4,7 @@ using SummerProject.collidables;
 using SummerProject.collidables.Enemies;
 using SummerProject.collidables.bullets;
 using SummerProject.collidables.parts;
+using SummerProject.collidables.enemies;
 
 namespace SummerProject.factories
 {
@@ -19,7 +20,8 @@ namespace SummerProject.factories
                 case (int)IDs.ENEMYSPEED: e = new StandardEnemy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }
-            e = new StandardEnemy(FarAway(),  player);e.AddPart(new EnginePart(), 3); return e;
+            e = new RandomEnemy(FarAway(), player); return e;
+            e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
         }
 
         public static IActivatable CreateEntity(Sprite sprite, int type)
