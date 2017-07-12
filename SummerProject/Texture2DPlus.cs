@@ -184,10 +184,13 @@ namespace SummerProject
             Texture.GetData(colors1D);
             for(int i = 0; i < colors1D.Length; i++)
             {
-                if (colors1D[i].Equals(primColor))
+                if (colors1D[i].A != 0 && !colors1D[i].Equals(new Color(32, 32, 32)))
                 {
-                    colors1D[i] = Color.Red;
+                    Color c = colors1D[i];
+                    float q = (c.R + c.G + c.B) / 3;
+                    colors1D[i] = new Color((byte)q, (byte)0, (byte)0, c.A);
                 }
+
             }
             Texture2D newTex = new Texture2D(Texture.GraphicsDevice, Texture.Width, Texture.Height);
             newTex.SetData(colors1D);
