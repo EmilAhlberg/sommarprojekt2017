@@ -22,7 +22,7 @@ namespace SummerProject.collidables
         private bool toggleGun;
         private bool toggleSprayGun;
 
-        public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, id)
+        public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, false, id)
         {
             StartPosition = position;
             this.projectiles = projectiles;
