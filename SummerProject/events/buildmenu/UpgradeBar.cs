@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.events.buildmenu
 {
-    class UpgradeBar
+    public class UpgradeBar
     {
         private SpriteFont font;
         private List<IDs> upgradePartsIDs;
@@ -20,7 +20,7 @@ namespace SummerProject.events.buildmenu
         private float resource;
         private List<UpgradeBarItem> itemBoxes;
 
-        public bool Action { get; internal set; }
+        public bool Action { get; internal set; }       
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
         private int itemSize = (int)ClickableItem.Width;
@@ -104,12 +104,19 @@ namespace SummerProject.events.buildmenu
                 {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
-                        barItem.Active = true;
-                        Action = true;
-                        followMouseSprite = new Sprite(barItem.Sprite);
-                        followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
-                        followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
-                        selectedBarItem = barItem;
+                        if (barItem.Active)
+                        {
+                            RemoveSelection();
+                        }
+                        else
+                        {
+                            barItem.Active = true;
+                            Action = true;
+                            followMouseSprite = new Sprite(barItem.Sprite);
+                            followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
+                            followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
+                            selectedBarItem = barItem;
+                        }
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
                                 otherItem.Active = false;
@@ -119,6 +126,21 @@ namespace SummerProject.events.buildmenu
                 if (InputHandler.isJustPressed(MouseButton.LEFT) && Action)
                 {
                     SelectedPart = selectedBarItem.ReturnPart();
+                }
+            }
+        }
+
+        internal void RemoveSelection()
+        {
+            foreach (UpgradeBarItem barItem in itemBoxes)
+            {
+                if (barItem.Active)
+                {
+                    barItem.Active = false;
+                    followMouseSprite = null;
+                    selectedBarItem = null;
+                    Action = false;
+                    break;
                 }
             }
         }

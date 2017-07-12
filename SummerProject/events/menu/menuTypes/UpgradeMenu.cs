@@ -16,6 +16,7 @@ namespace SummerProject.menu
             {
                 case 0:
                     handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.upgradeView.UpgradeBar.RemoveSelection();
                     break;
                 case 1: handler.upgradeView.Reset();
                     break;
