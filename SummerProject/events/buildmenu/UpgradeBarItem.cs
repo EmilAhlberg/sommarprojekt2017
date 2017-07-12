@@ -39,58 +39,14 @@ namespace SummerProject.events.buildmenu
 
         public Part ReturnPart()
         {
-            switch (id)
-            {
-                case IDs.GUNPART:
-                    return new GunPart();
-                case IDs.ENGINEPART:
-                    return new EnginePart();
-                case IDs.RECTHULLPART:
-                    return new RectangularHull();
-                case IDs.SPRAYGUNPART:
-                    return new SprayGunPart();
-                case IDs.MINEGUNPART:
-                    return new MineGunPart();
-                case IDs.CHARGINGGUNPART:
-                    return new ChargingGunPart();
-                case IDs.EMPTYPART:
-                    return null; //!!
-                default:
-                    return new EnginePart();
-
-            }
+            Type t = EntityConstants.IDTOTYPE[id];
+            Part p = (Part)Activator.CreateInstance(t, IDs.DEFAULT); //! Needs to be changed if Part takes more than one constructor
+            return p;
         }
 
         public void SetPrice()
         {
-            switch (id)
-            {
-                case IDs.GUNPART:
-                    Price = (int)EntityConstants.PRICE[(int) IDs.GUNPART];
-                    break;
-                case IDs.ENGINEPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.ENGINEPART]; ;
-                    break;
-                case IDs.RECTHULLPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.RECTHULLPART]; ;
-                    break;
-                case IDs.SPRAYGUNPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.SPRAYGUNPART]; ;
-                    break;
-                case IDs.MINEGUNPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.MINEGUNPART]; ;
-                    break;
-                case IDs.CHARGINGGUNPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.CHARGINGGUNPART]; ;
-                    break;
-                case IDs.EMPTYPART:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.EMPTYPART]; ;
-                    break;
-                default:
-                    Price = (int)EntityConstants.PRICE[(int)IDs.DEFAULT_PART]; ;
-                    break;
-
-            }
+            Price = (int)EntityConstants.GetStatsFromID(EntityConstants.PRICE, id);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)

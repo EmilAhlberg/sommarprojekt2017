@@ -150,7 +150,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
             SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 24);
-            SpriteHandler.Sprites[(int)IDs.GRAVITY_BULLET] = new Sprite(gravityBulletTex, 24);
+            SpriteHandler.Sprites[(int)IDs.GRAVITYBULLET] = new Sprite(gravityBulletTex, 24);
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,6);
@@ -161,7 +161,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
             SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.MINEGUNPART] = new Sprite(mineGunTex);
-            SpriteHandler.Sprites[(int)IDs.GRAVITY_GUN_PART] = new Sprite(gunTex1);
+            SpriteHandler.Sprites[(int)IDs.GRAVITYGUNPART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.CHARGINGGUNPART] = new Sprite(chargingGunTex);
             SpriteHandler.Sprites[(int)IDs.SPRAYGUNPART] = new Sprite(sprayGunTex);
             SpriteHandler.Sprites[(int)IDs.ENGINEPART] = new Sprite(engineTex1);

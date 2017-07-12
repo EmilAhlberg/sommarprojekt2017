@@ -13,10 +13,9 @@ namespace SummerProject.factories
             InitializeEntities((int)IDs.DEFAULT_BULLET, defaultBulletCap);
             InitializeEntities((int)IDs.HOMINGBULLET, defaultBulletCap);
             InitializeEntities((int)IDs.SPRAYBULLET, defaultBulletCap);
-            InitializeEntities((int)IDs.EVILBULLET, defaultBulletCap);
             InitializeEntities((int)IDs.MINEBULLET, defaultBulletCap);
             InitializeEntities((int)IDs.CHARGINGBULLET, defaultBulletCap);
-            InitializeEntities((int)IDs.GRAVITY_BULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.GRAVITYBULLET, defaultBulletCap);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 
@@ -27,24 +26,12 @@ namespace SummerProject.factories
 
         public bool Fire(Vector2 source, Vector2 target, int bulletType)
         {
-
-                if (ActivateEntities(source, target, bulletType))
-                {
-                    return true; //bool type: only because of players shotsFiredTrait
-                }
-            return false;
-
+            return ActivateEntities(source, target, bulletType);
         }
 
-        public void FireSpecificBullet (Vector2 source, Vector2 target, Projectile bullet)
+        public void FireSpecificBullet(Vector2 source, Vector2 target, Projectile bullet)
         {
             bullet.Activate(source, target);
-        }
-
-
-        public void EvilFire(Vector2 source, Vector2 target)
-        {
-            ActivateEntities(source, target, (int)IDs.EVILBULLET);
         }
 
         public override void Reset()

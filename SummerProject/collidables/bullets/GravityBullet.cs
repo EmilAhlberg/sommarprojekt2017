@@ -10,7 +10,7 @@ namespace SummerProject.collidables.bullets
 {
     class GravityBullet : Bullet
     {
-        public GravityBullet(Vector2 position, bool isEvil) : base(position, isEvil)
+        public GravityBullet(Vector2 position) : base(position)
         {
         }
         public override bool CollidesWith(ICollidable c2)
