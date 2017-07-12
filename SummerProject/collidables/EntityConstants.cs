@@ -147,7 +147,7 @@ namespace SummerProject.collidables
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 200},
-                {(int)IDs.GRAVITYBULLET, 10},
+                {(int)IDs.GRAVITYBULLET, 20},
                 {(int)IDs.PART, 1},
                 {(int)IDs.RECTHULLPART, 20f}
           };
