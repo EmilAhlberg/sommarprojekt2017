@@ -15,10 +15,9 @@ namespace SummerProject.collidables.parts
         {
             RELOADTIME = 0.4f;
             reloadTimer = new Timer(RELOADTIME);
+            bulletID = IDs.MINEBULLET;
+            bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
-        protected override void Fire()
-        {
-            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), (int)IDs.MINEBULLET);
-        }
+
     }
 }

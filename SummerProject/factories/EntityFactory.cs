@@ -16,7 +16,7 @@ namespace SummerProject.factories
             Enemy e;
             switch (type)
             {
-                case (int)IDs.ENEMYSHOOT: e = new Shooter(FarAway(), player); e.AddPart(new SprayGunPart(),1); e.AddPart(new EnginePart(), 3); return e;
+                case (int)IDs.ENEMYSHOOT: e = new Shooter(FarAway(), player); e.AddPart(new SprayGunPart(), 1); e.AddPart(new EnginePart(), 3); return e;
                 case (int)IDs.ENEMYSPEED: e = new Speedy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 3); return e;
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }

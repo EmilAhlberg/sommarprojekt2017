@@ -110,27 +110,41 @@ namespace SummerProject.framework
             if (activeSelection != 0)
             {
                 ShipItem pressedItem = shipItems[activeSelection];
-
+                RectangularHull hull = null;
+                hull = pressedItem.Hull;
                 if (pressedItem.id == IDs.RECTHULLPART)
-                {                   
+                {
                     RemoveHull(pressedItem);
-                }             
-                    IPartCarrier hull = null;
-                    hull = pressedItem.Hull;
-                    hull.AddPart(newPart, pressedItem.LinkPosition);
-                    player.Parts.Add(newPart);
+                    FixLinkPosition(pressedItem); //!!!!!
+                }
 
-                    if (newPart is RectangularHull)
-                    {
-                        AddEmptyParts((RectangularHull)newPart, pressedItem, true);
-                    }
-                    newPart.Carrier = hull;
-
-                    Vector2 v = pressedItem.Position;
-                    ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
-                    shipItems[activeSelection] = s;
-                    RenewEmptyBoxes();
+                if (newPart == null)
+                {
+                    PlaceEmptyBox(pressedItem, hull);
+                }
+                else
+                {
+                    PlacePart(pressedItem, hull, newPart);
+                    
+                }
+                Vector2 v = pressedItem.Position;
+                ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
+                shipItems[activeSelection] = s;
+                RenewEmptyBoxes();
             }
+        }
+
+        private void PlacePart(ShipItem pressedItem, RectangularHull hull, Part newPart)
+        {              
+            hull.AddPart(newPart, pressedItem.LinkPosition);
+            player.Parts.Add(newPart);
+            newPart.Carrier = hull; //REDUNDANCY        
+        }
+
+        private void PlaceEmptyBox(ShipItem pressedItem, RectangularHull hull)
+        {            
+            pressedItem.Hull.RemovePart(pressedItem.Part); /////OR REMOVE AT <--bugged on link positions
+            pressedItem.Part = null;
         }
 
         private void RenewEmptyBoxes()
@@ -194,12 +208,11 @@ namespace SummerProject.framework
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector2 v = LinkPosition(i, new Vector2(dependables[j].BoundBox.Left, dependables[j].BoundBox.Top)); //dependablse [i] not removable
+                    Vector2 v = LinkPosition(i, new Vector2(dependables[j].BoundBox.Left, dependables[j].BoundBox.Top));
                     ShipItem newHull = HullPresent(v);
-                    if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part)  // && current.Hull != s.Part)//&& current.id !=IDs.EMPTYPART) ///current?
-                    {
-                        //dependables[i] not removable    //newHull is a hull not contained in dependables, removable is "current"    
-                        dependables[j].LinkPosition = i; //!!!!!!!!!!!!!!!!!!                   
+                    if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part) 
+                    {                       
+                        dependables[j].LinkPosition = i; // + 2) % 4; //!!!!!!!!!!!!!!!!!!                   
                         return ReverseDependency(newHull, dependables[j], dependables); ; // stop method functionality
                     }
                 }
@@ -216,7 +229,7 @@ namespace SummerProject.framework
                 //((RectangularHull)((RectangularHull)removable.Part).Carrier).RemovePart(removable.Part); // remove removable.part from old carrier      OKLART!
                 //((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
                 
-                //removable.LinkPosition = removable.LinkPosition; //?
+                //removable.LinkPosition = (removable.LinkPosition + 2) % 4; //? !!!!!!!!!!!!!
 
                 //probably all  done, --> reset
                 newHull = removable;
@@ -224,8 +237,22 @@ namespace SummerProject.framework
                 removable = CheckDepedency(dependables, newHull); // MAKE THIS A LIST FUNCTION? FOR MULTIPLE BRANCHES!!!
             } while (removable != null);
 
+            FixLinkPosition(newHull);
             return dependables;        
          
+        }
+
+        private void FixLinkPosition(ShipItem fixItem)
+        {
+            for (int i = 0; i<4; i++)
+            {
+                Vector2 v = LinkPosition(i, new Vector2(fixItem.BoundBox.Left, fixItem.BoundBox.Top)); //dependablse [i] not removable
+                ShipItem newHull = HullPresent(v);
+                if (newHull != null && newHull.Part == fixItem.Hull)
+                {
+                    fixItem.LinkPosition = (i + 2) %4; //!!!!
+                }
+            }
         }
 
         private ShipItem CheckDepedency(List<ShipItem> dependables, ShipItem hull)
@@ -244,27 +271,6 @@ namespace SummerProject.framework
                     }
                 }               
             }
-            
-
-
-            //    RectangularHull part = (RectangularHull)removable.Part;
-            //foreach (ShipItem item in dependables)
-            //{
-            //    if (item.Part != null)
-            //    {
-            //        List<RectangularHull> hulls = ((RectangularHull)item.Part).GetHulls();
-            //        foreach (RectangularHull hull in hulls)
-            //        {
-            //            int i = hull.Carries(part);
-            //            if (i != -1)
-            //            {
-            //                ShipItem s = GetItemFromHull(part);
-            //                s.LinkPosition = i;
-            //                return s;
-            //            }
-            //        }
-            //    }
-            //}
             return null; //all good --> done
         }
 
@@ -320,7 +326,7 @@ namespace SummerProject.framework
             hull.AddPart(removable.Part, (linkPosition + 2) % 4); //!         //add part to new hull in part structure                   
             removable.Hull = hull;                      //set hull to new hull
             ((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
-            removable.LinkPosition = linkPosition; //?
+            removable.LinkPosition = (linkPosition + 2); //?
         }
 
         private void RemoveSetup(ShipItem pressedItem, List<ShipItem> removable)
@@ -358,7 +364,11 @@ namespace SummerProject.framework
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
             IDs newID = 0;
-            if (part is RectangularHull)
+            if (part == null)
+            {
+                newID = IDs.EMPTYPART;                
+            }
+            else if (part is RectangularHull)
             {
                 newID = IDs.RECTHULLPART;
             }
@@ -382,8 +392,8 @@ namespace SummerProject.framework
             {
                 newID = IDs.ENGINEPART;
             }
-
-            return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
+            return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, newID);
+            //return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos)

@@ -14,10 +14,14 @@ namespace SummerProject.collidables.parts
         public static Projectiles projectiles;
         protected float RELOADTIME = 0.3f; //!
         protected Timer reloadTimer;
+        protected Projectile bullet;
+        protected IDs bulletID;
 
         public GunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             reloadTimer = new Timer(RELOADTIME);
+            bulletID = IDs.DEFAULT_BULLET;
+            bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
 
         public override void TakeAction()
@@ -29,8 +33,15 @@ namespace SummerProject.collidables.parts
             }
         }
         protected virtual void Fire()
+        {        
+            projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
+            EditBullet();
+            bullet = (Projectile)projectiles.GetEntity((int)bulletID);
+        }
+
+        protected virtual void EditBullet()
         {
-            projectiles.Fire(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), (int)IDs.GRAVITY_BULLET);
+            bullet.IsEvil = IsEvil;
         }
 
         public override void Update(GameTime gameTime)

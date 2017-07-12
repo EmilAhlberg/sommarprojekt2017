@@ -66,5 +66,11 @@ namespace SummerProject
             }
             return pos;
         }
+
+        internal void RemoveAt(int linkPosition)
+        {
+            float tempAngle = -(float)Math.PI / 2 + linkPosition * (float)Math.PI / 2;
+            parts[linkPosition] = new Link(new Vector2((float)Math.Cos(tempAngle), (float)Math.Sin(tempAngle)) * new Vector2(BoundBox.Width, BoundBox.Height) / 2, tempAngle);
+        }
     }
 }

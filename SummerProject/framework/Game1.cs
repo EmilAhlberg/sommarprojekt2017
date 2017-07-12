@@ -172,7 +172,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
             SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
             SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
-            SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 12);
+            SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             #endregion
 
@@ -255,6 +255,7 @@ namespace SummerProject
             achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
+            background.Update(gameTime);
         }
 
         public void UpdateGame(GameTime gameTime)
@@ -271,7 +272,6 @@ namespace SummerProject
             energyBar.Update(player.Energy, player.maxEnergy);
             Traits.TIME.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
             float temp = Traits.TIME.Counter;
-            background.Update(gameTime);
             #endregion
         }
 
