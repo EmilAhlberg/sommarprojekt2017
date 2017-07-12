@@ -33,7 +33,7 @@ namespace SummerProject.collidables.bullets
             }
             else
                 return base.CollidesWith(c2);
-            Vector2 dist = (Position - c3.Position);
+            Vector2 dist = (BoundBox.AbsolutePosition- c3.BoundBox.AbsolutePosition);
             //float r2 = dist.LengthSquared();
             //dist.Normalize();
             //c3.AddForce(20000*dist * Mass * c3.Mass / r2);

@@ -17,9 +17,13 @@ namespace SummerProject.events.buildmenu
         private Sprite box;
         private SpriteFont font;
         public int Price { get; set; }
+        public string Name { get; private set; }
         private Vector2 belowItemPosition;
-        private const int belowOffset = 10;
+        private Vector2 belowNamePosition;
+        private const int belowItemSpacing = 18;
         private const int halfSpriteSize = 16;
+        private const int namePriceSpacing = 25;
+
         public UpgradeBarItem(Vector2 position, SpriteFont font, IDs id = IDs.DEFAULT) : base(position, id)
         {
             this.font = font;
@@ -31,9 +35,12 @@ namespace SummerProject.events.buildmenu
                 Sprite.Scale *=  0.7f;
             BoundBox = new Rectangle((int)position.X,(int)position.Y, (int) (32 * SCALEFACTOR),(int) (32 * SCALEFACTOR));
             BoundBox.Offset(-halfSpriteSize * SCALEFACTOR, -halfSpriteSize * SCALEFACTOR); 
-
-            belowItemPosition = new Vector2(position.X - halfSpriteSize * SCALEFACTOR, position.Y + halfSpriteSize * SCALEFACTOR + belowOffset);
             SetPrice();
+            SetName();
+            Vector2 belowItemVector = new Vector2(position.X, position.Y + halfSpriteSize * SCALEFACTOR + belowItemSpacing);
+            Vector2 belowNameVector = new Vector2(belowItemVector.X, belowItemVector.Y + namePriceSpacing);
+            belowItemPosition = DrawHelper.CenteredWordPosition(Name, font, belowItemVector);
+            belowNamePosition = DrawHelper.CenteredWordPosition("$" + Price.ToString(),font, belowNameVector);
 
         }
 
@@ -48,14 +55,19 @@ namespace SummerProject.events.buildmenu
             return p;
         }
 
-        public void SetPrice()
+        private void SetPrice()
         {
             Price = (int)EntityConstants.GetStatsFromID(EntityConstants.PRICE, id);
+        }
+        private void SetName()
+        {
+            Name = EntityConstants.GetStatsFromID(EntityConstants.NAME, id);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32,32,32), font, "$"+ Price, belowItemPosition, Color.Gold, 0, Vector2.Zero, 1);
+            DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32,32,32), font, "$"+ Price, belowNamePosition, Color.Gold, 0, Vector2.Zero, 1);
+            DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32, 32, 32), font, Name, belowItemPosition, Color.Wheat, 0, Vector2.Zero, 1);
             box.Draw(spriteBatch, gameTime);
             base.Draw(spriteBatch, gameTime);
         }

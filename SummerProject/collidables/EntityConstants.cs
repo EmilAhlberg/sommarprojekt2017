@@ -73,7 +73,7 @@ namespace SummerProject.collidables
             return dictionary;
         }
 
-        public static float GetStatsFromID(Dictionary<int, float> dic, IDs id)
+        public static T GetStatsFromID<T>(Dictionary<int, T> dic, IDs id)
         {
             while (!dic.Keys.Contains((int)id))
             {
@@ -116,7 +116,7 @@ namespace SummerProject.collidables
                 {(int)IDs.SPRAYBULLET, 0.2f},
                 {(int)IDs.CHARGINGBULLET, 2f},
                 {(int)IDs.MINEBULLET, 5f},
-                {(int)IDs.RECTHULLPART, 4f},
+                {(int)IDs.RECTHULLPART, 3f},
                 {(int)IDs.ENEMYASTER, 100f}
           };
 
@@ -170,6 +170,19 @@ namespace SummerProject.collidables
                 {(int)IDs.RECTHULLPART, 8000},
                 {(int)IDs.ENGINEPART, 14000},
                 {(int)IDs.DEFAULT_PART, 15000}
+        };
+
+        public static readonly Dictionary<int, string> NAME =
+        new Dictionary<int, string>
+        {
+                {(int)IDs.GUNPART, "Sniping Gun"},
+                {(int)IDs.EMPTYPART, "Sell Parts"},
+                {(int)IDs.SPRAYGUNPART, "Spray Gun"},
+                {(int)IDs.MINEGUNPART, "Mine Deployer"},
+                {(int)IDs.CHARGINGGUNPART, "Fusion Gun"},
+                {(int)IDs.RECTHULLPART, "Hull"},
+                {(int)IDs.ENGINEPART, "Engine"},
+                {(int)IDs.DEFAULT_PART, "NO_NAME"}
         };
     }
 }
