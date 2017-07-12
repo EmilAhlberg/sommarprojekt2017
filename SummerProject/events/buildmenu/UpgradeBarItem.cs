@@ -29,7 +29,7 @@ namespace SummerProject.events.buildmenu
             box.Scale *= SCALEFACTOR;
             if (id == IDs.RECTHULLPART)
                 Sprite.Scale *=  0.7f;
-            BoundBox = new Rectangle((int)position.X,(int)position.Y, 32 * SCALEFACTOR, 32 * SCALEFACTOR);
+            BoundBox = new Rectangle((int)position.X,(int)position.Y, (int) (32 * SCALEFACTOR),(int) (32 * SCALEFACTOR));
             BoundBox.Offset(-halfSpriteSize * SCALEFACTOR, -halfSpriteSize * SCALEFACTOR); 
 
             belowItemPosition = new Vector2(position.X - halfSpriteSize * SCALEFACTOR, position.Y + halfSpriteSize * SCALEFACTOR + belowOffset);
