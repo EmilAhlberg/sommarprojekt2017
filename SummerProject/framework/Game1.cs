@@ -132,6 +132,7 @@ namespace SummerProject
             Texture2DPlus mineGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/MineGun"));
             Texture2DPlus sprayGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SprayGun"));
             Texture2DPlus chargingGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/ChargingGun"));
+            Texture2DPlus gravityGunTex = new Texture2DPlus(Content.Load<Texture2D>("parts/GravityGun"));
             Texture2DPlus engineTex1 = new Texture2DPlus(Content.Load<Texture2D>("parts/Engine_1"));
             Texture2DPlus selectionBoxTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SelectionBox"));
             Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
@@ -161,7 +162,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
             SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.MINEGUNPART] = new Sprite(mineGunTex);
-            SpriteHandler.Sprites[(int)IDs.GRAVITYGUNPART] = new Sprite(gunTex1);
+            SpriteHandler.Sprites[(int)IDs.GRAVITYGUNPART] = new Sprite(gravityGunTex);
             SpriteHandler.Sprites[(int)IDs.CHARGINGGUNPART] = new Sprite(chargingGunTex);
             SpriteHandler.Sprites[(int)IDs.SPRAYGUNPART] = new Sprite(sprayGunTex);
             SpriteHandler.Sprites[(int)IDs.ENGINEPART] = new Sprite(engineTex1);

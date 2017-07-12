@@ -116,7 +116,7 @@ namespace SummerProject.collidables
                 {(int)IDs.SPRAYBULLET, 0.2f},
                 {(int)IDs.CHARGINGBULLET, 2f},
                 {(int)IDs.MINEBULLET, 5f},
-                {(int)IDs.RECTHULLPART, 4f},
+                {(int)IDs.RECTHULLPART, 3f},
                 {(int)IDs.ENEMYASTER, 100f}
           };
 
