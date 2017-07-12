@@ -5,6 +5,7 @@ using SummerProject.collidables.Enemies;
 using SummerProject.collidables.bullets;
 using SummerProject.collidables.parts;
 using SummerProject.collidables.enemies;
+using SummerProject.collidables.enemies.SemiBosses;
 
 namespace SummerProject.factories
 {
@@ -31,17 +32,28 @@ namespace SummerProject.factories
             {
                 case 1: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
                 case 2: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 3: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 4: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 5: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 6: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 7: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 3: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
+                case 4: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
+                case 5: e = new EngineSBoss1(FarAway(), player); return e;
+                case 6: e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
+                case 7: e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
                 case 8: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 9: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 10: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 9:
+                    Random r = new Random();
+                    int n = r.Next(0,100);
+                    if (n < 50)
+                    {
+                        e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                    }
+                    if (n < 60)
+                    {
+                        e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
+                    }
+                    new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
+                case 10: new EngineSBoss1(FarAway(), player); return e;
                 default: throw new Exception();
             }
-            e = new RandomEnemy(FarAway(), player); return e;
+            //e = new RandomEnemy(FarAway(), player); return e;
             //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
         }
 

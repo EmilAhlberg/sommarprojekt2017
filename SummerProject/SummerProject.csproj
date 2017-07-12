@@ -61,7 +61,9 @@
     <Compile Include="collidables\bullets\GravityBullet.cs" />
     <Compile Include="collidables\enemies\Attacker.cs" />
     <Compile Include="collidables\drops\MoneyDrop.cs" />
+    <Compile Include="collidables\enemies\bosses\EngineBoss1.cs" />
     <Compile Include="collidables\enemies\RandomEnemy.cs" />
+    <Compile Include="collidables\enemies\semiBosses\EngineSBoss1.cs" />
     <Compile Include="collidables\parts\guns\ChargingGunPart.cs" />
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
