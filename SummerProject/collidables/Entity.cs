@@ -12,6 +12,14 @@ namespace SummerProject.collidables
         {
         }
 
+        public virtual void Update(GameTime gameTime)
+        {
+            if (Health <= 0)
+                Death();
+            else
+                Move();
+        }
+
         public override void SetStats(IDs id)
         {
             Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);

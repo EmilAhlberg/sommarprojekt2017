@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables.enemies;
+using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables.Enemies
 {
@@ -15,15 +16,18 @@ namespace SummerProject.collidables.Enemies
         {
         }
 
+        public override void Move()
+        {
+            if(waitTimer.IsFinished && !attackTimer.IsFinished)
+                Hull.TakeAction(typeof(EnginePart));
+        }
+
         protected override void Attack(GameTime gameTime)
         {
-            Move();
         }
 
         protected override void Wait(GameTime gameTime)
         {
-            CalculateAngle();
-            ThrusterAngle = Angle;
         }
     }
 }

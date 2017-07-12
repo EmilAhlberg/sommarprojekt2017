@@ -34,6 +34,7 @@ namespace SummerProject.factories
                 case (int)IDs.SPRAYBULLET: return new SprayBullet(FarAway());
                 case (int)IDs.MINEBULLET: return new MineBullet(FarAway());
                 case (int)IDs.CHARGINGBULLET: return new ChargingBullet(FarAway());
+                case (int)IDs.GRAVITY_BULLET: return new GravityBullet(FarAway());
                 #endregion
                 #region Drops
                 case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway(),1);

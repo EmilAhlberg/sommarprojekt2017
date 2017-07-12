@@ -2,6 +2,7 @@
 using SummerProject.collidables.bullets;
 using SummerProject.collidables.Enemies;
 using SummerProject.collidables.parts;
+using SummerProject.collidables.parts.guns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,8 @@ namespace SummerProject.collidables
                {typeof(SprayBullet), IDs.SPRAYBULLET },
                {typeof(MineBullet), IDs.MINEBULLET },
                {typeof(ChargingBullet), IDs.CHARGINGBULLET },
+               {typeof(GravityGunPart), IDs.GRAVITY_GUN_PART },
+               {typeof(GravityBullet), IDs.GRAVITY_BULLET },
                 #endregion
                 #region Particles
                {typeof(Particle), IDs.DEFAULT_PARTICLE },
@@ -95,9 +98,11 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 1},
-                {(int)IDs.PLAYER, 1},
+                {(int)IDs.PLAYER, 100},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.DEFAULT_BULLET, 1},
+                {(int)IDs.GRAVITY_BULLET, 0},
+                {(int)IDs.CHARGINGBULLET, 0},
                 {(int)IDs.SPRAYBULLET, 0.2f }
           };
 
@@ -142,6 +147,7 @@ namespace SummerProject.collidables
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 200},
+                {(int)IDs.GRAVITY_BULLET, 10},
                 {(int)IDs.PART, 1},
                 {(int)IDs.RECTHULLPART, 20f}
           };

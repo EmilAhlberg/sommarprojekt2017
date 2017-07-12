@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables.Enemies
 {
@@ -13,10 +14,9 @@ namespace SummerProject.collidables.Enemies
         {
         }
 
-        protected override void AI(GameTime gameTime)
+        public override void Move()
         {
-            base.AI(gameTime);
-            Move();
+            Hull.TakeAction(typeof(EnginePart));
         }
     }
 }

@@ -11,6 +11,7 @@ using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using System.IO;
 using System.Linq;
+using SummerProject.collidables.parts.guns;
 
 namespace SummerProject
 {
@@ -149,6 +150,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ENEMYASTER] = new Sprite(enemyTex4);
             SpriteHandler.Sprites[(int)IDs.DEFAULT_BULLET] = new Sprite(shotTex,4);
             SpriteHandler.Sprites[(int)IDs.CHARGINGBULLET] = new Sprite(chargingBulletTex, 24);
+            SpriteHandler.Sprites[(int)IDs.GRAVITY_BULLET] = new Sprite(gravityBulletTex, 24);
             SpriteHandler.Sprites[(int)IDs.SPRAYBULLET] = new Sprite(sprayBulletTex, 2);
             SpriteHandler.Sprites[(int)IDs.HOMINGBULLET] = new Sprite(homingTex);
             SpriteHandler.Sprites[(int)IDs.HEALTHDROP] = new Sprite(healthDropTex,6);
@@ -159,6 +161,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.RECTHULLPART] = new Sprite(shipTex);
             SpriteHandler.Sprites[(int)IDs.GUNPART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.MINEGUNPART] = new Sprite(mineGunTex);
+            SpriteHandler.Sprites[(int)IDs.GRAVITY_GUN_PART] = new Sprite(gunTex1);
             SpriteHandler.Sprites[(int)IDs.CHARGINGGUNPART] = new Sprite(chargingGunTex);
             SpriteHandler.Sprites[(int)IDs.SPRAYGUNPART] = new Sprite(sprayGunTex);
             SpriteHandler.Sprites[(int)IDs.ENGINEPART] = new Sprite(engineTex1);
@@ -194,7 +197,7 @@ namespace SummerProject
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
             GunPart gunPart2 = new ChargingGunPart();
-            GunPart gunPart3 = new ChargingGunPart();
+            GunPart gunPart3 = new GravityGunPart();
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();
@@ -203,7 +206,7 @@ namespace SummerProject
             player.AddPart(engine1, 3);
             //rectHull1.AddPart(engine2, 3);
             //rectHull2.AddPart(engine3, 3);
-            player.AddPart(gunPart1, 1);
+            player.AddPart(gunPart3, 1);
             //rectHull1.AddPart(gunPart2, 0);
             //rectHull2.AddPart(gunPart3, 2);
             drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap

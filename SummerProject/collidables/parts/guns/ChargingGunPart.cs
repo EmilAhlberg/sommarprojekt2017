@@ -31,6 +31,7 @@ namespace SummerProject.collidables.parts
             {
                 charging = true;
             }
+            bullet.Health += 1000;
             Particles.GenerateParticles(Position, 3, angle, new Color(1, 0.15f + 0.85f * (1 - chargeTimer.currentTime / chargeTimer.maxTime), (1 - chargeTimer.currentTime / chargeTimer.maxTime), 0.5f + 0.5f*(1 - chargeTimer.currentTime / chargeTimer.maxTime)));
         }
 

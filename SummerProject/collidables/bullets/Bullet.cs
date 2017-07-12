@@ -12,9 +12,9 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             TrailParticles();
             UpdateTimer(gameTime);
-            Move();
         }
 
         protected virtual void TrailParticles()
@@ -32,6 +32,7 @@ namespace SummerProject.collidables
             AddSpeed(30, Angle); 
 
         }
+
         public override void Death()
         {
             Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];

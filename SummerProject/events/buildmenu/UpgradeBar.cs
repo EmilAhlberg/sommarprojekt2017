@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.factories;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.events.buildmenu
 {
@@ -29,6 +30,8 @@ namespace SummerProject.events.buildmenu
         private Sprite outlineBkg;
         private Sprite screenBkg;
         private bool screenBkgMoved;
+        private Sprite followMouseSprite;
+        private UpgradeBarItem selectedBarItem;
         #region Bar item positioning
         private const int rows = 5;
         private const int spacing = 50;
@@ -80,14 +83,18 @@ namespace SummerProject.events.buildmenu
                 {
                     itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
+                if (followMouseSprite != null)
+                followMouseSprite.Draw(spriteBatch, gameTime);
             }
         }
 
         internal void Update(GameTime gameTime)
         {
-            Action = false;
+            Action = false; 
             CheckAction();
-            resource = Traits.CURRENCY.Counter; //not here         
+            resource = Traits.CURRENCY.Counter; //not here      
+            if (followMouseSprite != null)
+                followMouseSprite.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
         }
 
         private void CheckAction()
@@ -99,16 +106,24 @@ namespace SummerProject.events.buildmenu
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
                         barItem.Active = true;
-                        Action = true;
-                        SelectedPart = barItem.ReturnPart();
+                        followMouseSprite = new Sprite(barItem.Sprite);
+                        followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
+                        followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
+                        selectedBarItem = barItem;
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
                                 otherItem.Active = false;
                         break;
                     }
                 }
+                if (InputHandler.isJustPressed(MouseButton.LEFT))
+                {
+                    Action = true;
+                    SelectedPart = selectedBarItem.ReturnPart();
+                }
             }
         }
+
         internal void CreateItemBoxes()
         {
             itemBoxes = new List<UpgradeBarItem>();

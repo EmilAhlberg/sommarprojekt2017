@@ -54,14 +54,6 @@ namespace SummerProject.collidables.enemies
             FillParts(Hull);
         }
 
-        protected override void AI(GameTime gameTime)
-        {
-            CalculateAngle();
-            ThrusterAngle = Angle;
-            Move();
-            base.AI(gameTime);
-        }
-
         protected override void Attack(GameTime gameTime)
         {
             Hull.TakeAction(typeof(SprayGunPart));
@@ -73,5 +65,9 @@ namespace SummerProject.collidables.enemies
         {
         }
 
+        public override void Move()
+        {
+            Hull.TakeAction(typeof(EnginePart));
+        }
     }
 }
