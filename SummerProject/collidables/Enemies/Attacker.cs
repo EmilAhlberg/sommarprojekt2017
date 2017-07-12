@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SummerProject.collidables.parts;
 
 namespace SummerProject.collidables.enemies
 {
@@ -20,8 +21,9 @@ namespace SummerProject.collidables.enemies
             waitTimer = new Timer(WAITTIME);
         }
 
-        protected override void AI(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             if (waitTimer.IsFinished)
             {
                 Attack(gameTime);

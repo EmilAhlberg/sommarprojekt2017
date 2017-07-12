@@ -28,23 +28,14 @@ namespace SummerProject
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
         }
 
-        protected virtual void AI(GameTime gameTime)
-        {
-            CalculateAngle();
-            ThrusterAngle = Angle;
-        }
-
         public override void Update(GameTime gameTime)
         {
-            AI(gameTime);
-            //AddForce(10, Angle); //!
-            Hull.Update(gameTime);
             if (Health <= 0 && IsActive)
             {
                 ScoreHandler.AddScore((int)WorthScore);
                 Traits.KILLS.Counter++; //maybe not counted as a kill
-                Death();
             }
+            base.Update(gameTime);
             if (Health > 0 && IsActive)
                 rageTimer.CountDown(gameTime);
             if (rageTimer.IsFinished)
@@ -78,6 +69,11 @@ namespace SummerProject
             {
                 (c2 as Player).Health -= Damage;
                 Death();
+            }
+            else if (c2 is Entity)
+            {
+                Entity e = c2 as Entity;
+                e.Health -= Damage;
             }
             //if (Health <= 0) //REPLACE THIS WITH GOOD COLISSIONHANDLING
             //    Death();

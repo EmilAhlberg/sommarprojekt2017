@@ -26,11 +26,6 @@ namespace SummerProject.collidables.Enemies
             Death();
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);       
-        }
-
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
@@ -45,6 +40,10 @@ namespace SummerProject.collidables.Enemies
         {
             //Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
             base.Death();
+        }
+
+        public override void Move()
+        {
         }
     }
 }

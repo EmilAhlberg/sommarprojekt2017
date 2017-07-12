@@ -6,6 +6,7 @@ using SummerProject.factories;
 using System.Collections.Generic;
 using SummerProject.collidables.parts;
 using SummerProject.achievements;
+using SummerProject.collidables.parts.guns;
 
 namespace SummerProject.collidables
 {
@@ -83,6 +84,7 @@ namespace SummerProject.collidables
                     Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
                 Hull.TakeAction(typeof(ChargingGunPart));
+                Hull.TakeAction(typeof(GravityGunPart));
             }
         }
 
@@ -158,7 +160,7 @@ namespace SummerProject.collidables
             if (directionVector != Vector2.Zero)
             {
                 Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y, directionVector.X);
-                base.Move();
+                Hull.TakeAction(typeof(EnginePart));
             }
         }
 
@@ -191,6 +193,11 @@ namespace SummerProject.collidables
             if (/*!shieldOn && */c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
+                e.Health -= Damage;
+            }
+            else if (/*!shieldOn && */c2 is Entity)
+            {
+                Entity e = c2 as Entity;
                 e.Health -= Damage;
             }
 

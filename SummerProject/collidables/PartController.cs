@@ -98,6 +98,7 @@ namespace SummerProject
         }
 
         protected abstract void CalculateAngle();
+        public abstract void Move();
 
         public virtual void Death()
         {
@@ -132,10 +133,7 @@ namespace SummerProject
             Hull.CalculateAngle(dX, dY);
         }
 
-        public virtual void Move()
-        {
-            Hull.TakeAction(typeof(EnginePart));
-        }
+        
 
         public void AddForce(float force, float angle) { Hull.AddForce(force * (new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)))); }
 

@@ -32,7 +32,6 @@ namespace SummerProject.collidables
             {
                 if (IsEvil)
                     (c2 as Player).Health -= Damage;
-                Death();
             }
 
             if (c2 is Enemy)
@@ -43,9 +42,7 @@ namespace SummerProject.collidables
                     e.Health -= Damage;
                     e.AddForce(Velocity*Velocity.Length()/2*Mass/e.Hull.Mass); //! remove lator
                     Traits.SHOTSHIT.Counter++;
-                    Death();
                 }
-                
             }
         }
 
