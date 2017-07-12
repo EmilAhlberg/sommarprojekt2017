@@ -24,7 +24,7 @@ namespace SummerProject.factories
             return ActivateEntities(source, target, bulletType);
         }
 
-        public void FireSpecificBullet (Vector2 source, Vector2 target, Projectile bullet)
+        public void FireSpecificBullet(Vector2 source, Vector2 target, Projectile bullet)
         {
             bullet.Activate(source, target);
         }

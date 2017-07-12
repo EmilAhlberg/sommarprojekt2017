@@ -46,7 +46,7 @@ namespace SummerProject.events.buildmenu
 
         public void SetPrice()
         {
-            EntityConstants.GetStatsFromID(EntityConstants.PRICE, id);
+            Price = (int)EntityConstants.GetStatsFromID(EntityConstants.PRICE, id);
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
