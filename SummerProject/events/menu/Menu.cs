@@ -21,11 +21,12 @@ namespace SummerProject.menu
             menues = new List<MenuComponent>();
             //order of added menues is important
             menues.Add(new MainMenu(position, spriteFont));
-            menues.Add(new ModeSelectionMenu(position, spriteFont));
+            menues.Add(new DifficultyMenu(position, spriteFont));
+            //menues.Add(new ModeSelectionMenu(position, spriteFont));
             menues.Add(new GameOverMenu(position, spriteFont));
             menues.Add(new PauseMenu(position, spriteFont));
             menues.Add(new UpgradeMenu(position, spriteFont));
-            menues.Add(new DifficultyMenu(position, spriteFont));
+          
         }
 
         private bool CheckKey(Keys theKey)

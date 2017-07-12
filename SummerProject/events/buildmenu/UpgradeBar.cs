@@ -20,7 +20,6 @@ namespace SummerProject.events.buildmenu
         private float resource;
         private List<UpgradeBarItem> itemBoxes;
 
-        public bool Active { get; internal set; }
         public bool Action { get; internal set; }
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
@@ -46,6 +45,7 @@ namespace SummerProject.events.buildmenu
             this.backgroundText = backgroundText;
             this.spentResource = 0;
             InitBackgrounds();
+            CreateItemBoxes();
         }
 
         private void InitBackgrounds()
@@ -66,8 +66,7 @@ namespace SummerProject.events.buildmenu
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             screenBkg.Draw(spriteBatch, gameTime);
-            if (Active)
-            {
+
                 //menubar     
                 //  Texture2D outlineBkg = new Texture2D()     
                 upgradeBarBkg.Draw(spriteBatch, gameTime);
@@ -85,12 +84,10 @@ namespace SummerProject.events.buildmenu
                 }
                 if (followMouseSprite != null)
                 followMouseSprite.Draw(spriteBatch, gameTime);
-            }
         }
 
         internal void Update(GameTime gameTime)
         {
-            Action = false; 
             CheckAction();
             resource = Traits.CURRENCY.Counter; //not here      
             if (followMouseSprite != null)
@@ -106,6 +103,7 @@ namespace SummerProject.events.buildmenu
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
                         barItem.Active = true;
+                        Action = true;
                         followMouseSprite = new Sprite(barItem.Sprite);
                         followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
                         followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
@@ -116,9 +114,8 @@ namespace SummerProject.events.buildmenu
                         break;
                     }
                 }
-                if (InputHandler.isJustPressed(MouseButton.LEFT))
+                if (InputHandler.isJustPressed(MouseButton.LEFT) && Action)
                 {
-                    Action = true;
                     SelectedPart = selectedBarItem.ReturnPart();
                 }
             }
