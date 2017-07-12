@@ -155,6 +155,14 @@ namespace SummerProject
                     }
                 #endregion
 
+                #region Gravity Bullet 10
+                case 10:
+                    {
+                        CreateImplosion(1, position, 0, 60, (float)Math.PI * (3 - 2.236f), color.Value, 0.5f, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
+
                 #region Energy Death 12
                 case 12:
                     {

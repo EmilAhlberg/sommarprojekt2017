@@ -46,6 +46,11 @@ namespace SummerProject.collidables.bullets
             return base.CollidesWith(c2);
         }
 
+        protected override void TrailParticles()
+        {
+            Particles.GenerateParticles(Position, 10, Angle, Sprite.PrimaryColor);
+        }
+
         protected override void HandleCollision(ICollidable c2)
         {
         }
