@@ -11,13 +11,8 @@ namespace SummerProject.collidables
     class MoneyDrop : Drop
     {
         public const int value = 1000;
-        public MoneyDrop(Vector2 position) : base(position)
+        public MoneyDrop(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-        }
-        public override void Collision(ICollidable c2)
-        {
-            if (c2 is Player)
-                Death();
         }
 
         public override void Death()

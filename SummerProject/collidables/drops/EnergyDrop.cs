@@ -10,7 +10,7 @@ namespace SummerProject.collidables
     class EnergyDrop : Drop
     {
         public const int charge = 10;
-        public EnergyDrop(Vector2 position) : base(position)
+        public EnergyDrop(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
         }
 

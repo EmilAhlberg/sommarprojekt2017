@@ -32,11 +32,7 @@ namespace SummerProject
             {
                 if (p.IsActive)
                 { 
-                    p.Update(gameTime);
-                    if (WindowSize.IsOutOfBounds(p.Position))
-                    {
-                        p.IsActive = false;
-                    }   
+                    p.Update(gameTime); 
                 }
             }
         }
