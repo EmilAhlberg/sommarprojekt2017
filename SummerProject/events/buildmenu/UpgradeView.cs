@@ -394,36 +394,30 @@ namespace SummerProject.framework
 
         private void CheckActions()
         {
+       
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
-                    if (InputHandler.isJustPressed(MouseButton.LEFT)) {
-                        int oldActive = activeSelection;
+                    if (InputHandler.isJustPressed(MouseButton.LEFT) && upgradeBar.Action) {
+                        //int oldActive = activeSelection;
+                        //if (oldActive != activeSelection && activeSelection >= 0)
+                        //{
+                        //    tempItem = item.Key;
+                        //}
+                        //else if (oldActive == activeSelection)
+                        //    activeSelection = -1;
+                        ////Buy(100); //!
                         activeSelection = item.Key;
-                        if (oldActive != activeSelection && activeSelection >= 0)
-                        {
-                            upgradeBar.CreateItemBoxes();
-                        }
-                        else if (oldActive == activeSelection)
-                            activeSelection = -1;
-                        if (activeSelection >= 0)
-                            upgradeBar.Active = true;
-                        else
-                            upgradeBar.Active = false;
-                        //Buy(100); //!
+                        AddPart(upgradeBar.SelectedPart);
+                        break;
                     }
                     else if (InputHandler.isJustPressed(MouseButton.RIGHT) && item.Value.id != IDs.EMPTYPART)
                     {
-                        if (RotatePart(item.Value))
-                        {
-
-                        }
+                        RotatePart(item.Value);
                     }
                 }
             }
-            if (upgradeBar.Active && upgradeBar.Action)
-                AddPart(upgradeBar.SelectedPart);
         }
 
         private bool RotatePart(ShipItem current)
