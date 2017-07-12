@@ -7,16 +7,21 @@ namespace SummerProject.factories
 {
     public class Projectiles : Entities
     {
-
-        public Projectiles(int ammoCap) : base(ammoCap)
+        private const int defaultBulletCap = 10;
+        public Projectiles() : base()
         {
-            InitializeEntities((int)IDs.DEFAULT_BULLET);
-            InitializeEntities((int)IDs.HOMINGBULLET);
-            InitializeEntities((int)IDs.SPRAYBULLET);
-            InitializeEntities((int)IDs.MINEBULLET);
-            InitializeEntities((int)IDs.CHARGINGBULLET);
-            InitializeEntities((int)IDs.GRAVITYBULLET);
+            InitializeEntities((int)IDs.DEFAULT_BULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.HOMINGBULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.SPRAYBULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.MINEBULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.CHARGINGBULLET, defaultBulletCap);
+            InitializeEntities((int)IDs.GRAVITYBULLET, defaultBulletCap);
             //Enemy.projectiles = this; //! Hmmmmm
+        }
+
+        public void AddExtraBullets(int bulletId, int amount)
+        {
+            AddExtraEntities(bulletId, amount);
         }
 
         public bool Fire(Vector2 source, Vector2 target, int bulletType)

@@ -344,7 +344,10 @@ namespace SummerProject.framework
 
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
-            return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, EntityConstants.TypeToID(part.GetType()));
+            IDs id = IDs.EMPTYPART;       
+            if(part != null)
+                id = EntityConstants.TypeToID(part.GetType());          
+            return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, id);
 
             //return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }

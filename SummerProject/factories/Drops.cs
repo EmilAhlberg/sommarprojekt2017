@@ -13,16 +13,17 @@ namespace SummerProject.factories
         private int width;
         private int height;
         private const float healthSpawnChance_tier2 = 0.02f;
-        public Drops(int entityCap, int windowWidth, int windowHeight) : base(entityCap)
+        private const int dropCap = 10;
+        public Drops( int windowWidth, int windowHeight) : base()
         {
             width = windowWidth - 100;
             height = windowHeight - 100;
             //spawnTimer = new Timer(spawnTime);
-            InitializeEntities((int)IDs.HEALTHDROP);
-            InitializeEntities((int)IDs.EXPLOSIONDROP);
-            InitializeEntities((int)IDs.ENERGYDROP);
-            InitializeEntities((int)IDs.HEALTHDROP_TIER2);
-            InitializeEntities((int)IDs.MONEYDROP);
+            InitializeEntities((int)IDs.HEALTHDROP, dropCap);
+            InitializeEntities((int)IDs.EXPLOSIONDROP, dropCap);
+            InitializeEntities((int)IDs.ENERGYDROP, dropCap);
+            InitializeEntities((int)IDs.HEALTHDROP_TIER2, dropCap);
+            InitializeEntities((int)IDs.MONEYDROP, dropCap);
         }
 
         //public void Spawn()

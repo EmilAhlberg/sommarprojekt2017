@@ -14,8 +14,11 @@ namespace SummerProject.collidables.parts
         public MineGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             RELOADTIME = 0.4f;
+            bulletCap = 10;
             reloadTimer = new Timer(RELOADTIME);
+            reloadTimer.Finish();
             bulletID = IDs.MINEBULLET;
+            projectiles.AddExtraBullets((int)bulletID, bulletCap);
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
 

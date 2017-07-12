@@ -34,7 +34,7 @@ namespace SummerProject
             this.gameMode = gameMode;
             spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
-            enemies = new Enemies(player, 30); //! nbrOfEnemies
+            enemies = new Enemies(player); 
             dropPoints = new DropSpawnPoints();
             levelTimer = new Timer(20);
         }

@@ -39,8 +39,12 @@ namespace SummerProject.events.buildmenu
 
         public Part ReturnPart()
         {
-            Type t = EntityConstants.IDTOTYPE[id];
-            Part p = (Part)Activator.CreateInstance(t, IDs.DEFAULT); //! Needs to be changed if Part takes more than one constructor
+            Part p = null;
+            if (id != IDs.EMPTYPART)
+            {
+                Type t = EntityConstants.IDTOTYPE[id];
+                p = (Part)Activator.CreateInstance(t, IDs.DEFAULT); //! Needs to be changed if Part takes more than one constructor
+            }
             return p;
         }
 

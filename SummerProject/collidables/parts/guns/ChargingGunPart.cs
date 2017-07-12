@@ -21,6 +21,7 @@ namespace SummerProject.collidables.parts
         {
             chargeTimer = new Timer(3);
             bulletID = IDs.CHARGINGBULLET;
+            projectiles.AddExtraBullets((int)bulletID, bulletCap);
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
 

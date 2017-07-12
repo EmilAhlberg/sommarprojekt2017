@@ -7,29 +7,36 @@ using System;
 namespace SummerProject.factories
 {
     public abstract class Entities
-    {   
-        protected int entityCap;
+    {
         public Dictionary<int, List<IActivatable>> EntityDic { get; private set; }       
 
-        public Entities(int entityCap)
-        {
-            this.entityCap = entityCap;            
+        public Entities()
+        {      
             EntityDic = new Dictionary<int, List<IActivatable>>();
         }
 
         public abstract IActivatable CreateEntity(int index);
         public abstract void Reset();
 
-        protected void InitializeEntities(int type)
+        protected void InitializeEntities(int type, int amountOfEntities)
         {
             if (!EntityDic.ContainsKey(type))
             {
                 EntityDic[type] = new List<IActivatable>();
-                for (int i = 0; i < entityCap; i++)
+                for (int i = 0; i < amountOfEntities; i++)
                 {
                     IActivatable c = CreateEntity(type);
                     EntityDic[type].Insert(0, c);
                 }
+            }
+        }
+
+        protected void AddExtraEntities(int type, int amountOfEntities)
+        {
+            for (int i = EntityDic.Count; i < amountOfEntities + EntityDic.Count; i++)
+            {
+                IActivatable c = CreateEntity(type);
+                EntityDic[type].Insert(0, c);
             }
         }
 
@@ -59,7 +66,7 @@ namespace SummerProject.factories
                     return e;
                 }
             }
-            return null;
+            return colList[0];
         }
 
         public bool ActivateEntities(Vector2 source, Vector2 target, int type)

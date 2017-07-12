@@ -75,8 +75,8 @@ namespace SummerProject
                 Entity e = c2 as Entity;
                 e.Health -= Damage;
             }
-            //if (Health <= 0) //REPLACE THIS WITH GOOD COLISSIONHANDLING
-            //    Death();
+            if (Health <= 0) //REPLACE THIS WITH GOOD COLISSIONHANDLING
+                Death();
         }
 
 
