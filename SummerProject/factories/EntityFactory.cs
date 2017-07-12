@@ -49,8 +49,8 @@ namespace SummerProject.factories
                     {
                         e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
                     }
-                    new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
-                case 10: new EngineSBoss1(FarAway(), player); return e;
+                    e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
+                case 10: e = new EngineSBoss1(FarAway(), player); return e;
                 default: throw new Exception();
             }
             //e = new RandomEnemy(FarAway(), player); return e;
