@@ -33,9 +33,17 @@ namespace SummerProject
             get { return energy; }
             set
             {
-                if (maxEnergy < maxEnergyCap)
-                    maxEnergy += value - energy;
-                energy = maxEnergy;
+                float val = value-energy;
+                energy = value;
+                if(val == EnergyDrop.charge)
+                {
+                    maxEnergy += val;
+                    if(maxEnergy > maxEnergyCap)
+                    {
+                        maxEnergy = maxEnergyCap;
+                    }
+                    energy = maxEnergy;
+                }
             }
         }
         public float maxHealth { get; protected set; }

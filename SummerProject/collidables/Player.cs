@@ -16,12 +16,9 @@ namespace SummerProject.collidables
         public int ControlScheme { get; set; } = 2; // 1-4      
         private const float shieldDischargeRate = 3f;
         private const float shieldRechargeRate = shieldDischargeRate / 10;
-        private const int shieldSize = 300;
-        //private bool shieldOn;
         private Projectiles projectiles;
         public Vector2 StartPosition { get; private set; }
-        private bool toggleGun;
-        private bool toggleSprayGun;
+        public bool phaseOut { get; private set; } = false;
 
         public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, false, id)
         {
@@ -29,8 +26,6 @@ namespace SummerProject.collidables
             this.projectiles = projectiles;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle)); // shield
             Position = position;
-            toggleGun = true;
-            toggleSprayGun = true;
         }
 
         public override void Update(GameTime gameTime) //NEEDS FIX
@@ -44,33 +39,11 @@ namespace SummerProject.collidables
                 Fire();
                 //if (Health <= 0 && IsActive)
                 //    Death();
-                //if (InputHandler.isPressed(MouseButton.RIGHT))
-                //{
-                //    if (Energy > 0)
-                //    {
-                //        Particles.GenerateParticles(sprite.Edges, Position, sprite.Origin, 7, angle);
-                //        Energy -= shieldDischargeRate;
-                //        shieldOn = true;
-                //    }
-                //    else
-                //    {
-                //        Energy = 0;
-                //        shieldOn = false;
-                //    }
-                //}
-                //else
-                //{
-                //    shieldOn = false;
-                //    if (maxEnergy > Energy)
-                //    {
-                //        Energy += shieldRechargeRate;
-                //    }
-                //}
+
                 if (Health <= 2)
                 {
                     //Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, Angle);
                 }
-                HandleBulletToggle();
             }
         }
 
@@ -78,14 +51,38 @@ namespace SummerProject.collidables
         {
             if (InputHandler.isPressed(MouseButton.LEFT))
             {
-                if (toggleGun)
-                    Hull.TakeAction(typeof(GunPart));
-                if (toggleSprayGun)
-                    Hull.TakeAction(typeof(SprayGunPart));
+                Hull.TakeAction(typeof(GunPart));
+                Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
                 Hull.TakeAction(typeof(ChargingGunPart));
                 Hull.TakeAction(typeof(GravityGunPart));
             }
+            if (InputHandler.isPressed(MouseButton.RIGHT))
+
+            {
+                if (Energy > 0)
+                {
+                    Hull.Color = new Color(255, 255, 255, 128);
+                    Energy -= shieldDischargeRate;
+                    phaseOut = true;
+                }
+                else
+                {
+                    Energy = 0;
+                    phaseOut = false;
+                    Hull.Color = Color.White;
+                }
+            }
+            else
+            {
+                phaseOut = false;
+                Hull.Color = Color.White;
+                if (maxEnergy > Energy)
+                {
+                    Energy += shieldRechargeRate;
+                }
+            }
+
         }
 
         protected override void CalculateAngle()
@@ -164,14 +161,6 @@ namespace SummerProject.collidables
             }
         }
 
-        private void HandleBulletToggle()
-        {
-            if (InputHandler.isJustPressed(Keys.D1))
-                toggleGun = !toggleGun;
-            if (InputHandler.isJustPressed(Keys.D2))
-                toggleSprayGun = !toggleSprayGun;
-        }
-
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             IsActive = false;
@@ -190,17 +179,16 @@ namespace SummerProject.collidables
 
         protected override void HandleCollision(ICollidable c2)
         {
-            if (/*!shieldOn && */c2 is Enemy)
+            if (!phaseOut && c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
                 e.Health -= Damage;
             }
-            else if (/*!shieldOn && */c2 is Entity)
+            else if (!phaseOut && c2 is Entity)
             {
                 Entity e = c2 as Entity;
                 e.Health -= Damage;
             }
-
             if (c2 is MoneyDrop)
                 Traits.CURRENCY.Counter += MoneyDrop.value;
         }
