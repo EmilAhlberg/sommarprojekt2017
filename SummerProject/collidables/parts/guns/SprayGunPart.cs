@@ -13,9 +13,11 @@ namespace SummerProject.collidables.parts
     {
         public SprayGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
+            bulletCap = 10;
             RELOADTIME = 0.1f;
             reloadTimer = new Timer(RELOADTIME);
             bulletID = IDs.SPRAYBULLET;
+            projectiles.AddExtraBullets((int)bulletID, bulletCap);
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
     }
