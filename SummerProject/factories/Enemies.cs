@@ -29,18 +29,22 @@ namespace SummerProject.factories
         {
             ResetEntities();
         }
+
         public void Spawn(Vector2 source)
         {
             float rnd = SRandom.NextFloat();
             int type = (int)IDs.DEFAULT_ENEMY;
-            if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
-                type = (int)IDs.ENEMYSHOOT;
-            else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
-                type = (int)IDs.ENEMYSPEED;
-            else if (rnd < Difficulty.IS_ASTEROID_RISK) //! chance of being ASTEROIIIID
+            //if (rnd < Difficulty.CAN_SHOOT_RISK) //! chance of being able to shoot
+            //    type = (int)IDs.ENEMYSHOOT;
+            //else if (rnd < Difficulty.IS_SPEEDY_RISK) //! chance of being shupeedo
+            //    type = (int)IDs.ENEMYSPEED;
+            //else if (rnd < Difficulty.IS_ASTEROID_RISK) //! chance of being ASTEROIIIID
+            //    type = (int)IDs.ENEMYASTER;
+            if (rnd < 0.2) //!      OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOJJ!
                 type = (int)IDs.ENEMYASTER;
             ActivateEntities(source, player.Position, type);
         }
+
         public override IActivatable CreateEntity(int type)
         {
             return EntityFactory.CreateEnemy(SpriteHandler.GetSprite(type), player, type);

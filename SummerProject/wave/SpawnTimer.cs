@@ -52,15 +52,15 @@ namespace SummerProject.wave
                 switch (gameMode.TimeMode)
                 {
                     case GameMode.DECREASING_TIME:                     
-                        timer1.maxTime = Difficulty.T1_DECREASING * (1 - (float)Math.Log10((float)gameMode.Level / 10.0));// 0.05f * gameMode.Level);
+                        timer1.maxTime = Difficulty.T1_DECREASING * (1 - (float)Math.Log10((float)GameMode.Level / 10.0));// 0.05f * gameMode.Level);
                         break;
                     case GameMode.CONSTANT_TIME:
                         timer1.maxTime = Difficulty.T1_CONSTANT;
                         break;
                     case GameMode.BURST_TIME: //times must be modified carefully, has to fit exactly spawnSize as the # of timer pulses
-                        float upperBound = Difficulty.BURST_SPREE * gameMode.Level /2.0f + Difficulty.BURST_INTERVAL; //!
+                        float upperBound = Difficulty.BURST_SPREE * GameMode.Level /2.0f + Difficulty.BURST_INTERVAL; //!
                         timer1.maxTime = upperBound;
-                        timer2.maxTime = upperBound - (Difficulty.BURST_SPREE * (float)(gameMode.Level + Difficulty.BURST_SIZE + 1));
+                        timer2.maxTime = upperBound - (Difficulty.BURST_SPREE * (float)(GameMode.Level + Difficulty.BURST_SIZE + 1));
                         timer3.maxTime = Difficulty.BURST_SPREE;
                         break;
                 }

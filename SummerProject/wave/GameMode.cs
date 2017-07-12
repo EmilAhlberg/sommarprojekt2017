@@ -27,7 +27,7 @@ namespace SummerProject.wave
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
         public bool IsChanged { get; set; }
-        public int Level { get; private set; }
+        public static int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
         private Difficulty difficulty;
         private SpriteFont font;
@@ -46,6 +46,7 @@ namespace SummerProject.wave
         public void Reset(bool fullReset)
         {           
             Level = 1; //! ..
+            UpdateLevelSettings();
             IsChanged = true;
             if (fullReset)
             {
@@ -60,8 +61,55 @@ namespace SummerProject.wave
                 Level += 1;
                 Traits.LEVEL.Counter++;
                 IsChanged = true;
+                UpdateLevelSettings();
                 betweenLevelsTimer.Reset();
                 LevelFinished = false;
+            }
+        }
+        //level 0??
+        private void UpdateLevelSettings()
+        {
+            switch (Level%10)
+            {
+                case 1:
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_SINGLE;
+                    break;
+                case 2:
+                    TimeMode = DECREASING_TIME;
+                    SpawnMode = RANDOM_SINGLE;
+                    break;
+                case 3:
+                    TimeMode = DECREASING_TIME;
+                    SpawnMode = RANDOM_SINGLE;
+                    break;
+                case 4:
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_WAVE;
+                    break;
+                case 5:
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_WAVE;
+                    break;
+                case 6:
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_WAVE;
+                    break;
+                case 7:
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_WAVE;
+                    break;
+                case 8:
+                    TimeMode = BURST_TIME;
+                    SpawnMode = BURST_WAVE;
+                    break;
+                case 9:
+                    TimeMode = BURST_TIME;
+                    SpawnMode = BURST_WAVE;
+                    break;
+                case 0:
+                    //boss!
+                    break;
             }
         }
 

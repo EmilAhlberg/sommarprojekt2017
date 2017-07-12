@@ -130,8 +130,8 @@
     <Compile Include="Drawable.cs" />
     <Compile Include="collidables\enemies\Enemy.cs" />
     <Compile Include="collidables\parts\Part.cs" />
-    <Compile Include="particles\Particle.cs" />
-    <Compile Include="particles\Particles.cs" />
+    <Compile Include="framework\particles\Particle.cs" />
+    <Compile Include="framework\particles\Particles.cs" />
     <Compile Include="collidables\parts\RectangularHull.cs" />
     <Compile Include="events\buildmenu\ShipItem.cs" />
     <Compile Include="SRandom.cs" />
