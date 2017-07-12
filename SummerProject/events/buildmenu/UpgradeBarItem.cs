@@ -54,7 +54,7 @@ namespace SummerProject.events.buildmenu
                 case IDs.CHARGINGGUNPART:
                     return new ChargingGunPart();
                 case IDs.EMPTYPART:
-                    return new GunPart(); //!!
+                    return null; //!!
                 default:
                     return new EnginePart();
 
