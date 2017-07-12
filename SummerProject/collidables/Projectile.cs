@@ -45,6 +45,8 @@ namespace SummerProject.collidables
                     Traits.SHOTSHIT.Counter++;
                 }
             }
+            if (Health <= 0)
+                Death();
         }
 
         protected void ResetSpawnTime()

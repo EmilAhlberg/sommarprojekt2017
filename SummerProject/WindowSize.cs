@@ -12,7 +12,7 @@ namespace SummerProject
     {
         public static int Width { get; set; }
         public static int Height { get; set; }
-        public const int OOBOFFSET = 50;
+        public const int OOBOFFSET = 100;
      
 
         static WindowSize()

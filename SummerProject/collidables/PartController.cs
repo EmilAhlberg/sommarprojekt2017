@@ -52,13 +52,11 @@ namespace SummerProject
         public float Health { get { return health; }
             set
             {
-                if (health == maxHealth && maxHealth < maxHealthCap)
-                    maxHealth++;
-                health += value-health;
-                if (health > maxHealthCap)
-                    health = maxHealthCap;
-                if (health > maxHealth)
-                    maxHealth = Health;
+                health = value;
+                if(health > maxHealth)
+                {
+                    health = maxHealth;
+                }
             }
         }
         public float Damage { get; set; }
@@ -88,8 +86,8 @@ namespace SummerProject
         {
             Energy = startingEnergy;
             maxEnergy = Energy;
-            Health = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
-            maxHealth = Health;
+            maxHealth = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
+            Health = maxHealth;
             Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);
         }
 

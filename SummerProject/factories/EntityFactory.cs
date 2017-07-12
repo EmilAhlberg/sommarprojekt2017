@@ -70,10 +70,10 @@ namespace SummerProject.factories
                 case (int)IDs.GRAVITYBULLET: return new GravityBullet(FarAway());
                 #endregion
                 #region Drops
-                case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway(),1);
+                case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway());
                 case (int)IDs.EXPLOSIONDROP: return new ExplosionDrop(FarAway());
                 case (int)IDs.ENERGYDROP: return new EnergyDrop(FarAway());
-                case (int)IDs.HEALTHDROP_TIER2: return new HealthDrop(FarAway(), 2);
+                case (int)IDs.HEALTHDROP_TIER2: return new HealthDrop(FarAway(), IDs.HEALTHDROP_TIER2);
                 case (int)IDs.MONEYDROP: return new MoneyDrop(FarAway());
                 #endregion
                 default:

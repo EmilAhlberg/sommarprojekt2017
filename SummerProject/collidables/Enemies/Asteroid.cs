@@ -26,6 +26,13 @@ namespace SummerProject.collidables.Enemies
             Death();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            if (WindowSize.IsOutOfBounds(Position))
+                Death();
+            base.Update(gameTime);
+        }
+
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
