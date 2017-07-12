@@ -19,18 +19,18 @@ namespace SummerProject.util
         private const int boundOffsetForSize = 750;
         private const float speedMultiplier = 0.3f;
 
-        private Vector2 blueStartingPos = new Vector2(150, 230);
+        private Vector2 blueStartingPos = new Vector2((WindowSize.Width * 1) / 10, (WindowSize.Height * 1) / 8);
         private Vector2 blueDirection = new Vector2(-1, 0.1f);
         private const float blueSpeed = 0.2f * speedMultiplier;
         private Vector2 blueRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, 0 );         // remember height will be offset due to boundOffsetForSize
         private const int blueRespawnDelay = (int) (50 /speedMultiplier);                
 
-        private Vector2 bigRedStartingPos = new Vector2(WindowSize.Width+ boundOffsetForSize, WindowSize.Height / 4  );
+        private Vector2 bigRedStartingPos = new Vector2(WindowSize.Width + boundOffsetForSize, WindowSize.Height / 4  );
         private Vector2 bigRedDirection = new Vector2(-1, -0.1f);
         private float bigRedSpeed = 0.5f * speedMultiplier;
         private const int bigRedRespawnDelay = (int)(35 / speedMultiplier);
 
-        private Vector2 smallRedStartingPos = new Vector2(1200, 200);
+        private Vector2 smallRedStartingPos = new Vector2((WindowSize.Width * 2)/3, (WindowSize.Height * 2) /6);
         private Vector2 smallRedDirection = new Vector2(-1, 0.15f);
         private float smallRedSpeed = 0.1f * speedMultiplier;
         private Vector2 smallRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, 0);
