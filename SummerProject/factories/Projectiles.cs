@@ -16,6 +16,7 @@ namespace SummerProject.factories
             InitializeEntities((int)IDs.EVILBULLET);
             InitializeEntities((int)IDs.MINEBULLET);
             InitializeEntities((int)IDs.CHARGINGBULLET);
+            InitializeEntities((int)IDs.GRAVITY_BULLET);
             //Enemy.projectiles = this; //! Hmmmmm
         }
 

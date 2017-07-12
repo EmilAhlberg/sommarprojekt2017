@@ -11,9 +11,13 @@ namespace SummerProject.collidables
         {
         }
 
-        public abstract void Update(GameTime gameTime);
-
         protected abstract void SpecificActivation(Vector2 source, Vector2 target);
+
+        public override void Update(GameTime gameTime)
+        {
+            if(IsActive)
+                base.Update(gameTime);
+        }
 
         public override void Collision(ICollidable c2)
         {

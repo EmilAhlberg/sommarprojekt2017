@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="collidables\bullets\ChargingBullet.cs" />
+    <Compile Include="collidables\bullets\GravityBullet.cs" />
     <Compile Include="collidables\enemies\Attacker.cs" />
     <Compile Include="collidables\drops\MoneyDrop.cs" />
     <Compile Include="collidables\enemies\RandomEnemy.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="collidables\bullets\MineBullet.cs" />
     <Compile Include="collidables\parts\DetectorPart.cs" />
     <Compile Include="collidables\bullets\HomingBullet.cs" />
+    <Compile Include="collidables\parts\guns\GravityGunPart.cs" />
     <Compile Include="collidables\parts\ITargeting.cs" />
     <Compile Include="collidables\parts\guns\MineGunPart.cs" />
     <Compile Include="collidables\parts\guns\SprayGunPart.cs" />

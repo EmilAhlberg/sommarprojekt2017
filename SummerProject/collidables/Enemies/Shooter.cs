@@ -17,11 +17,10 @@ namespace SummerProject.collidables.Enemies
             waitTimer = new Timer(1f);
         }
 
-        protected override void AI(GameTime gameTime)
+        public override void Move()
         {
-            CalculateAngle();
-            ThrusterAngle = Angle;
-            base.AI(gameTime);
+            if(!waitTimer.IsFinished)
+                Hull.TakeAction(typeof(EnginePart));
         }
 
         protected override void Attack(GameTime gameTime)
@@ -30,8 +29,7 @@ namespace SummerProject.collidables.Enemies
         }
 
         protected override void Wait(GameTime gameTime)
-        {   
-            Move();
+        {
         }
     }
 }

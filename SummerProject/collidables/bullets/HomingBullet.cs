@@ -19,9 +19,9 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             Detector.Update(gameTime);
             UpdateTimer(gameTime);  
-            base.Move();
             Detector.Position = Position;
         }
 
