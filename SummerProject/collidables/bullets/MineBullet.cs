@@ -9,7 +9,7 @@ namespace SummerProject.collidables.bullets
 {
     class MineBullet : Bullet
     {
-        public MineBullet(Vector2 position, bool isEvil) : base(position, isEvil)
+        public MineBullet(Vector2 position) : base(position)
         {
         }
 

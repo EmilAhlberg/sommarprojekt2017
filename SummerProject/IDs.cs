@@ -25,8 +25,6 @@ namespace SummerProject
         MINEBULLET,
         SPRAYBULLET,
         CHARGINGBULLET,
-        //----------------------------
-        EVILBULLET,
         #endregion
 
         #region Drops

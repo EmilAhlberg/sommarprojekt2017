@@ -12,7 +12,7 @@ namespace SummerProject.collidables
     {
         public DetectorPart Detector { get; private set; }
 
-        public HomingBullet(Vector2 position, bool isEvil, IDs id = IDs.DEFAULT) : base(position, isEvil, id)
+        public HomingBullet(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
             Detector = new DetectorPart(750, 750, typeof(Enemy), this);
         }

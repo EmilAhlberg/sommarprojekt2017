@@ -172,6 +172,32 @@ namespace SummerProject
             return colors;
         }
 
+        private Texture2DPlus evilTex;
+        public Texture2DPlus EvilTexture
+        {
+            get { return evilTex ?? CalcEvilTexture(); }
+        }
+        private Texture2DPlus CalcEvilTexture()
+        {
+            Color primColor = PrimaryColor;
+            Color[] colors1D = new Color[Texture.Height * Texture.Width];
+            Texture.GetData(colors1D);
+            for(int i = 0; i < colors1D.Length; i++)
+            {
+                if (colors1D[i].Equals(primColor))
+                {
+                    colors1D[i] = Color.Red;
+                }
+            }
+            Texture2D newTex = new Texture2D(Texture.GraphicsDevice, Texture.Width, Texture.Height);
+            newTex.SetData(colors1D);
+            Texture2DPlus newTexPlus = new Texture2DPlus(newTex, Subimages);
+            evilTex = newTexPlus;
+            evilTex.evilTex = this; //From my point of view, the Jedi are evil!
+            return newTexPlus;
+            
+        }
+
         private List<Vector2> edges;
         public List<Vector2> Edges
         {
@@ -180,7 +206,6 @@ namespace SummerProject
                 return edges ?? CalculateEdges();
             }
         }
-
         /// <summary>
         /// Slow as fuck, just so that you know. Use only once per sprite, at most.
         /// </summary>
