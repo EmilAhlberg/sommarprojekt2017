@@ -51,7 +51,7 @@ namespace SummerProject.events.buildmenu
 
         private void InitBackgrounds()
         {
-            float xScaleFactorForBkg = (cols + 2) * spacing + offsetX + (cols + 1) * itemSize * ClickableItem.SCALEFACTOR;
+            float xScaleFactorForBkg = (cols + 2) * spacing + offsetX*2 + (cols + 1) * itemSize * ClickableItem.SCALEFACTOR - itemSize/2;
             upgradeBarBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
             screenBkg = SpriteHandler.GetSprite((int)IDs.MENUSCREENBKG);
             outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
