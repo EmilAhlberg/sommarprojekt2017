@@ -13,7 +13,7 @@ namespace SummerProject.util
         private Sprite sprite;
         private Vector2 direction;
         private float speed;
-        private Timer respwanDelay;
+        private Timer respawnDelay;
         public Vector2 RespawnPoint { get; set; }
 
         public static int OOBOFFSET = 1000;
@@ -23,7 +23,7 @@ namespace SummerProject.util
             this.sprite = sprite;
             this.direction = direction;
             this.speed = speed;
-            respwanDelay = new Timer(respawnDelay);
+            this.respawnDelay = new Timer(respawnDelay);
             RespawnPoint = startingPos;
             sprite.Position = startingPos;
         }
@@ -32,8 +32,8 @@ namespace SummerProject.util
         {
             if (IsOutOfBounds())
             {
-                respwanDelay.CountDown(gameTime);
-                if (respwanDelay.IsFinished)
+                respawnDelay.CountDown(gameTime);
+                if (respawnDelay.IsFinished)
                       Respawn();
             }
             sprite.Position += direction * speed;

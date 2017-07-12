@@ -10,7 +10,7 @@ namespace SummerProject.collidables
     class SprayBullet : Bullet
     {
         private const float randomAngleOffset = .3f;
-        public SprayBullet(Vector2 position, bool isEvil) : base(position, isEvil)
+        public SprayBullet(Vector2 position) : base(position)
         {            
         }
         protected override void SpecificActivation(Vector2 source, Vector2 target)
@@ -20,10 +20,7 @@ namespace SummerProject.collidables
             CalculateAngle(dX, dY);
             Angle += (SRandom.NextFloat() - 0.5f) * randomAngleOffset;
             Stop();
-            if (!IsEvil)
-                AddSpeed(30, Angle); //!
-            else
-                AddSpeed(15, Angle);
+            AddSpeed(30, Angle); //!
             ResetSpawnTime();
         }
     }

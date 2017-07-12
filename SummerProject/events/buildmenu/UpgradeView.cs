@@ -11,6 +11,7 @@ using SummerProject.achievements;
 using SummerProject.collidables.parts;
 using SummerProject.events.buildmenu;
 using SummerProject.factories;
+using SummerProject.collidables.parts.guns;
 
 namespace SummerProject.framework
 {
@@ -343,36 +344,9 @@ namespace SummerProject.framework
 
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
-            IDs newID = 0;
-            if (part == null)
-            {
-                newID = IDs.EMPTYPART;                
-            }
-            else if (part is RectangularHull)
-            {
-                newID = IDs.RECTHULLPART;
-            }
-            else if (part is SprayGunPart)
-            {
-                newID = IDs.SPRAYGUNPART;
-            }
-            else if (part is MineGunPart)
-            {
-                newID = IDs.MINEGUNPART;
-            }
-            else if (part is ChargingGunPart)
-            {
-                newID = IDs.CHARGINGGUNPART;
-            }
-            else if (part is GunPart)
-            {
-                newID = IDs.GUNPART;
-            }
-            else if (part is EnginePart)
-            {
-                newID = IDs.ENGINEPART;
-            }
-            return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, newID);
+            return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, EntityConstants.TypeToID(part.GetType()));
+
+            //return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos)

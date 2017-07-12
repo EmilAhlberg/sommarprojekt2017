@@ -55,7 +55,8 @@ namespace SummerProject
             }
         }
 
-
+        private bool isEvil;
+        public bool IsEvil { get { return isEvil; } set { if (isEvil != value) texture = texture.EvilTexture; isEvil = value; } }
 
         private int subimages;
         private float currentFrame;
