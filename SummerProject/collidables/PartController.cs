@@ -23,6 +23,7 @@ namespace SummerProject
         protected float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }
         public float friction { set { Hull.friction = value; } get { return Hull.friction; } }
         public bool IsActive { get; set; }
+        public bool IsEvil { get; }
         private const float startingEnergy = 100f;//!
         public float maxEnergy { get; protected set; }
         protected const float maxEnergyCap = 300; //!
@@ -55,8 +56,9 @@ namespace SummerProject
         public float Damage { get; set; }
         private IDs id;
 
-        public PartController(Vector2 position, IDs id = IDs.DEFAULT)
+        public PartController(Vector2 position, bool isEvil, IDs id = IDs.DEFAULT)
         {
+            IsEvil = isEvil;
             if (id == IDs.DEFAULT)
                 id = EntityConstants.TypeToID(GetType());
             Hull = new RectangularHull(id);

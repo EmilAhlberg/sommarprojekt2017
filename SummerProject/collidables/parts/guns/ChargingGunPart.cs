@@ -13,7 +13,6 @@ namespace SummerProject.collidables.parts
     {
         private bool charging;
         private bool buttonReleased;
-        private Bullet bullet;
         private  float maxDamageScale = 6; // damage = maxDamageScale * initialDamage
         private const float maxScale = 5f;
         private const float initialDamage = 0.5f;
@@ -21,14 +20,15 @@ namespace SummerProject.collidables.parts
         public ChargingGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             chargeTimer = new Timer(3);
+            bulletID = IDs.CHARGINGBULLET;
+            bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
-        
+
         public override void TakeAction()
         {
             buttonReleased = false;
             if (!charging)
             {
-                bullet = (ChargingBullet) projectiles.GetEntity((int) IDs.CHARGINGBULLET);
                 charging = true;
             }
             Particles.GenerateParticles(Position, 3, angle, new Color(1, 0.15f + 0.85f * (1 - chargeTimer.currentTime / chargeTimer.maxTime), (1 - chargeTimer.currentTime / chargeTimer.maxTime), 0.5f + 0.5f*(1 - chargeTimer.currentTime / chargeTimer.maxTime)));
@@ -39,16 +39,21 @@ namespace SummerProject.collidables.parts
             reloadTimer.CountDown(gameTime);
             if (charging) { 
                 chargeTimer.CountDown(gameTime);
-                if (buttonReleased && bullet != null &&  reloadTimer.IsFinished)
+                if (buttonReleased && bullet != null && reloadTimer.IsFinished)
                 {
-                    projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
-                    ScaleBoundBox();
-                    chargeTimer.Reset();
-                    ResetForNextShot();
-                    reloadTimer.Reset();
+                    Fire();
                 }
             }
             buttonReleased = true;
+        }
+
+        protected override void EditBullet()
+        {
+            base.EditBullet();
+            ScaleBoundBox();
+            chargeTimer.Reset();
+            ResetForNextShot();
+            reloadTimer.Reset();
         }
 
         private void ScaleBoundBox()
