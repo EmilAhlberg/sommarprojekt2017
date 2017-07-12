@@ -31,6 +31,7 @@ namespace SummerProject.events.buildmenu
         private Sprite screenBkg;
         private bool screenBkgMoved;
         private Sprite followMouseSprite;
+        private UpgradeBarItem selectedBarItem;
         #region Bar item positioning
         private const int rows = 5;
         private const int spacing = 50;
@@ -82,17 +83,17 @@ namespace SummerProject.events.buildmenu
                 {
                     itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
-                if (Action)
+                if (followMouseSprite != null)
                 followMouseSprite.Draw(spriteBatch, gameTime);
             }
         }
 
         internal void Update(GameTime gameTime)
         {
-       //     Action = false; // lol just removed this and now has dragable build item
+            Action = false; 
             CheckAction();
             resource = Traits.CURRENCY.Counter; //not here      
-            if (Action)
+            if (followMouseSprite != null)
                 followMouseSprite.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
         }
 
@@ -105,22 +106,22 @@ namespace SummerProject.events.buildmenu
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
                         barItem.Active = true;
-                        Action = true;
                         followMouseSprite = new Sprite(barItem.Sprite);
+                        followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
                         followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
-                        SelectedPart = barItem.ReturnPart();
+                        selectedBarItem = barItem;
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
                                 otherItem.Active = false;
                         break;
                     }
                 }
+                if (InputHandler.isJustPressed(MouseButton.LEFT))
+                {
+                    Action = true;
+                    SelectedPart = selectedBarItem.ReturnPart();
+                }
             }
-        }
-
-        public void ClearStuckOnMouseItem ()
-        {
-            Action = false;
         }
 
         internal void CreateItemBoxes()
