@@ -189,8 +189,6 @@ namespace SummerProject.collidables
                 Entity e = c2 as Entity;
                 e.Health -= Damage;
             }
-            if (c2 is MoneyDrop)
-                Traits.CURRENCY.Counter += MoneyDrop.value;
         }
     }
 }

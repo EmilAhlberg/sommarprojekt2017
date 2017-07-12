@@ -10,9 +10,10 @@ namespace SummerProject.collidables
     class HealthDrop : Drop
     {
         public int Heal { get; private set; }
-        public HealthDrop(Vector2 position, int tier) : base(position)
+        public HealthDrop(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
-            if (tier == 2)
+
+            if(id == IDs.HEALTHDROP_TIER2)
                 Heal = 5;
             else
                 Heal = 1;

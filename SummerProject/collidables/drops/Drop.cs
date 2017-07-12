@@ -9,7 +9,7 @@ namespace SummerProject.collidables
         private const int blinkTimer = 2;
         private const int blinkSpeed = 3;
 
-        public Drop(Vector2 position) : base(position)
+        public Drop(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
             despawnTime = stdDespawnTime;
         }

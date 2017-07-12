@@ -88,7 +88,7 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 5},
-                {(int)IDs.PLAYER, 50},
+                {(int)IDs.PLAYER, 5},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1}
