@@ -21,7 +21,28 @@ namespace SummerProject.factories
                 case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
             }
             e = new RandomEnemy(FarAway(), player); return e;
-            e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
+            //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
+        }
+
+        public static IActivatable CreateEnemyForLevel(Sprite sprite, Player player, int level)
+        {
+            Enemy e;
+            switch (level%10)
+            {
+                case 1: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 2: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 3: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 4: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 5: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 6: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 7: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 8: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 9: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                case 10: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
+                default: throw new Exception();
+            }
+            e = new RandomEnemy(FarAway(), player); return e;
+            //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
         }
 
         public static IActivatable CreateEntity(Sprite sprite, int type)
