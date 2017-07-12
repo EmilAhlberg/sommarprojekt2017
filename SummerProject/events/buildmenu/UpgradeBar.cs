@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.factories;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.events.buildmenu
 {
@@ -29,6 +30,7 @@ namespace SummerProject.events.buildmenu
         private Sprite outlineBkg;
         private Sprite screenBkg;
         private bool screenBkgMoved;
+        private Sprite followMouseSprite;
         #region Bar item positioning
         private const int rows = 5;
         private const int spacing = 50;
@@ -80,14 +82,18 @@ namespace SummerProject.events.buildmenu
                 {
                     itemBoxes[i].Draw(spriteBatch, gameTime);
                 }
+                if (Action)
+                followMouseSprite.Draw(spriteBatch, gameTime);
             }
         }
 
         internal void Update(GameTime gameTime)
         {
-            Action = false;
+       //     Action = false; // lol just removed this and now has dragable build item
             CheckAction();
-            resource = Traits.CURRENCY.Counter; //not here         
+            resource = Traits.CURRENCY.Counter; //not here      
+            if (Action)
+                followMouseSprite.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
         }
 
         private void CheckAction()
@@ -100,6 +106,8 @@ namespace SummerProject.events.buildmenu
                     {
                         barItem.Active = true;
                         Action = true;
+                        followMouseSprite = new Sprite(barItem.Sprite);
+                        followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
                         SelectedPart = barItem.ReturnPart();
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
@@ -109,6 +117,12 @@ namespace SummerProject.events.buildmenu
                 }
             }
         }
+
+        public void ClearStuckOnMouseItem ()
+        {
+            Action = false;
+        }
+
         internal void CreateItemBoxes()
         {
             itemBoxes = new List<UpgradeBarItem>();
