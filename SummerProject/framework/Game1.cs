@@ -190,7 +190,7 @@ namespace SummerProject
             SaveHandler.InitializeGame(achController);
             GameMode gameMode = new GameMode(scoreFont);          
            
-            projectiles = new Projectiles(200); //! bulletCap hardcoded
+            projectiles = new Projectiles(); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
             eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
@@ -209,7 +209,7 @@ namespace SummerProject
             player.AddPart(gunPart3, 1);
             //rectHull1.AddPart(gunPart2, 0);
             //rectHull2.AddPart(gunPart3, 2);
-            drops = new Drops(10, WindowSize.Width, WindowSize.Height); //!! dropCap
+            drops = new Drops(WindowSize.Width, WindowSize.Height);
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location

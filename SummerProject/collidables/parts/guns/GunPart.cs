@@ -17,10 +17,13 @@ namespace SummerProject.collidables.parts
         protected Projectile bullet;
         protected IDs bulletID;
 
+        protected int bulletCap = 5;
+
         public GunPart(IDs id = IDs.DEFAULT) : base(id)
         {
             reloadTimer = new Timer(RELOADTIME);
             bulletID = IDs.DEFAULT_BULLET;
+            projectiles.AddExtraBullets((int)bulletID, bulletCap);
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
 

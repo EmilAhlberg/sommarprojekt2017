@@ -10,14 +10,14 @@ namespace SummerProject.factories
     public class Enemies : Entities
     {
         private Player player;
-    
-        public Enemies(Player player, int NbrOfEnemies) : base(NbrOfEnemies)
+        private const int enemyCap = 30;
+        public Enemies(Player player ) : base()
         {
             this.player = player;
-            InitializeEntities((int)IDs.DEFAULT_ENEMY);
-            InitializeEntities((int)IDs.ENEMYSHOOT);
-            InitializeEntities((int)IDs.ENEMYSPEED);
-            InitializeEntities((int)IDs.ENEMYASTER);
+            InitializeEntities((int)IDs.DEFAULT_ENEMY, enemyCap);
+            InitializeEntities((int)IDs.ENEMYSHOOT, enemyCap);
+            InitializeEntities((int)IDs.ENEMYSPEED, enemyCap);
+            InitializeEntities((int)IDs.ENEMYASTER, enemyCap);
         }
 
         public void Update(GameTime gameTime)

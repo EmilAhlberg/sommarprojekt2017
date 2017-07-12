@@ -13,6 +13,8 @@ namespace SummerProject.collidables.parts.guns
         {
             RELOADTIME = 0.4f;
             reloadTimer = new Timer(RELOADTIME);
+            bulletID = IDs.CHARGINGBULLET;
+            projectiles.AddExtraBullets((int)bulletID, bulletCap);
         }
         protected override void Fire()
         {
