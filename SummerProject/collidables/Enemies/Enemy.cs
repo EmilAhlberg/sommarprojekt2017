@@ -67,8 +67,12 @@ namespace SummerProject
         {
             if (c2 is Player)
             {
-                (c2 as Player).Health -= Damage;
-                Death();
+                Player p = (c2 as Player);
+                if (IsEvil && !p.phaseOut)
+                {
+                    p.Health -= Damage;
+                    Death();
+                }
             }
             else if (c2 is Entity)
             {

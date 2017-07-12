@@ -13,7 +13,7 @@ namespace SummerProject.events.buildmenu
     {
         protected Color markedColor = Color.IndianRed;
         protected Color defaultColor = Color.White;
-        public const int SCALEFACTOR = 4;
+        public const float SCALEFACTOR = 2.5f;
         public IDs id;
         public Rectangle BoundBox;
         public bool Active;

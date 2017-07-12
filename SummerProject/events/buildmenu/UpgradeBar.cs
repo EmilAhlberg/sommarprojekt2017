@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.events.buildmenu
 {
-    class UpgradeBar
+    public class UpgradeBar
     {
         private SpriteFont font;
         private List<IDs> upgradePartsIDs;
@@ -20,10 +20,10 @@ namespace SummerProject.events.buildmenu
         private float resource;
         private List<UpgradeBarItem> itemBoxes;
 
-        public bool Action { get; internal set; }
+        public bool Action { get; internal set; }       
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
-        private int itemOffset = (int)ClickableItem.Width;
+        private int itemSize = (int)ClickableItem.Width;
         private Texture2D backgroundText;
         private Sprite upgradeBarBkg;
         private Sprite outlineBkg;
@@ -32,10 +32,11 @@ namespace SummerProject.events.buildmenu
         private Sprite followMouseSprite;
         private UpgradeBarItem selectedBarItem;
         #region Bar item positioning
-        private const int rows = 5;
-        private const int spacing = 50;
-        private const int offsetX = 60;
-        private const int offsetY = 150;
+        private const int spacing = 40 * (int)ClickableItem.SCALEFACTOR;
+        private const int offsetX = 10 * (int) ClickableItem.SCALEFACTOR;
+        private const int offsetY = 50 * (int)ClickableItem.SCALEFACTOR;
+        private int rows = (int)(WindowSize.Height /( 32 * ClickableItem.SCALEFACTOR + offsetY));
+        private int cols; //calculated in init
         #endregion
 
         public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
@@ -44,21 +45,22 @@ namespace SummerProject.events.buildmenu
             this.font = font;
             this.backgroundText = backgroundText;
             this.spentResource = 0;
-            InitBackgrounds();
             CreateItemBoxes();
+            InitBackgrounds();
         }
 
         private void InitBackgrounds()
         {
+            float xScaleFactorForBkg = (cols + 2) * spacing + offsetX*2 + (cols + 1) * itemSize * ClickableItem.SCALEFACTOR - itemSize/2;
             upgradeBarBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
             screenBkg = SpriteHandler.GetSprite((int)IDs.MENUSCREENBKG);
             outlineBkg = SpriteHandler.GetSprite((int)IDs.UPGRADEBAR);
             outlineBkg.MColor = Color.DarkGray;
-            outlineBkg.Position = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), 0);
+            outlineBkg.Position = new Vector2(xScaleFactorForBkg, 0);
             int yScaleFactorForBkg = WindowSize.Height / 3;                     // original sprite is 1x3
             outlineBkg.Scale = new Vector2(4, yScaleFactorForBkg);
             screenBkg.Scale = new Vector2(WindowSize.Width, WindowSize.Height);
-            upgradeBarBkg.Scale = new Vector2(((upgradePartsIDs.Count / nbrOfItems + 2) * itemOffset), yScaleFactorForBkg);
+            upgradeBarBkg.Scale = new Vector2(xScaleFactorForBkg, yScaleFactorForBkg);
             upgradeBarBkg.LayerDepth = 1; // background should be in background
             screenBkg.LayerDepth = 0;
         }
@@ -75,7 +77,7 @@ namespace SummerProject.events.buildmenu
                 string word = "Currency: " + resource;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
                                             DrawHelper.CenteredWordPosition(word, font,
-                                            new Vector2(itemOffset + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemOffset), itemOffset / 3)),
+                                            new Vector2(itemSize + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemSize), itemSize / 3)),
                                             Color.Gold);
 
                 for (int i = 0; i < itemBoxes.Count; i++)
@@ -102,12 +104,19 @@ namespace SummerProject.events.buildmenu
                 {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
-                        barItem.Active = true;
-                        Action = true;
-                        followMouseSprite = new Sprite(barItem.Sprite);
-                        followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
-                        followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
-                        selectedBarItem = barItem;
+                        if (barItem.Active)
+                        {
+                            RemoveSelection();
+                        }
+                        else
+                        {
+                            barItem.Active = true;
+                            Action = true;
+                            followMouseSprite = new Sprite(barItem.Sprite);
+                            followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
+                            followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
+                            selectedBarItem = barItem;
+                        }
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
                                 otherItem.Active = false;
@@ -121,12 +130,27 @@ namespace SummerProject.events.buildmenu
             }
         }
 
+        internal void RemoveSelection()
+        {
+            foreach (UpgradeBarItem barItem in itemBoxes)
+            {
+                if (barItem.Active)
+                {
+                    barItem.Active = false;
+                    followMouseSprite = null;
+                    selectedBarItem = null;
+                    Action = false;
+                    break;
+                }
+            }
+        }
+
         internal void CreateItemBoxes()
         {
             itemBoxes = new List<UpgradeBarItem>();
-            int cols = (int) Math.Ceiling((double)(itemBoxes.Count / rows));
+            cols = (int) Math.Ceiling((double)(itemBoxes.Count / rows));
             int currentCol = 0;
-            int scaleFactor = 32 * ClickableItem.SCALEFACTOR;
+            float scaleFactor = 32 * ClickableItem.SCALEFACTOR;
             for (int i = 0; i < upgradePartsIDs.Count; i++)
             {
                 if (i % (rows) == 0 && i != 0)

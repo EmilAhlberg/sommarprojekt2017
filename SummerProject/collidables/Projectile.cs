@@ -30,8 +30,9 @@ namespace SummerProject.collidables
         {
             if (c2 is Player)
             {
-                if (IsEvil)
-                    (c2 as Player).Health -= Damage;
+                Player p = (c2 as Player);
+                if (IsEvil && !p.phaseOut)
+                    p.Health -= Damage;
             }
 
             if (c2 is Enemy)
