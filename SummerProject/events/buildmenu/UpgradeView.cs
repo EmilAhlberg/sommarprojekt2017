@@ -405,7 +405,7 @@ namespace SummerProject.framework
 
         private bool RotatePart(ShipItem current)
         {
-            for (int i = 1; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {                
                     int newPos = (current.LinkPosition + i) % 4;
                     Vector2 v = LinkPosition(newPos, new Vector2(current.BoundBox.Left, current.BoundBox.Top));
