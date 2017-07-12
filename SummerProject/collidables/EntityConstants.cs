@@ -167,6 +167,7 @@ namespace SummerProject.collidables
                 {(int)IDs.SPRAYGUNPART, 12000},
                 {(int)IDs.MINEGUNPART, 20000},
                 {(int)IDs.CHARGINGGUNPART, 15000},
+                {(int)IDs.GRAVITYGUNPART, 30000},
                 {(int)IDs.RECTHULLPART, 8000},
                 {(int)IDs.ENGINEPART, 14000},
                 {(int)IDs.DEFAULT_PART, 15000}
@@ -175,10 +176,11 @@ namespace SummerProject.collidables
         public static readonly Dictionary<int, string> NAME =
         new Dictionary<int, string>
         {
-                {(int)IDs.GUNPART, "Sniping Gun"},
+                {(int)IDs.GUNPART, "Plasma Gun"},
                 {(int)IDs.EMPTYPART, "Sell Parts"},
                 {(int)IDs.SPRAYGUNPART, "Spray Gun"},
                 {(int)IDs.MINEGUNPART, "Mine Deployer"},
+                {(int)IDs.GRAVITYGUNPART, "Black Hole Gun"},
                 {(int)IDs.CHARGINGGUNPART, "Fusion Gun"},
                 {(int)IDs.RECTHULLPART, "Hull"},
                 {(int)IDs.ENGINEPART, "Engine"},
