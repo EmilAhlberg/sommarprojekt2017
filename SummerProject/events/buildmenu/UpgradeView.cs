@@ -444,11 +444,6 @@ namespace SummerProject.framework
             //slots         
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-                if (item.Key == activeSelection)
-                    item.Value.Active = true;
-                else
-                    item.Value.Active = false;
-
                 item.Value.Draw(spriteBatch, gameTime);
             }
         }
