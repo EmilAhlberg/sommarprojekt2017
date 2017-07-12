@@ -21,7 +21,7 @@ namespace SummerProject.framework
         private int activeSelection;
         private Player player;
         private List<IDs> upgradePartsIDs;
-        private UpgradeBar upgradeBar;
+        public UpgradeBar UpgradeBar;
         private int emptyPartIndex = 100;
 
         internal void Reset()
@@ -38,7 +38,7 @@ namespace SummerProject.framework
             activeSelection = -1;
             this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
-            upgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
+            UpgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
         }
 
         internal void Initialize()
@@ -371,7 +371,7 @@ namespace SummerProject.framework
 
         public void Update(GameTime gameTime)
         {
-            upgradeBar.Update(gameTime);
+            UpgradeBar.Update(gameTime);
             CheckActions();
         }
 
@@ -382,7 +382,7 @@ namespace SummerProject.framework
             {
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
-                    if (InputHandler.isJustPressed(MouseButton.LEFT) && upgradeBar.Action) {
+                    if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
                         //int oldActive = activeSelection;
                         //if (oldActive != activeSelection && activeSelection >= 0)
                         //{
@@ -392,7 +392,7 @@ namespace SummerProject.framework
                         //    activeSelection = -1;
                         ////Buy(100); //!
                         activeSelection = item.Key;
-                        AddPart(upgradeBar.SelectedPart);
+                        AddPart(UpgradeBar.SelectedPart);
                         break;
                     }
                     else if (InputHandler.isJustPressed(MouseButton.RIGHT) && item.Value.id != IDs.EMPTYPART)
@@ -439,7 +439,7 @@ namespace SummerProject.framework
 
         internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            upgradeBar.Draw(spriteBatch, gameTime);
+            UpgradeBar.Draw(spriteBatch, gameTime);
 
             //slots         
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
