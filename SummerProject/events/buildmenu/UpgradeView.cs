@@ -190,9 +190,9 @@ namespace SummerProject.framework
             dependables.Add(current);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top)); //
+                Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top)); 
                 ShipItem newHull = HullPresent(v);
-                if (newHull != null && !dependables.Contains(newHull) && newHull.Hull == current.Part)  // && current.Hull != s.Part)//&& current.id !=IDs.EMPTYPART) ///current?
+                if (newHull != null && !dependables.Contains(newHull) && newHull.Hull == current.Part)  
                 {
                     GetDependencies(newHull, dependables);
                 }
@@ -213,7 +213,7 @@ namespace SummerProject.framework
                     if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part) 
                     {                       
                         dependables[j].LinkPosition = i; // + 2) % 4; //!!!!!!!!!!!!!!!!!!                   
-                        return ReverseDependency(newHull, dependables[j], dependables); ; // stop method functionality
+                        return ReverseDependency(newHull, dependables[j], dependables);
                     }
                 }
             }
@@ -226,10 +226,7 @@ namespace SummerProject.framework
             {
                 ((RectangularHull)newHull.Part).AddPart(removable.Part, (removable.LinkPosition+2) %4); //! linkposition wrong?
                 removable.Hull = (RectangularHull)newHull.Part;                      //set hull to new hull            
-                //((RectangularHull)((RectangularHull)removable.Part).Carrier).RemovePart(removable.Part); // remove removable.part from old carrier      OKLART!
-                //((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
-                
-                //removable.LinkPosition = (removable.LinkPosition + 2) % 4; //? !!!!!!!!!!!!!
+             
 
                 //probably all  done, --> reset
                 newHull = removable;
@@ -261,9 +258,9 @@ namespace SummerProject.framework
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    Vector2 v = LinkPosition(i, new Vector2(dependable.BoundBox.Left, dependable.BoundBox.Top)); //dependablse [i] not removable
+                    Vector2 v = LinkPosition(i, new Vector2(dependable.BoundBox.Left, dependable.BoundBox.Top));
                     ShipItem newHull = HullPresent(v);
-                    if (newHull == hull)  // && current.Hull != s.Part)//&& current.id !=IDs.EMPTYPART) ///current?
+                    if (newHull == hull)
                     {
                         dependable.LinkPosition = i; //????????!!!!!!!!!!!!!!!
                         ((RectangularHull)dependable.Part).RemovePart(newHull.Part); ////! RIGHT?
@@ -286,23 +283,6 @@ namespace SummerProject.framework
             return null;
         }
 
-        //private List<ShipItem> GetItemsFromHull(List<RectangularHull> hulls)
-        //{
-        //    List<ShipItem> items = new List<ShipItem>();
-        //    foreach (KeyValuePair<int, ShipItem> item in shipItems)
-        //    {
-        //        if (hulls.Count == items.Count)
-        //        {
-        //            break;
-        //        }
-        //        if (hulls.Contains(item.Value.Hull))
-        //        {
-        //            items.Add(item.Value);
-        //        }
-        //    }
-        //    return items;
-        //}
-
         private bool LinkToOther(ShipItem removable, ShipItem pressedItem)
         {
             List<RectangularHull> hulls = ((RectangularHull)removable.Part).GetHulls();
@@ -310,7 +290,7 @@ namespace SummerProject.framework
             {              
                 Vector2 v = LinkPosition(i, new Vector2(removable.BoundBox.Left, removable.BoundBox.Top)); //
                 ShipItem s = HullPresent(v);
-                if (s != null && !hulls.Contains(s.Part) && s.Part != pressedItem.Part)                                                                       // && current.Hull != s.Part)//&& current.id !=IDs.EMPTYPART) ///current?
+                if (s != null && !hulls.Contains(s.Part) && s.Part != pressedItem.Part)                                                         
                 {
                     AlterDependency(removable, pressedItem,(RectangularHull)s.Part, i);
                     return true;
@@ -393,7 +373,6 @@ namespace SummerProject.framework
                 newID = IDs.ENGINEPART;
             }
             return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, newID);
-            //return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos)
@@ -514,69 +493,3 @@ namespace SummerProject.framework
         }
     }
 }
-
-//crap for
-//private void FixDependencies(ShipItem pressedItem)
-//{
-//    List<ShipItem> dependables = new List<ShipItem>();
-//    GetDependencies(pressedItem, dependables);
-//    //
-//    int size = dependables.Count;
-//    while (dependables.Count != 0)
-//    {
-//        TryFindNewPart(pressedItem, dependables);
-//        if (size == dependables.Count)
-//            break;
-//        size = dependables.Count;
-//    }
-
-
-//}
-
-//private void TryFindNewPart(ShipItem pressedItem, List<ShipItem> dependables)
-//{
-//    List<ShipItem> savedItems = new List<ShipItem>();
-//    foreach (ShipItem s in dependables)
-//    {
-//        ShipItem adjacent = AdjacentToHull(s, pressedItem); //works, but also empty boxes     DO NOT TRUST
-//        if (adjacent != null)
-//        {
-//            GetDependencies(adjacent, savedItems); 
-//            break;
-//        }
-//    }
-
-//    foreach(ShipItem item in savedItems)
-//    {
-//        dependables.Remove(item);
-//    }
-//}
-
-//private ShipItem AdjacentToHull(ShipItem current, ShipItem hull)
-//{
-//    for (int i = 0; i < 4; i++)
-//    {
-//        Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top));// + new Vector2(ClickableItem.Width/2, ClickableItem.Height / 2); //"center" of box   VECTOR2 IS RIGHT/WRONG?
-//        ShipItem s = HullPresent(v, hull);
-//        if (s != null)//&& current.id !=IDs.EMPTYPART) ///current?
-//        {
-//            s.Hull.AddPart(current.Part, (i + 2) % 4);
-//            current.Hull = (RectangularHull)s.Part;
-//            return s;
-//        }
-//    }
-//    return null;          
-//}
-
-//private ShipItem HullPresent(Vector2 v, ShipItem hull)
-//{
-//    foreach(KeyValuePair<int, ShipItem> item in shipItems)
-//    {
-//        if (item.Value.BoundBox.Contains(v) && item.Value != hull && item.Value.id == IDs.RECTHULLPART)
-//        {
-//            return item.Value;
-//        }
-//    }
-//    return null;
-//}
-

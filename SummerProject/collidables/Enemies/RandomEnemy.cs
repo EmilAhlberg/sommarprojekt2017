@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.collidables.parts;
+using SummerProject.wave;
 
 namespace SummerProject.collidables.enemies
 {
@@ -18,30 +19,34 @@ namespace SummerProject.collidables.enemies
         public void FillParts(CompositePart p)
         {
             int randomNumber;
+            int currentLevel = GameMode.Level; //hmm?
             for (int i = 0; i < 2; i++)
             {
                 Part part1;
                 Part part2;
-                randomNumber = SRandom.Next(1, 4);
-                switch (randomNumber)
-                {
-                    case 1: part1 = new MineGunPart(); part2 = new MineGunPart(); break;
-                    case 2: part1 = new SprayGunPart(); part2 = new SprayGunPart(); break;
-                    default: part1 = new EnginePart(); part2 = new EnginePart(); break;
-                }
-                if (i == 0)
-                {
-                    p.AddPart(part1, 0);
-                    p.AddPart(part2, 2);
-                }
-                else
-                {
-                    if (part1 is EnginePart)
+                if (currentLevel / 10 != 0) //!!!temporary control of stuff
+                {  
+                    randomNumber = SRandom.Next(1, 4);
+                    switch (randomNumber)
                     {
-                        p.AddPart(new SprayGunPart(), 1);
+                        case 1: part1 = new MineGunPart(); part2 = new MineGunPart(); break;
+                        case 2: part1 = new SprayGunPart(); part2 = new SprayGunPart(); break;
+                        default: part1 = new EnginePart(); part2 = new EnginePart(); break;
+                    }
+                    if (i == 0)
+                    {
+                        p.AddPart(part1, 0);
+                        p.AddPart(part2, 2);
                     }
                     else
-                        p.AddPart(part1, 1);
+                    {
+                        if (part1 is EnginePart)
+                        {
+                            p.AddPart(new SprayGunPart(), 1);
+                        }
+                        else
+                            p.AddPart(part1, 1);
+                    }
                 }
             }
             p.AddPart(new EnginePart(), 3);

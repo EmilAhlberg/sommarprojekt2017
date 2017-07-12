@@ -15,7 +15,7 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:              
-                    return MenuConstants.MODESELECTION;
+                    return MenuConstants.DIFFICULTY;
                 case 1:
                     handler.NewGameState = EventOperator.EXIT;
                     //achievements.SaveHandler s1 = new achievements.SaveHandler();
