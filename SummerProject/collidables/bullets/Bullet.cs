@@ -6,12 +6,8 @@ namespace SummerProject.collidables
 {
     class Bullet : Projectile
     {
-        public Bullet(Vector2 position, bool isEvil) : base(position, isEvil)
+        public Bullet(Vector2 position) : base(position)
         {
-            if (isEvil)
-            {
-                Sprite.MColor = Color.Red; //LOL
-            }
         }
 
         public override void Update(GameTime gameTime)
@@ -32,11 +28,9 @@ namespace SummerProject.collidables
             float dY = -target.Y;
             base.CalculateAngle(dX, dY);
             Stop();
-            if (!IsEvil)
-                AddSpeed(30,Angle); //!
-            else
-                AddSpeed(10,Angle);
-            ResetSpawnTime(); 
+            ResetSpawnTime();
+            AddSpeed(30, Angle); 
+
         }
 
         public override void Death()

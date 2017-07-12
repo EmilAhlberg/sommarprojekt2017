@@ -25,9 +25,8 @@ namespace SummerProject
         MINEBULLET,
         SPRAYBULLET,
         CHARGINGBULLET,
-        GRAVITY_BULLET,
-        //----------------------------
-        EVILBULLET,
+        GRAVITYBULLET,
+
         #endregion
 
         #region Drops
@@ -52,7 +51,7 @@ namespace SummerProject
         DEFAULT_PART,
         RECTHULLPART,
         GUNPART,
-        GRAVITY_GUN_PART,
+        GRAVITYGUNPART,
         ENGINEPART,
         SPRAYGUNPART,
         MINEGUNPART,

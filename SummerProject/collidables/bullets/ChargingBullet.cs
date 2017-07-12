@@ -9,7 +9,7 @@ namespace SummerProject.collidables.bullets
 {
     class ChargingBullet : Bullet
     {
-        public ChargingBullet(Vector2 position, bool isEvil) : base(position, isEvil)
+        public ChargingBullet(Vector2 position) : base(position)
         {
         }
 

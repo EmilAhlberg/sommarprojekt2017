@@ -37,8 +37,7 @@ namespace SummerProject.collidables
                {typeof(SprayBullet), IDs.SPRAYBULLET },
                {typeof(MineBullet), IDs.MINEBULLET },
                {typeof(ChargingBullet), IDs.CHARGINGBULLET },
-               {typeof(GravityGunPart), IDs.GRAVITY_GUN_PART },
-               {typeof(GravityBullet), IDs.GRAVITY_BULLET },
+               {typeof(GravityBullet), IDs.GRAVITYBULLET },
                 #endregion
                 #region Particles
                {typeof(Particle), IDs.DEFAULT_PARTICLE },
@@ -50,11 +49,12 @@ namespace SummerProject.collidables
                 {typeof(MoneyDrop), IDs.MONEYDROP },
                 #endregion 
                 #region Parts
-                {typeof(RectangularHull), IDs.RECTHULLPART },
+               {typeof(RectangularHull), IDs.RECTHULLPART },
                {typeof(GunPart), IDs.GUNPART },
                {typeof(SprayGunPart), IDs.SPRAYGUNPART },
                {typeof(MineGunPart), IDs.MINEGUNPART },
                {typeof(ChargingGunPart), IDs.CHARGINGGUNPART },
+               {typeof(GravityGunPart), IDs.GRAVITYGUNPART },
                {typeof(EnginePart), IDs.ENGINEPART },
                {typeof(Collidable), IDs.DEFAULT }
                #endregion
@@ -101,7 +101,7 @@ namespace SummerProject.collidables
                 {(int)IDs.PLAYER, 100},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.DEFAULT_BULLET, 1},
-                {(int)IDs.GRAVITY_BULLET, 0},
+                {(int)IDs.GRAVITYBULLET, 0},
                 {(int)IDs.CHARGINGBULLET, 0},
                 {(int)IDs.SPRAYBULLET, 0.2f }
           };
@@ -147,7 +147,7 @@ namespace SummerProject.collidables
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 200},
-                {(int)IDs.GRAVITY_BULLET, 10},
+                {(int)IDs.GRAVITYBULLET, 10},
                 {(int)IDs.PART, 1},
                 {(int)IDs.RECTHULLPART, 20f}
           };

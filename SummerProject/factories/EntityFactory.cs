@@ -29,12 +29,12 @@ namespace SummerProject.factories
             switch (type)
             {
                 #region Bullets
-                case (int)IDs.DEFAULT_BULLET: return new Bullet(FarAway(),  false);
-                case (int)IDs.HOMINGBULLET: return new HomingBullet(FarAway(),  false);
-                case (int)IDs.SPRAYBULLET: return new SprayBullet(FarAway(),  false);
-                case (int)IDs.MINEBULLET: return new MineBullet(FarAway(),  false);
-                case (int)IDs.CHARGINGBULLET: return new ChargingBullet(FarAway(),  false);
-                case (int)IDs.GRAVITY_BULLET: return new GravityBullet(FarAway(), false);
+                case (int)IDs.DEFAULT_BULLET: return new Bullet(FarAway());
+                case (int)IDs.HOMINGBULLET: return new HomingBullet(FarAway());
+                case (int)IDs.SPRAYBULLET: return new SprayBullet(FarAway());
+                case (int)IDs.MINEBULLET: return new MineBullet(FarAway());
+                case (int)IDs.CHARGINGBULLET: return new ChargingBullet(FarAway());
+                case (int)IDs.GRAVITYBULLET: return new GravityBullet(FarAway());
                 #endregion
                 #region Drops
                 case (int)IDs.HEALTHDROP: return new HealthDrop(FarAway(),1);
@@ -42,9 +42,6 @@ namespace SummerProject.factories
                 case (int)IDs.ENERGYDROP: return new EnergyDrop(FarAway());
                 case (int)IDs.HEALTHDROP_TIER2: return new HealthDrop(FarAway(), 2);
                 case (int)IDs.MONEYDROP: return new MoneyDrop(FarAway());
-                #endregion
-                #region Enemy Bullets
-                case (int)IDs.EVILBULLET: return new Bullet(FarAway(), true);
                 #endregion
                 default:
                     throw new NotImplementedException();
