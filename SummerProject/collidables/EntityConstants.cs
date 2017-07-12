@@ -88,7 +88,7 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 5},
-                {(int)IDs.PLAYER, 5},
+                {(int)IDs.PLAYER, 50},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1}
@@ -117,7 +117,7 @@ namespace SummerProject.collidables
                 {(int)IDs.CHARGINGBULLET, 2f},
                 {(int)IDs.MINEBULLET, 5f},
                 {(int)IDs.RECTHULLPART, 4f},
-                {(int)IDs.ENEMYASTER, 10f}
+                {(int)IDs.ENEMYASTER, 100f}
           };
 
         public static readonly Dictionary<int, float> THRUST =
