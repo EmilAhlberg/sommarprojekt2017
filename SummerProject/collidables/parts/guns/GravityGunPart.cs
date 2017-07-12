@@ -11,8 +11,9 @@ namespace SummerProject.collidables.parts.guns
     {
         public GravityGunPart(IDs id = IDs.DEFAULT) : base(id)
         {
-            RELOADTIME = 0.4f;
+            RELOADTIME = 7f;
             reloadTimer = new Timer(RELOADTIME);
+            reloadTimer.Finish();
             bulletID = IDs.CHARGINGBULLET;
             projectiles.AddExtraBullets((int)bulletID, bulletCap);
         }

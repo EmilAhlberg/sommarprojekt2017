@@ -20,6 +20,11 @@ namespace SummerProject
             IsFinished = false;
         }
 
+        public void Finish()
+        {
+            currentTime = 0;
+        }
+
         public void Reset()
         {
             currentTime = maxTime;

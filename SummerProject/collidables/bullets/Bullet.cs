@@ -29,7 +29,7 @@ namespace SummerProject.collidables
             base.CalculateAngle(dX, dY);
             Stop();
             ResetSpawnTime();
-            AddSpeed(30, Angle); 
+            AddSpeed(20, Angle); 
 
         }
 
