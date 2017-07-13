@@ -88,11 +88,14 @@ namespace SummerProject.collidables
         public static readonly Dictionary<int, float> HEALTH =
           new Dictionary<int, float>
           {
-                {(int)IDs.DEFAULT, 5},
-                {(int)IDs.PLAYER, 5},
+                {(int)IDs.DEFAULT, 0},
+                {(int)IDs.PLAYER, 1},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
-                {(int)IDs.DEFAULT_BULLET, 1}
+                {(int)IDs.DEFAULT_BULLET, 1},
+                {(int)IDs.RECTHULLPART, 1},
+                {(int)IDs.DEFAULT_PART, 0}
+
           };
 
         public static readonly Dictionary<int, float> DAMAGE =
@@ -126,7 +129,7 @@ namespace SummerProject.collidables
          {
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.DEFAULT_BULLET, 0},
-                {(int)IDs.ENGINEPART, 20f}
+                {(int)IDs.ENGINEPART, 30f}
          };
 
         public static readonly Dictionary<int, float> TURNSPEED =

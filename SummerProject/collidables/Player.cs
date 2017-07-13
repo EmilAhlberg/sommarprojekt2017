@@ -42,7 +42,7 @@ namespace SummerProject.collidables
 
                 if (Health <= 2)
                 {
-                    //Particles.GenerateParticles(Sprite.Edges, Position, Sprite.Origin, 13, Angle);
+                    Particles.GenerateParticles(Hull.Sprite.Edges, Position, Hull.Sprite.Origin, 13, Angle);
                 }
             }
         }

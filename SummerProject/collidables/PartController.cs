@@ -69,6 +69,8 @@ namespace SummerProject
                 id = EntityConstants.TypeToID(GetType());
             Hull = new RectangularHull(id);
             Hull.Carrier = this;
+            maxHealth = Hull.Health;
+            Health = maxHealth;
             Position = position;
             this.id = id;
             SetStats(id);
@@ -86,8 +88,6 @@ namespace SummerProject
         {
             Energy = startingEnergy;
             maxEnergy = Energy;
-            maxHealth = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
-            Health = maxHealth;
             Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);
         }
 
@@ -118,7 +118,11 @@ namespace SummerProject
 
         public bool AddPart(Part part, int pos)
         {
-            return Hull.AddPart(part, pos);
+            
+            bool r = Hull.AddPart(part, pos);
+            maxHealth = Hull.Health;
+            Health = maxHealth;
+            return r;
         }
 
         public void Stop()
@@ -151,8 +155,9 @@ namespace SummerProject
             Position = source;
             IsActive = true;
             maxEnergy = startingEnergy;
-            maxHealth = Health;
             Energy = maxEnergy;
+            maxHealth = Hull.Health;
+            Health = maxHealth;
             SpecificActivation(source, target);
         }
 
