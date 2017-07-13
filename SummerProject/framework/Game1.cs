@@ -12,6 +12,7 @@ using SummerProject.collidables.parts;
 using System.IO;
 using System.Linq;
 using SummerProject.collidables.parts.guns;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SummerProject
 {
@@ -139,13 +140,21 @@ namespace SummerProject
             Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
             Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
             Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
+            Texture2DPlus hammerItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Hammer"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
+            #region Loading sounds and adding them to list
+            SoundHandler.Sounds[(int)IDs.DEFAULT] = Content.Load<SoundEffect>("sounds/shotSnd");
+            SoundHandler.Sounds[(int)IDs.GUNPART] = Content.Load<SoundEffect>("sounds/shotSnd");
+            SoundHandler.Sounds[(int)IDs.GRAVITYBULLET] = Content.Load<SoundEffect>("sounds/blackholeSnd");
+            SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
+            SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
+            #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 
-            #region Adding entity-sprites to list
+            #region Adding sprites to list
             SpriteHandler.Sprites[(int)IDs.DEFAULT] = new Sprite(errorTex);
             //SpriteHandler.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
             //SpriteHandler.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);
@@ -178,6 +187,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             SpriteHandler.Sprites[(int)IDs.ROTATEPART] = new Sprite(rotateItemTex);
+            SpriteHandler.Sprites[(int)IDs.HAMMERPART] = new Sprite(hammerItemTex);
             #endregion
 
             #region Adding partIDs to list
@@ -202,7 +212,7 @@ namespace SummerProject
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
             GunPart gunPart2 = new ChargingGunPart();
-            GunPart gunPart3 = new GunPart();
+            GunPart gunPart3 = new GunPart(IDs.DEFAULT);
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();
@@ -218,7 +228,7 @@ namespace SummerProject
             gameController = new GameController(player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location
-            healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, player.maxHealth);
+            healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5); //! LOL
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
 

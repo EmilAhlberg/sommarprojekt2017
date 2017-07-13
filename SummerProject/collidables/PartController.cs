@@ -46,7 +46,7 @@ namespace SummerProject
                 }
             }
         }
-        public float maxHealth { get; protected set; }
+        public float maxHealth { get { return Hull.Health; } }
         protected const float maxHealthCap = 15; //!
         private float health;
         public float Health { get { return health; }
@@ -86,8 +86,6 @@ namespace SummerProject
         {
             Energy = startingEnergy;
             maxEnergy = Energy;
-            maxHealth = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, id);
-            Health = maxHealth;
             Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, id);
         }
 
@@ -118,7 +116,9 @@ namespace SummerProject
 
         public bool AddPart(Part part, int pos)
         {
-            return Hull.AddPart(part, pos);
+            
+            bool r = Hull.AddPart(part, pos);
+            return r;
         }
 
         public void Stop()
@@ -149,11 +149,11 @@ namespace SummerProject
         {
             SetStats(id);
             Position = source;
-            IsActive = true;
-            maxEnergy = startingEnergy;
-            maxHealth = Health;
-            Energy = maxEnergy;
+            IsActive = true;     
             SpecificActivation(source, target);
+            maxEnergy = startingEnergy;
+            health = maxHealth;
+            Energy = maxEnergy;
         }
 
         protected virtual void SpecificActivation(Vector2 scource, Vector2 target) { }

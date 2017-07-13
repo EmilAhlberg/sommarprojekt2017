@@ -32,7 +32,7 @@ namespace SummerProject.collidables
                {typeof(Asteroid), IDs.ENEMYASTER },
                {typeof(Shooter), IDs.ENEMYSHOOT },
                {typeof(Wall), IDs.WALL },
-               #region Bullets
+                #region Bullets
                {typeof(Bullet), IDs.DEFAULT_BULLET },
                {typeof(SprayBullet), IDs.SPRAYBULLET },
                {typeof(MineBullet), IDs.MINEBULLET },
@@ -49,6 +49,7 @@ namespace SummerProject.collidables
                 {typeof(MoneyDrop), IDs.MONEYDROP },
                 #endregion 
                 #region Parts
+               {typeof(Part), IDs.DEFAULT_PART },
                {typeof(RectangularHull), IDs.RECTHULLPART },
                {typeof(GunPart), IDs.GUNPART },
                {typeof(SprayGunPart), IDs.SPRAYGUNPART },
@@ -87,11 +88,14 @@ namespace SummerProject.collidables
         public static readonly Dictionary<int, float> HEALTH =
           new Dictionary<int, float>
           {
-                {(int)IDs.DEFAULT, 5},
-                {(int)IDs.PLAYER, 5},
+                {(int)IDs.DEFAULT, 0},
+                {(int)IDs.PLAYER, 1},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
-                {(int)IDs.DEFAULT_BULLET, 1}
+                {(int)IDs.DEFAULT_BULLET, 1},
+                {(int)IDs.RECTHULLPART, 1},
+                {(int)IDs.DEFAULT_PART, 0}
+
           };
 
         public static readonly Dictionary<int, float> DAMAGE =
@@ -110,13 +114,13 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 10},
-                {(int)IDs.PART, 1},
+                {(int)IDs.DEFAULT_PART, 3},
                 {(int)IDs.DEFAULT_BULLET, 3f},
                 {(int)IDs.ENGINEPART, 0},
                 {(int)IDs.SPRAYBULLET, 1f},
                 {(int)IDs.CHARGINGBULLET, 7f},
                 {(int)IDs.MINEBULLET, 5f},
-                {(int)IDs.RECTHULLPART, 3f},
+                {(int)IDs.RECTHULLPART, 5f},
                 {(int)IDs.ENEMYASTER, 100f}
           };
 
@@ -125,7 +129,7 @@ namespace SummerProject.collidables
          {
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.DEFAULT_BULLET, 0},
-                {(int)IDs.ENGINEPART, 20f}
+                {(int)IDs.ENGINEPART, 30f}
          };
 
         public static readonly Dictionary<int, float> TURNSPEED =
@@ -148,8 +152,8 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 170},
                 {(int)IDs.GRAVITYBULLET, 17},
-                {(int)IDs.PART, 1},
-                {(int)IDs.RECTHULLPART, 20f}
+                {(int)IDs.DEFAULT_PART, 0},
+                {(int)IDs.ENGINEPART, 100f}
           };
 
         public static readonly Dictionary<int, float> SCORE =
@@ -178,14 +182,14 @@ namespace SummerProject.collidables
         new Dictionary<int, string>
         {
                 {(int)IDs.GUNPART, "Plasma Gun"},
-                {(int)IDs.EMPTYPART, "Sell Parts"},
+                {(int)IDs.HAMMERPART, "Sell Parts"},
                 {(int)IDs.SPRAYGUNPART, "Spray Gun"},
                 {(int)IDs.MINEGUNPART, "Mine Deployer"},
                 {(int)IDs.GRAVITYGUNPART, "Black Hole Gun"},
                 {(int)IDs.CHARGINGGUNPART, "Fusion Gun"},
                 {(int)IDs.RECTHULLPART, "Hull"},
                 {(int)IDs.ENGINEPART, "Engine"},
-                 {(int)IDs.ROTATEPART, "Rotate"},
+                {(int)IDs.ROTATEPART, "Rotate"},
                 {(int)IDs.DEFAULT, "NO_NAME"}
         };
     }

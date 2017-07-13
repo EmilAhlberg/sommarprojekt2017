@@ -16,11 +16,11 @@ namespace SummerProject.events.buildmenu
     {
         private SpriteFont font;
         private List<IDs> upgradePartsIDs;
-        public float SpentResource;
+        public float SpentResource { get; set; }
         public float Resource;
         private List<UpgradeBarItem> itemBoxes;
 
-        public bool Action { get; internal set; }       
+        public bool Action { get; internal set; }
         public bool RotateItemSelected { get; set; }
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
@@ -37,6 +37,12 @@ namespace SummerProject.events.buildmenu
         private const int offsetX = 10 * (int) ClickableItem.SCALEFACTOR;
         private const int offsetY = 50 * (int)ClickableItem.SCALEFACTOR;
         private int rows = (int)(WindowSize.Height /( 32 * ClickableItem.SCALEFACTOR + offsetY));
+
+        internal void Reset()
+        {
+            this.SpentResource = -100000; //! starting sum
+        }
+
         private int cols; //calculated in init
         #endregion
 
@@ -44,8 +50,7 @@ namespace SummerProject.events.buildmenu
         {
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
-            this.backgroundText = backgroundText;
-            this.SpentResource = -24000; //! starting sum
+            this.backgroundText = backgroundText;           
             CreateItemBoxes();
             InitBackgrounds();
         }
@@ -105,6 +110,8 @@ namespace SummerProject.events.buildmenu
                 {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
                         if (barItem.Active)
                         {
                             RemoveSelection();
@@ -161,7 +168,10 @@ namespace SummerProject.events.buildmenu
             {
                 if (i % (rows) == 0 && i != 0)
                     currentCol++;
-                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, upgradePartsIDs[i]);
+                IDs tempID = upgradePartsIDs[i];
+                if (tempID.Equals(IDs.EMPTYPART))
+                    tempID = IDs.HAMMERPART;
+                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, tempID);
                 itemBoxes.Insert(i, u);
             }
         }

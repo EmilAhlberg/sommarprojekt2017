@@ -14,7 +14,6 @@ namespace SummerProject.collidables.enemies
         bool usingWaitTimer = false;
         public RandomEnemy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
-            FillParts(Hull);
         }
 
         public void FillParts(CompositePart p)
@@ -129,9 +128,7 @@ namespace SummerProject.collidables.enemies
                 case 0:
                     usingWaitTimer = true;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
-                    maxHealth = 10;
-                    Health = 10;
-                    CompositePart u = new RectangularHull();
+                    u = new RectangularHull();
                     CompositePart d = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
