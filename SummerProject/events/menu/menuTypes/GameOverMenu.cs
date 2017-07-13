@@ -20,7 +20,7 @@ namespace SummerProject.menu
                     handler.ResetGame(true);
                     break;
                 case 1:
-                    handler.NewGameState = EventOperator.MENU_STATE;
+                    handler.NewGameState = EventOperator.MENU_STATE; //! NEWGAMESTATE == UPGRADE STATE?
                     handler.ResetGame(false);
                     //return MenuConstants.MAIN;
                     break;

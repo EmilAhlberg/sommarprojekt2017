@@ -56,7 +56,7 @@ namespace SummerProject
         private void ProgressGame(GameTime gameTime)
         {
             int numberOfSpawns = NumberOfSpawns();
-            if (spawnsThisLevel == numberOfSpawns)
+            if (spawnsThisLevel >= numberOfSpawns)
             {
                 finishedSpawning = true;
                 if (Traits.KILLS.Counter == Traits.ENEMIESSPAWNED.Counter && spawnsThisLevel != 0)
