@@ -49,6 +49,7 @@ namespace SummerProject.collidables
                 {typeof(MoneyDrop), IDs.MONEYDROP },
                 #endregion 
                 #region Parts
+               {typeof(Part), IDs.DEFAULT_PART },
                {typeof(RectangularHull), IDs.RECTHULLPART },
                {typeof(GunPart), IDs.GUNPART },
                {typeof(SprayGunPart), IDs.SPRAYGUNPART },
@@ -110,13 +111,13 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 10},
-                {(int)IDs.PART, 1},
+                {(int)IDs.DEFAULT_PART, 3},
                 {(int)IDs.DEFAULT_BULLET, 1f},
                 {(int)IDs.ENGINEPART, 0},
                 {(int)IDs.SPRAYBULLET, 0.2f},
                 {(int)IDs.CHARGINGBULLET, 2f},
                 {(int)IDs.MINEBULLET, 5f},
-                {(int)IDs.RECTHULLPART, 3f},
+                {(int)IDs.RECTHULLPART, 5f},
                 {(int)IDs.ENEMYASTER, 100f}
           };
 
@@ -148,8 +149,8 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 200},
                 {(int)IDs.GRAVITYBULLET, 20},
-                {(int)IDs.PART, 1},
-                {(int)IDs.RECTHULLPART, 20f}
+                {(int)IDs.DEFAULT_PART, 0},
+                {(int)IDs.ENGINEPART, 100f}
           };
 
         public static readonly Dictionary<int, float> SCORE =

@@ -732,3 +732,27 @@
 /processorParam:TextureFormat=Color
 /build:Parts/ChargingGun.png
 
+#begin sounds/shotSnd.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/shotSnd.wav
+
+#begin sounds/blackholeSnd.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/blackholeSnd.wav
+
+#begin sounds/chargeshotSnd.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/chargeshotSnd.wav
+
+#begin sounds/menuclickSnd.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/menuclickSnd.wav
+

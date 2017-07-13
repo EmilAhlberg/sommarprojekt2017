@@ -383,6 +383,8 @@ namespace SummerProject.framework
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
                         //int oldActive = activeSelection;
                         //if (oldActive != activeSelection && activeSelection >= 0)
                         //{

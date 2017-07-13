@@ -12,6 +12,7 @@ using SummerProject.collidables.parts;
 using System.IO;
 using System.Linq;
 using SummerProject.collidables.parts.guns;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SummerProject
 {
@@ -141,9 +142,16 @@ namespace SummerProject
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
 
+            #region Loading sounds and adding them to list
+            SoundHandler.Sounds[(int)IDs.DEFAULT] = Content.Load<SoundEffect>("sounds/shotSnd");
+            SoundHandler.Sounds[(int)IDs.GUNPART] = Content.Load<SoundEffect>("sounds/shotSnd");
+            SoundHandler.Sounds[(int)IDs.GRAVITYBULLET] = Content.Load<SoundEffect>("sounds/blackholeSnd");
+            SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
+            SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
+            #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 
-            #region Adding entity-sprites to list
+            #region Adding sprites to list
             SpriteHandler.Sprites[(int)IDs.DEFAULT] = new Sprite(errorTex);
             //SpriteHandler.Sprites[(int)IDs.DEFAULT_ENEMY] = new Sprite(enemyTex1, 2, 4);
             //SpriteHandler.Sprites[(int)IDs.ENEMYSHOOT] = new Sprite(enemyTex2, 2, 4);

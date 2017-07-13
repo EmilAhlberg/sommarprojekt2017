@@ -59,10 +59,8 @@ namespace SummerProject
         EMPTYPART,
         #endregion
 
-        PART,
         UPGRADEBAR,
         MENUSCREENBKG,
-
-
+        MENUCLICK,
     }
 }
