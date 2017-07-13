@@ -13,7 +13,7 @@ namespace SummerProject.collidables.parts
     {
         public SprayGunPart(IDs id = IDs.DEFAULT) : base(id, IDs.SPRAYBULLET)
         {
-            RELOADTIME = 0.0.2f;
+            RELOADTIME = 0.02f;
             reloadTimer = new Timer(RELOADTIME);
             projectiles.AddExtraBullets((int)bulletID, bulletCap); //Extra 5 bullets for this gun
         }
