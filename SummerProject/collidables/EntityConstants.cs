@@ -103,7 +103,7 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_BULLET, 1},
                 {(int)IDs.GRAVITYBULLET, 0},
                 {(int)IDs.CHARGINGBULLET, 0},
-                {(int)IDs.SPRAYBULLET, 0.2f }
+                {(int)IDs.SPRAYBULLET, 0.1f }
           };
 
         public static readonly Dictionary<int, float> MASS =
@@ -111,10 +111,10 @@ namespace SummerProject.collidables
           {
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.PART, 1},
-                {(int)IDs.DEFAULT_BULLET, 1f},
+                {(int)IDs.DEFAULT_BULLET, 3f},
                 {(int)IDs.ENGINEPART, 0},
-                {(int)IDs.SPRAYBULLET, 0.2f},
-                {(int)IDs.CHARGINGBULLET, 2f},
+                {(int)IDs.SPRAYBULLET, 1f},
+                {(int)IDs.CHARGINGBULLET, 7f},
                 {(int)IDs.MINEBULLET, 5f},
                 {(int)IDs.RECTHULLPART, 3f},
                 {(int)IDs.ENEMYASTER, 100f}
@@ -146,8 +146,8 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_ENEMY, 100},
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
-                {(int)IDs.MINEBULLET, 200},
-                {(int)IDs.GRAVITYBULLET, 20},
+                {(int)IDs.MINEBULLET, 170},
+                {(int)IDs.GRAVITYBULLET, 17},
                 {(int)IDs.PART, 1},
                 {(int)IDs.RECTHULLPART, 20f}
           };
