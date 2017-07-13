@@ -383,14 +383,6 @@ namespace SummerProject.framework
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
-                        //int oldActive = activeSelection;
-                        //if (oldActive != activeSelection && activeSelection >= 0)
-                        //{
-                        //    tempItem = item.Key;
-                        //}
-                        //else if (oldActive == activeSelection)
-                        //    activeSelection = -1;
-                        ////Buy(100); //!
                         activeSelection = item.Key;
                         AddPart(UpgradeBar.SelectedPart);
                         break;
@@ -414,7 +406,7 @@ namespace SummerProject.framework
                     {
                         ((RectangularHull)s.Part).AddPart(current.Part, (newPos + 2) % 4);
                         current.Hull.RemovePart(current.Part); //restore hull ????????!!!!!!!!!!!!!!!!!!!!!!!! in parts also, not only shipItem
-                      //  ((RectangularHull)removable.Part).Carrier = removable.Hull; //ALSO WHEN ADDPART?
+                        //((RectangularHull)removable.Part).Carrier = removable.Hull; //ALSO WHEN ADDPART?
                         current.Hull = (RectangularHull)s.Part;
                         current.LinkPosition = newPos;
                         current.UpdateRotation();

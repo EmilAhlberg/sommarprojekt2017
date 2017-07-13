@@ -23,7 +23,8 @@ namespace SummerProject
         public Drops Drops { get; private set; }
         private DropSpawnPoints dropPoints;
         private Timer levelTimer;
-
+        private int spawnsThisLevel;
+        private bool finishedSpawning;
         private bool isActive;
 
 
@@ -42,7 +43,7 @@ namespace SummerProject
         public void Update(GameTime gameTime)
         {
             CheckActive();
-            if (isActive && !levelTimer.IsFinished)
+            if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
                 UpdateSpawnHandlers(gameTime);
 
             enemies.Update(gameTime);
@@ -50,14 +51,60 @@ namespace SummerProject
             gameMode.Update(gameTime);
             ProgressGame(gameTime);      
         }
+
         // wave progression stuff
         private void ProgressGame(GameTime gameTime)
         {
-             levelTimer.CountDown(gameTime);
-            if (levelTimer.IsFinished) { 
-                gameMode.LevelFinished = true;
-                levelTimer.Reset();
+            int numberOfSpawns = NumberOfSpawns();
+            if (spawnsThisLevel == numberOfSpawns)
+            {
+                finishedSpawning = true;
+                if (Traits.KILLS.Counter == Traits.ENEMIESSPAWNED.Counter && spawnsThisLevel != 0)
+                {
+                    gameMode.LevelFinished = true;
+                    spawnsThisLevel = 0;
+                    finishedSpawning = false;
+                }              
             }
+        }
+
+        private int NumberOfSpawns()
+        {
+            int number = 0;
+            switch (GameMode.Level % 10)
+            {
+                case 1:
+                    number = 1;
+                    break;
+                case 2:
+                    number = 6;
+                    break;
+                case 3:
+                    number = 8;
+                    break;
+                case 4:
+                    number = 10;
+                    break;
+                case 5:
+                    number = 4;
+                    break;
+                case 6:
+                    number = 6;
+                    break;
+                case 7:
+                    number = 8;
+                    break;
+                case 8:
+                    number = 2;
+                    break;
+                case 9:
+                    number = 4;
+                    break;
+                case 0:
+                    number = 1;
+                    break;                    
+            }
+            return number;
         }
 
         private void UpdateSpawnHandlers(GameTime gameTime)
@@ -65,9 +112,11 @@ namespace SummerProject
             Drops.SpawnAt(dropPoints.SpawnPositions());
             Drops.SpawnMoneyAt(dropPoints.MoneySpawnPositions());
             spawnPointGen.Update(gameTime);
-            if (spawnTimer.Update(gameTime))
+            if (!finishedSpawning && spawnTimer.Update(gameTime))
+            {
                 SpawnWave();                
-            }
+            }                               
+        }
 
         private void SpawnWave()
         {
@@ -75,6 +124,7 @@ namespace SummerProject
             foreach (Vector2 v in spawnPoints)
             {
                 enemies.Spawn(v);
+                ++spawnsThisLevel;
                 Traits.ENEMIESSPAWNED.Counter++;                                
             }            
         }    
@@ -89,6 +139,8 @@ namespace SummerProject
 
         public void Reset(bool fullReset)
         {
+            spawnsThisLevel = 0; //!
+            finishedSpawning = false;
             levelTimer.Reset();
             enemies.Reset();
             gameMode.Reset(fullReset);
@@ -106,7 +158,10 @@ namespace SummerProject
             else if (!player.IsActive)
             {
                 isActive = false;
-            }
+            } //else if (!gameMode.BetweenLevelsTimer.IsFinished)
+            //{
+            //    isActive = false;
+            //}
         }        
 
         //duh

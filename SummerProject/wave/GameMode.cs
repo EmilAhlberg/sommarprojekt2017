@@ -21,17 +21,17 @@ namespace SummerProject.wave
         //Modes for the point generator
         public const int RANDOM_SINGLE = 10;
         public const int RANDOM_WAVE = 11;
-        public const int BURST_WAVE = 12;
-        
+        public const int BURST_WAVE = 12;        
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
         public bool IsChanged { get; set; }
         public static int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
+        private bool progressNow;
         private Difficulty difficulty;
         private SpriteFont font;
-        private Timer betweenLevelsTimer;
+        public Timer BetweenLevelsTimer;
       
 
         public GameMode(SpriteFont font)
@@ -40,30 +40,47 @@ namespace SummerProject.wave
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
-            betweenLevelsTimer = new Timer(3); //!         
+            BetweenLevelsTimer = new Timer(3); //!         
+            //BetweenLevelsTimer.CountDown(new GameTime());
         }
 
         public void Reset(bool fullReset)
-        {           
-            Level = 1; //! ..
-            UpdateLevelSettings();
-            IsChanged = true;
-            if (fullReset)
-            {
-                betweenLevelsTimer.Reset();
-            }
+        {
+            Level = 0;
+            //UpdateLevelSettings();
+            //IsChanged = true;
+            //progressNow = false;
+            LevelFinished = true;           
+
+            //if (fullReset)
+            //{
+            //    BetweenLevelsTimer.Reset();
+            //}
+            //Level = 1;
+            //UpdateLevelSettings();
+            //IsChanged = true;
+            //progressNow = false;
+            //if (fullReset)
+            //{
+            //    BetweenLevelsTimer.Reset();
+            //}
         }
 
         private void ProgressGame()
         {         
-            if (LevelFinished)
+            if (LevelFinished && !progressNow && BetweenLevelsTimer.IsFinished)
             {
                 Level += 1;
+                BetweenLevelsTimer.Reset();
+                progressNow = true;
+            } else if (LevelFinished && progressNow && BetweenLevelsTimer.IsFinished)
+            {
+                progressNow = false;
+                LevelFinished = false;
+                
                 Traits.LEVEL.Counter++;
                 IsChanged = true;
-                UpdateLevelSettings();
-                betweenLevelsTimer.Reset();
-                LevelFinished = false;
+                UpdateLevelSettings();                
             }
         }
         //level 0??
@@ -121,15 +138,19 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             IsChanged = false;
-            betweenLevelsTimer.CountDown(gameTime);
+            BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            if (!betweenLevelsTimer.IsFinished && fullDraw)
+            if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
-                string s = "Wave: " + Level;
+                string s = "";
+                if (Level == 0)
+                    s = "It's a trap!"; //"hack"
+                else
+                    s = "Wave: " + Level;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
             }
         }      
