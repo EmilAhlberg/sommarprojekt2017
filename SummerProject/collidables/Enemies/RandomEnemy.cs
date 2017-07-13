@@ -133,7 +133,7 @@ namespace SummerProject.collidables.enemies
 
         public override void Move()
         {
-            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 1) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
+            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 10) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
                 Hull.TakeAction(typeof(EnginePart));
         }
     }

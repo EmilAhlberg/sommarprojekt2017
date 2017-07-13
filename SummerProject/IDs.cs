@@ -62,5 +62,6 @@ namespace SummerProject
         UPGRADEBAR,
         MENUSCREENBKG,
         MENUCLICK,
+        ROTATEPART,
     }
 }

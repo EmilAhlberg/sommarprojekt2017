@@ -23,6 +23,7 @@ namespace SummerProject.framework
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
         private int emptyPartIndex = 100;
+        private bool rotatePartSelected;
 
         internal void Reset()
         {
@@ -404,14 +405,14 @@ namespace SummerProject.framework
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
                         SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
 
-
-                        activeSelection = item.Key;
-                        AddPart(UpgradeBar.SelectedPart);
+                        if (!UpgradeBar.RotateItemSelected)
+                        {
+                            activeSelection = item.Key;
+                            AddPart(UpgradeBar.SelectedPart);
+                        }
+                        else
+                            RotatePart(item.Value);
                         break;
-                    }
-                    else if (InputHandler.isJustPressed(MouseButton.RIGHT) && item.Value.id != IDs.EMPTYPART)
-                    {
-                        RotatePart(item.Value);
                     }
                 }
             }
