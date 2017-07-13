@@ -20,7 +20,7 @@ namespace SummerProject.collidables.parts
 
         protected int bulletCap = 5;
 
-        public GunPart(IDs id = IDs.DEFAULT) : this(id, IDs.DEFAULT_BULLET)
+        public GunPart(IDs id) : this(id, IDs.DEFAULT_BULLET)
         {
  
         }
