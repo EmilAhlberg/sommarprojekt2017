@@ -19,11 +19,13 @@ namespace SummerProject
 
         public ShipItem(Vector2 position, int linkPosition, RectangularHull hull, Part part,  IDs id = IDs.DEFAULT) : base(position, id)
         {
-            angle = -(float)Math.PI / 2 * linkPosition;
+            if (!id.Equals(IDs.RECTHULLPART))
+            {
+                angle = -(float)Math.PI / 2 * linkPosition;
 
-            if (linkPosition % 2 == 0)
-                angle += (float)Math.PI;
-
+                if (linkPosition % 2 == 0)
+                    angle += (float)Math.PI;
+            }
             Hull = hull;
             Part = part;
             //Width = Sprite.SpriteRect.Width * SCALEFACTOR;
@@ -33,9 +35,12 @@ namespace SummerProject
 
         public void UpdateRotation()
         {
-            angle = -(float)Math.PI / 2 * LinkPosition;
-            if (LinkPosition % 2 == 1)
-                angle += (float)Math.PI;
+            if (!id.Equals(IDs.RECTHULLPART))
+            {
+                angle = -(float)Math.PI / 2 * LinkPosition;
+                if (LinkPosition % 2 == 1)
+                    angle += (float)Math.PI;
+            }
         }
     }
 }
