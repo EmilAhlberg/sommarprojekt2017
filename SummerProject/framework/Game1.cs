@@ -138,6 +138,7 @@ namespace SummerProject
             Texture2DPlus selectionBoxTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SelectionBox"));
             Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
             Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
+            Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -176,12 +177,14 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
             SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
+            SpriteHandler.Sprites[(int)IDs.ROTATEPART] = new Sprite(rotateItemTex);
             #endregion
 
             #region Adding partIDs to list
             List<IDs> ids = new List<IDs>();
             for (int i = (int)IDs.DEFAULT_PART+1; i <= (int)IDs.EMPTYPART; i++)
                 ids.Add((IDs)i);
+            ids.Add(IDs.ROTATEPART); //!!
             #endregion
 
             #region Initializing game objects etc.
@@ -199,7 +202,7 @@ namespace SummerProject
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
             GunPart gunPart2 = new ChargingGunPart();
-            GunPart gunPart3 = new GravityGunPart();
+            GunPart gunPart3 = new GunPart();
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();
