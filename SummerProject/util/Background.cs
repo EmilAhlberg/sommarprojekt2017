@@ -17,7 +17,7 @@ namespace SummerProject.util
         private AnimatedBackgroundObject smallRed;
 
         private const int boundOffsetForSize = 750;
-        private const float speedMultiplier = 50f;  // 0.3
+        private const float speedMultiplier = 0.3f; 
 
         private Vector2 blueStartingPos = new Vector2((WindowSize.Width * 1) / 8, (WindowSize.Height * 1) / 8);
         private Vector2 blueDirection = new Vector2(-1, 0.08f);
