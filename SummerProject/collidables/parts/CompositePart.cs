@@ -200,8 +200,6 @@ namespace SummerProject
                     if (p.Part != null)
                     {
                         p.Part.Position += value - Position;
-                        p.UpdatePart(this);
-
                     }
                 }
                 base.Position = value;
