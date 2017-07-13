@@ -26,7 +26,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 3);
                     if(level > 10)
                     {
-                        p.AddPart(new GunPart(), 1);
+                        p.AddPart(new GunPart(IDs.DEFAULT), 1);
                     }
 
                     break;
@@ -34,7 +34,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 3);
                     if (level > 10)
                     {
-                        p.AddPart(new GunPart(), 1);
+                        p.AddPart(new GunPart(IDs.DEFAULT), 1);
                     }
 
                     break;
@@ -42,7 +42,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0);
                     if (level > 10)
                     {
-                        p.AddPart(new GunPart(), 1);
+                        p.AddPart(new GunPart(IDs.DEFAULT), 1);
                     }
 
                     break;
@@ -50,7 +50,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0);
                     if (level > 10)
                     {
-                        p.AddPart(new GunPart(), 1);
+                        p.AddPart(new GunPart(IDs.DEFAULT), 1);
                     }
 
                     break;
@@ -73,7 +73,7 @@ namespace SummerProject.collidables.enemies
 
                     if (level > 10)
                     {
-                        p.AddPart(new GunPart(), 1);
+                        p.AddPart(new GunPart(IDs.DEFAULT), 1);
                     }
                     break;
                     //maxHealth = 5;
@@ -128,7 +128,7 @@ namespace SummerProject.collidables.enemies
                 case 0:
                     usingWaitTimer = true;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
-                    u = new RectangularHull();
+                    CompositePart u = new RectangularHull();
                     CompositePart d = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
