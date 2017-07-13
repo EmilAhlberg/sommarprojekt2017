@@ -420,6 +420,8 @@ namespace SummerProject.framework
 
         private bool RotatePart(ShipItem current)
         {
+            if (current.id.Equals(IDs.RECTHULLPART))
+                return false;
             for (int i = 0; i < 4; i++)
             {                
                     int newPos = (current.LinkPosition + i) % 4;

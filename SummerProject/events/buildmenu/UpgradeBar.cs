@@ -16,7 +16,7 @@ namespace SummerProject.events.buildmenu
     {
         private SpriteFont font;
         private List<IDs> upgradePartsIDs;
-        public float SpentResource;
+        public float SpentResource { get; set; }
         public float Resource;
         private List<UpgradeBarItem> itemBoxes;
 
@@ -40,7 +40,7 @@ namespace SummerProject.events.buildmenu
 
         internal void Reset()
         {
-            this.SpentResource = -24000; //! starting sum
+            this.SpentResource = -100000; //! starting sum
         }
 
         private int cols; //calculated in init
