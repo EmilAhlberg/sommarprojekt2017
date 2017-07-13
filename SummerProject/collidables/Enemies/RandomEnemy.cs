@@ -128,7 +128,7 @@ namespace SummerProject.collidables.enemies
                 case 0:
                     usingWaitTimer = true;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
-                    u = new RectangularHull();
+                    CompositePart u = new RectangularHull();
                     CompositePart d = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
