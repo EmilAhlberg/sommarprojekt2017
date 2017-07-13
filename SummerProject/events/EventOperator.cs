@@ -18,8 +18,7 @@ namespace SummerProject
         public const int GAME_STATE = 2;
         public const int GAME_OVER_STATE = 3;
         public const int PAUSE_STATE = 4;
-        public const int UPGRADE_STATE = 5;
-       
+        public const int UPGRADE_STATE = 5;       
                 
         public int GameState { get; set; } 
         public int NewGameState { get; set; }      
@@ -35,7 +34,7 @@ namespace SummerProject
             GameState = MENU_STATE;
             NewGameState = GameState;
             GameMode = gameMode;
-            animatedHandler = new AnimatedEventHandler(game, this, font);
+            animatedHandler = new AnimatedEventHandler(game, this, font, gameMode);
             upgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
                     WindowSize.Height / 2), font);
@@ -52,7 +51,7 @@ namespace SummerProject
                 ActivateEvent(gameTime);
                 UpdateState(gameTime);
             }         
-        }    
+        }
 
         public void ActivateEvent(GameTime gameTime)
         {
@@ -166,6 +165,7 @@ namespace SummerProject
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);
+            animatedHandler.Reset();
         }
     }
 }

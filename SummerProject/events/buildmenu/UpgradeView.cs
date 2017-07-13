@@ -106,6 +106,7 @@ namespace SummerProject.framework
             return true;
         }
 
+        //refactor buying out of this method
         private void AddPart(Part newPart)
         {
             bool notEnoughMoney = false;  // only used to see if 
@@ -123,15 +124,15 @@ namespace SummerProject.framework
                 if (newPart == null)
                 {
                     PlaceEmptyBox(pressedItem, hull);
-                    Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)pressedItem.id];
+                    UpgradeBar.SpentResource -= EntityConstants.PRICE[(int)pressedItem.id];
                 }
                 else
                 {
                     float newPartPrice = EntityConstants.GetStatsFromID(EntityConstants.PRICE, EntityConstants.TypeToID(newPart.GetType()));
-                    if (Traits.CURRENCY.Counter >= newPartPrice)
+                    if (UpgradeBar.Resource >= newPartPrice)
                     {
                         PlacePart(pressedItem, hull, newPart);
-                        Traits.CURRENCY.Counter -= newPartPrice;
+                        UpgradeBar.SpentResource += newPartPrice;
                     }
                     else
                         notEnoughMoney = true;

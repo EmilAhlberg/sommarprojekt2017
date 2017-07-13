@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
+using SummerProject.wave;
 
 namespace SummerProject.framework
 {
@@ -20,9 +21,11 @@ namespace SummerProject.framework
         private Game1 game;
         private EventOperator op;
         private SpriteFont font;
+        private GameMode gameMode;
 
-        public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font)
+        public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font, GameMode gameMode)
         {
+            this.gameMode = gameMode;
             this.game = game;
             this.op = op;
             this.font = font;
@@ -83,11 +86,29 @@ namespace SummerProject.framework
 
         private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            string word = COUNTDOWN[(int)eventTimer.currentTime];
+            string word = "";
+            if (GameMode.Level == 0)
+            {
+                word = COUNTDOWN[(int)eventTimer.currentTime];
+            }
+            else
+            {
+                if ((int)eventTimer.currentTime == 1)
+                    word = "Wave: " + GameMode.Level;
+                else
+                    word = "GO!";
+            }
+
+            //string word = COUNTDOWN[(int)eventTimer.currentTime];
             Color color = Color.Gold;
             if ((int)eventTimer.currentTime == 0)
                 color = Color.OrangeRed;
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, word, DrawHelper.CenteredWordPosition(word, font), color);
+        }
+
+        internal void Reset()
+        {
+            eventTimer.Reset();
         }
     }
 }

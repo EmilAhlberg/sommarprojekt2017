@@ -28,9 +28,12 @@ namespace SummerProject.wave
         public bool IsChanged { get; set; }
         public static int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
+        public bool ShowUpgradeMenu { get; internal set; }
+
         private bool progressNow;
         private Difficulty difficulty;
         private SpriteFont font;
+        private Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 + 150);
         public Timer BetweenLevelsTimer;
       
 
@@ -47,10 +50,14 @@ namespace SummerProject.wave
         public void Reset(bool fullReset)
         {
             Level = 0;
+            
             //UpdateLevelSettings();
             //IsChanged = true;
             //progressNow = false;
-            LevelFinished = true;           
+            LevelFinished = true;
+            //ProgressGame();
+            //BetweenLevelsTimer = new Timer(0);
+            //BetweenLevelsTimer.Reset();
 
             //if (fullReset)
             //{
@@ -68,17 +75,20 @@ namespace SummerProject.wave
 
         private void ProgressGame()
         {         
-            if (LevelFinished && !progressNow && BetweenLevelsTimer.IsFinished)
+            if (LevelFinished && !progressNow)
             {
+                
                 Level += 1;
+                //BetweenLevelsTimer = new Timer(3);
                 BetweenLevelsTimer.Reset();
                 progressNow = true;
             } else if (LevelFinished && progressNow && BetweenLevelsTimer.IsFinished)
             {
                 progressNow = false;
                 LevelFinished = false;
-                
-                Traits.LEVEL.Counter++;
+                ShowUpgradeMenu = true;
+                if (Level > Traits.LEVEL.Counter)
+                    Traits.LEVEL.Counter++;
                 IsChanged = true;
                 UpdateLevelSettings();                
             }
@@ -136,7 +146,7 @@ namespace SummerProject.wave
         }
 
         public void Update(GameTime gameTime)
-        {
+        {          
             IsChanged = false;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
@@ -144,14 +154,39 @@ namespace SummerProject.wave
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
+            //if (!BetweenLevelsTimer.IsFinished && fullDraw)
+            //{
+            //    string s = "";
+            //    if (Level == 0)
+            //    {
+            //        if (BetweenLevelsTimer.currentTime > 2f)                    
+            //            s = "ENEMY SPOTTED!";                    
+            //        else
+            //            s = "Quickly, assemble your ship!";
+            //    }                   
+            //    else
+            //        s = "Wave: " + Level;
+            //    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+            //}
+
             if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
                 string s = "";
                 if (Level == 0)
-                    s = "It's a trap!"; //"hack"
+                {
+                    //if (BetweenLevelsTimer.currentTime > 2f)
+                        s = "ENEMY SPOTTED!";                  
+                      
+                }
                 else
-                    s = "Wave: " + Level;
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                {
+                    if (Level == 1)
+                        s = "Quickly, assemble your ship!";
+                    else
+                        s = "Wave: " + Level + " cleared!";
+                }
+                    
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Gold);
             }
         }      
     }
