@@ -116,12 +116,12 @@ namespace SummerProject.framework
         private void AddPart(Part newPart)
         {
             bool notEnoughMoney = false;  // only used to see if 
-            if (activeSelection != 0)
+            if (activeSelection != 0 && shipItems[activeSelection].id != IDs.RECTHULLPART)
             {
                 ShipItem pressedItem = shipItems[activeSelection];
                 RectangularHull hull = null;
                 hull = pressedItem.Hull;
-                if (pressedItem.id == IDs.RECTHULLPART)
+                if (pressedItem.id == IDs.RECTHULLPART)  //now redundant
                 {
                     RemoveHull(pressedItem);
                     FixLinkPosition(pressedItem); //!!!!!
@@ -139,6 +139,7 @@ namespace SummerProject.framework
                     {
                         PlacePart(pressedItem, hull, newPart);
                         UpgradeBar.SpentResource += newPartPrice;
+                        UpgradeBar.SpentResource -= EntityConstants.PRICE[(int)pressedItem.id];
                     }
                     else
                         notEnoughMoney = true;
