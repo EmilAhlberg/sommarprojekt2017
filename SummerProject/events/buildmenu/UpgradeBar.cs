@@ -20,7 +20,8 @@ namespace SummerProject.events.buildmenu
         public float Resource;
         private List<UpgradeBarItem> itemBoxes;
 
-        public bool Action { get; internal set; }       
+        public bool Action { get; internal set; }
+        public bool RotateItemSelected { get; set; }
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
         private int itemSize = (int)ClickableItem.Width;
@@ -114,6 +115,7 @@ namespace SummerProject.events.buildmenu
                         if (barItem.Active)
                         {
                             RemoveSelection();
+                            RotateItemSelected = false;
                         }
                         else
                         {
@@ -123,6 +125,10 @@ namespace SummerProject.events.buildmenu
                             followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
                             followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
                             selectedBarItem = barItem;
+                            if (barItem.id == IDs.ROTATEPART)
+                                RotateItemSelected = true;
+                            else
+                                RotateItemSelected = false;
                         }
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)
