@@ -112,8 +112,8 @@ namespace SummerProject.wave
                     SpawnMode = RANDOM_WAVE;
                     break;
                 case 5:
-                    TimeMode = CONSTANT_TIME;
-                    SpawnMode = RANDOM_WAVE;
+                    TimeMode = BURST_TIME;
+                    SpawnMode = BURST_WAVE;
                     break;
                 case 6:
                     TimeMode = CONSTANT_TIME;
@@ -133,6 +133,8 @@ namespace SummerProject.wave
                     break;
                 case 0:
                     //boss!
+                    TimeMode = CONSTANT_TIME;
+                    SpawnMode = RANDOM_SINGLE;
                     break;
             }
         }

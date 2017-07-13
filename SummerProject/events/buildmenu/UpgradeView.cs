@@ -144,6 +144,7 @@ namespace SummerProject.framework
                     {
                         PlacePart(pressedItem, hull, newPart);
                         UpgradeBar.SpentResource += newPartPrice;
+                        UpgradeBar.SpentResource -= EntityConstants.PRICE[(int)pressedItem.id];
                     }
                     else
                         notEnoughMoney = true;
