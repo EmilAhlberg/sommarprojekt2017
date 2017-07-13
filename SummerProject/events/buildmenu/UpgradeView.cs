@@ -108,6 +108,7 @@ namespace SummerProject.framework
 
         private void AddPart(Part newPart)
         {
+            bool notEnoughMoney = false;  // only used to see if 
             if (activeSelection != 0)
             {
                 ShipItem pressedItem = shipItems[activeSelection];
@@ -122,16 +123,28 @@ namespace SummerProject.framework
                 if (newPart == null)
                 {
                     PlaceEmptyBox(pressedItem, hull);
+                    Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)pressedItem.id];
                 }
                 else
                 {
-                    PlacePart(pressedItem, hull, newPart);
-                    
+                    float newPartPrice = EntityConstants.GetStatsFromID(EntityConstants.PRICE, EntityConstants.TypeToID(newPart.GetType()));
+                    if (Traits.CURRENCY.Counter >= newPartPrice)
+                    {
+                        PlacePart(pressedItem, hull, newPart);
+                        Traits.CURRENCY.Counter -= newPartPrice;
+                    }
+                    else
+                        notEnoughMoney = true;
+
+
                 }
-                Vector2 v = pressedItem.Position;
-                ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
-                shipItems[activeSelection] = s;
-                RenewEmptyBoxes();
+                if (!notEnoughMoney)
+                {
+                    Vector2 v = pressedItem.Position;
+                    ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
+                    shipItems[activeSelection] = s;
+                    RenewEmptyBoxes();
+                }
             }
         }
 
