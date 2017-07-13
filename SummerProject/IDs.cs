@@ -63,5 +63,6 @@ namespace SummerProject
         MENUSCREENBKG,
         MENUCLICK,
         ROTATEPART,
+        HAMMERPART,
     }
 }

@@ -182,14 +182,14 @@ namespace SummerProject.collidables
         new Dictionary<int, string>
         {
                 {(int)IDs.GUNPART, "Plasma Gun"},
-                {(int)IDs.EMPTYPART, "Sell Parts"},
+                {(int)IDs.HAMMERPART, "Sell Parts"},
                 {(int)IDs.SPRAYGUNPART, "Spray Gun"},
                 {(int)IDs.MINEGUNPART, "Mine Deployer"},
                 {(int)IDs.GRAVITYGUNPART, "Black Hole Gun"},
                 {(int)IDs.CHARGINGGUNPART, "Fusion Gun"},
                 {(int)IDs.RECTHULLPART, "Hull"},
                 {(int)IDs.ENGINEPART, "Engine"},
-                 {(int)IDs.ROTATEPART, "Rotate"},
+                {(int)IDs.ROTATEPART, "Rotate"},
                 {(int)IDs.DEFAULT, "NO_NAME"}
         };
     }

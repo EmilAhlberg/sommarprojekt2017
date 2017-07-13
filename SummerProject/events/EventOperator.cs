@@ -80,8 +80,7 @@ namespace SummerProject
                     case PAUSE_STATE:
                         GameState = NewGameState;
                         break;
-                    case UPGRADE_STATE:
-                        upgradeView.Initialize();
+                    case UPGRADE_STATE:                        
                         GameState = NewGameState;
                         break;
                 }
@@ -165,6 +164,8 @@ namespace SummerProject
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);
+            if (fullReset)
+                upgradeView.Reset();
             //animatedHandler.Reset();
         }
     }
