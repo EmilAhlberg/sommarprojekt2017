@@ -40,8 +40,8 @@ namespace SummerProject.factories
             //    type = (int)IDs.ENEMYSPEED;
             //else if (rnd < Difficulty.IS_ASTEROID_RISK) //! chance of being ASTEROIIIID
             //    type = (int)IDs.ENEMYASTER;
-            if (rnd < 0.2) //!      OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOJJ!
-                type = (int)IDs.ENEMYASTER;
+            //if (rnd < 0.2) //!      OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOJJ!
+            //    type = (int)IDs.ENEMYASTER;
             ActivateEntities(source, player.Position, type);
         }
 
