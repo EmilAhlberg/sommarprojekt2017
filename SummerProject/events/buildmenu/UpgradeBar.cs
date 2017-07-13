@@ -109,6 +109,8 @@ namespace SummerProject.events.buildmenu
                 {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
                         if (barItem.Active)
                         {
                             RemoveSelection();

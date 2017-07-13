@@ -13,7 +13,6 @@ namespace SummerProject.collidables.enemies
     {
         public RandomEnemy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
-            FillParts(Hull);
         }
 
         public void FillParts(CompositePart p)
@@ -59,8 +58,6 @@ namespace SummerProject.collidables.enemies
                 case 3: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 4: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 5:
-                    maxHealth = 5;
-                    Health = 5;
                     CompositePart u = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
@@ -94,8 +91,6 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3); break;
                 case 0:
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
-                    maxHealth = 10;
-                    Health = 10;
                     u = new RectangularHull();
                     CompositePart d = new RectangularHull();
                     l = new RectangularHull();

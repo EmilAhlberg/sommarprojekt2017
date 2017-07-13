@@ -35,7 +35,7 @@ namespace SummerProject.collidables
 
         public override void Death()
         {
-            Health = EntityConstants.HEALTH[(int)IDs.DEFAULT_BULLET];
+            Health = EntityConstants.GetStatsFromID(EntityConstants.HEALTH, IDs.DEFAULT_BULLET);
             base.Death();
         }
 

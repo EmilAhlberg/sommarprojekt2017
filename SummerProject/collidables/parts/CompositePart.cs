@@ -31,6 +31,22 @@ namespace SummerProject
             }
         }
 
+        public override float Health
+        {
+            set
+            {
+                base.Health = value;
+            }
+            get
+            {
+                float h = base.Health;
+                foreach (Link p in parts)
+                    if (p.Part != null)
+                        h += p.Part.Health;
+                return h;
+            }
+        }
+
         public override Color Color
         {
             set

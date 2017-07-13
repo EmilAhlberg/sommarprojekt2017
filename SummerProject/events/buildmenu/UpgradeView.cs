@@ -403,13 +403,16 @@ namespace SummerProject.framework
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
-                        activeSelection = item.Key;
-                        AddPart(UpgradeBar.SelectedPart);
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
+                        if (!UpgradeBar.RotateItemSelected)
+                        {
+                            activeSelection = item.Key;
+                            AddPart(UpgradeBar.SelectedPart);
+                        }
+                        else
+                            RotatePart(item.Value);
                         break;
-                    }
-                    else if (InputHandler.isJustPressed(MouseButton.RIGHT) && item.Value.id != IDs.EMPTYPART)
-                    {
-                        RotatePart(item.Value);
                     }
                 }
             }
