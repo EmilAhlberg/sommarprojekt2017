@@ -11,6 +11,7 @@ namespace SummerProject.collidables.enemies
 {
     class RandomEnemy : Attacker
     {
+        bool usingWaitTimer = false;
         public RandomEnemy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
             FillParts(Hull);
@@ -18,71 +19,100 @@ namespace SummerProject.collidables.enemies
 
         public void FillParts(CompositePart p)
         {
-            //int randomNumber;
-            //int currentLevel = GameMode.Level; //hmm?
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    Part part1;
-            //    Part part2;
-            //    if (currentLevel / 10 != 0) //!!!temporary control of stuff
-            //    {  
-            //        randomNumber = SRandom.Next(1, 4);
-            //        switch (randomNumber)
-            //        {
-            //            case 1: part1 = new MineGunPart(); part2 = new MineGunPart(); break;
-            //            case 2: part1 = new SprayGunPart(); part2 = new SprayGunPart(); break;
-            //            default: part1 = new EnginePart(); part2 = new EnginePart(); break;
-            //        }
-            //        if (i == 0)
-            //        {
-            //            p.AddPart(part1, 0);
-            //            p.AddPart(part2, 2);
-            //        }
-            //        else
-            //        {
-            //            if (part1 is EnginePart)
-            //            {
-            //                p.AddPart(new SprayGunPart(), 1);
-            //            }
-            //            else
-            //                p.AddPart(part1, 1);
-            //        }
-            //    }
-            //}
-            //p.AddPart(new EnginePart(), 3);
             p.ResetParts();
             int level = GameMode.Level;
             switch (level % 10)
             {
-                case 1: p.AddPart(new EnginePart(), 3); break;
-                case 2: p.AddPart(new EnginePart(), 3); break;
-                case 3: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
-                case 4: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
-                case 5:
-                    maxHealth = 5;
-                    Health = 5;
-                    CompositePart u = new RectangularHull();
-                    CompositePart l = new RectangularHull();
-                    CompositePart r = new RectangularHull();
-                    CompositePart ld = new RectangularHull();
-                    CompositePart rd = new RectangularHull();
-                    p.AddPart(u, 1);
-                    p.AddPart(r, 0);
-                    p.AddPart(l, 2);
+                case 1:
                     p.AddPart(new EnginePart(), 3);
-                    u.AddPart(new RectangularHull(), 0);
-                    u.AddPart(new RectangularHull(), 2);
-                    l.AddPart(ld, 3);
-                    r.AddPart(rd, 3);
-                    ld.AddPart(new EnginePart(), 3);
-                    rd.AddPart(new EnginePart(), 3);
+                    if(level > 10)
+                    {
+                        p.AddPart(new GunPart(), 1);
+                    }
+
                     break;
-                case 6: p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3); break;
-                case 7: p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3); break;
-                case 8: p.AddPart(new EnginePart(), 3); break;
-                case 9:
+                case 2:
+                    p.AddPart(new EnginePart(), 3);
+                    if (level > 10)
+                    {
+                        p.AddPart(new GunPart(), 1);
+                    }
+
+                    break;
+                case 3:
+                    p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0);
+                    if (level > 10)
+                    {
+                        p.AddPart(new GunPart(), 1);
+                    }
+
+                    break;
+                case 4:
+                    p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0);
+                    if (level > 10)
+                    {
+                        p.AddPart(new GunPart(), 1);
+                    }
+
+                    break;
+                case 5:
                     Random rnd = new Random();
                     int n = rnd.Next(0, 100);
+                    if (n < 50)
+                        p.AddPart(new EnginePart(), 3); 
+                    else
+                    {
+                        p.AddPart(new EnginePart(), 0);
+                        p.AddPart(new EnginePart(), 2);
+                    }
+                    if (n > 65)
+                    {
+                        p.AddPart(new EnginePart(), 1);
+                        p.AddPart(new EnginePart(), 3);
+                        usingWaitTimer = true;
+                    }
+
+                    if (level > 10)
+                    {
+                        p.AddPart(new GunPart(), 1);
+                    }
+                    break;
+                    //maxHealth = 5;
+                    //Health = 5;
+                    //CompositePart u = new RectangularHull();
+                    //CompositePart l = new RectangularHull();
+                    //CompositePart r = new RectangularHull();
+                    //CompositePart ld = new RectangularHull();
+                    //CompositePart rd = new RectangularHull();
+                    //p.AddPart(u, 1);
+                    //p.AddPart(r, 0);
+                    //p.AddPart(l, 2);
+                    //p.AddPart(new EnginePart(), 3);
+                    //u.AddPart(new RectangularHull(), 0);
+                    //u.AddPart(new RectangularHull(), 2);
+                    //l.AddPart(ld, 3);
+                    //r.AddPart(rd, 3);
+                    //ld.AddPart(new EnginePart(), 3);
+                    //rd.AddPart(new EnginePart(), 3);
+
+                case 6:
+                    p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3);
+                    usingWaitTimer = true;
+                    break;
+
+                case 7:
+                    p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3);
+                    usingWaitTimer = true;
+                    break;
+
+                case 8:
+                    p.AddPart(new EnginePart(), 3);
+
+                    break;
+
+                case 9:
+                    rnd = new Random();
+                    n = rnd.Next(0, 100);
                     if (n < 50)
                     {
                         p.AddPart(new EnginePart(), 3); break;
@@ -91,15 +121,20 @@ namespace SummerProject.collidables.enemies
                     {
                         p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                     }
-                    p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3); break;
+                    usingWaitTimer = true;
+                    p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3);
+
+                    break;
+
                 case 0:
+                    usingWaitTimer = true;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
                     maxHealth = 10;
                     Health = 10;
-                    u = new RectangularHull();
+                    CompositePart u = new RectangularHull();
                     CompositePart d = new RectangularHull();
-                    l = new RectangularHull();
-                    r = new RectangularHull();
+                    CompositePart l = new RectangularHull();
+                    CompositePart r = new RectangularHull();
                     p.AddPart(u, 1);
                     p.AddPart(d, 3);
                     p.AddPart(l, 2);
@@ -113,7 +148,9 @@ namespace SummerProject.collidables.enemies
                     l.AddPart(new EnginePart(), 2);
                     r.AddPart(new EnginePart(), 0);
                     //-----
+
                     break;
+
                 default: throw new Exception();
             }
         }
@@ -122,23 +159,24 @@ namespace SummerProject.collidables.enemies
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
+            usingWaitTimer = false;
             FillParts(Hull);
         }
 
         protected override void Attack(GameTime gameTime)
+        {
+        }
+
+        protected override void Wait(GameTime gameTime)
         {
             Hull.TakeAction(typeof(SprayGunPart));
             Hull.TakeAction(typeof(MineGunPart));
             Hull.TakeAction(typeof(GunPart));
         }
 
-        protected override void Wait(GameTime gameTime)
-        {
-        }
-
         public override void Move()
         {
-            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 10) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
+            if (!usingWaitTimer || (waitTimer.IsFinished && !attackTimer.IsFinished))
                 Hull.TakeAction(typeof(EnginePart));
         }
     }
