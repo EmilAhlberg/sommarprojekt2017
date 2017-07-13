@@ -5,44 +5,21 @@ using SummerProject.collidables.Enemies;
 using SummerProject.collidables.bullets;
 using SummerProject.collidables.parts;
 using SummerProject.collidables.enemies;
+using SummerProject.collidables.enemies.SemiBosses;
+using SummerProject.wave;
 
 namespace SummerProject.factories
 {
     class EntityFactory
     {
         private const int standard = -5000;
+
         public static IActivatable CreateEnemy(Sprite sprite, Player player, int type)
         {
-            Enemy e;
             switch (type)
             {
-                case (int)IDs.ENEMYSHOOT: e = new Shooter(FarAway(), player); e.AddPart(new SprayGunPart(), 1); e.AddPart(new EnginePart(), 3); return e;
-                case (int)IDs.ENEMYSPEED: e = new Speedy(FarAway(), player); /*e.AddPart(new EnginePart(), 0);*/ e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 3); return e;
-                case (int)IDs.ENEMYASTER: return new Asteroid(FarAway(),  player);
+                default: return new RandomEnemy(FarAway(), player);
             }
-            e = new RandomEnemy(FarAway(), player); return e;
-            //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
-        }
-
-        public static IActivatable CreateEnemyForLevel(Sprite sprite, Player player, int level)
-        {
-            Enemy e;
-            switch (level%10)
-            {
-                case 1: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 2: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 3: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 4: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 5: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 6: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 7: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 8: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 9: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 10: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                default: throw new Exception();
-            }
-            e = new RandomEnemy(FarAway(), player); return e;
-            //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
         }
 
         public static IActivatable CreateEntity(Sprite sprite, int type)
