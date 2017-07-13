@@ -198,7 +198,7 @@ namespace SummerProject
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
             GunPart gunPart2 = new ChargingGunPart();
-            GunPart gunPart3 = new GravityGunPart();
+            GunPart gunPart3 = new GunPart();
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();

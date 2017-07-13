@@ -59,8 +59,8 @@ namespace SummerProject.collidables.enemies
                 case 3: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 4: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 5:
-                    Health = 5;
                     maxHealth = 5;
+                    Health = 5;
                     CompositePart u = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
@@ -138,7 +138,7 @@ namespace SummerProject.collidables.enemies
 
         public override void Move()
         {
-            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 1) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
+            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 10) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
                 Hull.TakeAction(typeof(EnginePart));
         }
     }

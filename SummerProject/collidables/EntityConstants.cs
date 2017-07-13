@@ -103,7 +103,7 @@ namespace SummerProject.collidables
                 {(int)IDs.DEFAULT_BULLET, 1},
                 {(int)IDs.GRAVITYBULLET, 0},
                 {(int)IDs.CHARGINGBULLET, 0},
-                {(int)IDs.SPRAYBULLET, 0.1f }
+                {(int)IDs.SPRAYBULLET, 0.15f }
           };
 
         public static readonly Dictionary<int, float> MASS =
