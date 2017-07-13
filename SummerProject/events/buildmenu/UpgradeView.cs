@@ -27,6 +27,11 @@ namespace SummerProject.framework
         internal void Reset()
         {
             ShipItem motherBoard = shipItems[0];
+            foreach (ShipItem si in shipItems.Values)
+            {
+                Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)si.id];
+            }
+            Traits.CURRENCY.Counter -= EntityConstants.PRICE[(int)motherBoard.id];
             ((RectangularHull)motherBoard.Part).ResetLinks();
             shipItems = new Dictionary<int, ShipItem>();
             shipItems.Add(0, motherBoard);            
@@ -106,8 +111,10 @@ namespace SummerProject.framework
             return true;
         }
 
+        //refactor buying out of this method
         private void AddPart(Part newPart)
         {
+            bool notEnoughMoney = false;  // only used to see if 
             if (activeSelection != 0)
             {
                 ShipItem pressedItem = shipItems[activeSelection];
@@ -122,16 +129,28 @@ namespace SummerProject.framework
                 if (newPart == null)
                 {
                     PlaceEmptyBox(pressedItem, hull);
+                    UpgradeBar.SpentResource -= EntityConstants.PRICE[(int)pressedItem.id];
                 }
                 else
                 {
-                    PlacePart(pressedItem, hull, newPart);
-                    
+                    float newPartPrice = EntityConstants.GetStatsFromID(EntityConstants.PRICE, EntityConstants.TypeToID(newPart.GetType()));
+                    if (UpgradeBar.Resource >= newPartPrice)
+                    {
+                        PlacePart(pressedItem, hull, newPart);
+                        UpgradeBar.SpentResource += newPartPrice;
+                    }
+                    else
+                        notEnoughMoney = true;
+
+
                 }
-                Vector2 v = pressedItem.Position;
-                ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
-                shipItems[activeSelection] = s;
-                RenewEmptyBoxes();
+                if (!notEnoughMoney)
+                {
+                    Vector2 v = pressedItem.Position;
+                    ShipItem s = CreateShipItem(newPart, pressedItem.LinkPosition, v, (RectangularHull)hull);
+                    shipItems[activeSelection] = s;
+                    RenewEmptyBoxes();
+                }
             }
         }
 
@@ -385,14 +404,7 @@ namespace SummerProject.framework
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
                         SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
 
-                        //int oldActive = activeSelection;
-                        //if (oldActive != activeSelection && activeSelection >= 0)
-                        //{
-                        //    tempItem = item.Key;
-                        //}
-                        //else if (oldActive == activeSelection)
-                        //    activeSelection = -1;
-                        ////Buy(100); //!
+
                         activeSelection = item.Key;
                         AddPart(UpgradeBar.SelectedPart);
                         break;
@@ -416,7 +428,7 @@ namespace SummerProject.framework
                     {
                         ((RectangularHull)s.Part).AddPart(current.Part, (newPos + 2) % 4);
                         current.Hull.RemovePart(current.Part); //restore hull ????????!!!!!!!!!!!!!!!!!!!!!!!! in parts also, not only shipItem
-                      //  ((RectangularHull)removable.Part).Carrier = removable.Hull; //ALSO WHEN ADDPART?
+                        //((RectangularHull)removable.Part).Carrier = removable.Hull; //ALSO WHEN ADDPART?
                         current.Hull = (RectangularHull)s.Part;
                         current.LinkPosition = newPos;
                         current.UpdateRotation();

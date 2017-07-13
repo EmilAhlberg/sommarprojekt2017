@@ -113,6 +113,18 @@ namespace SummerProject
             AddLinkPositions();
         }
  
+        public void ResetParts()
+        {
+            foreach (Link p in parts)
+            {
+                if (p.Part != null)
+                {
+                    Part p1 = p.Part;
+                    p.Part = null;
+                    p1.IsActive = false;
+                }
+            } 
+        }
 
         public bool AddPart(Part part, int pos)
         {
@@ -172,13 +184,11 @@ namespace SummerProject
         //    }
         //}
 
-        public override void AddForce(float force, float angle)
-        {
-            if (Carrier is CompositePart)
-                (Carrier as CompositePart).AddForce(force, angle);
-            else
-                base.AddForce(force, angle);
-        }
+        //public override void AddForce(float force, float angle)
+        //{
+        //    if (Carrier is CompositePart)
+        //        (Carrier as CompositePart).AddForce(force, angle);
+        //}
 
         public override Vector2 Position
         {
@@ -276,7 +286,7 @@ namespace SummerProject
 
             public Vector2 RelativePos { set; get; }
             public float RelativeAngle { set; get; }
-            public Part Part { private set; get; } = null;
+            public Part Part { set; get; } = null;
             private Vector2 linkToCenter;
             private Vector2 posChange;
 

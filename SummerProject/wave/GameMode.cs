@@ -21,17 +21,20 @@ namespace SummerProject.wave
         //Modes for the point generator
         public const int RANDOM_SINGLE = 10;
         public const int RANDOM_WAVE = 11;
-        public const int BURST_WAVE = 12;
-        
+        public const int BURST_WAVE = 12;        
 
         public int TimeMode { get; set; }
         public int SpawnMode { get; set; }
         public bool IsChanged { get; set; }
         public static int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
+        public bool ShowUpgradeMenu { get; internal set; }
+
+        private bool progressNow;
         private Difficulty difficulty;
         private SpriteFont font;
-        private Timer betweenLevelsTimer;
+        private Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 + 150);
+        public Timer BetweenLevelsTimer;
       
 
         public GameMode(SpriteFont font)
@@ -40,30 +43,54 @@ namespace SummerProject.wave
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
-            betweenLevelsTimer = new Timer(3); //!         
+            BetweenLevelsTimer = new Timer(3); //!         
+            //BetweenLevelsTimer.CountDown(new GameTime());
         }
 
         public void Reset(bool fullReset)
-        {           
-            Level = 1; //! ..
-            UpdateLevelSettings();
-            IsChanged = true;
-            if (fullReset)
-            {
-                betweenLevelsTimer.Reset();
-            }
+        {
+            Level = 0;
+            
+            //UpdateLevelSettings();
+            //IsChanged = true;
+            //progressNow = false;
+            LevelFinished = true;
+            //ProgressGame();
+            //BetweenLevelsTimer = new Timer(0);
+            //BetweenLevelsTimer.Reset();
+
+            //if (fullReset)
+            //{
+            //    BetweenLevelsTimer.Reset();
+            //}
+            //Level = 1;
+            //UpdateLevelSettings();
+            //IsChanged = true;
+            //progressNow = false;
+            //if (fullReset)
+            //{
+            //    BetweenLevelsTimer.Reset();
+            //}
         }
 
         private void ProgressGame()
         {         
-            if (LevelFinished)
+            if (LevelFinished && !progressNow)
             {
+                
                 Level += 1;
-                Traits.LEVEL.Counter++;
-                IsChanged = true;
-                UpdateLevelSettings();
-                betweenLevelsTimer.Reset();
+                //BetweenLevelsTimer = new Timer(3);
+                BetweenLevelsTimer.Reset();
+                progressNow = true;
+            } else if (LevelFinished && progressNow && BetweenLevelsTimer.IsFinished)
+            {
+                progressNow = false;
                 LevelFinished = false;
+                ShowUpgradeMenu = true;
+                if (Level > Traits.LEVEL.Counter)
+                    Traits.LEVEL.Counter++;
+                IsChanged = true;
+                UpdateLevelSettings();                
             }
         }
         //level 0??
@@ -119,18 +146,47 @@ namespace SummerProject.wave
         }
 
         public void Update(GameTime gameTime)
-        {
+        {          
             IsChanged = false;
-            betweenLevelsTimer.CountDown(gameTime);
+            BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            if (!betweenLevelsTimer.IsFinished && fullDraw)
+            //if (!BetweenLevelsTimer.IsFinished && fullDraw)
+            //{
+            //    string s = "";
+            //    if (Level == 0)
+            //    {
+            //        if (BetweenLevelsTimer.currentTime > 2f)                    
+            //            s = "ENEMY SPOTTED!";                    
+            //        else
+            //            s = "Quickly, assemble your ship!";
+            //    }                   
+            //    else
+            //        s = "Wave: " + Level;
+            //    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+            //}
+
+            if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
-                string s = "Wave: " + Level;
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                string s = "";
+                if (Level == 0)
+                {
+                    //if (BetweenLevelsTimer.currentTime > 2f)
+                        s = "ENEMY SPOTTED!";                  
+                      
+                }
+                else
+                {
+                    if (Level == 1)
+                        s = "Quickly, assemble your ship!";
+                    else
+                        s = "Wave: " + Level + " cleared!";
+                }
+                    
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Gold);
             }
         }      
     }

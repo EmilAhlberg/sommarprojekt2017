@@ -37,6 +37,7 @@ namespace SummerProject
         UnitBar healthBar;
         UnitBar energyBar;
         Drops drops;
+        GameMode gameMode;
         AchievementController achController;
         const bool SPAWN_ENEMIES = true;
         bool slowmo = false;
@@ -193,11 +194,11 @@ namespace SummerProject
 
             #region Initializing game objects etc.
             background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), projectiles);
+            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2) , projectiles);
             //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
-            GameMode gameMode = new GameMode(scoreFont);          
+            gameMode = new GameMode(scoreFont);          
            
             projectiles = new Projectiles(); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
@@ -212,10 +213,10 @@ namespace SummerProject
             EnginePart engine3 = new EnginePart();
             //player.AddPart(rectHull1, 0);
             //player.AddPart(rectHull2, 2);
-            player.AddPart(engine1, 3);
+            //player.AddPart(engine1, 3);
             //rectHull1.AddPart(engine2, 3);
             //rectHull2.AddPart(engine3, 3);
-            player.AddPart(gunPart3, 1);
+            //player.AddPart(gunPart3, 1);
             //rectHull1.AddPart(gunPart2, 0);
             //rectHull2.AddPart(gunPart3, 2);
             drops = new Drops(WindowSize.Width, WindowSize.Height);
@@ -305,9 +306,10 @@ namespace SummerProject
             }
             #endregion
             #region Upgrade Ship
-            if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (gameMode.ShowUpgradeMenu)
             {
                 eventOperator.NewGameState = EventOperator.UPGRADE_STATE;
+                gameMode.ShowUpgradeMenu = false;
             }
             #endregion
         }

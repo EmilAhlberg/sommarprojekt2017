@@ -55,12 +55,12 @@ namespace SummerProject.wave
         private const float BURST_INTERVAL_HARD = 3f;
 
         //SpawnPoint + Timer:
-        private const int BURST_SIZE_EASY = 2;  // - burstMode: spawnSize = BURST_SIZE + current Level (this affect timer as well, timing burst according to spawnSize)
+        private const int BURST_SIZE_EASY = -1;  // - burstMode: spawnSize = BURST_SIZE + current Level (this affect timer as well, timing burst according to spawnSize)
         private const int BURST_SIZE_NORMAL = 3;
         private const int BURST_SIZE_HARD = 5;
 
         //SpawnPoint:
-        private const int WAVE_SIZE_EASY = 1; // - waveMode: spawnSize = WAVE_SIZE + current Level 
+        private const int WAVE_SIZE_EASY = -2; // - waveMode: spawnSize = WAVE_SIZE + current Level 
         private const int WAVE_SIZE_NORMAL = 2;
         private const int WAVE_SIZE_HARD = 3;
         
@@ -159,7 +159,7 @@ namespace SummerProject.wave
             BURST_INTERVAL = BURST_INTERVAL_EASY;
             BURST_SIZE = BURST_SIZE_EASY;
 
-            WAVE_SIZE = WAVE_SIZE_NORMAL;
+            WAVE_SIZE = WAVE_SIZE_EASY;
 
             DROP_RATE = DROP_RATE_EASY;
 

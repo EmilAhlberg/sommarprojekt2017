@@ -16,8 +16,8 @@ namespace SummerProject.events.buildmenu
     {
         private SpriteFont font;
         private List<IDs> upgradePartsIDs;
-        private float spentResource;
-        private float resource;
+        public float SpentResource;
+        public float Resource;
         private List<UpgradeBarItem> itemBoxes;
 
         public bool Action { get; internal set; }       
@@ -44,7 +44,7 @@ namespace SummerProject.events.buildmenu
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
             this.backgroundText = backgroundText;
-            this.spentResource = 0;
+            this.SpentResource = -24000; //! starting sum
             CreateItemBoxes();
             InitBackgrounds();
         }
@@ -74,7 +74,7 @@ namespace SummerProject.events.buildmenu
                 upgradeBarBkg.Draw(spriteBatch, gameTime);
                 outlineBkg.Draw(spriteBatch, gameTime);
                 //currency           
-                string word = "Currency: " + resource;
+                string word = "Currency: " + Resource;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
                                             DrawHelper.CenteredWordPosition(word, font,
                                             new Vector2(itemSize + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemSize), itemSize / 3)),
@@ -91,7 +91,7 @@ namespace SummerProject.events.buildmenu
         internal void Update(GameTime gameTime)
         {
             CheckAction();
-            resource = Traits.CURRENCY.Counter; //not here      
+            Resource = Traits.CURRENCY.Counter - SpentResource; //not here      
             if (followMouseSprite != null)
                 followMouseSprite.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
         }
