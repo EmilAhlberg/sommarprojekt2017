@@ -47,7 +47,7 @@ namespace SummerProject.events.buildmenu
         public Part ReturnPart()
         {
             Part p = null;
-            if (id != IDs.EMPTYPART)
+            if (id != IDs.EMPTYPART && id != IDs.ROTATEPART)
             {
                 Type t = EntityConstants.IDTOTYPE[id];
                 p = (Part)Activator.CreateInstance(t, IDs.DEFAULT); //! Needs to be changed if Part takes more than one constructor
@@ -66,9 +66,12 @@ namespace SummerProject.events.buildmenu
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32,32,32), font, "$"+ Price, belowNamePosition, Color.Gold, 0, Vector2.Zero, 1);
             DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32, 32, 32), font, Name, belowItemPosition, Color.Wheat, 0, Vector2.Zero, 1);
-            box.Draw(spriteBatch, gameTime);
+            if (!(id.Equals(IDs.ROTATEPART) || id.Equals( IDs.EMPTYPART)))
+            {
+                DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32, 32, 32), font, "$" + Price, belowNamePosition, Color.Gold, 0, Vector2.Zero, 1);
+                box.Draw(spriteBatch, gameTime);
+            }
             base.Draw(spriteBatch, gameTime);
         }
     }

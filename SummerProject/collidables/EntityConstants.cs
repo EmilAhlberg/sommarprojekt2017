@@ -170,7 +170,8 @@ namespace SummerProject.collidables
                 {(int)IDs.GRAVITYGUNPART, 30000},
                 {(int)IDs.RECTHULLPART, 8000},
                 {(int)IDs.ENGINEPART, 14000},
-                {(int)IDs.DEFAULT_PART, 15000}
+                {(int)IDs.DEFAULT_PART, 15000},
+                {(int)IDs.DEFAULT, 0}
         };
 
         public static readonly Dictionary<int, string> NAME =
@@ -184,7 +185,8 @@ namespace SummerProject.collidables
                 {(int)IDs.CHARGINGGUNPART, "Fusion Gun"},
                 {(int)IDs.RECTHULLPART, "Hull"},
                 {(int)IDs.ENGINEPART, "Engine"},
-                {(int)IDs.DEFAULT_PART, "NO_NAME"}
+                 {(int)IDs.ROTATEPART, "Rotate"},
+                {(int)IDs.DEFAULT, "NO_NAME"}
         };
     }
 }

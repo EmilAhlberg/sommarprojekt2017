@@ -75,7 +75,9 @@
     <Compile Include="collidables\parts\guns\SprayGunPart.cs" />
     <Compile Include="collidables\bullets\SprayBullet.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="collidables\parts\RotatePart.cs" />
     <Compile Include="events\buildmenu\ClickableItem.cs" />
+    <Compile Include="events\buildmenu\RotateItem.cs" />
     <Compile Include="events\buildmenu\UpgradeBar.cs" />
     <Compile Include="events\buildmenu\UpgradeBarItem.cs" />
     <Compile Include="IActivatable.cs" />
