@@ -24,12 +24,12 @@ namespace SummerProject.collidables.bullets
         }
         public override bool CollidesWith(ICollidable c2)
         {
-            Entity c3;
+            Part c3;
             int nrParts;
             if (c2 is Part)
             {
                 nrParts = (((c2 as Part).GetController()) as PartController).Parts.Count;
-                c3 = c2 as Entity;
+                c3 = c2 as Part;
             }
             else
                 return base.CollidesWith(c2);
@@ -40,9 +40,9 @@ namespace SummerProject.collidables.bullets
             float r2 = dist.Length();
             dist.Normalize();
             if (r2 > 10)
-                c3.AddForce(3000 * dist / r2 );
+                c3.AddForce(3000 * dist / r2);
             else
-                c3.Death();
+                (c3.GetController() as PartController).Health -= 1;
             return base.CollidesWith(c2);
         }
 

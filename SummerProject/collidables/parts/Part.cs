@@ -26,6 +26,14 @@ namespace SummerProject
 
         public void TurnTowardsVector(float dx, float dy) { base.CalculateAngle(dx, dy); }
 
+        public override void AddForce(float force, float angle)
+        {
+            if (Carrier is CompositePart)
+                (Carrier as CompositePart).AddForce(force, angle);
+            else
+                base.AddForce(force, angle);
+        }
+
         protected override void HandleCollision(ICollidable c2)
         {
             Carrier.Collision(c2);
