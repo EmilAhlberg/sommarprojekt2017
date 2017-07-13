@@ -116,7 +116,12 @@ namespace SummerProject.framework
         private void AddPart(Part newPart)
         {
             bool notEnoughMoney = false;  // only used to see if 
-            if (activeSelection != 0 && shipItems[activeSelection].id != IDs.RECTHULLPART)
+
+            if (shipItems[activeSelection].id == IDs.RECTHULLPART)
+            {
+
+            }
+            else if (activeSelection != 0 )
             {
                 ShipItem pressedItem = shipItems[activeSelection];
                 RectangularHull hull = null;
@@ -421,6 +426,8 @@ namespace SummerProject.framework
 
         private bool RotatePart(ShipItem current)
         {
+            if (current.id.Equals(IDs.RECTHULLPART) || current.id.Equals(IDs.EMPTYPART))
+                return false;
             for (int i = 0; i < 4; i++)
             {                
                     int newPos = (current.LinkPosition + i) % 4;

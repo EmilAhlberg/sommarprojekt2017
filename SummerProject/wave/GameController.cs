@@ -59,6 +59,8 @@ namespace SummerProject
             if (spawnsThisLevel >= numberOfSpawns)
             {
                 finishedSpawning = true;
+                int kills = (int) Traits.KILLS.Counter;
+                int spawns = (int)Traits.ENEMIESSPAWNED.Counter;
                 if (Traits.KILLS.Counter == Traits.ENEMIESSPAWNED.Counter && spawnsThisLevel != 0)
                 {
                     gameMode.LevelFinished = true;
