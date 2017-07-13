@@ -87,17 +87,17 @@ namespace SummerProject.framework
         private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
         {
             string word = "";
-            if (GameMode.Level == 0)
-            {
+            //if (GameMode.Level == 0)
+            //{
                 word = COUNTDOWN[(int)eventTimer.currentTime];
-            }
-            else
-            {
-                if ((int)eventTimer.currentTime == 1)
-                    word = "Wave: " + GameMode.Level;
-                else
-                    word = "GO!";
-            }
+            //}
+            //else
+            //{
+            //    if ((int)eventTimer.currentTime == 1)
+            //        word = "Wave: " + GameMode.Level;
+            //    else
+            //        word = "GO!";
+            //}
 
             //string word = COUNTDOWN[(int)eventTimer.currentTime];
             Color color = Color.Gold;

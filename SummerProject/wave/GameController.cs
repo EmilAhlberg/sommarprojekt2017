@@ -158,10 +158,7 @@ namespace SummerProject
             else if (!player.IsActive)
             {
                 isActive = false;
-            } //else if (!gameMode.BetweenLevelsTimer.IsFinished)
-            //{
-            //    isActive = false;
-            //}
+            } 
         }        
 
         //duh

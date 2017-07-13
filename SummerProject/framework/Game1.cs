@@ -298,10 +298,9 @@ namespace SummerProject
             }
             #endregion
             #region Upgrade Ship
-            if (gameMode.ShowUpgradeMenu)
+            if (InputHandler.isJustPressed(Keys.M))
             {
-                eventOperator.NewGameState = EventOperator.UPGRADE_STATE;
-                gameMode.ShowUpgradeMenu = false;
+                eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
             }
             #endregion
         }

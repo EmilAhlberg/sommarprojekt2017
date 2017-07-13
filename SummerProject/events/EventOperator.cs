@@ -165,7 +165,7 @@ namespace SummerProject
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);
-            animatedHandler.Reset();
+            //animatedHandler.Reset();
         }
     }
 }
