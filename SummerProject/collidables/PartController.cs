@@ -46,7 +46,7 @@ namespace SummerProject
                 }
             }
         }
-        public float maxHealth { get; protected set; }
+        public float maxHealth { get { return Hull.Health; } }
         protected const float maxHealthCap = 15; //!
         private float health;
         public float Health { get { return health; }
@@ -69,8 +69,6 @@ namespace SummerProject
                 id = EntityConstants.TypeToID(GetType());
             Hull = new RectangularHull(id);
             Hull.Carrier = this;
-            maxHealth = Hull.Health;
-            Health = maxHealth;
             Position = position;
             this.id = id;
             SetStats(id);
@@ -120,8 +118,6 @@ namespace SummerProject
         {
             
             bool r = Hull.AddPart(part, pos);
-            maxHealth = Hull.Health;
-            Health = maxHealth;
             return r;
         }
 
@@ -153,12 +149,11 @@ namespace SummerProject
         {
             SetStats(id);
             Position = source;
-            IsActive = true;
-            maxEnergy = startingEnergy;
-            Energy = maxEnergy;
-            maxHealth = Hull.Health;
-            Health = maxHealth;
+            IsActive = true;     
             SpecificActivation(source, target);
+            maxEnergy = startingEnergy;
+            health = maxHealth;
+            Energy = maxEnergy;
         }
 
         protected virtual void SpecificActivation(Vector2 scource, Vector2 target) { }

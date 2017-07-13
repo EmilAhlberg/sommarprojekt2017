@@ -32,7 +32,7 @@ namespace SummerProject.collidables
                {typeof(Asteroid), IDs.ENEMYASTER },
                {typeof(Shooter), IDs.ENEMYSHOOT },
                {typeof(Wall), IDs.WALL },
-               #region Bullets
+                #region Bullets
                {typeof(Bullet), IDs.DEFAULT_BULLET },
                {typeof(SprayBullet), IDs.SPRAYBULLET },
                {typeof(MineBullet), IDs.MINEBULLET },

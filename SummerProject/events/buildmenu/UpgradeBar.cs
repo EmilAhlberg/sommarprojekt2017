@@ -44,7 +44,7 @@ namespace SummerProject.events.buildmenu
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
             this.backgroundText = backgroundText;
-            this.SpentResource = -24000; //! starting sum
+            this.SpentResource = -204000; //! starting sum
             CreateItemBoxes();
             InitBackgrounds();
         }
