@@ -171,6 +171,7 @@ namespace SummerProject.collidables
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
+            //Hull.ResetParts();
             Hull.Color = Color.White;
             Hull.Angle = 0;
             Hull.Position = Position;
