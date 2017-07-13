@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using SummerProject.factories;
 
 namespace SummerProject.menu
 {
@@ -51,6 +52,8 @@ namespace SummerProject.menu
             selectedIndex = selection;
             if (InputHandler.isJustPressed(MouseButton.LEFT))
             {
+                if(selection != -1)
+                    SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
                 int changedMenu = menues[CurrentMenu].HandleSelection(CurrentMenu, selectedIndex, handler);
                 if (changedMenu >= 0)
                 {

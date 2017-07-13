@@ -43,18 +43,15 @@ namespace SummerProject.wave
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
-            BetweenLevelsTimer = new Timer(3); //!         
+            BetweenLevelsTimer = new Timer(4f); //!         
             //BetweenLevelsTimer.CountDown(new GameTime());
         }
 
         public void Reset(bool fullReset)
         {
             Level = 0;
-            
-            //UpdateLevelSettings();
-            //IsChanged = true;
-            //progressNow = false;
             LevelFinished = true;
+            progressNow = false;
             //ProgressGame();
             //BetweenLevelsTimer = new Timer(0);
             //BetweenLevelsTimer.Reset();
@@ -154,39 +151,17 @@ namespace SummerProject.wave
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            //if (!BetweenLevelsTimer.IsFinished && fullDraw)
-            //{
-            //    string s = "";
-            //    if (Level == 0)
-            //    {
-            //        if (BetweenLevelsTimer.currentTime > 2f)                    
-            //            s = "ENEMY SPOTTED!";                    
-            //        else
-            //            s = "Quickly, assemble your ship!";
-            //    }                   
-            //    else
-            //        s = "Wave: " + Level;
-            //    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
-            //}
-
             if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
-                string s = "";
-                if (Level == 0)
-                {
-                    //if (BetweenLevelsTimer.currentTime > 2f)
-                        s = "ENEMY SPOTTED!";                  
-                      
-                }
-                else
-                {
-                    if (Level == 1)
-                        s = "Quickly, assemble your ship!";
-                    else
-                        s = "Wave: " + Level + " cleared!";
-                }
-                    
+                string s = "Wave: " + Level + " incoming!";
+
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Gold);
+
+                if (Level == 1) {
+                    Vector2 v = wordPos + new Vector2(0, 50); //! hack
+                    string temp = "Press M to assemble ship!";
+                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, v), Color.Gold);
+                }
             }
         }      
     }

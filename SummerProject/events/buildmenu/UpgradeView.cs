@@ -23,9 +23,8 @@ namespace SummerProject.framework
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
         private int emptyPartIndex = 100;
-        private bool rotatePartSelected;
 
-        internal void Reset()
+        public void Reset()
         {
             ShipItem motherBoard = shipItems[0];
             foreach (ShipItem si in shipItems.Values)
@@ -37,6 +36,7 @@ namespace SummerProject.framework
             shipItems = new Dictionary<int, ShipItem>();
             shipItems.Add(0, motherBoard);            
             AddEmptyParts((RectangularHull)motherBoard.Part, shipItems[0], false);
+            UpgradeBar.Reset();
         }
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
@@ -45,12 +45,12 @@ namespace SummerProject.framework
             this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
             UpgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
+            shipItems = new Dictionary<int, ShipItem>();
+            Initialize();
         }
 
         internal void Initialize()
-        {
-            if (shipItems == null)
-            {             
+        {                       
                 shipItems = new Dictionary<int, ShipItem>();
                 List<Part> parts = player.Parts;
                 int activeBoxIndex = 0;
@@ -75,7 +75,7 @@ namespace SummerProject.framework
                     shipItems.Add(i, shipItem);
                 }
                 RenewEmptyBoxes();
-            }
+            
         }
 
         private void AddEmptyParts(RectangularHull hull, ShipItem current, bool inMenu)
@@ -403,6 +403,8 @@ namespace SummerProject.framework
                 if (item.Value.BoundBox.Contains(InputHandler.mPosition))
                 {
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
                         if (!UpgradeBar.RotateItemSelected)
                         {
                             activeSelection = item.Key;

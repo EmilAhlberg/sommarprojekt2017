@@ -21,7 +21,6 @@ namespace SummerProject.events.buildmenu
         private List<UpgradeBarItem> itemBoxes;
 
         public bool Action { get; internal set; }       
-        public bool RotateItemSelected { get; set; }
         public Part SelectedPart { get; internal set; }
         private int nbrOfItems = 5;
         private int itemSize = (int)ClickableItem.Width;
@@ -37,6 +36,12 @@ namespace SummerProject.events.buildmenu
         private const int offsetX = 10 * (int) ClickableItem.SCALEFACTOR;
         private const int offsetY = 50 * (int)ClickableItem.SCALEFACTOR;
         private int rows = (int)(WindowSize.Height /( 32 * ClickableItem.SCALEFACTOR + offsetY));
+
+        internal void Reset()
+        {
+            this.SpentResource = -24000; //! starting sum
+        }
+
         private int cols; //calculated in init
         #endregion
 
@@ -44,8 +49,7 @@ namespace SummerProject.events.buildmenu
         {
             this.upgradePartsIDs = upgradePartsIDs;
             this.font = font;
-            this.backgroundText = backgroundText;
-            this.SpentResource = -24000; //! starting sum
+            this.backgroundText = backgroundText;           
             CreateItemBoxes();
             InitBackgrounds();
         }
@@ -105,10 +109,11 @@ namespace SummerProject.events.buildmenu
                 {
                     if (barItem.BoundBox.Contains(InputHandler.mPosition) && InputHandler.isJustPressed(MouseButton.LEFT))
                     {
+                        SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
+
                         if (barItem.Active)
                         {
                             RemoveSelection();
-                            RotateItemSelected = false;
                         }
                         else
                         {
@@ -118,10 +123,6 @@ namespace SummerProject.events.buildmenu
                             followMouseSprite.Origin = new Vector2(followMouseSprite.SpriteRect.Width / 2, followMouseSprite.SpriteRect.Height / 2);
                             followMouseSprite.Scale *= ClickableItem.SCALEFACTOR;
                             selectedBarItem = barItem;
-                            if (barItem.id == IDs.ROTATEPART)
-                                RotateItemSelected = true;
-                            else
-                                RotateItemSelected = false;
                         }
                         foreach (UpgradeBarItem otherItem in itemBoxes)
                             if (otherItem != barItem)

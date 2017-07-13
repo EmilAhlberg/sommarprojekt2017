@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.factories;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SummerProject.collidables.parts
 {
@@ -19,11 +20,15 @@ namespace SummerProject.collidables.parts
 
         protected int bulletCap = 5;
 
-        public GunPart(IDs id = IDs.DEFAULT) : base(id)
+        public GunPart(IDs id = IDs.DEFAULT) : this(id, IDs.DEFAULT_BULLET)
+        {
+ 
+        }
+        public GunPart(IDs id = IDs.DEFAULT, IDs bulletID = IDs.DEFAULT_BULLET) : base(id)
         {
             reloadTimer = new Timer(RELOADTIME);
             reloadTimer.Finish();
-            bulletID = IDs.DEFAULT_BULLET;
+            this.bulletID = bulletID;
             projectiles.AddExtraBullets((int)bulletID, bulletCap);
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }
@@ -39,6 +44,7 @@ namespace SummerProject.collidables.parts
         protected virtual void Fire()
         {        
             projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
+            SoundHandler.PlaySoundEffect((int)id);
             EditBullet();
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
         }

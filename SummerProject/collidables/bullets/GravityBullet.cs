@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using SummerProject.util;
+using SummerProject.factories;
 
 namespace SummerProject.collidables.bullets
 {
@@ -53,6 +54,18 @@ namespace SummerProject.collidables.bullets
 
         protected override void HandleCollision(ICollidable c2)
         {
+        }
+
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            SoundHandler.PlayLoopedSoundEffect((int)id);
+            base.SpecificActivation(source, target);
+        }
+
+        public override void Death()
+        {
+            SoundHandler.StopLoopedSoundEffect((int)id);
+            base.Death();
         }
     }
 }
