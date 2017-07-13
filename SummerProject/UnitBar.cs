@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.collidables;
+using SummerProject.util;
 
 namespace SummerProject
 {
@@ -16,7 +17,9 @@ namespace SummerProject
         private float startingMax;
         private Sprite scaleSprite;
         private Sprite borderSprite;
-        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax, IDs id = IDs.DEFAULT) : base(position, id)
+        private SpriteFont font;
+
+        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax, SpriteFont font, IDs id = IDs.DEFAULT) : base(position, id)
         {
             Position = position;
             this.startingMax = startingMax;
@@ -26,6 +29,7 @@ namespace SummerProject
             this.borderSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
             scaleSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
             scaleSprite.SpriteRect = borderSprite.SpriteRect;
+            this.font = font;
         }
 
         public void Update(float value, float max)
@@ -69,6 +73,8 @@ namespace SummerProject
             borderSprite.Position = Position;
             scaleSprite.Draw(spriteBatch, gameTime);
             borderSprite.Draw(spriteBatch, gameTime);
+            string s = currentValue + "/" + currentMax;
+            //spriteBatch.DrawOutlinedString(1, new Color(32, 32, 32), font, s, Position, Color.White, 0, Vector2.Zero, 0.6f);
         }
     }
 }

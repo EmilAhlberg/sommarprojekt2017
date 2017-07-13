@@ -73,14 +73,15 @@ namespace SummerProject.collidables
                     Hull.Color = Color.White;
                 }
             }
-            else
+            else if(InputHandler.isJustReleased(MouseButton.RIGHT))
             {
                 phaseOut = false;
                 Hull.Color = Color.White;
-                if (maxEnergy > Energy)
-                {
-                    Energy += shieldRechargeRate;
-                }
+            }
+            else
+            if (maxEnergy > Energy)
+            {
+                Energy += shieldRechargeRate;
             }
         }
 
