@@ -116,7 +116,12 @@ namespace SummerProject.framework
         private void AddPart(Part newPart)
         {
             bool notEnoughMoney = false;  // only used to see if 
-            if (activeSelection != 0 && shipItems[activeSelection].id != IDs.RECTHULLPART)
+
+            if (shipItems[activeSelection].id == IDs.RECTHULLPART)
+            {
+
+            }
+            else if (activeSelection != 0 )
             {
                 ShipItem pressedItem = shipItems[activeSelection];
                 RectangularHull hull = null;
