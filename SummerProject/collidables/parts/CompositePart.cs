@@ -105,7 +105,7 @@ namespace SummerProject
                 {
                     Part p1 = p.Part;
                     p.Part = null;
-                    p1.Death();
+                    p1.IsActive = false;
                 }
             } 
         }

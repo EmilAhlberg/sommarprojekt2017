@@ -59,6 +59,8 @@ namespace SummerProject.collidables.enemies
                 case 3: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 4: p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 0); break;
                 case 5:
+                    Health = 5;
+                    maxHealth = 5;
                     CompositePart u = new RectangularHull();
                     CompositePart l = new RectangularHull();
                     CompositePart r = new RectangularHull();
@@ -91,36 +93,26 @@ namespace SummerProject.collidables.enemies
                     }
                     p.AddPart(new EnginePart(), 0); p.AddPart(new EnginePart(), 1); p.AddPart(new EnginePart(), 2); p.AddPart(new EnginePart(), 3); break;
                 case 0:
+                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY)*2;
+                    maxHealth = 10;
+                    Health = 10;
                     u = new RectangularHull();
+                    CompositePart d = new RectangularHull();
                     l = new RectangularHull();
                     r = new RectangularHull();
-                    ld = new RectangularHull();
-                    rd = new RectangularHull();
                     p.AddPart(u, 1);
-                    p.AddPart(r, 0);
+                    p.AddPart(d, 3);
                     p.AddPart(l, 2);
-                    p.AddPart(new EnginePart(), 3);
-                    u.AddPart(new RectangularHull(), 0);
-                    u.AddPart(new RectangularHull(), 2);
-                    l.AddPart(ld, 3);
-                    r.AddPart(rd, 3);
-                    ld.AddPart(new EnginePart(), 3);
-                    rd.AddPart(new EnginePart(), 3);
+                    p.AddPart(r, 0);
+                    u.AddPart(new EnginePart(), 0);
+                    u.AddPart(new EnginePart(), 1);
+                    u.AddPart(new EnginePart(), 2);
+                    d.AddPart(new EnginePart(), 0);
+                    d.AddPart(new EnginePart(), 2);
+                    d.AddPart(new EnginePart(), 3);
+                    l.AddPart(new EnginePart(), 2);
+                    r.AddPart(new EnginePart(), 0);
                     //-----
-                    l = new RectangularHull();
-                    r = new RectangularHull();
-                    ld = new RectangularHull();
-                    rd = new RectangularHull();
-                    p.AddPart(u, 1);
-                    p.AddPart(r, 0);
-                    p.AddPart(l, 2);
-                    p.AddPart(new EnginePart(), 3);
-                    u.AddPart(new RectangularHull(), 0);
-                    u.AddPart(new RectangularHull(), 2);
-                    l.AddPart(ld, 3);
-                    r.AddPart(rd, 3);
-                    ld.AddPart(new EnginePart(), 3);
-                    rd.AddPart(new EnginePart(), 3);
                     break;
                 default: throw new Exception();
             }
@@ -146,7 +138,7 @@ namespace SummerProject.collidables.enemies
 
         public override void Move()
         {
-            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4)) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
+            if (!((Hull.Parts.Where(x => x is CompositePart).ToArray().Length == 1 && (Hull.Parts.Where(x => x is EnginePart).ToArray().Length == 4) || GameMode.Level == 1) && (waitTimer.IsFinished && !attackTimer.IsFinished)))
                 Hull.TakeAction(typeof(EnginePart));
         }
     }
