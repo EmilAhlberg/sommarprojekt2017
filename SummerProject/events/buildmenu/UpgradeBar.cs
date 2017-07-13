@@ -161,7 +161,10 @@ namespace SummerProject.events.buildmenu
             {
                 if (i % (rows) == 0 && i != 0)
                     currentCol++;
-                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, upgradePartsIDs[i]);
+                IDs tempID = upgradePartsIDs[i];
+                if (tempID.Equals(IDs.EMPTYPART))
+                    tempID = IDs.HAMMERPART;
+                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, tempID);
                 itemBoxes.Insert(i, u);
             }
         }

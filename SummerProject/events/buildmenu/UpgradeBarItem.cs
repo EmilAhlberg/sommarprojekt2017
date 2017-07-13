@@ -31,7 +31,7 @@ namespace SummerProject.events.buildmenu
             box.Position = position;
             box.Origin -= new Vector2(-halfSpriteSize, -halfSpriteSize); // corrects origin to sprite 
             box.Scale *= SCALEFACTOR;
-            if (id == IDs.RECTHULLPART)
+            if (id == IDs.RECTHULLPART || id == IDs.HAMMERPART || id == IDs.ROTATEPART)
                 Sprite.Scale *=  0.7f;
             BoundBox = new Rectangle((int)position.X,(int)position.Y, (int) (32 * SCALEFACTOR),(int) (32 * SCALEFACTOR));
             BoundBox.Offset(-halfSpriteSize * SCALEFACTOR, -halfSpriteSize * SCALEFACTOR); 
@@ -47,7 +47,7 @@ namespace SummerProject.events.buildmenu
         public Part ReturnPart()
         {
             Part p = null;
-            if (id != IDs.EMPTYPART && id != IDs.ROTATEPART)
+            if (id != IDs.HAMMERPART && id != IDs.ROTATEPART && id != IDs.EMPTYPART)
             {
                 Type t = EntityConstants.IDTOTYPE[id];
                 p = (Part)Activator.CreateInstance(t, IDs.DEFAULT); //! Needs to be changed if Part takes more than one constructor
@@ -67,7 +67,7 @@ namespace SummerProject.events.buildmenu
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32, 32, 32), font, Name, belowItemPosition, Color.Wheat, 0, Vector2.Zero, 1);
-            if (!(id.Equals(IDs.ROTATEPART) || id.Equals( IDs.EMPTYPART)))
+            if (!(id.Equals(IDs.ROTATEPART) || id.Equals( IDs.HAMMERPART)))
             {
                 DrawHelper.DrawOutlinedString(spriteBatch, 2, new Color(32, 32, 32), font, "$" + Price, belowNamePosition, Color.Gold, 0, Vector2.Zero, 1);
                 box.Draw(spriteBatch, gameTime);

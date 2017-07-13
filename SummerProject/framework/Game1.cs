@@ -139,6 +139,7 @@ namespace SummerProject
             Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
             Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
             Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
+            Texture2DPlus hammerItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Hammer"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -178,6 +179,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             SpriteHandler.Sprites[(int)IDs.ROTATEPART] = new Sprite(rotateItemTex);
+            SpriteHandler.Sprites[(int)IDs.HAMMERPART] = new Sprite(hammerItemTex);
             #endregion
 
             #region Adding partIDs to list
