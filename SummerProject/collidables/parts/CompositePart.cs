@@ -156,13 +156,11 @@ namespace SummerProject
         //    }
         //}
 
-        public override void AddForce(float force, float angle)
-        {
-            if (Carrier is CompositePart)
-                (Carrier as CompositePart).AddForce(force, angle);
-            else
-                base.AddForce(force, angle);
-        }
+        //public override void AddForce(float force, float angle)
+        //{
+        //    if (Carrier is CompositePart)
+        //        (Carrier as CompositePart).AddForce(force, angle);
+        //}
 
         public override Vector2 Position
         {

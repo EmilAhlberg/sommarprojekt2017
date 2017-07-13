@@ -47,7 +47,7 @@ namespace SummerProject.factories
 
         public override IActivatable CreateEntity(int type)
         {
-            return EntityFactory.CreateEnemy(SpriteHandler.GetSprite(type), player);
+            return EntityFactory.CreateEnemy(SpriteHandler.GetSprite(type), player, type);
         }
     }
 }

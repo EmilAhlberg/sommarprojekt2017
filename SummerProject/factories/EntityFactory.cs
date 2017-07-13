@@ -14,37 +14,12 @@ namespace SummerProject.factories
     {
         private const int standard = -5000;
 
-        public static IActivatable CreateEnemy(Sprite sprite, Player player)
+        public static IActivatable CreateEnemy(Sprite sprite, Player player, int type)
         {
-            int level = GameMode.Level;
-            Enemy e;
-            switch (level%10)
+            switch (type)
             {
-                case 1: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 2: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 3: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
-                case 4: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
-                case 5: e = new EngineSBoss1(FarAway(), player); return e;
-                case 6: e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
-                case 7: e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
-                case 8: e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                case 9:
-                    Random r = new Random();
-                    int n = r.Next(0,100);
-                    if (n < 50)
-                    {
-                        e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 3); return e;
-                    }
-                    if (n < 60)
-                    {
-                        e = new StandardEnemy(FarAway(), player); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 0); return e;
-                    }
-                    e = new Speedy(FarAway(), player); e.AddPart(new EnginePart(), 0); e.AddPart(new EnginePart(), 1); e.AddPart(new EnginePart(), 2); e.AddPart(new EnginePart(), 3); return e;
-                case 0: e = new EngineSBoss1(FarAway(), player); return e;
-                default: throw new Exception();
+                default: return new RandomEnemy(FarAway(), player);
             }
-            //e = new RandomEnemy(FarAway(), player); return e;
-            //e = new StandardEnemy(FarAway(),  player); e.AddPart(new EnginePart(), 3); return e;
         }
 
         public static IActivatable CreateEntity(Sprite sprite, int type)
