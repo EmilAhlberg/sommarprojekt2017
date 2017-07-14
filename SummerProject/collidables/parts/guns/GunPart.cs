@@ -18,6 +18,8 @@ namespace SummerProject.collidables.parts
         protected Timer reloadTimer;
         protected Projectile bullet;
         protected IDs bulletID;
+        protected int BulletSpeed { get; set; } = 20;
+        protected int EvilBulletSpeed { get; set; } = 10;
 
         protected int bulletCap = 5;
 
@@ -56,9 +58,9 @@ namespace SummerProject.collidables.parts
         {
             bullet.IsEvil = IsEvil;
             if (IsEvil)
-                bullet.AddSpeed(10, Angle);
+                bullet.AddSpeed(EvilBulletSpeed, Angle);
             else
-                bullet.AddSpeed(20, Angle);
+                bullet.AddSpeed(BulletSpeed, Angle);
         }
 
         public override void Update(GameTime gameTime)
