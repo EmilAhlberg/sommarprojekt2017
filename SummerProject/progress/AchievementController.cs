@@ -53,7 +53,7 @@ namespace SummerProject.achievements
             boss2.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN2], Traits.LEVEL);
 
             Dictionary<int, Trait> boss3 = new Dictionary<int, Trait>();
-            boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
+            //boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
 
 
 

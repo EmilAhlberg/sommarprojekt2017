@@ -13,6 +13,9 @@ namespace SummerProject.achievements
         public const int HARD_DIFFICULTY = 1;
         //public const int WAVE_MODE = 2;
         //public const int BURST_MODE = 3;
+
+
+        //not unlockables that are carried from game session to other session
         public const int ELITE = 2;
         public const int BOSS_SLAIN1 = 3; //lol
         public const int BOSS_SLAIN2 = 4;
@@ -45,9 +48,9 @@ namespace SummerProject.achievements
         public static readonly Dictionary<int, int> LEVELTHRESHOLD =
             new Dictionary<int, int>()
             {
-                {BOSS_SLAIN1, 11 },
-                {BOSS_SLAIN2, 21 },
-                {BOSS_SLAIN3, 31 }
+                {BOSS_SLAIN1, 10 },
+                {BOSS_SLAIN2, 20 },
+                {BOSS_SLAIN3, 30 }
             };
 
 
