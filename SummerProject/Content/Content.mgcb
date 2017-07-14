@@ -509,18 +509,6 @@
 /processorParam:TextureFormat=Color
 /build:textures/ChargingBullet.png
 
-#begin Parts/Engine_1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Parts/Engine_1.png
-
 #begin Parts/SelectionBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -827,4 +815,16 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:sounds/Kambidoja.mp3
+
+#begin Parts/Engine_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Parts/Engine_1.png
 
