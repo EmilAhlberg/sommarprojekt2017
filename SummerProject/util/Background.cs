@@ -17,10 +17,10 @@ namespace SummerProject.util
         private AnimatedBackgroundObject smallRed;
 
         private const int boundOffsetForSize = 750;
-        private const float speedMultiplier = 0.3f;
+        private const float speedMultiplier = 0.3f; 
 
         private Vector2 blueStartingPos = new Vector2((WindowSize.Width * 1) / 8, (WindowSize.Height * 1) / 8);
-        private Vector2 blueDirection = new Vector2(-1, 0.1f);
+        private Vector2 blueDirection = new Vector2(-1, 0.08f);
         private const float blueSpeed = 0.2f * speedMultiplier;
         private Vector2 blueRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, 0 );         // remember height will be offset due to boundOffsetForSize
         private const int blueRespawnDelay = (int) (50 /speedMultiplier);                
@@ -30,10 +30,10 @@ namespace SummerProject.util
         private float bigRedSpeed = 0.5f * speedMultiplier;
         private const int bigRedRespawnDelay = (int)(35 / speedMultiplier);
 
-        private Vector2 smallRedStartingPos = new Vector2((WindowSize.Width * 2)/3, (WindowSize.Height * 2) /6);
-        private Vector2 smallRedDirection = new Vector2(-1, 0.15f);
+        private Vector2 smallRedStartingPos = new Vector2((WindowSize.Width * 2)/3, (WindowSize.Height * 2f) /6);
+        private Vector2 smallRedDirection = new Vector2(-1, 0.04f);
         private float smallRedSpeed = 0.1f * speedMultiplier;
-        private Vector2 smallRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, 0);
+        private Vector2 smallRespawnPos = new Vector2(WindowSize.Width + boundOffsetForSize, (WindowSize.Height * 2f) / 7.3f);
         private const int smallRedRespawnDelay = (int)(10 / speedMultiplier);
 
         public Background (Sprite bkg, Texture2DPlus bluePlanet, Texture2DPlus moon, Texture2DPlus bigRed, Texture2DPlus smallRed)
@@ -44,7 +44,7 @@ namespace SummerProject.util
             this.bigRed = new AnimatedBackgroundObject(new Sprite(bigRed), bigRedStartingPos, bigRedDirection, bigRedSpeed, bigRedRespawnDelay);
             this.smallRed = new AnimatedBackgroundObject(new Sprite(smallRed), smallRedStartingPos, smallRedDirection, smallRedSpeed, smallRedRespawnDelay);
             this.bluePlanet.RespawnPoint = blueRespawnPos;
-            this.smallRed.RespawnPoint = smallRedStartingPos;
+            this.smallRed.RespawnPoint = smallRespawnPos;
 
         }
 

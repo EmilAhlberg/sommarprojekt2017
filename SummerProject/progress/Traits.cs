@@ -11,34 +11,43 @@ namespace SummerProject.achievements
         //Achievement constants
         public const int NORMAL_DIFFICULTY = 0;
         public const int HARD_DIFFICULTY = 1;
-        public const int WAVE_MODE = 2;
-        public const int BURST_MODE = 3;
+        //public const int WAVE_MODE = 2;
+        //public const int BURST_MODE = 3;
+        public const int ELITE = 2;
+        public const int BOSS_SLAIN1 = 3; //lol
+        public const int BOSS_SLAIN2 = 4;
+        public const int BOSS_SLAIN3 = 5;
+
+        public const int UNLOCKABLES_CONSTANT = 2; //normal + hard difficulty are unlockables carried over into other games --> constant is 2
 
         //Thresholds
         public static readonly Dictionary<int, int> KILLTHRESHOLD =
             new Dictionary<int, int>()
             {
-                 {NORMAL_DIFFICULTY, 10 },
+                 {NORMAL_DIFFICULTY, 50 },
                  {HARD_DIFFICULTY,100 }
             };
 
         public static readonly Dictionary<int, int> SCORETHRESHOLD =
             new Dictionary<int, int>()
             {
-                 {NORMAL_DIFFICULTY, 1000 },
-                 {HARD_DIFFICULTY,20000 }
+                 {NORMAL_DIFFICULTY, 5000 },
+                 {HARD_DIFFICULTY,25000 },
+                 {ELITE, 100000 }
             };
 
         public static readonly Dictionary<int, int> TIMETHRESHOLD =
             new Dictionary<int, int>()
             {
-                 {WAVE_MODE, 10 }                
+                 //{WAVE_MODE, 10 }                
             };
 
         public static readonly Dictionary<int, int> LEVELTHRESHOLD =
             new Dictionary<int, int>()
             {
-                {BURST_MODE, 10 }
+                {BOSS_SLAIN1, 11 },
+                {BOSS_SLAIN2, 21 },
+                {BOSS_SLAIN3, 31 }
             };
 
 
@@ -52,5 +61,6 @@ namespace SummerProject.achievements
         public static Trait TIME = new Trait("Time Elapsed");
         public static Trait LEVEL = new Trait("Time Elapsed");
 
+       
     }
 }
