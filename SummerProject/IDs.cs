@@ -64,5 +64,6 @@ namespace SummerProject
         ROTATEPART,
         HAMMERPART,
         EXPLOSIONDROP, //NOT USED
+        POPUPTEXTBKG,
     }
 }
