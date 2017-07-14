@@ -28,15 +28,16 @@ namespace SummerProject.collidables
             Position = position;
         }
 
-        public override void Update(GameTime gameTime) //NEEDS FIX
+        public void Update(GameTime gameTime, bool cutScene) //NEEDS FIX
         {
             if (IsActive)
             {
                 Hull.Color = Color.White; //Move to Respawn()
                 //if (ControlScheme != 4)
                 //    CalculateAngle();
-                base.Update(gameTime);
-                Fire();
+                base.Update(gameTime, cutScene);
+                if (!cutScene)
+                    Fire();
                 //if (Health <= 0 && IsActive)
                 //    Death();
 
@@ -159,6 +160,19 @@ namespace SummerProject.collidables
                 Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y, directionVector.X);
                 Hull.TakeAction(typeof(EnginePart));
             }
+        }
+
+        internal void MoveTowardsPoint(Vector2 point)
+        {
+            float dX = Hull.Position.X - point.X;
+            float dY = Hull.Position.Y - point.Y;            
+            Hull.TurnTowardsVector(dX, dY);
+
+            Vector2 directionVector = Vector2.Zero;
+            directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
+            Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y, directionVector.X);
+            Hull.TakeAction(typeof(EnginePart));
+          
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts

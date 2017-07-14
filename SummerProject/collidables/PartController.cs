@@ -97,6 +97,17 @@ namespace SummerProject
             if (Health <= 0 && IsActive)
                 Death();
         }
+        public virtual void Update(GameTime gameTime, bool cutScene) //"hack"
+        {
+            if (!cutScene)
+            {
+                CalculateAngle();
+                Move();
+            }
+            Hull.Update(gameTime);
+            if (Health <= 0 && IsActive)
+                Death();
+        }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {

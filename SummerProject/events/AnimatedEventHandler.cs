@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.wave;
+using Microsoft.Xna.Framework.Input;
 
 namespace SummerProject.framework
 {
@@ -19,7 +20,8 @@ namespace SummerProject.framework
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float EVENTTIME = 2f;
         public const float STATSTIME = 100f;
-        public const float SPLASHTIME = 3f;
+        public const float SPLASHTIME = 6f;
+        public const float CUTSCENE = 8f;
         public Timer eventTimer;
         private Game1 game;
         private EventOperator op;
@@ -53,13 +55,21 @@ namespace SummerProject.framework
                 case EventOperator.MENU_STATE:
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
-                        string s = "Sick beats prod."; //!
-                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                        if (InputHandler.isJustPressed(Keys.Escape) || InputHandler.isJustPressed(MouseButton.LEFT))
+                            eventTimer.Finish();
+                        string s = "";
+                        if (eventTimer.currentTime > SPLASHTIME* 2/ 3)
+                            s = "Judgemental Dog Studios"; //!
+                        else if  (eventTimer.currentTime > SPLASHTIME / 2)
+                            s = "presents:";
+                        else
+                            s = "Kill Aliens!";
+                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.OrangeRed);
                     }
                     else
                     {
                         op.ResetGame(false);
-                        game.UpdateGame(gameTime);
+                        game.UpdateGame(gameTime, false);
                         game.DrawGame(spriteBatch, gameTime, false);
                         string s = "Mediocre!"; //!
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
@@ -75,6 +85,16 @@ namespace SummerProject.framework
                     DrawStats(spriteBatch, gameTime);
                     if (InputHandler.isJustPressed(MouseButton.LEFT))
                         eventTimer = new Timer(0);
+                    break;
+                case EventOperator.CUT_SCENE_STATE:
+                    Vector2 playerTarget = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+                    if (eventTimer.currentTime < CUTSCENE - 3) //!
+                    { //!
+                        playerTarget = new Vector2(10000, WindowSize.Height / 2);
+                    }
+                    game.Player.MoveTowardsPoint(playerTarget);
+                    game.UpdateGame(gameTime, true); //cutscene = true
+                    game.DrawGame(spriteBatch, gameTime, false);                  
                     break;
             }
         }

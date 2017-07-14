@@ -30,7 +30,7 @@ namespace SummerProject.wave
         public static int Level { get; private set; }
         public bool LevelFinished { get; internal set; }
         public bool ShowUpgradeMenu { get; internal set; }
-
+        public bool CutScene;
         private bool progressNow;
         private Difficulty difficulty;
         private SpriteFont font;
@@ -74,9 +74,9 @@ namespace SummerProject.wave
         private void ProgressGame()
         {         
             if (LevelFinished && !progressNow)
-            {
-                
+            {                
                 Level += 1;
+                CutScene = (Level % 10 == 1 && Level != 1) ? true : false;
                 //BetweenLevelsTimer = new Timer(3);
                 BetweenLevelsTimer.Reset();
                 progressNow = true;
@@ -146,7 +146,7 @@ namespace SummerProject.wave
         }
 
         public void Update(GameTime gameTime)
-        {          
+        {
             IsChanged = false;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            

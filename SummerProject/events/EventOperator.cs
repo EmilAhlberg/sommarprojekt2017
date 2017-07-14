@@ -19,8 +19,9 @@ namespace SummerProject
         public const int GAME_OVER_STATE = 3;
         public const int PAUSE_STATE = 4;
         public const int UPGRADE_STATE = 5;
-        public const int SPLASH_SCREEN_STATE = 6;  
-                
+        public const int SPLASH_SCREEN_STATE = 6;
+        public const int CUT_SCENE_STATE = 7;
+
         public int GameState { get; set; } 
         public int NewGameState { get; set; }      
         public AchievementController achControl { get; private set; }
@@ -92,6 +93,10 @@ namespace SummerProject
                     case UPGRADE_STATE:                        
                         GameState = NewGameState;
                         break;
+                    case CUT_SCENE_STATE:
+                        eventTime = AnimatedEventHandler.CUTSCENE;
+                        animatedHandler.AnimatedEvent = true;
+                        break;
                 }
                 animatedHandler.eventTimer = new Timer(eventTime);
             }
@@ -110,7 +115,8 @@ namespace SummerProject
                     menu.CurrentMenu = MenuConstants.GAME_OVER;                   
                     break;
                 case GAME_STATE:     
-                    menu.CurrentMenu = MenuConstants.MAIN;                
+                    if (NewGameState != CUT_SCENE_STATE)
+                        menu.CurrentMenu = MenuConstants.MAIN;                
                     break;
                 case PAUSE_STATE:
                     if (NewGameState != EventOperator.MENU_STATE)
@@ -147,6 +153,11 @@ namespace SummerProject
                     if (GameState == EventOperator.MENU_STATE)
                         game.ResetGame(true);
                     break;
+                case EventOperator.CUT_SCENE_STATE:
+                    NewGameState = UPGRADE_STATE;
+                    game.Player.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+                    break;
+
             }
             animatedHandler.AnimatedEvent = false;
             GameState = NewGameState;
@@ -163,13 +174,13 @@ namespace SummerProject
                   game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
-                  upgradeView.Draw(spriteBatch, gameTime);
+                   upgradeView.Draw(spriteBatch, gameTime);
 
-                if (!animatedHandler.AnimatedEvent)             
+                if (!animatedHandler.AnimatedEvent && NewGameState != CUT_SCENE_STATE)             
                   menu.Draw(spriteBatch, gameTime);                      
             }
         }     
-
+         
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);

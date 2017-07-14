@@ -28,7 +28,7 @@ namespace SummerProject
         SpriteFont scoreFont;
         SpriteBatch spriteBatch;
         EventOperator eventOperator;
-        Player player;
+        public Player Player;
         Wall wall;
         Timer deathTimer;
         GameController gameController;    
@@ -209,7 +209,7 @@ namespace SummerProject
 
             #region Initializing game objects etc.
             background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);
-            player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2) , projectiles);
+            Player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2) , projectiles);
             //Camera.Player = player; //Reintroduce if camera is to be used
             achController = new AchievementController(bigFont);
             SaveHandler.InitializeGame(achController);
@@ -217,7 +217,7 @@ namespace SummerProject
            
             projectiles = new Projectiles(); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, player, ids); // fix new texture2d's!!
+            eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, Player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
@@ -235,11 +235,11 @@ namespace SummerProject
             //rectHull1.AddPart(gunPart2, 0);
             //rectHull2.AddPart(gunPart3, 2);
             drops = new Drops(WindowSize.Width, WindowSize.Height);
-            gameController = new GameController(player, drops, gameMode);
+            gameController = new GameController(Player, drops, gameMode);
             colhandl = new CollisionHandler();
             wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5, scoreFont); //! LOL
-            energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy, scoreFont);
+            energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, Player.maxEnergy, scoreFont);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
             #endregion
 
@@ -269,7 +269,7 @@ namespace SummerProject
         {
 
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
-                UpdateGame(gameTime);
+                UpdateGame(gameTime, false);
             else
                 eventOperator.Update(gameTime);
             Particles.Update(gameTime);
@@ -280,26 +280,29 @@ namespace SummerProject
             background.Update(gameTime);
         }
 
-        public void UpdateGame(GameTime gameTime)
+        public void UpdateGame(GameTime gameTime, bool cutScene)
         {
             #region Update for game state
-            player.Update(gameTime);
-            if (SPAWN_ENEMIES)
-                gameController.Update(gameTime);
-            projectiles.Update(gameTime);
-            HandleAllCollisions();
-            KeepPlayerInScreen();
-            healthBar.Update(player.Health, player.maxHealth);
-            energyBar.Update(player.Energy, player.maxEnergy);
-            Traits.TIME.Counter +=(float) gameTime.ElapsedGameTime.TotalSeconds;
-            float temp = Traits.TIME.Counter;
+            Player.Update(gameTime, cutScene);
+            if (!cutScene)
+            {
+                if (SPAWN_ENEMIES)
+                    gameController.Update(gameTime);
+                projectiles.Update(gameTime);
+                HandleAllCollisions();
+                KeepPlayerInScreen();
+                healthBar.Update(Player.Health, Player.maxHealth);
+                energyBar.Update(Player.Energy, Player.maxEnergy);
+                Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                float temp = Traits.TIME.Counter;
+            }
             #endregion
         }
 
         private void CheckGameStatus(GameTime gameTime)
         {
             #region Game Over
-            if (!player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (!Player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 ResetGame(false);
                 deathTimer.CountDown(gameTime);
@@ -322,13 +325,20 @@ namespace SummerProject
                 eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
             }
             #endregion
+            #region Cut Scene
+            if (gameMode.CutScene)
+            {
+                eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;
+                gameMode.CutScene = false;
+            }
+            #endregion
         }
 
         public void ResetGame(bool fullReset)
         {
             if (fullReset)
             {
-                player.Activate(player.StartPosition, Vector2.Zero);
+                Player.Activate(Player.StartPosition, Vector2.Zero);
                 Particles.Reset();
                 ScoreHandler.Reset();
                 healthBar.Reset();
@@ -341,7 +351,7 @@ namespace SummerProject
 
         private void HandleAllCollisions()
         {
-            List<Collidable> pParts = player.Parts.ConvertAll(p => (Collidable)p);
+            List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
             List<Collidable> eParts = gameController.CollidableList().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
@@ -363,7 +373,7 @@ namespace SummerProject
             background.Draw(spriteBatch, gameTime);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
-            if (eventOperator.GameState == EventOperator.GAME_STATE)
+            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE)
             {
                 #region Draw for GameState
                 DrawGame(spriteBatch, gameTime, true);
@@ -373,7 +383,7 @@ namespace SummerProject
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
                 Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
-                if (!player.IsActive)
+                if (!Player.IsActive)
                     spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),bigFont, "GAME OVER", shitvect, Color.OrangeRed);
                 #endregion
 
@@ -398,7 +408,7 @@ namespace SummerProject
             #region Draw Game
             Particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
-            player.Draw(spriteBatch, gameTime);
+            Player.Draw(spriteBatch, gameTime);
             wall.Draw(spriteBatch, gameTime);
             gameController.Draw(spriteBatch, gameTime, fullDraw);
             #endregion
@@ -412,25 +422,25 @@ namespace SummerProject
 
         private void KeepPlayerInScreen()
         {
-            if (player.IsActive)
+            if (Player.IsActive)
             {
-                float x = player.Position.X;
-                float y = player.Position.Y;
-                if (player.Position.X > WindowSize.Width)
+                float x = Player.Position.X;
+                float y = Player.Position.Y;
+                if (Player.Position.X > WindowSize.Width)
                     x = WindowSize.Width;
-                if (player.Position.Y > WindowSize.Height)
+                if (Player.Position.Y > WindowSize.Height)
                     y = WindowSize.Height;
-                if (player.Position.X < 0)
+                if (Player.Position.X < 0)
                     x = 0;
-                if (player.Position.Y < 0)
+                if (Player.Position.Y < 0)
                     y = 0;
-                player.Position = new Vector2(x, y);
+                Player.Position = new Vector2(x, y);
             }
         }
 
         private void DebugMode(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            int controlSheme = player.ControlScheme;
+            int controlSheme = Player.ControlScheme;
             string usingControls = "";
             if (controlSheme <= 1)
                 usingControls = "WASD + Follow mouse";
