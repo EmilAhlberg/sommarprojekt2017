@@ -11,7 +11,7 @@ namespace SummerProject.achievements
         //public string fileName;
         //public int level;
         //public int kills;
-        //public int score;
+        public int Score;
         //public int shotsFired;
         //public int shotsHit;
         //public int enemiesSpawned;
@@ -34,7 +34,11 @@ namespace SummerProject.achievements
 
             //level = (int)Traits.LevelTrait.Counter;
             //kills = (int)Traits.KillTrait.Counter;
-            //score = (int)Traits.ScoreTrait.Counter;
+            Score = (int)Traits.SCORE.Counter;
+            if (ScoreHandler.HighScore > Score)
+            {
+                Score = ScoreHandler.HighScore;
+            }
             //shotsFired = (int)Traits.ShotsFiredTrait.Counter;
             //shotsHit = (int)Traits.ShotsHitTrait.Counter;
             //enemiesSpawned = (int)Traits.EnemiesSpawnedTrait.Counter;
