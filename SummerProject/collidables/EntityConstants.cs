@@ -47,6 +47,7 @@ namespace SummerProject.collidables
                 {typeof(ExplosionDrop), IDs.EXPLOSIONDROP },
                 {typeof(EnergyDrop), IDs.ENERGYDROP },
                 {typeof(MoneyDrop), IDs.MONEYDROP },
+                {typeof(Drop), IDs.DEFAULT_DROP},
                 #endregion 
                 #region Parts
                {typeof(Part), IDs.DEFAULT_PART },
@@ -94,7 +95,8 @@ namespace SummerProject.collidables
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1},
                 {(int)IDs.RECTHULLPART, 1},
-                {(int)IDs.DEFAULT_PART, 0}
+                {(int)IDs.DEFAULT_PART, 0},
+                {(int)IDs.DEFAULT_DROP, 1}
 
           };
 
