@@ -114,13 +114,14 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 10},
+                {(int)IDs.PLAYER, 5},    // Player acceleration
                 {(int)IDs.DEFAULT_PART, 3},
                 {(int)IDs.DEFAULT_BULLET, 3f},
                 {(int)IDs.ENGINEPART, 0},
                 {(int)IDs.SPRAYBULLET, 1f},
                 {(int)IDs.CHARGINGBULLET, 7f},
                 {(int)IDs.MINEBULLET, 5f},
-                {(int)IDs.RECTHULLPART, 5f},
+                {(int)IDs.RECTHULLPART, 2f},
                 {(int)IDs.ENEMYASTER, 100f}
           };
 
@@ -129,7 +130,7 @@ namespace SummerProject.collidables
          {
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.DEFAULT_BULLET, 0},
-                {(int)IDs.ENGINEPART, 30f}
+                {(int)IDs.ENGINEPART, 7f}   // overall speed
          };
 
         public static readonly Dictionary<int, float> TURNSPEED =
@@ -146,14 +147,14 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 100},
-                {(int)IDs.PLAYER, 25},
-                {(int)IDs.DEFAULT_ENEMY, 100},
+                {(int)IDs.PLAYER, 1},               // Player de-acceleratiion (lower more)
+                {(int)IDs.DEFAULT_ENEMY, 10},       // Enemy speed
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 170},
                 {(int)IDs.GRAVITYBULLET, 17},
                 {(int)IDs.DEFAULT_PART, 0},
-                {(int)IDs.ENGINEPART, 100f}
+                {(int)IDs.ENGINEPART, 55}
           };
 
         public static readonly Dictionary<int, float> SCORE =
