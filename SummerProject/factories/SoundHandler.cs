@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace SummerProject.factories
@@ -6,7 +7,10 @@ namespace SummerProject.factories
     class SoundHandler
     {
         private const int ARRAYSIZE = 200;
+        private const int NBROFSONGS = 200;
         public static SoundEffect[] Sounds = new SoundEffect[ARRAYSIZE];
+        public static Song[] Songs = new Song[NBROFSONGS];
+        private static Song song;
         private static SoundEffectInstance[] seis = new SoundEffectInstance[ARRAYSIZE];
         private static SoundEffect GetSound(int ID) {
             if(Sounds[ID] != null)
@@ -20,6 +24,14 @@ namespace SummerProject.factories
             }
         }
 
+        public static void PlaySong(int ID)
+        {
+           //     MediaPlayer.Stop();
+            song = Songs[ID];
+            MediaPlayer.Volume = 0.3f;
+            MediaPlayer.Play(song);
+        }
+
         public static void PlaySoundEffect(int ID)
         {
             SoundEffectInstance sei = GetSound(ID).CreateInstance();
@@ -27,6 +39,16 @@ namespace SummerProject.factories
             {
                 seis[ID].Stop();
                 seis[ID].Dispose();
+            }
+            if (ID == (int)IDs.MENUCLICK)
+            {
+                sei.Volume = 0.2f;
+                sei.Pitch = 0.1f;
+            }
+            else if (ID == (int)IDs.EXPLOSIONDEATHSOUND)
+            {
+                sei.Volume = 0.2f;
+                sei.Pitch = 0.7f;
             }
             sei.Play();
             seis[ID] = sei;

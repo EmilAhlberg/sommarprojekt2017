@@ -91,6 +91,7 @@ namespace SummerProject
         public override void Death()
         {
             DropSpawnPoints.DeathAt(Position);
+            SoundHandler.PlaySoundEffect((int)IDs.EXPLOSIONDEATHSOUND);
             base.Death();
         }
     }
