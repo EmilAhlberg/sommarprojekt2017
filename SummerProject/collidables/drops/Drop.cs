@@ -16,6 +16,7 @@ namespace SummerProject.collidables
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             if (despawnTimer.currentTime < blinkTimer && (despawnTimer.currentTime * blinkSpeed) % 2 < 1)
                 Sprite.MColor = new Color(1, 1, 1, 0.4f);
             else
@@ -40,5 +41,29 @@ namespace SummerProject.collidables
             if (c2 is Player)
                 Death();
         }
+        public override bool CollidesWith(ICollidable c2)
+        {
+            Part c3;
+            int nrParts;
+            if (c2 is Part)
+            {
+                nrParts = (((c2 as Part).GetController()) as PartController).Parts.Count;
+                c3 = c2 as Part;
+            }
+            else
+                return base.CollidesWith(c2);
+            Vector2 dist = (c3.BoundBox.AbsolutePosition - BoundBox.AbsolutePosition);
+            //float r2 = dist.LengthSquared();
+            //dist.Normalize();
+            //c3.AddForce(20000*dist * Mass * c3.Mass / r2);
+            float r2 = dist.LengthSquared();
+            if (r2 > 10 && dist.Length()< 200)
+            {
+                dist.Normalize();
+                AddForce(100000 * dist / r2);
+            }
+            return base.CollidesWith(c2);
+        }
+
     }
 }
