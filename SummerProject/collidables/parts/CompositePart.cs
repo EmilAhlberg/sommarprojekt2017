@@ -155,6 +155,7 @@ namespace SummerProject
 
         public override void Update(GameTime gameTime)
         {
+            
             Move();
             foreach (Link p in parts)
             {
@@ -299,6 +300,8 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
+                p.Sprite.IsEvil = hull.IsEvil;
+                hull.Sprite.IsEvil = hull.IsEvil;
                 if (RelativeAngle == (float)Math.PI / 2 || RelativeAngle == 0) //! only works for recthull
                     linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle));
                 else

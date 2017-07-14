@@ -154,6 +154,7 @@ namespace SummerProject
             maxEnergy = startingEnergy;
             health = maxHealth;
             Energy = maxEnergy;
+            TurnSpeed = EntityConstants.GetStatsFromID(EntityConstants.TURNSPEED, id);
         }
 
         protected virtual void SpecificActivation(Vector2 scource, Vector2 target) { }
