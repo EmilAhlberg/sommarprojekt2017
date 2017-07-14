@@ -36,29 +36,42 @@ namespace SummerProject.achievements
         {            
             Dictionary<int, Trait> normalDifficulty = new Dictionary<int, Trait>();
             normalDifficulty.Add(Traits.KILLTHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.KILLS);
-            normalDifficulty.Add(Traits.SCORETHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.SCORE);
-
-           
+            normalDifficulty.Add(Traits.SCORETHRESHOLD[Traits.NORMAL_DIFFICULTY], Traits.SCORE);                       
 
             Dictionary<int, Trait> hardDifficulty = new Dictionary<int, Trait>();
             hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KILLS);
             hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.SCORE);
 
-            Dictionary<int, Trait> waveMode = new Dictionary<int, Trait>();
-            waveMode.Add(Traits.TIMETHRESHOLD[Traits.WAVE_MODE], Traits.TIME);
+            Dictionary<int, Trait> eliteRank = new Dictionary<int, Trait>();
+            eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
+          
 
-            Dictionary<int, Trait> burstMode = new Dictionary<int, Trait>();
-            burstMode.Add(Traits.LEVELTHRESHOLD[Traits.BURST_MODE], Traits.LEVEL);
+            Dictionary<int, Trait> boss1 = new Dictionary<int, Trait>();
+            boss1.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN1], Traits.LEVEL);
 
-            Achievement normalAch = new Achievement("Normal Difficulty", normalDifficulty);
-            Achievement hardAch = new Achievement("Hard Difficulty", hardDifficulty);
-            Achievement waveAch = new Achievement("Wave Mode", waveMode);
-            Achievement burstAch = new Achievement("Burst Mode", burstMode);
+            Dictionary<int, Trait> boss2 = new Dictionary<int, Trait>();
+            boss2.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN2], Traits.LEVEL);
+
+            Dictionary<int, Trait> boss3 = new Dictionary<int, Trait>();
+            boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
+
+
+
+            Achievement normalAch = new Achievement("Normal Difficulty Unlocked", normalDifficulty);
+            Achievement hardAch = new Achievement("Hard Difficulty Unlocked", hardDifficulty);
+            //Achievement waveAch = new Achievement("Wave Mode", waveMode);
+            //Achievement burstAch = new Achievement("Burst Mode", burstMode);
+            Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank);
+
+            Achievement boss1Ach = new Achievement("Cyberlord Jorav is no more!", boss1);
+            Achievement boss2Ach = new Achievement("Colonel Klint bites the dust!", boss2);         
+            Achievement boss3Ach = new Achievement("Space hell for you, Big Boss Usker!", boss3);
 
             Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order 
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);
-            Achievements.Insert(Traits.WAVE_MODE, waveAch);
-            Achievements.Insert(Traits.BURST_MODE, burstAch);
+            Achievements.Insert(Traits.ELITE, eliteAch);
+            //Achievements.Insert(Traits.WAVE_MODE, waveAch);
+            //Achievements.Insert(Traits.BURST_MODE, burstAch);
         }
 
         public void Update(GameTime gameTime)
