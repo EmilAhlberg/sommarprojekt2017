@@ -282,7 +282,7 @@ namespace SummerProject.collidables.enemies
 
                 case 30:
                     waitTimer.maxTime = 10;
-                    attackTimer.maxTime = 3;
+                    attackTimer.maxTime = 6;
                     waitTimer.Reset();
                     attackTimer.Reset();
                     specialMove = true;
@@ -303,10 +303,10 @@ namespace SummerProject.collidables.enemies
                     d.AddPart(dd, 3);
                     l.AddPart(ll, 2);
                     r.AddPart(rr, 0);
-                    uu.AddPart(new GunPart(), 1);
-                    dd.AddPart(new GunPart(), 3);
-                    ll.AddPart(new GunPart(), 2);
-                    rr.AddPart(new GunPart(), 0);
+                    uu.AddPart(new SprayGunPart(), 1);
+                    dd.AddPart(new SprayGunPart(), 3);
+                    ll.AddPart(new SprayGunPart(), 2);
+                    rr.AddPart(new SprayGunPart(), 0);
                     uu.AddPart(new EnginePart(), 0);
                     uu.AddPart(new EnginePart(), 2);
                     dd.AddPart(new EnginePart(), 0);
@@ -336,20 +336,29 @@ namespace SummerProject.collidables.enemies
 
         protected override void Attack(GameTime gameTime)
         {
+            Hull.TakeAction(typeof(SprayGunPart));
+            Hull.TakeAction(typeof(MineGunPart));
+            Hull.TakeAction(typeof(GunPart));
         }
 
         protected override void Wait(GameTime gameTime)
         {
+            if (specialMove)
+            {
                 Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
                 Hull.TakeAction(typeof(GunPart));
+            }
         }
 
         protected override void CalculateAngle()
         {
             if (specialMove)
             {
-                Hull.Angle += 0.1f;
+                if(waitTimer.IsFinished)
+                    Hull.Angle += 0.1f;
+                else
+                    Hull.Angle += 0.03f;
             }
             else
                 base.CalculateAngle();
@@ -358,12 +367,12 @@ namespace SummerProject.collidables.enemies
         {
             if (specialMove)
             {
-                if (waitTimer.IsFinished)
+                if (!waitTimer.IsFinished)
                 {
-                    AddForce(player.Position-Position);
+                    AddForce((player.Position-Position)/10);
                 }              
             }
-            else if (!usingWaitTimer || (waitTimer.IsFinished && !attackTimer.IsFinished))
+            else if (!usingWaitTimer || (!waitTimer.IsFinished && !attackTimer.IsFinished))
                 Hull.TakeAction(typeof(EnginePart));
         }
     }
