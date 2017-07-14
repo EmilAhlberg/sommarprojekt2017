@@ -13,6 +13,11 @@ namespace SummerProject.collidables.enemies
     {
         bool usingWaitTimer = false;
         bool specialMove = false;
+        //protected float BOSSATTACKTIME { get; set; } = 1f;
+        //protected Timer bossTimer;
+        //protected float BOSSMOVETIME { get; set; } = 1f;
+        //protected Timer bossTimer;
+
         public RandomEnemy(Vector2 position, Player player, IDs id = IDs.DEFAULT) : base(position, player, id)
         {
         }
@@ -276,6 +281,10 @@ namespace SummerProject.collidables.enemies
                     break;
 
                 case 30:
+                    waitTimer.maxTime = 10;
+                    attackTimer.maxTime = 3;
+                    waitTimer.Reset();
+                    attackTimer.Reset();
                     specialMove = true;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
                     u = new RectangularHull();
@@ -331,19 +340,28 @@ namespace SummerProject.collidables.enemies
 
         protected override void Wait(GameTime gameTime)
         {
-            if (!usingWaitTimer || !waitTimer.IsFinished)
-            {
                 Hull.TakeAction(typeof(SprayGunPart));
                 Hull.TakeAction(typeof(MineGunPart));
                 Hull.TakeAction(typeof(GunPart));
-            }
         }
 
+        protected override void CalculateAngle()
+        {
+            if (specialMove)
+            {
+                Hull.Angle += 0.1f;
+            }
+            else
+                base.CalculateAngle();
+        }
         public override void Move()
         {
             if (specialMove)
             {
-                AddSpeed(30, Angle);
+                if (waitTimer.IsFinished)
+                {
+                    AddForce(player.Position-Position);
+                }              
             }
             else if (!usingWaitTimer || (waitTimer.IsFinished && !attackTimer.IsFinished))
                 Hull.TakeAction(typeof(EnginePart));

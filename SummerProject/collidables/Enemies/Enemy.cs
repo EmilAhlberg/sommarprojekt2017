@@ -12,7 +12,7 @@ namespace SummerProject
     public abstract class Enemy : PartController, IPartCarrier
     {
         public float WorthScore { get; private set; }
-        private PartController player;
+        protected PartController player;
         private Timer rageTimer;
 
         public Enemy(Vector2 position, PartController player, IDs id = IDs.DEFAULT)
