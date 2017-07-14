@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.achievements;
+using SummerProject.factories;
 using SummerProject.util;
 using System;
 using System.Collections.Generic;
@@ -155,15 +156,25 @@ namespace SummerProject.wave
         {
             if (!BetweenLevelsTimer.IsFinished && fullDraw)
             {
-                string s = "Wave: " + Level + " incoming!";
-
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Gold);
-
-                if (Level == 1) {
+                Sprite popupBkg = SpriteHandler.GetSprite((int)IDs.POPUPTEXTBKG);
+                popupBkg.Position = wordPos - new Vector2( (popupBkg.SpriteRect.Width / 2) -50 , (popupBkg.SpriteRect.Height / 2) - 35);
+                popupBkg.Scale = new Vector2(0.8f, 0.5f);
+                popupBkg.LayerDepth = 0;
+                if (Level == 1)
+                {
                     Vector2 v = wordPos + new Vector2(0, 50); //! hack
                     string temp = "Press M to assemble ship!";
-                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, v), Color.Gold);
+                    popupBkg.Scale = Vector2.One;
+                    popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2, -25 + popupBkg.SpriteRect.Height / 2);
+                    popupBkg.Draw(spriteBatch, gameTime);
+                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, v), Color.Wheat);
                 }
+                else
+                   popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
+                string s = "Wave: " + Level + " incoming!";
+
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Wheat);
+
             }
         }      
     }

@@ -138,6 +138,7 @@ namespace SummerProject
             Texture2DPlus engineTex1 = new Texture2DPlus(Content.Load<Texture2D>("parts/Engine_1"));
             Texture2DPlus selectionBoxTex = new Texture2DPlus(Content.Load<Texture2D>("parts/SelectionBox"));
             Texture2DPlus upgradeBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/UpgradeBarBkg"));
+            Texture2DPlus popupTextBkgTex = new Texture2DPlus(Content.Load<Texture2D>("textures/PopupTextBkg"));
             Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
             Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
             Texture2DPlus hammerItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Hammer"));
@@ -184,6 +185,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.BOLT] = new Sprite(boltTex);
             SpriteHandler.Sprites[(int)IDs.EMPTYPART] = new Sprite(selectionBoxTex);
             SpriteHandler.Sprites[(int)IDs.UPGRADEBAR] = new Sprite(upgradeBkg);
+            SpriteHandler.Sprites[(int)IDs.POPUPTEXTBKG] = new Sprite(popupTextBkgTex);
             SpriteHandler.Sprites[(int)IDs.MENUSCREENBKG] = new Sprite(menuScreenBkg);
             SpriteHandler.Sprites[(int)IDs.MONEYDROP] = new Sprite(moneyDropTex, 6);
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
