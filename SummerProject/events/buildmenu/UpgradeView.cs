@@ -27,11 +27,11 @@ namespace SummerProject.framework
         public void Reset()
         {
             ShipItem motherBoard = shipItems[0];
-            foreach (ShipItem si in shipItems.Values)
-            {
-                Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)si.id];
-            }
-            Traits.CURRENCY.Counter -= EntityConstants.PRICE[(int)motherBoard.id];
+            //foreach (ShipItem si in shipItems.Values)
+            //{
+            //    Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)si.id];     // old reset
+            //}
+            //Traits.CURRENCY.Counter -= EntityConstants.PRICE[(int)motherBoard.id];
             ((RectangularHull)motherBoard.Part).ResetLinks();
             shipItems = new Dictionary<int, ShipItem>();
             shipItems.Add(0, motherBoard);            
