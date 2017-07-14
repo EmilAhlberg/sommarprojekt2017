@@ -18,7 +18,8 @@ namespace SummerProject
         public const int GAME_STATE = 2;
         public const int GAME_OVER_STATE = 3;
         public const int PAUSE_STATE = 4;
-        public const int UPGRADE_STATE = 5;       
+        public const int UPGRADE_STATE = 5;
+        public const int SPLASH_SCREEN_STATE = 6;  
                 
         public int GameState { get; set; } 
         public int NewGameState { get; set; }      
@@ -31,8 +32,8 @@ namespace SummerProject
 
         public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
         {            
-            GameState = MENU_STATE;
-            NewGameState = GameState;
+            GameState = SPLASH_SCREEN_STATE;    //!!!!!
+            NewGameState = MENU_STATE;
             GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font, gameMode);
             upgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
@@ -69,8 +70,16 @@ namespace SummerProject
                         animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
-                        eventTime = AnimatedEventHandler.EVENTTIME;
-                        animatedHandler.AnimatedEvent = true;
+                        if (GameState == SPLASH_SCREEN_STATE)
+                        {
+                            eventTime = AnimatedEventHandler.SPLASHTIME;
+                            animatedHandler.AnimatedEvent = true;
+                        }
+                        else
+                        {
+                            eventTime = AnimatedEventHandler.EVENTTIME;
+                            animatedHandler.AnimatedEvent = true;
+                        }
                         break;
                     case GAME_OVER_STATE:
                         eventTime = AnimatedEventHandler.STATSTIME;
