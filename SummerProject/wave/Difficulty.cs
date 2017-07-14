@@ -31,6 +31,7 @@ namespace SummerProject.wave
         public static float CAN_SHOOT_RISK;
         public static float IS_SPEEDY_RISK;
         public static float IS_ASTEROID_RISK;
+        public static float ENEMY_DAMAGEFACTOR;
 
 
         /*
