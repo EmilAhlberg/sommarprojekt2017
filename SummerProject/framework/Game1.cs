@@ -155,10 +155,10 @@ namespace SummerProject
             SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
             SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
             SoundHandler.Sounds[(int)IDs.EXPLOSIONDEATHSOUND] = Content.Load<SoundEffect>("sounds/ExplosionDeath");
-            SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<Song>("sounds/Fighting");
-            SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/Kambidoja");
-            SoundHandler.Songs[(int)IDs.SONG3] = Content.Load<Song>("sounds/RapidSuccesion");
-            SoundHandler.PlaySong((int)IDs.SONG2);
+            //SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/Fighting");
+            //SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<Song>("sounds/Kambidoja");
+            //SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/RapidSuccesion");
+            //SoundHandler.PlayNextIfStopped();
             #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 

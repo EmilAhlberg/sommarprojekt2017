@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using SummerProject.collidables;
 using System.Collections.Generic;
 
 namespace SummerProject.factories
@@ -24,11 +25,32 @@ namespace SummerProject.factories
             }
         }
 
-        public static void PlaySong(int ID)
+        public static void PlayNextIfStopped() 
         {
-           //     MediaPlayer.Stop();
+           if(MediaPlayer.State == MediaState.Stopped  )
+            {
+                if (song == null)
+                    PlaySong((int)IDs.SONG1);
+                else
+                switch (EntityConstants.TypeToID(song.GetType())) {
+                    case IDs.SONG1:
+                        MediaPlayer.Volume = 0.17f;
+
+                        PlaySong((int)IDs.SONG2);
+                        break;
+                    case IDs.SONG2:
+                        MediaPlayer.Volume = 0.25f;
+                        PlaySong((int)IDs.SONG1);
+                        break;
+                    default: PlaySong((int)IDs.SONG1);
+                        break;
+                }
+            }
+        }
+
+        private static void PlaySong(int ID)
+        {
             song = Songs[ID];
-            MediaPlayer.Volume = 0.3f;
             MediaPlayer.Play(song);
         }
 
