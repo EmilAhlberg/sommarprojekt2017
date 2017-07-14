@@ -792,18 +792,6 @@
 /processorParam:TextureFormat=Color
 /build:textures/PopupTextBkg.png
 
-#begin textures/AlertParticle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/AlertParticle.png
-
 #begin sounds/ExplosionDeath.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -827,4 +815,16 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:sounds/RapidSuccesion.mp3
+
+#begin textures/AlertParticle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/AlertParticle.png
 

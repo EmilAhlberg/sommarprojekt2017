@@ -12,7 +12,7 @@ namespace SummerProject
     public abstract class Enemy : PartController, IPartCarrier
     {
         public float WorthScore { get; private set; }
-        private PartController player;
+        protected PartController player;
         private Timer rageTimer;
 
         public Enemy(Vector2 position, PartController player, IDs id = IDs.DEFAULT)
@@ -26,7 +26,7 @@ namespace SummerProject
         {
             base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
-            friction = Difficulty.ENEMY_FRICTION;
+            friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, id) *  Difficulty.ENEMY_FRICTIONFACTOR;
         }
 
         public override void Update(GameTime gameTime)
