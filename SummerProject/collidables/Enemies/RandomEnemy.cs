@@ -189,9 +189,12 @@ namespace SummerProject.collidables.enemies
 
         protected override void Wait(GameTime gameTime)
         {
-            Hull.TakeAction(typeof(SprayGunPart));
-            Hull.TakeAction(typeof(MineGunPart));
-            Hull.TakeAction(typeof(GunPart));
+            if (usingWaitTimer && !waitTimer.IsFinished)
+            {
+                Hull.TakeAction(typeof(SprayGunPart));
+                Hull.TakeAction(typeof(MineGunPart));
+                Hull.TakeAction(typeof(GunPart));
+            }
         }
 
         public override void Move()
