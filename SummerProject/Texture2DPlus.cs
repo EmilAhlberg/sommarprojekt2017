@@ -201,8 +201,6 @@ namespace SummerProject
                     }
                 }
             }
-
-            
             Texture2D newTex = new Texture2D(Texture.GraphicsDevice, Texture.Width, Texture.Height);
             newTex.SetData(colors1D);
             Texture2DPlus newTexPlus = new Texture2DPlus(newTex, Subimages);
