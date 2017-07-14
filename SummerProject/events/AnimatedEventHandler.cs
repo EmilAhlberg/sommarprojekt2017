@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SummerProject.util;
 using SummerProject.achievements;
 using SummerProject.wave;
+using SummerProject.factories;
 
 namespace SummerProject.framework
 {
@@ -54,6 +55,11 @@ namespace SummerProject.framework
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
                         string s = "Sick beats prod."; //!
+                        Sprite logo = SpriteHandler.GetSprite((int)IDs.LOGO);
+                        logo.Scale *= 0.5f;
+                        logo.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+                        logo.Origin = new Vector2(logo.SpriteRect.Width / 2, logo.SpriteRect.Height / 2);
+                        logo.Draw(spriteBatch, gameTime);
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
                     }
                     else

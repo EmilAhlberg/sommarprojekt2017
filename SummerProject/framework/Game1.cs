@@ -144,6 +144,7 @@ namespace SummerProject
             Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
             Texture2DPlus hammerItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Hammer"));
             Texture2DPlus alertTex = new Texture2DPlus(Content.Load<Texture2D>("textures/AlertParticle"));
+            Texture2DPlus logoTex = new Texture2DPlus(Content.Load<Texture2D>("textures/logo"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -198,6 +199,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.ROTATEPART] = new Sprite(rotateItemTex);
             SpriteHandler.Sprites[(int)IDs.HAMMERPART] = new Sprite(hammerItemTex);
             SpriteHandler.Sprites[(int)IDs.ALERTPARTICLE] = new Sprite(alertTex);
+            SpriteHandler.Sprites[(int)IDs.LOGO] = new Sprite(logoTex);
             #endregion
 
             #region Adding partIDs to list
