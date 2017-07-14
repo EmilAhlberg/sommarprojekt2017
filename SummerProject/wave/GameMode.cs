@@ -171,7 +171,7 @@ namespace SummerProject.wave
                 }
                 else
                    popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
-                string s = "Wave: " + Level + " incoming!";
+                string s = "Wave " + Level + " incoming!";
 
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Wheat);
 

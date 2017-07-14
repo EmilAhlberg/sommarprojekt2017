@@ -17,6 +17,10 @@ namespace SummerProject
         ENEMYSHOOT,
         ENEMYSPEED,
         ENEMYASTER,
+        BOSS1,
+        BOSS2,
+        BOSS3,
+        BOSS4,
         #endregion
 
         #region Bullets
@@ -65,6 +69,10 @@ namespace SummerProject
         HAMMERPART,
         EXPLOSIONDROP, //NOT USED
         POPUPTEXTBKG,
+        EXPLOSIONDEATHSOUND,
+        SONG1,
+        SONG2,
+        SONG3,
         ALERTPARTICLE,
     }
 }

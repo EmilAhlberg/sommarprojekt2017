@@ -26,6 +26,7 @@ namespace SummerProject
         {
             base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
+            friction = Difficulty.ENEMY_FRICTION;
         }
 
         public override void Update(GameTime gameTime)
@@ -89,10 +90,10 @@ namespace SummerProject
             }
         }
 
-
         public override void Death()
         {
             DropSpawnPoints.DeathAt(Position);
+            SoundHandler.PlaySoundEffect((int)IDs.EXPLOSIONDEATHSOUND);
             base.Death();
         }
     }

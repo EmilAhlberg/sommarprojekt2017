@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using SummerProject.collidables.parts.guns;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace SummerProject
 {
@@ -153,6 +154,11 @@ namespace SummerProject
             SoundHandler.Sounds[(int)IDs.GRAVITYBULLET] = Content.Load<SoundEffect>("sounds/blackholeSnd");
             SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
             SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
+            SoundHandler.Sounds[(int)IDs.EXPLOSIONDEATHSOUND] = Content.Load<SoundEffect>("sounds/ExplosionDeath");
+            SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<Song>("sounds/Fighting");
+            SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/Kambidoja");
+            SoundHandler.Songs[(int)IDs.SONG3] = Content.Load<Song>("sounds/RapidSuccesion");
+            SoundHandler.PlaySong((int)IDs.SONG2);
             #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 
