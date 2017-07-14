@@ -69,5 +69,10 @@ namespace SummerProject
         HAMMERPART,
         EXPLOSIONDROP, //NOT USED
         POPUPTEXTBKG,
+        EXPLOSIONDEATHSOUND,
+        SONG1,
+        SONG2,
+        SONG3,
+        ALERTPARTICLE,
     }
 }

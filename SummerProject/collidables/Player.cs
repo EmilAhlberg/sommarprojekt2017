@@ -164,6 +164,7 @@ namespace SummerProject.collidables
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
         {
             IsActive = false;
+            SoundHandler.PlaySoundEffect((int)IDs.EXPLOSIONDEATHSOUND);
             base.Death();
             Hull.Color = Color.Transparent;
         }

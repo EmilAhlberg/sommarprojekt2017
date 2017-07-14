@@ -804,3 +804,27 @@
 /processorParam:TextureFormat=Color
 /build:textures/AlertParticle.png
 
+#begin sounds/ExplosionDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/ExplosionDeath.wav
+
+#begin sounds/Fighting.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/Fighting.mp3
+
+#begin sounds/Kambidoja.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/Kambidoja.mp3
+
+#begin sounds/RapidSuccesion.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/RapidSuccesion.mp3
+

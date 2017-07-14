@@ -48,6 +48,8 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            CalculateAngle();
+            Particles.GenerateParticles(Position, 1, Angle);
             Hull.Color = Color.White;
         }
 
@@ -91,6 +93,7 @@ namespace SummerProject
         public override void Death()
         {
             DropSpawnPoints.DeathAt(Position);
+            SoundHandler.PlaySoundEffect((int)IDs.EXPLOSIONDEATHSOUND);
             base.Death();
         }
     }
