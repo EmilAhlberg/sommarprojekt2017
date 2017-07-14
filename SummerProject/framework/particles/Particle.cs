@@ -128,10 +128,10 @@ namespace SummerProject
                         break;
                     }
                 case IDs.DEATH:
+                case IDs.ALERTPARTICLE:
                     {
                         Sprite.MColor = new Color((float)Sprite.MColor.R / 255, (float)Sprite.MColor.G / 255, (float)Sprite.MColor.B / 255, (float)baseColor.A / 255 * currentTTL.currentTime / TTL);
                         angle += angularVelocity * currentTTL.currentTime / TTL;
-
                         break;
                     }
                 case IDs.AFTERIMAGE:

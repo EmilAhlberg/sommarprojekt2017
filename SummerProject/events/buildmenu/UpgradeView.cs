@@ -162,7 +162,8 @@ namespace SummerProject.framework
         }
 
         private void PlacePart(ShipItem pressedItem, RectangularHull hull, Part newPart)
-        {              
+        {
+            Particles.GenerateDeathParticles(newPart.Sprite, pressedItem.Position, 2, 0, false);
             hull.AddPart(newPart, pressedItem.LinkPosition);
             player.Parts.Add(newPart);
             newPart.Carrier = hull; //REDUNDANCY        
@@ -410,7 +411,6 @@ namespace SummerProject.framework
                 {
                     if (InputHandler.isJustPressed(MouseButton.LEFT) && UpgradeBar.Action) {
                         SoundHandler.PlaySoundEffect((int)IDs.MENUCLICK);
-
                         if (!UpgradeBar.RotateItemSelected)
                         {
                             activeSelection = item.Key;

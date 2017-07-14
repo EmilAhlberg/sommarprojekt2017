@@ -90,7 +90,23 @@ namespace SummerProject
             float ttl = 1;
 
             switch (ID)
+
             {
+                #region Alert! 1
+                case 1:
+                    {
+                        CreateParticle(position, Vector2.Zero, angle, 0, Color.White, Vector2.One, ttl, IDs.ALERTPARTICLE);
+                        break;
+                    }
+                #endregion
+
+                #region Adding part 2
+                case 2:
+                    {
+                        CreateExplosion(20, position, 10, 80, 0.2f, color.Value, 0.5f, 0.5f, ttl);
+                        break;
+                    }
+                #endregion
                 #region Charging 3
                 case 3:
                     {

@@ -19,7 +19,7 @@ namespace SummerProject.menu
                 //{MODESELECTION, new string[] { "Default Mode", "Wave Mode", "Zerg Mode", "Next"}},
                 {GAME_OVER, new string[] { "Play Again", "Main Menu" }},
                 {PAUSE, new string[] {"Resume", "GIVE UP!" }},
-                {UPGRADE, new string[] {"Resume", "Reset Creation"}},
+                {UPGRADE, new string[] {"Resume", "Reset"}},
                 {DIFFICULTY, new string[] {"Easy","Normal","Hard","PLAY!"} }
             };
               
