@@ -33,7 +33,6 @@ namespace SummerProject
         DEFAULT_DROP,
         HEALTHDROP,
         HEALTHDROP_TIER2,
-        EXPLOSIONDROP,
         MONEYDROP,
         ENERGYDROP, //ENERGYDROP has to be the last drop in this enum
         #endregion
@@ -64,5 +63,6 @@ namespace SummerProject
         MENUCLICK,
         ROTATEPART,
         HAMMERPART,
+        EXPLOSIONDROP, //NOT USED
     }
 }

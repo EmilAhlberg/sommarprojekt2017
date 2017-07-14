@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using SummerProject.factories;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using SummerProject.achievements;
 
 namespace SummerProject.collidables.parts
 {
@@ -44,6 +45,8 @@ namespace SummerProject.collidables.parts
         protected virtual void Fire()
         {        
             projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
+            if(!IsEvil)
+                Traits.SHOTSFIRED.Counter++;
             SoundHandler.PlaySoundEffect((int)id);
             EditBullet();
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
