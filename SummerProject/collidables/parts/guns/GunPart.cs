@@ -55,6 +55,10 @@ namespace SummerProject.collidables.parts
         protected virtual void EditBullet()
         {
             bullet.IsEvil = IsEvil;
+            if (IsEvil)
+                bullet.AddSpeed(10, Angle);
+            else
+                bullet.AddSpeed(20, Angle);
         }
 
         public override void Update(GameTime gameTime)
