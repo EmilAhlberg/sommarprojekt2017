@@ -15,9 +15,11 @@ namespace SummerProject.achievements
         private String name;
         private Dictionary<int, Trait> traits;
         private Timer unlockTimer = new Timer(3);//!
+        public int ID;
 
-        public Achievement(String name, Dictionary<int, Trait> traits)
+        public Achievement(String name, Dictionary<int, Trait> traits, int id)
         {
+            this.ID = id;
             this.name = name;
             this.traits = traits;
         }

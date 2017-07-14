@@ -11,12 +11,14 @@ namespace SummerProject.achievements
         //Achievement constants
         public const int NORMAL_DIFFICULTY = 0;
         public const int HARD_DIFFICULTY = 1;
-        public const int WAVE_MODE = 2;
-        public const int BURST_MODE = 3;
-        public const int ELITE = 4;
-        public const int BOSS_SLAIN1 = 5; //lol
-        public const int BOSS_SLAIN2 = 6;
-        public const int BOSS_SLAIN3 = 7;
+        //public const int WAVE_MODE = 2;
+        //public const int BURST_MODE = 3;
+        public const int ELITE = 2;
+        public const int BOSS_SLAIN1 = 3; //lol
+        public const int BOSS_SLAIN2 = 4;
+        public const int BOSS_SLAIN3 = 5;
+
+        public const int UNLOCKABLES_CONSTANT = 2; //normal + hard difficulty are unlockables carried over into other games --> constant is 2
 
         //Thresholds
         public static readonly Dictionary<int, int> KILLTHRESHOLD =
@@ -44,7 +46,8 @@ namespace SummerProject.achievements
             new Dictionary<int, int>()
             {
                 {BOSS_SLAIN1, 11 },
-                {BOSS_SLAIN2, 21 }
+                {BOSS_SLAIN2, 21 },
+                {BOSS_SLAIN3, 31 }
             };
 
 

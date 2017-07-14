@@ -19,7 +19,7 @@ namespace SummerProject
         public int LinkPosition { get; internal set; } = -1;
 
         public Part(IDs id = IDs.DEFAULT) : base(Vector2.Zero, id)
-        {
+        {       
             IsActive = true;
             //AddBoundBox(new RotRectangle(new Rectangle((int)Position.X, (int)Position.Y, shieldSize, shieldSize), angle));
         }
