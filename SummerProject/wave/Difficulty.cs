@@ -88,7 +88,7 @@ namespace SummerProject.wave
         public static float ENEMY_BULLETDAMAGEFACTOR_NORMAL = 0.4f;
         public static float ENEMY_BULLETDAMAGEFACTOR_HARD = 0.6f;
 
-        public static float ENEMY_FRICTION_EASY = 3f;
+        public static float ENEMY_FRICTION_EASY = 5f;
         public static float ENEMY_FRICTION_NORMAL = 0.5f;
         public static float ENEMY_FRICTION_HARD = 0.00001f;
 
