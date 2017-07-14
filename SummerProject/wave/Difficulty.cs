@@ -31,7 +31,7 @@ namespace SummerProject.wave
         public static float CAN_SHOOT_RISK;
         public static float IS_SPEEDY_RISK;
         public static float IS_ASTEROID_RISK;
-        public static float ENEMY_DAMAGEFACTOR;
+        public static float ENEMY_BULLETDAMAGEFACTOR;
 
 
         /*
@@ -83,6 +83,10 @@ namespace SummerProject.wave
         private const float IS_SPEEDY_RISK_NORMAL = 0.15f;
         private const float IS_SPEEDY_RISK_HARD = 0.2f;
 
+        public static float ENEMY_BULLETDAMAGEFACTOR_EASY = 0.2f;
+        public static float ENEMY_BULLETDAMAGEFACTOR_NORMAL = 0.4f;
+        public static float ENEMY_BULLETDAMAGEFACTOR_HARD = 0.6f;
+
         //Asteroid
         private const float IS_ASTEROID_RISK_EASY = 0.4f; 
         private const float IS_ASTEROID_RISK_NORMAL = 0.3f;
@@ -130,6 +134,8 @@ namespace SummerProject.wave
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_HARD;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_HARD + CAN_SHOOT_RISK;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_HARD + IS_SPEEDY_RISK;
+
+            ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_HARD;
         }
 
         private void Normal()
@@ -149,6 +155,8 @@ namespace SummerProject.wave
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_NORMAL;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_NORMAL + CAN_SHOOT_RISK;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_NORMAL + IS_SPEEDY_RISK;
+
+            ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_NORMAL;
         }
 
         private void EasyMode()
@@ -168,6 +176,8 @@ namespace SummerProject.wave
             CAN_SHOOT_RISK = CAN_SHOOT_RISK_EASY;
             IS_SPEEDY_RISK = IS_SPEEDY_RISK_EASY + CAN_SHOOT_RISK;
             IS_ASTEROID_RISK = IS_ASTEROID_RISK_EASY + IS_SPEEDY_RISK;
+
+            ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_EASY;
         }
     }
 }
