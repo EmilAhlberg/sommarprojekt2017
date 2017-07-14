@@ -69,15 +69,15 @@ namespace SummerProject.framework
         }
 
         private void DrawStats(SpriteBatch spriteBatch, GameTime gameTime)
-        {        
-            if (Traits.SHOTSFIRED.Counter == 0)
-            {
-                Traits.SHOTSFIRED.Counter = 1; //division by zero fix
-            }
+        {
+            float divByZeroFix = Traits.SHOTSFIRED.Counter;
+            if (Traits.SHOTSFIRED.Counter == 0)            
+                divByZeroFix = 1;
+            
             string[] STATS = {  "You're dead!", "", "Score: " + ScoreHandler.Score, "Shots Fired: " + Traits.SHOTSFIRED.Counter,
-                                "Shots Hit Ratio: " + Math.Round((Traits.SHOTSHIT.Counter / Traits.SHOTSFIRED.Counter)*100, 2) + " %",
-                                "Cash Collected: " + Traits.CURRENCY.Counter,
-                                "Time Elapsed " + Math.Round(Traits.TIME.Counter, 2),"", "Left click to continue!"};
+                                "Accuracy: " + Math.Round((Traits.SHOTSHIT.Counter / divByZeroFix)*100, 2) + "%",
+                                "Cash Collected: " + Traits.CURRENCY.Counter + "$",
+                                "Time Elapsed: " + Math.Round(Traits.TIME.Counter, 2) + "s","", "Left click to continue!"};
             float height = STATS.Length;
             height *= font.LineSpacing;
             Vector2 location = new Vector2(WindowSize.Width/2, height / 2 - 200); //!

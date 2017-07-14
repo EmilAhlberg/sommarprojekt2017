@@ -26,6 +26,7 @@ namespace SummerProject
         {
             base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
+            friction = Difficulty.ENEMY_FRICTION;
         }
 
         public override void Update(GameTime gameTime)
@@ -86,7 +87,6 @@ namespace SummerProject
                 Traits.KILLS.Counter++; //maybe not counted as a kill
             }
         }
-
 
         public override void Death()
         {
