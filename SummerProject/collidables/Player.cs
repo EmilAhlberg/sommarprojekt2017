@@ -14,11 +14,10 @@ namespace SummerProject.collidables
     {
         //private const bool FRICTIONFREEACCELERATION = true;
         public int ControlScheme { get; set; } = 2; // 1-4      
-        private const float shieldDischargeRate = 3f;
-        private const float shieldRechargeRate = shieldDischargeRate / 10;
+        private const float shieldDischargeRate = 3/2f;
+        private const float shieldRechargeRate = shieldDischargeRate / 5;
         private Projectiles projectiles;
         public Vector2 StartPosition { get; private set; }
-        public bool phaseOut { get; private set; } = false;
 
         public Player(Vector2 position, Projectiles projectiles, IDs id = IDs.DEFAULT) : base(position, false, id)
         {
@@ -63,26 +62,22 @@ namespace SummerProject.collidables
             {
                 if (Energy > 0)
                 {
-                    Hull.Color = new Color(255, 255, 255, 128);
                     Energy -= shieldDischargeRate;
-                    phaseOut = true;
+                    Movable.MOTIONSPEED = 0.5f;
                 }
                 else
                 {
                     Energy = 0;
-                    phaseOut = false;
-                    Hull.Color = Color.White;
+                    Movable.MOTIONSPEED = 1;
                 }
             }
-            else if(InputHandler.isJustReleased(MouseButton.RIGHT))
-            {
-                phaseOut = false;
-                Hull.Color = Color.White;
-            }
             else
-            if (maxEnergy > Energy)
             {
-                Energy += shieldRechargeRate;
+                Movable.MOTIONSPEED = 1;
+                if (maxEnergy > Energy)
+                {
+                    Energy += shieldRechargeRate;
+                }
             }
         }
 
@@ -195,12 +190,12 @@ namespace SummerProject.collidables
 
         protected override void HandleCollision(ICollidable c2)
         {
-            if (!phaseOut && c2 is Enemy)
+            if (c2 is Enemy)
             {
                 Enemy e = c2 as Enemy;
                 e.Health -= Damage;
             }
-            else if (!phaseOut && c2 is Entity)
+            else if (c2 is Entity)
             {
                 Entity e = c2 as Entity;
                 e.Health -= Damage;

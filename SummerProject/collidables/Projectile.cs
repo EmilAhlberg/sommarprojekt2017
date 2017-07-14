@@ -32,7 +32,7 @@ namespace SummerProject.collidables
             if (c2 is Player)
             {
                 Player p = (c2 as Player);
-                if (IsEvil && !p.phaseOut)
+                if (IsEvil)
                     p.Health -= Damage * Difficulty.ENEMY_BULLETDAMAGEFACTOR;///5; ///!! times FACTOR
             }
 

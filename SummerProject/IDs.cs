@@ -74,5 +74,6 @@ namespace SummerProject
         SONG2,
         SONG3,
         ALERTPARTICLE,
+        LOGO,
     }
 }

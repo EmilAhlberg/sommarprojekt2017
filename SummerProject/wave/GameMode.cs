@@ -77,6 +77,7 @@ namespace SummerProject.wave
             {                
                 Level += 1;
                 CutScene = (Level % 10 == 1 && Level != 1) ? true : false;
+                SoundHandler.PlayNextIfStopped();
                 //BetweenLevelsTimer = new Timer(3);
                 BetweenLevelsTimer.Reset();
                 progressNow = true;

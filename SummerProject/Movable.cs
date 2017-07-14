@@ -14,6 +14,7 @@ namespace SummerProject
         private Vector2 Acceleration{ get { return (TotalExteriorForce - Friction) / Mass; } }
         private Vector2 TotalExteriorForce { set; get; }
         public virtual float ThrusterAngle { set; get; }
+        public static float MOTIONSPEED = 1f;
 
         public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
 
@@ -77,7 +78,7 @@ namespace SummerProject
         public virtual void Move()
         {
             Velocity += Acceleration;
-            Position += Velocity;
+            Position += Velocity * MOTIONSPEED;
             TotalExteriorForce = new Vector2(0, 0);
             ThrusterAngle = angle;
         }
