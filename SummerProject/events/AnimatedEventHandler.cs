@@ -14,9 +14,12 @@ namespace SummerProject.framework
     class AnimatedEventHandler
     {
         public bool AnimatedEvent { get; set; }
+        
+
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float EVENTTIME = 2f;
         public const float STATSTIME = 100f;
+        public const float SPLASHTIME = 3f;
         public Timer eventTimer;
         private Game1 game;
         private EventOperator op;
@@ -48,12 +51,20 @@ namespace SummerProject.framework
             switch (op.NewGameState)
             {
                 case EventOperator.MENU_STATE:
-                    op.ResetGame(false);
-                    game.UpdateGame(gameTime);
-                    game.DrawGame(spriteBatch, gameTime, false);
-                    string s = "Mediocre!"; //!
-                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
-                    System.Threading.Thread.Sleep(40); //! slow mo of doom                                          
+                    if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
+                    {
+                        string s = "Sick beats prod."; //!
+                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                    }
+                    else
+                    {
+                        op.ResetGame(false);
+                        game.UpdateGame(gameTime);
+                        game.DrawGame(spriteBatch, gameTime, false);
+                        string s = "Mediocre!"; //!
+                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                        System.Threading.Thread.Sleep(40); //! slow mo of doom            
+                    }                              
                     break;
                 case EventOperator.GAME_STATE:
                     //op.ResetGame(true);
