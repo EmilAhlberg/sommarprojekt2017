@@ -46,6 +46,22 @@ namespace SummerProject.wave
             }
         }
 
+        public Vector2 GetAsteroidSpawnPoint()
+        {
+            int side = SRandom.Next(1, 5);
+            Vector2 v = Vector2.Zero;
+            float x = 0;
+            float y = 0;
+
+            if (side < 3)
+                x = WindowSize.Width * SRandom.NextFloat();
+            else
+                y = WindowSize.Height * SRandom.NextFloat();
+
+            v = SidePoint(side, 0, x, y);
+            return v;
+        }
+
         public Vector2[] GetSpawnPoints()
         {
             Vector2[] vs = new Vector2[spawnSize];

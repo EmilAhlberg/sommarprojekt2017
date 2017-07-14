@@ -44,6 +44,11 @@ namespace SummerProject.factories
             //    type = (int)IDs.ENEMYASTER;
             ActivateEntities(source, player.Position, type);
         }
+        public void SpawnAsteroid(Vector2 source)
+        {
+            ActivateEntities(source, player.Position, (int)IDs.ENEMYASTER); //! chance of being ASTEROIIIID
+       
+        }
 
         public override IActivatable CreateEntity(int type)
         {

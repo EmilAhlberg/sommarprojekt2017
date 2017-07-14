@@ -111,6 +111,9 @@ namespace SummerProject
 
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
+            if (SRandom.NextFloat() > 0.9980f) //! background asteroid chance    
+                enemies.SpawnAsteroid(spawnPointGen.GetAsteroidSpawnPoint());
+
             Drops.SpawnAt(dropPoints.SpawnPositions());
             Drops.SpawnMoneyAt(dropPoints.MoneySpawnPositions());
             spawnPointGen.Update(gameTime);

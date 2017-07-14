@@ -18,6 +18,8 @@ namespace SummerProject.factories
         {
             switch (type)
             {
+                case (int)IDs.ENEMYASTER:
+                    return new Asteroid(FarAway(), player);
                 default: return new RandomEnemy(FarAway(), player);
             }
         }
