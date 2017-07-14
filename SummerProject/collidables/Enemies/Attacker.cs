@@ -41,6 +41,12 @@ namespace SummerProject.collidables.enemies
             }
         }
 
+        protected override void SpecificActivation(Vector2 source, Vector2 target)
+        {
+            base.SpecificActivation(source, target);
+            attackTimer.Reset();
+            waitTimer.Reset();
+        }
         protected abstract void Wait(GameTime gameTime);
         protected abstract void Attack(GameTime gameTime);
     }
