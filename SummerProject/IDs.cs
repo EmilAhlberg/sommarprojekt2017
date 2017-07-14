@@ -17,6 +17,10 @@ namespace SummerProject
         ENEMYSHOOT,
         ENEMYSPEED,
         ENEMYASTER,
+        BOSS1,
+        BOSS2,
+        BOSS3,
+        BOSS4,
         #endregion
 
         #region Bullets
