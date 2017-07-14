@@ -15,6 +15,8 @@ namespace SummerProject.collidables.parts
         {
             RELOADTIME = 0.02f;
             reloadTimer = new Timer(RELOADTIME);
+            BulletSpeed = 30;
+            EvilBulletSpeed = 15;
             projectiles.AddExtraBullets((int)bulletID, bulletCap); //Extra 5 bullets for this gun
         }
     }

@@ -6,6 +6,7 @@ using SummerProject.collidables.parts;
 using SummerProject.factories;
 using SummerProject.wave;
 using SummerProject.achievements;
+using SummerProject.collidables.Enemies;
 
 namespace SummerProject
 {
@@ -34,7 +35,8 @@ namespace SummerProject
             if (Health <= 0 && IsActive)
             {
                 ScoreHandler.AddScore((int)WorthScore);
-                Traits.KILLS.Counter++; //maybe not counted as a kill
+                if (!(this is Asteroid))
+                    Traits.KILLS.Counter++; //maybe not counted as a kill
             }
             base.Update(gameTime);
             if (Health > 0 && IsActive)
