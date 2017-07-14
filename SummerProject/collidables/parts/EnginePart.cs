@@ -21,7 +21,10 @@ namespace SummerProject.collidables.parts
 
         public override void Update(GameTime gameTime)
         {
-            Particles.GenerateParticles(Position, 4, Angle+(float)Math.PI, Color.MonoGameOrange);
+            if(IsEvil)
+                Particles.GenerateParticles(Position, 4, Angle+(float)Math.PI, Color.Purple);
+            else
+                Particles.GenerateParticles(Position, 4, Angle + (float)Math.PI, Color.MonoGameOrange);
         }
     }
 }
