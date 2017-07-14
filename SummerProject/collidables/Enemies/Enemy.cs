@@ -26,7 +26,7 @@ namespace SummerProject
         {
             base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
-            friction = Difficulty.ENEMY_FRICTION;
+            friction = friction *  Difficulty.ENEMY_FRICTIONFACTOR;
         }
 
         public override void Update(GameTime gameTime)
