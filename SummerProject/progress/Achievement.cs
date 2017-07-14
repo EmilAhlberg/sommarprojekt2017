@@ -64,7 +64,7 @@ namespace SummerProject.achievements
         {
             if (Unlocked && !unlockTimer.IsFinished)
             {
-                string s = name + " unlocked!";
+                string s = name;
                 spriteBatch.DrawString(font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0,-200), Color.PapayaWhip); //! vector + font
             }            
         }      
