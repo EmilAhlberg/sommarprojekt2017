@@ -15,9 +15,11 @@ namespace SummerProject.achievements
         private String name;
         private Dictionary<int, Trait> traits;
         private Timer unlockTimer = new Timer(3);//!
+        public int ID;
 
-        public Achievement(String name, Dictionary<int, Trait> traits)
+        public Achievement(String name, Dictionary<int, Trait> traits, int id)
         {
+            this.ID = id;
             this.name = name;
             this.traits = traits;
         }
@@ -64,7 +66,7 @@ namespace SummerProject.achievements
         {
             if (Unlocked && !unlockTimer.IsFinished)
             {
-                string s = name + " unlocked!";
+                string s = name;
                 spriteBatch.DrawString(font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0,-200), Color.PapayaWhip); //! vector + font
             }            
         }      
