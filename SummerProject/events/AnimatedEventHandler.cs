@@ -70,7 +70,7 @@ namespace SummerProject.framework
 
         private void DrawStats(SpriteBatch spriteBatch, GameTime gameTime)
         {        
-            if (Traits.SHOTSFIRED.Counter != 0)
+            if (Traits.SHOTSFIRED.Counter == 0)
             {
                 Traits.SHOTSFIRED.Counter = 1; //division by zero fix
             }
