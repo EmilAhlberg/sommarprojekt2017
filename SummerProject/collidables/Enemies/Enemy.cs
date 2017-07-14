@@ -47,6 +47,7 @@ namespace SummerProject
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             rageTimer.Reset();
+            Particles.GenerateParticles(Position, 1, Angle);
             Hull.Color = Color.White;
         }
 
