@@ -54,7 +54,7 @@ namespace SummerProject.framework
                 case EventOperator.MENU_STATE:
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
-                        string s = "Sick beats prod."; //!
+                        string s = "Dogs Don't Judge presents..."; //!
                         Sprite logo = SpriteHandler.GetSprite((int)IDs.LOGO);
                         logo.Scale *= 0.5f;
                         logo.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
@@ -69,7 +69,6 @@ namespace SummerProject.framework
                         game.DrawGame(spriteBatch, gameTime, false);
                         string s = "Mediocre!"; //!
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
-                        System.Threading.Thread.Sleep(40); //! slow mo of doom            
                     }                              
                     break;
                 case EventOperator.GAME_STATE:
