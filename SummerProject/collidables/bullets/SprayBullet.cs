@@ -20,7 +20,6 @@ namespace SummerProject.collidables
             CalculateAngle(dX, dY);
             Angle += (SRandom.NextFloat() - 0.5f) * randomAngleOffset;
             Stop();
-            AddSpeed(30, Angle); //!
             ResetSpawnTime();
         }
     }

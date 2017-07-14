@@ -68,6 +68,10 @@ namespace SummerProject.factories
                 sei.Volume = 0.2f;
                 sei.Pitch = 0.7f;
             }
+            else
+            {
+                sei.Pitch += SRandom.NextFloat() * 0.3f - 0.15f;
+            }
             sei.Play();
             seis[ID] = sei;
         }

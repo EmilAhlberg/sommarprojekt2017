@@ -6,13 +6,14 @@ using SummerProject.collidables.parts;
 using SummerProject.factories;
 using SummerProject.wave;
 using SummerProject.achievements;
+using SummerProject.collidables.Enemies;
 
 namespace SummerProject
 {
     public abstract class Enemy : PartController, IPartCarrier
     {
         public float WorthScore { get; private set; }
-        private PartController player;
+        protected PartController player;
         private Timer rageTimer;
 
         public Enemy(Vector2 position, PartController player, IDs id = IDs.DEFAULT)
@@ -26,7 +27,7 @@ namespace SummerProject
         {
             base.SetStats(id);
             WorthScore = EntityConstants.GetStatsFromID(EntityConstants.SCORE, id);
-            friction = friction *  Difficulty.ENEMY_FRICTIONFACTOR;
+            friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, id) *  Difficulty.ENEMY_FRICTIONFACTOR;
         }
 
         public override void Update(GameTime gameTime)
@@ -34,7 +35,8 @@ namespace SummerProject
             if (Health <= 0 && IsActive)
             {
                 ScoreHandler.AddScore((int)WorthScore);
-                Traits.KILLS.Counter++; //maybe not counted as a kill
+                if (!(this is Asteroid))
+                    Traits.KILLS.Counter++; //maybe not counted as a kill
             }
             base.Update(gameTime);
             if (Health > 0 && IsActive)

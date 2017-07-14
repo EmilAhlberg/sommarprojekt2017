@@ -29,11 +29,6 @@ namespace SummerProject.collidables
             base.CalculateAngle(dX, dY);
             Stop();
             ResetSpawnTime();
-            if(IsEvil)
-                AddSpeed(10, Angle); 
-            else
-                AddSpeed(20, Angle);
-
         }
 
         public override void Death()
