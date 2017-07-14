@@ -45,7 +45,8 @@ namespace SummerProject.collidables.parts
         protected virtual void Fire()
         {        
             projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
-            Traits.SHOTSFIRED.Counter++;
+            if(!IsEvil)
+                Traits.SHOTSFIRED.Counter++;
             SoundHandler.PlaySoundEffect((int)id);
             EditBullet();
             bullet = (Projectile)projectiles.GetEntity((int)bulletID);
