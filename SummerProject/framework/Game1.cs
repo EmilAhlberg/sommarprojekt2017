@@ -141,6 +141,7 @@ namespace SummerProject
             Texture2DPlus menuScreenBkg = new Texture2DPlus(Content.Load<Texture2D>("parts/MenuScreenBkg"));
             Texture2DPlus rotateItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Rotate"));
             Texture2DPlus hammerItemTex = new Texture2DPlus(Content.Load<Texture2D>("textures/Hammer"));
+            Texture2DPlus alertTex = new Texture2DPlus(Content.Load<Texture2D>("textures/AlertParticle"));
 
             //allUpgradeParts.Insert(PartTypes.DETECTORPART, shotTex);
             #endregion
@@ -188,6 +189,7 @@ namespace SummerProject
             SpriteHandler.Sprites[(int)IDs.MONEY] = new Sprite(moneyTex);
             SpriteHandler.Sprites[(int)IDs.ROTATEPART] = new Sprite(rotateItemTex);
             SpriteHandler.Sprites[(int)IDs.HAMMERPART] = new Sprite(hammerItemTex);
+            SpriteHandler.Sprites[(int)IDs.ALERTPARTICLE] = new Sprite(alertTex);
             #endregion
 
             #region Adding partIDs to list
@@ -262,6 +264,7 @@ namespace SummerProject
                 UpdateGame(gameTime);
             else
                 eventOperator.Update(gameTime);
+            Particles.Update(gameTime);
             CheckGameStatus(gameTime);
             achController.Update(gameTime);
             InputHandler.UpdatePreviousState();
@@ -276,7 +279,6 @@ namespace SummerProject
             if (SPAWN_ENEMIES)
                 gameController.Update(gameTime);
             projectiles.Update(gameTime);
-            Particles.Update(gameTime);
             HandleAllCollisions();
             KeepPlayerInScreen();
             healthBar.Update(player.Health, player.maxHealth);
