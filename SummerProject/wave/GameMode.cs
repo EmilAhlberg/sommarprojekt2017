@@ -77,7 +77,7 @@ namespace SummerProject.wave
             {
                 
                 Level += 1;
-                SoundHandler.TryPlayNextSong();
+                SoundHandler.PlayNextIfStopped();
                 //BetweenLevelsTimer = new Timer(3);
                 BetweenLevelsTimer.Reset();
                 progressNow = true;

@@ -25,15 +25,21 @@ namespace SummerProject.factories
             }
         }
 
-        public static void TryPlayNextSong() 
+        public static void PlayNextIfStopped() 
         {
            if(MediaPlayer.State == MediaState.Stopped  )
             {
+                if (song == null)
+                    PlaySong((int)IDs.SONG1);
+                else
                 switch (EntityConstants.TypeToID(song.GetType())) {
                     case IDs.SONG1:
+                        MediaPlayer.Volume = 0.17f;
+
                         PlaySong((int)IDs.SONG2);
                         break;
                     case IDs.SONG2:
+                        MediaPlayer.Volume = 0.25f;
                         PlaySong((int)IDs.SONG1);
                         break;
                     default: PlaySong((int)IDs.SONG1);
@@ -42,11 +48,9 @@ namespace SummerProject.factories
             }
         }
 
-        public static void PlaySong(int ID)
+        private static void PlaySong(int ID)
         {
-           //     MediaPlayer.Stop();
             song = Songs[ID];
-            MediaPlayer.Volume = 0.25f;
             MediaPlayer.Play(song);
         }
 
