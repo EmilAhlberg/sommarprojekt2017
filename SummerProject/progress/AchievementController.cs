@@ -53,7 +53,7 @@ namespace SummerProject.achievements
             boss2.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN2], Traits.LEVEL);
 
             Dictionary<int, Trait> boss3 = new Dictionary<int, Trait>();
-            boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
+            //boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
 
 
 
@@ -69,7 +69,7 @@ namespace SummerProject.achievements
 
             Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order 
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);
-            Achievements.Insert(Traits.ELITE, eliteAch);
+            //Achievements.Insert(Traits.ELITE, eliteAch);
             //Achievements.Insert(Traits.WAVE_MODE, waveAch);
             //Achievements.Insert(Traits.BURST_MODE, burstAch);
         }
