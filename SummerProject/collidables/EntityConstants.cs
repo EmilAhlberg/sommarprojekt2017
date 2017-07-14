@@ -132,7 +132,7 @@ namespace SummerProject.collidables
          {
                 {(int)IDs.DEFAULT, 10},
                 {(int)IDs.DEFAULT_BULLET, 0},
-                {(int)IDs.ENGINEPART, 7f}   // overall speed
+                {(int)IDs.ENGINEPART, 10f}   // overall speed
          };
 
         public static readonly Dictionary<int, float> TURNSPEED =
@@ -149,8 +149,8 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 100},
-                {(int)IDs.PLAYER, 1},               // Player de-acceleratiion (lower more)
-                {(int)IDs.DEFAULT_ENEMY, 10},       // Enemy speed
+                {(int)IDs.PLAYER, 5},               // Player de-acceleratiion (lower more)
+                {(int)IDs.DEFAULT_ENEMY, 5},       // Enemy speed
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 170},

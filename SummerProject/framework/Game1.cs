@@ -311,7 +311,7 @@ namespace SummerProject
             }
             #endregion
             #region Upgrade Ship
-            if (InputHandler.isJustPressed(Keys.M))
+            if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
             }
@@ -398,7 +398,7 @@ namespace SummerProject
             #endregion
         }
 
-        public void DrawSpecialTransparency(SpriteBatch spriteBatch, GameTime gameTime )
+        public void DrawSpecialTransparency(SpriteBatch spriteBatch, GameTime gameTime)
         {
             healthBar.Draw(spriteBatch, gameTime);
             energyBar.Draw(spriteBatch, gameTime);
@@ -406,17 +406,20 @@ namespace SummerProject
 
         private void KeepPlayerInScreen()
         {
-            float x = player.Position.X;
-            float y = player.Position.Y;
-            if (player.Position.X > WindowSize.Width)
-                x = WindowSize.Width;
-            if (player.Position.Y > WindowSize.Height)
-                y = WindowSize.Height;
-            if (player.Position.X < 0)
-                x = 0;
-            if (player.Position.Y < 0)
-                y = 0;
-            player.Position = new Vector2(x, y);
+            if (player.IsActive)
+            {
+                float x = player.Position.X;
+                float y = player.Position.Y;
+                if (player.Position.X > WindowSize.Width)
+                    x = WindowSize.Width;
+                if (player.Position.Y > WindowSize.Height)
+                    y = WindowSize.Height;
+                if (player.Position.X < 0)
+                    x = 0;
+                if (player.Position.Y < 0)
+                    y = 0;
+                player.Position = new Vector2(x, y);
+            }
         }
 
         private void DebugMode(SpriteBatch spriteBatch, GameTime gameTime)

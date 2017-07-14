@@ -23,6 +23,7 @@ namespace SummerProject.collidables.bullets
         public GravityBullet(Vector2 position) : base(position)
         {
         }
+
         public override bool CollidesWith(ICollidable c2)
         {
             Part c3;
