@@ -97,7 +97,7 @@ namespace SummerProject
                     number = 8;
                     break;
                 case 8:
-                    number = 2;
+                    number = 20;
                     break;
                 case 9:
                     number = 4;
