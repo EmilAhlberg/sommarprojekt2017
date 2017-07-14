@@ -75,12 +75,12 @@ namespace SummerProject.framework
                 Traits.SHOTSFIRED.Counter = 1; //division by zero fix
             }
             string[] STATS = {  "You're dead!", "", "Score: " + ScoreHandler.Score, "Shots Fired: " + Traits.SHOTSFIRED.Counter,
-                                "Shots Hit Ratio: " + (Traits.SHOTSHIT.Counter / Traits.SHOTSFIRED.Counter)*100 + " %",
+                                "Shots Hit Ratio: " + Math.Round((Traits.SHOTSHIT.Counter / Traits.SHOTSFIRED.Counter)*100, 2) + " %",
                                 "Cash Collected: " + Traits.CURRENCY.Counter,
-                                "Time Elapsed " + Traits.TIME.Counter,"", "Left click to continue!"};
+                                "Time Elapsed " + Math.Round(Traits.TIME.Counter, 2),"", "Left click to continue!"};
             float height = STATS.Length;
             height *= font.LineSpacing;
-            Vector2 location = new Vector2(WindowSize.Width/2, height / 2 - 300); //!
+            Vector2 location = new Vector2(WindowSize.Width/2, height / 2 - 200); //!
 
             for (int i = 0; i < STATS.Length; i++)
             {
