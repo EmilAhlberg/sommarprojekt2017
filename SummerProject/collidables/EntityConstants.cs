@@ -89,7 +89,7 @@ namespace SummerProject.collidables
           new Dictionary<int, float>
           {
                 {(int)IDs.DEFAULT, 0},
-                {(int)IDs.PLAYER, 1},
+                {(int)IDs.PLAYER, 3},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1},
@@ -151,7 +151,7 @@ namespace SummerProject.collidables
                 {(int)IDs.ENEMYASTER, 0},
                 {(int)IDs.DEFAULT_BULLET, 0f},
                 {(int)IDs.MINEBULLET, 170},
-                {(int)IDs.GRAVITYBULLET, 17},
+                {(int)IDs.GRAVITYBULLET, 170},
                 {(int)IDs.DEFAULT_PART, 0},
                 {(int)IDs.ENGINEPART, 100f}
           };

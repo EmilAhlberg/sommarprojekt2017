@@ -34,7 +34,7 @@ namespace SummerProject.framework
             Traits.CURRENCY.Counter -= EntityConstants.PRICE[(int)motherBoard.id];
             ((RectangularHull)motherBoard.Part).ResetLinks();
             shipItems = new Dictionary<int, ShipItem>();
-            shipItems.Add(0, motherBoard);            
+            shipItems.Add(0, motherBoard);
             AddEmptyParts((RectangularHull)motherBoard.Part, shipItems[0], false);
             UpgradeBar.Reset();
         }
