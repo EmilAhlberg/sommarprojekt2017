@@ -55,7 +55,7 @@ namespace SummerProject
         // wave progression stuff
         private void ProgressGame(GameTime gameTime)
         {
-            int numberOfSpawns = NumberOfSpawns();
+            int numberOfSpawns = NumberOfSpawns();           
             if (spawnsThisLevel >= numberOfSpawns)
             {
                 finishedSpawning = true;

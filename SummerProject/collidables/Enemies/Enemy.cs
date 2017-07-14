@@ -34,6 +34,8 @@ namespace SummerProject
         {
             if (Health <= 0 && IsActive)
             {
+                //WARNING
+                //this block is shit and never executes.... i think
                 ScoreHandler.AddScore((int)WorthScore);
                 if (!(this is Asteroid))
                     Traits.KILLS.Counter++; //maybe not counted as a kill
@@ -88,7 +90,8 @@ namespace SummerProject
             { 
                 Death();
                 ScoreHandler.AddScore((int)WorthScore);
-                Traits.KILLS.Counter++; //maybe not counted as a kill
+                if (!(this is Asteroid))
+                    Traits.KILLS.Counter++; //maybe not counted as a kill
             }
         }
 
