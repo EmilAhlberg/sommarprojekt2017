@@ -323,8 +323,8 @@ namespace SummerProject
                 ScoreHandler.Reset();
                 healthBar.Reset();
                 energyBar.Reset();
-            }
-            achController.Reset();
+                achController.Reset();
+            }           
             projectiles.Reset();  
             gameController.Reset(fullReset);
         }
