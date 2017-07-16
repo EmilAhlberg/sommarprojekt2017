@@ -286,18 +286,18 @@ namespace SummerProject
         {
             #region Update for game state
             Player.Update(gameTime, cutScene);
-            if (!cutScene)
-            {
+           
+            //{
                 if (SPAWN_ENEMIES)
-                    gameController.Update(gameTime);
+                    gameController.Update(gameTime, cutScene);
                 projectiles.Update(gameTime);
                 HandleAllCollisions();
-                KeepPlayerInScreen();
+                if (!cutScene)
+                    KeepPlayerInScreen();
                 healthBar.Update(Player.Health, Player.maxHealth);
                 energyBar.Update(Player.Energy, Player.maxEnergy);
                 Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                float temp = Traits.TIME.Counter;
-            }
+            //}
             #endregion
         }
 

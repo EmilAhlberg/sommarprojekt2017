@@ -48,9 +48,9 @@ namespace SummerProject.achievements
         public static readonly Dictionary<int, int> LEVELTHRESHOLD =
             new Dictionary<int, int>()
             {
-                {BOSS_SLAIN1, 10 },
-                {BOSS_SLAIN2, 20 },
-                {BOSS_SLAIN3, 30 }
+                {BOSS_SLAIN1, 0 },
+                {BOSS_SLAIN2, 10 },
+                {BOSS_SLAIN3, 20 }
             };
 
 

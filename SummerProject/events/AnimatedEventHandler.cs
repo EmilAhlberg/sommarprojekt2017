@@ -19,10 +19,10 @@ namespace SummerProject.framework
         
 
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
-        public const float EVENTTIME = 2f;
+        public const float COUNTDOWNTIME = 2f;
         public const float STATSTIME = 100f;
         public const float SPLASHTIME = 6f;
-        public const float CUTSCENE = 8f;
+        public const float CUTSCENE = 10f;
         public Timer eventTimer;
         private Game1 game;
         private EventOperator op;
@@ -35,7 +35,7 @@ namespace SummerProject.framework
             this.game = game;
             this.op = op;
             this.font = font;
-            eventTimer = new Timer(EVENTTIME);
+            eventTimer = new Timer(COUNTDOWNTIME);
         }
 
         public bool UpdateEventTimer(GameTime gameTime)
@@ -85,15 +85,34 @@ namespace SummerProject.framework
                     break;
                 case EventOperator.CUT_SCENE_STATE:
                     Vector2 playerTarget = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
-                    if (eventTimer.currentTime < CUTSCENE - 3) //!
-                    { //!
-                        playerTarget = new Vector2(10000, WindowSize.Height / 2);
+                    if (eventTimer.currentTime > CUTSCENE-5) //!
+                    {
+                        game.Player.Update(gameTime, false); //first of 2 player update calls..
+                        //game.ResetGame(false); // trouble?
+                        BossFinishedMessage(spriteBatch);
+                        //kills drops and asteroids here!
                     }
-                    game.Player.MoveTowardsPoint(playerTarget);
+                    else
+                    {
+                        if (eventTimer.currentTime < CUTSCENE - 6) //!
+                        { //!
+                            playerTarget = new Vector2(10000, WindowSize.Height / 2);
+                            game.Player.AddForce(10, 0); //!
+                        }
+                        game.Player.MoveTowardsPoint(playerTarget);
+                    }
                     game.UpdateGame(gameTime, true); //cutscene = true
-                    game.DrawGame(spriteBatch, gameTime, false);                  
+                    game.DrawGame(spriteBatch, gameTime, false);
                     break;
             }
+        }
+
+        private void BossFinishedMessage(SpriteBatch spriteBatch)
+        {
+            string word = "boss finished message";
+            Vector2 location = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 - 200); //!
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word, location, Color.Gold, 0, font.MeasureString(word) / 2, 1);
+
         }
 
         private void DrawStats(SpriteBatch spriteBatch, GameTime gameTime)
@@ -108,7 +127,7 @@ namespace SummerProject.framework
                                 "Time Elapsed: " + Math.Round(Traits.TIME.Counter, 2) + "s","", "Left click to continue!"};
             float height = STATS.Length;
             height *= font.LineSpacing;
-            Vector2 location = new Vector2(WindowSize.Width/2, height / 2 - 200); //!
+            Vector2 location = new Vector2(WindowSize.Width/2, WindowSize.Height / 2 - 200); //!
 
             for (int i = 0; i < STATS.Length; i++)
             {
@@ -120,28 +139,12 @@ namespace SummerProject.framework
         private void DrawCountDown(SpriteBatch spriteBatch, GameTime gameTime)
         {
             string word = "";
-            //if (GameMode.Level == 0)
-            //{
                 word = COUNTDOWN[(int)eventTimer.currentTime];
-            //}
-            //else
-            //{
-            //    if ((int)eventTimer.currentTime == 1)
-            //        word = "Wave: " + GameMode.Level;
-            //    else
-            //        word = "GO!";
-            //}
-
-            //string word = COUNTDOWN[(int)eventTimer.currentTime];
+           
             Color color = Color.Gold;
             if ((int)eventTimer.currentTime == 0)
                 color = Color.OrangeRed;
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, word, DrawHelper.CenteredWordPosition(word, font), color);
-        }
-
-        internal void Reset()
-        {
-            eventTimer.Reset();
         }
     }
 }

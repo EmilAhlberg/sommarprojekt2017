@@ -67,7 +67,7 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        eventTime = AnimatedEventHandler.EVENTTIME;
+                        eventTime = AnimatedEventHandler.COUNTDOWNTIME;
                         animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
@@ -78,7 +78,7 @@ namespace SummerProject
                         }
                         else
                         {
-                            eventTime = AnimatedEventHandler.EVENTTIME;
+                            eventTime = AnimatedEventHandler.COUNTDOWNTIME;
                             animatedHandler.AnimatedEvent = true;
                         }
                         break;
