@@ -156,10 +156,11 @@ namespace SummerProject
             SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
             SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
             SoundHandler.Sounds[(int)IDs.EXPLOSIONDEATHSOUND] = Content.Load<SoundEffect>("sounds/ExplosionDeath");
-            //SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/Fighting");
-            //SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<Song>("sounds/Kambidoja");
-            //SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<Song>("sounds/RapidSuccesion");
-            //SoundHandler.PlayNextIfStopped();
+            SoundHandler.Songs[(int)IDs.SONG1INTRO] = Content.Load<SoundEffect>("sounds/OdysseanIntro");
+            SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<SoundEffect>("sounds/Odyssean");
+            SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<SoundEffect>("sounds/Galaxian");
+            SoundHandler.Songs[(int)IDs.VICTORY] = Content.Load<SoundEffect>("sounds/Victorian");
+            Console.WriteLine(SoundHandler.Songs[(int)IDs.VICTORY].Duration);
             #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 
@@ -248,6 +249,8 @@ namespace SummerProject
             #region Adding sprites to particles
 
             #endregion
+
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -269,7 +272,8 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
+            SoundHandler.Update(gameTime);
+            SoundHandler.PlayNextIfStopped();
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
                 UpdateGame(gameTime, false);
             else
@@ -330,6 +334,7 @@ namespace SummerProject
             #region Cut Scene
             if (gameMode.CutScene)
             {
+                SoundHandler.PlaySong((int)IDs.VICTORY);
                 eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;
                 gameMode.CutScene = false;
             }

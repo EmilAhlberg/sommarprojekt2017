@@ -22,7 +22,7 @@ namespace SummerProject.framework
         public const float EVENTTIME = 2f;
         public const float STATSTIME = 100f;
         public const float SPLASHTIME = 6f;
-        public const float CUTSCENE = 8f;
+        public const float CUTSCENE = 10.1f; //Length of victory theme
         public Timer eventTimer;
         private Game1 game;
         private EventOperator op;

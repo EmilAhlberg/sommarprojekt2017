@@ -71,9 +71,11 @@ namespace SummerProject
         POPUPTEXTBKG,
         EXPLOSIONDEATHSOUND,
         SONG1,
-        SONG2,
+        SONG1INTRO,
         SONG3,
         ALERTPARTICLE,
         LOGO,
+        SONG2,
+        VICTORY,
     }
 }

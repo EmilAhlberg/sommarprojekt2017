@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.achievements;
 using SummerProject.collidables;
+using SummerProject.factories;
 using SummerProject.framework;
 using SummerProject.menu;
 using SummerProject.wave;
@@ -68,7 +69,7 @@ namespace SummerProject
                         break;
                     case GAME_STATE:
                         eventTime = AnimatedEventHandler.EVENTTIME;
-                        animatedHandler.AnimatedEvent = true;                                                
+                        animatedHandler.AnimatedEvent = true;
                         break;
                     case MENU_STATE:
                         if (GameState == SPLASH_SCREEN_STATE)
