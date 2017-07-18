@@ -68,8 +68,8 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case GAME_STATE:
-                        eventTime = AnimatedEventHandler.EVENTTIME;
-                        animatedHandler.AnimatedEvent = true;
+                        eventTime = AnimatedEventHandler.COUNTDOWNTIME;
+                        animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
                         if (GameState == SPLASH_SCREEN_STATE)
@@ -79,7 +79,7 @@ namespace SummerProject
                         }
                         else
                         {
-                            eventTime = AnimatedEventHandler.EVENTTIME;
+                            eventTime = AnimatedEventHandler.COUNTDOWNTIME;
                             animatedHandler.AnimatedEvent = true;
                         }
                         break;

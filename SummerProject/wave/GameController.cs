@@ -40,16 +40,18 @@ namespace SummerProject
             levelTimer = new Timer(20);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool cutScene)
         {
             CheckActive();
-            if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
-                UpdateSpawnHandlers(gameTime);
-
+            if (!cutScene)
+            {
+                if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
+                    UpdateSpawnHandlers(gameTime);
+                Drops.Update(gameTime);
+                gameMode.Update(gameTime);
+                ProgressGame(gameTime);
+            }
             enemies.Update(gameTime);
-            Drops.Update(gameTime);
-            gameMode.Update(gameTime);
-            ProgressGame(gameTime);      
         }
 
         // wave progression stuff

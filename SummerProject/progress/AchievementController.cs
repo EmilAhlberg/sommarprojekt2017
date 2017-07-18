@@ -63,16 +63,16 @@ namespace SummerProject.achievements
             //Achievement burstAch = new Achievement("Burst Mode", burstMode);
             Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
 
-            Achievement boss1Ach = new Achievement("Cyberlord Jorav is no more!", boss1, Traits.BOSS_SLAIN1);
-            Achievement boss2Ach = new Achievement("Colonel Klint bites the dust!", boss2, Traits.BOSS_SLAIN2);         
-            Achievement boss3Ach = new Achievement("Space hell for you, Big Boss Usker!", boss3, Traits.BOSS_SLAIN3);
+            //Achievement boss1Ach = new Achievement("Cyberlord Jorav is no more!", boss1, Traits.BOSS_SLAIN1);
+            //Achievement boss2Ach = new Achievement("Colonel Klint bites the dust!", boss2, Traits.BOSS_SLAIN2);         
+            //Achievement boss3Ach = new Achievement("Some text here, Big Boss Usker!", boss3, Traits.BOSS_SLAIN3);
 
             Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order 
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);
             Achievements.Insert(Traits.ELITE, eliteAch);
-            Achievements.Insert(Traits.BOSS_SLAIN1, boss1Ach);
-            Achievements.Insert(Traits.BOSS_SLAIN2, boss2Ach);
-            Achievements.Insert(Traits.BOSS_SLAIN3, boss3Ach);
+            //Achievements.Insert(Traits.BOSS_SLAIN1, boss1Ach);
+            //Achievements.Insert(Traits.BOSS_SLAIN2, boss2Ach);
+            //Achievements.Insert(Traits.BOSS_SLAIN3, boss3Ach);
         
             //Achievements.Insert(Traits.WAVE_MODE, waveAch);
             //Achievements.Insert(Traits.BURST_MODE, burstAch);

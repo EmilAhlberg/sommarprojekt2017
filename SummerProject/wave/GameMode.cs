@@ -174,7 +174,6 @@ namespace SummerProject.wave
                 string s = "Wave " + Level + " incoming!";
 
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Wheat);
-
             }
         }      
     }
