@@ -72,7 +72,7 @@ namespace SummerProject.achievements
                     if (data.unlocks[i]) // sub 2 is unlockables, other achievements are xBox bloat
                         ac.Achievements[i].AlreadyUnlocked();
                 }
-            ScoreHandler.Score = data.Score; 
+            //ScoreHandler.Score = data.Score; 
         }
     }
 }
