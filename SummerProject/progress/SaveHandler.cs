@@ -66,13 +66,15 @@ namespace SummerProject.achievements
         {
             SaveData data = SaveHandler.Load<SaveData>("save_file");
             // what if save files dont exists :: this if is false?                                                           
-            if (data != null) //! no previous save file --> no progress in game
+            if (data != null)
+            {//! no previous save file --> no progress in game
                 for (int i = 0; i < Traits.UNLOCKABLES_CONSTANT; i++)
                 {
                     if (data.unlocks[i]) // sub 2 is unlockables, other achievements are xBox bloat
                         ac.Achievements[i].AlreadyUnlocked();
                 }
-            //ScoreHandler.Score = data.Score; 
+                ScoreHandler.Score = data.Score;
+            }
         }
     }
 }

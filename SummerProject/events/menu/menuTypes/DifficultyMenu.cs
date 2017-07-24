@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SummerProject.wave;
 using SummerProject.achievements;
+using SummerProject.factories;
 
 namespace SummerProject.menu
 {
@@ -42,12 +43,12 @@ namespace SummerProject.menu
                     break;
                 case 3:
                     handler.NewGameState = EventOperator.GAME_STATE;
+                    SoundHandler.PlaySong((int)IDs.SONG2);
                     handler.ResetGame(true);
                     break;
             }
             return -1;
         }
-
 
         public override void UpdateUnlocks(EventOperator handler)
         {

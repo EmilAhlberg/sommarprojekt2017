@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using SummerProject.collidables;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SummerProject.factories
 {
@@ -10,10 +13,15 @@ namespace SummerProject.factories
         private const int ARRAYSIZE = 200;
         private const int NBROFSONGS = 200;
         public static SoundEffect[] Sounds = new SoundEffect[ARRAYSIZE];
-        public static Song[] Songs = new Song[NBROFSONGS];
-        private static Song song;
+        public static SoundEffect[] Songs = new SoundEffect[NBROFSONGS];
+        private static SoundEffectInstance song;
+        private static IDs currentSongID;
+        private static List<IDs> alreadyAddedSongs = new List<IDs>();
+        private static Timer sTimer = new Timer(0);
         private static SoundEffectInstance[] seis = new SoundEffectInstance[ARRAYSIZE];
-        private static SoundEffect GetSound(int ID) {
+        private static MediaLibrary mL = new MediaLibrary();
+        private static SoundEffect GetSound(int ID)
+        {           
             if(Sounds[ID] != null)
             {
                 return Sounds[ID];
@@ -27,31 +35,40 @@ namespace SummerProject.factories
 
         public static void PlayNextIfStopped() 
         {
-           if(MediaPlayer.State == MediaState.Stopped  )
+            if (song == null)
+                PlaySong((int)IDs.SONG1INTRO);
+            if (sTimer.IsFinished)
             {
-                if (song == null)
-                    PlaySong((int)IDs.SONG1);
-                else
-                switch (EntityConstants.TypeToID(song.GetType())) {
-                    case IDs.SONG1:
-                        MediaPlayer.Volume = 0.17f;
-
-                        PlaySong((int)IDs.SONG2);
-                        break;
-                    case IDs.SONG2:
-                        MediaPlayer.Volume = 0.25f;
-                        PlaySong((int)IDs.SONG1);
-                        break;
-                    default: PlaySong((int)IDs.SONG1);
-                        break;
-                }
+                    switch (currentSongID)
+                    {
+                    case IDs.SONG1INTRO:
+                    case IDs.VICTORY:
+                            PlaySong((int)IDs.SONG1);
+                            break;
+                        default:
+                            PlaySong((int)currentSongID);
+                            break;
+                    }
             }
         }
 
-        private static void PlaySong(int ID)
+
+        public static void PlaySong(int ID)
         {
-            song = Songs[ID];
-            MediaPlayer.Play(song);
+            if(song != null)
+            {
+                song.Stop();
+                song.Dispose();
+            }
+            song = Songs[ID].CreateInstance();
+            sTimer = new Timer((float)Songs[ID].Duration.TotalSeconds-0.07f);
+            song.Play();
+            currentSongID = (IDs)ID;          
+        }
+
+        public static void Update(GameTime gameTime)
+        {
+            sTimer.CountDown(gameTime);
         }
 
         public static void PlaySoundEffect(int ID)

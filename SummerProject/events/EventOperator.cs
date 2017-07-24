@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SummerProject.achievements;
 using SummerProject.collidables;
+using SummerProject.factories;
 using SummerProject.framework;
 using SummerProject.menu;
 using SummerProject.wave;

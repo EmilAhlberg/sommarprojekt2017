@@ -786,18 +786,6 @@
 /processorParam:Quality=Best
 /build:sounds/ExplosionDeath.wav
 
-#begin sounds/Fighting.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:sounds/Fighting.mp3
-
-#begin sounds/RapidSuccesion.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:sounds/RapidSuccesion.mp3
-
 #begin textures/AlertParticle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -809,12 +797,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/AlertParticle.png
-
-#begin sounds/Kambidoja.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:sounds/Kambidoja.mp3
 
 #begin Parts/Engine_1.png
 /importer:TextureImporter
@@ -839,4 +821,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/logo.png
+
+#begin sounds/OdysseanIntro.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/OdysseanIntro.mp3
+
+#begin sounds/Odyssean.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Odyssean.mp3
+
+#begin sounds/Victorian.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Victorian.mp3
+
+#begin sounds/Galaxian.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/Galaxian.mp3
 
