@@ -21,13 +21,14 @@ namespace SummerProject.framework
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float COUNTDOWNTIME = 2f;
         public const float STATSTIME = 100f;
-        public const float SPLASHTIME = 6f;
+        public const float SPLASHTIME = 9.665f; //Length of intro theme
         public const float CUTSCENE = 10.1f; //Length of victory theme
         public Timer eventTimer;
         private Game1 game;
         private EventOperator op;
         private SpriteFont font;
         private GameMode gameMode;
+        Sprite logo;
 
         public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font, GameMode gameMode)
         {
@@ -36,6 +37,10 @@ namespace SummerProject.framework
             this.op = op;
             this.font = font;
             eventTimer = new Timer(COUNTDOWNTIME);
+            logo = SpriteHandler.GetSprite((int)IDs.LOGO);
+            logo.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+            logo.Origin = new Vector2(logo.SpriteRect.Width / 2, logo.SpriteRect.Height / 2);
+
         }
 
         public bool UpdateEventTimer(GameTime gameTime)
@@ -57,12 +62,10 @@ namespace SummerProject.framework
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
                         string s = "Dogs Don't Judge presents..."; //!
-                        Sprite logo = SpriteHandler.GetSprite((int)IDs.LOGO);
-                        logo.Scale *= 0.5f;
-                        logo.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
-                        logo.Origin = new Vector2(logo.SpriteRect.Width / 2, logo.SpriteRect.Height / 2);
+                        int alphaChannel = (int)(455 * (SPLASHTIME-eventTimer.currentTime) / SPLASHTIME)-100;      
+                        logo.MColor = new Color(255, 255, 255, alphaChannel);
                         logo.Draw(spriteBatch, gameTime);
-                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
+                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
                     }
                     else
                     {

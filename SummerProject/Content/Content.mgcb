@@ -810,18 +810,6 @@
 /processorParam:TextureFormat=Color
 /build:Parts/Engine_1.png
 
-#begin textures/logo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/logo.png
-
 #begin sounds/OdysseanIntro.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -845,4 +833,22 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sounds/Galaxian.mp3
+
+#begin textures/logo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/logo.png
+
+#begin sounds/GameOver.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/GameOver.mp3
 
