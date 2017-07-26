@@ -21,7 +21,7 @@ namespace SummerProject
         public float Angle { set { Hull.Angle = value; } get { return Hull.Angle; } }
         public float ThrusterAngle { set { Hull.ThrusterAngle = value; } get { return Hull.ThrusterAngle; } }
         protected float TurnSpeed { set { Hull.TurnSpeed = value; } get { return Hull.TurnSpeed; } }
-        public float friction { set { Hull.friction = value; } get { return Hull.friction; } }
+        public float friction { set { Hull.Friction = value; } get { return Hull.Friction; } }
         public bool IsActive { get; set; }
         public bool IsEvil { get; }
         private const float startingEnergy = 100f;//!
