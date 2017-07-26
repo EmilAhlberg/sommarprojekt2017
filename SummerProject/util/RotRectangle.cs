@@ -7,14 +7,14 @@ namespace SummerProject
 {
     public class RotRectangle
     {
-        private Vector2 UL { set; get; }
-        private Vector2 DL { set; get; }
-        private Vector2 DR { set; get; }
-        private Vector2 UR { set; get; }
-        public int Width { set; get; }
-        public int Height { set; get; }
+        private Vector2 UL { get; set; }
+        private Vector2 DL { get; set; }
+        private Vector2 DR { get; set; }
+        private Vector2 UR { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public Vector2 AbsolutePosition { get { return (UL + DR) / 2; } }
-        private Vector2 origin { set; get; }
+        private Vector2 origin { get; set; }
         public Vector2 Origin
         {
             set

@@ -43,7 +43,6 @@ namespace SummerProject.menu
                     break;
                 case 3:
                     handler.NewGameState = EventOperator.GAME_STATE;
-                    SoundHandler.PlaySong((int)IDs.SONG2);
                     handler.ResetGame(true);
                     break;
             }

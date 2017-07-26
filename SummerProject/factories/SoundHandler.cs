@@ -15,7 +15,7 @@ namespace SummerProject.factories
         public static SoundEffect[] Sounds = new SoundEffect[ARRAYSIZE];
         public static SoundEffect[] Songs = new SoundEffect[NBROFSONGS];
         private static SoundEffectInstance song;
-        private static IDs currentSongID;
+        public static IDs CurrentSongID { get; private set; }
         private static List<IDs> alreadyAddedSongs = new List<IDs>();
         private static Timer sTimer = new Timer(0);
         private static SoundEffectInstance[] seis = new SoundEffectInstance[ARRAYSIZE];
@@ -33,43 +33,65 @@ namespace SummerProject.factories
             }
         }
 
-        public static void PlayNextIfStopped() 
-        {
-            if (song == null)
-                PlaySong((int)IDs.SONG1INTRO);
-            if (sTimer.IsFinished)
-            {
-                    switch (currentSongID)
-                    {
-                    case IDs.SONG1INTRO:
-                    case IDs.VICTORY:
-                            PlaySong((int)IDs.SONG1);
-                            break;
-                        default:
-                            PlaySong((int)currentSongID);
-                            break;
-                    }
-            }
-        }
+        //public static void PlayNextIfStopped() 
+        //{
+        //    if (song == null)
+        //        PlaySong((int)IDs.SONG1INTRO);
+        //    if (sTimer.IsFinished)
+        //    {
+        //            switch (currentSongID)
+        //            {
+        //            case IDs.SONG1INTRO:
+        //            case IDs.VICTORY:
+        //                    PlaySong((int)IDs.SONG1);
+        //                    break;
+        //                default:
+        //                    PlaySong((int)currentSongID);
+        //                    break;
+        //            }
+        //    }
+        //}
 
+        public static void PauseSong()
+        {
+            song.Pause();
+        }
 
         public static void PlaySong(int ID)
         {
-            if(song != null)
+            if ((int)CurrentSongID != ID)
             {
-                song.Stop();
-                song.Dispose();
+                if (song != null)
+                {
+                    song.Stop();
+                    song.Dispose();
+                }
+                song = Songs[ID].CreateInstance();
+                //sTimer = new Timer((float)Songs[ID].Duration.TotalSeconds - 0.07f);
+                song.IsLooped = true;
+                song.Play();
+                CurrentSongID = (IDs)ID;
+                switch (CurrentSongID)
+                {
+                    case IDs.SONG1INTRO:
+                    case IDs.GAMEOVER:
+                    case IDs.VICTORY:
+                        song.IsLooped = false;
+                        break;
+                    default:
+                        song.IsLooped = true;
+                        break;
+                }
             }
-            song = Songs[ID].CreateInstance();
-            sTimer = new Timer((float)Songs[ID].Duration.TotalSeconds-0.07f);
-            song.Play();
-            currentSongID = (IDs)ID;          
+            else
+                if (song.State == SoundState.Paused)
+                    song.Resume();
         }
 
-        public static void Update(GameTime gameTime)
-        {
-            sTimer.CountDown(gameTime);
-        }
+        //public static void Update(GameTime gameTime)
+        //{
+        //    sTimer.CountDown(gameTime);
+        //}
 
         public static void PlaySoundEffect(int ID)
         {

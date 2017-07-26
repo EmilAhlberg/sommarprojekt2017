@@ -23,8 +23,71 @@ namespace SummerProject
         public const int SPLASH_SCREEN_STATE = 6;
         public const int CUT_SCENE_STATE = 7;
 
-        public int GameState { get; set; } 
-        public int NewGameState { get; set; }      
+        private int gameState;
+        public int GameState { get { return gameState; } set
+            {
+                gameState = value;
+                switch (value)
+                {
+                    case EXIT:
+                        break;
+                    case GAME_STATE:
+                        SoundHandler.PlaySong((int)IDs.SONG2);
+                        break;
+                    case MENU_STATE:
+                        SoundHandler.PlaySong((int)IDs.SONG1);
+                        break;
+                    case GAME_OVER_STATE:
+                        SoundHandler.PlaySong((int)IDs.GAMEOVER);
+                        break;
+                    case PAUSE_STATE:
+                        break;
+                    case UPGRADE_STATE:
+                        break;
+                    case CUT_SCENE_STATE:
+                        break;
+                    case SPLASH_SCREEN_STATE:
+                        SoundHandler.PlaySong((int)IDs.SONG1INTRO);
+                        break;
+
+                }
+            }
+        }
+
+        private int newGameState;
+        public int NewGameState
+        {
+            get { return newGameState; }
+            set
+            {
+                newGameState = value;
+                switch (value)
+                {
+                    case EXIT:
+                        break;
+                    case GAME_STATE:
+                        if(SoundHandler.CurrentSongID != IDs.SONG2)
+                            SoundHandler.PauseSong();
+                        break;
+                    case MENU_STATE:
+                        break;
+                    case GAME_OVER_STATE:
+                        break;
+                    case PAUSE_STATE:
+                        break;
+                    case UPGRADE_STATE:
+                        SoundHandler.PlaySong((int)IDs.SONG2);
+                        break;
+                    case CUT_SCENE_STATE:
+                        SoundHandler.PlaySong((int)IDs.VICTORY);
+                        break;
+                    case SPLASH_SCREEN_STATE:
+                        break;
+
+                }
+            }
+        }
+
         public AchievementController achControl { get; private set; }
         public GameMode GameMode { get; private set; }
         private AnimatedEventHandler animatedHandler;
@@ -152,7 +215,9 @@ namespace SummerProject
                     break;
                 case EventOperator.GAME_STATE:
                     if (GameState == EventOperator.MENU_STATE)
+                    {
                         game.ResetGame(true);
+                    }
                     break;
                 case EventOperator.CUT_SCENE_STATE:
                     NewGameState = UPGRADE_STATE;

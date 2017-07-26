@@ -47,6 +47,7 @@ namespace SummerProject
         BOLT,
         MONEY,
         AFTERIMAGE,
+        ALERTPARTICLE,
         DEATH,
         #endregion
 
@@ -68,14 +69,17 @@ namespace SummerProject
         ROTATEPART,
         HAMMERPART,
         EXPLOSIONDROP, //NOT USED
+        LOGO,
         POPUPTEXTBKG,
         EXPLOSIONDEATHSOUND,
+
+        #region Music
         SONG1,
         SONG1INTRO,
-        SONG3,
-        ALERTPARTICLE,
-        LOGO,
+        SONG3,    
         SONG2,
         VICTORY,
+        GAMEOVER,
+        #endregion 
     }
 }

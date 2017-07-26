@@ -6,21 +6,21 @@ namespace SummerProject
 {
     public abstract class Movable : Drawable
     {
-        public virtual float friction { set; get; }
-        private Vector2 Friction { get { return friction * Velocity / 100; } }
-        public Vector2 Velocity { set; get; } = Vector2.Zero; //-!
-        protected virtual float TurnSpeed { set; get; } 
-        public virtual float Mass { set; get; } 
-        private Vector2 Acceleration{ get { return (TotalExteriorForce - Friction) / Mass; } }
-        private Vector2 TotalExteriorForce { set; get; }
-        public virtual float ThrusterAngle { set; get; }
+        public virtual float Friction { get; set; }
+        private Vector2 FrictionForce { get { return Friction * Velocity / 100; } }
+        public Vector2 Velocity { get; set; } = Vector2.Zero; //-!
+        protected virtual float TurnSpeed { get; set; } 
+        public virtual float Mass { get; set; } 
+        private Vector2 Acceleration{ get { return (TotalExteriorForce - FrictionForce) / Mass; } }
+        private Vector2 TotalExteriorForce { get; set; }
+        public virtual float ThrusterAngle { get; set; }
         public static float MOTIONSPEED = 1f;
 
         public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
 
         public override void SetStats(IDs id)
         {
-            friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, id);
+            Friction = EntityConstants.GetStatsFromID(EntityConstants.FRICTION, id);
             TurnSpeed = EntityConstants.GetStatsFromID(EntityConstants.TURNSPEED, id);
             Mass = EntityConstants.GetStatsFromID(EntityConstants.MASS, id);
             base.SetStats(id);
@@ -77,7 +77,7 @@ namespace SummerProject
 
         public virtual void Move()
         {
-            Velocity += Acceleration;
+            Velocity += Acceleration; 
             Position += Velocity * MOTIONSPEED;
             TotalExteriorForce = new Vector2(0, 0);
             ThrusterAngle = angle;

@@ -39,7 +39,7 @@ namespace SummerProject
                 currentTime = 0;
             }
             else
-                currentTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                currentTime -= (float)gameTime.ElapsedGameTime.TotalSeconds*Movable.MOTIONSPEED;
         }
 
         public void AddTime(float timeInSeconds)

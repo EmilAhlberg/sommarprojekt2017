@@ -15,18 +15,18 @@ namespace SummerProject
         protected Link[] parts;
         public bool[] TakenPositions = new bool[4]; //! fix
         public new float TurnSpeed { set { base.TurnSpeed = value; } get { return base.TurnSpeed; } }
-        public override float friction
+        public override float Friction
         {
             set
             {
-                base.friction = value;
+                base.Friction = value;
             }
             get
             {
-                float f = base.friction;
+                float f = base.Friction;
                 foreach (Link p in parts)
                     if (p.Part != null)
-                        f += p.Part.friction;
+                        f += p.Part.Friction;
                 return f;
             }
         }
@@ -285,9 +285,9 @@ namespace SummerProject
         protected class Link
         {
 
-            public Vector2 RelativePos { set; get; }
-            public float RelativeAngle { set; get; }
-            public Part Part { set; get; } = null;
+            public Vector2 RelativePos { get; set; }
+            public float RelativeAngle { get; set; }
+            public Part Part { get; set; } = null;
             private Vector2 linkToCenter;
             private Vector2 posChange;
 

@@ -160,7 +160,8 @@ namespace SummerProject
             SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<SoundEffect>("sounds/Odyssean");
             SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<SoundEffect>("sounds/Galaxian");
             SoundHandler.Songs[(int)IDs.VICTORY] = Content.Load<SoundEffect>("sounds/Victorian");
-            Console.WriteLine(SoundHandler.Songs[(int)IDs.VICTORY].Duration);
+            SoundHandler.Songs[(int)IDs.GAMEOVER] = Content.Load<SoundEffect>("sounds/GameOver");
+            //Console.WriteLine(SoundHandler.Songs[(int)IDs.SONG1INTRO].Duration);
             #endregion
             //Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Content\\textures");
 
@@ -272,8 +273,6 @@ namespace SummerProject
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            SoundHandler.Update(gameTime);
-            SoundHandler.PlayNextIfStopped();
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
                 UpdateGame(gameTime, false);
             else
@@ -312,6 +311,7 @@ namespace SummerProject
             {
                 ResetGame(false);
                 deathTimer.CountDown(gameTime);
+                SoundHandler.PauseSong(); //! deathTimer INTE OK! Ska vara egen state eller använda sig av GAME_OVER_STATE.
                 if (deathTimer.IsFinished)
                 {
                     eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
@@ -334,7 +334,6 @@ namespace SummerProject
             #region Cut Scene
             if (gameMode.CutScene)
             {
-                SoundHandler.PlaySong((int)IDs.VICTORY);
                 eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;
                 gameMode.CutScene = false;
             }
@@ -376,9 +375,12 @@ namespace SummerProject
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, Camera.CameraMatrix);
-            background.Draw(spriteBatch, gameTime);
-            spriteBatch.End();
+            if (eventOperator.GameState != EventOperator.SPLASH_SCREEN_STATE)
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null, Camera.CameraMatrix);
+                background.Draw(spriteBatch, gameTime);
+                spriteBatch.End();
+            }
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE)
             {
@@ -447,18 +449,18 @@ namespace SummerProject
 
         private void DebugMode(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            int controlSheme = Player.ControlScheme;
-            string usingControls = "";
-            if (controlSheme <= 1)
-                usingControls = "WASD + Follow mouse";
-            if (controlSheme == 2)
-                usingControls = "Absolute WASD";
-            if (controlSheme == 3)
-                usingControls = "Mouse only";
-            if (controlSheme == 4) 
-                usingControls = "WASD : AD = Rotate";            
+            //int controlSheme = Player.ControlScheme;
+            //string usingControls = "";
+            //if (controlSheme <= 1)
+            //    usingControls = "WASD + Follow mouse";
+            //if (controlSheme == 2)
+            //    usingControls = "Absolute WASD";
+            //if (controlSheme == 3)
+            //    usingControls = "Mouse only";
+            //if (controlSheme == 4) 
+            //    usingControls = "WASD : AD = Rotate";            
             //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
-            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 50), Color.Crimson);
+            //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 50), Color.Crimson);
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(50, WindowSize.Height - 50), Color.Gold);
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
