@@ -23,8 +23,10 @@ namespace SummerProject.framework
         private Player player;
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
+        public bool IsModified;
         private int emptyPartIndex = 100;
         private SpriteFont font;
+        
 
         public void Reset()
         {
@@ -39,6 +41,7 @@ namespace SummerProject.framework
             shipItems.Add(0, motherBoard);
             AddEmptyParts((RectangularHull)motherBoard.Part, shipItems[0], false);
             UpgradeBar.Reset();
+            IsModified = false;
         }
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
@@ -118,6 +121,9 @@ namespace SummerProject.framework
         //refactor buying out of this method
         private void AddPart(Part newPart)
         {
+            if (newPart != null)
+                IsModified = true;
+
             bool notEnoughMoney = false;  // only used to see if 
 
             if (shipItems[activeSelection].id == IDs.RECTHULLPART)
@@ -475,7 +481,7 @@ namespace SummerProject.framework
                 popupBkg.LayerDepth = 0;
 
                
-                string temp = "Assemble your ship!";
+                string temp = "Upgrade your ship!";
             
                 popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2 -55, -40 + popupBkg.SpriteRect.Height / 2);
                 popupBkg.Draw(spriteBatch, gameTime);

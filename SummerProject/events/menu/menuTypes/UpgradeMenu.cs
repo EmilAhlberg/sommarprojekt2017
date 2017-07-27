@@ -15,10 +15,15 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.NewGameState = EventOperator.GAME_STATE;
-                    handler.upgradeView.UpgradeBar.RemoveSelection();
+                    if (!isLocked[0])
+                    {
+                        handler.NewGameState = EventOperator.GAME_STATE;
+                        handler.UpgradeView.UpgradeBar.RemoveSelection();
+                    }
                     break;
-                case 1: handler.upgradeView.Reset();
+                case 1:
+                    if (!isLocked[1])
+                        handler.UpgradeView.Reset();
                     break;
             }
             return -1;
@@ -26,11 +31,21 @@ namespace SummerProject.menu
 
         public override void UpdateUnlocks(EventOperator handler)
         {
+            if (handler.UpgradeView.IsModified)
+            {
+                isLocked[0] = false;
+                isLocked[1] = false;
+            } else
+            {
+                SetLockedItems();
+            }              
         }
 
         protected override void SetLockedItems()
         {
             isLocked = new bool[menuItems.Length];
+            isLocked[0] = true;
+            isLocked[1] = true;
         }
     }
 

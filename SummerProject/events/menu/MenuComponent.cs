@@ -25,7 +25,7 @@
             this.menuItems = menuItems;
             this.Font = spriteFont;
             MeasureMenu();
-            if (menuItems[1] == "Reset") //HACK!
+            if (menuItems[1] == "Reset Ship") //HACK!
                 this.Position = position + new Vector2(WindowSize.Width / 3, WindowSize.Height / 3);
             else
                 this.Position = position - new Vector2(0, height)/2;
