@@ -858,3 +858,15 @@
 /processorParam:Quality=Best
 /build:sounds/player_death.wav
 
+#begin sounds/slomo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/slomo.wav
+
+#begin sounds/reverse_slomo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/reverse_slomo.wav
+
