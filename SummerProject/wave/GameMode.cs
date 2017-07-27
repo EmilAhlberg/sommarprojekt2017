@@ -160,17 +160,8 @@ namespace SummerProject.wave
                 popupBkg.Position = wordPos - new Vector2( (popupBkg.SpriteRect.Width / 2) -50 , (popupBkg.SpriteRect.Height / 2) - 35);
                 popupBkg.Scale = new Vector2(0.8f, 0.5f);
                 popupBkg.LayerDepth = 0;
-                if (Level == 1)
-                {
-                    Vector2 v = wordPos + new Vector2(0, 50); //! hack
-                    string temp = "Press M to assemble ship!";
-                    popupBkg.Scale = Vector2.One;
-                    popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2, -25 + popupBkg.SpriteRect.Height / 2);
-                    popupBkg.Draw(spriteBatch, gameTime);
-                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, v), Color.Wheat);
-                }
-                else
-                   popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
+                
+                popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
                 string s = "Wave " + Level + " incoming!";
 
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Wheat);

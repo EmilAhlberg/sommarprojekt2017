@@ -232,15 +232,16 @@ namespace SummerProject
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //refactor whole draw?
-            if (animatedHandler.AnimatedEvent)            
-                animatedHandler.Draw(spriteBatch, gameTime);            
+            if (animatedHandler.AnimatedEvent)
+                animatedHandler.Draw(spriteBatch, gameTime);
             else
             {
-                if(GameState == PAUSE_STATE || GameState == UPGRADE_STATE)                    
-                  game.DrawGame(spriteBatch, gameTime, false);
+                if (GameState == PAUSE_STATE || GameState == UPGRADE_STATE)
+                    game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
-                   upgradeView.Draw(spriteBatch, gameTime);
+                    upgradeView.Draw(spriteBatch, gameTime);
+              
 
                 if (!animatedHandler.AnimatedEvent && NewGameState != CUT_SCENE_STATE)             
                   menu.Draw(spriteBatch, gameTime);                      
