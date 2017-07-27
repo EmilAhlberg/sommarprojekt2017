@@ -156,6 +156,7 @@ namespace SummerProject
             SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
             SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
             SoundHandler.Sounds[(int)IDs.EXPLOSIONDEATHSOUND] = Content.Load<SoundEffect>("sounds/ExplosionDeath");
+            SoundHandler.Sounds[(int)IDs.PLAYERDEATHSOUND] = Content.Load<SoundEffect>("sounds/player_death");
             SoundHandler.Songs[(int)IDs.SONG1INTRO] = Content.Load<SoundEffect>("sounds/OdysseanIntro");
             SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<SoundEffect>("sounds/Odyssean");
             SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<SoundEffect>("sounds/Galaxian");
