@@ -101,5 +101,10 @@ namespace SummerProject
             SoundHandler.PlaySoundEffect((int)IDs.EXPLOSIONDEATHSOUND);
             base.Death();
         }
+
+        protected void OutOfBoundsDeath() // currently to handle asteroid death out of bounds
+        {
+            base.Death();
+        }
     }
 }

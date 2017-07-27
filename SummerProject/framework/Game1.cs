@@ -46,8 +46,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            WindowSize.Height -= 100;           // temp fix for window debug
-            WindowSize.Width -= 50;
+         //   WindowSize.Height -= 100;           // temp fix for window debug
+           // WindowSize.Width -= 50;
             graphics.PreferredBackBufferWidth = WindowSize.Width;
             graphics.PreferredBackBufferHeight = WindowSize.Height;
             Content.RootDirectory = "Content";
