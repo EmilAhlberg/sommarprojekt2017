@@ -46,9 +46,11 @@ namespace SummerProject.collidables.Enemies
         public override void Death()
         {
             //Particles.GenerateParticles(Position, 18, angle, sprite.MColor); //Death animation
+            if (WindowSize.IsOutOfBounds(Position))
+                OutOfBoundsDeath();
+            else
             base.Death();
         }
-
         public override void Move()
         {
         }
