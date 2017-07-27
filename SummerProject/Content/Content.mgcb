@@ -852,3 +852,9 @@
 /processorParam:Quality=Best
 /build:sounds/GameOver.mp3
 
+#begin sounds/player_death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/player_death.wav
+
