@@ -12,6 +12,7 @@ using SummerProject.collidables.parts;
 using SummerProject.events.buildmenu;
 using SummerProject.factories;
 using SummerProject.collidables.parts.guns;
+using SummerProject.wave;
 
 namespace SummerProject.framework
 {
@@ -22,7 +23,10 @@ namespace SummerProject.framework
         private Player player;
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
+        public bool IsModified;
         private int emptyPartIndex = 100;
+        private SpriteFont font;
+        
 
         public void Reset()
         {
@@ -37,6 +41,7 @@ namespace SummerProject.framework
             shipItems.Add(0, motherBoard);
             AddEmptyParts((RectangularHull)motherBoard.Part, shipItems[0], false);
             UpgradeBar.Reset();
+            IsModified = false;
         }
 
         public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
@@ -44,6 +49,7 @@ namespace SummerProject.framework
             activeSelection = -1;
             this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
+            this.font = font;
             UpgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
             shipItems = new Dictionary<int, ShipItem>();
             Initialize();
@@ -115,6 +121,9 @@ namespace SummerProject.framework
         //refactor buying out of this method
         private void AddPart(Part newPart)
         {
+            if (newPart != null)
+                IsModified = true;
+
             bool notEnoughMoney = false;  // only used to see if 
 
             if (shipItems[activeSelection].id == IDs.RECTHULLPART)
@@ -464,21 +473,26 @@ namespace SummerProject.framework
         {
             UpgradeBar.Draw(spriteBatch, gameTime);
 
-            //slots         
-            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            //if (GameMode.Level == 0)
+            //{
+                Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 - 350);
+                Sprite popupBkg = SpriteHandler.GetSprite((int)IDs.POPUPTEXTBKG);               
+                popupBkg.Scale = new Vector2(0.8f, 0.5f);
+                popupBkg.LayerDepth = 0;
+
+               
+                string temp = "Upgrade your ship!";
+            
+                popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2 -55, -40 + popupBkg.SpriteRect.Height / 2);
+                popupBkg.Draw(spriteBatch, gameTime);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, wordPos), Color.Wheat);
+                popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
+            //}         
+                //slots         
+                foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
                 item.Value.Draw(spriteBatch, gameTime);
             }
-        }
-        
-
-        private void Buy(int price)
-        {
-            //if (totalResource - spentResource >= price)
-            //{
-            //    spentResource += price;
-            //    //player.dosomething typ addpart(location)
-            //}
         }
     }
 }

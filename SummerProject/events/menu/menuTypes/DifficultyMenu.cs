@@ -42,7 +42,7 @@ namespace SummerProject.menu
                     }
                     break;
                 case 3:
-                    handler.NewGameState = EventOperator.GAME_STATE;
+                    handler.NewGameState = EventOperator.UPGRADE_STATE;
                     handler.ResetGame(true);
                     break;
             }

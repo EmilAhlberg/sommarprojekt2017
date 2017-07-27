@@ -92,7 +92,7 @@ namespace SummerProject
         public GameMode GameMode { get; private set; }
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
-        public UpgradeView upgradeView;
+        public UpgradeView UpgradeView;
         private Game1 game;
 
         public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
@@ -101,7 +101,7 @@ namespace SummerProject
             NewGameState = MENU_STATE;
             GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, font, gameMode);
-            upgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
+            UpgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
                     WindowSize.Height / 2), font);
             this.game = game;
@@ -190,7 +190,7 @@ namespace SummerProject
                     break;
                 case UPGRADE_STATE:
                     menu.CurrentMenu = MenuConstants.UPGRADE;
-                    upgradeView.Update(gameTime);
+                    UpgradeView.Update(gameTime);
                     break;
             }
             menu.Update(gameTime, this);
@@ -232,15 +232,16 @@ namespace SummerProject
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //refactor whole draw?
-            if (animatedHandler.AnimatedEvent)            
-                animatedHandler.Draw(spriteBatch, gameTime);            
+            if (animatedHandler.AnimatedEvent)
+                animatedHandler.Draw(spriteBatch, gameTime);
             else
             {
-                if(GameState == PAUSE_STATE || GameState == UPGRADE_STATE)                    
-                  game.DrawGame(spriteBatch, gameTime, false);
+                if (GameState == PAUSE_STATE || GameState == UPGRADE_STATE)
+                    game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
-                   upgradeView.Draw(spriteBatch, gameTime);
+                    UpgradeView.Draw(spriteBatch, gameTime);
+              
 
                 if (!animatedHandler.AnimatedEvent && NewGameState != CUT_SCENE_STATE)             
                   menu.Draw(spriteBatch, gameTime);                      
@@ -251,7 +252,7 @@ namespace SummerProject
         {
             game.ResetGame(fullReset);
             if (fullReset)
-                upgradeView.Reset();
+                UpgradeView.Reset();
             //animatedHandler.Reset();
         }
     }
