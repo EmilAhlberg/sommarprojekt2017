@@ -83,6 +83,7 @@ namespace SummerProject
         PLAYERDEATHSOUND,
         SLOWMOSOUND,
         REVERSESLOWMOSOUND,
+        PICKUPSOUND,
         #endregion
     }
 }

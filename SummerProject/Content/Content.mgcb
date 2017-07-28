@@ -870,3 +870,9 @@
 /processorParam:Quality=Best
 /build:sounds/reverse_slomo.wav
 
+#begin sounds/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pickup.wav
+

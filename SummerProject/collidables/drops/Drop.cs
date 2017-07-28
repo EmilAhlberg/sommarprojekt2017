@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.factories;
 
 namespace SummerProject.collidables
 {
@@ -39,8 +40,12 @@ namespace SummerProject.collidables
         protected override void HandleCollision(ICollidable c2)
         {
             if (c2 is Player)
+            {
+                SoundHandler.PlaySoundEffect((int)IDs.PICKUPSOUND);
                 Death();
+            }
         }
+
         public override bool CollidesWith(ICollidable c2)
         {
             Part c3;
