@@ -61,11 +61,11 @@ namespace SummerProject.framework
                 case EventOperator.MENU_STATE:
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
-                        string s = "Dogs Don't Judge presents..."; //!
+                     //   string s = "Dogs Don't Judge presents..."; //!
                         int alphaChannel = (int)(455 * (SPLASHTIME-eventTimer.currentTime) / SPLASHTIME)-100;      
                         logo.MColor = new Color(255, 255, 255, alphaChannel);
                         logo.Draw(spriteBatch, gameTime);
-                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
+                     //   spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
                     }
                     else
                     {
