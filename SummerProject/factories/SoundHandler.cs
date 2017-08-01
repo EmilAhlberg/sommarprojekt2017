@@ -111,6 +111,16 @@ namespace SummerProject.factories
                 sei.Volume = 0.2f;
                 sei.Pitch = 0.7f;
             }
+            else if (ID == (int)IDs.SLOWMOSOUND || ID == (int)IDs.REVERSESLOWMOSOUND)
+            {
+                sei.Volume = 0.5f;
+                sei.Pitch = 0.5f;
+            }
+            else if (ID == (int)IDs.PICKUPSOUND)
+            {
+                sei.Volume = 0.15f;
+                sei.Pitch = SRandom.NextFloat() *0.3f + 0.7f;
+            }
             else
             {
                 sei.Pitch += SRandom.NextFloat() * 0.3f - 0.15f;

@@ -53,8 +53,9 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>SummerProject.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="collidables\bullets\ChargingBullet.cs" />

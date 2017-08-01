@@ -425,18 +425,6 @@
 /processorParam:TextureFormat=Color
 /build:textures/dasteroid2.png
 
-#begin textures/ASTEROID.PNG
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:textures/ASTEROID.PNG
-
 #begin Parts/Hull_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -834,6 +822,48 @@
 /processorParam:Quality=Best
 /build:sounds/Galaxian.mp3
 
+#begin sounds/GameOver.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/GameOver.mp3
+
+#begin sounds/player_death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/player_death.wav
+
+#begin sounds/slomo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/slomo.wav
+
+#begin sounds/reverse_slomo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/reverse_slomo.wav
+
+#begin sounds/pickup.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sounds/pickup.wav
+
+#begin textures/ASTEROID.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/ASTEROID.png
+
 #begin textures/logo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -845,10 +875,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/logo.png
-
-#begin sounds/GameOver.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sounds/GameOver.mp3
 

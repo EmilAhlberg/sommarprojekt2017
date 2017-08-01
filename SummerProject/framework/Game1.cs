@@ -46,8 +46,8 @@ namespace SummerProject
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            WindowSize.Height -= 100;           // temp fix for window debug
-            WindowSize.Width -= 50;
+         //   WindowSize.Height -= 100;           // temp fix for window debug
+           // WindowSize.Width -= 50;
             graphics.PreferredBackBufferWidth = WindowSize.Width;
             graphics.PreferredBackBufferHeight = WindowSize.Height;
             Content.RootDirectory = "Content";
@@ -156,6 +156,10 @@ namespace SummerProject
             SoundHandler.Sounds[(int)IDs.MENUCLICK] = Content.Load<SoundEffect>("sounds/menuclickSnd");
             SoundHandler.Sounds[(int)IDs.CHARGINGGUNPART] = Content.Load<SoundEffect>("sounds/chargeshotSnd");
             SoundHandler.Sounds[(int)IDs.EXPLOSIONDEATHSOUND] = Content.Load<SoundEffect>("sounds/ExplosionDeath");
+            SoundHandler.Sounds[(int)IDs.PLAYERDEATHSOUND] = Content.Load<SoundEffect>("sounds/player_death");
+            SoundHandler.Sounds[(int)IDs.SLOWMOSOUND] = Content.Load<SoundEffect>("sounds/slomo");
+            SoundHandler.Sounds[(int)IDs.REVERSESLOWMOSOUND] = Content.Load<SoundEffect>("sounds/reverse_slomo");
+            SoundHandler.Sounds[(int)IDs.PICKUPSOUND] = Content.Load<SoundEffect>("sounds/pickup");
             SoundHandler.Songs[(int)IDs.SONG1INTRO] = Content.Load<SoundEffect>("sounds/OdysseanIntro");
             SoundHandler.Songs[(int)IDs.SONG1] = Content.Load<SoundEffect>("sounds/Odyssean");
             SoundHandler.Songs[(int)IDs.SONG2] = Content.Load<SoundEffect>("sounds/Galaxian");
@@ -325,12 +329,12 @@ namespace SummerProject
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
             #endregion
-            #region Upgrade Ship
-            if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
-            {
-                eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
-            }
-            #endregion
+            //#region Upgrade Ship
+            //if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
+            //{
+            //    eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
+            //}
+            //#endregion
             #region Cut Scene
             if (gameMode.CutScene)
             {
