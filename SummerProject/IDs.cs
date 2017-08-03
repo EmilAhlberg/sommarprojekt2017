@@ -81,6 +81,9 @@ namespace SummerProject
         VICTORY,
         GAMEOVER,
         PLAYERDEATHSOUND,
+        SLOWMOSOUND,
+        REVERSESLOWMOSOUND,
+        PICKUPSOUND,
         #endregion
     }
 }

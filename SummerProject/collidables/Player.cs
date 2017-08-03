@@ -14,7 +14,7 @@ namespace SummerProject.collidables
     {
         //private const bool FRICTIONFREEACCELERATION = true;
         public int ControlScheme { get; set; } = 2; // 1-4      
-        private const float shieldDischargeRate = 3/2f;
+        private const float shieldDischargeRate = 3 / 2f;
         private const float shieldRechargeRate = shieldDischargeRate / 5;
         private Projectiles projectiles;
         public Vector2 StartPosition { get; private set; }
@@ -40,7 +40,7 @@ namespace SummerProject.collidables
                 //if (Health <= 0 && IsActive)
                 //    Death();
 
-                if (Health <= maxHealth/4)
+                if (Health <= maxHealth / 4)
                 {
                     Particles.GenerateParticles(Hull.Sprite.Edges, Position, Hull.Sprite.Origin, 13, Angle);
                 }
@@ -58,21 +58,26 @@ namespace SummerProject.collidables
                 Hull.TakeAction(typeof(GravityGunPart));
             }
             if (InputHandler.isPressed(MouseButton.RIGHT))
-
             {
                 if (Energy > 0)
                 {
+                    if (InputHandler.isJustPressed(MouseButton.RIGHT))
+                        SoundHandler.PlaySoundEffect((int)IDs.SLOWMOSOUND);
                     Energy -= shieldDischargeRate;
                     Movable.MOTIONSPEED = 0.5f;
                 }
                 else
                 {
+                    if (Movable.MOTIONSPEED != 1)
+                        SoundHandler.PlaySoundEffect((int)IDs.REVERSESLOWMOSOUND);
                     Energy = 0;
                     Movable.MOTIONSPEED = 1;
                 }
             }
             else
             {
+                if (Movable.MOTIONSPEED != 1)
+                    SoundHandler.PlaySoundEffect((int)IDs.REVERSESLOWMOSOUND);
                 Movable.MOTIONSPEED = 1;
                 if (maxEnergy > Energy)
                 {
@@ -160,14 +165,14 @@ namespace SummerProject.collidables
         internal void MoveTowardsPoint(Vector2 point)
         {
             float dX = Hull.Position.X - point.X;
-            float dY = Hull.Position.Y - point.Y;            
+            float dY = Hull.Position.Y - point.Y;
             Hull.TurnTowardsVector(dX, dY);
 
             Vector2 directionVector = Vector2.Zero;
             directionVector += new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle));
             Hull.ThrusterAngle = (float)Math.Atan2(directionVector.Y, directionVector.X);
             Hull.TakeAction(typeof(EnginePart));
-          
+
         }
 
         public override void Death() //NEEDS FIX !!!TODO!!! Fix particles for parts
