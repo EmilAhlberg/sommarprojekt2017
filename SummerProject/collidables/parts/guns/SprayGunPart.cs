@@ -12,7 +12,7 @@ namespace SummerProject.collidables.parts
     class SprayGunPart : GunPart
     {
         private const float randomAngleOffset = 0.3f;
-        protected override float firingAngle { get { return Angle + (SRandom.NextFloat() - 0.5f) * randomAngleOffset; } }
+        protected override float FiringAngle { get { return Angle + (SRandom.NextFloat() - 0.5f) * randomAngleOffset; } }
 
         public SprayGunPart(IDs id = IDs.DEFAULT) : base(id, IDs.SPRAYBULLET)
         {
