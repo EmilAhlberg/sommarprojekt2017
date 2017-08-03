@@ -12,12 +12,12 @@ namespace SummerProject.achievements
     public class Achievement
     {
         public bool Unlocked { get; private set; }
-        private String name;
+        private string name;
         private Dictionary<int, Trait> traits;
         private Timer unlockTimer = new Timer(3);//!
         public int ID;
 
-        public Achievement(String name, Dictionary<int, Trait> traits, int id)
+        public Achievement(string name, Dictionary<int, Trait> traits, int id)
         {
             this.ID = id;
             this.name = name;

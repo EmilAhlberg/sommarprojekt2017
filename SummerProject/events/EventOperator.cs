@@ -209,21 +209,19 @@ namespace SummerProject
             switch (NewGameState)
             {
                 case EventOperator.MENU_STATE:
-                    if (GameState == EventOperator.GAME_OVER_STATE)
-                        game.ResetGame(true);
+                    game.ResetGame(true);
                     menu.CurrentMenu = MenuConstants.MAIN;
                     break;
-                case EventOperator.GAME_STATE:
+                case EventOperator.GAME_STATE: //HÄNDER EJ
                     if (GameState == EventOperator.MENU_STATE)
-                    {
-                        game.ResetGame(true);
+                    { 
+                        throw new Exception("Are you sure this should be used? Cuz it wasn't before.");
                     }
                     break;
                 case EventOperator.CUT_SCENE_STATE:
                     NewGameState = UPGRADE_STATE;
                     game.Player.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
                     break;
-
             }
             animatedHandler.AnimatedEvent = false;
             GameState = NewGameState;

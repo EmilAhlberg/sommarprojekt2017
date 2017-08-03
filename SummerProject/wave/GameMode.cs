@@ -28,6 +28,7 @@ namespace SummerProject.wave
         public int SpawnMode { get; set; }
         public bool IsChanged { get; set; }
         public static int Level { get; private set; }
+        public static int StartingLevel { get; set; }
         public bool LevelFinished { get; internal set; }
         public bool ShowUpgradeMenu { get; internal set; }
         public bool CutScene;
@@ -44,16 +45,14 @@ namespace SummerProject.wave
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
-            BetweenLevelsTimer = new Timer(4f); //!         
-            //BetweenLevelsTimer.CountDown(new GameTime());
+            BetweenLevelsTimer = new Timer(3f); //!         
         }
 
         public void Reset(bool fullReset)
         {
-            Level = 0;
+            Level = StartingLevel;
             LevelFinished = true;
             progressNow = false;
-            //ProgressGame();
             //BetweenLevelsTimer = new Timer(0);
             //BetweenLevelsTimer.Reset();
 
@@ -71,13 +70,15 @@ namespace SummerProject.wave
             //}
         }
 
-        private void ProgressGame()
+        public void ProgressGame()
         {         
             if (LevelFinished && !progressNow)
             {                
                 Level += 1;
-                CutScene = (Level % 10 == 1 && Level != 1) ? true : false;
+                CutScene = (Level % 10 == 1 && Level != 1 && Level != StartingLevel + 1);
                 //BetweenLevelsTimer = new Timer(3);
+                if (Level > Traits.LEVEL.Counter)
+                    Traits.LEVEL.Counter++;
                 BetweenLevelsTimer.Reset();
                 progressNow = true;
             } else if (LevelFinished && progressNow && BetweenLevelsTimer.IsFinished)
@@ -85,8 +86,6 @@ namespace SummerProject.wave
                 progressNow = false;
                 LevelFinished = false;
                 ShowUpgradeMenu = true;
-                if (Level > Traits.LEVEL.Counter)
-                    Traits.LEVEL.Counter++;
                 IsChanged = true;
                 UpdateLevelSettings();                
             }

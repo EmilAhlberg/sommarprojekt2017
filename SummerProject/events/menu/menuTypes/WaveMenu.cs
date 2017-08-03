@@ -7,13 +7,13 @@ using SummerProject.factories;
 
 namespace SummerProject.menu
 {
-    public class DifficultyMenu : MenuComponent
+    public class WaveMenu : MenuComponent
     {
 
-        public DifficultyMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.DIFFICULTY])
+        public WaveMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.WAVE])
         {
             pressedIndex = 0; //! Change iff default mode is changed
-
+            GameMode.StartingLevel = 0;
         }
 
         public override int HandleSelection(int currentMenu, int selectedIndex, EventOperator handler)
@@ -21,37 +21,36 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.GameMode.ChangeDifficulty(Difficulty.EASY);
-                    //handler.GameMode.IsChanged = true;
+                    GameMode.StartingLevel = 0;
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
                     if (!isLocked[selectedIndex])
                     {
-                        handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);
-                        //handler.GameMode.IsChanged = true;
+                        GameMode.StartingLevel = 10;
                         pressedIndex = selectedIndex;
                     }                   
                     break;
                 case 2:
                     if (!isLocked[selectedIndex])
                     {
-                        handler.GameMode.ChangeDifficulty(Difficulty.HARD);
-                        //handler.GameMode.IsChanged = true;
+                        GameMode.StartingLevel = 20;
                         pressedIndex = selectedIndex;
                     }
                     break;
                 case 3:
-                    return MenuConstants.WAVE;
+                    handler.NewGameState = EventOperator.UPGRADE_STATE;
+                    handler.ResetGame(true);
+                    break;
             }
             return -1;
         }
 
         public override void UpdateUnlocks(EventOperator handler)
         {
-            if (handler.achControl.Achievements[Traits.NORMAL_DIFFICULTY].Unlocked)
+            if (handler.achControl.Achievements[Traits.WAVE11].Unlocked)
                 isLocked[1] = false;
-            if (handler.achControl.Achievements[Traits.HARD_DIFFICULTY].Unlocked)
+            if (handler.achControl.Achievements[Traits.WAVE21].Unlocked)
                 isLocked[2] = false;
         }
 
