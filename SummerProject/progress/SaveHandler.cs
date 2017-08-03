@@ -70,7 +70,7 @@ namespace SummerProject.achievements
             {//! no previous save file --> no progress in game
                 for (int i = 0; i < Traits.UNLOCKABLES_CONSTANT; i++)
                 {
-                    if (data.unlocks[i]) // sub 2 is unlockables, other achievements are xBox bloat
+                    if (data.unlocks[i]) //If crash here, delete save file
                         ac.Achievements[i].AlreadyUnlocked();
                 }
                 ScoreHandler.Score = data.Score;

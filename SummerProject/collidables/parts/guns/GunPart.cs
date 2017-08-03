@@ -20,6 +20,7 @@ namespace SummerProject.collidables.parts
         protected IDs bulletID;
         protected int BulletSpeed { get; set; } = 20;
         protected int EvilBulletSpeed { get; set; } = 10;
+        protected virtual float firingAngle { get { return Angle; } }
 
         protected int bulletCap = 5;
 
@@ -57,10 +58,12 @@ namespace SummerProject.collidables.parts
         protected virtual void EditBullet()
         {
             bullet.IsEvil = IsEvil;
+            float fAngle = firingAngle; //Check SprayGunPart's firingAngle for deeper understanding of life
             if (IsEvil)
-                bullet.AddSpeed(EvilBulletSpeed, Angle);
+                bullet.AddSpeed(EvilBulletSpeed, fAngle);
             else
-                bullet.AddSpeed(BulletSpeed, Angle);
+                bullet.AddSpeed(BulletSpeed, fAngle);
+            bullet.Angle = fAngle;
         }
 
         public override void Update(GameTime gameTime)

@@ -66,8 +66,8 @@ namespace SummerProject.achievements
             Achievement hardAch = new Achievement("Hard Difficulty Unlocked", hardDifficulty, Traits.HARD_DIFFICULTY);
             //Achievement waveAch = new Achievement("Wave Mode", waveMode);
             //Achievement burstAch = new Achievement("Burst Mode", burstMode);
-            Achievement wave11Ach = new Achievement("Wave 11 Unlocked", wave11, Traits.WAVE11);
-            Achievement wave21Ach = new Achievement("Wave 21 Unlocked", wave21, Traits.WAVE21);
+            Achievement wave11Ach = new Achievement("", wave11, Traits.WAVE11);
+            Achievement wave21Ach = new Achievement("", wave21, Traits.WAVE21);
             Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
 
 
