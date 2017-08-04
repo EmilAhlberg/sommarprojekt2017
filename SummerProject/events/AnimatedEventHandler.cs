@@ -84,6 +84,8 @@ namespace SummerProject.framework
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:
+                    if (InputHandler.isJustPressed(MouseButton.LEFT))
+                        eventTimer = new Timer(0);
                     DrawStats(spriteBatch, gameTime);
                     break;
                 case EventOperator.CUT_SCENE_STATE:
