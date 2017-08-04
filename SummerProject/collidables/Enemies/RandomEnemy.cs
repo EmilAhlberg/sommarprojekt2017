@@ -61,14 +61,14 @@ namespace SummerProject.collidables.enemies
                     }
                     break;
                 case 6:
-                    p.AddPart(new EnginePart(), 0);
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
                     p.AddPart(new EnginePart(), 1);
                     p.AddPart(new EnginePart(), 2);
                     p.AddPart(new EnginePart(), 3);
                     usingWaitTimer = true;
                     break;
                 case 7:
-                    p.AddPart(new EnginePart(), 0);
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
                     p.AddPart(new EnginePart(), 1);
                     p.AddPart(new EnginePart(), 2);
                     p.AddPart(new EnginePart(), 3);
@@ -96,7 +96,7 @@ namespace SummerProject.collidables.enemies
                     break;
                 case 10:
                     usingWaitTimer = true;
-                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
+                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 50;
                     CompositePart u = new RectangularHull(IDs.BOSS1);
                     CompositePart d = new RectangularHull();
                     CompositePart l = new RectangularHull();
@@ -105,14 +105,15 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(d, 3);
                     p.AddPart(l, 2);
                     p.AddPart(r, 0);
-                    u.AddPart(new EnginePart(), 0);
-                    u.AddPart(new EnginePart(), 1);
-                    u.AddPart(new EnginePart(), 2);
-                    d.AddPart(new EnginePart(), 0);
-                    d.AddPart(new EnginePart(), 2);
-                    d.AddPart(new EnginePart(), 3);
-                    l.AddPart(new EnginePart(), 2);
-                    r.AddPart(new EnginePart(), 0);
+                    u.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
+                    u.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    u.AddPart(new EnginePart(IDs.TURBOENGINEPART), 2);
+                    d.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
+                    d.AddPart(new EnginePart(IDs.TURBOENGINEPART), 2);
+                    d.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    l.AddPart(new EnginePart(IDs.TURBOENGINEPART), 2);
+                    r.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
+                    
                     break;
                 case 11:
                     p.AddPart(new EnginePart(), 3);
@@ -185,28 +186,30 @@ namespace SummerProject.collidables.enemies
                         usingWaitTimer = true;
                     break;
                 case 20:
-                        TurnSpeed = 0.05f * (float)Math.PI;
-                        Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
-                        u = new RectangularHull();
-                        CompositePart ul = new RectangularHull(IDs.BOSS2);
-                        CompositePart ur = new RectangularHull();
-                        l = new RectangularHull();
-                        r = new RectangularHull();
-                        CompositePart ld = new RectangularHull();
-                        CompositePart rd = new RectangularHull();
-                        p.AddPart(u, 1);
-                        p.AddPart(r, 0);
-                        p.AddPart(l, 2);
-                        p.AddPart(new EnginePart(), 3);
-                        u.AddPart(ur, 0);
-                        u.AddPart(ul, 2);
-                        u.AddPart(new GunPart(), 1);
-                        ul.AddPart(new GunPart(), 1);
-                        ur.AddPart(new GunPart(), 1);
-                        l.AddPart(ld, 3);
-                        r.AddPart(rd, 3);
-                        ld.AddPart(new EnginePart(), 3);
-                        rd.AddPart(new EnginePart(), 3);
+                    TurnSpeed = 0.05f * (float)Math.PI;
+                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
+                    u = new RectangularHull();
+                    CompositePart ul = new RectangularHull(IDs.BOSS2);
+                    CompositePart ur = new RectangularHull();
+                    l = new RectangularHull();
+                    r = new RectangularHull();
+                    CompositePart ld = new RectangularHull();
+                    CompositePart rd = new RectangularHull();
+                    p.AddPart(u, 1);
+                    p.AddPart(r, 0);
+                    p.AddPart(l, 2);
+                    p.AddPart(new EnginePart(), 3);
+                    u.AddPart(ur, 0);
+                    u.AddPart(ul, 2);
+                    u.AddPart(new GunPart(), 1);
+                    ul.AddPart(new GunPart(), 1);
+                    ur.AddPart(new GunPart(), 1);
+                    l.AddPart(new GunPart(), 2);
+                    r.AddPart(new GunPart(), 0);
+                    l.AddPart(ld, 3);
+                    r.AddPart(rd, 3);
+                    ld.AddPart(new EnginePart(), 3);
+                    rd.AddPart(new EnginePart(), 3);
                     break;
                 case 21:
                     p.AddPart(new EnginePart(), 3);
