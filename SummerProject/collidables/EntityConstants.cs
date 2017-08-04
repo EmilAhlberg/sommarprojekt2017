@@ -135,6 +135,7 @@ namespace SummerProject.collidables
          new Dictionary<int, float>
          {
                 {(int)IDs.DEFAULT, 10},
+                 {(int)IDs.TURBOENGINEPART, 30f},
                 {(int)IDs.DEFAULT_BULLET, 0},
                 {(int)IDs.ENGINEPART, 10f}   // overall speed
          };

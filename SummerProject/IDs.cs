@@ -84,6 +84,7 @@ namespace SummerProject
         SLOWMOSOUND,
         REVERSESLOWMOSOUND,
         PICKUPSOUND,
+        TURBOENGINEPART,
         #endregion
     }
 }
