@@ -61,7 +61,9 @@ namespace SummerProject.framework
                 case EventOperator.MENU_STATE:
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
-                     //   string s = "Dogs Don't Judge presents..."; //!
+                        if (InputHandler.isJustPressed(MouseButton.LEFT))
+                            eventTimer = new Timer(0);
+                        //   string s = "Dogs Don't Judge presents..."; //!
                         int alphaChannel = (int)(455 * (SPLASHTIME-eventTimer.currentTime) / SPLASHTIME)-100;      
                         logo.MColor = new Color(255, 255, 255, alphaChannel);
                         logo.Draw(spriteBatch, gameTime);
@@ -83,8 +85,6 @@ namespace SummerProject.framework
                     break;
                 case EventOperator.GAME_OVER_STATE:
                     DrawStats(spriteBatch, gameTime);
-                    if (InputHandler.isJustPressed(MouseButton.LEFT))
-                        eventTimer = new Timer(0);
                     break;
                 case EventOperator.CUT_SCENE_STATE:
                     Vector2 playerTarget = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
