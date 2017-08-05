@@ -30,12 +30,7 @@ namespace SummerProject.framework
 
         public void Reset()
         {
-            ShipItem motherBoard = shipItems[0];
-            //foreach (ShipItem si in shipItems.Values)
-            //{
-            //    Traits.CURRENCY.Counter += EntityConstants.PRICE[(int)si.id];     // old reset
-            //}
-            //Traits.CURRENCY.Counter -= EntityConstants.PRICE[(int)motherBoard.id];
+            ShipItem motherBoard = shipItems[0];           
             ((RectangularHull)motherBoard.Part).ResetLinks();
             shipItems = new Dictionary<int, ShipItem>();
             shipItems.Add(0, motherBoard);
@@ -135,11 +130,12 @@ namespace SummerProject.framework
                 ShipItem pressedItem = shipItems[activeSelection];
                 RectangularHull hull = null;
                 hull = pressedItem.Hull;
-                if (pressedItem.id == IDs.RECTHULLPART)  //now redundant
-                {
-                    RemoveHull(pressedItem);
-                    FixLinkPosition(pressedItem); //!!!!!
-                }
+                // now redundant
+                //if (pressedItem.id == IDs.RECTHULLPART)  
+                //{
+                //    RemoveHull(pressedItem);
+                //    FixLinkPosition(pressedItem); //!!!!!
+                //}
 
                 if (newPart == null)
                 {
@@ -200,82 +196,6 @@ namespace SummerProject.framework
             }
         }
 
-        private void RemoveHull(ShipItem pressedItem)
-        {
-            List<ShipItem> removables = new List<ShipItem>();
-            RemoveSetup(pressedItem, removables);
-            List<ShipItem> leftOverHulls = null; 
-            foreach (ShipItem removable in removables)
-            {
-                if (!LinkToOther(removable, pressedItem))
-                {
-                  leftOverHulls = LinkToSelf(removable, pressedItem);
-                }
-            }
-            RemoveShipItems(pressedItem);
-            if (leftOverHulls != null)
-            {
-                foreach (ShipItem leftOver in leftOverHulls)
-                {
-                    RemoveShipItems(leftOver);
-                }
-            }       
-        }
-
-        private void GetDependencies(ShipItem current, List<ShipItem> dependables)
-        {
-            dependables.Add(current);
-            for (int i = 0; i < 4; i++)
-            {
-                Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top)); 
-                ShipItem newHull = HullPresent(v);
-                if (newHull != null && !dependables.Contains(newHull) && newHull.Hull == current.Part)  
-                {
-                    GetDependencies(newHull, dependables);
-                }
-            }
-        }
-
-        private List<ShipItem> LinkToSelf(ShipItem removable, ShipItem pressedItem)
-        {
-            List<ShipItem> dependables = new List<ShipItem>();
-            GetDependencies(removable, dependables);
-
-            for (int j = 0; j<dependables.Count; j++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 v = LinkPosition(i, new Vector2(dependables[j].BoundBox.Left, dependables[j].BoundBox.Top));
-                    ShipItem newHull = HullPresent(v);
-                    if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part) 
-                    {                       
-                        dependables[j].LinkPosition = i; // + 2) % 4; //!!!!!!!!!!!!!!!!!!                   
-                        return ReverseDependency(newHull, dependables[j], dependables);
-                    }
-                }
-            }
-            return null;
-        }
-
-        private List<ShipItem> ReverseDependency(ShipItem newHull, ShipItem removable, List<ShipItem> dependables)
-        {
-            do
-            {
-                ((RectangularHull)newHull.Part).AddPart(removable.Part, (removable.LinkPosition+2) %4); //! linkposition wrong?
-                removable.Hull = (RectangularHull)newHull.Part;                      //set hull to new hull            
-             
-
-                //probably all  done, --> reset
-                newHull = removable;
-                dependables.Remove(removable);
-                removable = CheckDepedency(dependables, newHull); // MAKE THIS A LIST FUNCTION? FOR MULTIPLE BRANCHES!!!
-            } while (removable != null);
-
-            FixLinkPosition(newHull);
-            return dependables;        
-         
-        }
-
         private void FixLinkPosition(ShipItem fixItem)
         {
             for (int i = 0; i<4; i++)
@@ -289,103 +209,12 @@ namespace SummerProject.framework
             }
         }
 
-        private ShipItem CheckDepedency(List<ShipItem> dependables, ShipItem hull)
-        {
-            foreach (ShipItem dependable in dependables)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 v = LinkPosition(i, new Vector2(dependable.BoundBox.Left, dependable.BoundBox.Top));
-                    ShipItem newHull = HullPresent(v);
-                    if (newHull == hull)
-                    {
-                        dependable.LinkPosition = i; //????????!!!!!!!!!!!!!!!
-                        ((RectangularHull)dependable.Part).RemovePart(newHull.Part); ////! RIGHT?
-                        return dependable;                      
-                    }
-                }               
-            }
-            return null; //all good --> done
-        }
-
-        private ShipItem GetItemFromHull(Part hull)
-        {            
-            foreach (KeyValuePair<int, ShipItem> item in shipItems)
-            {               
-                if (hull == item.Value.Part)
-                {
-                    return item.Value;
-                }
-            }
-            return null;
-        }
-
-        private bool LinkToOther(ShipItem removable, ShipItem pressedItem)
-        {
-            List<RectangularHull> hulls = ((RectangularHull)removable.Part).GetHulls();
-            for (int i = 0; i < 4; i++)
-            {              
-                Vector2 v = LinkPosition(i, new Vector2(removable.BoundBox.Left, removable.BoundBox.Top)); //
-                ShipItem s = HullPresent(v);
-                if (s != null && !hulls.Contains(s.Part) && s.Part != pressedItem.Part)                                                         
-                {
-                    AlterDependency(removable, pressedItem,(RectangularHull)s.Part, i);
-                    return true;
-                }
-            }
-           return false;
-        }
-
-        private void AlterDependency(ShipItem removable, ShipItem pressedItem, RectangularHull hull, int linkPosition)
-        {
-            ((RectangularHull)pressedItem.Part.Carrier).RemovePart(pressedItem.Part);
-            pressedItem.Hull.RemovePart(pressedItem.Part);                 //remove pressedItem from parts structure
-            hull.AddPart(removable.Part, (linkPosition + 2) % 4); //!         //add part to new hull in part structure                   
-            removable.Hull = hull;                      //set hull to new hull
-            ((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
-            removable.LinkPosition = (linkPosition + 2); //?
-        }
-
-        private void RemoveSetup(ShipItem pressedItem, List<ShipItem> removable)
-        {
-            foreach (KeyValuePair<int, ShipItem> item in shipItems)
-            {
-                if (item.Value.Hull == pressedItem.Part && item.Value.id == IDs.RECTHULLPART)
-                {
-                    removable.Add(item.Value);
-                }
-            }
-        }
-
-        private void RemoveShipItems(ShipItem pressedItem)
-        {
-            List<int> temp = new List<int>();
-            GetRemovedItems(pressedItem, temp);
-            foreach (int i in temp)
-                shipItems.Remove(i);
-        }
-
-        private void GetRemovedItems(ShipItem current, List<int> temp)
-        {           
-            foreach (KeyValuePair<int, ShipItem> item in shipItems)
-                if (item.Value.Hull == current.Part)
-                {
-                    temp.Add(item.Key);
-                    if (item.Value.Part is RectangularHull)
-                    {
-                        GetRemovedItems(item.Value, temp);
-                    }
-                }                                         
-        }
-
         private ShipItem CreateShipItem(Part part, int linkPosition, Vector2 v, RectangularHull hull)
         {
             IDs id = IDs.EMPTYPART;       
             if(part != null)
                 id = EntityConstants.TypeToID(part.GetType());          
             return new ShipItem(new Vector2(v.X, v.Y), linkPosition, hull, part, id);
-
-            //return new ShipItem(new Vector2(v.X, v.Y), part.LinkPosition, hull, part, newID);
         }
 
         private Vector2 LinkPosition(int pos, Vector2 itemPos)
@@ -409,6 +238,19 @@ namespace SummerProject.framework
         {
             UpgradeBar.Update(gameTime);
             CheckActions();
+        }
+
+        private ShipItem HullPresent(Vector2 v)
+        {
+
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            {
+                if (item.Value.BoundBox.Contains(v) && item.Value.id == IDs.RECTHULLPART)
+                {
+                    return item.Value;
+                }
+            }
+            return null;
         }
 
         private void CheckActions()
@@ -456,12 +298,136 @@ namespace SummerProject.framework
             }
             return false;
         }
-        private ShipItem HullPresent(Vector2 v)
+
+
+        internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            UpgradeBar.Draw(spriteBatch, gameTime);
+            Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 - 350);
+            Sprite popupBkg = SpriteHandler.GetSprite((int)IDs.POPUPTEXTBKG);
+            popupBkg.Scale = new Vector2(0.8f, 0.5f);
+            popupBkg.LayerDepth = 0;
+
+
+            string temp = "Upgrade your ship!";
+
+            popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2 - 55, -40 + popupBkg.SpriteRect.Height / 2);
+            popupBkg.Draw(spriteBatch, gameTime);
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, wordPos), Color.Wheat);
+            popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
+
 
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {
-                if (item.Value.BoundBox.Contains(v) && item.Value.id == IDs.RECTHULLPART)
+                item.Value.Draw(spriteBatch, gameTime);
+            }
+        }
+
+
+
+
+        /**
+         * :: Graveyard ::
+         * 
+        private void RemoveHull(ShipItem pressedItem)
+        {
+            List<ShipItem> removables = new List<ShipItem>();
+            RemoveSetup(pressedItem, removables);
+            List<ShipItem> leftOverHulls = null;
+            foreach (ShipItem removable in removables)
+            {
+                if (!LinkToOther(removable, pressedItem))
+                {
+                    leftOverHulls = LinkToSelf(removable, pressedItem);
+                }
+            }
+            RemoveShipItems(pressedItem);
+            if (leftOverHulls != null)
+            {
+                foreach (ShipItem leftOver in leftOverHulls)
+                {
+                    RemoveShipItems(leftOver);
+                }
+            }
+        }
+
+        private void GetDependencies(ShipItem current, List<ShipItem> dependables)
+        {
+            dependables.Add(current);
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 v = LinkPosition(i, new Vector2(current.BoundBox.Left, current.BoundBox.Top));
+                ShipItem newHull = HullPresent(v);
+                if (newHull != null && !dependables.Contains(newHull) && newHull.Hull == current.Part)
+                {
+                    GetDependencies(newHull, dependables);
+                }
+            }
+        }
+
+        private List<ShipItem> LinkToSelf(ShipItem removable, ShipItem pressedItem)
+        {
+            List<ShipItem> dependables = new List<ShipItem>();
+            GetDependencies(removable, dependables);
+
+            for (int j = 0; j < dependables.Count; j++)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 v = LinkPosition(i, new Vector2(dependables[j].BoundBox.Left, dependables[j].BoundBox.Top));
+                    ShipItem newHull = HullPresent(v);
+                    if (newHull != null && !dependables.Contains(newHull) && newHull.Part != pressedItem.Part)
+                    {
+                        dependables[j].LinkPosition = i; // + 2) % 4; //!!!!!!!!!!!!!!!!!!                   
+                        return ReverseDependency(newHull, dependables[j], dependables);
+                    }
+                }
+            }
+            return null;
+        }
+
+        private List<ShipItem> ReverseDependency(ShipItem newHull, ShipItem removable, List<ShipItem> dependables)
+        {
+            do
+            {
+                ((RectangularHull)newHull.Part).AddPart(removable.Part, (removable.LinkPosition + 2) % 4); //! linkposition wrong?
+                removable.Hull = (RectangularHull)newHull.Part;                      //set hull to new hull            
+
+
+                //probably all  done, --> reset
+                newHull = removable;
+                dependables.Remove(removable);
+                removable = CheckDepedency(dependables, newHull); // MAKE THIS A LIST FUNCTION? FOR MULTIPLE BRANCHES!!!
+            } while (removable != null);
+
+            FixLinkPosition(newHull);
+            return dependables;
+        }
+
+        private ShipItem CheckDepedency(List<ShipItem> dependables, ShipItem hull)
+        {
+            foreach (ShipItem dependable in dependables)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 v = LinkPosition(i, new Vector2(dependable.BoundBox.Left, dependable.BoundBox.Top));
+                    ShipItem newHull = HullPresent(v);
+                    if (newHull == hull)
+                    {
+                        dependable.LinkPosition = i; //????????!!!!!!!!!!!!!!!
+                        ((RectangularHull)dependable.Part).RemovePart(newHull.Part); ////! RIGHT?
+                        return dependable;
+                    }
+                }
+            }
+            return null; //all good --> done
+        }
+
+        private ShipItem GetItemFromHull(Part hull)
+        {
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            {
+                if (hull == item.Value.Part)
                 {
                     return item.Value;
                 }
@@ -469,30 +435,64 @@ namespace SummerProject.framework
             return null;
         }
 
-        internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        private bool LinkToOther(ShipItem removable, ShipItem pressedItem)
         {
-            UpgradeBar.Draw(spriteBatch, gameTime);
-
-            //if (GameMode.Level == 0)
-            //{
-                Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 - 350);
-                Sprite popupBkg = SpriteHandler.GetSprite((int)IDs.POPUPTEXTBKG);               
-                popupBkg.Scale = new Vector2(0.8f, 0.5f);
-                popupBkg.LayerDepth = 0;
-
-               
-                string temp = "Upgrade your ship!";
-            
-                popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2 -55, -40 + popupBkg.SpriteRect.Height / 2);
-                popupBkg.Draw(spriteBatch, gameTime);
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, wordPos), Color.Wheat);
-                popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
-            //}         
-                //slots         
-                foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            List<RectangularHull> hulls = ((RectangularHull)removable.Part).GetHulls();
+            for (int i = 0; i < 4; i++)
             {
-                item.Value.Draw(spriteBatch, gameTime);
+                Vector2 v = LinkPosition(i, new Vector2(removable.BoundBox.Left, removable.BoundBox.Top));
+                ShipItem s = HullPresent(v);
+                if (s != null && !hulls.Contains(s.Part) && s.Part != pressedItem.Part)
+                {
+                    AlterDependency(removable, pressedItem, (RectangularHull)s.Part, i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void AlterDependency(ShipItem removable, ShipItem pressedItem, RectangularHull hull, int linkPosition)
+        {
+            ((RectangularHull)pressedItem.Part.Carrier).RemovePart(pressedItem.Part);
+            pressedItem.Hull.RemovePart(pressedItem.Part);                 //remove pressedItem from parts structure
+            hull.AddPart(removable.Part, (linkPosition + 2) % 4); //!         //add part to new hull in part structure                   
+            removable.Hull = hull;                      //set hull to new hull
+            ((RectangularHull)removable.Part).Carrier = removable.Hull;    //   - | | -               parts structure
+            removable.LinkPosition = (linkPosition + 2); //?
+        }
+       
+
+        private void RemoveSetup(ShipItem pressedItem, List<ShipItem> removable)
+        {
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+            {
+                if (item.Value.Hull == pressedItem.Part && item.Value.id == IDs.RECTHULLPART)
+                {
+                    removable.Add(item.Value);
+                }
             }
         }
+
+        private void RemoveShipItems(ShipItem pressedItem)
+        {
+            List<int> temp = new List<int>();
+            GetRemovedItems(pressedItem, temp);
+            foreach (int i in temp)
+                shipItems.Remove(i);
+        }
+
+        private void GetRemovedItems(ShipItem current, List<int> temp)
+        {
+            foreach (KeyValuePair<int, ShipItem> item in shipItems)
+                if (item.Value.Hull == current.Part)
+                {
+                    temp.Add(item.Key);
+                    if (item.Value.Part is RectangularHull)
+                    {
+                        GetRemovedItems(item.Value, temp);
+                    }
+                }
+        }
+    */
     }
 }
