@@ -321,6 +321,123 @@ namespace SummerProject.collidables.enemies
                     rr.AddPart(new EnginePart(), 3);
                     break;
 
+                case 31:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 2);
+                    usingWaitTimer = true;
+                    break;
+                case 32:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 2);
+                    usingWaitTimer = true;
+                    break;
+                case 33:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 2);
+                    break;
+                case 34:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 2);
+                    break;
+                case 35:
+                    rnd = new Random();
+                    n = rnd.Next(0, 100);
+                    if (n < 50)
+                        p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    else
+                    {
+                        p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
+                        p.AddPart(new EnginePart(), 2);
+                    }
+                    if (n > 65)
+                    {
+                        p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new EnginePart(), 3);
+                        usingWaitTimer = true;
+                    }
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 1);
+                    usingWaitTimer = true;
+                    break;
+                case 36:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new SprayGunPart(IDs.DEFAULT), 2);
+                    usingWaitTimer = true;
+                    break;
+                case 37:
+                    usingWaitTimer = true;
+                    attackTimer.maxTime = 3;
+                    attackTimer.Reset();
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 1);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 0);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 2);
+                    break;
+                case 38:
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new ChargingGunPart(IDs.DEFAULT), 1);
+                    usingWaitTimer = true;
+                    break;
+                case 39:
+                    rnd = new Random();
+                    n = rnd.Next(0, 100);
+                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    if (n > 30)
+                    {
+                        usingWaitTimer = true;
+                        p.AddPart(new ChargingGunPart(), 1);
+                    }
+                    if (n > 70)
+                    {
+                        usingWaitTimer = true;
+                        p.AddPart(new SprayGunPart(), 2);
+                        p.AddPart(new SprayGunPart(), 0);
+                    }
+                    if (rnd.Next(0, 100) > 50)
+                        usingWaitTimer = true;
+                    break;
+
+                case 40:
+                    waitTimer.maxTime = 8;
+                    attackTimer.maxTime = 4;
+                    waitTimer.Reset();
+                    attackTimer.Reset();
+                    specialMove = true;
+                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
+                    u = new RectangularHull();
+                    d = new RectangularHull();
+                    l = new RectangularHull();
+                    r = new RectangularHull();
+                    CompositePart ll2 = new RectangularHull();
+                    CompositePart rr2 = new RectangularHull(IDs.BOSS4);
+                    p.AddPart(u, 1);
+                    p.AddPart(r, 0);
+                    p.AddPart(l, 2);
+                    p.AddPart(d, 3);
+                    l.AddPart(ll2, 2);
+                    r.AddPart(rr2, 0);
+                    u.AddPart(new ChargingGunPart(), 3);
+                    d.AddPart(new ChargingGunPart(), 1);
+                    l.AddPart(new ChargingGunPart(), 0);
+                    r.AddPart(new ChargingGunPart(), 2);
+                    u.AddPart(new SprayGunPart(), 1);
+                    d.AddPart(new SprayGunPart(), 3);
+                    ll2.AddPart(new GunPart(), 2);
+                    rr2.AddPart(new GunPart(), 0);
+                    ll2.AddPart(new EnginePart(), 1);
+                    ll2.AddPart(new EnginePart(), 3);
+                    rr2.AddPart(new EnginePart(), 1);
+                    rr2.AddPart(new EnginePart(), 3);
+                    break;
+
                 default:
                     rnd = new Random();
                     n = rnd.Next(0, 100);
@@ -343,6 +460,7 @@ namespace SummerProject.collidables.enemies
             Hull.TakeAction(typeof(SprayGunPart));
             Hull.TakeAction(typeof(MineGunPart));
             Hull.TakeAction(typeof(GunPart));
+            Hull.TakeAction(typeof(ChargingGunPart));
         }
 
         protected override void Wait(GameTime gameTime)
