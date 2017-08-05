@@ -12,7 +12,8 @@ namespace SummerProject.collidables.enemies
     class RandomEnemy : Attacker
     {
         bool usingWaitTimer = false;
-        bool specialMove = false;
+        int specialMove = 0;
+        const int BOSS3 = 1;
         //protected float BOSSATTACKTIME { get; set; } = 1f;
         //protected Timer bossTimer;
         //protected float BOSSMOVETIME { get; set; } = 1f;
@@ -47,7 +48,7 @@ namespace SummerProject.collidables.enemies
                     Random rnd = new Random();
                     int n = rnd.Next(0, 100);
                     if (n < 50)
-                        p.AddPart(new EnginePart(), 3); 
+                        p.AddPart(new EnginePart(), 3);
                     else
                     {
                         p.AddPart(new EnginePart(), 0);
@@ -113,7 +114,7 @@ namespace SummerProject.collidables.enemies
                     d.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
                     l.AddPart(new EnginePart(IDs.TURBOENGINEPART), 2);
                     r.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
-                    
+
                     break;
                 case 11:
                     p.AddPart(new EnginePart(), 3);
@@ -288,7 +289,7 @@ namespace SummerProject.collidables.enemies
                     attackTimer.maxTime = 6;
                     waitTimer.Reset();
                     attackTimer.Reset();
-                    specialMove = true;
+                    specialMove = BOSS3;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
                     u = new RectangularHull();
                     d = new RectangularHull();
@@ -333,7 +334,7 @@ namespace SummerProject.collidables.enemies
         {
             base.SpecificActivation(source, target);
             usingWaitTimer = false;
-            specialMove = false;
+            specialMove = 0;
             FillParts(Hull);
         }
 
@@ -346,37 +347,49 @@ namespace SummerProject.collidables.enemies
 
         protected override void Wait(GameTime gameTime)
         {
-            if (specialMove)
+            switch (specialMove)
             {
-                Hull.TakeAction(typeof(SprayGunPart));
-                Hull.TakeAction(typeof(MineGunPart));
-                Hull.TakeAction(typeof(GunPart));
+                case BOSS3:
+                    Hull.TakeAction(typeof(SprayGunPart));
+                    Hull.TakeAction(typeof(MineGunPart));
+                    Hull.TakeAction(typeof(GunPart));
+                    break;
             }
+
         }
 
         protected override void CalculateAngle()
         {
-            if (specialMove)
+            switch (specialMove)
             {
-                if(waitTimer.IsFinished)
-                    Hull.Angle += 0.1f;
-                else
-                    Hull.Angle += 0.03f;
+                case BOSS3:
+                    if (waitTimer.IsFinished)
+                        Hull.Angle += 0.1f;
+                    else
+                        Hull.Angle += 0.03f;
+                    break;
+                default:
+                    base.CalculateAngle();
+                    break;
             }
-            else
-                base.CalculateAngle();
+
         }
         public override void Move()
         {
-            if (specialMove)
+            switch (specialMove)
             {
-                if (!waitTimer.IsFinished)
-                {
-                    AddForce((player.Position-Position)/10);
-                }              
+                case BOSS3:
+                    if (!waitTimer.IsFinished)
+                    {
+                        AddForce((player.Position - Position) / 10);
+                    }
+                    break;
+                default:
+                    if (!usingWaitTimer || (!waitTimer.IsFinished && !attackTimer.IsFinished))
+                        Hull.TakeAction(typeof(EnginePart));
+                    break;
             }
-            else if (!usingWaitTimer || (!waitTimer.IsFinished && !attackTimer.IsFinished))
-                Hull.TakeAction(typeof(EnginePart));
+
         }
     }
 }
