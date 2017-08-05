@@ -410,7 +410,7 @@ namespace SummerProject.collidables.enemies
                     attackTimer.maxTime = 4;
                     waitTimer.Reset();
                     attackTimer.Reset();
-                    specialMove = true;
+                    specialMove = BOSS3;
                     Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
                     u = new RectangularHull();
                     d = new RectangularHull();
