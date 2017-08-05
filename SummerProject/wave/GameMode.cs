@@ -37,6 +37,8 @@ namespace SummerProject.wave
         private SpriteFont font;
         private Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 + 150);
         public Timer BetweenLevelsTimer;
+
+        private bool cheatProgress; //!!!
       
 
         public GameMode(SpriteFont font)
@@ -45,7 +47,7 @@ namespace SummerProject.wave
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
-            BetweenLevelsTimer = new Timer(3f); //!         
+            BetweenLevelsTimer = new Timer(3f); //!  
         }
 
         public void Reset(bool fullReset)
@@ -72,8 +74,10 @@ namespace SummerProject.wave
 
         public void ProgressGame()
         {         
-            if (LevelFinished && !progressNow)
-            {                
+
+            if ((LevelFinished && !progressNow) || cheatProgress)
+            {
+                cheatProgress = false;       
                 Level += 1;
                 CutScene = (Level % 10 == 1 && Level != 1 && Level != StartingLevel + 1);
                 //BetweenLevelsTimer = new Timer(3);
@@ -147,6 +151,8 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             IsChanged = false;
+            if (InputHandler.isJustPressed(Keys.PageUp))
+                cheatProgress = true;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
         }
