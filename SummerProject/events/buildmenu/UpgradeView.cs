@@ -20,7 +20,7 @@ namespace SummerProject.framework
     {
         private Dictionary<int, ShipItem> shipItems;
         private int activeSelection;
-        private Player player;
+        private Player player;  
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
         public bool IsModified;
