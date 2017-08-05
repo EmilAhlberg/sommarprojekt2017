@@ -64,8 +64,7 @@ namespace SummerProject.achievements
 
         public static void InitializeGame(AchievementController ac)
         {
-            SaveData data = SaveHandler.Load<SaveData>("save_file");
-            // what if save files dont exists :: this if is false?                                                           
+            SaveData data = SaveHandler.Load<SaveData>("save_file"); //!                                                                   
             if (data != null)
             {//! no previous save file --> no progress in game
                 for (int i = 0; i < Traits.UNLOCKABLES_CONSTANT; i++)

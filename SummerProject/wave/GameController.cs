@@ -22,7 +22,6 @@ namespace SummerProject
         private SpawnTimer spawnTimer;
         public Drops Drops { get; private set; }
         private DropSpawnPoints dropPoints;
-        private Timer levelTimer;
         private int spawnsThisLevel;
         private bool finishedSpawning;
         private bool isActive;
@@ -37,7 +36,6 @@ namespace SummerProject
             spawnTimer = new SpawnTimer(gameMode);  
             enemies = new Enemies(player); 
             dropPoints = new DropSpawnPoints();
-            levelTimer = new Timer(20);
         }
 
         public void Update(GameTime gameTime, bool cutScene)
@@ -148,7 +146,6 @@ namespace SummerProject
         {
             spawnsThisLevel = 0; //!
             finishedSpawning = false;
-            levelTimer.Reset();
             enemies.Reset();
             gameMode.Reset(fullReset);
             Drops.Reset();

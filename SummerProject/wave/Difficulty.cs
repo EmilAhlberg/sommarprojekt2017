@@ -28,9 +28,6 @@ namespace SummerProject.wave
         public static double DROP_RATE;
         //Enemies
         public static float ENEMY_FIRE_RATE;
-        public static float CAN_SHOOT_RISK;
-        public static float IS_SPEEDY_RISK;
-        public static float IS_ASTEROID_RISK;
         public static float ENEMY_BULLETDAMAGEFACTOR;
         public static float ENEMY_FRICTIONFACTOR;
 
@@ -38,7 +35,6 @@ namespace SummerProject.wave
         /*
          * Difficulty values: 
          */
-        // <tweakZone>
         //Timer:      
         private const float T1_DECREASINGE_EASY = 1f; // decreasing time mode spawn time
         private const float T1_DECREASING_NORMAL = 0.7f;
@@ -76,14 +72,6 @@ namespace SummerProject.wave
         private const float ENEMY_FIRE_RATE_NORMAL = 1.5f;
         private const float ENEMY_FIRE_RATE_HARD = 1f;
 
-        private const float CAN_SHOOT_RISK_EASY = 0.2f; // - i.e. 20% 'chance' of shooting enemy spawning
-        private const float CAN_SHOOT_RISK_NORMAL = 0.25f;
-        private const float CAN_SHOOT_RISK_HARD = 0.3f;
-
-        private const float IS_SPEEDY_RISK_EASY = 0.1f; // - i.e. 10% 'chance' of shuupedo enemy spawning (real risk is canshootRisk - IsSpeedyRisk)
-        private const float IS_SPEEDY_RISK_NORMAL = 0.15f;
-        private const float IS_SPEEDY_RISK_HARD = 0.2f;
-
         public static float ENEMY_BULLETDAMAGEFACTOR_EASY = 0.2f;
         public static float ENEMY_BULLETDAMAGEFACTOR_NORMAL = 0.4f;
         public static float ENEMY_BULLETDAMAGEFACTOR_HARD = 0.6f;
@@ -92,13 +80,6 @@ namespace SummerProject.wave
         public static float ENEMY_FRICTION_NORMAL = 0.5f;
         public static float ENEMY_FRICTION_HARD = 0.00001f;
 
-
-
-        //Asteroid
-        private const float IS_ASTEROID_RISK_EASY = 0.4f; 
-        private const float IS_ASTEROID_RISK_NORMAL = 0.3f;
-        private const float IS_ASTEROID_RISK_HARD = 0.2f;
-        // </tweakZone>
 
 
 
@@ -138,9 +119,7 @@ namespace SummerProject.wave
             DROP_RATE = DROP_RATE_HARD;
 
             ENEMY_FIRE_RATE = ENEMY_FIRE_RATE_HARD;
-            CAN_SHOOT_RISK = CAN_SHOOT_RISK_HARD;
-            IS_SPEEDY_RISK = IS_SPEEDY_RISK_HARD + CAN_SHOOT_RISK;
-            IS_ASTEROID_RISK = IS_ASTEROID_RISK_HARD + IS_SPEEDY_RISK;
+        
 
             ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_HARD;
             ENEMY_FRICTIONFACTOR = ENEMY_FRICTION_HARD;
@@ -160,9 +139,7 @@ namespace SummerProject.wave
             DROP_RATE = DROP_RATE_NORMAL;
 
             ENEMY_FIRE_RATE = ENEMY_FIRE_RATE_NORMAL;
-            CAN_SHOOT_RISK = CAN_SHOOT_RISK_NORMAL;
-            IS_SPEEDY_RISK = IS_SPEEDY_RISK_NORMAL + CAN_SHOOT_RISK;
-            IS_ASTEROID_RISK = IS_ASTEROID_RISK_NORMAL + IS_SPEEDY_RISK;
+       
 
             ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_NORMAL;
             ENEMY_FRICTIONFACTOR = ENEMY_FRICTION_NORMAL;
@@ -182,10 +159,6 @@ namespace SummerProject.wave
             DROP_RATE = DROP_RATE_EASY;
 
             ENEMY_FIRE_RATE = ENEMY_FIRE_RATE_EASY;
-            CAN_SHOOT_RISK = CAN_SHOOT_RISK_EASY;
-            IS_SPEEDY_RISK = IS_SPEEDY_RISK_EASY + CAN_SHOOT_RISK;
-            IS_ASTEROID_RISK = IS_ASTEROID_RISK_EASY + IS_SPEEDY_RISK;
-
             ENEMY_BULLETDAMAGEFACTOR = ENEMY_BULLETDAMAGEFACTOR_EASY;
             ENEMY_FRICTIONFACTOR = ENEMY_FRICTION_EASY;
         }

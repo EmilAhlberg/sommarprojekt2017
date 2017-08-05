@@ -55,32 +55,15 @@ namespace SummerProject.wave
             Level = StartingLevel;
             LevelFinished = true;
             progressNow = false;
-            //BetweenLevelsTimer = new Timer(0);
-            //BetweenLevelsTimer.Reset();
-
-            //if (fullReset)
-            //{
-            //    BetweenLevelsTimer.Reset();
-            //}
-            //Level = 1;
-            //UpdateLevelSettings();
-            //IsChanged = true;
-            //progressNow = false;
-            //if (fullReset)
-            //{
-            //    BetweenLevelsTimer.Reset();
-            //}
         }
 
         public void ProgressGame()
         {         
-
             if ((LevelFinished && !progressNow) || cheatProgress)
             {
                 cheatProgress = false;       
                 Level += 1;
                 CutScene = (Level % 10 == 1 && Level != 1 && Level != StartingLevel + 1);
-                //BetweenLevelsTimer = new Timer(3);
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;
                 BetweenLevelsTimer.Reset();

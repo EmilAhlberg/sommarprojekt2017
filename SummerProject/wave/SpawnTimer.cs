@@ -74,7 +74,7 @@ namespace SummerProject.wave
          *  MODES:                                                                                                                      
          *          DecreasingTimeMode: Spawn frequency is continually increased.                                                                  
          *          ConstantTimeMode: Spawn frequency is unchanged.                                                                                
-         *          BurstTimeMode: Bursts of fixed short interval spawns occurs between longer, increasing 'pause' intervals.                   
+         *          BurstTimeMode: Bursts of fixed short interval spawns occurs between longer, decreasing(?) 'pause' intervals.                   
          */
 
         //identical methods

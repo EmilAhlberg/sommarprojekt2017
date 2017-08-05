@@ -11,22 +11,16 @@ namespace SummerProject.achievements
         //Achievement constants
         public const int NORMAL_DIFFICULTY = 0;
         public const int HARD_DIFFICULTY = 1;
-        //public const int WAVE_MODE = 2;
-        //public const int BURST_MODE = 3;
         public const int WAVE11 = 2;
         public const int WAVE21 = 3;
 
-        //not unlockables that are carried from game session to other session
 
-        //public const int BOSS_SLAIN1 = 3; //lol
-        //public const int BOSS_SLAIN2 = 4;
-        //public const int BOSS_SLAIN3 = 5;
 
+        //not unlockables that are carried from game session to other session      
         public const int ELITE = 4;
 
         public const int UNLOCKABLES_CONSTANT = 4; //normal + hard difficulty and waves are unlockables carried over into other games --> constant is 4
 
-        //Thresholds
         public static readonly Dictionary<int, int> KILLTHRESHOLD =
             new Dictionary<int, int>()
             {

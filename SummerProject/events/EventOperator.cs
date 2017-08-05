@@ -124,7 +124,6 @@ namespace SummerProject
             if (NewGameState != GameState)
             {
                 float eventTime = 0;
-                //animatedHandler.Reset(); //May want to set this differently in different cases.
                 switch (NewGameState)
                 {
                     case EXIT:
@@ -211,16 +210,11 @@ namespace SummerProject
                 case EventOperator.MENU_STATE:
                     game.ResetGame(true);
                     menu.CurrentMenu = MenuConstants.MAIN;
-                    break;
-                case EventOperator.GAME_STATE: //HÄNDER EJ
-                    if (GameState == EventOperator.MENU_STATE)
-                    { 
-                        throw new Exception("Are you sure this should be used? Cuz it wasn't before.");
-                    }
-                    break;
+                    break;             
                 case EventOperator.CUT_SCENE_STATE:
                     NewGameState = UPGRADE_STATE;
-                    game.Player.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+                    game.Player.Position = new Vector2(10, WindowSize.Height / 2);
+                    //game.Player.Stop();
                     break;
             }
             animatedHandler.AnimatedEvent = false;
@@ -229,7 +223,7 @@ namespace SummerProject
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //refactor whole draw?
+            //refactor much?
             if (animatedHandler.AnimatedEvent)
                 animatedHandler.Draw(spriteBatch, gameTime);
             else
@@ -251,7 +245,6 @@ namespace SummerProject
             game.ResetGame(fullReset);
             if (fullReset)
                 UpgradeView.Reset();
-            //animatedHandler.Reset();
         }
     }
 }
