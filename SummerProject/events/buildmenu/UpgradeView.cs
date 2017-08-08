@@ -130,7 +130,7 @@ namespace SummerProject.framework
                 ShipItem pressedItem = shipItems[activeSelection];
                 RectangularHull hull = null;
                 hull = pressedItem.Hull;
-                // now redundant
+                // now redundant - graveyard functionality
                 //if (pressedItem.id == IDs.RECTHULLPART)  
                 //{
                 //    RemoveHull(pressedItem);

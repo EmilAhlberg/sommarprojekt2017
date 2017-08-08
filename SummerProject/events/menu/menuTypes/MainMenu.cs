@@ -17,10 +17,7 @@ namespace SummerProject.menu
                 case 0:              
                     return MenuConstants.DIFFICULTY;
                 case 1:
-                    handler.NewGameState = EventOperator.EXIT;
-                    //achievements.SaveHandler s1 = new achievements.SaveHandler();
-                    //achievements.SaveData d1 = new achievements.SaveData();
-                    //s1.Save(d1, "save_file");
+                    handler.NewGameState = EventOperator.EXIT;                   
                     break;
             }
             return -1;

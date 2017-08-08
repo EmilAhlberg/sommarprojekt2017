@@ -14,8 +14,6 @@ namespace SummerProject.achievements
         public const int WAVE11 = 2;
         public const int WAVE21 = 3;
 
-
-
         //not unlockables that are carried from game session to other session      
         public const int ELITE = 4;
 

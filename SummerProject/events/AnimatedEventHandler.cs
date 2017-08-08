@@ -67,6 +67,7 @@ namespace SummerProject.framework
             switch (op.NewGameState)
             {
                 case EventOperator.MENU_STATE:
+                    #region SplashScreen 
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
@@ -77,6 +78,8 @@ namespace SummerProject.framework
                         logo.Draw(spriteBatch, gameTime);
                      //   spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
                     }
+                    #endregion
+                    #region GiveUp
                     else
                     {
                         op.ResetGame(false);
@@ -84,31 +87,36 @@ namespace SummerProject.framework
                         game.DrawGame(spriteBatch, gameTime, false);
                         string s = "Mediocre!"; //!
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
-                    }                              
+                    }
+                    #endregion
                     break;
                 case EventOperator.GAME_STATE:
-                    //op.ResetGame(true);
+                    #region CountDown
                     game.DrawGame(spriteBatch, gameTime, false);
                     DrawCountDown(spriteBatch, gameTime);
+                       #endregion
                     break;
                 case EventOperator.GAME_OVER_STATE:
+                    #region GameOver Animation
                     if (eventTimer.currentTime > STATSTIME)
                     {
                         game.UpdateGame(gameTime, false);
                         game.DrawGame(spriteBatch, gameTime, false);
                         Vector2 shitvect = new Vector2(WindowSize.Width / 2 - font.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - font.MeasureString("GAME OVER").Y / 2);      //previously bigFont in Game1        
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, "GAME OVER", shitvect, Color.OrangeRed);
-                        //game.ResetGame(false);
                     }
+                    #endregion
+                    #region DrawStats
                     else
                     {
                         DrawStats(spriteBatch, gameTime);
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
                             eventTimer = new Timer(0);
                     }
-                    //DrawStats(spriteBatch, gameTime);
+                    #endregion
                     break;
-                case EventOperator.CUT_SCENE_STATE:                 
+                case EventOperator.CUT_SCENE_STATE:
+                    #region Cutscenes
                     switch (op.CutSceneType)
                     {                       
                         case 1:
@@ -118,13 +126,17 @@ namespace SummerProject.framework
                             BossAppearanceScene(spriteBatch, gameTime);     
                             break;
                     }
+                    #endregion
                     break;                  
             }
         }
 
+        /*
+         * Specific animation/text-drawing methods below.
+         */
+
         private void BossAppearanceScene(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            
+        {            
             float dX = 0;
             float slideTime = 1.5f;
             float slideSpeed = 1.5f;
@@ -201,7 +213,7 @@ namespace SummerProject.framework
                 float time = ((int)eventTimer.currentTime) % 2;
                 if (i == 0)
                     c = Color.DarkRed;
-                if (i == STATS.Length -1 &&  time % 2 == 1)
+                else if (i == STATS.Length -1 &&  time % 2 == 1)
                     c = Color.OrangeRed;
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, STATS[i], location,c, 0, font.MeasureString(STATS[i]) / 2, 1);
                 location.Y += font.LineSpacing;
