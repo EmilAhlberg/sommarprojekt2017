@@ -42,8 +42,8 @@ namespace SummerProject.achievements
             hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KILLS);
             hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.SCORE);
 
-            Dictionary<int, Trait> eliteRank = new Dictionary<int, Trait>();
-            eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
+            //Dictionary<int, Trait> eliteRank = new Dictionary<int, Trait>();
+            //eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
           
             Dictionary<int, Trait> wave11 = new Dictionary<int, Trait>();
             wave11.Add(1, Traits.LEVEL);
@@ -51,12 +51,20 @@ namespace SummerProject.achievements
             Dictionary<int, Trait> wave21 = new Dictionary<int, Trait>();
             wave21.Add(1, Traits.LEVEL);
 
+            Dictionary<int, Trait> wave31 = new Dictionary<int, Trait>();
+            wave31.Add(1, Traits.LEVEL);
+
+            Dictionary<int, Trait> wave41 = new Dictionary<int, Trait>();
+            wave41.Add(1, Traits.LEVEL);
+
 
             Achievement normalAch = new Achievement("Normal Difficulty Unlocked", normalDifficulty,Traits.NORMAL_DIFFICULTY);
             Achievement hardAch = new Achievement("Hard Difficulty Unlocked", hardDifficulty, Traits.HARD_DIFFICULTY);        
             Achievement wave11Ach = new Achievement("", wave11, Traits.WAVE11);
             Achievement wave21Ach = new Achievement("", wave21, Traits.WAVE21);
-            Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
+            Achievement wave31Ach = new Achievement("", wave31, Traits.WAVE31);
+            Achievement wave41Ach = new Achievement("", wave41, Traits.WAVE41);
+            //Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
 
            
 
@@ -64,7 +72,7 @@ namespace SummerProject.achievements
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);    //Nooooo no work out of order...
             Achievements.Insert(Traits.WAVE11, wave11Ach);
             Achievements.Insert(Traits.WAVE21, wave21Ach);
-            Achievements.Insert(Traits.ELITE, eliteAch);          
+            //Achievements.Insert(Traits.ELITE, eliteAch);          
         }
 
         public void Update(GameTime gameTime)

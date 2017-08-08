@@ -14,6 +14,7 @@ namespace SummerProject.collidables.enemies
         bool usingWaitTimer = false;
         int specialMove = 0;
         const int BOSS3 = 1;
+        const int PIRATOS = 2;
         //protected float BOSSATTACKTIME { get; set; } = 1f;
         //protected Timer bossTimer;
         //protected float BOSSMOVETIME { get; set; } = 1f;
@@ -437,7 +438,32 @@ namespace SummerProject.collidables.enemies
                     rr2.AddPart(new EnginePart(), 1);
                     rr2.AddPart(new EnginePart(), 3);
                     break;
-
+                case 41: //FUCKING PIRATES DUDE
+                    RectangularHull h1 = new RectangularHull();
+                    RectangularHull h2 = new RectangularHull();
+                    RectangularHull h3 = new RectangularHull();
+                    RectangularHull h4 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h2.AddPart(h3, 1);
+                    h1.AddPart(h4, 3);
+                    h4.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    h3.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    h3.AddPart(new GunPart(), 0);
+                    h3.AddPart(new GunPart(), 2);
+                    h4.AddPart(new GunPart(), 0);
+                    h4.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
                 default:
                     rnd = new Random();
                     n = rnd.Next(0, 100);
@@ -457,16 +483,23 @@ namespace SummerProject.collidables.enemies
 
         protected override void Attack(GameTime gameTime)
         {
-            Hull.TakeAction(typeof(SprayGunPart));
-            Hull.TakeAction(typeof(MineGunPart));
-            Hull.TakeAction(typeof(GunPart));
-            Hull.TakeAction(typeof(ChargingGunPart));
+            switch (specialMove)
+            {
+                default:
+                    Hull.TakeAction(typeof(SprayGunPart));
+                    Hull.TakeAction(typeof(MineGunPart));
+                    Hull.TakeAction(typeof(GunPart));
+                    Hull.TakeAction(typeof(ChargingGunPart));
+                    break;
+            }
         }
 
         protected override void Wait(GameTime gameTime)
         {
             switch (specialMove)
             {
+                case PIRATOS:
+                    break;
                 case BOSS3:
                     Hull.TakeAction(typeof(SprayGunPart));
                     Hull.TakeAction(typeof(MineGunPart));
@@ -480,6 +513,21 @@ namespace SummerProject.collidables.enemies
         {
             switch (specialMove)
             {
+                case PIRATOS:
+                    Vector2 distVect = Position - player.Position;
+                    if (distVect.Length() < 500)
+                    {
+                        distVect = Vector2.Transform(distVect, Matrix.CreateRotationZ((float)Math.PI / 2));
+                        base.CalculateAngle(distVect.X, distVect.Y);
+                        attackTimer.Reset();
+                        Hull.Velocity /= 1.5f; //SlowDOWN
+                    }
+                    else
+                    {
+                        waitTimer.Reset();
+                        base.CalculateAngle();
+                    }
+                    break;
                 case BOSS3:
                     if (waitTimer.IsFinished)
                         Hull.Angle += 0.1f;
@@ -490,8 +538,8 @@ namespace SummerProject.collidables.enemies
                     base.CalculateAngle();
                     break;
             }
-
         }
+
         public override void Move()
         {
             switch (specialMove)
