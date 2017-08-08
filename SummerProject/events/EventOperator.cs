@@ -79,7 +79,8 @@ namespace SummerProject
                         SoundHandler.PlaySong((int)IDs.SONG2);
                         break;
                     case CUT_SCENE_STATE:
-                        SoundHandler.PlaySong((int)IDs.VICTORY);
+                        if (CutSceneType == AnimatedEventHandler.BOSSFINISHED_TYPE)
+                            SoundHandler.PlaySong((int)IDs.VICTORY);
                         break;
                     case SPLASH_SCREEN_STATE:
                         break;
@@ -90,6 +91,8 @@ namespace SummerProject
 
         public AchievementController achControl { get; private set; }
         public GameMode GameMode { get; private set; }
+        public int CutSceneType { get; internal set; }
+
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
         public UpgradeView UpgradeView;
@@ -146,9 +149,10 @@ namespace SummerProject
                         }
                         break;
                     case GAME_OVER_STATE:
-                        eventTime = AnimatedEventHandler.STATSTIME;
+                        eventTime = AnimatedEventHandler.DEATHTIME + AnimatedEventHandler.STATSTIME;
+                        //eventTime = AnimatedEventHandler.STATSTIME;
                         animatedHandler.AnimatedEvent = true;
-                        GameState = NewGameState;
+                        //GameState = NewGameState;
                         break;
                     case PAUSE_STATE:
                         GameState = NewGameState;
@@ -157,7 +161,10 @@ namespace SummerProject
                         GameState = NewGameState;
                         break;
                     case CUT_SCENE_STATE:
-                        eventTime = AnimatedEventHandler.CUTSCENE;
+                        if (CutSceneType == AnimatedEventHandler.BOSSFINISHED_TYPE)
+                            eventTime = AnimatedEventHandler.BOSSFINISHED_TIME;
+                        else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)
+                            eventTime = AnimatedEventHandler.BOSSAPPEARANCE_TIME;
                         animatedHandler.AnimatedEvent = true;
                         break;
                 }
@@ -212,9 +219,15 @@ namespace SummerProject
                     menu.CurrentMenu = MenuConstants.MAIN;
                     break;             
                 case EventOperator.CUT_SCENE_STATE:
-                    NewGameState = UPGRADE_STATE;
-                    game.Player.Position = new Vector2(10, WindowSize.Height / 2);
-                    //game.Player.Stop();
+                    if (CutSceneType == AnimatedEventHandler.BOSSFINISHED_TYPE)
+                    {
+                        NewGameState = UPGRADE_STATE;
+                        game.Player.Position = new Vector2(10, WindowSize.Height / 2);
+                        //game.Player.Stop();
+                    } else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)
+                    {
+                        NewGameState = GAME_STATE;
+                    }
                     break;
             }
             animatedHandler.AnimatedEvent = false;
@@ -232,14 +245,13 @@ namespace SummerProject
                     game.DrawGame(spriteBatch, gameTime, false);
 
                 if (GameState == UPGRADE_STATE)
-                    UpgradeView.Draw(spriteBatch, gameTime);
-              
+                    UpgradeView.Draw(spriteBatch, gameTime);             
 
-                if (!animatedHandler.AnimatedEvent && NewGameState != CUT_SCENE_STATE)             
-                  menu.Draw(spriteBatch, gameTime);                      
+                if (!animatedHandler.AnimatedEvent && NewGameState != CUT_SCENE_STATE && NewGameState != GAME_OVER_STATE || (NewGameState == GAME_OVER_STATE && NewGameState == GameState)) //removes all cases of 1 frame menu flimmer            
+                    menu.Draw(spriteBatch, gameTime);                      
             }
-        }     
-         
+        }
+
         public void ResetGame(bool fullReset)
         {
             game.ResetGame(fullReset);

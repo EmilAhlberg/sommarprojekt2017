@@ -10,25 +10,32 @@ using SummerProject.achievements;
 using SummerProject.wave;
 using SummerProject.factories;
 using Microsoft.Xna.Framework.Input;
+using SummerProject.events;
 
 namespace SummerProject.framework
 {
     class AnimatedEventHandler
     {
         public bool AnimatedEvent { get; set; }
+        public const int BOSSFINISHED_TYPE = 1;
+        public const int BOSSAPPEARANCE_TYPE = 2;
         
 
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float COUNTDOWNTIME = 2f;
         public const float STATSTIME = 100f;
         public const float SPLASHTIME = 9.665f; //Length of intro theme
-        public const float CUTSCENE = 10.1f; //Length of victory theme
+        public const float BOSSFINISHED_TIME = 10.1f; //Length of victory theme
+        public const float BOSSAPPEARANCE_TIME = 7;
+        public const float DEATHTIME = 3f;       
         public Timer eventTimer;
+
+        private BossAppearance boss;
         private Game1 game;
         private EventOperator op;
         private SpriteFont font;
         private GameMode gameMode;
-        Sprite logo;
+        private Sprite logo;
 
         public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font, GameMode gameMode)
         {
@@ -36,6 +43,7 @@ namespace SummerProject.framework
             this.game = game;
             this.op = op;
             this.font = font;
+            boss = new BossAppearance();
             eventTimer = new Timer(COUNTDOWNTIME);
             logo = SpriteHandler.GetSprite((int)IDs.LOGO);
             logo.Position = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
@@ -63,7 +71,7 @@ namespace SummerProject.framework
                     {
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
                             eventTimer = new Timer(0);
-                        //   string s = "Dogs Don't Judge presents..."; //!
+                        
                         int alphaChannel = (int)(455 * (SPLASHTIME-eventTimer.currentTime) / SPLASHTIME)-100;      
                         logo.MColor = new Color(255, 255, 255, alphaChannel);
                         logo.Draw(spriteBatch, gameTime);
@@ -84,33 +92,85 @@ namespace SummerProject.framework
                     DrawCountDown(spriteBatch, gameTime);
                     break;
                 case EventOperator.GAME_OVER_STATE:
-                    if (InputHandler.isJustPressed(MouseButton.LEFT))
-                        eventTimer = new Timer(0);
-                    DrawStats(spriteBatch, gameTime);
-                    break;
-                case EventOperator.CUT_SCENE_STATE:
-                    Vector2 playerTarget = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
-                    bool cutScene;
-                    if (eventTimer.currentTime > CUTSCENE-5) //!
+                    if (eventTimer.currentTime > STATSTIME)
                     {
-                        cutScene = false;                   
-                        BossFinishedMessage(spriteBatch);
-                        //kills drops and asteroids here?
+                        game.UpdateGame(gameTime, false);
+                        game.DrawGame(spriteBatch, gameTime, false);
+                        Vector2 shitvect = new Vector2(WindowSize.Width / 2 - font.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - font.MeasureString("GAME OVER").Y / 2);      //previously bigFont in Game1        
+                        spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, "GAME OVER", shitvect, Color.OrangeRed);
+                        //game.ResetGame(false);
                     }
                     else
                     {
-                        cutScene = true;
-                        if (eventTimer.currentTime < CUTSCENE - 6) //!
-                        { //!
-                            playerTarget = new Vector2(10000, WindowSize.Height / 2);
-                            game.Player.AddForce(10, 0); //!
-                        }
-                        game.Player.MoveTowardsPoint(playerTarget);                        
+                        DrawStats(spriteBatch, gameTime);
+                        if (InputHandler.isJustPressed(MouseButton.LEFT))
+                            eventTimer = new Timer(0);
                     }
-                    game.UpdateGame(gameTime, cutScene); 
-                    game.DrawGame(spriteBatch, gameTime, false);
+                    //DrawStats(spriteBatch, gameTime);
                     break;
+                case EventOperator.CUT_SCENE_STATE:                 
+                    switch (op.CutSceneType)
+                    {                       
+                        case 1:
+                            BossFinishedScene(spriteBatch, gameTime);
+                            break;
+                        case 2:
+                            BossAppearanceScene(spriteBatch, gameTime);     
+                            break;
+                    }
+                    break;                  
             }
+        }
+
+        private void BossAppearanceScene(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            
+            float dX = 0;
+            float slideTime = 1.5f;
+            float slideSpeed = 1.5f;
+
+            if (eventTimer.currentTime > BOSSAPPEARANCE_TIME - slideTime)
+                dX = slideSpeed;
+            else if (eventTimer.currentTime < slideTime + 0.5f)
+                dX = -slideSpeed;
+
+            //temp
+            if (dX == 0)
+            {                
+                Vector2 shitvect = new Vector2(WindowSize.Width / 2 - font.MeasureString("RABBLE RABBLE").X / 2, WindowSize.Height / 2 - font.MeasureString("RABBLE RABBLE").Y / 2);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, "RABBLE RABBLE", shitvect, Color.OrangeRed);
+            }        
+
+            boss.Update(gameTime, dX);
+
+            game.Player.Update(gameTime);
+            game.UpdateGame(gameTime, true);
+            game.DrawGame(spriteBatch, gameTime, false);
+            boss.Draw(spriteBatch, gameTime); //happens after drawGame!
+        }
+
+        private void BossFinishedScene(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            Vector2 playerTarget = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2);
+            bool cutScene;
+            if (eventTimer.currentTime > BOSSFINISHED_TIME - 5) //!
+            {
+                cutScene = false;
+                BossFinishedMessage(spriteBatch);
+                //kills drops and asteroids here?
+            }
+            else
+            {
+                cutScene = true;
+                if (eventTimer.currentTime < BOSSFINISHED_TIME - 6) //!
+                { //!
+                    playerTarget = new Vector2(10000, WindowSize.Height / 2);
+                    game.Player.AddForce(10, 0); //!
+                }
+                game.Player.MoveTowardsPoint(playerTarget);
+            }
+            game.UpdateGame(gameTime, cutScene);
+            game.DrawGame(spriteBatch, gameTime, false);          
         }
 
         private void BossFinishedMessage(SpriteBatch spriteBatch)

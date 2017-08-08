@@ -12,7 +12,7 @@ namespace SummerProject.wave
         private GameMode gameMode;
         private int spawnSize;       
         private int mapOffset = -100; //!       
-        private int diagonalSpacing = 40; //!
+        private int diagonalSpacing = 60; //! prev. 40
         private Vector2[] tempPoints;
         private int burstIndex;
 

@@ -29,8 +29,7 @@ namespace SummerProject
         SpriteBatch spriteBatch;
         EventOperator eventOperator;
         public Player Player;
-        Wall wall;
-        Timer deathTimer;
+        //Wall wall;
         GameController gameController;    
         Projectiles projectiles;
         Background background;
@@ -40,8 +39,7 @@ namespace SummerProject
         Drops drops;
         GameMode gameMode;
         AchievementController achController;
-        const bool SPAWN_ENEMIES = true;
-        bool slowmo = false;
+        const bool slowmo = false;
 
         public Game1()
         {
@@ -68,7 +66,6 @@ namespace SummerProject
             // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
             //Mouse.SetCursor(MouseCursor.Crosshair);  
-            deathTimer = new Timer(3); //!
             base.Initialize();
         }
 
@@ -245,7 +242,7 @@ namespace SummerProject
             drops = new Drops(WindowSize.Width, WindowSize.Height);
             gameController = new GameController(Player, drops, gameMode);
             colhandl = new CollisionHandler();
-            wall = new Wall(new Vector2(-4000, -4000)); //! wall location
+            //wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5, scoreFont); //! LOL
             energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, Player.maxEnergy, scoreFont);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
@@ -293,18 +290,15 @@ namespace SummerProject
         {
             #region Update for game state
             Player.Update(gameTime, cutScene);
-           
-            //{
-                if (SPAWN_ENEMIES)
-                    gameController.Update(gameTime, cutScene);
-                projectiles.Update(gameTime);
-                HandleAllCollisions();
-                if (!cutScene)
-                    KeepPlayerInScreen();
-                healthBar.Update(Player.Health, Player.maxHealth);
-                energyBar.Update(Player.Energy, Player.maxEnergy);
-                Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //}
+            gameController.Update(gameTime, cutScene);
+            projectiles.Update(gameTime);
+            HandleAllCollisions();
+            if (!cutScene)
+                KeepPlayerInScreen();
+            healthBar.Update(Player.Health, Player.maxHealth);
+            energyBar.Update(Player.Energy, Player.maxEnergy);
+            Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             #endregion
         }
 
@@ -314,13 +308,8 @@ namespace SummerProject
             if (!Player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 ResetGame(false);
-                deathTimer.CountDown(gameTime);
-                SoundHandler.PauseSong(); //! deathTimer INTE OK! Ska vara egen state eller använda sig av GAME_OVER_STATE.
-                if (deathTimer.IsFinished)
-                {
-                    eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
-                    deathTimer.Reset();
-                }
+                eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
+                SoundHandler.PauseSong(); //rätt?
             }
             #endregion
             #region Pause
@@ -329,16 +318,17 @@ namespace SummerProject
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
             #endregion
-            //#region Upgrade Ship
+           #region Upgrade Ship
             //if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
             //{
             //    eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               
             //}
-            //#endregion
+            #endregion
             #region Cut Scene
             if (gameMode.CutScene)
             {
-                eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;
+                eventOperator.CutSceneType = GameMode.Level % 10;
+                eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;               
                 gameMode.CutScene = false;
             }
             #endregion
@@ -386,7 +376,7 @@ namespace SummerProject
                 spriteBatch.End();
             }
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
-            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE)
+            if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE && eventOperator.NewGameState != EventOperator.GAME_OVER_STATE)
             {
                 #region Draw for GameState
                 DrawGame(spriteBatch, gameTime, true);
@@ -394,10 +384,7 @@ namespace SummerProject
 
                 #region DrawString
                 spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);
-                Vector2 shitvect = new Vector2(WindowSize.Width / 2 - bigFont.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - bigFont.MeasureString("GAME OVER").Y / 2);
-                if (!Player.IsActive)
-                    spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),bigFont, "GAME OVER", shitvect, Color.OrangeRed);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);                
                 #endregion
 
                 #endregion
@@ -422,7 +409,7 @@ namespace SummerProject
             Particles.Draw(spriteBatch, gameTime);
             projectiles.Draw(spriteBatch, gameTime);
             Player.Draw(spriteBatch, gameTime);
-            wall.Draw(spriteBatch, gameTime);
+            //wall.Draw(spriteBatch, gameTime);
             gameController.Draw(spriteBatch, gameTime, fullDraw);
             #endregion
         }

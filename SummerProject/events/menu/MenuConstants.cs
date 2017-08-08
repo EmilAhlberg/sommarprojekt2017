@@ -21,7 +21,7 @@ namespace SummerProject.menu
                 {GAME_OVER, new string[] { "Play Again", "Main Menu" }},
                 {PAUSE, new string[] {"Resume", "GIVE UP!" }},
                 {UPGRADE, new string[] {"Continue", "Reset Ship"}},
-                {DIFFICULTY, new string[] {"Easy","Normal","Hard","Next"} },
+                {DIFFICULTY, new string[] {"Normal","Hard","Insane","Next"} },
                 {WAVE, new string[] {"Wave 1","Wave 11","Wave 21","PLAY!"} }
             };
               

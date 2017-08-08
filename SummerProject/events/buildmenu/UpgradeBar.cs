@@ -29,7 +29,6 @@ namespace SummerProject.events.buildmenu
         private Sprite upgradeBarBkg;
         private Sprite outlineBkg;
         private Sprite screenBkg;
-        private bool screenBkgMoved;
         private Sprite followMouseSprite;
         private UpgradeBarItem selectedBarItem;
         #region Bar item positioning
