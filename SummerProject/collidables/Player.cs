@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using SummerProject.collidables.parts;
 using SummerProject.achievements;
 using SummerProject.collidables.parts.guns;
+using SummerProject.collidables.bullets;
 
 namespace SummerProject.collidables
 {
@@ -199,6 +200,10 @@ namespace SummerProject.collidables
             {
                 Enemy e = c2 as Enemy;
                 e.Health -= Damage;
+            }
+            else if (c2 is ChargingBullet)
+            {
+
             }
             else if (c2 is Entity)
             {
