@@ -13,9 +13,9 @@ namespace SummerProject.collidables.parts
     {
         private bool charging;
         private bool buttonReleased;
-        private  float maxDamageScale = 12; // damage = maxDamageScale * initialDamage
+        private  float maxDamageScale = 60; // damage = maxDamageScale * initialDamage
         private const float maxScale = 5f;
-        private const float initialDamage = 0.5f;
+        private const float initialDamage = 0.1f;
         private Timer chargeTimer;
         public ChargingGunPart(IDs id = IDs.DEFAULT) : base(id, IDs.CHARGINGBULLET)
         {

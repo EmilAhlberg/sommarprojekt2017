@@ -57,9 +57,9 @@ namespace SummerProject.collidables.Enemies
 
         protected override void HandleCollision(ICollidable c2)
         {
-            if (c2 is Bullet)
+            if (c2 is Projectile)
             {
-                Bullet b2 = c2 as Bullet;
+                Projectile b2 = c2 as Projectile;
                 float speedPerHit;
                 if (b2 is SprayBullet)
                     speedPerHit = 0.5f;

@@ -179,7 +179,7 @@ namespace SummerProject.collidables
                 {(int)IDs.EMPTYPART, 0},
                 {(int)IDs.SPRAYGUNPART, 12000},
                 {(int)IDs.MINEGUNPART, 20000},
-                {(int)IDs.CHARGINGGUNPART, 15000},
+                {(int)IDs.CHARGINGGUNPART, 40000},
                 {(int)IDs.GRAVITYGUNPART, 30000},
                 {(int)IDs.RECTHULLPART, 8000},
                 {(int)IDs.ENGINEPART, 14000},

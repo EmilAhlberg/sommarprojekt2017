@@ -7,6 +7,7 @@ using SummerProject.factories;
 using SummerProject.wave;
 using SummerProject.achievements;
 using SummerProject.collidables.Enemies;
+using SummerProject.collidables.bullets;
 
 namespace SummerProject
 {
@@ -81,6 +82,9 @@ namespace SummerProject
                     Death();
                 }
             }
+            else if (c2 is ChargingBullet)
+            {
+                    }
             else if (c2 is Entity)
             {
                 Entity e = c2 as Entity;
