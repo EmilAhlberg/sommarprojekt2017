@@ -39,7 +39,7 @@ namespace SummerProject.collidables.Enemies
             base.CalculateAngle();
             spriteRotSpeed = 0.05f * SRandom.NextFloat();
             Angle += randomAngleOffsetMultiplier * SRandom.NextFloat();
-            friction = 0;
+            friction = 0f;
             AddSpeed(5, Angle);
         }
 
@@ -53,6 +53,21 @@ namespace SummerProject.collidables.Enemies
         }
         public override void Move()
         {
+        }
+
+        protected override void HandleCollision(ICollidable c2)
+        {
+            if (c2 is Bullet)
+            {
+                Bullet b2 = c2 as Bullet;
+                float speedPerHit;
+                if (b2 is SprayBullet)
+                    speedPerHit = 0.5f;
+                else
+                    speedPerHit = 2f;
+                AddSpeed(speedPerHit, b2.Angle);
+            }
+            base.HandleCollision(c2);
         }
     }
 }
