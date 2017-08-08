@@ -50,7 +50,7 @@ namespace SummerProject.achievements
                 if (trait.CheckCondition(i))
                 {
                     unlocked = true;
-                    traits.Remove(i); //remove trait to avoid redundant checks?  i tink så
+                    traits.Remove(i);
                 }
                 else
                 {

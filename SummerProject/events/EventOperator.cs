@@ -136,22 +136,15 @@ namespace SummerProject
                         animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
-                        if (GameState == SPLASH_SCREEN_STATE)
-                        {
-                            eventTime = AnimatedEventHandler.SPLASHTIME;
-                            animatedHandler.AnimatedEvent = true;
-                        }
-                        else
-                        {
+                        if (GameState == SPLASH_SCREEN_STATE)                        
+                            eventTime = AnimatedEventHandler.SPLASHTIME;                         
+                        else                        
                             eventTime = AnimatedEventHandler.COUNTDOWNTIME;
-                            animatedHandler.AnimatedEvent = true;
-                        }
+                        animatedHandler.AnimatedEvent = true;                        
                         break;
                     case GAME_OVER_STATE:
-                        eventTime = AnimatedEventHandler.DEATHTIME + AnimatedEventHandler.STATSTIME;
-                        //eventTime = AnimatedEventHandler.STATSTIME;
-                        animatedHandler.AnimatedEvent = true;
-                        //GameState = NewGameState;
+                        eventTime = AnimatedEventHandler.DEATHTIME + AnimatedEventHandler.STATSTIME;                    
+                        animatedHandler.AnimatedEvent = true;                      
                         break;
                     case PAUSE_STATE:
                         GameState = NewGameState;
@@ -223,10 +216,8 @@ namespace SummerProject
                         NewGameState = UPGRADE_STATE;
                         game.Player.Position = new Vector2(10, WindowSize.Height / 2);
                         //game.Player.Stop();
-                    } else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)
-                    {
-                        NewGameState = GAME_STATE;
-                    }
+                    } else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)                    
+                        NewGameState = GAME_STATE;                    
                     break;
             }
             animatedHandler.AnimatedEvent = false;

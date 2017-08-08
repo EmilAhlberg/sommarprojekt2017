@@ -52,7 +52,6 @@ namespace SummerProject
             enemies.Update(gameTime);
         }
 
-        // wave progression stuff
         private void ProgressGame(GameTime gameTime)
         {
             int numberOfSpawns = NumberOfSpawns();           

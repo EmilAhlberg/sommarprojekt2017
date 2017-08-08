@@ -21,23 +21,20 @@ namespace SummerProject.menu
             switch (selectedIndex)
             {
                 case 0:
-                    handler.GameMode.ChangeDifficulty(Difficulty.EASY);
-                    //handler.GameMode.IsChanged = true;
+                    handler.GameMode.ChangeDifficulty(Difficulty.EASY);                   
                     pressedIndex = selectedIndex;
                     break;
                 case 1:
                     if (!isLocked[selectedIndex])
                     {
-                        handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);
-                        //handler.GameMode.IsChanged = true;
+                        handler.GameMode.ChangeDifficulty(Difficulty.NORMAL);                        
                         pressedIndex = selectedIndex;
                     }                   
                     break;
                 case 2:
                     if (!isLocked[selectedIndex])
                     {
-                        handler.GameMode.ChangeDifficulty(Difficulty.HARD);
-                        //handler.GameMode.IsChanged = true;
+                        handler.GameMode.ChangeDifficulty(Difficulty.HARD);                       
                         pressedIndex = selectedIndex;
                     }
                     break;

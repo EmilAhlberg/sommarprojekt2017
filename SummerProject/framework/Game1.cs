@@ -318,7 +318,7 @@ namespace SummerProject
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
             #endregion
-           #region Upgrade Ship
+            #region Upgrade Ship
             //if (InputHandler.isJustPressed(Keys.M) && eventOperator.GameState == EventOperator.GAME_STATE)
             //{
             //    eventOperator.NewGameState = EventOperator.UPGRADE_STATE;               

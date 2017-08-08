@@ -23,7 +23,7 @@ namespace SummerProject.framework
 
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float COUNTDOWNTIME = 2f;
-        public const float STATSTIME = 100f;
+        public const float STATSTIME = 1000f;
         public const float SPLASHTIME = 9.665f; //Length of intro theme
         public const float BOSSFINISHED_TIME = 10.1f; //Length of victory theme
         public const float BOSSAPPEARANCE_TIME = 7;
@@ -67,6 +67,7 @@ namespace SummerProject.framework
             switch (op.NewGameState)
             {
                 case EventOperator.MENU_STATE:
+                    #region SplashScreen 
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
@@ -77,6 +78,8 @@ namespace SummerProject.framework
                         logo.Draw(spriteBatch, gameTime);
                      //   spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
                     }
+                    #endregion
+                    #region GiveUp
                     else
                     {
                         op.ResetGame(false);
@@ -84,22 +87,26 @@ namespace SummerProject.framework
                         game.DrawGame(spriteBatch, gameTime, false);
                         string s = "Mediocre!"; //!
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font), Color.Gold);
-                    }                              
+                    }
+                    #endregion
                     break;
                 case EventOperator.GAME_STATE:
-                    //op.ResetGame(true);
+                    #region CountDown
                     game.DrawGame(spriteBatch, gameTime, false);
                     DrawCountDown(spriteBatch, gameTime);
+                       #endregion
                     break;
                 case EventOperator.GAME_OVER_STATE:
+                    #region GameOver Animation
                     if (eventTimer.currentTime > STATSTIME)
                     {
                         game.UpdateGame(gameTime, false);
                         game.DrawGame(spriteBatch, gameTime, false);
                         Vector2 shitvect = new Vector2(WindowSize.Width / 2 - font.MeasureString("GAME OVER").X / 2, WindowSize.Height / 2 - font.MeasureString("GAME OVER").Y / 2);      //previously bigFont in Game1        
                         spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),font, "GAME OVER", shitvect, Color.OrangeRed);
-                        //game.ResetGame(false);
                     }
+                    #endregion
+                    #region DrawStats
                     else
                     {
                         SoundHandler.PlaySong((int)IDs.GAMEOVER);
@@ -107,9 +114,10 @@ namespace SummerProject.framework
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
                             eventTimer = new Timer(0);
                     }
-                    //DrawStats(spriteBatch, gameTime);
+                    #endregion
                     break;
-                case EventOperator.CUT_SCENE_STATE:                 
+                case EventOperator.CUT_SCENE_STATE:
+                    #region Cutscenes
                     switch (op.CutSceneType)
                     {                       
                         case 1:
@@ -119,13 +127,17 @@ namespace SummerProject.framework
                             BossAppearanceScene(spriteBatch, gameTime);     
                             break;
                     }
+                    #endregion
                     break;                  
             }
         }
 
+        /*
+         * Specific animation/text-drawing methods below.
+         */
+
         private void BossAppearanceScene(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            
+        {            
             float dX = 0;
             float slideTime = 1.5f;
             float slideSpeed = 1.5f;
@@ -198,7 +210,13 @@ namespace SummerProject.framework
 
             for (int i = 0; i < STATS.Length; i++)
             {
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, STATS[i], location, Color.Gold, 0, font.MeasureString(STATS[i]) / 2, 1);
+                Color c = Color.Gold;
+                float time = ((int)eventTimer.currentTime) % 2;
+                if (i == 0)
+                    c = Color.DarkRed;
+                else if (i == STATS.Length -1 &&  time % 2 == 1)
+                    c = Color.OrangeRed;
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, STATS[i], location,c, 0, font.MeasureString(STATS[i]) / 2, 1);
                 location.Y += font.LineSpacing;
             }
         }

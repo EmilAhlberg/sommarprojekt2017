@@ -128,7 +128,6 @@
     <Compile Include="events\menu\MenuComponent.cs" />
     <Compile Include="events\menu\MenuConstants.cs" />
     <Compile Include="events\menu\menuTypes\PauseMenu.cs" />
-    <Compile Include="events\menu\menuTypes\ModeSelectionMenu.cs" />
     <Compile Include="events\menu\menuTypes\UpgradeMenu.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="Movable.cs" />
