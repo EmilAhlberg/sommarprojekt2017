@@ -23,7 +23,7 @@ namespace SummerProject.framework
 
         public static readonly string[] COUNTDOWN = { "GO!", "READY!", "" };    
         public const float COUNTDOWNTIME = 2f;
-        public const float STATSTIME = 100f;
+        public const float STATSTIME = 1000f;
         public const float SPLASHTIME = 9.665f; //Length of intro theme
         public const float BOSSFINISHED_TIME = 10.1f; //Length of victory theme
         public const float BOSSAPPEARANCE_TIME = 7;
@@ -197,7 +197,13 @@ namespace SummerProject.framework
 
             for (int i = 0; i < STATS.Length; i++)
             {
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, STATS[i], location, Color.Gold, 0, font.MeasureString(STATS[i]) / 2, 1);
+                Color c = Color.Gold;
+                float time = ((int)eventTimer.currentTime) % 2;
+                if (i == 0)
+                    c = Color.DarkRed;
+                if (i == STATS.Length -1 &&  time % 2 == 1)
+                    c = Color.OrangeRed;
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, STATS[i], location,c, 0, font.MeasureString(STATS[i]) / 2, 1);
                 location.Y += font.LineSpacing;
             }
         }
