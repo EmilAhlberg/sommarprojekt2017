@@ -13,13 +13,14 @@ namespace SummerProject.achievements
         public const int HARD_DIFFICULTY = 1;
         public const int WAVE11 = 2;
         public const int WAVE21 = 3;
-
+        public static int WAVE31 = 4;
+        public static int WAVE41 = 5;
 
 
         //not unlockables that are carried from game session to other session      
-        public const int ELITE = 4;
+        //public const int ELITE = 4;
 
-        public const int UNLOCKABLES_CONSTANT = 4; //normal + hard difficulty and waves are unlockables carried over into other games --> constant is 4
+        public const int UNLOCKABLES_CONSTANT = 6; //normal + hard difficulty and waves are unlockables carried over into other games --> constant is 6
 
         public static readonly Dictionary<int, int> KILLTHRESHOLD =
             new Dictionary<int, int>()
@@ -33,7 +34,7 @@ namespace SummerProject.achievements
             {
                  {NORMAL_DIFFICULTY, 5000 },
                  {HARD_DIFFICULTY,25000 },
-                 {ELITE, 100000 }
+                 //{ELITE, 100000 }
             };
 
         public static readonly Dictionary<int, int> TIMETHRESHOLD =
@@ -61,6 +62,6 @@ namespace SummerProject.achievements
         public static Trait TIME = new Trait("Time Elapsed");
         public static Trait LEVEL = new Trait("Time Elapsed");
 
-       
+
     }
 }

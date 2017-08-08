@@ -102,6 +102,7 @@ namespace SummerProject.framework
                     }
                     else
                     {
+                        SoundHandler.PlaySong((int)IDs.GAMEOVER);
                         DrawStats(spriteBatch, gameTime);
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
                             eventTimer = new Timer(0);

@@ -38,7 +38,6 @@ namespace SummerProject
                         SoundHandler.PlaySong((int)IDs.SONG1);
                         break;
                     case GAME_OVER_STATE:
-                        SoundHandler.PlaySong((int)IDs.GAMEOVER);
                         break;
                     case PAUSE_STATE:
                         break;

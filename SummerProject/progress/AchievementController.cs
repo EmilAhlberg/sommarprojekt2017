@@ -42,8 +42,8 @@ namespace SummerProject.achievements
             hardDifficulty.Add(Traits.KILLTHRESHOLD[Traits.HARD_DIFFICULTY], Traits.KILLS);
             hardDifficulty.Add(Traits.SCORETHRESHOLD[Traits.HARD_DIFFICULTY], Traits.SCORE);
 
-            Dictionary<int, Trait> eliteRank = new Dictionary<int, Trait>();
-            eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
+            //Dictionary<int, Trait> eliteRank = new Dictionary<int, Trait>();
+            //eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
           
 
             //Dictionary<int, Trait> boss1 = new Dictionary<int, Trait>();
@@ -55,11 +55,17 @@ namespace SummerProject.achievements
             //Dictionary<int, Trait> boss3 = new Dictionary<int, Trait>();
             ////boss3.Add(Traits.LEVELTHRESHOLD[Traits.BOSS_SLAIN3], Traits.LEVEL);
 
-            Dictionary<int, Trait> wave11 = new Dictionary<int, Trait>();
-            wave11.Add(1, Traits.LEVEL);
+            Dictionary<int, Trait> wave11 = new Dictionary<int, Trait>(); 
+            wave11.Add(1, Traits.LEVEL); //Change to actual wave
 
             Dictionary<int, Trait> wave21 = new Dictionary<int, Trait>();
             wave21.Add(1, Traits.LEVEL);
+
+            Dictionary<int, Trait> wave31 = new Dictionary<int, Trait>();
+            wave31.Add(1, Traits.LEVEL);
+
+            Dictionary<int, Trait> wave41 = new Dictionary<int, Trait>();
+            wave41.Add(1, Traits.LEVEL);
 
 
             Achievement normalAch = new Achievement("Normal Difficulty Unlocked", normalDifficulty,Traits.NORMAL_DIFFICULTY);
@@ -68,7 +74,9 @@ namespace SummerProject.achievements
             //Achievement burstAch = new Achievement("Burst Mode", burstMode);
             Achievement wave11Ach = new Achievement("", wave11, Traits.WAVE11);
             Achievement wave21Ach = new Achievement("", wave21, Traits.WAVE21);
-            Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
+            Achievement wave31Ach = new Achievement("", wave31, Traits.WAVE31);
+            Achievement wave41Ach = new Achievement("", wave41, Traits.WAVE41);
+            //Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
 
 
             //Achievement boss1Ach = new Achievement("Cyberlord Jorav is no more!", boss1, Traits.BOSS_SLAIN1);
@@ -79,7 +87,9 @@ namespace SummerProject.achievements
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);    //Nooooo no work out of order...
             Achievements.Insert(Traits.WAVE11, wave11Ach);
             Achievements.Insert(Traits.WAVE21, wave21Ach);
-            Achievements.Insert(Traits.ELITE, eliteAch);
+            Achievements.Insert(Traits.WAVE31, wave31Ach);
+            Achievements.Insert(Traits.WAVE41, wave41Ach);
+            //Achievements.Insert(Traits.ELITE, eliteAch);
 
             //Achievements.Insert(Traits.BOSS_SLAIN1, boss1Ach);
             //Achievements.Insert(Traits.BOSS_SLAIN2, boss2Ach);

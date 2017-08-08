@@ -39,6 +39,20 @@ namespace SummerProject.menu
                     }
                     break;
                 case 3:
+                    if (!isLocked[selectedIndex])
+                    {
+                        GameMode.StartingLevel = 30;
+                        pressedIndex = selectedIndex;
+                    }
+                    break;
+                case 4:
+                    if (!isLocked[selectedIndex])
+                    {
+                        GameMode.StartingLevel = 40;
+                        pressedIndex = selectedIndex;
+                    }
+                    break;
+                case 5:
                     handler.NewGameState = EventOperator.UPGRADE_STATE;
                     handler.ResetGame(true);
                     break;
