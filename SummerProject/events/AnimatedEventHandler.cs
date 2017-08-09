@@ -121,6 +121,7 @@ namespace SummerProject.framework
                     switch (op.CutSceneType)
                     {                       
                         case 1:
+
                             BossFinishedScene(spriteBatch, gameTime);
                             break;
                         case 2:

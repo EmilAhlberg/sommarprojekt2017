@@ -27,8 +27,9 @@ namespace SummerProject
         SpriteFont bigFont;
         SpriteFont scoreFont;
         SpriteBatch spriteBatch;
-        EventOperator eventOperator;
+        EventOperator eventOperator;        
         public Player Player;
+        public Drops Drops;
         //Wall wall;
         GameController gameController;    
         Projectiles projectiles;
@@ -36,7 +37,7 @@ namespace SummerProject
         CollisionHandler colhandl;
         UnitBar healthBar;
         UnitBar energyBar;
-        Drops drops;
+       
         GameMode gameMode;
         AchievementController achController;
         const bool slowmo = false;
@@ -239,8 +240,8 @@ namespace SummerProject
             //player.AddPart(gunPart3, 1);
             //rectHull1.AddPart(gunPart2, 0);
             //rectHull2.AddPart(gunPart3, 2);
-            drops = new Drops(WindowSize.Width, WindowSize.Height);
-            gameController = new GameController(Player, drops, gameMode);
+            Drops = new Drops(WindowSize.Width, WindowSize.Height);
+            gameController = new GameController(Player, Drops, gameMode);
             colhandl = new CollisionHandler();
             //wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5, scoreFont); //! LOL
@@ -313,7 +314,7 @@ namespace SummerProject
             }
             #endregion
             #region Pause
-            if (InputHandler.isJustPressed(Keys.Escape) && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (InputHandler.isJustPressed(Keys.Escape) && eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE)
             {
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
@@ -355,7 +356,7 @@ namespace SummerProject
             List<Collidable> eParts = gameController.CollidableList().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> eDrops = drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
             colhandl.CheckCollisions(pParts, eParts);
             colhandl.CheckCollisions(pParts, eBullets);
             colhandl.CheckCollisions(pParts, eDrops);

@@ -215,6 +215,7 @@ namespace SummerProject
                     {
                         NewGameState = UPGRADE_STATE;
                         game.Player.Position = new Vector2(10, WindowSize.Height / 2);
+                        game.Drops.Reset();
                         //game.Player.Stop();
                     } else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)                    
                         NewGameState = GAME_STATE;                    
