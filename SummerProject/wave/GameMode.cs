@@ -135,7 +135,7 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             IsChanged = false;
-            if (InputHandler.isJustPressed(Keys.Up))
+            if (InputHandler.isJustPressed(Keys.PageUp))
                 cheatProgress = true;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
