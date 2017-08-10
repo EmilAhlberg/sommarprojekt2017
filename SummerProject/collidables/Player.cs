@@ -45,6 +45,26 @@ namespace SummerProject.collidables
                 {
                     Particles.GenerateParticles(Hull.Sprite.Edges, Position, Hull.Sprite.Origin, 13, Angle);
                 }
+                if (!cutScene)
+                    KeepPlayerInScreen();
+            }
+        }
+
+        private void KeepPlayerInScreen()
+        {
+            if (IsActive)
+            {
+                float x = Position.X;
+                float y = Position.Y;
+                if (Position.X > WindowSize.Width)
+                    x = WindowSize.Width;
+                if (Position.Y > WindowSize.Height)
+                    y = WindowSize.Height;
+                if (Position.X < 0)
+                    x = 0;
+                if (Position.Y < 0)
+                    y = 0;
+                Position = new Vector2(x, y);
             }
         }
 

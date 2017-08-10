@@ -81,6 +81,7 @@
     <Compile Include="events\buildmenu\UpgradeBarItem.cs" />
     <Compile Include="events\menu\menuTypes\WaveMenu.cs" />
     <Compile Include="factories\SoundHandler.cs" />
+    <Compile Include="framework\PlayerUI.cs" />
     <Compile Include="IActivatable.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="IDs.cs" />
@@ -223,7 +224,9 @@
       <Link>MonoGame.Framework.dll.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="ClassDiagram3.cd" />

@@ -10,7 +10,7 @@ using SummerProject.util;
 
 namespace SummerProject
 {
-    class UnitBar : Drawable
+    public class UnitBar : Drawable
     {
         private float currentValue;
         private float currentMax;
