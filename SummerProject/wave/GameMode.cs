@@ -78,7 +78,7 @@ namespace SummerProject.wave
                 UpdateLevelSettings();                
             }
         }
-        //level 0??
+        
         private void UpdateLevelSettings()
         {
             switch (Level%10)
@@ -135,7 +135,7 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             IsChanged = false;
-            if (InputHandler.isJustPressed(Keys.PageUp))
+            if (InputHandler.isJustPressed(Keys.Up))
                 cheatProgress = true;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            

@@ -15,12 +15,12 @@ namespace SummerProject
 {
     public class GameController
     {    
-        private Enemies enemies;
+        public Enemies Enemies { get; private set; }
+        public Drops Drops { get; private set; }
         private Player player;
         private GameMode gameMode;
         private SpawnPointGenerator spawnPointGen;
-        private SpawnTimer spawnTimer;
-        public Drops Drops { get; private set; }
+        private SpawnTimer spawnTimer;       
         private DropSpawnPoints dropPoints;
         private int spawnsThisLevel;
         private bool finishedSpawning;
@@ -34,7 +34,7 @@ namespace SummerProject
             this.gameMode = gameMode;
             spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
-            enemies = new Enemies(player); 
+            Enemies = new Enemies(player); 
             dropPoints = new DropSpawnPoints();
         }
 
@@ -44,12 +44,12 @@ namespace SummerProject
             if (!cutScene)
             {
                 if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
-                    UpdateSpawnHandlers(gameTime);
-                Drops.Update(gameTime);
+                    UpdateSpawnHandlers(gameTime);                
                 gameMode.Update(gameTime);
                 ProgressGame(gameTime);
             }
-            enemies.Update(gameTime);
+            Drops.Update(gameTime);
+            Enemies.Update(gameTime);
         }
 
         private void ProgressGame(GameTime gameTime)
@@ -111,7 +111,7 @@ namespace SummerProject
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
             if (SRandom.NextFloat() > 0.9980f) //! background asteroid chance    
-                enemies.SpawnAsteroid(spawnPointGen.GetAsteroidSpawnPoint());
+                Enemies.SpawnAsteroid(spawnPointGen.GetAsteroidSpawnPoint());
 
             Drops.SpawnAt(dropPoints.SpawnPositions());
             Drops.SpawnMoneyAt(dropPoints.MoneySpawnPositions());
@@ -127,7 +127,7 @@ namespace SummerProject
             Vector2[] spawnPoints = spawnPointGen.GetSpawnPoints();
             foreach (Vector2 v in spawnPoints)
             {
-                enemies.Spawn(v);
+                Enemies.Spawn(v);
                 ++spawnsThisLevel;
                 Traits.ENEMIESSPAWNED.Counter++;                                
             }            
@@ -135,7 +135,7 @@ namespace SummerProject
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            enemies.Draw(spriteBatch, gameTime);
+            Enemies.Draw(spriteBatch, gameTime);
             Drops.Draw(spriteBatch, gameTime);
             if(isActive)
                 gameMode.Draw(spriteBatch, gameTime, fullDraw);
@@ -145,7 +145,7 @@ namespace SummerProject
         {
             spawnsThisLevel = 0; //!
             finishedSpawning = false;
-            enemies.Reset();
+            Enemies.Reset();
             gameMode.Reset(fullReset);
             Drops.Reset();
             dropPoints.Reset();
@@ -163,11 +163,5 @@ namespace SummerProject
                 isActive = false;
             } 
         }        
-
-        //duh
-        public List<IActivatable> CollidableList()
-        {
-            return enemies.GetValues();
-        }       
     }
 }

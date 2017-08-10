@@ -154,7 +154,11 @@ namespace SummerProject
                         break;
                     case CUT_SCENE_STATE:
                         if (CutSceneType == AnimatedEventHandler.BOSSFINISHED_TYPE)
+                        {
                             eventTime = AnimatedEventHandler.BOSSFINISHED_TIME;
+                            
+                        }
+                            
                         else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)
                             eventTime = AnimatedEventHandler.BOSSAPPEARANCE_TIME;
                         animatedHandler.AnimatedEvent = true;

@@ -36,8 +36,8 @@ namespace SummerProject.achievements
         public void AlreadyUnlocked()
         {
             Unlocked = true;
-            unlockTimer = new Timer(0);
-            unlockTimer.CountDown(new GameTime());
+            //unlockTimer = new Timer(0);
+            unlockTimer.Finish();           
         }
 
         private void CheckUnlockCondition()
@@ -69,6 +69,6 @@ namespace SummerProject.achievements
                 string s = name;
                 spriteBatch.DrawString(font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0,-200), Color.PapayaWhip); //! vector + font
             }            
-        }      
+        }
     }
 }

@@ -50,6 +50,7 @@ namespace SummerProject
             graphics.PreferredBackBufferWidth = WindowSize.Width;
             graphics.PreferredBackBufferHeight = WindowSize.Height;
             Content.RootDirectory = "Content";
+            //graphics.IsFullScreen = true;
             //this.IsFixedTimeStep = false; //use to make game rly fast :)
             //graphics.SynchronizeWithVerticalRetrace = false;
             //graphics.ApplyChanges();
@@ -331,7 +332,11 @@ namespace SummerProject
                 eventOperator.CutSceneType = GameMode.Level % 10;
                 eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;               
                 gameMode.CutScene = false;
+                //boss finished cutScene
+                if (GameMode.Level % 10 == 1)
+                    gameController.Enemies.Reset();
             }
+
             #endregion
         }
 
@@ -353,7 +358,7 @@ namespace SummerProject
         private void HandleAllCollisions()
         {
             List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
-            List<Collidable> eParts = gameController.CollidableList().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eParts = gameController.Enemies.GetValues().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);

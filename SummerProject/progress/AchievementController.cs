@@ -72,6 +72,9 @@ namespace SummerProject.achievements
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);    //Nooooo no work out of order...
             Achievements.Insert(Traits.WAVE11, wave11Ach);
             Achievements.Insert(Traits.WAVE21, wave21Ach);
+            Achievements.Insert(Traits.WAVE31, wave31Ach);
+            Achievements.Insert(Traits.WAVE41, wave41Ach);
+
             //Achievements.Insert(Traits.ELITE, eliteAch);          
         }
 
