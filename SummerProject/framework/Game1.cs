@@ -23,19 +23,13 @@ namespace SummerProject
     /// </summary>
     public class Game1 : Game
     {
+        public GameController gameController;
         GraphicsDeviceManager graphics;        
         SpriteBatch spriteBatch;
         EventOperator eventOperator;        
-        public Player Player;
-        public Drops Drops;
-        //Wall wall;
-        GameController gameController;    
-        Projectiles projectiles;
+        //Wall wall;         
         Background background;
-        CollisionHandler colhandl;
         PlayerUI playerUI;       
-        GameMode gameMode;
-        AchievementController achController;
         const bool slowmo = false;
 
         public Game1()
@@ -211,16 +205,16 @@ namespace SummerProject
             #endregion
 
             #region Initializing game objects etc.
-            background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);
-            Player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2) , projectiles);
+            background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);            
             //Camera.Player = player; //Reintroduce if camera is to be used
-            achController = new AchievementController();
+            AchievementController achController = new AchievementController();
             SaveHandler.InitializeGame(achController);
-            gameMode = new GameMode(); 
-           
-            projectiles = new Projectiles(); //! bulletCap hardcoded
+            GameMode gameMode = new GameMode();
+            Projectiles projectiles = new Projectiles();
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(this, shipTex, gameMode, achController, Player, ids); // fix new texture2d's!!
+
+            Player player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2), projectiles); //ok, projectiles null before?
+            eventOperator = new EventOperator(this, shipTex, gameMode, achController, player, ids);
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
@@ -229,25 +223,17 @@ namespace SummerProject
             EnginePart engine1 = new EnginePart();
             EnginePart engine2 = new EnginePart();
             EnginePart engine3 = new EnginePart();
-            Drops = new Drops(WindowSize.Width, WindowSize.Height);
-            gameController = new GameController(Player, Drops, gameMode);
-            colhandl = new CollisionHandler();
+            Drops drops = new Drops(WindowSize.Width, WindowSize.Height);
+            gameController = new GameController(player, projectiles, drops, gameMode);
             //wall = new Wall(new Vector2(-4000, -4000)); //! wall location
             UnitBar healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5); //! LOL
-            UnitBar energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, Player.maxEnergy);
-            playerUI = new PlayerUI(healthBar, energyBar);
+            UnitBar energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, player.maxEnergy);
+            playerUI = new PlayerUI(healthBar, energyBar, achController);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
             #endregion
 
-            #region Adding sprites to particles
-
-            #endregion
-
-
             // TODO: use this.Content to load your game content here
         }
-
-
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -270,8 +256,7 @@ namespace SummerProject
             else
                 eventOperator.Update(gameTime);
             Particles.Update(gameTime);
-            CheckGameStatus(gameTime);
-            achController.Update(gameTime);
+            CheckGameStatus(gameTime);          
             InputHandler.UpdatePreviousState();
             base.Update(gameTime);
             background.Update(gameTime);
@@ -279,23 +264,18 @@ namespace SummerProject
 
         public void UpdateGame(GameTime gameTime, bool cutScene)
         {
-            #region Update for game state
-            Player.Update(gameTime, cutScene);
-            gameController.Update(gameTime, cutScene);
-            projectiles.Update(gameTime);
-            HandleAllCollisions();
-            //if (!cutScene)
-            //    KeepPlayerInScreen();
-            playerUI.Update(gameTime, Player);           
+            #region Update           
+            gameController.Update(gameTime, cutScene);     
+            playerUI.Update(gameTime, gameController.Player);
+            
             Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             #endregion
         }
 
         private void CheckGameStatus(GameTime gameTime)
         {
             #region Game Over
-            if (!Player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
+            if (!gameController.Player.IsActive && eventOperator.GameState == EventOperator.GAME_STATE)
             {
                 ResetGame(false);
                 eventOperator.NewGameState = EventOperator.GAME_OVER_STATE;
@@ -315,11 +295,11 @@ namespace SummerProject
             //}
             #endregion
             #region Cut Scene
-            if (gameMode.CutScene)
+            if (EventOperator.TriggeredCutScene)
             {
                 eventOperator.CutSceneType = GameMode.Level % 10;
                 eventOperator.NewGameState = EventOperator.CUT_SCENE_STATE;               
-                gameMode.CutScene = false;
+                EventOperator.TriggeredCutScene = false;
                 //boss finished cutScene
                 if (GameMode.Level % 10 == 1) // kill asteroids
                     gameController.Enemies.Reset();
@@ -331,29 +311,13 @@ namespace SummerProject
         public void ResetGame(bool fullReset)
         {
             if (fullReset)
-            {
-                Player.Activate(Player.StartPosition, Vector2.Zero);
+            {               
                 Particles.Reset();
                 ScoreHandler.Reset();
-                playerUI.Reset();                
-                achController.Reset();
+                playerUI.Reset();             
             }           
-            projectiles.Reset();  
             gameController.Reset(fullReset);
-        }
-
-        private void HandleAllCollisions()
-        {
-            List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
-            List<Collidable> eParts = gameController.Enemies.GetValues().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> pBullets = projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> eBullets = projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
-            colhandl.CheckCollisions(pParts, eParts);
-            colhandl.CheckCollisions(pParts, eBullets);
-            colhandl.CheckCollisions(pParts, eDrops);
-            colhandl.CheckCollisions(eParts, pBullets);
-        }
+        }     
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -377,23 +341,19 @@ namespace SummerProject
             else
                 eventOperator.Draw(spriteBatch, gameTime);
 
-            //DebugMode(spriteBatch, gameTime);
-            achController.Draw(spriteBatch, gameTime);
+            //DebugMode(spriteBatch, gameTime);            
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, Camera.CameraMatrix);
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE && eventOperator.NewGameState != EventOperator.GAME_OVER_STATE) //this should be identical to drawgame condiftions
                 playerUI.DrawBars(spriteBatch, gameTime);
             spriteBatch.End();
             base.Draw(gameTime);
-
         }
 
         public void DrawGame(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
             #region Draw Game
-            Particles.Draw(spriteBatch, gameTime);
-            projectiles.Draw(spriteBatch, gameTime);
-            Player.Draw(spriteBatch, gameTime);
+            Particles.Draw(spriteBatch, gameTime);            
             //wall.Draw(spriteBatch, gameTime);
             gameController.Draw(spriteBatch, gameTime, fullDraw);           
             #endregion

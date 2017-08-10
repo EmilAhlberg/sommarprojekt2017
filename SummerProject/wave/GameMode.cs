@@ -31,7 +31,6 @@ namespace SummerProject.wave
         public static int StartingLevel { get; set; }
         public bool LevelFinished { get; internal set; }
         public bool ShowUpgradeMenu { get; internal set; }
-        public bool CutScene;
         private bool progressNow;
         private Difficulty difficulty;        
         private Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 + 150);
@@ -61,7 +60,7 @@ namespace SummerProject.wave
             {
                 cheatProgress = false;       
                 Level += 1;
-                CutScene = (Level % 10 == 1  && Level != StartingLevel + 1 || Level % 10 == 2);        //&& Level != 1 <- condition removed, redundant?
+                EventOperator.TriggeredCutScene = (Level % 10 == 1  && Level != StartingLevel + 1 || Level % 10 == 2);        //&& Level != 1 <- condition removed, redundant?
                 
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;

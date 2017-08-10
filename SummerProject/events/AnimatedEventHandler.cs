@@ -157,7 +157,7 @@ namespace SummerProject.framework
 
             boss.Update(gameTime, dX);
 
-            game.Player.Update(gameTime);
+            game.gameController.Player.Update(gameTime);
             game.UpdateGame(gameTime, true);
             game.DrawGame(spriteBatch, gameTime, false);
             boss.Draw(spriteBatch, gameTime); //happens after drawGame!
@@ -179,9 +179,9 @@ namespace SummerProject.framework
                 if (eventTimer.currentTime < BOSSFINISHED_TIME - 6) //!
                 { //!
                     playerTarget = new Vector2(10000, WindowSize.Height / 2);
-                    game.Player.AddForce(10, 0); //!
+                    game.gameController.Player.AddForce(10, 0); //!
                 }
-                game.Player.MoveTowardsPoint(playerTarget);
+                game.gameController.Player.MoveTowardsPoint(playerTarget);
             }
             game.UpdateGame(gameTime, cutScene);
             game.DrawGame(spriteBatch, gameTime, false);          

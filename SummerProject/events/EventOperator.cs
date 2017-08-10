@@ -83,7 +83,6 @@ namespace SummerProject
                         break;
                     case SPLASH_SCREEN_STATE:
                         break;
-
                 }
             }
         }
@@ -91,6 +90,7 @@ namespace SummerProject
         public AchievementController achControl { get; private set; }
         public GameMode GameMode { get; private set; }
         public int CutSceneType { get; internal set; }
+        public static bool TriggeredCutScene { get; set; }
 
         private AnimatedEventHandler animatedHandler;
         private Menu menu;
@@ -218,8 +218,8 @@ namespace SummerProject
                     if (CutSceneType == AnimatedEventHandler.BOSSFINISHED_TYPE)
                     {
                         NewGameState = UPGRADE_STATE;
-                        game.Player.Position = new Vector2(10, WindowSize.Height / 2);
-                        game.Drops.Reset();
+                        game.gameController.Player.Position = new Vector2(10, WindowSize.Height / 2);
+                        game.gameController.Drops.Reset();
                         //game.Player.Stop();
                     } else if (CutSceneType == AnimatedEventHandler.BOSSAPPEARANCE_TYPE)                    
                         NewGameState = GAME_STATE;                    

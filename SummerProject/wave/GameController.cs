@@ -17,7 +17,10 @@ namespace SummerProject
     {    
         public Enemies Enemies { get; private set; }
         public Drops Drops { get; private set; }
-        private Player player;
+        public Projectiles Projectiles { get; private set; }
+        public Player Player { get; private set; }
+
+        private CollisionHandler colHandler;        
         private GameMode gameMode;
         private SpawnPointGenerator spawnPointGen;
         private SpawnTimer spawnTimer;       
@@ -27,9 +30,11 @@ namespace SummerProject
         private bool isActive;
 
 
-        public GameController(Player player, Drops drops, GameMode gameMode)
+        public GameController(Player player, Projectiles projectiles, Drops drops, GameMode gameMode)
         {
-            this.player = player;
+            colHandler = new CollisionHandler();
+            this.Player = player;
+            this.Projectiles = projectiles;
             Drops = drops;
             this.gameMode = gameMode;
             spawnPointGen = new SpawnPointGenerator(gameMode);
@@ -40,6 +45,7 @@ namespace SummerProject
 
         public void Update(GameTime gameTime, bool cutScene)
         {
+            Player.Update(gameTime, cutScene);
             CheckActive();
             if (!cutScene)
             {
@@ -48,8 +54,11 @@ namespace SummerProject
                 gameMode.Update(gameTime);
                 ProgressGame(gameTime);
             }
+
             Drops.Update(gameTime);
             Enemies.Update(gameTime);
+            Projectiles.Update(gameTime);
+            HandleAllCollisions();
         }
 
         private void ProgressGame(GameTime gameTime)
@@ -135,8 +144,10 @@ namespace SummerProject
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
+            Player.Draw(spriteBatch, gameTime);
             Enemies.Draw(spriteBatch, gameTime);
             Drops.Draw(spriteBatch, gameTime);
+            Projectiles.Draw(spriteBatch, gameTime);
             if(isActive)
                 gameMode.Draw(spriteBatch, gameTime, fullDraw);
         }
@@ -145,20 +156,36 @@ namespace SummerProject
         {
             spawnsThisLevel = 0; //!
             finishedSpawning = false;
+            if (fullReset)
+                Player.Activate(Player.StartPosition, Vector2.Zero);
             Enemies.Reset();
             gameMode.Reset(fullReset);
+            Projectiles.Reset();
             Drops.Reset();
             dropPoints.Reset();
+        }
+
+        private void HandleAllCollisions()
+        {
+            List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
+            List<Collidable> eParts = Enemies.GetValues().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> pBullets = Projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eBullets = Projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            colHandler.CheckCollisions(pParts, eParts);
+            colHandler.CheckCollisions(pParts, eBullets);
+            colHandler.CheckCollisions(pParts, eDrops);
+            colHandler.CheckCollisions(eParts, pBullets);
         }
 
         private void CheckActive()
         {
             if (!isActive)
             {
-                if (player.IsActive)
+                if (Player.IsActive)
                     isActive = true;
             }
-            else if (!player.IsActive)
+            else if (!Player.IsActive)
             {
                 isActive = false;
             } 
