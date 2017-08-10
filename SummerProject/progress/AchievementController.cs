@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using SummerProject.util;
 
 namespace SummerProject.achievements
 {
     public class AchievementController
     {
         public List<Achievement> Achievements { get; set; }
-      
-        private SpriteFont font;
 
-        public AchievementController(SpriteFont font)
-        {
-            this.font = font;
+        public AchievementController()
+        {            
             Achievements = new List<Achievement>(); //!      
             InitAchievements();
         }
@@ -93,7 +91,7 @@ namespace SummerProject.achievements
         {
             foreach (Achievement a in Achievements)
             {                                
-                    a.Draw(spriteBatch, gameTime, font); //! font                               
+                    a.Draw(spriteBatch, gameTime, DrawHelper.BIGFONT); //! font                               
             }
         }
        

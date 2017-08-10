@@ -6,7 +6,7 @@ namespace SummerProject.menu
 {
     class MainMenu : MenuComponent
     {
-        public MainMenu(Vector2 position, SpriteFont font) : base(position, font, MenuConstants.MENUITEMS[MenuConstants.MAIN])
+        public MainMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.MAIN])
         {
         }
 

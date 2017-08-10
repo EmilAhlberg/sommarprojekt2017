@@ -19,11 +19,11 @@
         protected int pressedIndex;        
         public Vector2 Position { get; private set; }
 
-        public MenuComponent(Vector2 position, SpriteFont spriteFont, string[] menuItems)
+        public MenuComponent(Vector2 position, string[] menuItems)
         {
             pressedIndex = int.MaxValue;          
             this.menuItems = menuItems;
-            this.Font = spriteFont;
+            this.Font = DrawHelper.BIGFONT;
             MeasureMenu();
             if (menuItems[1] == "Reset Ship") //HACK!
                 this.Position = position + new Vector2(WindowSize.Width / 3, WindowSize.Height / 3);

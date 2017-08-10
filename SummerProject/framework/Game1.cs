@@ -22,10 +22,7 @@ namespace SummerProject
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteFont debugFont;
-        SpriteFont bigFont;
-        SpriteFont scoreFont;
+        GraphicsDeviceManager graphics;        
         SpriteBatch spriteBatch;
         EventOperator eventOperator;        
         public Player Player;
@@ -94,10 +91,10 @@ namespace SummerProject
 
             #region Loading fonts
 
-            debugFont = Content.Load<SpriteFont>("fonts/debugfont");
-            scoreFont = Content.Load<SpriteFont>("fonts/ScoreFont");
-            bigFont = Content.Load<SpriteFont>("fonts/BigScoreFont");
-            SpriteFont upgradeFont = Content.Load<SpriteFont>("fonts/currencyFont");
+            DrawHelper.DEBUGFONT = Content.Load<SpriteFont>("fonts/debugfont");
+            DrawHelper.SCOREFONT = Content.Load<SpriteFont>("fonts/ScoreFont");
+            DrawHelper.BIGFONT = Content.Load<SpriteFont>("fonts/BigScoreFont");
+            DrawHelper.UPGRADEFONT = Content.Load<SpriteFont>("fonts/currencyFont");
             #endregion
 
             #region Loading textures
@@ -218,13 +215,13 @@ namespace SummerProject
             background = new Background(new Sprite(backgroundTex), bluePlanetTex, bluePlanetTex, bigRedTex, smallRedTex);
             Player = new Player(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2) , projectiles);
             //Camera.Player = player; //Reintroduce if camera is to be used
-            achController = new AchievementController(bigFont);
+            achController = new AchievementController();
             SaveHandler.InitializeGame(achController);
-            gameMode = new GameMode(scoreFont);          
+            gameMode = new GameMode(); 
            
             projectiles = new Projectiles(); //! bulletCap hardcoded
             GunPart.projectiles = projectiles;
-            eventOperator = new EventOperator(bigFont, upgradeFont, this, shipTex, gameMode, achController, Player, ids); // fix new texture2d's!!
+            eventOperator = new EventOperator(this, shipTex, gameMode, achController, Player, ids); // fix new texture2d's!!
             RectangularHull rectHull1 = new RectangularHull();
             RectangularHull rectHull2 = new RectangularHull();
             GunPart gunPart1 = new ChargingGunPart();
@@ -245,8 +242,8 @@ namespace SummerProject
             gameController = new GameController(Player, Drops, gameMode);
             colhandl = new CollisionHandler();
             //wall = new Wall(new Vector2(-4000, -4000)); //! wall location
-            healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5, scoreFont); //! LOL
-            energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, Player.maxEnergy, scoreFont);
+            healthBar = new UnitBar(new Vector2(50, 50), new Sprite(unitBarBorderTex), Color.OrangeRed, 5); //! LOL
+            energyBar = new UnitBar(new Vector2(50, 85), new Sprite(unitBarBorderTex), Color.Gold, Player.maxEnergy);
             Mouse.SetCursor(MouseCursor.FromTexture2D(cursorTex.Texture, cursorTex.Texture.Width/2, cursorTex.Texture.Height /2));
             #endregion
 
@@ -389,8 +386,8 @@ namespace SummerProject
 
 
                 #region DrawString
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - scoreFont.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);                
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),DrawHelper.SCOREFONT, "Score: " + ScoreHandler.Score, new Vector2(WindowSize.Width - 300, 50), Color.Gold);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), DrawHelper.SCOREFONT, "High Score: " + ScoreHandler.HighScore, new Vector2(WindowSize.Width / 2 - DrawHelper.SCOREFONT.MeasureString("High Score: " + ScoreHandler.HighScore).X / 2, 50), Color.Gold);                
                 #endregion
 
                 #endregion
@@ -459,7 +456,7 @@ namespace SummerProject
             //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             //spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "Controls: " + controlSheme + " - " + usingControls, new Vector2(WindowSize.Width - 700, WindowSize.Height - 50), Color.Crimson);
             if (eventOperator.GameState != EventOperator.SPLASH_SCREEN_STATE)
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32),scoreFont, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(50, WindowSize.Height - 50), Color.Gold);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), DrawHelper.SCOREFONT, "FPS: " + (int)Math.Round(1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(50, WindowSize.Height - 50), Color.Gold);
 
             //spriteBatch.DrawString(debugFont, "Player pos: " +player.Position, new Vector2(600, 100), Color.Yellow);
             //spriteBatch.DrawString(debugFont, "Part pos: " + player.Hull.Parts[0].BoundBoxes[0].Position, new Vector2(600, 200), Color.Yellow);

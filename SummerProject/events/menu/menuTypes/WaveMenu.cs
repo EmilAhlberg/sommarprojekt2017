@@ -10,7 +10,7 @@ namespace SummerProject.menu
     public class WaveMenu : MenuComponent
     {
 
-        public WaveMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.WAVE])
+        public WaveMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.WAVE])
         {
             pressedIndex = 0; //! Change iff default mode is changed
             GameMode.StartingLevel = 0;

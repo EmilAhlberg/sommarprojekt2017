@@ -97,15 +97,15 @@ namespace SummerProject
         public UpgradeView UpgradeView;
         private Game1 game;
 
-        public EventOperator(SpriteFont font,SpriteFont upgradeFont, Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
+        public EventOperator(Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
         {            
             GameState = SPLASH_SCREEN_STATE;    //!!!!!
             NewGameState = MENU_STATE;
             GameMode = gameMode;
-            animatedHandler = new AnimatedEventHandler(game, this, font, gameMode);
-            UpgradeView = new UpgradeView(upgradeViewText.Texture, upgradeFont, player, upgradePartsIDs);            
+            animatedHandler = new AnimatedEventHandler(game, this, gameMode);
+            UpgradeView = new UpgradeView(upgradeViewText.Texture, player, upgradePartsIDs);            
             menu = new Menu(new Vector2(WindowSize.Width / 2,
-                    WindowSize.Height / 2), font);
+                    WindowSize.Height / 2));
             this.game = game;
             this.achControl = achControl;
         }

@@ -10,7 +10,7 @@ namespace SummerProject.menu
     public class DifficultyMenu : MenuComponent
     {
 
-        public DifficultyMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.DIFFICULTY])
+        public DifficultyMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.DIFFICULTY])
         {
             pressedIndex = 0; //! Change iff default mode is changed
 

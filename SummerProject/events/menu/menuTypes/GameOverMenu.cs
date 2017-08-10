@@ -6,7 +6,7 @@ namespace SummerProject.menu
 {
     class GameOverMenu : MenuComponent
     {
-        public GameOverMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.GAME_OVER])
+        public GameOverMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.GAME_OVER])
         {
         }
 

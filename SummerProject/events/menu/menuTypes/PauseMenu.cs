@@ -10,7 +10,7 @@ namespace SummerProject.menu
 {
     class PauseMenu : MenuComponent
     {
-        public PauseMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.PAUSE])
+        public PauseMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.PAUSE])
         {
         }
 

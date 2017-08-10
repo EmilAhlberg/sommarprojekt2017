@@ -37,12 +37,12 @@ namespace SummerProject.framework
         private GameMode gameMode;
         private Sprite logo;
 
-        public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font, GameMode gameMode)
+        public AnimatedEventHandler(Game1 game, EventOperator op, GameMode gameMode)
         {
             this.gameMode = gameMode;
             this.game = game;
             this.op = op;
-            this.font = font;
+            this.font = DrawHelper.BIGFONT;
             boss = new BossAppearance();
             eventTimer = new Timer(COUNTDOWNTIME);
             logo = SpriteHandler.GetSprite((int)IDs.LOGO);

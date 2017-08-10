@@ -14,7 +14,6 @@ namespace SummerProject.events.buildmenu
 {
     public class UpgradeBar
     {
-        private SpriteFont font;
         private List<IDs> upgradePartsIDs;
         public float SpentResource { get; set; }
         public float Resource;
@@ -45,10 +44,9 @@ namespace SummerProject.events.buildmenu
         private int cols; //calculated in init
         #endregion
 
-        public UpgradeBar(List<IDs> upgradePartsIDs, SpriteFont font, Texture2D backgroundText)
+        public UpgradeBar(List<IDs> upgradePartsIDs, Texture2D backgroundText)
         {
             this.upgradePartsIDs = upgradePartsIDs;
-            this.font = font;
             this.backgroundText = backgroundText;           
             CreateItemBoxes();
             InitBackgrounds();
@@ -80,8 +78,8 @@ namespace SummerProject.events.buildmenu
                 outlineBkg.Draw(spriteBatch, gameTime);
                 //currency           
                 string word = "Currency: " + Resource;
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word,
-                                            DrawHelper.CenteredWordPosition(word, font,
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), DrawHelper.UPGRADEFONT, word,
+                                            DrawHelper.CenteredWordPosition(word, DrawHelper.UPGRADEFONT,
                                             new Vector2(itemSize + (int)(((float)(upgradePartsIDs.Count / nbrOfItems) - 0.5) * (float)itemSize), itemSize / 3)),
                                             Color.Gold);
 
@@ -170,7 +168,8 @@ namespace SummerProject.events.buildmenu
                 IDs tempID = upgradePartsIDs[i];
                 if (tempID.Equals(IDs.EMPTYPART))
                     tempID = IDs.HAMMERPART;
-                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX, ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), font, tempID);
+                UpgradeBarItem u = new  UpgradeBarItem( new Vector2(currentCol * scaleFactor + spacing*(currentCol+1) + offsetX,
+                    ((i-currentCol*(rows))*scaleFactor + spacing * (i - currentCol * (rows) ) + offsetY)), DrawHelper.UPGRADEFONT, tempID);
                 itemBoxes.Insert(i, u);
             }
         }
