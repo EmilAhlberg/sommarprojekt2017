@@ -99,7 +99,7 @@ namespace SummerProject
 
         public EventOperator(Game1 game, Texture2DPlus upgradeViewText, GameMode gameMode, AchievementController achControl, Player player, List<IDs> upgradePartsIDs)
         {            
-            GameState = SPLASH_SCREEN_STATE;    //!!!!!
+            GameState = SPLASH_SCREEN_STATE;    //!! initial gamestate
             NewGameState = MENU_STATE;
             GameMode = gameMode;
             animatedHandler = new AnimatedEventHandler(game, this, gameMode);
