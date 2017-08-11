@@ -10,8 +10,8 @@ namespace SummerProject.collidables.enemies
 {
     public abstract class Attacker : Enemy
     {
-        protected float WAITTIME { get; set; } = 0.4f;
-        protected float ATTACKTIME { get; set; } = 0.4f;
+        protected const float WAITTIME = 0.4f;
+        protected const float ATTACKTIME = 0.4f;
         protected Timer waitTimer;
         protected Timer attackTimer;
 
@@ -44,8 +44,8 @@ namespace SummerProject.collidables.enemies
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
             base.SpecificActivation(source, target);
-            attackTimer.Reset();
-            waitTimer.Reset();
+            attackTimer = new Timer(ATTACKTIME);
+            waitTimer = new Timer(WAITTIME);
         }
         protected abstract void Wait(GameTime gameTime);
         protected abstract void Attack(GameTime gameTime);

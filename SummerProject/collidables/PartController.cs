@@ -159,6 +159,7 @@ namespace SummerProject
         public void Activate(Vector2 source, Vector2 target)
         {
             SetStats(id);
+            Hull.SetStats(id);
             Position = source;
             IsActive = true;     
             SpecificActivation(source, target);

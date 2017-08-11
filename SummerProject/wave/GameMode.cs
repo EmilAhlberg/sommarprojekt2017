@@ -58,9 +58,11 @@ namespace SummerProject.wave
         {         
             if ((LevelFinished && !progressNow) || cheatProgress)
             {
-                cheatProgress = false;       
+                cheatProgress = false;
                 Level += 1;
-                EventOperator.TriggeredCutScene = (Level % 10 == 1  && Level != StartingLevel + 1 || Level % 10 == 2);        //&& Level != 1 <- condition removed, redundant?
+                if (Level % 10 == 1)
+                    StartingLevel = Level-1;
+                EventOperator.TriggeredCutScene = (Level % 10 == 1  && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
                 
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;
