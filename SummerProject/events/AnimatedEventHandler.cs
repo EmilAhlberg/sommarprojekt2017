@@ -71,12 +71,13 @@ namespace SummerProject.framework
                     if (op.GameState == EventOperator.SPLASH_SCREEN_STATE)
                     {
                         if (InputHandler.isJustPressed(MouseButton.LEFT))
-                            eventTimer = new Timer(0);
-                        
-                        int alphaChannel = (int)(455 * (SPLASHTIME-eventTimer.currentTime) / SPLASHTIME)-100;      
-                        logo.MColor = new Color(255, 255, 255, alphaChannel);
-                        logo.Draw(spriteBatch, gameTime);
-                     //   spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32, alphaChannel), font, s, DrawHelper.CenteredWordPosition(s, font) + new Vector2(0, WindowSize.Height / 3), new Color(255, 128, 0, alphaChannel));
+                            eventTimer.Finish();
+                        else
+                        {
+                            int alphaChannel = (int)(455 * (SPLASHTIME - eventTimer.currentTime) / SPLASHTIME) - 100;
+                            logo.MColor = new Color(255, 255, 255, alphaChannel);
+                            logo.Draw(spriteBatch, gameTime);
+                        } 
                     }
                     #endregion
                     #region GiveUp
