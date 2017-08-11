@@ -39,6 +39,7 @@ namespace SummerProject.menu
                     }
                     break;
                 case 3:
+                    GameMode.StartingLevel = 0; //as long as #wave comes after this  one
                     return MenuConstants.WAVE;
             }
             return -1;

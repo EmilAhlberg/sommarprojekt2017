@@ -60,10 +60,9 @@ namespace SummerProject.wave
             {
                 cheatProgress = false;
                 Level += 1;
+                EventOperator.TriggeredCutScene = (Level % 10 == 1 && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
                 if (Level % 10 == 1)
-                    StartingLevel = Level-1;
-                EventOperator.TriggeredCutScene = (Level % 10 == 1  && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
-                
+                    StartingLevel = Level-1;                
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;
                 BetweenLevelsTimer.Reset();
@@ -134,7 +133,7 @@ namespace SummerProject.wave
         public void Update(GameTime gameTime)
         {
             IsChanged = false;
-            if (InputHandler.isJustPressed(Keys.PageUp))
+            if (InputHandler.isJustPressed(Keys.Up))
                 cheatProgress = true;
             BetweenLevelsTimer.CountDown(gameTime);           
             ProgressGame();            
