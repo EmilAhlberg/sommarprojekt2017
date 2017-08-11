@@ -63,7 +63,7 @@ namespace SummerProject.wave
             {
                 cheatProgress = false;       
                 Level += 1;
-                CutScene = (Level % 10 == 1  && Level != StartingLevel + 1 || Level % 10 == 2);        //&& Level != 1 <- condition removed, redundant?
+                CutScene = (Level % 10 == 1  && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
                 
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;

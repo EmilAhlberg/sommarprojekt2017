@@ -15,6 +15,8 @@ namespace SummerProject.collidables.enemies
         int specialMove = 0;
         const int BOSS3 = 1;
         const int PIRATOS = 2;
+        const int PIRATOSBOSS = 3;
+        int pirateRand = 500;
         //protected float BOSSATTACKTIME { get; set; } = 1f;
         //protected Timer bossTimer;
         //protected float BOSSMOVETIME { get; set; } = 1f;
@@ -46,8 +48,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 0);
                     break;
                 case 5:
-                    Random rnd = new Random();
-                    int n = rnd.Next(0, 100);
+                    int n = SRandom.Next(0, 100);
                     if (n < 50)
                         p.AddPart(new EnginePart(), 3);
                     else
@@ -80,8 +81,8 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new EnginePart(), 3);
                     break;
                 case 9:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     if (n < 50)
                     {
                         p.AddPart(new EnginePart(), 3); break;
@@ -136,8 +137,8 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new GunPart(), 1);
                     break;
                 case 15:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     if (n < 50)
                         p.AddPart(new EnginePart(), 3);
                     else
@@ -173,8 +174,8 @@ namespace SummerProject.collidables.enemies
                     usingWaitTimer = true;
                     break;
                 case 19:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     p.AddPart(new EnginePart(), 3);
                     if (n > 30)
                     {
@@ -184,7 +185,7 @@ namespace SummerProject.collidables.enemies
                     {
                         p.AddPart(new GunPart(), 2); p.AddPart(new GunPart(), 0);
                     }
-                    if (rnd.Next(0, 100) > 50)
+                    if (SRandom.Next(0, 100) > 50)
                         usingWaitTimer = true;
                     break;
                 case 20:
@@ -230,8 +231,8 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new SprayGunPart(), 1);
                     break;
                 case 25:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     if (n < 50)
                         p.AddPart(new EnginePart(), 3);
                     else
@@ -267,8 +268,8 @@ namespace SummerProject.collidables.enemies
                     usingWaitTimer = true;
                     break;
                 case 29:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     p.AddPart(new EnginePart(), 3);
                     if (n > 30)
                     {
@@ -281,7 +282,7 @@ namespace SummerProject.collidables.enemies
                         p.AddPart(new SprayGunPart(), 2);
                         p.AddPart(new SprayGunPart(), 0);
                     }
-                    if (rnd.Next(0, 100) > 50)
+                    if (SRandom.Next(0, 100) > 50)
                         usingWaitTimer = true;
                     break;
 
@@ -349,8 +350,8 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new SprayGunPart(), 2);
                     break;
                 case 35:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     if (n < 50)
                         p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
                     else
@@ -388,8 +389,8 @@ namespace SummerProject.collidables.enemies
                     usingWaitTimer = true;
                     break;
                 case 39:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+
+                    n = SRandom.Next(0, 100);
                     p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
                     if (n > 30)
                     {
@@ -402,7 +403,7 @@ namespace SummerProject.collidables.enemies
                         p.AddPart(new SprayGunPart(), 2);
                         p.AddPart(new SprayGunPart(), 0);
                     }
-                    if (rnd.Next(0, 100) > 50)
+                    if (SRandom.Next(0, 100) > 50)
                         usingWaitTimer = true;
                     break;
 
@@ -439,6 +440,7 @@ namespace SummerProject.collidables.enemies
                     rr2.AddPart(new EnginePart(), 3);
                     break;
                 case 41: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
                     RectangularHull h1 = new RectangularHull();
                     RectangularHull h2 = new RectangularHull();
                     RectangularHull h3 = new RectangularHull();
@@ -464,9 +466,301 @@ namespace SummerProject.collidables.enemies
                     waitTimer.maxTime = 0.1f;
                     usingWaitTimer = true;
                     break;
+                case 42: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h1.AddPart(new EnginePart(), 3);
+                    h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
+                case 43: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h1.AddPart(new EnginePart(), 3);
+                    h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
+                case 44: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h1.AddPart(new EnginePart(), 3);
+                    h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
+                case 45: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    n = SRandom.Next(0, 100);
+                    if (n < 50)
+                    {
+                        p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    }
+                    else
+                    {
+
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        p.AddPart(h1, 3);
+                        p.AddPart(h2, 1);
+                        h1.AddPart(new EnginePart(), 3);
+                        h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new GunPart(), 0);
+                        p.AddPart(new GunPart(), 2);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        waitTimer.maxTime = 0.1f;
+                        usingWaitTimer = true;
+                    }
+                    break;
+                case 46: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                    h3 = new RectangularHull();
+                    h4 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h2.AddPart(h3, 1);
+                    h1.AddPart(h4, 3);
+                    h4.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    h3.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    h3.AddPart(new GunPart(), 0);
+                    h3.AddPart(new GunPart(), 2);
+                    h4.AddPart(new GunPart(), 0);
+                    h4.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
+                case 47: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                    h3 = new RectangularHull();
+                    h4 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    h2.AddPart(h3, 1);
+                    h1.AddPart(h4, 3);
+                    h4.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    h3.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    h3.AddPart(new GunPart(), 0);
+                    h3.AddPart(new GunPart(), 2);
+                    h4.AddPart(new GunPart(), 0);
+                    h4.AddPart(new GunPart(), 2);
+                    specialMove = PIRATOS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
+                case 48: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(500, 1000);
+
+                    n = SRandom.Next(0, 100);
+                    if (n < 70)
+                    {
+
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        p.AddPart(h1, 3);
+                        p.AddPart(h2, 1);
+                        h1.AddPart(new EnginePart(), 3);
+                        h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new GunPart(), 0);
+                        p.AddPart(new GunPart(), 2);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        waitTimer.maxTime = 0.1f;
+                        usingWaitTimer = true;
+                    }
+                    else
+                    {
+
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        h3 = new RectangularHull();
+                        h4 = new RectangularHull();
+                        p.AddPart(h1, 3);
+                        p.AddPart(h2, 1);
+                        h2.AddPart(h3, 1);
+                        h1.AddPart(h4, 3);
+                        h4.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                        h3.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new GunPart(), 0);
+                        p.AddPart(new GunPart(), 2);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        h3.AddPart(new GunPart(), 0);
+                        h3.AddPart(new GunPart(), 2);
+                        h4.AddPart(new GunPart(), 0);
+                        h4.AddPart(new GunPart(), 2);
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        waitTimer.maxTime = 0.1f;
+                        usingWaitTimer = true;
+                    }
+                    break;
+                case 49: //FUCKING PIRATES DUDE
+                    pirateRand = SRandom.Next(400, 900);
+
+                    n = SRandom.Next(0, 100);
+                    if (n < 30)
+                    {
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        h3 = new RectangularHull();
+                        h4 = new RectangularHull();
+                        p.AddPart(h1, 3);
+                        p.AddPart(h2, 1);
+                        h2.AddPart(h3, 1);
+                        h1.AddPart(h4, 3);
+                        h4.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                        h3.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new GunPart(), 0);
+                        p.AddPart(new GunPart(), 2);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        h3.AddPart(new GunPart(), 0);
+                        h3.AddPart(new GunPart(), 2);
+                        h4.AddPart(new GunPart(), 0);
+                        h4.AddPart(new GunPart(), 2);
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        waitTimer.maxTime = 0.1f;
+                        usingWaitTimer = true;
+                    }
+                    else
+                    if (n < 70)
+                    {
+
+                    }
+                    else
+                    {
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        p.AddPart(h1, 3);
+                        p.AddPart(h2, 1);
+                        h1.AddPart(new EnginePart(), 3);
+                        h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        p.AddPart(new GunPart(), 0);
+                        p.AddPart(new GunPart(), 2);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        waitTimer.maxTime = 0.1f;
+                        usingWaitTimer = true;
+                    }
+                    break;
+                case 50:
+                    pirateRand = 900;
+
+                    h1 = new RectangularHull(IDs.BOSS1);
+                    h2 = new RectangularHull();
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    RectangularHull prevH1 = h1;
+                    RectangularHull prevH2 = h2;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        h1 = new RectangularHull();
+                        h2 = new RectangularHull();
+                        prevH1.AddPart(h1, 3);
+                        prevH2.AddPart(h2, 1);
+                        h1.AddPart(new GunPart(), 0);
+                        h1.AddPart(new GunPart(), 2);
+                        h2.AddPart(new GunPart(), 0);
+                        h2.AddPart(new GunPart(), 2);
+                        if(i == 9)
+                        {
+                            h1.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                            h2.AddPart(new EnginePart(IDs.TURBOENGINEPART), 1);
+                        }
+                        prevH1 = h1;
+                        prevH2 = h2;
+                    }
+                    specialMove = PIRATOSBOSS;
+                    TurnSpeed = 0.1f * (float)Math.PI;
+                    waitTimer.maxTime = 0.1f;
+                    usingWaitTimer = true;
+                    break;
                 default:
-                    rnd = new Random();
-                    n = rnd.Next(0, 100);
+                    n = SRandom.Next(0, 100);
                     p.AddPart(new EnginePart(), 3);
                     break;
             }
@@ -499,6 +793,7 @@ namespace SummerProject.collidables.enemies
             switch (specialMove)
             {
                 case PIRATOS:
+                case PIRATOSBOSS:
                     break;
                 case BOSS3:
                     Hull.TakeAction(typeof(SprayGunPart));
@@ -513,9 +808,11 @@ namespace SummerProject.collidables.enemies
         {
             switch (specialMove)
             {
+                case PIRATOSBOSS:
                 case PIRATOS:
                     Vector2 distVect = Position - player.Position;
-                    if (distVect.Length() < 500)
+
+                    if (distVect.Length() < pirateRand)
                     {
                         distVect = Vector2.Transform(distVect, Matrix.CreateRotationZ((float)Math.PI / 2));
                         base.CalculateAngle(distVect.X, distVect.Y);
@@ -545,6 +842,7 @@ namespace SummerProject.collidables.enemies
             switch (specialMove)
             {
                 case BOSS3:
+                case PIRATOSBOSS:
                     if (!waitTimer.IsFinished)
                     {
                         AddForce((player.Position - Position) / 10);
