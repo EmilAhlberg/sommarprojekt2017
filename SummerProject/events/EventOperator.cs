@@ -136,8 +136,12 @@ namespace SummerProject
                         animatedHandler.AnimatedEvent = true;                                                
                         break;
                     case MENU_STATE:
-                        if (GameState == SPLASH_SCREEN_STATE)                        
-                            eventTime = AnimatedEventHandler.SPLASHTIME;                         
+                        if (GameState == SPLASH_SCREEN_STATE)
+                        {
+                            eventTime = AnimatedEventHandler.SPLASHTIME;
+                            game.IsMouseVisible = false;
+                        }                        
+                                                 
                         else                        
                             eventTime = AnimatedEventHandler.COUNTDOWNTIME;
                         animatedHandler.AnimatedEvent = true;                        
@@ -211,6 +215,8 @@ namespace SummerProject
             switch (NewGameState)
             {
                 case EventOperator.MENU_STATE:
+                    if (gameState == SPLASH_SCREEN_STATE)
+                        game.IsMouseVisible = true;
                     game.ResetGame(true);
                     menu.CurrentMenu = MenuConstants.MAIN;
                     break;             

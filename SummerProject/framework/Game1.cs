@@ -39,7 +39,7 @@ namespace SummerProject
            // WindowSize.Width -= 50;
             graphics.PreferredBackBufferWidth = WindowSize.Width;
             graphics.PreferredBackBufferHeight = WindowSize.Height;
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";        
             //graphics.IsFullScreen = true;
             //this.IsFixedTimeStep = false; //use to make game rly fast :)
             //graphics.SynchronizeWithVerticalRetrace = false;
