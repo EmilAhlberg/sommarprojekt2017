@@ -23,6 +23,7 @@ namespace SummerProject
         public void Finish()
         {
             currentTime = 0;
+            IsFinished = true;
         }
 
         public void Reset()
