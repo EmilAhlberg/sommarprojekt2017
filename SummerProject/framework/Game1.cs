@@ -252,7 +252,10 @@ namespace SummerProject
         protected override void Update(GameTime gameTime)
         {
             if (eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState == EventOperator.GAME_STATE)
+            {
                 UpdateGame(gameTime, false);
+                playerUI.Update(gameTime, gameController.Player);
+            }
             else
                 eventOperator.Update(gameTime);
             Particles.Update(gameTime);
@@ -265,8 +268,8 @@ namespace SummerProject
         public void UpdateGame(GameTime gameTime, bool cutScene)
         {
             #region Update           
-            gameController.Update(gameTime, cutScene);     
-            playerUI.Update(gameTime, gameController.Player);
+            gameController.Update(gameTime, cutScene, eventOperator.NewGameState);     
+            
             
             Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
             #endregion

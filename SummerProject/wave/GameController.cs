@@ -43,15 +43,17 @@ namespace SummerProject
             dropPoints = new DropSpawnPoints();
         }
 
-        public void Update(GameTime gameTime, bool cutScene)
+        public void Update(GameTime gameTime, bool cutScene, int newGameState)
         {
             Player.Update(gameTime, cutScene);
             CheckActive();
             if (!cutScene)
             {
                 if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
-                    UpdateSpawnHandlers(gameTime);                
-                gameMode.Update(gameTime);
+                    UpdateSpawnHandlers(gameTime);
+
+                if (newGameState != EventOperator.CUT_SCENE_STATE)
+                    gameMode.Update(gameTime);
                 ProgressGame(gameTime);
             }
 
