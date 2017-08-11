@@ -6,7 +6,7 @@ namespace SummerProject.menu
 {
     public class UpgradeMenu : MenuComponent
     {
-        public UpgradeMenu(Vector2 position, SpriteFont spriteFont) : base(position, spriteFont, MenuConstants.MENUITEMS[MenuConstants.UPGRADE])
+        public UpgradeMenu(Vector2 position) : base(position, MenuConstants.MENUITEMS[MenuConstants.UPGRADE])
         {
         }
 

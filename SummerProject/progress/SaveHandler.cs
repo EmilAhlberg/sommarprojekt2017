@@ -67,6 +67,7 @@ namespace SummerProject.achievements
             SaveData data = SaveHandler.Load<SaveData>("save_file"); //!                                                                   
             if (data != null)
             {//! no previous save file --> no progress in game
+
                 for (int i = 0; i < Traits.UNLOCKABLES_CONSTANT; i++)
                 {
                     if (data.unlocks[i]) //If crash here, delete save file
@@ -77,3 +78,4 @@ namespace SummerProject.achievements
         }
     }
 }
+

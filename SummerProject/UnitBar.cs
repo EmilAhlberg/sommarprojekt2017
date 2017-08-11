@@ -10,7 +10,7 @@ using SummerProject.util;
 
 namespace SummerProject
 {
-    class UnitBar : Drawable
+    public class UnitBar : Drawable
     {
         private float currentValue;
         private float currentMax;
@@ -19,7 +19,7 @@ namespace SummerProject
         private Sprite borderSprite;
         private SpriteFont font;
 
-        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax, SpriteFont font, IDs id = IDs.DEFAULT) : base(position, id)
+        public UnitBar(Vector2 position, Sprite borderSprite, Color color, float startingMax, IDs id = IDs.DEFAULT) : base(position, id)
         {
             Position = position;
             this.startingMax = startingMax;
@@ -29,7 +29,7 @@ namespace SummerProject
             this.borderSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
             scaleSprite.Origin = new Vector2(0, this.borderSprite.SpriteRect.Height / 2);
             scaleSprite.SpriteRect = borderSprite.SpriteRect;
-            this.font = font;
+            this.font = DrawHelper.SCOREFONT;
         }
 
         public void Update(float value, float max)

@@ -31,19 +31,16 @@ namespace SummerProject.wave
         public static int StartingLevel { get; set; }
         public bool LevelFinished { get; internal set; }
         public bool ShowUpgradeMenu { get; internal set; }
-        public bool CutScene;
         private bool progressNow;
-        private Difficulty difficulty;
-        private SpriteFont font;
+        private Difficulty difficulty;        
         private Vector2 wordPos = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 + 150);
         public Timer BetweenLevelsTimer;
 
         private bool cheatProgress; //!!!
       
 
-        public GameMode(SpriteFont font)
-        {
-            this.font = font;
+        public GameMode()
+        {          
             TimeMode = DECREASING_TIME; //Default game mode. Change pressedIndex in ModeSelectionMenu if changed
             SpawnMode = RANDOM_SINGLE;
             difficulty = new Difficulty();
@@ -63,9 +60,10 @@ namespace SummerProject.wave
             {
                 cheatProgress = false;
                 Level += 1;
-                CutScene = (Level % 10 == 1  && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
                 if (Level % 10 == 1)
                     StartingLevel = Level-1;
+                EventOperator.TriggeredCutScene = (Level % 10 == 1  && Level != StartingLevel + 1 /*|| Level % 10 == 2*/);        //&& Level != 1 <- condition removed, redundant?
+                
                 if (Level > Traits.LEVEL.Counter)
                     Traits.LEVEL.Counter++;
                 BetweenLevelsTimer.Reset();
@@ -79,7 +77,7 @@ namespace SummerProject.wave
                 UpdateLevelSettings();                
             }
         }
-        //level 0??
+        
         private void UpdateLevelSettings()
         {
             switch (Level%10)
@@ -154,7 +152,8 @@ namespace SummerProject.wave
                 popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
                 string s = "Wave " + Level + " incoming!";
 
-                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, s, DrawHelper.CenteredWordPosition(s, font, wordPos), Color.Wheat);
+                spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), DrawHelper.SCOREFONT, s,
+                                               DrawHelper.CenteredWordPosition(s, DrawHelper.SCOREFONT, wordPos), Color.Wheat);
             }
         }      
     }

@@ -15,41 +15,50 @@ namespace SummerProject
 {
     public class GameController
     {    
-        private Enemies enemies;
-        private Player player;
+        public Enemies Enemies { get; private set; }
+        public Drops Drops { get; private set; }
+        public Projectiles Projectiles { get; private set; }
+        public Player Player { get; private set; }
+
+        private CollisionHandler colHandler;        
         private GameMode gameMode;
         private SpawnPointGenerator spawnPointGen;
-        private SpawnTimer spawnTimer;
-        public Drops Drops { get; private set; }
+        private SpawnTimer spawnTimer;       
         private DropSpawnPoints dropPoints;
         private int spawnsThisLevel;
         private bool finishedSpawning;
         private bool isActive;
 
 
-        public GameController(Player player, Drops drops, GameMode gameMode)
+        public GameController(Player player, Projectiles projectiles, Drops drops, GameMode gameMode)
         {
-            this.player = player;
+            colHandler = new CollisionHandler();
+            this.Player = player;
+            this.Projectiles = projectiles;
             Drops = drops;
             this.gameMode = gameMode;
             spawnPointGen = new SpawnPointGenerator(gameMode);
             spawnTimer = new SpawnTimer(gameMode);  
-            enemies = new Enemies(player); 
+            Enemies = new Enemies(player); 
             dropPoints = new DropSpawnPoints();
         }
 
         public void Update(GameTime gameTime, bool cutScene)
         {
+            Player.Update(gameTime, cutScene);
             CheckActive();
             if (!cutScene)
             {
                 if (isActive && gameMode.BetweenLevelsTimer.IsFinished)
-                    UpdateSpawnHandlers(gameTime);
-                Drops.Update(gameTime);
+                    UpdateSpawnHandlers(gameTime);                
                 gameMode.Update(gameTime);
                 ProgressGame(gameTime);
             }
-            enemies.Update(gameTime);
+
+            Drops.Update(gameTime);
+            Enemies.Update(gameTime);
+            Projectiles.Update(gameTime);
+            HandleAllCollisions();
         }
 
         private void ProgressGame(GameTime gameTime)
@@ -111,7 +120,7 @@ namespace SummerProject
         private void UpdateSpawnHandlers(GameTime gameTime)
         {
             if (SRandom.NextFloat() > 0.9980f) //! background asteroid chance    
-                enemies.SpawnAsteroid(spawnPointGen.GetAsteroidSpawnPoint());
+                Enemies.SpawnAsteroid(spawnPointGen.GetAsteroidSpawnPoint());
 
             Drops.SpawnAt(dropPoints.SpawnPositions());
             Drops.SpawnMoneyAt(dropPoints.MoneySpawnPositions());
@@ -127,7 +136,7 @@ namespace SummerProject
             Vector2[] spawnPoints = spawnPointGen.GetSpawnPoints();
             foreach (Vector2 v in spawnPoints)
             {
-                enemies.Spawn(v);
+                Enemies.Spawn(v);
                 ++spawnsThisLevel;
                 Traits.ENEMIESSPAWNED.Counter++;                                
             }            
@@ -135,8 +144,10 @@ namespace SummerProject
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool fullDraw)
         {
-            enemies.Draw(spriteBatch, gameTime);
+            Player.Draw(spriteBatch, gameTime);
+            Enemies.Draw(spriteBatch, gameTime);
             Drops.Draw(spriteBatch, gameTime);
+            Projectiles.Draw(spriteBatch, gameTime);
             if(isActive)
                 gameMode.Draw(spriteBatch, gameTime, fullDraw);
         }
@@ -145,29 +156,39 @@ namespace SummerProject
         {
             spawnsThisLevel = 0; //!
             finishedSpawning = false;
-            enemies.Reset();
+            if (fullReset)
+                Player.Activate(Player.StartPosition, Vector2.Zero);
+            Enemies.Reset();
             gameMode.Reset(fullReset);
+            Projectiles.Reset();
             Drops.Reset();
             dropPoints.Reset();
+        }
+
+        private void HandleAllCollisions()
+        {
+            List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
+            List<Collidable> eParts = Enemies.GetValues().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> pBullets = Projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eBullets = Projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            colHandler.CheckCollisions(pParts, eParts);
+            colHandler.CheckCollisions(pParts, eBullets);
+            colHandler.CheckCollisions(pParts, eDrops);
+            colHandler.CheckCollisions(eParts, pBullets);
         }
 
         private void CheckActive()
         {
             if (!isActive)
             {
-                if (player.IsActive)
+                if (Player.IsActive)
                     isActive = true;
             }
-            else if (!player.IsActive)
+            else if (!Player.IsActive)
             {
                 isActive = false;
             } 
         }        
-
-        //duh
-        public List<IActivatable> CollidableList()
-        {
-            return enemies.GetValues();
-        }       
     }
 }

@@ -24,9 +24,7 @@ namespace SummerProject.framework
         private List<IDs> upgradePartsIDs;
         public UpgradeBar UpgradeBar;
         public bool IsModified;
-        private int emptyPartIndex = 100;
-        private SpriteFont font;
-        
+        private int emptyPartIndex = 100;        
 
         public void Reset()
         {
@@ -39,13 +37,12 @@ namespace SummerProject.framework
             IsModified = false;
         }
 
-        public UpgradeView(Texture2D text, SpriteFont font, Player player, List<IDs> upgradePartsIDs) //remove text param
+        public UpgradeView(Texture2D text, Player player, List<IDs> upgradePartsIDs) //remove text param
         {
             activeSelection = -1;
             this.upgradePartsIDs = upgradePartsIDs;
             this.player = player;
-            this.font = font;
-            UpgradeBar = new UpgradeBar(upgradePartsIDs, font, text);
+            UpgradeBar = new UpgradeBar(upgradePartsIDs, text);
             shipItems = new Dictionary<int, ShipItem>();
             Initialize();
         }
@@ -308,14 +305,13 @@ namespace SummerProject.framework
             popupBkg.Scale = new Vector2(0.8f, 0.5f);
             popupBkg.LayerDepth = 0;
 
-
             string temp = "Upgrade your ship!";
 
             popupBkg.Position = wordPos - new Vector2(popupBkg.SpriteRect.Width / 2 - 55, -40 + popupBkg.SpriteRect.Height / 2);
             popupBkg.Draw(spriteBatch, gameTime);
-            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, temp, DrawHelper.CenteredWordPosition(temp, font, wordPos), Color.Wheat);
+            spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), DrawHelper.UPGRADEFONT, temp, 
+                DrawHelper.CenteredWordPosition(temp, DrawHelper.UPGRADEFONT, wordPos), Color.Wheat);
             popupBkg.Draw(spriteBatch, gameTime); // layer deapth doesnt work sp need this
-
 
             foreach (KeyValuePair<int, ShipItem> item in shipItems)
             {

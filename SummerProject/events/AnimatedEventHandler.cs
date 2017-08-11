@@ -37,12 +37,12 @@ namespace SummerProject.framework
         private GameMode gameMode;
         private Sprite logo;
 
-        public AnimatedEventHandler(Game1 game, EventOperator op, SpriteFont font, GameMode gameMode)
+        public AnimatedEventHandler(Game1 game, EventOperator op, GameMode gameMode)
         {
             this.gameMode = gameMode;
             this.game = game;
             this.op = op;
-            this.font = font;
+            this.font = DrawHelper.BIGFONT;
             boss = new BossAppearance();
             eventTimer = new Timer(COUNTDOWNTIME);
             logo = SpriteHandler.GetSprite((int)IDs.LOGO);
@@ -121,6 +121,7 @@ namespace SummerProject.framework
                     switch (op.CutSceneType)
                     {                       
                         case 1:
+
                             BossFinishedScene(spriteBatch, gameTime);
                             break;
                         case 2:
@@ -156,7 +157,7 @@ namespace SummerProject.framework
 
             boss.Update(gameTime, dX);
 
-            game.Player.Update(gameTime);
+            game.gameController.Player.Update(gameTime);
             game.UpdateGame(gameTime, true);
             game.DrawGame(spriteBatch, gameTime, false);
             boss.Draw(spriteBatch, gameTime); //happens after drawGame!
@@ -178,9 +179,9 @@ namespace SummerProject.framework
                 if (eventTimer.currentTime < BOSSFINISHED_TIME - 6) //!
                 { //!
                     playerTarget = new Vector2(10000, WindowSize.Height / 2);
-                    game.Player.AddForce(10, 0); //!
+                    game.gameController.Player.AddForce(10, 0); //!
                 }
-                game.Player.MoveTowardsPoint(playerTarget);
+                game.gameController.Player.MoveTowardsPoint(playerTarget);
             }
             game.UpdateGame(gameTime, cutScene);
             game.DrawGame(spriteBatch, gameTime, false);          

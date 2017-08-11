@@ -12,21 +12,21 @@ namespace SummerProject.menu
         private int selectedIndex;
         public int CurrentMenu { private get; set; } = MenuConstants.MAIN;
 
-        public Menu(Vector2 position, SpriteFont spriteFont)
+        public Menu(Vector2 position)
         {
-            InitializeMenues(spriteFont, position);
+            InitializeMenues(position);
         }
 
-        private void InitializeMenues(SpriteFont spriteFont, Vector2 position)
+        private void InitializeMenues(Vector2 position)
         {
             menues = new List<MenuComponent>();
             //order of added menues is important
-            menues.Add(new MainMenu(position, spriteFont));
-            menues.Add(new DifficultyMenu(position, spriteFont));            
-            menues.Add(new GameOverMenu(position, spriteFont));
-            menues.Add(new PauseMenu(position, spriteFont));
-            menues.Add(new UpgradeMenu(position, spriteFont));
-            menues.Add(new WaveMenu(position, spriteFont));
+            menues.Add(new MainMenu(position));
+            menues.Add(new DifficultyMenu(position));            
+            menues.Add(new GameOverMenu(position));
+            menues.Add(new PauseMenu(position));
+            menues.Add(new UpgradeMenu(position));
+            menues.Add(new WaveMenu(position));
 
 
         }
