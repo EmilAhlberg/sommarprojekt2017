@@ -21,6 +21,7 @@ namespace SummerProject
         BOSS2,
         BOSS3,
         BOSS4,
+        BOSS5,
         #endregion
 
         #region Bullets

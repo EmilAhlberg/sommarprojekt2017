@@ -96,6 +96,7 @@ namespace SummerProject.collidables
                 {(int)IDs.BOSS2, 100},
                 {(int)IDs.BOSS3, 200},
                   {(int)IDs.BOSS4, 300},
+                  {(int)IDs.BOSS5, 500},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1},

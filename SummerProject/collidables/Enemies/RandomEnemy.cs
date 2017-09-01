@@ -759,6 +759,19 @@ namespace SummerProject.collidables.enemies
                     waitTimer.maxTime = 0.1f;
                     usingWaitTimer = true;
                     break;
+                case 60:
+                    waitTimer.maxTime = 1;
+                    attackTimer.maxTime = 4;
+                    waitTimer.Reset();
+                    attackTimer.Reset();
+                    specialMove = 5;
+                    Damage = EntityConstants.GetStatsFromID(EntityConstants.DAMAGE, IDs.DEFAULT_ENEMY) * 100;
+                    RectangularHull boss5Hull = new RectangularHull(IDs.BOSS1); 
+                    p.AddPart(boss5Hull, 0);
+                    p.AddPart(new EnginePart(), 3);
+                    p.AddPart(new GunPart(), 1);
+
+                    break;
                 default:
                     n = SRandom.Next(0, 100);
                     p.AddPart(new EnginePart(), 3);
@@ -800,6 +813,10 @@ namespace SummerProject.collidables.enemies
                     Hull.TakeAction(typeof(MineGunPart));
                     Hull.TakeAction(typeof(GunPart));
                     break;
+                case 5: // boss5
+                    break;
+
+
             }
 
         }
