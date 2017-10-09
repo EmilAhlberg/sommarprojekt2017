@@ -759,6 +759,19 @@ namespace SummerProject.collidables.enemies
                     waitTimer.maxTime = 0.1f;
                     usingWaitTimer = true;
                     break;
+                case 51:
+                    h1 = new RectangularHull();
+                    h2 = new RectangularHull();
+                  
+                    p.AddPart(h1, 3);
+                    p.AddPart(h2, 1);
+                    p.AddPart(new GunPart(), 0);
+                    p.AddPart(new GunPart(), 2);
+                    h1.AddPart(new GunPart(), 0);
+                    h1.AddPart(new GunPart(), 2);
+                    h2.AddPart(new GunPart(), 0);
+                    h2.AddPart(new GunPart(), 2);
+                    break;
                 case 60:
                     waitTimer.maxTime = 1;
                     attackTimer.maxTime = 4;

@@ -44,16 +44,18 @@ namespace SummerProject.achievements
             //eliteRank.Add(Traits.SCORETHRESHOLD[Traits.ELITE], Traits.SCORE);
           
             Dictionary<int, Trait> wave11 = new Dictionary<int, Trait>();
-            wave11.Add(1, Traits.LEVEL);
+            wave11.Add(10, Traits.LEVEL);
 
             Dictionary<int, Trait> wave21 = new Dictionary<int, Trait>();
-            wave21.Add(1, Traits.LEVEL);
+            wave21.Add(20, Traits.LEVEL);
 
             Dictionary<int, Trait> wave31 = new Dictionary<int, Trait>();
-            wave31.Add(1, Traits.LEVEL);
+            wave31.Add(30, Traits.LEVEL);
 
             Dictionary<int, Trait> wave41 = new Dictionary<int, Trait>();
-            wave41.Add(1, Traits.LEVEL);
+            wave41.Add(40, Traits.LEVEL);
+            Dictionary<int, Trait> wave51 = new Dictionary<int, Trait>();
+            wave51.Add(50, Traits.LEVEL);
 
 
             Achievement normalAch = new Achievement("Normal Difficulty Unlocked", normalDifficulty,Traits.NORMAL_DIFFICULTY);
@@ -62,9 +64,10 @@ namespace SummerProject.achievements
             Achievement wave21Ach = new Achievement("", wave21, Traits.WAVE21);
             Achievement wave31Ach = new Achievement("", wave31, Traits.WAVE31);
             Achievement wave41Ach = new Achievement("", wave41, Traits.WAVE41);
+            Achievement wave51Ach = new Achievement("", wave51, Traits.WAVE51);
             //Achievement eliteAch = new Achievement("BIG BOY rank reached!", eliteRank, Traits.ELITE);
 
-           
+
 
             Achievements.Insert(Traits.NORMAL_DIFFICULTY,normalAch); //insert instead of add because of order
             Achievements.Insert(Traits.HARD_DIFFICULTY, hardAch);    //Nooooo no work out of order...
@@ -72,6 +75,7 @@ namespace SummerProject.achievements
             Achievements.Insert(Traits.WAVE21, wave21Ach);
             Achievements.Insert(Traits.WAVE31, wave31Ach);
             Achievements.Insert(Traits.WAVE41, wave41Ach);
+            Achievements.Insert(Traits.WAVE51, wave51Ach);
             //Achievements.Insert(Traits.ELITE, eliteAch);          
         }
 

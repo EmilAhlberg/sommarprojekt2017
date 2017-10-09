@@ -53,9 +53,17 @@ namespace SummerProject.menu
                     }
                     break;
                 case 5:
+                    if (!isLocked[selectedIndex])
+                    {
+                        GameMode.StartingLevel = 50;
+                        pressedIndex = selectedIndex;
+                    }
+                    break;
+                case 6:
                     handler.NewGameState = EventOperator.UPGRADE_STATE;
                     handler.ResetGame(true);
                     break;
+             
             }
             return -1;
         }
@@ -67,9 +75,11 @@ namespace SummerProject.menu
             if (handler.achControl.Achievements[Traits.WAVE21].Unlocked)
                 isLocked[2] = false;
             if (handler.achControl.Achievements[Traits.WAVE31].Unlocked)
-                isLocked[2] = false;
+                isLocked[3] = false;
             if (handler.achControl.Achievements[Traits.WAVE41].Unlocked)
-                isLocked[2] = false;
+                isLocked[4] = false;
+            if (handler.achControl.Achievements[Traits.WAVE51].Unlocked)
+                isLocked[5] = false;
         }
 
         protected override void SetLockedItems()
@@ -79,6 +89,7 @@ namespace SummerProject.menu
             isLocked[2] = true;
             isLocked[3] = true;
             isLocked[4] = true;
+            isLocked[5] = true;
         }
     }
 }
