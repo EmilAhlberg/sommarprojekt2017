@@ -286,7 +286,7 @@ namespace SummerProject
             }
             #endregion
             #region Pause
-            if (InputHandler.isJustPressed(Keys.Escape) && eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE)
+            if (InputHandler.isJustPressed(Keys.Escape) && eventOperator.GameState == EventOperator.GAME_STATE && eventOperator.NewGameState != EventOperator.CUT_SCENE_STATE && eventOperator.NewGameState != EventOperator.GAME_OVER_STATE)
             {
                 eventOperator.NewGameState = EventOperator.PAUSE_STATE;
             }
