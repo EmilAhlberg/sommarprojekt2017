@@ -759,20 +759,29 @@ namespace SummerProject.collidables.enemies
                     waitTimer.maxTime = 0.1f;
                     usingWaitTimer = true;
                     break;
-                case 51:
-                    h1 = new RectangularHull();
-                    h2 = new RectangularHull();
-                  
-                    p.AddPart(h1, 3);
-                    p.AddPart(h2, 1);
-                    p.AddPart(new GunPart(), 0);
-                    p.AddPart(new GunPart(), 2);
-                    h1.AddPart(new GunPart(), 0);
-                    h1.AddPart(new GunPart(), 2);
-                    h2.AddPart(new GunPart(), 0);
-                    h2.AddPart(new GunPart(), 2);
+                case 51://FUCKING ABOMINATIONS BRO
+                    createAbominations((RectangularHull)p, 15, 5);
+                    break;
+                case 52://FUCKING ABOMINATIONS BRO
+                    createAbominations((RectangularHull)p, 8, 20);
+                    break;
+                case 53://FUCKING ABOMINATIONS BRO
+                    createAbominations((RectangularHull)p, 10, 20);
+                    break;
+                case 54://FUCKING ABOMINATIONS BRO
+                    createAbominations((RectangularHull)p, 15, 5);
+                    break;
+                case 55://FUCKING ABOMINATIONS BRO
+                    createAbominations((RectangularHull)p, 30, 10);
+                    break;
+                case 56:
+                    createAbominations((RectangularHull)p, 25, 60);
                     break;
                 case 60:
+                    createAbominations((RectangularHull)p, 300, 320);
+                    specialMove = 0;
+                    break;
+                case 61:
                     waitTimer.maxTime = 1;
                     attackTimer.maxTime = 4;
                     waitTimer.Reset();
@@ -792,6 +801,113 @@ namespace SummerProject.collidables.enemies
             }
         }
 
+        private void createAbominations(RectangularHull p, int nbrOfHulls, int nbrOfParts)
+        {
+            bool hasEngine = false; // abominations needs movement
+          
+            //random # of hulls
+            RectangularHull[] hulls = new RectangularHull[nbrOfHulls];
+            bool[] useless = new bool[hulls.Length];
+            RectangularHull oldCarrier = p;
+            for (int i = 0; i < hulls.Length; i++)
+            {
+                int rndCarrier = SRandom.Next(-1, i - 1);
+                hulls[i] = new RectangularHull();
+                int pos = SRandom.Next(0, 3);
+                int count = 0;
+                while (oldCarrier.TakenPositions[pos] && count < 4)
+                {
+                    pos = (pos + 1) % 4;
+                    count++;
+                }
+                oldCarrier.AddPart(hulls[i], pos);
+
+                if (rndCarrier == -1)
+                    oldCarrier = p;
+                else
+                    oldCarrier = hulls[rndCarrier];
+            }
+
+            //random # and type of parts
+            Part[] parts = new Part[nbrOfParts];
+            for (int i = 0; i < parts.Length; i++)
+            {
+                int type = SRandom.Next(0, 3);
+                Part newPart = null;
+
+
+                switch (type)
+                {
+                    case 0:
+                        newPart = new EnginePart();
+                        hasEngine = true;
+                        break;
+                    case 1:
+                        newPart = new GunPart();
+                        break;
+                    case 2:
+                        newPart = new SprayGunPart();
+                        break;
+                    case 3:
+                        newPart = new RectangularHull();
+                        break;
+                }
+                int partPos = SRandom.Next(0, 3);
+                int pos = SRandom.Next(-1, hulls.Length - 1);
+                RectangularHull currentHull = null;
+                if (pos == -1)
+                    currentHull = p;
+                else
+                    currentHull = hulls[pos];
+
+                int count = 0;
+                while (count < 4)
+                {
+                    if (currentHull.TakenPositions[partPos])
+                        partPos = (partPos + 1) % 4;
+                    else
+                    {
+                        currentHull.AddPart(newPart, partPos);
+                        count = 4;
+                    }
+                    count++;
+                }
+               
+
+                if (!hasEngine)
+                {
+                    count = 0;
+                    while (p.TakenPositions[count] && count < 3)
+                    {
+                        count++;
+                    }
+                    p.AddPart(new EnginePart(), count);
+
+                }
+
+                //random movePattern
+
+                //attackTimer.maxTime = SRandom.Next(0, 6);
+
+                int movePattern = SRandom.Next(0, 99);
+                switch (movePattern)
+                {
+                    case 0:
+                        specialMove = PIRATOS;
+                        TurnSpeed = 0.2f * (float)Math.PI;
+                        break;
+                    case 1:
+                        specialMove = PIRATOSBOSS;
+                        TurnSpeed = 0.1f * (float)Math.PI;
+                        break;
+                    case 3:
+                        usingWaitTimer = true;
+                        waitTimer.maxTime = SRandom.Next(0, 6);
+                        break;
+
+                }
+            }
+        }
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {

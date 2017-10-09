@@ -20,7 +20,7 @@ namespace SummerProject.achievements
         //not unlockables that are carried from game session to other session      
         //public const int ELITE = 4;
 
-        public const int UNLOCKABLES_CONSTANT = 6; //normal + hard difficulty and waves are unlockables carried over into other games --> constant is 6
+        public const int UNLOCKABLES_CONSTANT = 7; //normal + hard difficulty and waves are unlockables carried over into other games --> constant is 7
 
         public static readonly Dictionary<int, int> KILLTHRESHOLD =
             new Dictionary<int, int>()
