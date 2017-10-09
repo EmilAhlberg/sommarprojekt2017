@@ -66,6 +66,10 @@ namespace SummerProject.menu
                 isLocked[1] = false;
             if (handler.achControl.Achievements[Traits.WAVE21].Unlocked)
                 isLocked[2] = false;
+            if (handler.achControl.Achievements[Traits.WAVE31].Unlocked)
+                isLocked[2] = false;
+            if (handler.achControl.Achievements[Traits.WAVE41].Unlocked)
+                isLocked[2] = false;
         }
 
         protected override void SetLockedItems()
@@ -73,6 +77,8 @@ namespace SummerProject.menu
             isLocked = new bool[menuItems.Length];
             isLocked[1] = true;
             isLocked[2] = true;
+            isLocked[3] = true;
+            isLocked[4] = true;
         }
     }
 }
