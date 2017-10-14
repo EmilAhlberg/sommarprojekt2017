@@ -122,9 +122,13 @@ namespace SummerProject
                     Part p1 = p.Part;
                     p.Part = null;
                     p1.IsActive = false;
+                    ResetTakenPositions(); //! new
                 }
             } 
         }
+
+        protected abstract void ResetTakenPositions();
+      
 
         public bool AddPart(Part part, int pos)
         {

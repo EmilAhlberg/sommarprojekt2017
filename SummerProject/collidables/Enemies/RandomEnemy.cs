@@ -11,11 +11,16 @@ namespace SummerProject.collidables.enemies
 {
     class RandomEnemy : Attacker
     {
+        double oldAngle = 0;
+        bool turning = false;
+        double amountTurned = 0;
+
         bool usingWaitTimer = false;
         int specialMove = 0;
         const int BOSS3 = 1;
         const int PIRATOS = 2;
         const int PIRATOSBOSS = 3;
+        const int SPREAD_OUT = 4;
         int pirateRand = 500;
         //protected float BOSSATTACKTIME { get; set; } = 1f;
         //protected Timer bossTimer;
@@ -33,6 +38,7 @@ namespace SummerProject.collidables.enemies
             p.AddPart(new EnginePart(), 3);
             switch (level)
             {
+                #region 1-10
                 case 1:
                     p.AddPart(new EnginePart(), 3);
                     break;
@@ -118,6 +124,8 @@ namespace SummerProject.collidables.enemies
                     r.AddPart(new EnginePart(IDs.TURBOENGINEPART), 0);
 
                     break;
+                #endregion
+                #region 11-20
                 case 11:
                     p.AddPart(new EnginePart(), 3);
                     p.AddPart(new GunPart(), 1);
@@ -214,6 +222,8 @@ namespace SummerProject.collidables.enemies
                     ld.AddPart(new EnginePart(), 3);
                     rd.AddPart(new EnginePart(), 3);
                     break;
+                #endregion
+                #region 21-30
                 case 21:
                     p.AddPart(new EnginePart(), 3);
                     p.AddPart(new SprayGunPart(), 1);
@@ -322,7 +332,8 @@ namespace SummerProject.collidables.enemies
                     rr.AddPart(new EnginePart(), 1);
                     rr.AddPart(new EnginePart(), 3);
                     break;
-
+                #endregion
+                #region 31-40
                 case 31:
                     p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
                     p.AddPart(new SprayGunPart(), 1);
@@ -439,6 +450,8 @@ namespace SummerProject.collidables.enemies
                     rr2.AddPart(new EnginePart(), 1);
                     rr2.AddPart(new EnginePart(), 3);
                     break;
+                #endregion
+                #region 41-50
                 case 41: //FUCKING PIRATES DUDE
                     pirateRand = SRandom.Next(500, 1000);
                     RectangularHull h1 = new RectangularHull();
@@ -759,28 +772,40 @@ namespace SummerProject.collidables.enemies
                     waitTimer.maxTime = 0.1f;
                     usingWaitTimer = true;
                     break;
-                case 51://FUCKING ABOMINATIONS BRO
+                #endregion
+                #region 51-60
+                case 51://FUCKING ABOMINATIONS 
                     createAbominations((RectangularHull)p, 15, 5);
                     break;
-                case 52://FUCKING ABOMINATIONS BRO
-                    createAbominations((RectangularHull)p, 8, 20);
+                case 52://FUCKING ABOMINATIONS 
+                    createAbominations((RectangularHull)p, 6, 6);
                     break;
-                case 53://FUCKING ABOMINATIONS BRO
-                    createAbominations((RectangularHull)p, 10, 20);
+                case 53://FUCKING ABOMINATIONS 
+                    createAbominations((RectangularHull)p, 8, 6);
                     break;
-                case 54://FUCKING ABOMINATIONS BRO
-                    createAbominations((RectangularHull)p, 15, 5);
+                case 54://FUCKING ABOMINATIONS 
+                    createAbominations((RectangularHull)p, 10, 5);
                     break;
-                case 55://FUCKING ABOMINATIONS BRO
-                    createAbominations((RectangularHull)p, 30, 10);
+                case 55://FUCKING ABOMINATIONS 
+                    createAbominations((RectangularHull)p, 12, 3);
                     break;
                 case 56:
-                    createAbominations((RectangularHull)p, 25, 60);
+                    createAbominations((RectangularHull)p, 16, 4);
                     break;
+                case 57:
+                    createAbominations((RectangularHull)p, 7, 3);
+                    break;
+                case 58:
+                    createAbominations((RectangularHull)p, 5, 3);
+                    break;
+                case 59:
+                    createAbominations((RectangularHull)p, 6, 4);
+                    break;                 
                 case 60:
-                    createAbominations((RectangularHull)p, 300, 320);
+                    createAbominations((RectangularHull)p, 70, 15);
                     specialMove = 0;
                     break;
+                #endregion
                 case 61:
                     waitTimer.maxTime = 1;
                     attackTimer.maxTime = 4;
@@ -801,13 +826,13 @@ namespace SummerProject.collidables.enemies
             }
         }
 
+        #region Abominations help methods
         private void createAbominations(RectangularHull p, int nbrOfHulls, int nbrOfParts)
         {
             bool hasEngine = false; // abominations needs movement
           
             //random # of hulls
             RectangularHull[] hulls = new RectangularHull[nbrOfHulls];
-            bool[] useless = new bool[hulls.Length];
             RectangularHull oldCarrier = p;
             for (int i = 0; i < hulls.Length; i++)
             {
@@ -819,6 +844,11 @@ namespace SummerProject.collidables.enemies
                 {
                     pos = (pos + 1) % 4;
                     count++;
+                    if (count == 4)
+                    {
+                        count = 0;
+                        oldCarrier = FindEmptySlotHull(p, hulls, i);
+                    }
                 }
                 oldCarrier.AddPart(hulls[i], pos);
 
@@ -834,8 +864,6 @@ namespace SummerProject.collidables.enemies
             {
                 int type = SRandom.Next(0, 3);
                 Part newPart = null;
-
-
                 switch (type)
                 {
                     case 0:
@@ -852,6 +880,8 @@ namespace SummerProject.collidables.enemies
                         newPart = new RectangularHull();
                         break;
                 }
+
+
                 int partPos = SRandom.Next(0, 3);
                 int pos = SRandom.Next(-1, hulls.Length - 1);
                 RectangularHull currentHull = null;
@@ -890,12 +920,13 @@ namespace SummerProject.collidables.enemies
                 //attackTimer.maxTime = SRandom.Next(0, 6);
 
                 int movePattern = SRandom.Next(0, 99);
+                specialMove = SPREAD_OUT;
                 switch (movePattern)
                 {
-                    case 0:
-                        specialMove = PIRATOS;
-                        TurnSpeed = 0.2f * (float)Math.PI;
-                        break;
+                    //case 0:
+                    //    specialMove = PIRATOS;
+                    //    TurnSpeed = 0.2f * (float)Math.PI;
+                    //    break;
                     case 1:
                         specialMove = PIRATOSBOSS;
                         TurnSpeed = 0.1f * (float)Math.PI;
@@ -904,10 +935,32 @@ namespace SummerProject.collidables.enemies
                         usingWaitTimer = true;
                         waitTimer.maxTime = SRandom.Next(0, 6);
                         break;
-
                 }
             }
         }
+
+        private RectangularHull FindEmptySlotHull(RectangularHull p, RectangularHull[] hulls, int current)
+        {
+            for (int i = 0; i<4; i++)
+            {
+                if (!p.TakenPositions[i])
+                    return p;
+            }
+            for (int i = 0; i < hulls.Length; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (hulls[i] == null)
+                    {
+                        return null; //null problem?
+                    }
+                    if (!hulls[i].TakenPositions[j] && hulls[i] != hulls[current])
+                        return hulls[i];
+                }
+            }
+            return null; //null problem?   
+        }
+        #endregion
 
         protected override void SpecificActivation(Vector2 source, Vector2 target)
         {
@@ -976,6 +1029,41 @@ namespace SummerProject.collidables.enemies
                         Hull.Angle += 0.1f;
                     else
                         Hull.Angle += 0.03f;
+                    break;
+                case SPREAD_OUT:
+                    int rnd = SRandom.Next(0, 500);
+                    if (rnd < 2 && !turning)
+                    {
+                        turning = true;
+                        oldAngle = Hull.Angle;
+                        amountTurned = 0;
+                    }
+
+                    if (turning)
+                    {
+                        float turnAmount = TurnSpeed;
+                        Hull.Angle += turnAmount;
+                        Hull.Angle %= (float)Math.PI * 2;
+                        amountTurned += turnAmount;
+                        float addedAngle = 0;
+                        float dX =Position.X - player.Position.X;
+                        float dY = Position.Y - player.Position.Y;
+                        if (dX == 0)
+                        {
+                            dX = 0.00001f;
+                        }
+                        addedAngle = (float)Math.Atan(dY / dX);
+                        addedAngle %= (float) Math.PI * 2;
+                        if (dX > 0)
+                            addedAngle += (float)Math.PI;
+
+                        if (amountTurned >= Math.PI && Math.Abs(Hull.Angle - addedAngle) < 0.2 || WindowSize.IsOutOfBounds(Position))
+                        {
+                            turning = false;
+                        }
+                    }
+                    else
+                        base.CalculateAngle();
                     break;
                 default:
                     base.CalculateAngle();
