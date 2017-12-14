@@ -56,7 +56,6 @@ namespace SummerProject
                     gameMode.Update(gameTime);
                 ProgressGame(gameTime);
             }
-
             Drops.Update(gameTime);
             Enemies.Update(gameTime);
             Projectiles.Update(gameTime);
@@ -65,6 +64,8 @@ namespace SummerProject
 
         private void ProgressGame(GameTime gameTime)
         {
+            if (GameMode.Level % 10 == 1)
+                Player.Health = Player.maxHealth;
             int numberOfSpawns = NumberOfSpawns();           
             if (spawnsThisLevel >= numberOfSpawns)
             {
@@ -86,7 +87,7 @@ namespace SummerProject
             switch (GameMode.Level % 10)
             {
                 case 1:
-                    number = 1;
+                    number = 3;
                     break;
                 case 2:
                     number = 6;
@@ -98,13 +99,13 @@ namespace SummerProject
                     number = 10;
                     break;
                 case 5:
-                    number = 10;
+                    number = 12;
                     break;
                 case 6:
-                    number = 6;
+                    number = 14;
                     break;
                 case 7:
-                    number = 8;
+                    number = 16;
                     break;
                 case 8:
                     number = 20;

@@ -38,7 +38,7 @@ namespace SummerProject.events.buildmenu
 
         internal void Reset()
         {
-            this.SpentResource = -250000; //! starting sum
+            this.SpentResource = -2500000; //! starting sum
         }
 
         private int cols; //calculated in init
