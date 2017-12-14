@@ -52,6 +52,7 @@ namespace SummerProject
         public float Health { get { return health; }
             set
             {
+
                 health = value;
                 if(health > maxHealth)
                 {

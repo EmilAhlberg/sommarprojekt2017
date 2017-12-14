@@ -79,6 +79,7 @@ namespace SummerProject
                 if (IsEvil)
                 {
                     p.Health -= Damage;
+                    Camera.Shake(Damage);
                     Death();
                 }
             }

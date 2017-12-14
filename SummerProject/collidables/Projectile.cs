@@ -39,7 +39,10 @@ namespace SummerProject.collidables
             {
                 Player p = (c2 as Player);
                 if (IsEvil)
+                {
                     p.Health -= Damage * Difficulty.ENEMY_BULLETDAMAGEFACTOR;///5; ///!! times FACTOR
+                    Camera.Shake(Damage);
+                }
             }
 
             if (c2 is Enemy)

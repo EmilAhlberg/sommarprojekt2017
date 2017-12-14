@@ -261,6 +261,7 @@ namespace SummerProject
             Particles.Update(gameTime);
             CheckGameStatus(gameTime);          
             InputHandler.UpdatePreviousState();
+            Camera.Update(gameTime);
             base.Update(gameTime);
             background.Update(gameTime);
         }
@@ -268,8 +269,7 @@ namespace SummerProject
         public void UpdateGame(GameTime gameTime, bool cutScene)
         {
             #region Update           
-            gameController.Update(gameTime, cutScene, eventOperator.NewGameState);     
-            
+            gameController.Update(gameTime, cutScene, eventOperator.NewGameState);
             
             Traits.TIME.Counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
             #endregion
