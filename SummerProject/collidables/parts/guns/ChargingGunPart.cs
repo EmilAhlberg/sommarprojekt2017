@@ -13,7 +13,7 @@ namespace SummerProject.collidables.parts
     {
         private bool charging;
         private bool buttonReleased;
-        private  float maxDamageScale = 60; // damage = maxDamageScale * initialDamage
+        private  float maxDamageScale = 30; // damage = maxDamageScale * initialDamage
         private const float maxScale = 5f;
         private const float initialDamage = 0.1f;
         private Timer chargeTimer;

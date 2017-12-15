@@ -335,27 +335,27 @@ namespace SummerProject.collidables.enemies
                 #endregion
                 #region 31-40
                 case 31:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
                     p.AddPart(new SprayGunPart(), 1);
                     p.AddPart(new ChargingGunPart(), 0);
                     p.AddPart(new ChargingGunPart(), 2);
                     usingWaitTimer = true;
                     break;
                 case 32:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
                     p.AddPart(new SprayGunPart(), 1);
                     p.AddPart(new ChargingGunPart(), 0);
                     p.AddPart(new ChargingGunPart(), 2);
                     usingWaitTimer = true;
                     break;
                 case 33:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
                     p.AddPart(new ChargingGunPart(), 1);
                     p.AddPart(new ChargingGunPart(), 0);
                     p.AddPart(new ChargingGunPart(), 2);
                     break;
                 case 34:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
                     p.AddPart(new ChargingGunPart(), 1);
                     p.AddPart(new SprayGunPart(), 0);
                     p.AddPart(new SprayGunPart(), 2);
@@ -376,13 +376,13 @@ namespace SummerProject.collidables.enemies
                         p.AddPart(new EnginePart(), 3);
                         usingWaitTimer = true;
                     }
-                    p.AddPart(new SprayGunPart(), 1);
+                    p.AddPart(new ChargingGunPart(), 1);
                     usingWaitTimer = true;
                     break;
                 case 36:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
-                    p.AddPart(new SprayGunPart(), 1);
-                    p.AddPart(new SprayGunPart(), 0);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
+                    p.AddPart(new ChargingGunPart(), 1);
+                    p.AddPart(new ChargingGunPart(), 0);
                     p.AddPart(new SprayGunPart(), 2);
                     usingWaitTimer = true;
                     break;
@@ -395,7 +395,7 @@ namespace SummerProject.collidables.enemies
                     p.AddPart(new ChargingGunPart(), 2);
                     break;
                 case 38:
-                    p.AddPart(new EnginePart(IDs.TURBOENGINEPART), 3);
+                    p.AddPart(new EnginePart(IDs.ENGINEPART), 3);
                     p.AddPart(new ChargingGunPart(), 1);
                     usingWaitTimer = true;
                     break;
