@@ -172,8 +172,8 @@ namespace SummerProject
         {
             List<Collidable> pParts = Player.Parts.ConvertAll(p => (Collidable)p);
             List<Collidable> eParts = Enemies.GetValues().Where(e => ((Enemy)e).IsActive).SelectMany(e => ((Enemy)e).Parts).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> pBullets = Projectiles.GetValues().Where(p => !((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
-            List<Collidable> eBullets = Projectiles.GetValues().Where(p => ((Projectile)p).IsEvil && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> pBullets = Projectiles.GetValues().Where(p => ((Projectile)p).Team != EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY) && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
+            List<Collidable> eBullets = Projectiles.GetValues().Where(p => ((Projectile)p).Team == EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY) && ((Projectile)p).IsActive).ToList().ConvertAll(p => (Collidable)p);
             List<Collidable> eDrops = Drops.GetValues().Where(d => ((Drop)d).IsActive).ToList().ConvertAll(p => (Collidable)p);
             colHandler.CheckCollisions(pParts, eParts);
             colHandler.CheckCollisions(pParts, eBullets);

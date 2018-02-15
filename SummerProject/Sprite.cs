@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsSimulator;
+using SummerProject.collidables;
 using SummerProject.util;
 using System;
 using System.Collections.Generic;
@@ -56,8 +57,8 @@ namespace SummerProject
             }
         }
 
-        private bool isEvil;
-        public bool IsEvil { get { return isEvil; } set { if (isEvil != value) texture = texture.EvilTexture; isEvil = value; } }
+        private String team;
+        public String Team { get { return Team; } set { if (value == EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY)) texture = texture.EvilTexture; team = value; } }
 
         private int subimages;
         private float currentFrame;
