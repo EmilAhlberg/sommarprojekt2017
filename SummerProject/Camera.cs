@@ -13,7 +13,7 @@ namespace SummerProject
         private static Vector2 offset;
         static Timer shakeTimer = new Timer(0.2f);
         private static float multiplier;
-        private const int MAXMULT = 7;
+        private const int MAXMULT = 10;
 
         public static Matrix CameraMatrix {
             get
