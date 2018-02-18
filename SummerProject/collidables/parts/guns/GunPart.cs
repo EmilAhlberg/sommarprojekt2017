@@ -48,7 +48,7 @@ namespace SummerProject.collidables.parts
         protected virtual void Fire()
         {        
             projectiles.FireSpecificBullet(AbsolutePosition, new Vector2((float)Math.Cos(Angle), (float)Math.Sin(Angle)), bullet);
-            if(!IsEvil)
+            if(Team != EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY))
                 Traits.SHOTSFIRED.Counter++;
             SoundHandler.PlaySoundEffect((int)id);
             EditBullet();
@@ -57,9 +57,9 @@ namespace SummerProject.collidables.parts
 
         protected virtual void EditBullet()
         {
-            bullet.IsEvil = IsEvil;
+            bullet.Team = Team;
             float fAngle = FiringAngle; //Check SprayGunPart's FiringAngle for deeper understanding of life
-            if (IsEvil)
+            if (Team == EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY))
                 bullet.AddSpeed(EvilBulletSpeed, fAngle);
             else
                 bullet.AddSpeed(BulletSpeed, fAngle);

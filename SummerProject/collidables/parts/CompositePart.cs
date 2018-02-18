@@ -304,8 +304,8 @@ namespace SummerProject
             public void SetPart(Part p, CompositePart hull)
             {
                 Part = p;
-                p.Sprite.IsEvil = hull.IsEvil;
-                hull.Sprite.IsEvil = hull.IsEvil;
+                p.Sprite.Team = hull.Team;
+                hull.Sprite.Team = hull.Team;
                 if (RelativeAngle == (float)Math.PI / 2 || RelativeAngle == 0) //! only works for recthull
                     linkToCenter = Vector2.Transform((new Vector2(p.BoundBox.Width, p.BoundBox.Height) / 2), Matrix.CreateRotationZ(RelativeAngle));
                 else

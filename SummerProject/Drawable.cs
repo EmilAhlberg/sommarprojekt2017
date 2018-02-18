@@ -11,6 +11,8 @@ namespace SummerProject
         public Sprite Sprite { get;  set; }
         protected float angle = 0;
         protected IDs id;
+        private string team;
+        protected string Team { get { return team; } set { team = value; Sprite.Team = team; } }
 
         public Drawable(Vector2 position, IDs id = IDs.DEFAULT) // : base(sprite.spriteRect.Width, sprite.spriteRect.Height)
         {
@@ -23,6 +25,7 @@ namespace SummerProject
         public virtual void SetStats(IDs id)
         {
             Sprite = SpriteHandler.GetSprite((int)id);
+            Team = EntityConstants.GetStatsFromID(EntityConstants.TEAM, id);
             if (Sprite is Sprite)
                 Sprite.Origin = new Vector2(Sprite.SpriteRect.Width / 2, Sprite.SpriteRect.Height / 2);
         }

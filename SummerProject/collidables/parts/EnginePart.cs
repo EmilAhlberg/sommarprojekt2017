@@ -21,7 +21,7 @@ namespace SummerProject.collidables.parts
 
         public override void Update(GameTime gameTime)
         {
-            if(IsEvil)
+            if(Team == EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY)) // Flytta detta till particles?
                 Particles.GenerateParticles(Position, 4, Angle+(float)Math.PI, Color.Purple);
             else
                 Particles.GenerateParticles(Position, 4, Angle + (float)Math.PI, Color.MonoGameOrange);

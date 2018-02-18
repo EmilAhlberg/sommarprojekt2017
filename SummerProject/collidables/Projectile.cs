@@ -10,11 +10,11 @@ namespace SummerProject.collidables
     {
         protected Timer despawnTimer;
         protected float despawnTime = 7f; //!!
-        private bool isEvil;
+        private String team;
         private Enemy prevC2;
         private Timer hitMeBbyOneMoreTime;
         private float chargingBulletHitAgainDelay = 0.05f;
-        public bool IsEvil { get { return isEvil; } set { Sprite.IsEvil = value; isEvil = value; } }
+        public String Team { get { return team; } set { Sprite.Team = value; team = value; } }
 
         public Projectile(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id)
         {
@@ -38,7 +38,7 @@ namespace SummerProject.collidables
             if (c2 is Player)
             {
                 Player p = (c2 as Player);
-                if (IsEvil)
+                if (Team == EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY))
                 {
                     p.Health -= Damage * Difficulty.ENEMY_BULLETDAMAGEFACTOR;///5; ///!! times FACTOR
                     Camera.Shake(Damage);
@@ -47,7 +47,7 @@ namespace SummerProject.collidables
 
             if (c2 is Enemy)
             {
-                if (!IsEvil)
+                if (Team != EntityConstants.GetStatsFromID(EntityConstants.TEAM, IDs.DEFAULT_ENEMY))
                 {
                     if (this.id == IDs.CHARGINGBULLET)
                     {

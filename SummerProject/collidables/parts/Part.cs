@@ -14,7 +14,6 @@ namespace SummerProject
         public IPartCarrier Carrier { get; set; }
         public Vector2 AbsolutePosition { get { return BoundBox.AbsolutePosition; } }
         public virtual Color Color { set { Sprite.MColor = value; } get { return Sprite.MColor; } }
-        public bool IsEvil { get { return Carrier.IsEvil; } }
 
         public int LinkPosition { get; internal set; } = -1;
 

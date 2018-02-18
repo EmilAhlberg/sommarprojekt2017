@@ -95,8 +95,8 @@ namespace SummerProject.collidables
                 {(int)IDs.BOSS1, 50},
                 {(int)IDs.BOSS2, 100},
                 {(int)IDs.BOSS3, 200},
-                  {(int)IDs.BOSS4, 300},
-                  {(int)IDs.BOSS5, 500},
+                {(int)IDs.BOSS4, 300},
+                {(int)IDs.BOSS5, 500},
                 {(int)IDs.DEFAULT_ENEMY, 1},
                 {(int)IDs.ENEMYASTER, 3},
                 {(int)IDs.DEFAULT_BULLET, 1},
@@ -202,5 +202,13 @@ namespace SummerProject.collidables
                 {(int)IDs.ROTATEPART, "Rotate"},
                 {(int)IDs.DEFAULT, "NO_NAME"}
         };
+
+        public static readonly Dictionary<int, string> TEAM =
+            new Dictionary<int, string>
+            {
+                {(int)IDs.DEFAULT, "Neutral"},
+                {(int)IDs.DEFAULT_ENEMY, "Evil"},
+                {(int)IDs.ENEMYASTER, "Terrain"}
+            };
     }
 }
