@@ -14,7 +14,7 @@ namespace SummerProject
         private Vector2 Acceleration{ get { return (TotalExteriorForce - FrictionForce) / Mass; } }
         private Vector2 TotalExteriorForce { get; set; }
         public virtual float ThrusterAngle { get; set; }
-        public static float MOTIONSPEED = 1f;
+        public static float MOTIONSPEED = 0.85f;
 
         public Movable(Vector2 position, IDs id = IDs.DEFAULT) : base(position, id) { }
 
