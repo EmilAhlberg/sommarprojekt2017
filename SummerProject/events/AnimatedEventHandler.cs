@@ -190,7 +190,7 @@ namespace SummerProject.framework
 
         private void BossFinishedMessage(SpriteBatch spriteBatch)
         {
-            string word = "Good job!";F
+            string word = "Good job!";
             Vector2 location = new Vector2(WindowSize.Width / 2, WindowSize.Height / 2 - 200); //!
             spriteBatch.DrawOutlinedString(3, new Color(32, 32, 32), font, word, location, Color.Gold, 0, font.MeasureString(word) / 2, 1);
 
